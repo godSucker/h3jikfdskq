@@ -30,11 +30,17 @@ const THUMB_BASE = 'https://s-beta.kobojo.com/mutants/assets/thumbnails/'
 const MATERIAL_PATH = path.join(ROOT, 'src/data/materials/material.json')
 const MATERIALS_DIR = path.join(ROOT, 'public/materials')
 
+// Жетоны, которые формально есть в gamedefinitions.xml, но по факту не
+// выдаются игрокам (мёртвый EntityDescriptor без ассетов/локализации) -
+// см. комментарий у BLACKLISTED_IDS в main().
+const BLACKLISTED_IDS = new Set(['Material_Preorder_Token_FC_11'])
+
 interface MaterialEntry {
   id: string
   name: string
   description?: string
   texture?: string | null
+  eventDate?: string
 }
 
 async function loadJson<T>(p: string, fallback: T): Promise<T> {
@@ -97,6 +103,15 @@ async function main() {
     tokenIds.add(m[1])
   }
 
+  // Записи из EntityDescriptor, которые формально ещё висят в игровых XML,
+  // но по факту мертвы (thumbnail на Kobojo 404, локализации нет) - ручная
+  // проверка 2026-08-08 показала Material_Preorder_Token_FC_11 именно таким:
+  // старая заготовка под предзаказ, который либо отменили, либо так и не
+  // выпустили. Без блэклиста ретро-миграция бы решила, что это "новый"
+  // жетон (он не в known), запушила бы его снова с пустым именем и без
+  // текстуры (см. downloadTokenIcon -> 404 -> null).
+  for (const id of BLACKLISTED_IDS) tokenIds.delete(id)
+
   const known = new Map(materials.map((m, i) => [m.id, i]))
   const fresh = [...tokenIds].filter((id) => !known.has(id))
 
@@ -129,11 +144,18 @@ async function main() {
       console.log(`[TOKENS] Ретро-миграция ${id}: texture -> ${texture ?? '(осталась старая)'}`)
     } else {
       const name = loc.get(id.toLowerCase()) ?? id.replace(/_/g, ' ')
+      // eventDate = дата, когда МЫ впервые увидели жетон в живых игровых
+      // файлах (не дата начала ивента напрямую, но с точностью до часа-двух
+      // благодаря часовому воркфлоу) - используется для хронологической
+      // сортировки на /materials (см. sortTokensChronologically в
+      // src/pages/materials/index.astro). Без этого поля новый жетон был бы
+      // невидим для сортировки и вечно всплывал в конце как "без даты".
       materials.push({
         id,
         name,
         description: loc.get(`tooltip_${id.toLowerCase()}`) ?? '',
         texture,
+        eventDate: new Date().toISOString().slice(0, 10),
       })
       console.log(`[TOKENS] Новый: ${id} -> "${name}" (texture=${texture ?? 'нет'})`)
     }

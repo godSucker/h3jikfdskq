@@ -38,6 +38,7 @@ interface RawItem {
   rarity?: string | null;
   texture?: string | null;
   group?: string | null;
+  eventDate?: string | null;
 }
 
 const normRow = (item: RawItem) => {
@@ -48,6 +49,7 @@ const normRow = (item: RawItem) => {
   const value = item?.value ?? null;
   const rarity = item?.rarity ?? null;
   const group = item?.group ?? undefined;
+  const eventDate = item?.eventDate ?? undefined;
 
   // Явный item.texture (курируемая замена конкретно под этот ID) должен
   // побеждать getItemTexture() - иначе точечные оверрайды в ITEM_TEXTURES
@@ -65,8 +67,45 @@ const normRow = (item: RawItem) => {
 
   if (!texture) texture = guessMaterialTexture(id);
 
-  return { id, name, description, percent, value, rarity, texture, group };
+  return { id, name, description, percent, value, rarity, texture, group, eventDate };
 };
+
+// Жетоны событий (Хэллоуин/Пасха/Валентин/Рождество/годовщина и т.п.)
+// сортируются по реальной дате ивента (eventDate в material.json, формат
+// YYYY, YYYY-MM или YYYY-MM-DD - строковое сравнение работает благодаря
+// ISO-порядку). Дата не придумана: год+сезон разобраны из sources.json,
+// куда они попали из <Filter> в shopitems.xml (см. коммит 0f91215b1), а не
+// проставлены на глаз, как было раньше (см. b395b6c55 - ручная
+// перестановка массива, ломавшаяся при каждом новом авто-найденном жетоне,
+// т.к. detect-tokens.ts просто пушит новые в конец без даты).
+// "Базовые" жетоны (ключ/джекпот/генератор/испытания) - не событийные,
+// всегда были в игре - остаются первыми без сортировки. Жетоны без
+// eventDate (старые promo без источника) уходят в конец, по алфавиту -
+// честно показываем что дата неизвестна, а не гадаем.
+const EVERGREEN_TOKEN_IDS = new Set([
+  'Daily_Token',
+  'Material_Jackpot_Token',
+  'Material_Gacha_Token',
+  'Material_Event_Token',
+]);
+function isTokenRow(row: { id: string; name: string }) {
+  return /token/i.test(row.id) || /жетон|токен/i.test(row.name);
+}
+function sortTokensChronologically<T extends { id: string; name: string; eventDate?: string }>(
+  rows: T[],
+): T[] {
+  const tokenRows: T[] = [];
+  const rest: T[] = [];
+  for (const row of rows) {
+    (isTokenRow(row) ? tokenRows : rest).push(row);
+  }
+  const evergreen = tokenRows.filter((r) => EVERGREEN_TOKEN_IDS.has(r.id));
+  const seasonal = tokenRows.filter((r) => !EVERGREEN_TOKEN_IDS.has(r.id) && r.eventDate);
+  const undated = tokenRows.filter((r) => !EVERGREEN_TOKEN_IDS.has(r.id) && !r.eventDate);
+  seasonal.sort((a, b) => (b.eventDate as string).localeCompare(a.eventDate as string)); // новые сверху
+  undated.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+  return [...evergreen, ...seasonal, ...undated, ...rest];
+}
 
 function formatBingoTitle(title: string, id: string) {
   const labelById = bingoLabel(id);
@@ -124,7 +163,9 @@ const orbsData = (Array.isArray(orbsDataRaw) ? orbsDataRaw : []).filter((o) => {
   return id && !id.includes('ephemeral');
 });
 
-const materialsRows = (Array.isArray(materialData) ? materialData : []).map(normRow);
+const materialsRows = sortTokensChronologically(
+  (Array.isArray(materialData) ? materialData : []).map(normRow),
+);
 const charmsRows    = (Array.isArray(charmsData) ? charmsData : []).map(normRow);
 const orbsRows      = (Array.isArray(orbsData) ? orbsData : []).map(normRow);
 interface BuildingLevel {
