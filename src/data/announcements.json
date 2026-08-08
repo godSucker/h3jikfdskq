@@ -1024,5 +1024,29 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "exchange-1786220337754",
+    "date": "2026-08-08T20:18:57.695Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 3",
+    "items": [
+      {
+        "id": "specimen_cc_10|Зал обмена — 40 жетонов ивента",
+        "name": "Урган — Зал обмена — 40 жетонов ивента",
+        "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp"
+      },
+      {
+        "id": "specimen_de_14|Зал обмена — 240 жетонов ивента",
+        "name": "Сверхмассивная бесконечность — Зал обмена — 240 жетонов ивента",
+        "image": "textures_by_mutant/de_14/specimen_de_14_normal.webp"
+      },
+      {
+        "id": "specimen_ed_04|Зал обмена — 100 жетонов ивента",
+        "name": "Енот-Летун — Зал обмена — 100 жетонов ивента",
+        "image": "textures_by_mutant/ed_04/specimen_ed_04_normal.webp"
+      }
+    ],
+    "link": "/mutants"
   }
 ]

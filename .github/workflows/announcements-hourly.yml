@@ -90,6 +90,10 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          # TELEGRAM_CHAT_ID (личный чат, не канал) нужен notifyDetectorFailure()
+          # и notifyRunSummary() внутри build-announcements.ts - без него оба
+          # молча ничего не отправляют (тихий best-effort гейт на оба секрета).
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: 11. Коммит всех изменений
         if: always()
