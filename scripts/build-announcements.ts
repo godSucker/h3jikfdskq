@@ -535,6 +535,52 @@ async function notifyDetectorFailure(category: string, err: unknown) {
   }
 }
 
+// Дайджест в ЛИЧНЫЙ чат владельца (TELEGRAM_CHAT_ID, НЕ публичный канал -
+// см. notifyDetectorFailure выше и комментарий про CROSS_POST_ENABLED ниже)
+// после прогона sync-cron.yml/announcements-hourly.yml, ТОЛЬКО если что-то
+// реально нашлось - на "пустых" прогонах (подавляющее большинство часовых
+// тиков) молчит, чтобы не спамить. Не зависит от публичного кросс-поста
+// (CROSS_POST_ENABLED) - тот сейчас выключен, этот дайджест продолжает
+// работать как отдельный операторский сигнал "зайди проверь".
+const CATEGORY_ICON: Record<string, string> = {
+  mutant: '🧬',
+  skin: '🎨',
+  bingo: '🎲',
+  box: '📦',
+  exchange: '🔁',
+  raid: '⚔️',
+  ladder: '🪜',
+  token: '🪙',
+  reactor: '🎰',
+  shopForecast: '🛒',
+  dailyNews: '📰',
+  rebalance: '⚖️',
+}
+
+async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
+  if (newlyAdded.length === 0) return
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!token || !chatId) return // тихо, best-effort - как и остальные личные алерты
+
+  const lines = newlyAdded.map((a) => {
+    const icon = CATEGORY_ICON[a.category] ?? '🔔'
+    const count = a.items.length
+    return `${icon} ${a.title}${count > 1 ? ` (${count})` : ''}`
+  })
+  const text = [`📋 *Найдено за этот прогон:*`, ...lines, '', `[Открыть /announcements](${'https://archivist-library.com'}/announcements)`].join('\n')
+
+  try {
+    await axios.post(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      { chat_id: chatId, text, parse_mode: 'Markdown' },
+      { timeout: 10_000 },
+    )
+  } catch (e) {
+    console.error('[ANNOUNCE] Не удалось отправить саммери-дайджест в Telegram:', e)
+  }
+}
+
 async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
@@ -641,6 +687,8 @@ async function main() {
       `[CROSS-POST] Отключён (CROSS_POST_ENABLED=false) - ${newlyAdded.length} новых записей не отправлены в канал.`,
     )
   }
+
+  await notifyRunSummary(newlyAdded)
 
   const cacheDir = path.join(ROOT, 'scripts/.cache')
   await fs.mkdir(cacheDir, { recursive: true })

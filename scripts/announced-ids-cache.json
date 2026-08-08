@@ -2255,13 +2255,16 @@
     "specimen_bd_08|Зал обмена — 13 зимнего угля",
     "specimen_bd_09|Зал обмена — 50 жетонов джекпота",
     "specimen_be_15|Зал обмена — 2000 пасхальных жетонов 2026",
+    "specimen_cc_10|Зал обмена — 40 жетонов ивента",
     "specimen_cd_09|Зал обмена — 1000 жетонов Hexcity",
     "specimen_cd_11|Зал обмена — 250 жетонов джекпота",
     "specimen_da_11|Зал обмена — 1000 жетонов Hexcity",
     "specimen_da_14|Зал обмена — 1800 пасхальных жетонов 2026",
+    "specimen_de_14|Зал обмена — 240 жетонов ивента",
     "specimen_de_15|Зал обмена — 3000 новогодних жетонов 2025",
     "specimen_eb_07|Зал обмена — 1300 жетонов Hexcity",
     "specimen_ec_10|Зал обмена — 150 жетонов джекпота",
+    "specimen_ed_04|Зал обмена — 100 жетонов ивента",
     "specimen_ee_08|Зал обмена — 40 зимних апельсинов",
     "specimen_fd_09|Зал обмена — 50 жетонов джекпота",
     "specimen_fe_03|Зал обмена — 1000 жетонов Hexcity",
@@ -2426,8 +2429,7 @@
     "Preorder_Token_DE_10_gold",
     "Material_Tcg_Corgi_Token",
     "Material_Mutenstein_Token",
-    "Material_Hexcity_Token",
-    "Material_Preorder_Token_FC_11"
+    "Material_Hexcity_Token"
   ],
   "shopForecast": [
     "254"
