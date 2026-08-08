@@ -264,13 +264,13 @@
   "Material_Preorder_Token": [
     {
       "type": "event",
-      "where": "Предзаказ мутанта Specimen_AC_10 (золотой)"
+      "where": "Предзаказ мутанта «Сержант Сумерки» (золотой)"
     }
   ],
   "Preorder_Token_DE_10_gold": [
     {
       "type": "event",
-      "where": "Предзаказ мутанта Specimen_DE_10 (золотой)"
+      "where": "Предзаказ мутанта «Безумный Майк» (золотой)"
     }
   ],
   "Material_Signal_Token": [
@@ -349,6 +349,238 @@
     {
       "type": "event",
       "where": "Хэллоуин 2019"
+    }
+  ],
+  "Daily_Token": [
+    {
+      "type": "other",
+      "where": "Ежедневный вход"
+    },
+    {
+      "type": "other",
+      "where": "Рулетка Lucky Slots (сейчас неактуально)"
+    }
+  ],
+  "Material_Jackpot_Token": [
+    {
+      "type": "shop",
+      "where": "Магазин"
+    },
+    {
+      "type": "other",
+      "where": "Кампании, лесенки, крафт и другие активности"
+    }
+  ],
+  "Material_Gacha_Token": [
+    {
+      "type": "shop",
+      "where": "Магазин"
+    },
+    {
+      "type": "other",
+      "where": "Кампании, лесенки, крафт и другие активности"
+    }
+  ],
+  "Material_Event_Token": [
+    {
+      "type": "shop",
+      "where": "Магазин"
+    },
+    {
+      "type": "other",
+      "where": "Кампании, лесенки, крафт и другие активности"
+    }
+  ],
+  "Material_Tcg_Corgi_Token": [
+    {
+      "type": "other",
+      "where": "Кроссовер Mutants: TCG 2019, можно обменять на «Дрей, космический корги»"
+    }
+  ],
+  "Material_Mutenstein_Token": [
+    {
+      "type": "raid",
+      "where": "Рейды"
+    }
+  ],
+  "Star_Bronze": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Star_Silver": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Star_Gold": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Star_Platinum": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_LP10": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_LP100": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_LP1000": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Muto1": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Muto10": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Muto50": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Energy1": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Energy5": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_Energy25": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_EnergyMax10": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_XP10": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_XP250": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_XP1000": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
+    }
+  ],
+  "Material_XP10000": [
+    {
+      "type": "shop",
+      "where": "Магазин (Ресурсы)"
+    },
+    {
+      "type": "other",
+      "where": "Крафт, лесенки"
     }
   ]
 }

@@ -10,6 +10,7 @@ import { calculateFinalStats as calcFinalStatsUnified } from '../src/lib/stats/u
 const CONFIG = {
   LOC_RU_URL: 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt',
   GAME_DEFS_URL: 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
+  GACHA_URL: 'https://s-beta.kobojo.com/mutants/gameconfig/gacha.xml',
   KOBOJO_IMG_BASE: 'https://s-beta.kobojo.com/mutants/assets/thumbnails/',
 
   DATA_DIR: path.join(process.cwd(), 'src/data/mutants'),
@@ -189,6 +190,54 @@ async function loadLocalFiles() {
   })
 
   return { gameDefs, locMap }
+}
+
+// GACHA-мутанты (Reactor) - их "коробочные" статы в gamedefinitions.xml (atk1/
+// atk2/lifePoint) не всегда равны тому, что реально показывает игра. Нашли
+// 2026-08-08 (запрос юзера "проеб по статам у GACHA"): у части GACHA-мутантов
+// в gacha.xml на КАЖДОЙ их <GachaSpecimen specimen="Specimen_XX_NN".../> записи
+// (across all <Gacha id="..."> реактор-пулов, куда они когда-либо попадали)
+// стоит одинаковый bonus != 0 - это не опциональный косметический скин, это
+// часть постоянной "паспортной" силы мутанта. Формула (та же, что уже
+// verified Ghidra+Frida для скинов, см. scripts/build-skins.ts и память
+// skins-generation-pipeline): hp = hp_base*(LF-bonus)/100, atk = atk_base*
+// (bonus+100)*LF/10000, где LF = множитель звезды *100 (175 gold/200 platinum).
+// Чтобы не трогать calculateFinalStats() и всех его потребителей (модалка,
+// калькулятор, скриншоты, топ-мутантов, тир-лист), поправку вносим ЗДЕСЬ -
+// в сами hp_base/atk1_base/atk2_base/atk1p_base/atk2p_base перед записью в
+// mutants.json, оставляя множитель звезды (gachaMult) и формулу расчёта по
+// уровням нетронутыми. Проверено на Зевсе (specimen_ec_06, bonus=10,
+// LF=175): даёт hp=1551, atk=906 - точное совпадение с конкурентом.
+type GachaBonusEntry = { stars: number; bonus: number }
+function parseGachaBonusMap(xml: string): Map<string, GachaBonusEntry> {
+  const map = new Map<string, GachaBonusEntry>()
+  const specRe = /<GachaSpecimen[^>]*specimen="Specimen_([^"]+)"[^>]*\/>/gi
+  let m: RegExpExecArray | null
+  while ((m = specRe.exec(xml))) {
+    const code = m[1].toLowerCase()
+    const tag = m[0]
+    const stars = Number(tag.match(/stars="([^"]*)"/)?.[1] ?? 0)
+    const bonus = Number(tag.match(/bonus="([^"]*)"/)?.[1] ?? 0)
+    // Один и тот же specimen встречается в нескольких реактор-пулах с
+    // одинаковым bonus/stars (перепроверено на Белом Ханзо - 42 вхождения,
+    // все bonus=10) - берём первое, остальные для проверки не нужны.
+    if (!map.has(code)) map.set(code, { stars, bonus })
+  }
+  return map
+}
+
+async function loadGachaBonusMap(): Promise<Map<string, GachaBonusEntry>> {
+  try {
+    const res = await axios.get<string>(CONFIG.GACHA_URL, { responseType: 'text', timeout: 30000 })
+    const map = parseGachaBonusMap(String(res.data))
+    console.log(`[GACHA-BONUS] Загружено ${map.size} записей из gacha.xml`)
+    return map
+  } catch (err) {
+    console.warn(
+      `[GACHA-BONUS] Не удалось загрузить gacha.xml (${err instanceof Error ? err.message : err}) - GACHA-мутанты посчитаются без поправки bonus`,
+    )
+    return new Map()
+  }
 }
 
 /**
@@ -548,6 +597,7 @@ async function sync(options: {
 }) {
   const { skipExisting, forceStatUpdate, compareBeforeUpdate } = options
   const { gameDefs, locMap } = await loadLocalFiles()
+  const gachaBonusMap = await loadGachaBonusMap()
 
   // Загрузка bingos.json для маппинга мутантов к бинго
   const bingoMap = new Map<string, string[]>()
@@ -696,6 +746,22 @@ async function sync(options: {
     } else if (isGacha) {
       const hideSkins = String(tags.hideSkins || '').toLowerCase()
       gachaMult = hideSkins.includes('platinum') ? 1.75 : 2.0
+    }
+
+    // Поправка на "паспортный" bonus из gacha.xml (см. parseGachaBonusMap) -
+    // без неё GACHA-мутанты со старым bonus!=0 (Зевс, Неоурбан и т.д.)
+    // считались по голой формуле и расходились с реальными статами игры.
+    if (isGacha) {
+      const gachaBonus = gachaBonusMap.get(mutantId.toLowerCase())?.bonus ?? 0
+      if (gachaBonus !== 0) {
+        const lf = gachaMult * 100
+        const atkFactor = (gachaBonus + 100) / 100
+        baseStatsForCalc.hp_base = Math.round((baseStatsForCalc.hp_base * (lf - gachaBonus)) / lf)
+        baseStatsForCalc.atk1_base = Math.round(baseStatsForCalc.atk1_base * atkFactor)
+        baseStatsForCalc.atk1p_base = Math.round(baseStatsForCalc.atk1p_base * atkFactor)
+        baseStatsForCalc.atk2_base = Math.round(baseStatsForCalc.atk2_base * atkFactor)
+        baseStatsForCalc.atk2p_base = Math.round(baseStatsForCalc.atk2p_base * atkFactor)
+      }
     }
 
     // Определяем какие звёзды доступны

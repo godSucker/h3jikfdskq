@@ -740,8 +740,8 @@
         К нему добавляются все бонусы крит-шанса (бустеры + сферы), и вся сумма умножается на эти 5%,
         а не складывается напрямую:
       </p>
-      <div class="formula-box">
-        шанс крита = 5% × (100 + бустеры<sub>даю</sub> + бустеры<sub>получаю</sub> + сферы<sub>крит</sub>) / 100
+      <div class="formula-box crit-formula">
+        шанс крита = 5% × (100 + бустеры<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" /></sub> + бустеры<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" /></sub> + сферы<sub>крит</sub>) / 100
       </div>
       <p>
         Сферы крит шанса с 0 по 7 уровень дают <strong>2 → 5 → 11 → 13 → 15 → 17 → 18 → 19%</strong> и
@@ -749,13 +749,11 @@
         это опечатка локализаторов.
       </p>
       <p class="crit-booster-line">
-        <img src={textureUrl('/boosters/Charm_Critical_97.png')} alt="" class="crit-booster-icon" loading="lazy" decoding="async" />
-        Бустер крита даёт +50% получаемого шанса.
-        <img src={textureUrl('/boosters/Charm_Anticritical_97.png')} alt="" class="crit-booster-icon" loading="lazy" decoding="async" />
-        Антикрит-бустер — −75% получаемого шанса.
+        Бустер крита даёт +50% получаемого шанса. Антикрит-бустер — −75% получаемого шанса.
       </p>
       <p class="formula-example">
-        Пример (сфера +2%, ваш бустер крита, античит-бустер противника): 5% × (100 + 50 − 75 + 2) / 100 =
+        Пример (сфера +2%, ваш бустер крита<img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" />, антикрит-бустер противника<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" />):
+        5% × (100 + 50 − 75 + 2) / 100 =
         <strong>3.85%</strong>.
       </p>
 
@@ -1086,21 +1084,25 @@
   .note { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.75rem 0; font-size: 0.87rem; color: #bfdbfe; }
 
   .numbers-tab .crit-booster-line {
-    display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
     font-size: 0.9rem; color: #e2e8f0;
   }
-  .numbers-tab .crit-booster-icon {
-    width: 1.6rem; height: 1.6rem; object-fit: contain; flex-shrink: 0;
-    border-radius: 0.3rem; background: rgba(255,255,255,0.06);
+  .numbers-tab .formula-icon {
+    display: inline-block;
+    width: 1.5em; height: 1.5em; object-fit: contain; vertical-align: middle;
+    border-radius: 0.2rem; background: rgba(255,255,255,0.06);
   }
   .numbers-tab .formula-example {
     font-size: 0.85rem; color: #94a3b8; margin: 0.4rem 0 1rem;
+  }
+  .numbers-tab .formula-example .formula-icon {
+    width: 1.3rem; height: 1.3rem; margin-left: 0.25rem;
   }
   .numbers-tab .formula-box {
     background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(96,165,250,0.2); border-radius: 8px;
     padding: 0.85rem 1rem; margin: 0.6rem 0 0.9rem; font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 0.85rem; color: #a5f3fc; line-height: 1.6; overflow-x: auto;
   }
+  .numbers-tab .formula-box.crit-formula { white-space: nowrap; }
   .numbers-tab .formula-steps { display: flex; flex-direction: column; gap: 0.5rem; color: #e2e8f0; font-family: inherit; }
   .numbers-tab .formula-steps > div { display: flex; align-items: baseline; gap: 0.6rem; }
   .numbers-tab .step-num {

@@ -7990,10 +7990,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2986,
-        "atk1": 438,
-        "atk2": 438,
-        "ability": 131,
+        "hp": 2815,
+        "atk1": 482,
+        "atk2": 482,
+        "ability": 145,
         "speed": 5,
         "silver": 42,
         "atk1_gene": "e",
@@ -8002,10 +8002,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 11645,
-        "atk1": 2402,
-        "atk2": 2402,
-        "ability": 1441,
+        "hp": 10979,
+        "atk1": 2644,
+        "atk2": 2644,
+        "ability": 1587,
         "speed": 5,
         "silver": 1260,
         "atk1_gene": "e",
@@ -8013,11 +8013,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2986,
-      "atk1_base": 438,
-      "atk1p_base": 616,
-      "atk2_base": 438,
-      "atk2p_base": 616,
+      "hp_base": 2815,
+      "atk1_base": 482,
+      "atk1p_base": 678,
+      "atk2_base": 482,
+      "atk2p_base": 678,
       "speed_base": 5,
       "bank_base": 42,
       "abilityPct1": 30,
@@ -8027,18 +8027,18 @@
       {
         "name": "ability_strengthen",
         "pct": 30,
-        "value_atk1_lvl1": 131,
-        "value_atk2_lvl1": 131,
-        "value_atk1_lvl30": 721,
-        "value_atk2_lvl30": 721
+        "value_atk1_lvl1": 145,
+        "value_atk2_lvl1": 145,
+        "value_atk1_lvl30": 793,
+        "value_atk2_lvl30": 793
       },
       {
         "name": "ability_strengthen_plus",
         "pct": 60,
-        "value_atk1_lvl1": 263,
-        "value_atk2_lvl1": 263,
-        "value_atk1_lvl30": 1441,
-        "value_atk2_lvl30": 1441
+        "value_atk1_lvl1": 289,
+        "value_atk2_lvl1": 289,
+        "value_atk1_lvl30": 1586,
+        "value_atk2_lvl30": 1586
       }
     ],
     "stars": {
@@ -8062,6 +8062,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Энтропия",
     "name_attack2": "Оковы духа",
     "name_attack3": "",
@@ -10922,10 +10923,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1914,
-        "atk1": 501,
-        "atk2": 501,
-        "ability": 251,
+        "hp": 1805,
+        "atk1": 551,
+        "atk2": 551,
+        "ability": 276,
         "speed": 4.76,
         "silver": 42,
         "atk1_gene": "d",
@@ -10934,10 +10935,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 7465,
-        "atk1": 3128,
-        "atk2": 3128,
-        "ability": 2346,
+        "hp": 7040,
+        "atk1": 3440,
+        "atk2": 3440,
+        "ability": 2580,
         "speed": 4.76,
         "silver": 1260,
         "atk1_gene": "d",
@@ -10945,11 +10946,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 1914,
-      "atk1_base": 501,
-      "atk1p_base": 802,
-      "atk2_base": 501,
-      "atk2p_base": 802,
+      "hp_base": 1805,
+      "atk1_base": 551,
+      "atk1p_base": 882,
+      "atk2_base": 551,
+      "atk2p_base": 882,
       "speed_base": 4.76,
       "bank_base": 42,
       "abilityPct1": -50,
@@ -10959,18 +10960,18 @@
       {
         "name": "ability_slash",
         "pct": 50,
-        "value_atk1_lvl1": 251,
-        "value_atk2_lvl1": 251,
-        "value_atk1_lvl30": 1564,
-        "value_atk2_lvl30": 1564
+        "value_atk1_lvl1": 276,
+        "value_atk2_lvl1": 276,
+        "value_atk1_lvl30": 1720,
+        "value_atk2_lvl30": 1720
       },
       {
         "name": "ability_slash_plus",
         "pct": 75,
-        "value_atk1_lvl1": 376,
-        "value_atk2_lvl1": 376,
-        "value_atk1_lvl30": 2346,
-        "value_atk2_lvl30": 2346
+        "value_atk1_lvl1": 413,
+        "value_atk2_lvl1": 413,
+        "value_atk1_lvl30": 2580,
+        "value_atk2_lvl30": 2580
       }
     ],
     "stars": {
@@ -10994,6 +10995,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Смерч",
     "name_attack2": "Каменный цеп",
     "name_attack3": "",
@@ -12297,10 +12299,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2424,
-        "atk1": 879,
-        "atk2": 879,
-        "ability": 193,
+        "hp": 2285,
+        "atk1": 967,
+        "atk2": 967,
+        "ability": 213,
         "speed": 3.7,
         "silver": 42,
         "atk1_gene": "f",
@@ -12309,10 +12311,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 9454,
-        "atk1": 6806,
-        "atk2": 6806,
-        "ability": 2246,
+        "hp": 8912,
+        "atk1": 7488,
+        "atk2": 7488,
+        "ability": 2471,
         "speed": 3.7,
         "silver": 1260,
         "atk1_gene": "f",
@@ -12320,11 +12322,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2424,
-      "atk1_base": 879,
-      "atk1p_base": 1745,
-      "atk2_base": 879,
-      "atk2p_base": 1745,
+      "hp_base": 2285,
+      "atk1_base": 967,
+      "atk1p_base": 1920,
+      "atk2_base": 967,
+      "atk2p_base": 1920,
       "speed_base": 3.7,
       "bank_base": 42,
       "abilityPct1": -22,
@@ -12334,18 +12336,18 @@
       {
         "name": "ability_weaken",
         "pct": 22,
-        "value_atk1_lvl1": 193,
-        "value_atk2_lvl1": 193,
-        "value_atk1_lvl30": 1497,
-        "value_atk2_lvl30": 1497
+        "value_atk1_lvl1": 213,
+        "value_atk2_lvl1": 213,
+        "value_atk1_lvl30": 1647,
+        "value_atk2_lvl30": 1647
       },
       {
         "name": "ability_weaken_plus",
         "pct": 33,
-        "value_atk1_lvl1": 290,
-        "value_atk2_lvl1": 290,
-        "value_atk1_lvl30": 2246,
-        "value_atk2_lvl30": 2246
+        "value_atk1_lvl1": 319,
+        "value_atk2_lvl1": 319,
+        "value_atk1_lvl30": 2471,
+        "value_atk2_lvl30": 2471
       }
     ],
     "stars": {
@@ -12369,6 +12371,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Иайдо",
     "name_attack2": "Шико",
     "name_attack3": "",
@@ -14294,10 +14297,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2094,
-        "atk1": 361,
-        "atk2": 361,
-        "ability": 199,
+        "hp": 1974,
+        "atk1": 397,
+        "atk2": 397,
+        "ability": 218,
         "speed": 6.25,
         "silver": 42,
         "atk1_gene": "b",
@@ -14306,10 +14309,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 8167,
-        "atk1": 2118,
-        "atk2": 2118,
-        "ability": 1694,
+        "hp": 7699,
+        "atk1": 2328,
+        "atk2": 2328,
+        "ability": 1863,
         "speed": 6.25,
         "silver": 1260,
         "atk1_gene": "b",
@@ -14317,11 +14320,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2094,
-      "atk1_base": 361,
-      "atk1p_base": 543,
-      "atk2_base": 361,
-      "atk2p_base": 543,
+      "hp_base": 1974,
+      "atk1_base": 397,
+      "atk1p_base": 597,
+      "atk2_base": 397,
+      "atk2p_base": 597,
       "speed_base": 6.25,
       "bank_base": 42,
       "abilityPct1": 55,
@@ -14331,18 +14334,18 @@
       {
         "name": "ability_regen",
         "pct": 55,
-        "value_atk1_lvl1": 199,
-        "value_atk2_lvl1": 199,
-        "value_atk1_lvl30": 1165,
-        "value_atk2_lvl30": 1165
+        "value_atk1_lvl1": 218,
+        "value_atk2_lvl1": 218,
+        "value_atk1_lvl30": 1280,
+        "value_atk2_lvl30": 1280
       },
       {
         "name": "ability_regen_plus",
         "pct": 80,
-        "value_atk1_lvl1": 289,
-        "value_atk2_lvl1": 289,
-        "value_atk1_lvl30": 1694,
-        "value_atk2_lvl30": 1694
+        "value_atk1_lvl1": 318,
+        "value_atk2_lvl1": 318,
+        "value_atk1_lvl30": 1862,
+        "value_atk2_lvl30": 1862
       }
     ],
     "stars": {
@@ -14366,6 +14369,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Силовая молния",
     "name_attack2": "Атару",
     "name_attack3": "",
@@ -17194,10 +17198,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2552,
-        "atk1": 558,
-        "atk2": 558,
-        "ability": 67,
+        "hp": 2406,
+        "atk1": 614,
+        "atk2": 614,
+        "ability": 74,
         "speed": 3.33,
         "silver": 42,
         "atk1_gene": "a",
@@ -17206,10 +17210,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 9953,
-        "atk1": 5398,
-        "atk2": 5398,
-        "ability": 1781,
+        "hp": 9383,
+        "atk1": 5936,
+        "atk2": 5936,
+        "ability": 1959,
         "speed": 3.33,
         "silver": 1260,
         "atk1_gene": "a",
@@ -17217,11 +17221,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2552,
-      "atk1_base": 558,
-      "atk1p_base": 1384,
-      "atk2_base": 558,
-      "atk2p_base": 1384,
+      "hp_base": 2406,
+      "atk1_base": 614,
+      "atk1p_base": 1522,
+      "atk2_base": 614,
+      "atk2p_base": 1522,
       "speed_base": 3.33,
       "bank_base": 42,
       "abilityPct1": 12,
@@ -17231,18 +17235,18 @@
       {
         "name": "ability_strengthen",
         "pct": 12,
-        "value_atk1_lvl1": 67,
-        "value_atk2_lvl1": 67,
-        "value_atk1_lvl30": 648,
-        "value_atk2_lvl30": 648
+        "value_atk1_lvl1": 74,
+        "value_atk2_lvl1": 74,
+        "value_atk1_lvl30": 712,
+        "value_atk2_lvl30": 712
       },
       {
         "name": "ability_strengthen_plus",
         "pct": 33,
-        "value_atk1_lvl1": 184,
-        "value_atk2_lvl1": 184,
-        "value_atk1_lvl30": 1781,
-        "value_atk2_lvl30": 1781
+        "value_atk1_lvl1": 203,
+        "value_atk2_lvl1": 203,
+        "value_atk1_lvl30": 1959,
+        "value_atk2_lvl30": 1959
       }
     ],
     "stars": {
@@ -17261,10 +17265,12 @@
       "special": 1
     },
     "bingo": [
-      "research_4"
+      "research_4",
+      "10years"
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Мутоган",
     "name_attack2": "Ева-а-а!",
     "name_attack3": "",
@@ -18774,10 +18780,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1605,
-        "atk1": 531,
-        "atk2": 531,
-        "ability": 133,
+        "hp": 1513,
+        "atk1": 584,
+        "atk2": 584,
+        "ability": 146,
         "speed": 6.45,
         "silver": 42,
         "atk1_gene": "c",
@@ -18786,10 +18792,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 6260,
-        "atk1": 3884,
-        "atk2": 3884,
-        "ability": 1554,
+        "hp": 5901,
+        "atk1": 4274,
+        "atk2": 4274,
+        "ability": 1710,
         "speed": 6.45,
         "silver": 1260,
         "atk1_gene": "c",
@@ -18797,11 +18803,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 1605,
-      "atk1_base": 531,
-      "atk1p_base": 996,
-      "atk2_base": 531,
-      "atk2p_base": 996,
+      "hp_base": 1513,
+      "atk1_base": 584,
+      "atk1p_base": 1096,
+      "atk2_base": 584,
+      "atk2p_base": 1096,
       "speed_base": 6.45,
       "bank_base": 42,
       "abilityPct1": -25,
@@ -18811,18 +18817,18 @@
       {
         "name": "ability_weaken",
         "pct": 25,
-        "value_atk1_lvl1": 133,
-        "value_atk2_lvl1": 133,
-        "value_atk1_lvl30": 971,
-        "value_atk2_lvl30": 971
+        "value_atk1_lvl1": 146,
+        "value_atk2_lvl1": 146,
+        "value_atk1_lvl30": 1069,
+        "value_atk2_lvl30": 1069
       },
       {
         "name": "ability_weaken_plus",
         "pct": 40,
-        "value_atk1_lvl1": 212,
-        "value_atk2_lvl1": 212,
-        "value_atk1_lvl30": 1554,
-        "value_atk2_lvl30": 1554
+        "value_atk1_lvl1": 234,
+        "value_atk2_lvl1": 234,
+        "value_atk1_lvl30": 1710,
+        "value_atk2_lvl30": 1710
       }
     ],
     "stars": {
@@ -23923,10 +23929,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1963,
-        "atk1": 861,
-        "atk2": 861,
-        "ability": 258,
+        "hp": 1865,
+        "atk1": 947,
+        "atk2": 947,
+        "ability": 284,
         "speed": 4.44,
         "silver": 42,
         "atk1_gene": "e",
@@ -23935,10 +23941,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 7656,
-        "atk1": 5132,
-        "atk2": 5132,
-        "ability": 2310,
+        "hp": 7274,
+        "atk1": 5647,
+        "atk2": 5647,
+        "ability": 2541,
         "speed": 4.44,
         "silver": 1260,
         "atk1_gene": "e",
@@ -23946,11 +23952,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 1963,
-      "atk1_base": 861,
-      "atk1p_base": 1316,
-      "atk2_base": 861,
-      "atk2p_base": 1316,
+      "hp_base": 1865,
+      "atk1_base": 947,
+      "atk1p_base": 1448,
+      "atk2_base": 947,
+      "atk2p_base": 1448,
       "speed_base": 4.44,
       "bank_base": 42,
       "abilityPct1": 30,
@@ -23960,18 +23966,18 @@
       {
         "name": "ability_strengthen",
         "pct": 30,
-        "value_atk1_lvl1": 258,
-        "value_atk2_lvl1": 258,
-        "value_atk1_lvl30": 1540,
-        "value_atk2_lvl30": 1540
+        "value_atk1_lvl1": 284,
+        "value_atk2_lvl1": 284,
+        "value_atk1_lvl30": 1694,
+        "value_atk2_lvl30": 1694
       },
       {
         "name": "ability_strengthen_plus",
         "pct": 45,
-        "value_atk1_lvl1": 387,
-        "value_atk2_lvl1": 387,
-        "value_atk1_lvl30": 2309,
-        "value_atk2_lvl30": 2309
+        "value_atk1_lvl1": 426,
+        "value_atk2_lvl1": 426,
+        "value_atk1_lvl30": 2541,
+        "value_atk2_lvl30": 2541
       }
     ],
     "stars": {
@@ -24009,10 +24015,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 940,
-        "atk1": 471,
-        "atk2": 471,
-        "ability": 118,
+        "hp": 886,
+        "atk1": 518,
+        "atk2": 518,
+        "ability": 130,
         "speed": 11.11,
         "silver": 42,
         "atk1_gene": "e",
@@ -24021,10 +24027,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 3666,
-        "atk1": 2492,
-        "atk2": 2492,
-        "ability": 997,
+        "hp": 3455,
+        "atk1": 2742,
+        "atk2": 2742,
+        "ability": 1097,
         "speed": 11.11,
         "silver": 1260,
         "atk1_gene": "e",
@@ -24032,11 +24038,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 940,
-      "atk1_base": 471,
-      "atk1p_base": 639,
-      "atk2_base": 471,
-      "atk2p_base": 639,
+      "hp_base": 886,
+      "atk1_base": 518,
+      "atk1p_base": 703,
+      "atk2_base": 518,
+      "atk2p_base": 703,
       "speed_base": 11.11,
       "bank_base": 42,
       "abilityPct1": 25,
@@ -24046,18 +24052,18 @@
       {
         "name": "ability_strengthen",
         "pct": 25,
-        "value_atk1_lvl1": 118,
-        "value_atk2_lvl1": 118,
-        "value_atk1_lvl30": 623,
-        "value_atk2_lvl30": 623
+        "value_atk1_lvl1": 130,
+        "value_atk2_lvl1": 130,
+        "value_atk1_lvl30": 686,
+        "value_atk2_lvl30": 686
       },
       {
         "name": "ability_strengthen_plus",
         "pct": 40,
-        "value_atk1_lvl1": 188,
-        "value_atk2_lvl1": 188,
-        "value_atk1_lvl30": 997,
-        "value_atk2_lvl30": 997
+        "value_atk1_lvl1": 207,
+        "value_atk2_lvl1": 207,
+        "value_atk1_lvl30": 1097,
+        "value_atk2_lvl30": 1097
       }
     ],
     "stars": {
@@ -24435,10 +24441,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2247,
-        "atk1": 536,
-        "atk2": 536,
-        "ability": 107,
+        "hp": 2135,
+        "atk1": 590,
+        "atk2": 590,
+        "ability": 118,
         "speed": 5.88,
         "silver": 42,
         "atk1_gene": "f",
@@ -24447,10 +24453,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 8763,
-        "atk1": 3136,
-        "atk2": 3136,
-        "ability": 1411,
+        "hp": 8327,
+        "atk1": 3448,
+        "atk2": 3448,
+        "ability": 1551,
         "speed": 5.88,
         "silver": 1260,
         "atk1_gene": "f",
@@ -24458,11 +24464,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2247,
-      "atk1_base": 536,
-      "atk1p_base": 804,
-      "atk2_base": 536,
-      "atk2p_base": 804,
+      "hp_base": 2135,
+      "atk1_base": 590,
+      "atk1p_base": 884,
+      "atk2_base": 590,
+      "atk2p_base": 884,
       "speed_base": 5.88,
       "bank_base": 42,
       "abilityPct1": -20,
@@ -24472,18 +24478,18 @@
       {
         "name": "ability_weaken",
         "pct": 20,
-        "value_atk1_lvl1": 107,
-        "value_atk2_lvl1": 107,
-        "value_atk1_lvl30": 627,
-        "value_atk2_lvl30": 627
+        "value_atk1_lvl1": 118,
+        "value_atk2_lvl1": 118,
+        "value_atk1_lvl30": 690,
+        "value_atk2_lvl30": 690
       },
       {
         "name": "ability_weaken_plus",
         "pct": 45,
-        "value_atk1_lvl1": 241,
-        "value_atk2_lvl1": 241,
-        "value_atk1_lvl30": 1411,
-        "value_atk2_lvl30": 1411
+        "value_atk1_lvl1": 266,
+        "value_atk2_lvl1": 266,
+        "value_atk1_lvl30": 1552,
+        "value_atk2_lvl30": 1552
       }
     ],
     "stars": {
@@ -24506,6 +24512,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Ливень стихий",
     "name_attack2": "Бада-бум!",
     "name_attack3": "",
@@ -25282,10 +25289,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2381,
-        "atk1": 956,
-        "atk2": 956,
-        "ability": 287,
+        "hp": 2262,
+        "atk1": 1052,
+        "atk2": 1052,
+        "ability": 316,
         "speed": 4,
         "silver": 42,
         "atk1_gene": "a",
@@ -25294,10 +25301,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 9286,
-        "atk1": 5827,
-        "atk2": 5827,
-        "ability": 2913,
+        "hp": 8822,
+        "atk1": 6408,
+        "atk2": 6408,
+        "ability": 3204,
         "speed": 4,
         "silver": 1260,
         "atk1_gene": "a",
@@ -25305,11 +25312,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2381,
-      "atk1_base": 956,
-      "atk1p_base": 1494,
-      "atk2_base": 956,
-      "atk2p_base": 1494,
+      "hp_base": 2262,
+      "atk1_base": 1052,
+      "atk1p_base": 1643,
+      "atk2_base": 1052,
+      "atk2p_base": 1643,
       "speed_base": 4,
       "bank_base": 42,
       "abilityPct1": -30,
@@ -25319,18 +25326,18 @@
       {
         "name": "ability_slash",
         "pct": 30,
-        "value_atk1_lvl1": 287,
-        "value_atk2_lvl1": 287,
-        "value_atk1_lvl30": 1748,
-        "value_atk2_lvl30": 1748
+        "value_atk1_lvl1": 316,
+        "value_atk2_lvl1": 316,
+        "value_atk1_lvl30": 1922,
+        "value_atk2_lvl30": 1922
       },
       {
         "name": "ability_slash_plus",
         "pct": 50,
-        "value_atk1_lvl1": 478,
-        "value_atk2_lvl1": 478,
-        "value_atk1_lvl30": 2914,
-        "value_atk2_lvl30": 2914
+        "value_atk1_lvl1": 526,
+        "value_atk2_lvl1": 526,
+        "value_atk1_lvl30": 3204,
+        "value_atk2_lvl30": 3204
       }
     ],
     "stars": {
@@ -26042,10 +26049,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2622,
-        "atk1": 516,
-        "atk2": 516,
-        "ability": 155,
+        "hp": 2491,
+        "atk1": 568,
+        "atk2": 568,
+        "ability": 170,
         "speed": 5.56,
         "silver": 42,
         "atk1_gene": "b",
@@ -26054,10 +26061,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 10226,
-        "atk1": 3799,
-        "atk2": 3799,
-        "ability": 2089,
+        "hp": 9715,
+        "atk1": 4177,
+        "atk2": 4177,
+        "ability": 2297,
         "speed": 5.56,
         "silver": 1260,
         "atk1_gene": "b",
@@ -26065,11 +26072,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2622,
-      "atk1_base": 516,
-      "atk1p_base": 974,
-      "atk2_base": 516,
-      "atk2p_base": 974,
+      "hp_base": 2491,
+      "atk1_base": 568,
+      "atk1p_base": 1071,
+      "atk2_base": 568,
+      "atk2p_base": 1071,
       "speed_base": 5.56,
       "bank_base": 42,
       "abilityPct1": 30,
@@ -26079,18 +26086,18 @@
       {
         "name": "ability_regen",
         "pct": 30,
-        "value_atk1_lvl1": 155,
-        "value_atk2_lvl1": 155,
-        "value_atk1_lvl30": 1140,
-        "value_atk2_lvl30": 1140
+        "value_atk1_lvl1": 170,
+        "value_atk2_lvl1": 170,
+        "value_atk1_lvl30": 1253,
+        "value_atk2_lvl30": 1253
       },
       {
         "name": "ability_regen_plus",
         "pct": 55,
-        "value_atk1_lvl1": 284,
-        "value_atk2_lvl1": 284,
-        "value_atk1_lvl30": 2089,
-        "value_atk2_lvl30": 2089
+        "value_atk1_lvl1": 312,
+        "value_atk2_lvl1": 312,
+        "value_atk1_lvl30": 2297,
+        "value_atk2_lvl30": 2297
       }
     ],
     "stars": {
@@ -34858,10 +34865,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2136,
-        "atk1": 1358,
-        "atk2": 1358,
-        "ability": 272,
+        "hp": 2029,
+        "atk1": 1494,
+        "atk2": 1494,
+        "ability": 299,
         "speed": 3.45,
         "silver": 42,
         "atk1_gene": "d",
@@ -34870,10 +34877,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 8330,
-        "atk1": 7835,
-        "atk2": 7835,
-        "ability": 2351,
+        "hp": 7913,
+        "atk1": 8619,
+        "atk2": 8619,
+        "ability": 2586,
         "speed": 3.45,
         "silver": 1260,
         "atk1_gene": "d",
@@ -34881,11 +34888,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2136,
-      "atk1_base": 1358,
-      "atk1p_base": 2009,
-      "atk2_base": 1358,
-      "atk2p_base": 2009,
+      "hp_base": 2029,
+      "atk1_base": 1494,
+      "atk1p_base": 2210,
+      "atk2_base": 1494,
+      "atk2p_base": 2210,
       "speed_base": 3.45,
       "bank_base": 42,
       "abilityPct1": 20,
@@ -34895,18 +34902,18 @@
       {
         "name": "ability_strengthen",
         "pct": 20,
-        "value_atk1_lvl1": 272,
-        "value_atk2_lvl1": 272,
-        "value_atk1_lvl30": 1567,
-        "value_atk2_lvl30": 1567
+        "value_atk1_lvl1": 299,
+        "value_atk2_lvl1": 299,
+        "value_atk1_lvl30": 1724,
+        "value_atk2_lvl30": 1724
       },
       {
         "name": "ability_strengthen_plus",
         "pct": 30,
-        "value_atk1_lvl1": 407,
-        "value_atk2_lvl1": 407,
-        "value_atk1_lvl30": 2351,
-        "value_atk2_lvl30": 2351
+        "value_atk1_lvl1": 448,
+        "value_atk2_lvl1": 448,
+        "value_atk1_lvl30": 2586,
+        "value_atk2_lvl30": 2586
       }
     ],
     "stars": {
@@ -36413,10 +36420,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1937,
-        "atk1": 1291,
-        "atk2": 1291,
-        "ability": 194,
+        "hp": 1840,
+        "atk1": 1420,
+        "atk2": 1420,
+        "ability": 213,
         "speed": 3.33,
         "silver": 42,
         "atk1_gene": "f",
@@ -36425,10 +36432,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 7554,
-        "atk1": 7554,
-        "atk2": 7554,
-        "ability": 1889,
+        "hp": 7176,
+        "atk1": 8311,
+        "atk2": 8311,
+        "ability": 2078,
         "speed": 3.33,
         "silver": 1260,
         "atk1_gene": "f",
@@ -36436,11 +36443,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 1937,
-      "atk1_base": 1291,
-      "atk1p_base": 1937,
-      "atk2_base": 1291,
-      "atk2p_base": 1937,
+      "hp_base": 1840,
+      "atk1_base": 1420,
+      "atk1p_base": 2131,
+      "atk2_base": 1420,
+      "atk2p_base": 2131,
       "speed_base": 3.33,
       "bank_base": 42,
       "abilityPct1": -15,
@@ -36450,18 +36457,18 @@
       {
         "name": "ability_weaken",
         "pct": 15,
-        "value_atk1_lvl1": 194,
-        "value_atk2_lvl1": 194,
-        "value_atk1_lvl30": 1133,
-        "value_atk2_lvl30": 1133
+        "value_atk1_lvl1": 213,
+        "value_atk2_lvl1": 213,
+        "value_atk1_lvl30": 1247,
+        "value_atk2_lvl30": 1247
       },
       {
         "name": "ability_weaken_plus",
         "pct": 25,
-        "value_atk1_lvl1": 323,
-        "value_atk2_lvl1": 323,
-        "value_atk1_lvl30": 1889,
-        "value_atk2_lvl30": 1889
+        "value_atk1_lvl1": 355,
+        "value_atk2_lvl1": 355,
+        "value_atk1_lvl30": 2078,
+        "value_atk2_lvl30": 2078
       }
     ],
     "stars": {
@@ -36484,6 +36491,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Всевидящее око",
     "name_attack2": "Жезл Моргота",
     "name_attack3": "",
@@ -38049,10 +38057,10 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 2657,
-        "atk1": 951,
-        "atk2": 951,
-        "ability": 190,
+        "hp": 2790,
+        "atk1": 856,
+        "atk2": 856,
+        "ability": 171,
         "speed": 3.33,
         "silver": 42,
         "atk1_gene": "b",
@@ -38061,10 +38069,10 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 10362,
-        "atk1": 5561,
-        "atk2": 5561,
-        "ability": 2225,
+        "hp": 10881,
+        "atk1": 5004,
+        "atk2": 5004,
+        "ability": 2001,
         "speed": 3.33,
         "silver": 1260,
         "atk1_gene": "b",
@@ -38072,11 +38080,11 @@
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 2657,
-      "atk1_base": 951,
-      "atk1p_base": 1426,
-      "atk2_base": 951,
-      "atk2p_base": 1426,
+      "hp_base": 2790,
+      "atk1_base": 856,
+      "atk1p_base": 1283,
+      "atk2_base": 856,
+      "atk2p_base": 1283,
       "speed_base": 3.33,
       "bank_base": 42,
       "abilityPct1": -20,
@@ -38086,18 +38094,18 @@
       {
         "name": "ability_slash",
         "pct": 20,
-        "value_atk1_lvl1": 190,
-        "value_atk2_lvl1": 190,
-        "value_atk1_lvl30": 1112,
-        "value_atk2_lvl30": 1112
+        "value_atk1_lvl1": 171,
+        "value_atk2_lvl1": 171,
+        "value_atk1_lvl30": 1001,
+        "value_atk2_lvl30": 1001
       },
       {
         "name": "ability_slash_plus",
         "pct": 40,
-        "value_atk1_lvl1": 380,
-        "value_atk2_lvl1": 380,
-        "value_atk1_lvl30": 2224,
-        "value_atk2_lvl30": 2224
+        "value_atk1_lvl1": 342,
+        "value_atk2_lvl1": 342,
+        "value_atk1_lvl30": 2002,
+        "value_atk2_lvl30": 2002
       }
     ],
     "stars": {
@@ -38120,6 +38128,7 @@
     ],
     "chance": 0,
     "bank": 42,
+    "tier": "",
     "name_attack1": "Игра в ящик",
     "name_attack2": "Во имя смерти",
     "name_attack3": "",
