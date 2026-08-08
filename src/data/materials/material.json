@@ -324,7 +324,7 @@
   {
     "id": "Material_Tcg_Corgi_Token",
     "name": "Жетон корги",
-    "description": "Можно было получить купив пакет в магазине",
+    "description": "Награда бэкерам краудфандинга настольной игры Mutants: The Card Game (2019), обменивалась на мутанта «Дрей, космический корги»",
     "texture": "/materials/Material_Tcg_Corgi_Token.png"
   },
   {
