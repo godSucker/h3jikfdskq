@@ -141,7 +141,21 @@ async function main() {
     []
 
   for (const { entityId, obtainType } of BUILDINGS) {
-    const block = extractEntity(xml, entityId)
+    // try/catch ОБЯЗАТЕЛЕН: Kobojo уже переименовывала EntityDescriptor'ы
+    // без предупреждения в других XML (см. detect-new-dungeons.ts). Без
+    // защиты один переименованный/удалённый обменник роняет ВЕСЬ детектор
+    // (оба обменника, а не только сломанный) без единой строчки прогресса
+    // (найдено код-ревью 2026-08-08).
+    let block: string
+    try {
+      block = extractEntity(xml, entityId)
+    } catch (err) {
+      console.error(
+        `[EXCHANGE-WATCH] ${entityId} не найден в gamedefinitions.xml (переименовали/убрали?), пропуск:`,
+        err instanceof Error ? err.message : err,
+      )
+      continue
+    }
     const contracts = parseContracts(block)
     const workingToReady = parseWorkingToReady(block)
     const readyRewards = parseReadyRewards(block)

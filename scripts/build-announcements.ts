@@ -278,9 +278,14 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   const seenSet = new Set(seen)
   const allKeys: string[] = []
   const fresh: { key: string; specimenId: string; where: string }[] = []
+  // detect-exchange-rotation.ts пишет ОБА обменника (jackpot_hall для
+  // Building_Tokens_Jackpot, event_hall для Building_Event_1) - раньше тут
+  // фильтровался только jackpot_hall, и ротация ивент-обменника никогда не
+  // анонсировалась (см. код-ревью 2026-08-08, найдено при аудите анонс-пайплайна).
+  const EXCHANGE_TYPES = new Set(['jackpot_hall', 'event_hall'])
   for (const [specimenId, entries] of Object.entries(obtain)) {
     for (const e of entries) {
-      if (e.type !== 'jackpot_hall') continue
+      if (!EXCHANGE_TYPES.has(e.type)) continue
       const key = `${specimenId}|${e.where}`
       allKeys.push(key)
       if (!seenSet.has(key)) fresh.push({ key, specimenId, where: e.where })

@@ -120,9 +120,20 @@ async function main() {
   // на локальную копию тем же путём. Не гоняем ретро-скачивание для всех,
   // только для тех, у кого texture начинается на "https://" - остальные
   // либо уже нормальные, либо руками положены.
+  //
+  // Второе условие (texture === null) - повторная попытка для жетонов, у
+  // которых скачивание раньше 404-нулось (downloadTokenIcon вернул null,
+  // main() записал texture: null явно). БЕЗ него такой жетон навсегда
+  // оставался без иконки, хотя комментарий ниже обещает "следующий прогон
+  // попробует ещё раз" (найдено код-ревью 2026-08-08). undefined (поле
+  // вообще отсутствует у руками добавленных записей вроде
+  // Material_Hallowen_Nightmare) сюда НЕ попадает - это осознанное
+  // отсутствие текстуры, не сбой скачивания.
   const retroMigrateIds = materials
     .filter(
-      (m) => tokenIds.has(m.id) && typeof m.texture === 'string' && m.texture.startsWith('http'),
+      (m) =>
+        tokenIds.has(m.id) &&
+        ((typeof m.texture === 'string' && m.texture.startsWith('http')) || m.texture === null),
     )
     .map((m) => m.id)
 
