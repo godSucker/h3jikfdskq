@@ -121,7 +121,9 @@ async function main() {
   // только для тех, у кого texture начинается на "https://" - остальные
   // либо уже нормальные, либо руками положены.
   const retroMigrateIds = materials
-    .filter((m) => tokenIds.has(m.id) && typeof m.texture === 'string' && m.texture.startsWith('http'))
+    .filter(
+      (m) => tokenIds.has(m.id) && typeof m.texture === 'string' && m.texture.startsWith('http'),
+    )
     .map((m) => m.id)
 
   const targets = [...fresh, ...retroMigrateIds]
