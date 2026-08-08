@@ -130,14 +130,24 @@ async function main() {
       .filter(Boolean)
       .join('\n')
 
-    await sendTelegramMessage(context)
-    pending[`dungeon:${d.id}`] = {
-      type: 'dungeon',
-      id: d.id,
-      dungeonType: d.type,
-      alertedAt: new Date().toISOString(),
+    // try/catch ОБЯЗАТЕЛЕН: без него сбой одной отправки прерывает main() до
+    // записи pending-кэша, и уже отправленные в этом же прогоне алерты
+    // теряются из кэша - следующий прогон шлёт их повторно (дубли).
+    try {
+      await sendTelegramMessage(context)
+      pending[`dungeon:${d.id}`] = {
+        type: 'dungeon',
+        id: d.id,
+        dungeonType: d.type,
+        alertedAt: new Date().toISOString(),
+      }
+      console.log(`[DUNGEON-WATCH] Алерт отправлен: ${d.id} (${d.type})`)
+    } catch (err) {
+      console.error(
+        `[DUNGEON-WATCH] Не удалось отправить алерт по ${d.id}, попробуем в следующий прогон:`,
+        err instanceof Error ? err.message : err,
+      )
     }
-    console.log(`[DUNGEON-WATCH] Алерт отправлен: ${d.id} (${d.type})`)
   }
 
   await fs.mkdir(path.dirname(PENDING_PATH), { recursive: true })

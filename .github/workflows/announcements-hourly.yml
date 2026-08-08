@@ -43,25 +43,37 @@ jobs:
       - name: 3. Установка зависимостей
         run: npm ci
 
+      # if: always() на шагах 4-9 ОБЯЗАТЕЛЕН: без него сбой любого одного
+      # детектора (например, sync-bingo.ts упал на сетевой ошибке) по
+      # умолчанию GitHub Actions пропускает ВСЕ следующие шаги джобы разом -
+      # боксы/обменники/жетоны/реакторы/данжи молча не проверяются весь час,
+      # хотя каждый из них сам по себе устойчив к пропуску прогона (найдено
+      # код-ревью 2026-08-08 при аудите анонс-пайплайна).
       - name: 4. Авто-синк бинго-досок (morphology, s-beta)
+        if: always()
         run: npx tsx scripts/sync-bingo.ts
 
       - name: 5. Авто-синк каталога боксов (shopitems.xml, s-beta)
+        if: always()
         run: npx tsx scripts/build-boxes.ts
 
       - name: 6. Сторож ротации обменников (джекпот/ивент) - авто-запись в obtain.json
+        if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
 
       - name: 7. Авто-синк жетонов (gamedefinitions.xml, s-beta) -> material.json
+        if: always()
         run: npx tsx scripts/detect-tokens.ts
 
       - name: 8. Сторож новых реакторов (gacha.xml, s-beta)
+        if: always()
         run: npx tsx scripts/detect-new-reactors.ts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: 9. Сторож новых рейдов/лесенок/спец-лесенок (dungeons.xml, s-beta)
+        if: always()
         run: npx tsx scripts/detect-new-dungeons.ts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

@@ -183,9 +183,24 @@ async function main() {
       `Ответь: \`.локал reactor:${g.id} "Имя"\``,
     ].join('\n')
 
-    await sendTelegramMessage(context)
-    pending[`reactor:${g.id}`] = { type: 'reactor', id: g.id, alertedAt: new Date().toISOString() }
-    console.log(`[REACTOR-WATCH] Алерт отправлен: ${g.id}`)
+    // try/catch ОБЯЗАТЕЛЕН: без него сбой отправки одного алерта (сетевой
+    // сбой/лимит Telegram API) прерывает main() ДО записи pending-кэша, и уже
+    // успешно отправленные алерты из этого же прогона теряются из кэша -
+    // следующий часовой прогон шлёт их повторно (дубли в личном чате).
+    try {
+      await sendTelegramMessage(context)
+      pending[`reactor:${g.id}`] = {
+        type: 'reactor',
+        id: g.id,
+        alertedAt: new Date().toISOString(),
+      }
+      console.log(`[REACTOR-WATCH] Алерт отправлен: ${g.id}`)
+    } catch (err) {
+      console.error(
+        `[REACTOR-WATCH] Не удалось отправить алерт по ${g.id}, попробуем в следующий прогон:`,
+        err instanceof Error ? err.message : err,
+      )
+    }
   }
 
   await fs.mkdir(path.dirname(PENDING_PATH), { recursive: true })

@@ -78,7 +78,8 @@ async function fetchManifestIds(): Promise<string[]> {
 
 function rewardName(id: string, type: string): string {
   if (id !== '') return id
-  return type === 'hardcurrency' ? 'gold' : type
+  if (type === 'hardcurrency') return 'gold'
+  return type !== '' ? type : 'unknown'
 }
 
 async function fetchBoard(sourceId: string): Promise<ParsedBoard | null> {
@@ -116,9 +117,13 @@ async function fetchBoard(sourceId: string): Promise<ParsedBoard | null> {
     ...ensureArray(rewardsBlock.special),
   ]
   const rewards: BingoReward[] = rewardEls.map((r: any) => ({
-    name: rewardName(String(r.id ?? ''), String(r.type)),
+    // String(r.type) на отсутствующем атрибуте даёт БУКВАЛЬНУЮ строку
+    // "undefined" (не JS-значение) - rewardName() тогда ставит её как
+    // видимое имя награды в bingos.json. ?? '' + явный фолбэк ниже чинят это
+    // (найдено код-ревью 2026-08-08).
+    name: rewardName(String(r.id ?? ''), String(r.type ?? '')),
     amount: Number(r.amount),
-    type: String(r.type),
+    type: String(r.type ?? 'unknown'),
   }))
 
   return { sourceId, mutants, rewards, columns }
