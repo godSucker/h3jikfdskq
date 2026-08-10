@@ -136,7 +136,13 @@
   function readableTier(raw){
     const val = String(raw || '').trim();
     if (!val) return '—';
-    return niceLabel(val);
+    // Не через niceLabel(): у тиров "-" — значимый суффикс (1-, 2-, 3-),
+    // а niceLabel заменяет его на пробел и триммит, теряя минус.
+    return val
+      .replace(/_+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/\b\w/g, (c) => c.toUpperCase());
   }
   function normalizeImages(img){
     const arr = Array.isArray(img) ? img : [img];
