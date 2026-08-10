@@ -1,0 +1,27 @@
+name: TEST Telegram digest (one-off)
+
+# Разовая диагностика задачи "почему не шлются саммери в тг" - проверяет
+# именно путь доставки notifyRunSummary()/notifyDetectorFailure() (тот же
+# sendMessage-запрос, те же секреты), не трогая реальные детекторы. Файл
+# удаляется сразу после теста.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send test digest message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -sf -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d parse_mode="Markdown" \
+            --data-urlencode text="🧪 *Тестовое саммери*
+Это ручная проверка пути доставки notifyRunSummary() (задача 9). Если сообщение дошло — секреты и API-вызов рабочие, реальная тишина в последних прогонах объясняется просто отсутствием новых записей." \
+            && echo "OK: sendMessage succeeded"

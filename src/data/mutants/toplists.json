@@ -20,6 +20,13 @@
             "value": 3028
           },
           {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 2988
+          },
+          {
             "id": "specimen_ed_14",
             "name": "Гидридра",
             "star": "platinum",
@@ -27,25 +34,18 @@
             "value": 2954
           },
           {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 2840
+          },
+          {
             "id": "specimen_ef_05",
             "name": "Кракен",
             "star": "platinum",
             "icon": "/textures_by_mutant/ef_05/specimen_ef_05_platinum.webp",
             "value": 2774
-          },
-          {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 2716
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 2582
           },
           {
             "id": "specimen_cd_14",
@@ -188,6 +188,13 @@
             "value": 2154
           },
           {
+            "id": "specimen_ac_07",
+            "name": "Робо Фуэрте",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+            "value": 2104
+          },
+          {
             "id": "specimen_ac_14",
             "name": "Профессор Хрономантик",
             "star": "platinum",
@@ -300,13 +307,6 @@
             "value": 1918
           },
           {
-            "id": "specimen_ac_07",
-            "name": "Робо Фуэрте",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-            "value": 1912
-          },
-          {
             "id": "specimen_de_12",
             "name": "Левиафан",
             "star": "platinum",
@@ -319,13 +319,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/cc_09/specimen_cc_09_platinum.webp",
             "value": 1908
-          },
-          {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 1902
           },
           {
             "id": "specimen_aa_10",
@@ -374,6 +367,13 @@
             "name": "Z-0",
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_06/specimen_ba_06_platinum.webp",
+            "value": 1894
+          },
+          {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
             "value": 1894
           },
           {
@@ -566,18 +566,25 @@
             "value": 1724
           },
           {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 1722
-          },
-          {
             "id": "specimen_ff_12",
             "name": "Вечный архивариус",
             "star": "platinum",
             "icon": "/textures_by_mutant/ff_12/specimen_ff_12_platinum.webp",
             "value": 1722
+          },
+          {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 1712
+          },
+          {
+            "id": "specimen_fd_03",
+            "name": "Белый Ханзо",
+            "star": "gold",
+            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+            "value": 1692
           },
           {
             "id": "specimen_ca_12",
@@ -865,13 +872,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_13/specimen_df_13_platinum.webp",
             "value": 1540
-          },
-          {
-            "id": "specimen_fd_03",
-            "name": "Белый Ханзо",
-            "star": "gold",
-            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-            "value": 1538
           },
           {
             "id": "specimen_fd_13",
@@ -1721,6 +1721,13 @@
             "value": 1182
           },
           {
+            "id": "specimen_fa_06",
+            "name": "Лили",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 1180
+          },
+          {
             "id": "specimen_be_07",
             "name": "Незарим",
             "star": "platinum",
@@ -1861,6 +1868,13 @@
             "value": 1136
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 1136
+          },
+          {
             "id": "specimen_ed_99",
             "name": "Ктопи",
             "star": "normal",
@@ -1973,18 +1987,18 @@
             "value": 1076
           },
           {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 1075
+          },
+          {
             "id": "specimen_fc_02",
             "name": "Капитан Мир",
             "star": "normal",
             "icon": "/textures_by_mutant/fc_02/specimen_fc_02_normal.webp",
             "value": 1074
-          },
-          {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 1072
           },
           {
             "id": "specimen_ec_08",
@@ -2092,13 +2106,6 @@
             "value": 1032
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 1032
-          },
-          {
             "id": "specimen_ab_11",
             "name": "Энвайро 3.0",
             "star": "platinum",
@@ -2146,6 +2153,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fd_06/specimen_fd_06_platinum.webp",
             "value": 1024
+          },
+          {
+            "id": "specimen_ce_05",
+            "name": "Солнечный Герцог",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+            "value": 1022
           },
           {
             "id": "specimen_bf_06",
@@ -2295,13 +2309,6 @@
             "value": 978
           },
           {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 977
-          },
-          {
             "id": "specimen_ee_02",
             "name": "Сверхновус",
             "star": "platinum",
@@ -2335,6 +2342,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_09/specimen_fa_09_platinum.webp",
             "value": 968
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 964
           },
           {
             "id": "specimen_cd_02",
@@ -2428,13 +2442,6 @@
             "value": 930
           },
           {
-            "id": "specimen_ce_05",
-            "name": "Солнечный Герцог",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-            "value": 929
-          },
-          {
             "id": "specimen_cb_05",
             "name": "Амур",
             "star": "normal",
@@ -2512,6 +2519,13 @@
             "value": 908
           },
           {
+            "id": "specimen_ec_06",
+            "name": "Зевс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+            "value": 907
+          },
+          {
             "id": "specimen_aa_09",
             "name": "О.Х.0.Т.Н.№.К",
             "star": "platinum",
@@ -2573,13 +2587,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_01/specimen_ba_01_platinum.webp",
             "value": 878
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 877
           },
           {
             "id": "specimen_df_09",
@@ -2657,6 +2664,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ae_05/specimen_ae_05_platinum.webp",
             "value": 846
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 844
           },
           {
             "id": "specimen_dc_11",
@@ -2741,13 +2755,6 @@
             "star": "silver",
             "icon": "/textures_by_mutant/bd_02/specimen_bd_02_silver.webp",
             "value": 827
-          },
-          {
-            "id": "specimen_ec_06",
-            "name": "Зевс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 824
           },
           {
             "id": "specimen_ff_14",
@@ -2853,13 +2860,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/eb_07/specimen_eb_07_platinum.webp",
             "value": 776
-          },
-          {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 767
           },
           {
             "id": "specimen_c_01",
@@ -2993,6 +2993,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/fc_04/specimen_fc_04_normal.webp",
             "value": 698
+          },
+          {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 695
           },
           {
             "id": "specimen_bc_02",
@@ -3237,13 +3244,6 @@
             "name": "Гаруда",
             "star": "normal",
             "icon": "/textures_by_mutant/a_03/specimen_a_03_normal.webp",
-            "value": 632
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
             "value": 632
           },
           {
@@ -5099,6 +5099,13 @@
             "value": 5666
           },
           {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 5580
+          },
+          {
             "id": "specimen_cd_08",
             "name": "Дрол",
             "star": "platinum",
@@ -5148,13 +5155,6 @@
             "value": 5330
           },
           {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 5314
-          },
-          {
             "id": "specimen_ad_06",
             "name": "Биоеж",
             "star": "platinum",
@@ -5169,25 +5169,11 @@
             "value": 5284
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 5244
-          },
-          {
             "id": "specimen_fb_10",
             "name": "Иггдрасиль",
             "star": "platinum",
             "icon": "/textures_by_mutant/fb_10/specimen_fb_10_platinum.webp",
             "value": 5234
-          },
-          {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 5226
           },
           {
             "id": "specimen_ea_15",
@@ -5295,6 +5281,13 @@
             "value": 4990
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 4982
+          },
+          {
             "id": "specimen_fc_14",
             "name": "Вулкан",
             "star": "platinum",
@@ -5307,6 +5300,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_10/specimen_ad_10_platinum.webp",
             "value": 4954
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 4926
           },
           {
             "id": "specimen_dc_13",
@@ -5426,13 +5426,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/c_05/specimen_c_05_platinum.webp",
             "value": 4764
-          },
-          {
-            "id": "specimen_ac_07",
-            "name": "Робо Фуэрте",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-            "value": 4762
           },
           {
             "id": "specimen_ea_99",
@@ -5652,18 +5645,18 @@
             "value": 4548
           },
           {
+            "id": "specimen_ac_07",
+            "name": "Робо Фуэрте",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+            "value": 4524
+          },
+          {
             "id": "specimen_aa_06",
             "name": "Геркулес",
             "star": "platinum",
             "icon": "/textures_by_mutant/aa_06/specimen_aa_06_platinum.webp",
             "value": 4516
-          },
-          {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 4494
           },
           {
             "id": "specimen_ea_11",
@@ -5692,13 +5685,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_12/specimen_ca_12_platinum.webp",
             "value": 4468
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 4466
           },
           {
             "id": "specimen_de_05",
@@ -5855,11 +5841,11 @@
             "value": 4276
           },
           {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
+            "id": "specimen_fa_06",
+            "name": "Лили",
             "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 4272
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 4270
           },
           {
             "id": "specimen_ec_12",
@@ -5895,13 +5881,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/de_11/specimen_de_11_platinum.webp",
             "value": 4248
-          },
-          {
-            "id": "specimen_fd_03",
-            "name": "Белый Ханзо",
-            "star": "gold",
-            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-            "value": 4242
           },
           {
             "id": "specimen_dd_02",
@@ -5951,6 +5930,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
             "value": 4212
+          },
+          {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 4211
           },
           {
             "id": "specimen_ed_12",
@@ -6128,6 +6114,13 @@
             "value": 4060
           },
           {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 4058
+          },
+          {
             "id": "specimen_db_09",
             "name": "Хоракс",
             "star": "platinum",
@@ -6196,6 +6189,13 @@
             "star": "silver",
             "icon": "/textures_by_mutant/ef_03/specimen_ef_03_silver.webp",
             "value": 4016
+          },
+          {
+            "id": "specimen_fd_03",
+            "name": "Белый Ханзо",
+            "star": "gold",
+            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+            "value": 3999
           },
           {
             "id": "specimen_ed_11",
@@ -6380,13 +6380,6 @@
             "value": 3926
           },
           {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 3926
-          },
-          {
             "id": "specimen_fd_08",
             "name": "Омиками",
             "star": "platinum",
@@ -6455,13 +6448,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/aa_09/specimen_aa_09_platinum.webp",
             "value": 3876
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 3874
           },
           {
             "id": "specimen_eb_99",
@@ -6716,6 +6702,13 @@
             "value": 3731
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 3730
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -6814,6 +6807,13 @@
             "value": 3686
           },
           {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 3680
+          },
+          {
             "id": "specimen_ad_01",
             "name": "Жукобот",
             "star": "platinum",
@@ -6847,13 +6847,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_05/specimen_ba_05_platinum.webp",
             "value": 3668
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 3665
           },
           {
             "id": "specimen_df_07",
@@ -7255,6 +7248,13 @@
             "value": 3466
           },
           {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 3455
+          },
+          {
             "id": "specimen_bc_05",
             "name": "Психопат с бензопилой",
             "star": "platinum",
@@ -7379,13 +7379,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/b_12/specimen_b_12_platinum.webp",
             "value": 3360
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 3350
           },
           {
             "id": "specimen_ed_13",
@@ -7652,6 +7645,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/e_13/specimen_e_13_platinum.webp",
             "value": 3170
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 3159
           },
           {
             "id": "specimen_ad_02",
@@ -8130,13 +8130,6 @@
             "value": 2810
           },
           {
-            "id": "specimen_ce_05",
-            "name": "Солнечный Герцог",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-            "value": 2809
-          },
-          {
             "id": "specimen_ec_01",
             "name": "Галактический Охотник",
             "star": "platinum",
@@ -8268,6 +8261,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ef_04/specimen_ef_04_platinum.webp",
             "value": 2658
+          },
+          {
+            "id": "specimen_ce_05",
+            "name": "Солнечный Герцог",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+            "value": 2648
           },
           {
             "id": "specimen_ef_01",
@@ -8715,7 +8715,7 @@
             "name": "Зевс",
             "star": "gold",
             "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 1645
+            "value": 1551
           },
           {
             "id": "specimen_cf_14",
@@ -17381,6 +17381,14 @@
               "value": 645
             },
             {
+              "id": "specimen_bd_07",
+              "name": "Древний",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+              "pct": 55,
+              "value": 625
+            },
+            {
               "id": "specimen_cb_07",
               "name": "Король-скелет",
               "star": "platinum",
@@ -17485,14 +17493,6 @@
               "value": 568
             },
             {
-              "id": "specimen_bd_07",
-              "name": "Древний",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-              "pct": 55,
-              "value": 568
-            },
-            {
               "id": "specimen_cc_05",
               "name": "Шин Хакухо",
               "star": "platinum",
@@ -17523,6 +17523,14 @@
               "icon": "/textures_by_mutant/dc_06/specimen_dc_06_platinum.webp",
               "pct": 38,
               "value": 557
+            },
+            {
+              "id": "specimen_bf_04",
+              "name": "Император галактики",
+              "star": "gold",
+              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+              "pct": 80,
+              "value": 556
             },
             {
               "id": "specimen_cb_09",
@@ -17603,14 +17611,6 @@
               "icon": "/textures_by_mutant/bc_05/specimen_bc_05_platinum.webp",
               "pct": 55,
               "value": 512
-            },
-            {
-              "id": "specimen_bf_04",
-              "name": "Император галактики",
-              "star": "gold",
-              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-              "pct": 80,
-              "value": 505
             },
             {
               "id": "specimen_ae_11",
@@ -18633,6 +18633,14 @@
               "value": 1071
             },
             {
+              "id": "specimen_ac_07",
+              "name": "Робо Фуэрте",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+              "pct": 50,
+              "value": 1052
+            },
+            {
               "id": "specimen_da_02",
               "name": "Арахно",
               "star": "platinum",
@@ -18657,28 +18665,12 @@
               "value": 976
             },
             {
-              "id": "specimen_ac_07",
-              "name": "Робо Фуэрте",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-              "pct": 50,
-              "value": 956
-            },
-            {
               "id": "specimen_df_08",
               "name": "Шантеклер",
               "star": "platinum",
               "icon": "/textures_by_mutant/df_08/specimen_df_08_platinum.webp",
               "pct": 40,
               "value": 790
-            },
-            {
-              "id": "specimen_bf_10",
-              "name": "Гробовщик",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-              "pct": 40,
-              "value": 761
             },
             {
               "id": "specimen_fd_08",
@@ -18695,6 +18687,14 @@
               "icon": "/textures_by_mutant/db_10/specimen_db_10_platinum.webp",
               "pct": 40,
               "value": 738
+            },
+            {
+              "id": "specimen_dc_03",
+              "name": "Гаргантус",
+              "star": "gold",
+              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+              "pct": 75,
+              "value": 723
             },
             {
               "id": "specimen_bc_13",
@@ -18721,6 +18721,14 @@
               "value": 696
             },
             {
+              "id": "specimen_bf_10",
+              "name": "Гробовщик",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+              "pct": 40,
+              "value": 685
+            },
+            {
               "id": "specimen_bf_12",
               "name": "Оскверненный священник",
               "star": "platinum",
@@ -18735,14 +18743,6 @@
               "icon": "/textures_by_mutant/cd_11/specimen_cd_11_platinum.webp",
               "pct": 50,
               "value": 679
-            },
-            {
-              "id": "specimen_dc_03",
-              "name": "Гаргантус",
-              "star": "gold",
-              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-              "pct": 75,
-              "value": 658
             },
             {
               "id": "specimen_bd_10",
@@ -19400,7 +19400,7 @@
               "star": "platinum",
               "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
               "pct": 30,
-              "value": 815
+              "value": 896
             },
             {
               "id": "specimen_eb_06",
@@ -19408,7 +19408,7 @@
               "star": "platinum",
               "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
               "pct": 45,
-              "value": 775
+              "value": 852
             },
             {
               "id": "specimen_ce_13",
@@ -19563,6 +19563,14 @@
               "value": 510
             },
             {
+              "id": "specimen_ef_02",
+              "name": "Мистер Икс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+              "pct": 60,
+              "value": 506
+            },
+            {
               "id": "specimen_bf_06",
               "name": "Фараон из Мимфиса",
               "star": "platinum",
@@ -19601,14 +19609,6 @@
               "icon": "/textures_by_mutant/ae_10/specimen_ae_10_normal.webp",
               "pct": 45,
               "value": 468
-            },
-            {
-              "id": "specimen_ef_02",
-              "name": "Мистер Икс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-              "pct": 60,
-              "value": 460
             },
             {
               "id": "specimen_ce_08",
@@ -19779,12 +19779,28 @@
               "value": 373
             },
             {
+              "id": "specimen_ec_06",
+              "name": "Зевс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+              "pct": 40,
+              "value": 363
+            },
+            {
               "id": "specimen_ee_06",
               "name": "Королева Раккти",
               "star": "platinum",
               "icon": "/textures_by_mutant/ee_06/specimen_ee_06_platinum.webp",
               "pct": 35,
               "value": 357
+            },
+            {
+              "id": "specimen_ab_05",
+              "name": "Неоурбан XIII",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+              "pct": 33,
+              "value": 355
             },
             {
               "id": "specimen_ef_09",
@@ -19851,14 +19867,6 @@
               "value": 334
             },
             {
-              "id": "specimen_ec_06",
-              "name": "Зевс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-              "pct": 40,
-              "value": 330
-            },
-            {
               "id": "specimen_ea_10",
               "name": "Космический серфер",
               "star": "normal",
@@ -19881,14 +19889,6 @@
               "icon": "/textures_by_mutant/dd_13/specimen_dd_13_platinum.webp",
               "pct": 35,
               "value": 324
-            },
-            {
-              "id": "specimen_ab_05",
-              "name": "Неоурбан XIII",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-              "pct": 33,
-              "value": 322
             },
             {
               "id": "specimen_ef_07",
@@ -20205,6 +20205,14 @@
               "value": 779
             },
             {
+              "id": "specimen_fc_09",
+              "name": "Гортхаур Жестокий",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+              "pct": 25,
+              "value": 710
+            },
+            {
               "id": "specimen_bd_12",
               "name": "Танаконда",
               "star": "platinum",
@@ -20227,14 +20235,6 @@
               "icon": "/textures_by_mutant/ff_13/specimen_ff_13_platinum.webp",
               "pct": 40,
               "value": 651
-            },
-            {
-              "id": "specimen_fc_09",
-              "name": "Гортхаур Жестокий",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-              "pct": 25,
-              "value": 646
             },
             {
               "id": "specimen_fc_99",
@@ -20293,6 +20293,14 @@
               "value": 562
             },
             {
+              "id": "specimen_fd_03",
+              "name": "Белый Ханзо",
+              "star": "gold",
+              "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+              "pct": 33,
+              "value": 558
+            },
+            {
               "id": "specimen_cb_12",
               "name": "Кранекен",
               "star": "platinum",
@@ -20309,20 +20317,20 @@
               "value": 537
             },
             {
+              "id": "specimen_fa_06",
+              "name": "Лили",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+              "pct": 45,
+              "value": 531
+            },
+            {
               "id": "specimen_aa_14",
               "name": "Арбитратор",
               "star": "platinum",
               "icon": "/textures_by_mutant/aa_14/specimen_aa_14_platinum.webp",
               "pct": 25,
               "value": 517
-            },
-            {
-              "id": "specimen_fd_03",
-              "name": "Белый Ханзо",
-              "star": "gold",
-              "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-              "pct": 33,
-              "value": 508
             },
             {
               "id": "specimen_bc_12",
@@ -20363,14 +20371,6 @@
               "icon": "/textures_by_mutant/ba_12/specimen_ba_12_platinum.webp",
               "pct": 40,
               "value": 486
-            },
-            {
-              "id": "specimen_fa_06",
-              "name": "Лили",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-              "pct": 45,
-              "value": 482
             },
             {
               "id": "specimen_ff_01",
@@ -20429,6 +20429,14 @@
               "value": 416
             },
             {
+              "id": "specimen_ce_05",
+              "name": "Солнечный Герцог",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+              "pct": 40,
+              "value": 409
+            },
+            {
               "id": "specimen_fd_10",
               "name": "Мастер Лапа",
               "star": "normal",
@@ -20451,14 +20459,6 @@
               "icon": "/textures_by_mutant/fe_09/specimen_fe_09_platinum.webp",
               "pct": 20,
               "value": 380
-            },
-            {
-              "id": "specimen_ce_05",
-              "name": "Солнечный Герцог",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-              "pct": 40,
-              "value": 372
             },
             {
               "id": "specimen_fc_03",
@@ -21049,11 +21049,25 @@
             "value": 20186
           },
           {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 17238
+          },
+          {
             "id": "specimen_bf_14",
             "name": "Иррадиация",
             "star": "platinum",
             "icon": "/textures_by_mutant/bf_14/specimen_bf_14_platinum.webp",
             "value": 17036
+          },
+          {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 16622
           },
           {
             "id": "specimen_ef_05",
@@ -21068,13 +21082,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_14/specimen_ca_14_normal.webp",
             "value": 15788
-          },
-          {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 15670
           },
           {
             "id": "specimen_df_12",
@@ -21096,13 +21103,6 @@
             "star": "normal",
             "icon": "/textures_by_mutant/be_15/specimen_be_15_normal.webp",
             "value": 15370
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 15108
           },
           {
             "id": "specimen_ed_14",
@@ -21196,6 +21196,13 @@
             "value": 13182
           },
           {
+            "id": "specimen_fd_03",
+            "name": "Белый Ханзо",
+            "star": "gold",
+            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+            "value": 13104
+          },
+          {
             "id": "specimen_be_11",
             "name": "Окулюс",
             "star": "platinum",
@@ -21222,6 +21229,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bc_10/specimen_bc_10_platinum.webp",
             "value": 12824
+          },
+          {
+            "id": "specimen_ac_07",
+            "name": "Робо Фуэрте",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+            "value": 12816
           },
           {
             "id": "specimen_fc_14",
@@ -21329,13 +21343,6 @@
             "value": 11966
           },
           {
-            "id": "specimen_fd_03",
-            "name": "Белый Ханзо",
-            "star": "gold",
-            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-            "value": 11911
-          },
-          {
             "id": "specimen_ed_13",
             "name": "Мединозавр",
             "star": "platinum",
@@ -21362,13 +21369,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_13/specimen_df_13_platinum.webp",
             "value": 11668
-          },
-          {
-            "id": "specimen_ac_07",
-            "name": "Робо Фуэрте",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-            "value": 11654
           },
           {
             "id": "specimen_ce_07",
@@ -21476,6 +21476,13 @@
             "value": 11334
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 11294
+          },
+          {
             "id": "specimen_fe_99",
             "name": "Инженер",
             "star": "platinum",
@@ -21544,13 +21551,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/cc_09/specimen_cc_09_platinum.webp",
             "value": 11162
-          },
-          {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 11122
           },
           {
             "id": "specimen_aa_10",
@@ -21728,6 +21728,13 @@
             "value": 10390
           },
           {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 10388
+          },
+          {
             "id": "specimen_ba_06",
             "name": "Z-0",
             "star": "platinum",
@@ -21740,13 +21747,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ac_12/specimen_ac_12_platinum.webp",
             "value": 10304
-          },
-          {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 10264
           },
           {
             "id": "specimen_b_13",
@@ -21789,6 +21789,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/cf_08/specimen_cf_08_platinum.webp",
             "value": 10024
+          },
+          {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 10008
           },
           {
             "id": "specimen_cd_05",
@@ -22006,13 +22013,6 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ae_99/specimen_ae_99_normal.webp",
             "value": 9454
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 9447
           },
           {
             "id": "specimen_bd_10",
@@ -22351,6 +22351,13 @@
             "value": 8362
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 8354
+          },
+          {
             "id": "specimen_dd_02",
             "name": "Мастер Коготь",
             "star": "platinum",
@@ -22659,13 +22666,6 @@
             "value": 7606
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 7598
-          },
-          {
             "id": "specimen_dd_12",
             "name": "Солнечный лампирион",
             "star": "normal",
@@ -22713,6 +22713,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_03/specimen_ba_03_platinum.webp",
             "value": 7488
+          },
+          {
+            "id": "specimen_ce_05",
+            "name": "Солнечный Герцог",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+            "value": 7480
           },
           {
             "id": "specimen_bf_07",
@@ -22953,6 +22960,13 @@
             "value": 6896
           },
           {
+            "id": "specimen_fa_06",
+            "name": "Лили",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 6896
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -23007,13 +23021,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_09/specimen_ad_09_platinum.webp",
             "value": 6810
-          },
-          {
-            "id": "specimen_ce_05",
-            "name": "Солнечный Герцог",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-            "value": 6797
           },
           {
             "id": "specimen_ad_14",
@@ -23254,13 +23261,6 @@
             "value": 6275
           },
           {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 6272
-          },
-          {
             "id": "specimen_f_13",
             "name": "Вяйнямёйнен",
             "star": "platinum",
@@ -23413,6 +23413,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
             "value": 6022
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 6020
           },
           {
             "id": "specimen_bd_02",
@@ -23665,13 +23672,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ee_10/specimen_ee_10_platinum.webp",
             "value": 5484
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 5474
           },
           {
             "id": "specimen_ed_02",
@@ -23947,6 +23947,13 @@
             "value": 4852
           },
           {
+            "id": "specimen_ec_06",
+            "name": "Зевс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+            "value": 4799
+          },
+          {
             "id": "specimen_cd_10",
             "name": "Страж Мен'ки",
             "star": "platinum",
@@ -23973,6 +23980,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_09/specimen_ea_09_platinum.webp",
             "value": 4680
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 4627
           },
           {
             "id": "specimen_ad_11",
@@ -24066,13 +24080,6 @@
             "value": 4392
           },
           {
-            "id": "specimen_ec_06",
-            "name": "Зевс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 4361
-          },
-          {
             "id": "specimen_da_05",
             "name": "Фенек-Ультралис",
             "star": "platinum",
@@ -24164,13 +24171,6 @@
             "value": 4236
           },
           {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 4204
-          },
-          {
             "id": "specimen_a_03",
             "name": "Гаруда",
             "star": "normal",
@@ -24204,6 +24204,13 @@
             "star": "silver",
             "icon": "/textures_by_mutant/ad_03/specimen_ad_03_silver.webp",
             "value": 4133
+          },
+          {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 4074
           },
           {
             "id": "specimen_fb_06",
@@ -24393,13 +24400,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_04/specimen_ea_04_platinum.webp",
             "value": 3728
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 3707
           },
           {
             "id": "specimen_ea_03",
@@ -26135,6 +26135,13 @@
             "value": 22098
           },
           {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 21762
+          },
+          {
             "id": "specimen_cd_08",
             "name": "Дрол",
             "star": "platinum",
@@ -26184,13 +26191,6 @@
             "value": 20787
           },
           {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 20724
-          },
-          {
             "id": "specimen_ad_06",
             "name": "Биоеж",
             "star": "platinum",
@@ -26205,25 +26205,11 @@
             "value": 20608
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 20452
-          },
-          {
             "id": "specimen_fb_10",
             "name": "Иггдрасиль",
             "star": "platinum",
             "icon": "/textures_by_mutant/fb_10/specimen_fb_10_platinum.webp",
             "value": 20412
-          },
-          {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 20379
           },
           {
             "id": "specimen_ea_15",
@@ -26331,6 +26317,13 @@
             "value": 19462
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 19430
+          },
+          {
             "id": "specimen_fc_14",
             "name": "Вулкан",
             "star": "platinum",
@@ -26343,6 +26336,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_10/specimen_ad_10_platinum.webp",
             "value": 19320
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 19213
           },
           {
             "id": "specimen_dc_13",
@@ -26462,13 +26462,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/c_05/specimen_c_05_platinum.webp",
             "value": 18580
-          },
-          {
-            "id": "specimen_ac_07",
-            "name": "Робо Фуэрте",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-            "value": 18572
           },
           {
             "id": "specimen_ea_99",
@@ -26688,18 +26681,18 @@
             "value": 17737
           },
           {
+            "id": "specimen_ac_07",
+            "name": "Робо Фуэрте",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+            "value": 17644
+          },
+          {
             "id": "specimen_aa_06",
             "name": "Геркулес",
             "star": "platinum",
             "icon": "/textures_by_mutant/aa_06/specimen_aa_06_platinum.webp",
             "value": 17612
-          },
-          {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 17526
           },
           {
             "id": "specimen_c_14",
@@ -26728,13 +26721,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_12/specimen_ca_12_platinum.webp",
             "value": 17426
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 17418
           },
           {
             "id": "specimen_de_05",
@@ -26891,11 +26877,11 @@
             "value": 16676
           },
           {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
+            "id": "specimen_fa_06",
+            "name": "Лили",
             "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 16660
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 16654
           },
           {
             "id": "specimen_ec_12",
@@ -26931,13 +26917,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/de_11/specimen_de_11_platinum.webp",
             "value": 16568
-          },
-          {
-            "id": "specimen_fd_03",
-            "name": "Белый Ханзо",
-            "star": "gold",
-            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-            "value": 16545
           },
           {
             "id": "specimen_dd_02",
@@ -26987,6 +26966,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
             "value": 16427
+          },
+          {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 16420
           },
           {
             "id": "specimen_ed_12",
@@ -27164,6 +27150,13 @@
             "value": 15834
           },
           {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 15826
+          },
+          {
             "id": "specimen_db_09",
             "name": "Хоракс",
             "star": "platinum",
@@ -27232,6 +27225,13 @@
             "star": "silver",
             "icon": "/textures_by_mutant/ef_03/specimen_ef_03_silver.webp",
             "value": 15661
+          },
+          {
+            "id": "specimen_fd_03",
+            "name": "Белый Ханзо",
+            "star": "gold",
+            "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+            "value": 15596
           },
           {
             "id": "specimen_ed_11",
@@ -27409,13 +27409,6 @@
             "value": 15312
           },
           {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 15312
-          },
-          {
             "id": "specimen_bc_04",
             "name": "Джордж Вашингтон",
             "star": "normal",
@@ -27498,13 +27491,6 @@
             "star": "normal",
             "icon": "/textures_by_mutant/eb_99/specimen_eb_99_normal.webp",
             "value": 15109
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 15108
           },
           {
             "id": "specimen_ab_15",
@@ -27752,6 +27738,13 @@
             "value": 14551
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 14548
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -27850,6 +27843,13 @@
             "value": 14376
           },
           {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 14352
+          },
+          {
             "id": "specimen_ad_01",
             "name": "Жукобот",
             "star": "platinum",
@@ -27883,13 +27883,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_05/specimen_ba_05_platinum.webp",
             "value": 14306
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 14292
           },
           {
             "id": "specimen_df_07",
@@ -28291,6 +28284,13 @@
             "value": 13518
           },
           {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 13473
+          },
+          {
             "id": "specimen_bc_05",
             "name": "Психопат с бензопилой",
             "star": "platinum",
@@ -28422,13 +28422,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ed_13/specimen_ed_13_platinum.webp",
             "value": 13066
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 13064
           },
           {
             "id": "specimen_da_11",
@@ -28688,6 +28681,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/e_13/specimen_e_13_platinum.webp",
             "value": 12364
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 12320
           },
           {
             "id": "specimen_ad_02",
@@ -29166,13 +29166,6 @@
             "value": 10960
           },
           {
-            "id": "specimen_ce_05",
-            "name": "Солнечный Герцог",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-            "value": 10955
-          },
-          {
             "id": "specimen_ec_01",
             "name": "Галактический Охотник",
             "star": "platinum",
@@ -29304,6 +29297,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ef_04/specimen_ef_04_platinum.webp",
             "value": 10366
+          },
+          {
+            "id": "specimen_ce_05",
+            "name": "Солнечный Герцог",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+            "value": 10327
           },
           {
             "id": "specimen_ef_01",
@@ -29751,7 +29751,7 @@
             "name": "Зевс",
             "star": "gold",
             "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 6416
+            "value": 6046
           },
           {
             "id": "specimen_cf_14",
@@ -38353,6 +38353,14 @@
               "value": 4666
             },
             {
+              "id": "specimen_bd_07",
+              "name": "Древний",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+              "pct": 55,
+              "value": 4594
+            },
+            {
               "id": "specimen_ba_09",
               "name": "Экскавалипсис",
               "star": "platinum",
@@ -38407,14 +38415,6 @@
               "icon": "/textures_by_mutant/b_05/specimen_b_05_platinum.webp",
               "pct": 60,
               "value": 4282
-            },
-            {
-              "id": "specimen_bd_07",
-              "name": "Древний",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-              "pct": 55,
-              "value": 4178
             },
             {
               "id": "specimen_cf_08",
@@ -38609,6 +38609,14 @@
               "value": 3284
             },
             {
+              "id": "specimen_bf_04",
+              "name": "Император галактики",
+              "star": "gold",
+              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+              "pct": 80,
+              "value": 3259
+            },
+            {
               "id": "specimen_cb_09",
               "name": "Пилатесса",
               "star": "platinum",
@@ -38703,14 +38711,6 @@
               "icon": "/textures_by_mutant/bc_05/specimen_bc_05_platinum.webp",
               "pct": 55,
               "value": 2998
-            },
-            {
-              "id": "specimen_bf_04",
-              "name": "Император галактики",
-              "star": "gold",
-              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-              "pct": 80,
-              "value": 2965
             },
             {
               "id": "specimen_ba_07",
@@ -39661,6 +39661,14 @@
               "value": 6698
             },
             {
+              "id": "specimen_ac_07",
+              "name": "Робо Фуэрте",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
+              "pct": 50,
+              "value": 6408
+            },
+            {
               "id": "specimen_df_04",
               "name": "Кон-Тики",
               "star": "platinum",
@@ -39683,14 +39691,6 @@
               "icon": "/textures_by_mutant/dc_13/specimen_dc_13_platinum.webp",
               "pct": 42,
               "value": 6042
-            },
-            {
-              "id": "specimen_ac_07",
-              "name": "Робо Фуэрте",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
-              "pct": 50,
-              "value": 5828
             },
             {
               "id": "specimen_d_13",
@@ -39717,20 +39717,20 @@
               "value": 5000
             },
             {
+              "id": "specimen_dc_03",
+              "name": "Гаргантус",
+              "star": "gold",
+              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+              "pct": 75,
+              "value": 4515
+            },
+            {
               "id": "specimen_fa_13",
               "name": "Бореальный геликоид",
               "star": "normal",
               "icon": "/textures_by_mutant/fa_13/specimen_fa_13_normal.webp",
               "pct": 70,
               "value": 4472
-            },
-            {
-              "id": "specimen_bf_10",
-              "name": "Гробовщик",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-              "pct": 40,
-              "value": 4448
             },
             {
               "id": "specimen_db_08",
@@ -39763,14 +39763,6 @@
               "icon": "/textures_by_mutant/de_04/specimen_de_04_platinum.webp",
               "pct": 35,
               "value": 4188
-            },
-            {
-              "id": "specimen_dc_03",
-              "name": "Гаргантус",
-              "star": "gold",
-              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-              "pct": 75,
-              "value": 4106
             },
             {
               "id": "specimen_fd_08",
@@ -39811,6 +39803,14 @@
               "icon": "/textures_by_mutant/bf_12/specimen_bf_12_platinum.webp",
               "pct": 50,
               "value": 4006
+            },
+            {
+              "id": "specimen_bf_10",
+              "name": "Гробовщик",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+              "pct": 40,
+              "value": 4004
             },
             {
               "id": "specimen_cd_11",
@@ -40431,6 +40431,22 @@
               "value": 8992
             },
             {
+              "id": "specimen_da_09",
+              "name": "Звубилла",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+              "pct": 30,
+              "value": 5172
+            },
+            {
+              "id": "specimen_eb_06",
+              "name": "Гарлог",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+              "pct": 45,
+              "value": 5082
+            },
+            {
               "id": "specimen_fc_13",
               "name": "Король Авалона",
               "star": "platinum",
@@ -40439,28 +40455,12 @@
               "value": 5034
             },
             {
-              "id": "specimen_da_09",
-              "name": "Звубилла",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-              "pct": 30,
-              "value": 4702
-            },
-            {
               "id": "specimen_ae_07",
               "name": "Элфи",
               "star": "platinum",
               "icon": "/textures_by_mutant/ae_07/specimen_ae_07_platinum.webp",
               "pct": 40,
               "value": 4628
-            },
-            {
-              "id": "specimen_eb_06",
-              "name": "Гарлог",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-              "pct": 45,
-              "value": 4618
             },
             {
               "id": "specimen_ce_13",
@@ -40535,6 +40535,14 @@
               "value": 3470
             },
             {
+              "id": "specimen_ab_05",
+              "name": "Неоурбан XIII",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+              "pct": 33,
+              "value": 3428
+            },
+            {
               "id": "specimen_da_13",
               "name": "Антробот-мечтатель",
               "star": "platinum",
@@ -40597,14 +40605,6 @@
               "icon": "/textures_by_mutant/ee_09/specimen_ee_09_platinum.webp",
               "pct": 30,
               "value": 3162
-            },
-            {
-              "id": "specimen_ab_05",
-              "name": "Неоурбан XIII",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-              "pct": 33,
-              "value": 3117
             },
             {
               "id": "specimen_ea_13",
@@ -40695,6 +40695,14 @@
               "value": 2810
             },
             {
+              "id": "specimen_ef_02",
+              "name": "Мистер Икс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+              "pct": 60,
+              "value": 2776
+            },
+            {
               "id": "specimen_ae_10",
               "name": "Робосамурай",
               "star": "normal",
@@ -40725,14 +40733,6 @@
               "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
               "pct": 40,
               "value": 2546
-            },
-            {
-              "id": "specimen_ef_02",
-              "name": "Мистер Икс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-              "pct": 60,
-              "value": 2522
             },
             {
               "id": "specimen_ea_08",
@@ -40919,6 +40919,14 @@
               "value": 1956
             },
             {
+              "id": "specimen_ec_06",
+              "name": "Зевс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+              "pct": 40,
+              "value": 1920
+            },
+            {
               "id": "specimen_ed_02",
               "name": "Черепозавр",
               "star": "platinum",
@@ -40949,14 +40957,6 @@
               "icon": "/textures_by_mutant/cc_12/specimen_cc_12_platinum.webp",
               "pct": 25,
               "value": 1824
-            },
-            {
-              "id": "specimen_ec_06",
-              "name": "Зевс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-              "pct": 40,
-              "value": 1745
             },
             {
               "id": "specimen_cf_12",
@@ -41257,12 +41257,28 @@
               "value": 4335
             },
             {
+              "id": "specimen_fd_03",
+              "name": "Белый Ханзо",
+              "star": "gold",
+              "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
+              "pct": 33,
+              "value": 4324
+            },
+            {
               "id": "specimen_bd_12",
               "name": "Танаконда",
               "star": "platinum",
               "icon": "/textures_by_mutant/bd_12/specimen_bd_12_platinum.webp",
               "pct": 40,
               "value": 4246
+            },
+            {
+              "id": "specimen_fc_09",
+              "name": "Гортхаур Жестокий",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+              "pct": 25,
+              "value": 4156
             },
             {
               "id": "specimen_ff_99",
@@ -41281,28 +41297,12 @@
               "value": 4090
             },
             {
-              "id": "specimen_fd_03",
-              "name": "Белый Ханзо",
-              "star": "gold",
-              "icon": "/textures_by_mutant/fd_03/specimen_fd_03_normal.webp",
-              "pct": 33,
-              "value": 3931
-            },
-            {
               "id": "specimen_cc_09",
               "name": "Ланселот",
               "star": "platinum",
               "icon": "/textures_by_mutant/cc_09/specimen_cc_09_platinum.webp",
               "pct": 35,
               "value": 3906
-            },
-            {
-              "id": "specimen_fc_09",
-              "name": "Гортхаур Жестокий",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-              "pct": 25,
-              "value": 3778
             },
             {
               "id": "specimen_cb_12",
@@ -41385,6 +41385,14 @@
               "value": 3205
             },
             {
+              "id": "specimen_fa_06",
+              "name": "Лили",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+              "pct": 45,
+              "value": 3104
+            },
+            {
               "id": "specimen_fe_08",
               "name": "Маджин Зам",
               "star": "platinum",
@@ -41393,20 +41401,20 @@
               "value": 3044
             },
             {
+              "id": "specimen_ce_05",
+              "name": "Солнечный Герцог",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+              "pct": 40,
+              "value": 2993
+            },
+            {
               "id": "specimen_bc_08",
               "name": "Транн",
               "star": "platinum",
               "icon": "/textures_by_mutant/bc_08/specimen_bc_08_platinum.webp",
               "pct": 25,
               "value": 2890
-            },
-            {
-              "id": "specimen_fa_06",
-              "name": "Лили",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-              "pct": 45,
-              "value": 2822
             },
             {
               "id": "specimen_dd_15",
@@ -41439,14 +41447,6 @@
               "icon": "/textures_by_mutant/fa_05/specimen_fa_05_platinum.webp",
               "pct": 40,
               "value": 2758
-            },
-            {
-              "id": "specimen_ce_05",
-              "name": "Солнечный Герцог",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-              "pct": 40,
-              "value": 2720
             },
             {
               "id": "specimen_aa_13",
@@ -42282,6 +42282,13 @@
             "value": 5666
           },
           {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 5580
+          },
+          {
             "id": "specimen_cd_08",
             "name": "Дрол",
             "star": "platinum",
@@ -42324,13 +42331,6 @@
             "value": 5330
           },
           {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 5314
-          },
-          {
             "id": "specimen_ad_06",
             "name": "Биоеж",
             "star": "platinum",
@@ -42345,25 +42345,11 @@
             "value": 5284
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 5244
-          },
-          {
             "id": "specimen_fb_10",
             "name": "Иггдрасиль",
             "star": "platinum",
             "icon": "/textures_by_mutant/fb_10/specimen_fb_10_platinum.webp",
             "value": 5234
-          },
-          {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 5226
           },
           {
             "id": "specimen_ea_15",
@@ -42471,6 +42457,13 @@
             "value": 4990
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 4982
+          },
+          {
             "id": "specimen_fc_14",
             "name": "Вулкан",
             "star": "platinum",
@@ -42483,6 +42476,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_10/specimen_ad_10_platinum.webp",
             "value": 4954
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 4926
           },
           {
             "id": "specimen_dc_13",
@@ -42821,13 +42821,6 @@
             "value": 4497
           },
           {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 4494
-          },
-          {
             "id": "specimen_ea_11",
             "name": "Дредноут",
             "star": "normal",
@@ -42854,13 +42847,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_12/specimen_ca_12_platinum.webp",
             "value": 4468
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 4466
           },
           {
             "id": "specimen_de_05",
@@ -43024,11 +43010,11 @@
             "value": 4276
           },
           {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
+            "id": "specimen_fa_06",
+            "name": "Лили",
             "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 4272
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 4270
           },
           {
             "id": "specimen_ec_12",
@@ -43113,6 +43099,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
             "value": 4212
+          },
+          {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 4211
           },
           {
             "id": "specimen_ed_12",
@@ -43302,6 +43295,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/db_10/specimen_db_10_platinum.webp",
             "value": 4060
+          },
+          {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 4058
           },
           {
             "id": "specimen_db_09",
@@ -43549,13 +43549,6 @@
             "value": 3926
           },
           {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 3926
-          },
-          {
             "id": "specimen_fd_08",
             "name": "Омиками",
             "star": "platinum",
@@ -43624,13 +43617,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/aa_09/specimen_aa_09_platinum.webp",
             "value": 3876
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 3874
           },
           {
             "id": "specimen_eb_99",
@@ -43864,6 +43850,13 @@
             "value": 3731
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 3730
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -43969,6 +43962,13 @@
             "value": 3683
           },
           {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 3680
+          },
+          {
             "id": "specimen_ad_01",
             "name": "Жукобот",
             "star": "platinum",
@@ -44002,13 +44002,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_05/specimen_ba_05_platinum.webp",
             "value": 3668
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 3665
           },
           {
             "id": "specimen_ea_08",
@@ -44410,6 +44403,13 @@
             "value": 3466
           },
           {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 3455
+          },
+          {
             "id": "specimen_bc_05",
             "name": "Психопат с бензопилой",
             "star": "platinum",
@@ -44548,13 +44548,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/b_12/specimen_b_12_platinum.webp",
             "value": 3360
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 3350
           },
           {
             "id": "specimen_ed_13",
@@ -44835,6 +44828,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/e_13/specimen_e_13_platinum.webp",
             "value": 3170
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 3159
           },
           {
             "id": "specimen_ad_02",
@@ -45905,7 +45905,7 @@
             "name": "Зевс",
             "star": "gold",
             "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 1645
+            "value": 1551
           },
           {
             "id": "specimen_cf_14",
@@ -53785,11 +53785,25 @@
             "value": 20186
           },
           {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 17238
+          },
+          {
             "id": "specimen_bf_14",
             "name": "Иррадиация",
             "star": "platinum",
             "icon": "/textures_by_mutant/bf_14/specimen_bf_14_platinum.webp",
             "value": 17036
+          },
+          {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 16622
           },
           {
             "id": "specimen_ef_05",
@@ -53806,13 +53820,6 @@
             "value": 15788
           },
           {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 15670
-          },
-          {
             "id": "specimen_cd_14",
             "name": "Дон Гамберетти",
             "star": "platinum",
@@ -53825,13 +53832,6 @@
             "star": "normal",
             "icon": "/textures_by_mutant/be_15/specimen_be_15_normal.webp",
             "value": 15370
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 15108
           },
           {
             "id": "specimen_ed_14",
@@ -54184,6 +54184,13 @@
             "value": 11334
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 11294
+          },
+          {
             "id": "specimen_fe_99",
             "name": "Инженер",
             "star": "platinum",
@@ -54252,13 +54259,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/cc_09/specimen_cc_09_platinum.webp",
             "value": 11162
-          },
-          {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 11122
           },
           {
             "id": "specimen_aa_10",
@@ -54436,6 +54436,13 @@
             "value": 10390
           },
           {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 10388
+          },
+          {
             "id": "specimen_ba_06",
             "name": "Z-0",
             "star": "platinum",
@@ -54448,13 +54455,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ac_12/specimen_ac_12_platinum.webp",
             "value": 10304
-          },
-          {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 10264
           },
           {
             "id": "specimen_ff_99",
@@ -54511,6 +54511,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ac_07/specimen_ac_07_normal.webp",
             "value": 10015
+          },
+          {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 10008
           },
           {
             "id": "specimen_cd_05",
@@ -54707,13 +54714,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bb_05/specimen_bb_05_platinum.webp",
             "value": 9508
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 9447
           },
           {
             "id": "specimen_ca_99",
@@ -55045,6 +55045,13 @@
             "value": 8362
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 8354
+          },
+          {
             "id": "specimen_dd_02",
             "name": "Мастер Коготь",
             "star": "platinum",
@@ -55346,13 +55353,6 @@
             "value": 7606
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 7598
-          },
-          {
             "id": "specimen_da_13",
             "name": "Антробот-мечтатель",
             "star": "platinum",
@@ -55393,6 +55393,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ba_03/specimen_ba_03_platinum.webp",
             "value": 7488
+          },
+          {
+            "id": "specimen_ce_05",
+            "name": "Солнечный Герцог",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
+            "value": 7480
           },
           {
             "id": "specimen_bf_07",
@@ -55654,6 +55661,13 @@
             "value": 6896
           },
           {
+            "id": "specimen_fa_06",
+            "name": "Лили",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 6896
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -55708,13 +55722,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_09/specimen_ad_09_platinum.webp",
             "value": 6810
-          },
-          {
-            "id": "specimen_ce_05",
-            "name": "Солнечный Герцог",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ce_05/specimen_ce_05_normal.webp",
-            "value": 6797
           },
           {
             "id": "specimen_ad_14",
@@ -55969,13 +55976,6 @@
             "value": 6275
           },
           {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 6272
-          },
-          {
             "id": "specimen_f_13",
             "name": "Вяйнямёйнен",
             "star": "platinum",
@@ -56135,6 +56135,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
             "value": 6022
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 6020
           },
           {
             "id": "specimen_bd_02",
@@ -56380,13 +56387,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ee_10/specimen_ee_10_platinum.webp",
             "value": 5484
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 5474
           },
           {
             "id": "specimen_ed_02",
@@ -56669,6 +56669,13 @@
             "value": 4852
           },
           {
+            "id": "specimen_ec_06",
+            "name": "Зевс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+            "value": 4799
+          },
+          {
             "id": "specimen_cd_10",
             "name": "Страж Мен'ки",
             "star": "platinum",
@@ -56695,6 +56702,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_09/specimen_ea_09_platinum.webp",
             "value": 4680
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 4627
           },
           {
             "id": "specimen_ac_01",
@@ -56779,13 +56793,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/eb_04/specimen_eb_04_platinum.webp",
             "value": 4392
-          },
-          {
-            "id": "specimen_ec_06",
-            "name": "Зевс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 4361
           },
           {
             "id": "specimen_da_05",
@@ -56879,13 +56886,6 @@
             "value": 4236
           },
           {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 4204
-          },
-          {
             "id": "specimen_ab_06",
             "name": "Друзелла",
             "star": "platinum",
@@ -56926,6 +56926,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/fc_04/specimen_fc_04_normal.webp",
             "value": 4087
+          },
+          {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 4074
           },
           {
             "id": "specimen_fb_06",
@@ -57108,13 +57115,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_04/specimen_ea_04_platinum.webp",
             "value": 3728
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 3707
           },
           {
             "id": "specimen_ea_03",
@@ -58864,6 +58864,13 @@
             "value": 22097
           },
           {
+            "id": "specimen_bf_10",
+            "name": "Гробовщик",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+            "value": 21762
+          },
+          {
             "id": "specimen_cd_08",
             "name": "Дрол",
             "star": "platinum",
@@ -58906,13 +58913,6 @@
             "value": 20787
           },
           {
-            "id": "specimen_bf_10",
-            "name": "Гробовщик",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-            "value": 20725
-          },
-          {
             "id": "specimen_ad_06",
             "name": "Биоеж",
             "star": "platinum",
@@ -58927,25 +58927,11 @@
             "value": 20608
           },
           {
-            "id": "specimen_bd_07",
-            "name": "Древний",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-            "value": 20452
-          },
-          {
             "id": "specimen_fb_10",
             "name": "Иггдрасиль",
             "star": "platinum",
             "icon": "/textures_by_mutant/fb_10/specimen_fb_10_platinum.webp",
             "value": 20413
-          },
-          {
-            "id": "specimen_ef_02",
-            "name": "Мистер Икс",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-            "value": 20379
           },
           {
             "id": "specimen_ea_15",
@@ -59053,6 +59039,13 @@
             "value": 19461
           },
           {
+            "id": "specimen_bd_07",
+            "name": "Древний",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+            "value": 19430
+          },
+          {
             "id": "specimen_fc_14",
             "name": "Вулкан",
             "star": "platinum",
@@ -59065,6 +59058,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ad_10/specimen_ad_10_platinum.webp",
             "value": 19321
+          },
+          {
+            "id": "specimen_ef_02",
+            "name": "Мистер Икс",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+            "value": 19212
           },
           {
             "id": "specimen_dc_13",
@@ -59403,13 +59403,6 @@
             "value": 17538
           },
           {
-            "id": "specimen_fa_06",
-            "name": "Лили",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-            "value": 17527
-          },
-          {
             "id": "specimen_ea_11",
             "name": "Дредноут",
             "star": "normal",
@@ -59436,13 +59429,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_12/specimen_ca_12_platinum.webp",
             "value": 17425
-          },
-          {
-            "id": "specimen_ab_05",
-            "name": "Неоурбан XIII",
-            "star": "gold",
-            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-            "value": 17417
           },
           {
             "id": "specimen_de_05",
@@ -59606,11 +59592,11 @@
             "value": 16676
           },
           {
-            "id": "specimen_da_09",
-            "name": "Звубилла",
+            "id": "specimen_fa_06",
+            "name": "Лили",
             "star": "platinum",
-            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-            "value": 16661
+            "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+            "value": 16653
           },
           {
             "id": "specimen_ec_12",
@@ -59695,6 +59681,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
             "value": 16427
+          },
+          {
+            "id": "specimen_ab_05",
+            "name": "Неоурбан XIII",
+            "star": "gold",
+            "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+            "value": 16421
           },
           {
             "id": "specimen_ed_12",
@@ -59884,6 +59877,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/db_10/specimen_db_10_platinum.webp",
             "value": 15834
+          },
+          {
+            "id": "specimen_da_09",
+            "name": "Звубилла",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+            "value": 15826
           },
           {
             "id": "specimen_db_09",
@@ -60131,13 +60131,6 @@
             "value": 15311
           },
           {
-            "id": "specimen_eb_06",
-            "name": "Гарлог",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-            "value": 15311
-          },
-          {
             "id": "specimen_fd_08",
             "name": "Омиками",
             "star": "platinum",
@@ -60206,13 +60199,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/aa_09/specimen_aa_09_platinum.webp",
             "value": 15116
-          },
-          {
-            "id": "specimen_fc_09",
-            "name": "Гортхаур Жестокий",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-            "value": 15109
           },
           {
             "id": "specimen_eb_99",
@@ -60446,6 +60432,13 @@
             "value": 14551
           },
           {
+            "id": "specimen_eb_06",
+            "name": "Гарлог",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+            "value": 14547
+          },
+          {
             "id": "specimen_ef_09",
             "name": "Маг Ризафредд",
             "star": "platinum",
@@ -60551,6 +60544,13 @@
             "value": 14364
           },
           {
+            "id": "specimen_fc_09",
+            "name": "Гортхаур Жестокий",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+            "value": 14352
+          },
+          {
             "id": "specimen_ad_01",
             "name": "Жукобот",
             "star": "platinum",
@@ -60591,13 +60591,6 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ea_08/specimen_ea_08_normal.webp",
             "value": 14294
-          },
-          {
-            "id": "specimen_bf_04",
-            "name": "Император галактики",
-            "star": "gold",
-            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-            "value": 14292
           },
           {
             "id": "specimen_df_07",
@@ -60992,6 +60985,13 @@
             "value": 13517
           },
           {
+            "id": "specimen_bf_04",
+            "name": "Император галактики",
+            "star": "gold",
+            "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+            "value": 13473
+          },
+          {
             "id": "specimen_bc_05",
             "name": "Психопат с бензопилой",
             "star": "platinum",
@@ -61137,13 +61137,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ed_13/specimen_ed_13_platinum.webp",
             "value": 13065
-          },
-          {
-            "id": "specimen_dc_03",
-            "name": "Гаргантус",
-            "star": "gold",
-            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-            "value": 13063
           },
           {
             "id": "specimen_da_11",
@@ -61417,6 +61410,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/e_13/specimen_e_13_platinum.webp",
             "value": 12363
+          },
+          {
+            "id": "specimen_dc_03",
+            "name": "Гаргантус",
+            "star": "gold",
+            "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+            "value": 12319
           },
           {
             "id": "specimen_ad_02",
@@ -62487,7 +62487,7 @@
             "name": "Зевс",
             "star": "gold",
             "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-            "value": 6416
+            "value": 6047
           },
           {
             "id": "specimen_cf_14",
@@ -71081,6 +71081,14 @@
               "value": 4666
             },
             {
+              "id": "specimen_bd_07",
+              "name": "Древний",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
+              "pct": 55,
+              "value": 4594
+            },
+            {
               "id": "specimen_ba_09",
               "name": "Экскавалипсис",
               "star": "platinum",
@@ -71135,14 +71143,6 @@
               "icon": "/textures_by_mutant/b_05/specimen_b_05_platinum.webp",
               "pct": 60,
               "value": 4282
-            },
-            {
-              "id": "specimen_bd_07",
-              "name": "Древний",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_07/specimen_bd_07_normal.webp",
-              "pct": 55,
-              "value": 4178
             },
             {
               "id": "specimen_cf_08",
@@ -71345,6 +71345,14 @@
               "value": 3284
             },
             {
+              "id": "specimen_bf_04",
+              "name": "Император галактики",
+              "star": "gold",
+              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
+              "pct": 80,
+              "value": 3259
+            },
+            {
               "id": "specimen_cb_09",
               "name": "Пилатесса",
               "star": "platinum",
@@ -71439,14 +71447,6 @@
               "icon": "/textures_by_mutant/bc_05/specimen_bc_05_platinum.webp",
               "pct": 55,
               "value": 2998
-            },
-            {
-              "id": "specimen_bf_04",
-              "name": "Император галактики",
-              "star": "gold",
-              "icon": "/textures_by_mutant/bf_04/specimen_bf_04_normal.webp",
-              "pct": 80,
-              "value": 2965
             },
             {
               "id": "specimen_ba_07",
@@ -72453,12 +72453,12 @@
               "value": 4790
             },
             {
-              "id": "specimen_bf_10",
-              "name": "Гробовщик",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
-              "pct": 40,
-              "value": 4448
+              "id": "specimen_dc_03",
+              "name": "Гаргантус",
+              "star": "gold",
+              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
+              "pct": 75,
+              "value": 4515
             },
             {
               "id": "specimen_db_08",
@@ -72491,14 +72491,6 @@
               "icon": "/textures_by_mutant/de_04/specimen_de_04_platinum.webp",
               "pct": 35,
               "value": 4188
-            },
-            {
-              "id": "specimen_dc_03",
-              "name": "Гаргантус",
-              "star": "gold",
-              "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
-              "pct": 75,
-              "value": 4106
             },
             {
               "id": "specimen_fd_08",
@@ -72539,6 +72531,14 @@
               "icon": "/textures_by_mutant/bf_12/specimen_bf_12_platinum.webp",
               "pct": 50,
               "value": 4006
+            },
+            {
+              "id": "specimen_bf_10",
+              "name": "Гробовщик",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bf_10/specimen_bf_10_normal.webp",
+              "pct": 40,
+              "value": 4004
             },
             {
               "id": "specimen_cd_11",
@@ -73167,6 +73167,22 @@
               "value": 8992
             },
             {
+              "id": "specimen_da_09",
+              "name": "Звубилла",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
+              "pct": 30,
+              "value": 5172
+            },
+            {
+              "id": "specimen_eb_06",
+              "name": "Гарлог",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
+              "pct": 45,
+              "value": 5082
+            },
+            {
               "id": "specimen_fc_13",
               "name": "Король Авалона",
               "star": "platinum",
@@ -73175,28 +73191,12 @@
               "value": 5034
             },
             {
-              "id": "specimen_da_09",
-              "name": "Звубилла",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/da_09/specimen_da_09_normal.webp",
-              "pct": 30,
-              "value": 4702
-            },
-            {
               "id": "specimen_ae_07",
               "name": "Элфи",
               "star": "platinum",
               "icon": "/textures_by_mutant/ae_07/specimen_ae_07_platinum.webp",
               "pct": 40,
               "value": 4628
-            },
-            {
-              "id": "specimen_eb_06",
-              "name": "Гарлог",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
-              "pct": 45,
-              "value": 4618
             },
             {
               "id": "specimen_ce_13",
@@ -73271,6 +73271,14 @@
               "value": 3470
             },
             {
+              "id": "specimen_ab_05",
+              "name": "Неоурбан XIII",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
+              "pct": 33,
+              "value": 3428
+            },
+            {
               "id": "specimen_da_13",
               "name": "Антробот-мечтатель",
               "star": "platinum",
@@ -73325,14 +73333,6 @@
               "icon": "/textures_by_mutant/ee_09/specimen_ee_09_platinum.webp",
               "pct": 30,
               "value": 3162
-            },
-            {
-              "id": "specimen_ab_05",
-              "name": "Неоурбан XIII",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ab_05/specimen_ab_05_normal.webp",
-              "pct": 33,
-              "value": 3117
             },
             {
               "id": "specimen_ea_13",
@@ -73407,6 +73407,14 @@
               "value": 2801
             },
             {
+              "id": "specimen_ef_02",
+              "name": "Мистер Икс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
+              "pct": 60,
+              "value": 2776
+            },
+            {
               "id": "specimen_ed_99",
               "name": "Ктопи",
               "star": "normal",
@@ -73445,14 +73453,6 @@
               "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
               "pct": 40,
               "value": 2546
-            },
-            {
-              "id": "specimen_ef_02",
-              "name": "Мистер Икс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ef_02/specimen_ef_02_normal.webp",
-              "pct": 60,
-              "value": 2522
             },
             {
               "id": "specimen_ec_10",
@@ -73647,6 +73647,14 @@
               "value": 1956
             },
             {
+              "id": "specimen_ec_06",
+              "name": "Зевс",
+              "star": "gold",
+              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
+              "pct": 40,
+              "value": 1920
+            },
+            {
               "id": "specimen_ed_02",
               "name": "Черепозавр",
               "star": "platinum",
@@ -73677,14 +73685,6 @@
               "icon": "/textures_by_mutant/cc_12/specimen_cc_12_platinum.webp",
               "pct": 25,
               "value": 1824
-            },
-            {
-              "id": "specimen_ec_06",
-              "name": "Зевс",
-              "star": "gold",
-              "icon": "/textures_by_mutant/ec_06/specimen_ec_06_normal.webp",
-              "pct": 40,
-              "value": 1745
             },
             {
               "id": "specimen_cf_12",
@@ -73993,6 +73993,14 @@
               "value": 4246
             },
             {
+              "id": "specimen_fc_09",
+              "name": "Гортхаур Жестокий",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
+              "pct": 25,
+              "value": 4156
+            },
+            {
               "id": "specimen_ba_12",
               "name": "Кр€з",
               "star": "platinum",
@@ -74015,14 +74023,6 @@
               "icon": "/textures_by_mutant/ff_99/specimen_ff_99_normal.webp",
               "pct": 37,
               "value": 3797
-            },
-            {
-              "id": "specimen_fc_09",
-              "name": "Гортхаур Жестокий",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fc_09/specimen_fc_09_normal.webp",
-              "pct": 25,
-              "value": 3778
             },
             {
               "id": "specimen_bb_12",
@@ -74113,6 +74113,14 @@
               "value": 3164
             },
             {
+              "id": "specimen_fa_06",
+              "name": "Лили",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
+              "pct": 45,
+              "value": 3104
+            },
+            {
               "id": "specimen_fe_08",
               "name": "Маджин Зам",
               "star": "platinum",
@@ -74127,14 +74135,6 @@
               "icon": "/textures_by_mutant/bc_08/specimen_bc_08_platinum.webp",
               "pct": 25,
               "value": 2890
-            },
-            {
-              "id": "specimen_fa_06",
-              "name": "Лили",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/fa_06/specimen_fa_06_normal.webp",
-              "pct": 45,
-              "value": 2822
             },
             {
               "id": "specimen_dd_15",
