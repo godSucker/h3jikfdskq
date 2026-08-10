@@ -27,7 +27,8 @@
     "id": "Material_Halloween_Soul",
     "name": "Потерянная душа",
     "description": "Душа мутанта. Можно обменять у Торговца душами.",
-    "texture": "/materials/Material_Halloween_Soul.png"
+    "texture": "/materials/Material_Halloween_Soul.png",
+    "eventDate": "2018-10"
   },
   {
     "id": "Material_Love_Token",
@@ -40,43 +41,50 @@
     "id": "Material_Easter_2019_Chocobase",
     "name": "Chocobase",
     "description": "Маленькая шоколадная конфета. Можно использовать, чтобы получить немного опыта, или рафинировать в Черной дыре и получить продвинутый шоколад.",
-    "texture": "/materials/Material_Easter_2019_Chocobase.png"
+    "texture": "/materials/Material_Easter_2019_Chocobase.png",
+    "eventDate": "2019-04"
   },
   {
     "id": "Material_Easter_2019_Chocoplus",
     "name": "Chocoplus",
     "description": "Продвинутый шоколад. Можно использовать, чтобы получить хорошее количество опыта, или еще больше рафинировать его в Черной дыре.",
-    "texture": "/materials/Material_Easter_2019_Chocoplus.png"
+    "texture": "/materials/Material_Easter_2019_Chocoplus.png",
+    "eventDate": "2019-04"
   },
   {
     "id": "Material_Easter_2019_Chocomax",
     "name": "Chocomax",
     "description": "Лучший шоколад. Можно использовать, чтобы получить много опыта, или обменять в Обменном пункте.",
-    "texture": "/materials/Material_Easter_2019_Chocomax.png"
+    "texture": "/materials/Material_Easter_2019_Chocomax.png",
+    "eventDate": "2019-04"
   },
   {
     "id": "Material_Dark_Matter",
     "name": "Осколок темной материи",
     "description": "Стабильный осколок странного черного-фиолетового кристалла. Возможно, они связаны с текущими событиями?",
-    "texture": "/materials/Material_Dark_Matter.png"
+    "texture": "/materials/Material_Dark_Matter.png",
+    "eventDate": "2019-08"
   },
   {
     "id": "Material_Antimatter",
     "name": "Осколок антиматерии",
     "description": "Осторожно! Может рвануть!",
-    "texture": "/materials/Material_Antimatter.png"
+    "texture": "/materials/Material_Antimatter.png",
+    "eventDate": "2019-08"
   },
   {
     "id": "Material_Winter_Orange",
     "name": "Апельсин",
     "description": "Подарок, который можно получить, выполнив задания Рождественского события.",
-    "texture": "/materials/Material_Winter_Orange.png"
+    "texture": "/materials/Material_Winter_Orange.png",
+    "eventDate": "2019-12"
   },
   {
     "id": "Material_Winter_Coal",
     "name": "Уголь",
     "description": "Жетон на новый год",
-    "texture": "/materials/Material_Winter_Coal.png"
+    "texture": "/materials/Material_Winter_Coal.png",
+    "eventDate": "2019-12"
   },
   {
     "id": "Material_Plague_Token",
@@ -331,7 +339,8 @@
     "id": "Material_Banshee_Veil",
     "name": "Фрагмент вуали",
     "description": "Кусок призрачной материи.",
-    "texture": "/materials/Material_Banshee_Veil.png"
+    "texture": "/materials/Material_Banshee_Veil.png",
+    "eventDate": "2019-10"
   },
   {
     "id": "Material_Winter_Snowball",
@@ -349,37 +358,43 @@
     "id": "Material_Easter_Egg_Bronze",
     "name": "Бронзовое яйцо",
     "description": "Что же внутри?",
-    "texture": "/materials/Material_Easter_Egg_Bronze.png"
+    "texture": "/materials/Material_Easter_Egg_Bronze.png",
+    "eventDate": "2018-04"
   },
   {
     "id": "Material_Easter_Egg_Silver",
     "name": "Серебряное яйцо",
     "description": "Что же внутри?",
-    "texture": "/materials/Material_Easter_Egg_Silver.png"
+    "texture": "/materials/Material_Easter_Egg_Silver.png",
+    "eventDate": "2018-04"
   },
   {
     "id": "Material_Easter_Egg_Basic",
     "name": "Базовое яйцо",
     "description": "Что же внутри?",
-    "texture": "/materials/Material_Easter_Egg_Basic.png"
+    "texture": "/materials/Material_Easter_Egg_Basic.png",
+    "eventDate": "2018-04"
   },
   {
     "id": "Material_Easter_Egg_Gold",
     "name": "Золотое яйцо",
     "description": "Что же внутри?",
-    "texture": "/materials/Material_Easter_Egg_Gold.png"
+    "texture": "/materials/Material_Easter_Egg_Gold.png",
+    "eventDate": "2018-04"
   },
   {
     "id": "Material_Easter_Egg_Platinum",
     "name": "Платиновое яйцо",
     "description": "Что же внутри?",
-    "texture": "/materials/Material_Easter_Egg_Platinum.png"
+    "texture": "/materials/Material_Easter_Egg_Platinum.png",
+    "eventDate": "2018-04"
   },
   {
     "id": "Material_Claiomh_Solais",
     "name": "Клив-Солаш",
     "description": "Клив-Солаш",
-    "texture": "/materials/Material_Claiomh_Solais.png"
+    "texture": "/materials/Material_Claiomh_Solais.png",
+    "eventDate": "2019-10"
   },
   {
     "id": "Material_Hallowen_Nightmare",

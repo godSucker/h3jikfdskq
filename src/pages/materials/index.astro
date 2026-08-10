@@ -88,23 +88,41 @@ const EVERGREEN_TOKEN_IDS = new Set([
   'Material_Gacha_Token',
   'Material_Event_Token',
 ]);
-function isTokenRow(row: { id: string; name: string }) {
-  return /token/i.test(row.id) || /жетон|токен/i.test(row.name);
-}
-function sortTokensChronologically<T extends { id: string; name: string; eventDate?: string }>(
+// Раньше в хронологический порядок сортировались только "жетоны" (по id/
+// названию), а обычные ивентовые материалы (яйца, души, осколки и т.п.)
+// вообще не трогались и просто лежали в исходном порядке material.json -
+// отсюда жалоба "Хэллоуин 2018 -> Пасха 2019 -> ДР игры -> Рождество ->
+// Хэллоуин 2019 вперемешку". Плюс часть реально событийных жетонов
+// (преордеры, Хэллоуин 2018) никогда не имела eventDate и падала в один
+// хвост с жетонами, которые к ивентам вообще не относятся (кроссовер TCG,
+// рейды, жетон без источника). Источник правды по событийности -
+// sources.json (type: "event"), а не наличие даты в material.json.
+function sortByEventChronology<T extends { id: string; name: string; eventDate?: string }>(
   rows: T[],
-): T[] {
-  const tokenRows: T[] = [];
-  const rest: T[] = [];
-  for (const row of rows) {
-    (isTokenRow(row) ? tokenRows : rest).push(row);
-  }
-  const evergreen = tokenRows.filter((r) => EVERGREEN_TOKEN_IDS.has(r.id));
-  const seasonal = tokenRows.filter((r) => !EVERGREEN_TOKEN_IDS.has(r.id) && r.eventDate);
-  const undated = tokenRows.filter((r) => !EVERGREEN_TOKEN_IDS.has(r.id) && !r.eventDate);
-  seasonal.sort((a, b) => (b.eventDate as string).localeCompare(a.eventDate as string)); // новые сверху
-  undated.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
-  return [...evergreen, ...seasonal, ...undated, ...rest];
+  sourcesMap: Record<string, SourceEntry[]>,
+): (T & { group?: string })[] {
+  const isEventSourced = (id: string) => (sourcesMap[id] || []).some((s) => s.type === 'event');
+
+  const evergreen = rows.filter((r) => EVERGREEN_TOKEN_IDS.has(r.id));
+  const eventRows = rows.filter(
+    (r) => !EVERGREEN_TOKEN_IDS.has(r.id) && (r.eventDate || isEventSourced(r.id)),
+  );
+  const rest = rows.filter(
+    (r) => !EVERGREEN_TOKEN_IDS.has(r.id) && !r.eventDate && !isEventSourced(r.id),
+  );
+
+  const eventDated = eventRows.filter((r) => r.eventDate);
+  const eventUndated = eventRows.filter((r) => !r.eventDate);
+  eventDated.sort((a, b) => (b.eventDate as string).localeCompare(a.eventDate as string)); // новые сверху
+  eventUndated.sort((a, b) => a.name.localeCompare(b.name, 'ru')); // дата неизвестна - честно алфавитом
+
+  const eventGroup = [...eventDated, ...eventUndated].map((r) => ({ ...r, group: 'Ивентовые' }));
+  // rest обязан получить свой group-лейбл, иначе молча "утечёт" под заголовок
+  // eventGroup - у group-header в MaterialsTable нет закрывающего маркера,
+  // он рисуется только когда встречается НОВОЕ truthy-значение group.
+  const restGroup = rest.map((r) => ({ ...r, group: 'Материалы' }));
+
+  return [...evergreen, ...eventGroup, ...restGroup];
 }
 
 function formatBingoTitle(title: string, id: string) {
@@ -140,11 +158,11 @@ const buildingSources: Record<string, SourceEntry[]> = {};
       const title = formatBingoTitle(bingo.title, bingo.id);
       
       // Avoid duplicates
-      if (!buildingSources[targetId].some(s => s.link === `/bingo?id=${bingo.id}`)) {
+      if (!buildingSources[targetId].some(s => s.link === `/bingo?board=${bingo.id}`)) {
         buildingSources[targetId].push({
           type: 'bingo',
           where: title,
-          link: `/bingo?id=${bingo.id}`
+          link: `/bingo?board=${bingo.id}`
         });
       }
     }
@@ -163,8 +181,9 @@ const orbsData = (Array.isArray(orbsDataRaw) ? orbsDataRaw : []).filter((o) => {
   return id && !id.includes('ephemeral');
 });
 
-const materialsRows = sortTokensChronologically(
+const materialsRows = sortByEventChronology(
   (Array.isArray(materialData) ? materialData : []).map(normRow),
+  sourcesMapMerged,
 );
 const charmsRows    = (Array.isArray(charmsData) ? charmsData : []).map(normRow);
 const orbsRows      = (Array.isArray(orbsData) ? orbsData : []).map(normRow);
