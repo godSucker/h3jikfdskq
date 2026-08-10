@@ -351,6 +351,18 @@
       "where": "Хэллоуин 2019"
     }
   ],
+  "Material_Winter_Snowball": [
+    {
+      "type": "event",
+      "where": "Зимний ивент (точный год неизвестен)"
+    }
+  ],
+  "Material_Hallowen_Nightmare": [
+    {
+      "type": "event",
+      "where": "Хэллоуин (точный год неизвестен)"
+    }
+  ],
   "Daily_Token": [
     {
       "type": "other",

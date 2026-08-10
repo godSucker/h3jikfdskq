@@ -97,11 +97,31 @@ const EVERGREEN_TOKEN_IDS = new Set([
 // хвост с жетонами, которые к ивентам вообще не относятся (кроссовер TCG,
 // рейды, жетон без источника). Источник правды по событийности -
 // sources.json (type: "event"), а не наличие даты в material.json.
+// Преордер-жетоны формально помечены type:"event" в sources.json (см.
+// комментарий выше), но это бонус за предзаказ конкретного мутанта, а не
+// сезонный календарный ивент - юзер явно попросил (2026-08-11) держать их
+// вне "Ивентовых", вместе с жетоном корги (кроссовер TCG) и Мутенштейн
+// жетоном (награда рейдов).
+const FORCE_NON_EVENT_IDS = new Set([
+  'Material_Preorder_Token', // Жетон Сержанта Сумерки
+  'Preorder_Token_DE_10_gold', // Жетон «Золотой Безумный Майк»
+]);
+// Эти 4 не-событийных жетона юзер попросил держать вместе сразу под
+// эвергрин-блоком (после "Жетон испытаний"), перед "Ивентовые" - не внутри
+// группы "Материалы" внизу (2026-08-11).
+const PINNED_TOP_NON_EVENT_IDS = [
+  'Material_Mutenstein_Token', // Мутенштейн жетон
+  'Preorder_Token_DE_10_gold', // Жетон «Золотой Безумный Майк»
+  'Material_Preorder_Token', // Жетон Сержанта Сумерки
+  'Material_Tcg_Corgi_Token', // Жетон корги
+];
+
 function sortByEventChronology<T extends { id: string; name: string; eventDate?: string }>(
   rows: T[],
   sourcesMap: Record<string, SourceEntry[]>,
 ): (T & { group?: string })[] {
-  const isEventSourced = (id: string) => (sourcesMap[id] || []).some((s) => s.type === 'event');
+  const isEventSourced = (id: string) =>
+    !FORCE_NON_EVENT_IDS.has(id) && (sourcesMap[id] || []).some((s) => s.type === 'event');
 
   const evergreen = rows.filter((r) => EVERGREEN_TOKEN_IDS.has(r.id));
   const eventRows = rows.filter(
@@ -117,12 +137,19 @@ function sortByEventChronology<T extends { id: string; name: string; eventDate?:
   eventUndated.sort((a, b) => a.name.localeCompare(b.name, 'ru')); // дата неизвестна - честно алфавитом
 
   const eventGroup = [...eventDated, ...eventUndated].map((r) => ({ ...r, group: 'Ивентовые' }));
+
+  // Без group-лейбла - визуально продолжают эвергрин-блок сверху (без
+  // заголовка), а не отдельная секция и не часть "Материалы" внизу.
+  const pinned = PINNED_TOP_NON_EVENT_IDS.map((id) => rest.find((r) => r.id === id)).filter(
+    (r): r is T => Boolean(r),
+  );
+  const restRemainder = rest.filter((r) => !PINNED_TOP_NON_EVENT_IDS.includes(r.id));
   // rest обязан получить свой group-лейбл, иначе молча "утечёт" под заголовок
   // eventGroup - у group-header в MaterialsTable нет закрывающего маркера,
   // он рисуется только когда встречается НОВОЕ truthy-значение group.
-  const restGroup = rest.map((r) => ({ ...r, group: 'Материалы' }));
+  const restGroup = restRemainder.map((r) => ({ ...r, group: 'Материалы' }));
 
-  return [...evergreen, ...eventGroup, ...restGroup];
+  return [...evergreen, ...pinned, ...eventGroup, ...restGroup];
 }
 
 function formatBingoTitle(title: string, id: string) {
