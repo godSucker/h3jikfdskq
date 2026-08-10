@@ -761,6 +761,22 @@ export const POST: APIRoute = async ({ request }) => {
     })
   }
 
+  // Секрет выше подтверждает только что запрос реально от Telegram - он не
+  // говорит, КТО написал. Бот сидит в групповом чате с несколькими людьми,
+  // и без этой проверки любой в чате мог выполнить .тир/.анонс/.сфера/
+  // /yandex//payments и т.п. (см. код-ревью 2026-08-11). Fail-closed по
+  // тому же принципу, что и WEBHOOK_SECRET выше - если allowlist не
+  // сконфигурирован, эндпоинт не работает, а не тихо пускает всех.
+  const ALLOWED_USER_ID = import.meta.env.TELEGRAM_ALLOWED_USER_ID
+  const ALLOWED_CHAT_ID = import.meta.env.TELEGRAM_ALLOWED_CHAT_ID
+  if (!ALLOWED_USER_ID && !ALLOWED_CHAT_ID) {
+    console.error('TELEGRAM_ALLOWED_USER_ID/TELEGRAM_ALLOWED_CHAT_ID is not configured — webhook disabled')
+    return new Response(JSON.stringify({ error: 'Webhook not configured' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
   let chatId: number | string | null = null
 
   try {
@@ -768,7 +784,23 @@ export const POST: APIRoute = async ({ request }) => {
     const body = JSON.parse(rawBody)
 
     chatId = body.message?.chat?.id ?? null
+    const fromId = body.message?.from?.id ?? null
     const text: string = body.message?.text ?? ''
+
+    const chatIdStr = chatId != null ? String(chatId) : null
+    const fromIdStr = fromId != null ? String(fromId) : null
+    const isAllowedSender =
+      (fromIdStr != null && fromIdStr === ALLOWED_USER_ID) ||
+      (chatIdStr != null && chatIdStr === ALLOWED_CHAT_ID)
+    if (!isAllowedSender) {
+      console.warn(`Webhook: неразрешённый отправитель chat=${chatIdStr} from=${fromIdStr}`)
+      // 200, не 403 - подтверждаем получение Telegram'у (иначе будет ретраить),
+      // но команду молча игнорируем.
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
 
     if (chatId != null && BOT_TOKEN) {
       if (text === '/start' || text === '/menu') {
