@@ -19,9 +19,4 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          curl -sf -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d parse_mode="Markdown" \
-            --data-urlencode text="🧪 *Тестовое саммери*
-Это ручная проверка пути доставки notifyRunSummary() (задача 9). Если сообщение дошло — секреты и API-вызов рабочие, реальная тишина в последних прогонах объясняется просто отсутствием новых записей." \
-            && echo "OK: sendMessage succeeded"
+          curl -sf -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" -d chat_id="${TELEGRAM_CHAT_ID}" -d parse_mode="Markdown" --data-urlencode "text=🧪 *Тестовое саммери* — ручная проверка пути доставки notifyRunSummary() (задача 9). Если дошло — секреты и API-вызов рабочие, тишина в прогонах объясняется просто отсутствием новых записей." && echo "OK: sendMessage succeeded"
