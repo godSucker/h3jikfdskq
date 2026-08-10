@@ -173,6 +173,7 @@
   const CRIT_SPHERE_LEVELS = CRIT_SPHERE_PERCENTS.map((percent, level) => ({
     level,
     percent,
+    icon: `/orbs/basic/orb_basic_critical${level === 0 ? '' : `_0${level}`}.webp`,
     oneSphere: critChance(percent),
     twoSpheres: critChance(percent * 2),
     twoSpheresBoosted: critChance(CRIT_BOOST_NET + percent * 2),
@@ -744,9 +745,8 @@
         шанс крита = 5% × (100 + бустеры<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" /></sub> + бустеры<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" /></sub> + сферы<sub>крит</sub>) / 100
       </div>
       <p>
-        Сферы крит шанса с 0 по 7 уровень дают <strong>2 → 5 → 11 → 13 → 15 → 17 → 18 → 19%</strong> и
-        бустят именно <strong>шанс</strong> крита, а не урон от него — в ру локализации написано иначе, и
-        это опечатка локализаторов.
+        Сферы крит шанса бустят именно <strong>шанс</strong> крита, а не урон от него — в ру локализации
+        написано иначе, и это опечатка локализаторов.
       </p>
       <p class="crit-booster-line">
         Бустер крита даёт +50% получаемого шанса. Антикрит-бустер — −75% получаемого шанса.
@@ -771,7 +771,10 @@
           <tbody>
             {#each CRIT_SPHERE_LEVELS as row (row.level)}
               <tr>
-                <th>{row.level}</th>
+                <th class="sphere-level-cell">
+                  <img src={textureUrl(row.icon)} alt="" class="sphere-level-icon" loading="lazy" decoding="async" />
+                  {row.level}
+                </th>
                 <td>+{row.percent}%</td>
                 <td>{row.oneSphere}%</td>
                 <td>{row.twoSpheres}%</td>
@@ -1118,6 +1121,11 @@
   .type-table td.neg { color: #fca5a5; font-weight: 600; }
   .type-table td.neutral { color: #64748b; }
   .type-table th.corner { color: #64748b; font-weight: 500; font-size: 0.75rem; }
+  .type-table th.sphere-level-cell { display: flex; align-items: center; justify-content: flex-start; gap: 0.4rem; }
+  .sphere-level-icon {
+    width: 1.5em; height: 1.5em; object-fit: contain; vertical-align: middle;
+    border-radius: 0.2rem; background: rgba(255,255,255,0.06); flex-shrink: 0;
+  }
 
   .numbers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(13.75rem, 1fr)); gap: 0.85rem; margin: 0 0 1.25rem; }
   .number-card { border-radius: 10px; padding: 0.9rem 1rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.07); }

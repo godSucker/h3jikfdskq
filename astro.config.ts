@@ -49,8 +49,12 @@ export default defineConfig({
         ignored: [
           '**/.venv_orb/**',
           '**/.venv/**',
+          '**/venv/**',
           '**/node_modules/**',
           '**/textures_by_mutant/**',
+          '**/.vercel/**',
+          '**/dist/**',
+          '**/.git/**',
           '**/*.webp',
           '**/*.png',
           '**/*.jpg',
