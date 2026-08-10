@@ -132,6 +132,27 @@ function matchesOffspringGenes(childGenes: string, possibleOffspring: string[]):
   return possibleOffspring.includes(normalized)
 }
 
+// Вынесено на уровень модуля из calculateBreeding, чтобы findParentsFor
+// (реверс-поиск родителей) считал вес КАНДИДАТА той же самой формулой -
+// раньше у findParentsFor не было доступа к этой логике и он аппроксимировал
+// через один "представительный" вызов calculateBreeding на всю категорию
+// генов, что давало неточный знаменатель (см. STEP 5 ниже и комментарий у
+// probCache в findParentsFor).
+function computeCandidateWeight(
+  m: Mutant,
+  lo: { one: number; two: number },
+  buildingLevel: BuildingLevel,
+): number {
+  const multiplier = getWeightMultiplier(getGeneStr(m.genes), lo)
+  if (multiplier <= 0) return 0
+  const isRecipeType = (m.type || '').toLowerCase() === 'recipe'
+  const baseChance = Number(m.chance) || 0
+  const levelBonus = isRecipeType
+    ? LEVEL_BONUS_ODDS[buildingLevel] + LEVEL_BONUS_ODDS_RECIPE[buildingLevel]
+    : LEVEL_BONUS_ODDS[buildingLevel]
+  return (baseChance + levelBonus) * multiplier
+}
+
 // --- 6. Main Breeding Calculator ---
 
 export function calculateBreeding(
@@ -202,14 +223,7 @@ export function calculateBreeding(
   const lo = getLengthOut(p1Genes, p2Genes)
 
   function computeWeight(m: Mutant): number {
-    const multiplier = getWeightMultiplier(getGeneStr(m.genes), lo)
-    if (multiplier <= 0) return 0
-    const isRecipeType = (m.type || '').toLowerCase() === 'recipe'
-    const baseChance = Number(m.chance) || 0
-    const levelBonus = isRecipeType
-      ? LEVEL_BONUS_ODDS[buildingLevel] + LEVEL_BONUS_ODDS_RECIPE[buildingLevel]
-      : LEVEL_BONUS_ODDS[buildingLevel]
-    return (baseChance + levelBonus) * multiplier
+    return computeCandidateWeight(m, lo, buildingLevel)
   }
 
   // ========================================
@@ -415,19 +429,89 @@ export function findParentsFor(
 
   const needsInheritance = !canBreedByType(target, 'none', 'none')
 
-  const probCache = new Map<string, number>()
-  for (const [c1, c2] of validCategoryPairs) {
-    const group1 = byGeneCode.get(c1)!
-    const group2 = c1 === c2 ? group1 : byGeneCode.get(c2)!
-    const pickRep = (group: Mutant[]) =>
-      needsInheritance
-        ? (group.find((m) => m.id === tId) ?? group[0])
-        : (group.find((m) => m.id !== tId) ?? group[0])
-    const rep1 = pickRep(group1)
-    const rep2 = pickRep(group2)
-    const res = calculateBreeding(rep1, rep2, allMutants, buildingLevel, star1, star2)
-    const match = res.find((r) => normalizeName(r.child.name) === tName)
-    probCache.set(`${c1}|${c2}`, match ? match.probability : 0)
+  // Раньше здесь брали ОДНУ "представительную" пару родителей на всю
+  // категорию генов (c1,c2) и её вероятность (из calculateBreeding)
+  // применяли ко ВСЕМ реальным парам в этой категории. Баг: totalWeight
+  // (знаменатель) в calculateBreeding зависит не только от категории, а и
+  // от КОНКРЕТНЫХ p1/p2 - heroic/pvp-мутанты и легендарки не из
+  // BREEDABLE_LEGENDS допускаются в пул кандидатов-потомков, только когда
+  // сами являются одним из родителей (canBreedByType, правило "пара
+  // возвращает себя"). У разных конкретных пар внутри одной категории этот
+  // "самодопуск" разный - представительная пара давала неточный (до ×1.5)
+  // результат. Найдено код-ревью 2026-08-11.
+  //
+  // Фикс: totalWeight(p1,p2) = baseWeight(c1,c2) [не зависит от конкретных
+  // p1/p2 - вес "всегда доступных" кандидатов, кэшируется по категории один
+  // раз через canBreedByType(m,'none','none') - сентинел-id никогда не
+  // совпадёт с реальным родителем, поэтому proходят только обычные типы и
+  // BREEDABLE_LEGENDS] + extraWeightIfParent(p1) + extraWeightIfParent(p2)
+  // [добавка от самодопуска, если p1/p2 сам special-type и подходит по
+  // генам - O(1) на родителя]. Даёт точный результат за тот же проход по
+  // allMutants на категорию, что и раньше - без пересчёта calculateBreeding
+  // на каждую из потенциально десятков тысяч конкретных пар.
+  interface CategoryPool {
+    possibleOffspring: string[]
+    lo: { one: number; two: number }
+    targetWeight: number
+    baseWeight: number
+  }
+  const poolCache = new Map<string, CategoryPool>()
+  function getCategoryPool(c1: string, c2: string): CategoryPool {
+    const key = `${c1}|${c2}`
+    const cached = poolCache.get(key)
+    if (cached) return cached
+
+    const possibleOffspring = calculatePossibleOffspring(c1, c2)
+    const lo = getLengthOut(c1, c2)
+    const targetWeight = matchesOffspringGenes(tGenes, possibleOffspring)
+      ? computeCandidateWeight(target, lo, buildingLevel)
+      : 0
+
+    let baseWeight = 0
+    for (const m of allMutants) {
+      if (!matchesOffspringGenes(getGeneStr(m.genes), possibleOffspring)) continue
+      if (!canBreedByType(m, 'none', 'none')) continue
+      baseWeight += computeCandidateWeight(m, lo, buildingLevel)
+    }
+
+    const pool: CategoryPool = { possibleOffspring, lo, targetWeight, baseWeight }
+    poolCache.set(key, pool)
+    return pool
+  }
+
+  function extraWeightIfParent(p: Mutant, pool: CategoryPool): number {
+    if (!matchesOffspringGenes(getGeneStr(p.genes), pool.possibleOffspring)) return 0
+    if (canBreedByType(p, 'none', 'none')) return 0 // уже учтён в baseWeight
+    if (!canBreedByType(p, p.id, p.id)) return 0 // не допускается даже как свой родитель
+    return computeCandidateWeight(p, pool.lo, buildingLevel)
+  }
+
+  // Секретный ребёнок делит один пул вероятностей с обычными кандидатами
+  // ТОЙ КОНКРЕТНОЙ пары родителей, что указана в secretCombos (см. STEP 1 в
+  // calculateBreeding) - если случайная пара (p1,p2), рассматриваемая здесь
+  // для СОВСЕМ ДРУГОЙ цели, совпадает с чьей-то секретной комбинацией, её
+  // totalWeight в реальности больше на вес этого секретного ребёнка. baseWeight/
+  // extraWeightIfParent выше этого не ловят (это не про категорию генов и не
+  // про тип p1/p2, а про точное совпадение конкретной пары) - секретов мало
+  // (~20), считаем отдельной map по паре id, без изменения асимптотики.
+  // Обнаружено верификацией фикса 2026-08-11 (пара Драконежить×Рептоид - и
+  // валидные родители для "Киска Кайдзю", и секретная пара для "Страхолюдочка").
+  const secretPairExtraWeight = new Map<string, number>()
+  for (const combo of secretCombos) {
+    const sp1 = allMutants.find((m) => normalizeName(m.name) === normalizeName(combo.parents[0]))
+    const sp2 = allMutants.find((m) => normalizeName(m.name) === normalizeName(combo.parents[1]))
+    const schild = allMutants.find(
+      (m) => normalizeName(m.name) === normalizeName(combo.childName),
+    )
+    if (!sp1 || !sp2 || !schild) continue
+    const lo = getLengthOut(getGeneStr(sp1.genes), getGeneStr(sp2.genes))
+    const w = computeCandidateWeight(schild, lo, buildingLevel)
+    if (w <= 0) continue
+    const key = [sp1.id, sp2.id].sort().join('|')
+    secretPairExtraWeight.set(key, (secretPairExtraWeight.get(key) ?? 0) + w)
+  }
+  function secretExtraWeight(p1: Mutant, p2: Mutant): number {
+    return secretPairExtraWeight.get([p1.id, p2.id].sort().join('|')) ?? 0
   }
 
   const results: ParentPair[] = []
@@ -444,19 +528,45 @@ export function findParentsFor(
   }
 
   for (const [c1, c2] of validCategoryPairs) {
-    const catProb = probCache.get(`${c1}|${c2}`) ?? 0
-    if (catProb <= 0) continue
+    const pool = getCategoryPool(c1, c2)
+    if (pool.targetWeight <= 0) continue
 
     const group1 = byGeneCode.get(c1)!
     const group2 = c1 === c2 ? group1 : byGeneCode.get(c2)!
+
+    // extraWeight считается один раз НА МУТАНТА (не на пару) - иначе
+    // внутренний двойной цикл станет на порядок дороже без выигрыша в
+    // точности (extraWeightIfParent не зависит от второго родителя).
+    const extra1 = new Map<string, number>()
+    for (const p1 of group1) extra1.set(p1.id, extraWeightIfParent(p1, pool))
+    const extra2 =
+      c1 === c2
+        ? extra1
+        : new Map(group2.map((p2) => [p2.id, extraWeightIfParent(p2, pool)] as const))
 
     for (const p1 of group1) {
       if (!canBeStarParent(p1, star1, star2)) continue
       for (const p2 of group2) {
         if (!canBeStarParent(p2, star1, star2)) continue
         if (needsInheritance && p1.id !== target.id && p2.id !== target.id) continue
-        if (p1.id > p2.id) continue
-        const prob = p1.id === p2.id ? getSelfBreedProb(p1) : catProb
+        // Дедуп-guard нужен только внутри одной категории (c1===c2) -
+        // когда категории разные, validCategoryPairs уже перечисляет каждую
+        // пару категорий ровно один раз (i<=j при построении), и здесь
+        // фильтровать нечего - раньше guard был безусловным и совпадал с
+        // верным поведением только благодаря случайности (id кодирует
+        // ген-код в текущих данных), см. код-ревью 2026-08-11.
+        if (c1 === c2 && p1.id > p2.id) continue
+        const totalWeight =
+          pool.baseWeight +
+          (extra1.get(p1.id) ?? 0) +
+          (extra2.get(p2.id) ?? 0) +
+          secretExtraWeight(p1, p2)
+        const prob =
+          p1.id === p2.id
+            ? getSelfBreedProb(p1)
+            : totalWeight > 0
+              ? (pool.targetWeight / totalWeight) * 100
+              : 0
         if (prob <= 0) continue
         results.push({
           p1,
