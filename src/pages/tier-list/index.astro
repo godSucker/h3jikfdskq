@@ -4,11 +4,22 @@ export const prerender = true
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import TierList from '@/components/TierList.svelte'
 import mutants from '@/data/mutants/mutants.json'
+import tierMeta from '@/data/mutants/tier-updated-at.json'
 
-// Тиры живут прямо в mutants.json (поле `tier`), их обновляет телеграм-вебхук
-// (src/pages/api/telegram-webhook.ts -> tier-parser.js). Прежний источник
-// mut_tier.xlsx удалён, его данные разово перенесены в mutants.json.
+// Тиры живут прямо в mutants.json (поле `tier`); писать их может и
+// телеграм-вебхук (src/pages/api/telegram-webhook.ts -> tier-parser.js), и
+// редактор на превью-ветке (кнопка публикации в mutants.json на main) - оба
+// пути обновляют tier-updated-at.json той же коммитной операцией, так что
+// дата на странице не зависит от того, кто именно правил тиры последним.
 const tieredMutants = mutants.filter((m) => m.name && String(m.tier ?? '').trim())
+
+const tierUpdatedLabel = tierMeta.updatedAt
+  ? new Date(tierMeta.updatedAt).toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  : null
 ---
 
 <BaseLayout title="Тир-лист мутантов" description="Актуальный тир-лист мутантов MGG (Mutants Genetic Gladiators) от сообщества." fullWidth>
@@ -17,7 +28,7 @@ const tieredMutants = mutants.filter((m) => m.name && String(m.tier ?? '').trim(
       Тир-лист лучших мутантов в PvP
     </h1>
     <p class="text-xs text-slate-300">
-      Актуально на февраль 2026. Мутанты расположены по генам от Киборга до Мифика.
+      {tierUpdatedLabel && `Обновлено: ${tierUpdatedLabel} `}Мутанты расположены по генам от Киборга до Мифика.
     </p>
   </div>
 
