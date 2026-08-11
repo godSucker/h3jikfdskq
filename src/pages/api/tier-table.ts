@@ -68,6 +68,7 @@ async function putGithubJsonFile(
 }
 
 const MUTANTS_PATH = 'src/data/mutants/mutants.json'
+const TIER_UPDATED_AT_PATH = 'src/data/mutants/tier-updated-at.json'
 const MAIN_BRANCH = 'main'
 
 // Диф между текущим состоянием колонки "после" в таблице и живым mutants.json
@@ -180,6 +181,36 @@ export const POST: APIRoute = async ({ request }) => {
         JSON.stringify({ error: 'Коммит не прошёл (устаревший sha? перезагрузи страницу)' }),
         { status: 409 },
       )
+
+    // Best-effort: сами тиры уже опубликованы (главное дело сделано), метка
+    // даты на /tier-list - не критичный побочный эффект. Тот же файл, что
+    // обновляет телеграм-вебхук - оба писателя тиров держат её актуальной,
+    // иначе дата снова начнёт расходиться с реальностью (см. git-историю
+    // tier-list/index.astro - там и до этого была захардкожена).
+    try {
+      const stampFile = await fetchGithubJsonFile(
+        GITHUB_TOKEN,
+        REPO_OWNER,
+        REPO_NAME,
+        TIER_UPDATED_AT_PATH,
+        MAIN_BRANCH,
+      )
+      if (stampFile) {
+        await putGithubJsonFile(
+          GITHUB_TOKEN,
+          REPO_OWNER,
+          REPO_NAME,
+          TIER_UPDATED_AT_PATH,
+          stampFile.sha,
+          { updatedAt: new Date().toISOString() },
+          `🛠️ Tier Table → прод: tier-updated-at`,
+          MAIN_BRANCH,
+        )
+      }
+    } catch {
+      // Не роняем ответ из-за побочной метки - тиры уже успешно записаны выше.
+    }
+
     return new Response(JSON.stringify({ ok: true, diff }), { status: 200 })
   }
 
