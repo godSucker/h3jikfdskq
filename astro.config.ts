@@ -24,6 +24,9 @@ export default defineConfig({
     '/mutants/platinum': '/mutants',
     // Дубликат страницы эво-калькулятора: канонический адрес — /evolution/evotech-calculator
     '/evotech-calculator': '/evolution/evotech-calculator',
+    // Устаревший дублирующий рендер каталога материалов (своя, разошедшаяся с
+    // /materials сортировка жетонов) — канонический адрес /materials
+    '/materials/material': '/materials',
   },
   integrations: [
     svelte(),
