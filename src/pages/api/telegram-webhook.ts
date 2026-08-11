@@ -338,7 +338,10 @@ async function mutateGithubJsonFile<T>(
     const delayMs = 200 * Math.pow(2, attempt - 1) + Math.floor(Math.random() * 250)
     await new Promise((r) => setTimeout(r, delayMs))
   }
-  return { ok: false, reason: `PUT ${path}: не удалось после ${maxAttempts} попыток (гонка на main)` }
+  return {
+    ok: false,
+    reason: `PUT ${path}: не удалось после ${maxAttempts} попыток (гонка на main)`,
+  }
 }
 
 async function getPaymentsMessage(
@@ -770,7 +773,9 @@ export const POST: APIRoute = async ({ request }) => {
   const ALLOWED_USER_ID = import.meta.env.TELEGRAM_ALLOWED_USER_ID
   const ALLOWED_CHAT_ID = import.meta.env.TELEGRAM_ALLOWED_CHAT_ID
   if (!ALLOWED_USER_ID && !ALLOWED_CHAT_ID) {
-    console.error('TELEGRAM_ALLOWED_USER_ID/TELEGRAM_ALLOWED_CHAT_ID is not configured — webhook disabled')
+    console.error(
+      'TELEGRAM_ALLOWED_USER_ID/TELEGRAM_ALLOWED_CHAT_ID is not configured — webhook disabled',
+    )
     return new Response(JSON.stringify({ error: 'Webhook not configured' }), {
       status: 503,
       headers: { 'Content-Type': 'application/json' },

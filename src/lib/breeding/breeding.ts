@@ -500,9 +500,7 @@ export function findParentsFor(
   for (const combo of secretCombos) {
     const sp1 = allMutants.find((m) => normalizeName(m.name) === normalizeName(combo.parents[0]))
     const sp2 = allMutants.find((m) => normalizeName(m.name) === normalizeName(combo.parents[1]))
-    const schild = allMutants.find(
-      (m) => normalizeName(m.name) === normalizeName(combo.childName),
-    )
+    const schild = allMutants.find((m) => normalizeName(m.name) === normalizeName(combo.childName))
     if (!sp1 || !sp2 || !schild) continue
     const lo = getLengthOut(getGeneStr(sp1.genes), getGeneStr(sp2.genes))
     const w = computeCandidateWeight(schild, lo, buildingLevel)
