@@ -8,6 +8,17 @@ import mutantsRaw from '../data/mutants/mutants.json';
 export const prerender = false;
 
 const players = await loadEvoTop();
+
+// EvoLeaderboard читает у мутанта только name/stars/base_stats (поиск
+// текстуры + скорость для лидерборда) - полный mutants.json тащит ещё
+// abilities/bingo/genes/name_lore и т.д. на каждый SSR-запрос этой
+// prerender=false страницы. Слим-проекция режет пейлоад, который иначе
+// дублируется дважды (SSR-рендер + сериализация в HTML для гидрации).
+const mutantsSlim = mutantsRaw.map((m) => ({
+  name: m.name,
+  stars: m.stars,
+  base_stats: m.base_stats,
+}));
 ---
 
 <BaseLayout
@@ -24,7 +35,7 @@ const players = await loadEvoTop();
     </div>
 
     <!-- Передаем игроков И базу мутантов -->
-    <EvoLeaderboard client:load players={players} mutantsDb={mutantsRaw} />
+    <EvoLeaderboard client:load players={players} mutantsDb={mutantsSlim} />
   </div>
 </BaseLayout>
 
