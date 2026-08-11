@@ -8,7 +8,9 @@
   const PRICE_CONST_FROM_LEVEL = 328;
 
   // UI
+  let mode = $state('forward'); // 'forward' | 'reverse'
   let startLevel = $state('');
+  let targetLevel = $state('');
   let silver = $state('');
   let gold = $state('');
   let discount = $state('70'); // 0 | 60 | 70 | 80
@@ -16,7 +18,7 @@
   let errorMsg = $state('');
   let busy = $state(false);
 
-  // Результаты
+  // Результаты (прямой режим)
   let endLevel = $state('—');
   let upgrades = $state('—');
   let spentSilver = $state('—');
@@ -24,6 +26,10 @@
   let leftSilver = $state('—');
   let leftGold = $state('—');
   let hitCap = $state(false);
+
+  // Результаты (обратный режим)
+  let neededSilver = $state('—');
+  let neededGold = $state('—');
 
   // =======================
   // Утилиты чисел/строк
@@ -75,9 +81,10 @@
     });
   }
 
-  const onInputStartLevel = (e) => formatWithCaret(e, (v) => { startLevel = v; });
-  const onInputSilver     = (e) => formatWithCaret(e, (v) => { silver     = v; });
-  const onInputGold       = (e) => formatWithCaret(e, (v) => { gold       = v; });
+  const onInputStartLevel  = (e) => formatWithCaret(e, (v) => { startLevel  = v; });
+  const onInputTargetLevel = (e) => formatWithCaret(e, (v) => { targetLevel = v; });
+  const onInputSilver      = (e) => formatWithCaret(e, (v) => { silver      = v; });
+  const onInputGold        = (e) => formatWithCaret(e, (v) => { gold        = v; });
 
   // =======================
   // Расчёты
@@ -129,6 +136,55 @@
       if (pair.s > 0n || pair.g > 0n) return pair;
     }
     return { s: 0n, g: 0n };
+  }
+
+  // Обратный режим: сколько ресурсов нужно, чтобы пройти start -> target.
+  // Чистая функция (никаких $state-побочек) - суммирует те же costPairAt/safeConstPair,
+  // которыми питается прямой simulate(), поэтому оба режима гарантированно согласованы.
+  // На каждом уровне серебро и золото - АЛЬТЕРНАТИВНЫЕ цены одного апгрейда (не сумма
+  // двух валют), поэтому результат - это "если платить только серебром" и "если платить
+  // только золотом" по отдельности, а не один смешанный бюджет.
+  function reverseCost(startLevelStr, targetLevelStr, discountStr) {
+    const start  = Number(String(startLevelStr).replace(/[^\d]/g, '') || '0');
+    const target = Number(String(targetLevelStr).replace(/[^\d]/g, '') || '0');
+    const dIn = Number(discountStr || 0);
+
+    if (!Number.isFinite(start) || start < MIN_LEVEL) {
+      return { error: `Минимальный стартовый уровень — ${MIN_LEVEL}.` };
+    }
+    if (!Number.isFinite(target) || target <= start) {
+      return { error: 'Целевой уровень должен быть больше стартового.' };
+    }
+    if (target > MAX_LEVEL) {
+      return { error: `Максимальный уровень — ${MAX_LEVEL.toLocaleString('ru-RU')}.` };
+    }
+
+    let totalSilver = 0n;
+    let totalGold = 0n;
+
+    // До 328 — по строкам файла (как в forward-цикле simulate())
+    const loopEnd = Math.min(target, PRICE_CONST_FROM_LEVEL);
+    for (let lvl = Math.floor(start) + 1; lvl <= loopEnd; lvl++) {
+      const { s, g } = costPairAt(lvl, dIn);
+      totalSilver += s;
+      totalGold += g;
+    }
+
+    // После 328 — постоянная цена (как в constPair-фазе simulate())
+    if (target > PRICE_CONST_FROM_LEVEL) {
+      const constStart = Math.max(Math.floor(start), PRICE_CONST_FROM_LEVEL);
+      const remainLevels = BigInt(target - constStart);
+      if (remainLevels > 0n) {
+        const { s: sConst, g: gConst } = safeConstPair(dIn);
+        if (sConst === 0n && gConst === 0n) {
+          return { error: 'Данные стоимости некорректны (нулевая цена после 328).' };
+        }
+        totalSilver += sConst * remainLevels;
+        totalGold += gConst * remainLevels;
+      }
+    }
+
+    return { silver: totalSilver, gold: totalGold };
   }
 
   function simulate(startLevelStr, silverStr, goldStr, discountStr) {
@@ -230,7 +286,7 @@
   let spentS = $state(0n);
   let spentG = $state(0n);
 
-  async function calculate() {
+  async function calculateForward() {
     errorMsg = '';
     busy = true;
     spentS = 0n;
@@ -265,11 +321,56 @@
       busy = false;
     }
   }
+
+  async function calculateReverse() {
+    errorMsg = '';
+    busy = true;
+
+    try {
+      const res = reverseCost(startLevel, targetLevel, discount);
+      if (res.error) {
+        errorMsg = res.error;
+        neededSilver = '—';
+        neededGold = '—';
+        busy = false;
+        return;
+      }
+
+      neededSilver = fmt(res.silver);
+      neededGold   = fmt(res.gold);
+      busy = false;
+    } catch {
+      errorMsg = 'Ошибка расчёта.';
+      busy = false;
+    }
+  }
+
+  function calculate() {
+    if (mode === 'reverse') return calculateReverse();
+    return calculateForward();
+  }
 </script>
 
 <div class="max-w-5xl mx-auto p-4">
   <h1 class="text-2xl md:text-3xl font-bold text-sky-100">Калькулятор эво</h1>
-  <p class="text-sky-200/80 mt-1">Введите стартовый уровень и ресурсы — калькулятор посчитает финальный уровень.</p>
+  <p class="text-sky-200/80 mt-1">
+    {#if mode === 'forward'}
+      Введите стартовый уровень и ресурсы — калькулятор посчитает финальный уровень.
+    {:else}
+      Введите стартовый и целевой уровень — калькулятор посчитает, сколько ресурсов нужно.
+    {/if}
+  </p>
+
+  <div class="mt-4 inline-flex rounded-xl border border-slate-700/70 bg-slate-950/60 p-1">
+    <button type="button" onclick={() => { mode = 'forward'; errorMsg = ''; }}
+      class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'forward' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
+      Ресурсы → уровень
+    </button>
+    <button type="button" onclick={() => { mode = 'reverse'; errorMsg = ''; }}
+      class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'reverse' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
+      Уровень → ресурсы
+    </button>
+  </div>
 
   <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur">
@@ -281,17 +382,25 @@
             class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
         </label>
 
-        <label class="block">
-          <span class="text-sky-300/80 text-sm">Серебро</span>
-           <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder="Можно оставить пустым"
-            class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-        </label>
-
-        <label class="block">
-          <span class="text-sky-300/80 text-sm">Золото</span>
-           <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder="Можно оставить пустым"
+        {#if mode === 'forward'}
+          <label class="block">
+            <span class="text-sky-300/80 text-sm">Серебро</span>
+             <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder="Можно оставить пустым"
               class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-        </label>
+          </label>
+
+          <label class="block">
+            <span class="text-sky-300/80 text-sm">Золото</span>
+             <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder="Можно оставить пустым"
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+          </label>
+        {:else}
+          <label class="block">
+            <span class="text-sky-300/80 text-sm">Целевой уровень</span>
+            <input id="evo-target-level" name="evo-target-level" type="text" bind:value={targetLevel} oninput={onInputTargetLevel} inputmode="numeric" placeholder="Например, 400"
+              class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+          </label>
+        {/if}
 
         <label class="block">
           <span class="text-sky-300/80 text-sm">Скидка</span>
@@ -318,7 +427,7 @@
       <h2 class="text-sky-100 font-bold mb-3">Результат</h2>
       {#if errorMsg}
         <div class="text-rose-300/90">{errorMsg}</div>
-      {:else}
+      {:else if mode === 'forward'}
         <div class="space-y-1.5">
           <div class="flex justify-between gap-2"><span class="text-sky-300/80">Финальный уровень:</span><strong>{endLevel}</strong></div>
           <div class="flex justify-between gap-2"><span class="text-sky-300/80">Поднятно уровней:</span><strong>{upgrades}</strong></div>
@@ -334,6 +443,11 @@
         {#if hitCap}
           <p class="mt-1 text-sky-300/80 text-sm">Достигнут верхний предел уровня.</p>
         {/if}
+      {:else}
+        <div class="space-y-1.5">
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Нужно серебра:</span><strong>{neededSilver}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Нужно золота:</span><strong>{neededGold}</strong></div>
+        </div>
       {/if}
     </div>
   </div>
