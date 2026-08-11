@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { chromium } from 'playwright-core'
 import sharp from 'sharp'
+import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 
 // Chromium's screenshot capture is backed by a single GPU texture with a hard
 // max dimension (~16384 device px). At deviceScaleFactor=2 that's ~8192 CSS px
@@ -21,6 +22,7 @@ export const GET: APIRoute = async ({ url }) => {
 
   let browser
   try {
+    await cleanupStalePlaywrightProfiles()
     const Chromium = (await import('@sparticuz/chromium')).default
     const execPath = await Chromium.executablePath()
     browser = await chromium.launch({

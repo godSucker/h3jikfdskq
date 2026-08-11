@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { chromium, type Browser } from 'playwright-core'
+import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 
 // Fluid Compute reuses warm function instances between requests, so we keep
 // one Chromium process alive at module scope instead of launching/closing it
@@ -8,6 +9,7 @@ import { chromium, type Browser } from 'playwright-core'
 let browserPromise: Promise<Browser> | null = null
 
 async function launchBrowser(): Promise<Browser> {
+  await cleanupStalePlaywrightProfiles()
   const Chromium = (await import('@sparticuz/chromium')).default
   const execPath = await Chromium.executablePath()
   const browser = await chromium.launch({
