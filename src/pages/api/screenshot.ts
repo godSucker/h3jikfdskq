@@ -49,8 +49,10 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing state param', { status: 400 })
   }
 
-  const origin = url.origin
-  const renderUrl = `${origin}/panel-render?state=${encodeURIComponent(stateParam)}`
+  // Хардкод, не url.origin: origin из запроса управляется заголовком Host,
+  // подмена которого заставила бы наш же headless Chromium уйти по
+  // произвольному URL (SSRF через собственный скриншот-эндпоинт).
+  const renderUrl = `https://archivist-library.com/panel-render?state=${encodeURIComponent(stateParam)}`
 
   for (let attempt = 0; attempt < 2; attempt++) {
     let page

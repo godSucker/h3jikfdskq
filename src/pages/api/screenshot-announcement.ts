@@ -18,8 +18,8 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing id param', { status: 400 })
   }
 
-  const origin = url.origin
-  const pageUrl = `${origin}/announcements/render/${encodeURIComponent(id)}`
+  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
+  const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {

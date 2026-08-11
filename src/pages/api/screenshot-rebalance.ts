@@ -16,8 +16,8 @@ const DATA_STRIP_HEIGHT = 1800 // CSS px per data column once we do split - smal
 // columns read better than 1-2 huge ones for a 60+ mutant run
 
 export const GET: APIRoute = async ({ url }) => {
-  const origin = url.origin
-  const renderUrl = `${origin}/rebalance`
+  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
+  const renderUrl = `https://archivist-library.com/rebalance`
   const targetDate = url.searchParams.get('date') // null/absent = вся история, как раньше
 
   let browser
