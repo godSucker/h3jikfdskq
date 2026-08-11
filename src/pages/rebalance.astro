@@ -99,6 +99,8 @@ const mutantMeta = (id: string): MutantMeta => {
       base_stats?: {
         lvl1?: { hp?: number; atk1_AOE?: boolean; atk2_AOE?: boolean };
         lvl30?: { hp?: number; atk1?: number; atk2?: number; speed?: number; ability?: number; atk1_AOE?: boolean; atk2_AOE?: boolean };
+        atk1p_base?: number;
+        atk2p_base?: number;
         abilityPct2?: number;
       };
       abilities?: { name: string; pct: number; value_atk1_lvl30?: number; value_atk2_lvl30?: number }[];
@@ -158,13 +160,13 @@ interface MutantRow {
   head: string | null;
   genes: string[];
   tier: string;
-  hp: Pair | null;
-  atk1: Pair | null;
-  atk2: Pair | null;
+  hp: Pair;
+  atk1: Pair;
+  atk2: Pair;
   atk1Aoe: boolean;
   atk2Aoe: boolean;
   abilities: AbilityRow[];
-  speed: Pair | null;
+  speed: Pair;
 }
 
 // Плоский список changes из парсера -> одна строка на мутанта, сгруппированная
