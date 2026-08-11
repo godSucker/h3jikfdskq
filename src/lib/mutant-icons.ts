@@ -26,12 +26,12 @@ export const STAR_IMAGE_KEYWORDS: Record<string, string[]> = {
 }
 
 export const GENE_NAMES: Record<string, string> = {
-  A: 'Кибер',
-  B: 'Зверь',
-  C: 'Галактик',
-  D: 'Зомби',
-  E: 'Мифик',
-  F: 'Рубака',
+  A: 'Киборг',
+  B: 'Нежить',
+  C: 'Рубака',
+  D: 'Зверь',
+  E: 'Галактик',
+  F: 'Мифик',
 }
 
 export const GENE_ICONS: Record<string, string> = {
