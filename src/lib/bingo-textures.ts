@@ -184,9 +184,11 @@ export function getRewardTexturePath(reward: {
     // Фикс для XP
     if (name === 'Material_XP1000') return '/materials/normal_xp.webp'
 
-    // Фиксы для зданий
-    if (name === 'Building_HC_1') return '/buildings/gold_hc1.webp'
-    if (name === 'Building_HC_2') return '/buildings/gold_hc2.webp'
+    // Фиксы для зданий (пути должны совпадать с buildings.json - раньше
+    // ссылались на несуществующие /buildings/gold_hc1.webp и gold_hc2.webp,
+    // из-за чего иконка золотоплавильни не отображалась ни на одной доске бинго)
+    if (name === 'Building_HC_1') return '/buildings/forge_hc1.png'
+    if (name === 'Building_HC_2') return '/buildings/gold_furnace_hc2.png'
 
     // Фиксы для Хабитатов (Luxe)
     if (name.toLowerCase().includes('habitat_') && name.toLowerCase().includes('_hc')) {
