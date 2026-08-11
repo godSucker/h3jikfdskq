@@ -26,12 +26,12 @@ export const STAR_IMAGE_KEYWORDS: Record<string, string[]> = {
 }
 
 export const GENE_NAMES: Record<string, string> = {
-  A: 'Кибер',
-  B: 'Зверь',
-  C: 'Галактик',
-  D: 'Зомби',
-  E: 'Мифик',
-  F: 'Рубака',
+  A: 'Киборг',
+  B: 'Нежить',
+  C: 'Рубака',
+  D: 'Зверь',
+  E: 'Галактик',
+  F: 'Мифик',
 }
 
 export const GENE_ICONS: Record<string, string> = {
@@ -79,7 +79,7 @@ export const TYPE_ICONS: Record<string, string> = {
   zodiac: '/mut_icons/icon_zodiac.webp',
   limited: '/mut_icons/limited.webp',
   community: '/mut_icons/icon_special.webp',
-  'реактор': '/mut_icons/icon_gacha.webp',
+  реактор: '/mut_icons/icon_gacha.webp',
 }
 
 export function getTypeIcon(type?: string | null): string | null {
@@ -117,14 +117,14 @@ export const ABILITY_ICONS: Record<string, string> = {
 }
 
 export const ABILITY_ALIASES: Record<string, string> = {
-  'проклятие': 'weaken',
-  'усиление': 'strengthen',
-  'рана': 'slash',
-  'кровотечение': 'slash',
-  'щит': 'shield',
-  'отражение': 'retaliate',
+  проклятие: 'weaken',
+  усиление: 'strengthen',
+  рана: 'slash',
+  кровотечение: 'slash',
+  щит: 'shield',
+  отражение: 'retaliate',
   'вытягивание жизни': 'regenerate',
-  'регенерация': 'regenerate',
+  регенерация: 'regenerate',
 }
 
 export type StarSwitcherItem = { key: StarKey; icon: string; label: string }

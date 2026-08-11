@@ -364,7 +364,7 @@ const TABS = [
           {z.storage != null && <div class="zone-cap"><span>Хранит до:</span> <strong>{fmt(z.storage)}</strong> серебра</div>}
         </div>
       ))}
-      {zonesNormal.length === 0 && <div class="zone-empty">В <code>zones.json</code> пока нет обычных зон.</div>}
+      {zonesNormal.length === 0 && <div class="zone-empty">Обычных зон пока нет.</div>}
     </div>
 
     <div id="zones-luxe" class="zones-grid" data-kind="luxe" hidden>
@@ -376,7 +376,7 @@ const TABS = [
           {z.storage != null && <div class="zone-cap"><span>Хранит до:</span> <strong>{fmt(z.storage)}</strong> серебра</div>}
         </div>
       ))}
-      {zonesLuxe.length === 0 && <div class="zone-empty">В <code>zones.json</code> пока нет люкс‑зон.</div>}
+      {zonesLuxe.length === 0 && <div class="zone-empty">Люкс-зон пока нет.</div>}
     </div>
   </section>
 </BaseLayout>

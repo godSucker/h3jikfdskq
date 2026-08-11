@@ -11,13 +11,33 @@ import path from 'path'
 // работавший screenshot-bingo) забивают его до нуля свободного места -
 // новый Chromium не может выделить shared memory и падает на старте.
 // Подметаем перед КАЖДЫМ launch, не полагаясь только на finally-close.
+//
+// MIN_AGE_MS: контейнер тёплый и может параллельно обслуживать несколько
+// запросов (Fluid Compute) - слепое удаление ВСЕХ playwright_* директорий
+// сносило бы профиль, которым прямо сейчас пользуется ЧУЖОЙ ещё не
+// завершившийся запрос (гонка, а не только сироты от аварийных завершений).
+// Каждый скриншот-эндпоинт укладывается в ~30-40s суммы своих внутренних
+// таймаутов - профиль старше 2 минут гарантированно осиротел, а не просто
+// используется медленным соседним запросом.
+const MIN_AGE_MS = 2 * 60 * 1000
+
 export async function cleanupStalePlaywrightProfiles(): Promise<void> {
   try {
     const entries = await fs.readdir('/tmp')
+    const now = Date.now()
     await Promise.all(
       entries
         .filter((f) => f.startsWith('playwright_chromiumdev_profile-'))
-        .map((f) => fs.rm(path.join('/tmp', f), { recursive: true, force: true }).catch(() => {})),
+        .map(async (f) => {
+          const full = path.join('/tmp', f)
+          try {
+            const stat = await fs.stat(full)
+            if (now - stat.mtimeMs < MIN_AGE_MS) return
+            await fs.rm(full, { recursive: true, force: true })
+          } catch {
+            // Директория уже исчезла/недоступна - гонка неопасна, пропускаем
+          }
+        }),
     )
   } catch {
     // /tmp недоступен/пуст - нечего убирать

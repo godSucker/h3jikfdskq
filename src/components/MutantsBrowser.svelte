@@ -23,14 +23,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  const _cache = new Map<string, any[]>();
-  function memo<T>(key: string, calc: () => T): T {
-    if (_cache.has(key)) return _cache.get(key) as T;
-    const v = calc();
-    _cache.set(key, v as any);
-    return v;
-  }
-
   type BaseMap = Map<string, any>;
   function buildBaseMap(list: any[]): BaseMap {
     const map: BaseMap = new Map();
@@ -126,7 +118,6 @@
 
   $effect(() => {
     preparedMutants = (items || []).map(enrichItem);
-    _cache.clear();
   });
 
   let normalizedSkins = $derived((Array.isArray(skins) ? skins : []).map((skin, index) => mapSkin(skin, baseMap, index)));
@@ -252,12 +243,7 @@
 
   function uniq<T>(arr: T[]) { return Array.from(new Set(arr)); }
 
-  function getCacheKey(q: string, gene: string, type: string, bingo: string, star: string): string {
-    return `${q}|${gene}|${type}|${bingo}|${star}`;
-  }
-
-  let filteredMutants = $derived(memo(getCacheKey(query, `${gene1Sel},${gene2Sel}`, typeSel, bingoSel, starSelMutants), () => {
-    return (() => {
+  let filteredMutants = $derived((() => {
     const q = query ? query.trim().toLowerCase() : null;
     const normalizedQ = q ? normalizeForSearch(q) : null;
     const sBingo = bingoSel ? String(bingoSel) : null;
@@ -339,8 +325,7 @@
 
       return (a._meta?.id || '').localeCompare(b._meta?.id || '');
     });
-    })();
-  }));
+  })());
 
   let pageSize = $derived(viewMode === 'heads' ? 60 : 20);
   let currentPage = $state(1);

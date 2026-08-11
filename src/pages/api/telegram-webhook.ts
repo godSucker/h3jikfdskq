@@ -2,6 +2,12 @@ import type { APIRoute } from 'astro'
 
 const VALID_TIERS = ['1', '1+', '1-', '2', '2+', '2-', '3', '3+', '3-', '4', 'un-tired']
 
+// Тиры пишутся не только отсюда - есть ещё редактор на превью-ветке
+// (кнопка публикации тиров в mutants.json на main). Оба писателя должны
+// обновлять эту метку при любом изменении tier, иначе дата на /tier-list
+// снова начнёт врать так же, как захардкоженная "февраль 2026" раньше.
+const TIER_UPDATED_AT_PATH = 'src/data/mutants/tier-updated-at.json'
+
 // В группе (несколько людей, файлы шлют не только для тиров) нужен явный
 // триггер в подписи/тексте сообщения, иначе любой присланный файл будет
 // пытаться распарситься как тиры.
@@ -1214,6 +1220,21 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       console.log(`Updated ${count} tiers, cleared ${cleared} stale`)
+
+      // Best-effort: сам тир-лист уже обновлён (важное дело сделано), метка
+      // даты - не критичный побочный эффект. Не роняем весь хендлер, если
+      // это отдельное PUT не удастся.
+      const stampResult = await mutateGithubJsonFile<{ updatedAt: string | null }>(
+        GITHUB_TOKEN,
+        REPO_OWNER,
+        REPO_NAME,
+        TIER_UPDATED_AT_PATH,
+        () => ({ updatedAt: new Date().toISOString() }),
+        `Update: tier-updated-at (${count} tiers from Telegram)`,
+      )
+      if (!stampResult.ok) {
+        console.warn(`Не удалось обновить ${TIER_UPDATED_AT_PATH}: ${stampResult.reason}`)
+      }
 
       if (chatId != null && BOT_TOKEN) {
         await sendTelegramMessage(

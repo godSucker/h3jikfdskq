@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { chromium } from 'playwright-core'
 import sharp from 'sharp'
+import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 
 // Chromium's screenshot capture is backed by a single GPU texture with a hard
 // max dimension (~16384 device px). At deviceScaleFactor=2 that's ~8192 CSS px
@@ -15,12 +16,13 @@ const DATA_STRIP_HEIGHT = 1800 // CSS px per data column once we do split - smal
 // columns read better than 1-2 huge ones for a 60+ mutant run
 
 export const GET: APIRoute = async ({ url }) => {
-  const origin = url.origin
-  const renderUrl = `${origin}/rebalance`
+  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
+  const renderUrl = `https://archivist-library.com/rebalance`
   const targetDate = url.searchParams.get('date') // null/absent = вся история, как раньше
 
   let browser
   try {
+    await cleanupStalePlaywrightProfiles()
     const Chromium = (await import('@sparticuz/chromium')).default
     const execPath = await Chromium.executablePath()
     browser = await chromium.launch({

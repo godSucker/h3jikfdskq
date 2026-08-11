@@ -259,6 +259,15 @@
     return `${(value * 100).toFixed(value * 100 < 1 ? 2 : 1)}%`;
   }
 
+  // detail.perCraft у основных наград — это amount/crafts (средний выход
+  // ШТУК за крафт), не вероятность: если награда даёт >1 шт. за попадание
+  // (напр. Material_LP1000 amount="5" в blackhole.txt), это число может
+  // превышать 1 - formatPercent тут дал бы бессмысленные "250%". Реальный
+  // % шанса — в getRewardDisplay() выше, для темпа выхода нужен свой формат.
+  function formatPerCraft(value: number): string {
+    return `${value.toFixed(value < 1 ? 2 : value < 10 ? 2 : 1)} шт./крафт`;
+  }
+
   // Рецепты для перемещения из "Рецепты" в "Крафты"
   const RECIPES_TO_MOVE = new Set(['little_rewards_01', 'big_rewards_01', 'big_rewards_02']);
 
@@ -904,11 +913,11 @@
                             <div class="item-info">
                               <span class="item-title">{label}</span>
                               <span class="item-sub">
-                                {detail.amount} шт. • {formatPercent(detail.perCraft)} за крафт
+                                {detail.amount} шт. • {formatPerCraft(detail.perCraft)}
                               </span>
                             </div>
                             <div class="item-odds">
-                              <span>{formatPercent(detail.perCraft)}</span>
+                              <span>{formatPerCraft(detail.perCraft)}</span>
                               <span class="item-odds__raw">
                                 {totalMain > 0 ? formatPercent(detail.share) : '—'} от дропа
                               </span>

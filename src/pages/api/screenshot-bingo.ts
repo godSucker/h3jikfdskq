@@ -15,8 +15,8 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing board param', { status: 400 })
   }
 
-  const origin = url.origin
-  const pageUrl = `${origin}/bingo?board=${encodeURIComponent(boardId)}`
+  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
+  const pageUrl = `https://archivist-library.com/bingo?board=${encodeURIComponent(boardId)}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {

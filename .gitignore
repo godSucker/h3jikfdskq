@@ -69,3 +69,6 @@ coverage/
 # API keys
 settings.json
 !.claude/settings.json
+
+# Playwright MCP test artifacts
+.playwright-mcp/
