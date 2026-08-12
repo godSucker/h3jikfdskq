@@ -3,6 +3,7 @@
 import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
+import SearchBox from '@/components/search/SearchBox.svelte';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -562,6 +563,7 @@ const structuredData = [
         <a href="/credits">Разработчики</a>
         <a href="/top-evo">Топ по эво</a>
       </nav>
+      <SearchBox client:visible />
       <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
         <span></span>
         <span></span>

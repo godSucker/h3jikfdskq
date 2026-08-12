@@ -1,0 +1,14 @@
+[
+  { "key": "legendaries", "label": "Выводимые легендарки", "ready": true },
+  { "key": "zodiac", "label": "Зодиакальные даты", "ready": true },
+  { "key": "tandem", "label": "Тандем", "ready": true },
+  { "key": "pvp-bug", "label": "PvP-фича", "ready": true },
+  { "key": "speed-orbs", "label": "Сферы скорости", "ready": true },
+  { "key": "quests", "label": "Квесты", "ready": true },
+  { "key": "farmers", "label": "Топ фармеров", "ready": true },
+  { "key": "divisions", "label": "Дивизионы", "ready": true },
+  { "key": "ladders", "label": "Лесенки", "ready": true },
+  { "key": "raids", "label": "Рейды", "ready": true },
+  { "key": "special-offers", "label": "Спец. предложения", "ready": true },
+  { "key": "numbers", "label": "Числа и формулы", "ready": true }
+]
