@@ -193,7 +193,7 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 - **Reactor/gacha sync was REVERTED**. Do NOT recreate without user approval.
 - **Weak mutants** (Specimen_A_02, Specimen_B_02, Specimen_C_02 = Слабый Робот/Зомби/Воин) must NEVER be parsed or written to mutants.json.
 - **Bingo title matching** requires stripping dash prefixes: existing titles use `--------morphology_*` for sort order.
-- **StatsCalculator.svelte** is the only component using `client:only="svelte"`. All others use `client:load` or `client:visible`.
+- **StatsCalculator.svelte uses `client:load`** (switched back from `client:only` 2026-08-12: `client:only` shipped zero SSR content, so any failed JS chunk on unstable connections — VPNs especially — left the page silently blank; `client:load` renders full markup via SSR first). All interactive components on the site use `client:load` or `client:visible`.
 - **Stat calculation single source of truth**: `src/lib/stats/unified-calculator.ts` (`calculateFinalStats()`).
 - **Lucky Box feature REMOVED**. All code, data, textures deleted. Lucky Slots roulette simulator is SEPARATE and must be preserved.
 - **All new textures** must be uploaded to CDN.
