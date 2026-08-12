@@ -170,8 +170,12 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
     }
     .footer .legend { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #cbd5e1; font-weight: 600; }
+    .footer .legend span { display: flex; align-items: center; gap: 5px; }
+    .footer .legend svg { width: 10px; height: 10px; flex-shrink: 0; }
     .footer .legend .up { color: #22c55e; }
+    .footer .legend .up svg { fill: #22c55e; }
     .footer .legend .down { color: #ef4444; }
+    .footer .legend .down svg { fill: #ef4444; }
     .footer .brand { color: #64748b; font-size: 12px; font-weight: 700; letter-spacing: 2px; white-space: nowrap; }
   </style>
 </head>
@@ -236,8 +240,14 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
 
     <div class="footer">
       <div class="legend">
-        <span class="up">▲ - более сильные мутанты внутри тира</span>
-        <span class="down">▼ - более слабые мутанты внутри тира</span>
+        <span class="up">
+          <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polygon points="5,0 10,10 0,10" /></svg>
+          - более сильные мутанты внутри тира
+        </span>
+        <span class="down">
+          <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 10,0 5,10" /></svg>
+          - более слабые мутанты внутри тира
+        </span>
       </div>
       <span class="brand">ARCHIVIST-LIBRARY.COM</span>
     </div>
