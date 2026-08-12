@@ -11,16 +11,13 @@ import { normalizeSearch } from '@/lib/search-normalize';
  * These never appear in breeding results, even when breeding two of the same type.
  */
 export const UNBREEDABLE_TYPES = new Set([
-  'secret',      // Secret mutants (have specific recipes only)
-  'recipe',      // Recipe mutants (same as secret - only via specific recipes)
+  'recipe',      // Recipe mutants (secret recipes only)
   'videogame',   // Video game crossover mutants
   'zodiac',      // Zodiac mutants
-  'event',       // Event-exclusive mutants
   'special',     // Special mutants
   'gacha',       // Gacha/Reactor mutants
   'community',   // Community mutants
   'seasonal',    // Seasonal mutants (e.g., Lincoln)
-  'boss'         // Boss mutants
 ]);
 
 /**
@@ -29,7 +26,6 @@ export const UNBREEDABLE_TYPES = new Set([
  */
 export const INHERITANCE_ONLY_TYPES = new Set([
   'heroic',      // Hero mutants
-  'hero',        // Alternative name for heroic
   'pvp'          // PvP mutants
 ]);
 
@@ -153,18 +149,5 @@ export function getBreedingTag(
   const mutantId = String(mutant.id);
   const isParent = mutantId === parent1Id || mutantId === parent2Id;
 
-  if (isParent) {
-    return 'КОПИЯ';
-  }
-
-  const mutantType = (mutant.type || 'default').toLowerCase();
-
-  // Check if it's a restricted type that's breedable
-  if (mutantType === 'legend' || mutantType === 'legendary') {
-    if (isBreedableLegend(mutant.name)) {
-      return 'ВОЗМОЖНО';
-    }
-  }
-
-  return 'ВОЗМОЖНО';
+  return isParent ? 'КОПИЯ' : 'ВОЗМОЖНО';
 }
