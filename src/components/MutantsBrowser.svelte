@@ -5,7 +5,7 @@
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { textureUrl } from '@/lib/texture-cdn';
   import { pluralize, baseMutantId as baseId } from '@/lib/utils';
-  import { getTypeIcon } from '@/lib/mutant-icons';
+  import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
 
   const normalizeForSearch = normalizeSearch;
@@ -385,14 +385,32 @@
   // Полная текстура (стойка), отрендеренная пайплайном scripts/character-textures/.
   // Лежит рядом со старыми specimen_*.webp: textures_by_mutant/<code>/FULL_<code>[_<tier>].png
   // baseId() не срезает префикс specimen_, поэтому нормализуем id здесь.
-  // FULL-версия есть не у каждого мутанта/тира -> в разметке onerror откатывает на портрет.
+  // Не у каждого мутанта есть все 5 звёзд (зодиаки - только normal/silver,
+  // реактор/сезонные/особые/видеоигры/сообщество - ещё уже) - принудительная
+  // звезда от бинго-фильтра (autoStar выше) может не существовать у конкретного
+  // мутанта. Раньше это тихо запрашивало заведомо несуществующий файл, и
+  // onerror откатывал на портрет-иконку вместо полной текстуры (баг найден
+  // 2026-08-13). Проверено по всему public/textures_by_mutant: у мутантов с
+  // 2+ звёздами суффиксный FULL-файл есть для КАЖДОЙ их звезды (432/432) -
+  // для них можно смело подставлять суффикс запрошенной/доступной звезды.
+  // У одно-звёздных мутантов суффиксный файл почти никогда не рендерился
+  // (1/124), а безсуффиксная база есть всегда (124/124) - для них суффикс
+  // добавлять нельзя, даже если их единственная звезда не "normal" (у части
+  // GACHA это gold/platinum).
+  // FULL-версия есть не у каждого мутанта/тира -> в разметке onerror всё равно
+  // остаётся страховкой на случай реальных пробелов в ассетах.
   function fullTexturePath(it: any): string {
     const code = String(it?.id ?? '')
       .replace(/^specimen[_-]/i, '')
       .replace(/_+(?:normal|bronze|silver|gold|platinum|plat).*$/i, '')
       .toLowerCase();
     if (!code) return '';
-    const star = String(it?._displayStar || starSelMutants || 'normal').toLowerCase();
+    const availableStars = it?.stars ? STAR_KEYS.filter((k) => it.stars[k]) : [];
+    let star = 'normal';
+    if (availableStars.length > 1) {
+      const requestedStar = String(it?._displayStar || starSelMutants || 'normal').toLowerCase();
+      star = availableStars.includes(requestedStar) ? requestedStar : availableStars[0];
+    }
     const suffix = star && star !== 'normal' ? `_${star}` : '';
     return `textures_by_mutant/${code}/FULL_${code}${suffix}.png`;
   }
