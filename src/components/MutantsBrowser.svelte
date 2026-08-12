@@ -218,18 +218,11 @@
     if (typeof it?.gene_code === 'string') return it.gene_code;
     return '';
   }
-  const geneOrder = new Map<string, number>([
-    ['A', 0], ['B', 1], ['C', 2], ['D', 3], ['E', 4], ['F', 5],
-  ]);
 
   function enrichItem(it: any) {
     const searchName = normalizeForSearch(String(it?.name ?? ''));
     const rawCode = readGeneCode(it);
     const code = normalizeGene(rawCode);
-    const first = code?.[0] ?? '';
-    const rank = first ? geneOrder.get(first) ?? 99 : 199;
-
-    const secondaryWeight = code.length <= 1 ? 0 : (geneOrder.get(code[1]) ?? 99) + 1;
 
     const typeKey = String(it?.type ?? '').toLowerCase();
 
@@ -237,7 +230,7 @@
     const bingoKeys = new Set(collectBingoKeys(it).map(String));
     return {
       ...it,
-      _meta: { searchName, code, rank, secondaryWeight, typeKey, starKey, bingoKeys, id: String(it?.id ?? '') }
+      _meta: { searchName, code, typeKey, starKey, bingoKeys, id: String(it?.id ?? '') }
     };
   }
 
@@ -314,17 +307,7 @@
         }
     }
 
-    return res.sort((a, b) => {
-      const rankA = a._meta?.rank ?? 199;
-      const rankB = b._meta?.rank ?? 199;
-      if (rankA !== rankB) return rankA - rankB;
-
-      const weight2A = a._meta?.secondaryWeight ?? 0;
-      const weight2B = b._meta?.secondaryWeight ?? 0;
-      if (weight2A !== weight2B) return weight2A - weight2B;
-
-      return (a._meta?.id || '').localeCompare(b._meta?.id || '');
-    });
+    return res.sort(sortMutantsByGene);
   })());
 
   let pageSize = $derived(viewMode === 'heads' ? 60 : 20);
