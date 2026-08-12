@@ -1,0 +1,13 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PvpSimulator from '@/components/simulators/pvp/PvpSimulator.svelte';
+---
+
+<BaseLayout
+  title="Симулятор PvP-боя"
+  description="Симулятор PvP-боя Mutants Genetic Gladiators (MGG) — собери команду 3×3 и прогони бой вручную или под ИИ."
+  fullWidth={true}
+  viewport="width=device-width, initial-scale=1">
+  <PvpSimulator client:load />
+</BaseLayout>
