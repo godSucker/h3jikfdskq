@@ -79,6 +79,17 @@ html {
   background-color: var(--color-blue-dark);
 }
 
+/* Убираем нативные белые стрелки-степперы у <input type="number"> по всему
+   сайту - системный виджет не красится под тёмную тему ни в одном браузере. */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* Кастомные grid-колонки для tier list */
 @theme {
   --grid-template-columns-9: repeat(9, minmax(0, 1fr));
