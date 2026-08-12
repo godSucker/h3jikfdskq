@@ -268,22 +268,24 @@
   let speedDisplay = $derived(Math.round(statsLvl1.speed * 100) / 100);
   let bankLvl1 = $derived(Math.round(statsLvl1.silver));
 
-  const getAbilityValue = (level: number, abilityIndex: number, s1: any, s30: any): number => {
+  // Способность мутанта хранится как база (tier 0, до lvl25) + "plus" (tier 1, с lvl25)
+  // ОДНОЙ и той же способности — не отдельная способность на атаку (источник истины:
+  // unified-calculator.ts abilityPct1/abilityPct2 и StatsCalculator.svelte calcAbilityRows,
+  // где активный тир выбирается ЦЕЛИКОМ по уровню: level>=25 -> plus, иначе база).
+  // Каждый тир несёт готовые value_atk{1,2}_lvl{1,30} — читаем их напрямую, чтобы не
+  // разъезжаться с этими компонентами при пересчёте по pct.
+  const getAbilityValue = (level: number, tierIndex: number, atkSlot: 1 | 2, s1: any, s30: any): number => {
     const abilities = displayMutant?.abilities ?? [];
-    if (abilityIndex < abilities.length && abilities[abilityIndex]) {
-      const ability = abilities[abilityIndex];
-      const isRetaliate = ability.name?.toLowerCase().includes('retaliate') ?? false;
-      const abilityPct = ability.pct ?? 0;
-      if (level < 25) {
-        const atk = (isRetaliate || abilityIndex === 0) ? s1.atk1 : s1.atk2;
-        return Math.round(atk * (abilityPct / 100));
-      } else {
-        const atk = (isRetaliate || abilityIndex === 0) ? s30.atk1 : s30.atk2;
-        return Math.round(atk * (abilityPct / 100));
-      }
-    }
-    const stats = level < 25 ? s1 : s30;
-    return abilityIndex === 0 ? stats.ability : 0;
+    const ability = abilities[tierIndex];
+    if (!ability) return 0;
+    const field = level < 25
+      ? (atkSlot === 1 ? 'value_atk1_lvl1' : 'value_atk2_lvl1')
+      : (atkSlot === 1 ? 'value_atk1_lvl30' : 'value_atk2_lvl30');
+    if (typeof ability[field] === 'number') return ability[field];
+    const atk = atkSlot === 1
+      ? (level < 25 ? s1.atk1 : s30.atk1)
+      : (level < 25 ? s1.atk2 : s30.atk2);
+    return Math.round(atk * (Math.abs(ability.pct ?? 0) / 100));
   };
 
   // Texture — specimen (head) only
@@ -377,21 +379,14 @@
     const list = (Array.isArray(displayMutant?.abilities) ? displayMutant.abilities : []) as any[];
     const rows: Row[] = [];
 
-    const bothRetaliate = list.length >= 2 &&
-      list[0]?.name?.toLowerCase().includes('retaliate') &&
-      list[1]?.name?.toLowerCase().includes('retaliate');
-
-    let ab1, abilityIndex1;
-    if (bothRetaliate) {
-      ab1 = level < 25 ? list[0] : list[1];
-      abilityIndex1 = level < 25 ? 0 : 1;
-    } else {
-      ab1 = list[0];
-      abilityIndex1 = 0;
-    }
+    // Тир выбирается один раз по уровню и применяется к обеим строкам (атака1/атака2) —
+    // для retaliate value_atk2_lvl* в данных заранее записаны нулями, поэтому вторая
+    // строка гаснет сама (value2 === 0 -> ab2 = null), без отдельной ветки на retaliate.
+    const tierIndex = level < 25 ? 0 : (list[1] ? 1 : 0);
+    const ab1 = list[tierIndex];
 
     if (ab1) {
-      const value1 = getAbilityValue(level, abilityIndex1, s1, s30);
+      const value1 = getAbilityValue(level, tierIndex, 1, s1, s30);
       rows.push({
         atkName: attackName(displayMutant, 1),
         dmg: atk1,
@@ -404,13 +399,14 @@
       });
     }
 
-    const ab2 = bothRetaliate ? null : list[1];
+    const value2 = ab1 ? getAbilityValue(level, tierIndex, 2, s1, s30) : 0;
+    const ab2 = value2 > 0 ? ab1 : null;
     rows.push({
       atkName: attackName(displayMutant, 2),
       dmg: atk2,
       abCode: ab2?.name || null,
       abName: ab2?.name ? abilityLabel(ab2.name) : '—',
-      value: ab2 ? getAbilityValue(level, 1, s1, s30) : 0,
+      value: value2,
       pct: ab2?.pct ?? 0,
       gene: gene2,
       isAoe: aoe2

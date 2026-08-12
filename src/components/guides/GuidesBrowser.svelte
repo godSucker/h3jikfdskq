@@ -1,6 +1,7 @@
 <script lang="ts">
   import { textureUrl } from '@/lib/texture-cdn'
   import { getGeneIcon } from '@/lib/mutant-icons'
+  import tabsData from '@/data/guides/tabs.json'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -130,22 +131,12 @@
 
   const FEATURED_LEGENDARY = 'specimen_cc_02' // Бак Морис
 
-  const TABS = [
-    { key: 'legendaries', label: 'Выводимые легендарки', ready: true },
-    { key: 'zodiac', label: 'Зодиакальные даты', ready: true },
-    { key: 'tandem', label: 'Тандем', ready: true },
-    { key: 'pvp-bug', label: 'PvP-фича', ready: true },
-    { key: 'speed-orbs', label: 'Сферы скорости', ready: true },
-    { key: 'quests', label: 'Квесты', ready: true },
-    { key: 'farmers', label: 'Топ фармеров', ready: true },
-    { key: 'divisions', label: 'Дивизионы', ready: true },
-    { key: 'ladders', label: 'Лесенки', ready: true },
-    { key: 'raids', label: 'Рейды', ready: true },
-    { key: 'special-offers', label: 'Спец. предложения', ready: true },
-    { key: 'numbers', label: 'Числа и формулы', ready: true },
-    // 'pvp-seasons' временно скрыт из списка - обсуждается отдельно, вернуть
-    // после решения, не удалять.
-  ]
+  // Вынесено в JSON (src/data/guides/tabs.json) - тот же список читает
+  // scripts/build-search-index.ts для генерации ссылок сайтового поиска на
+  // конкретные вкладки гайдов, один источник правды вместо двух копий списка.
+  // 'pvp-seasons' временно скрыт из списка - обсуждается отдельно, вернуть
+  // после решения, не удалять оттуда.
+  const TABS = tabsData as { key: string; label: string; ready: boolean }[]
 
   const GENE_LABEL: Record<string, string> = {
     A: 'Киборг', B: 'Нежить', C: 'Рубака', D: 'Зверь', E: 'Галактик', F: 'Мифик',
@@ -179,7 +170,29 @@
     twoSpheresBoosted: critChance(CRIT_BOOST_NET + percent * 2),
   }))
 
-  let activeTab = $state('legendaries')
+  // Хэш в URL (#raids и т.п.) открывает нужную вкладку сразу при заходе -
+  // нужно для сайтового поиска (SearchBox.svelte ссылается на /guides#<key>).
+  function initialTab(): string {
+    if (typeof window === 'undefined') return 'legendaries'
+    const key = window.location.hash.slice(1)
+    return TABS.some((t) => t.key === key) ? key : 'legendaries'
+  }
+  let activeTab = $state(initialTab())
+
+  // Клик по результату поиска на СТРАНИЦЕ /guides меняет только фрагмент
+  // (#quests и т.п.) - это НЕ полная навигация, initialTab() выше запускается
+  // один раз при маунте и не увидит смену хэша. Слушаем hashchange отдельно,
+  // иначе клик из SearchBox.svelte молча не делает ничего, если пользователь
+  // уже на /guides.
+  $effect(() => {
+    if (typeof window === 'undefined') return
+    const onHashChange = () => {
+      const key = window.location.hash.slice(1)
+      if (TABS.some((t) => t.key === key)) activeTab = key
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  })
 
   function openMutant(specimenId: string) {
     window.dispatchEvent(new CustomEvent('archivist:open-mutant', { detail: { specimenId } }))

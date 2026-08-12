@@ -14,7 +14,11 @@
     specialOrbId: string | null
   }
 
-  let { title, slots = $bindable() }: { title: string; slots: SlotConfig[] } = $props()
+  let {
+    title,
+    slots = $bindable(),
+    disableLevelInputs = false,
+  }: { title: string; slots: SlotConfig[]; disableLevelInputs?: boolean } = $props()
 
   // Пресеты команд - общий список на localStorage (не привязан к стороне мои/оппонент,
   // это просто "сборка из 3 мутантов", годная для любой из двух TeamBuilder-карточек).
@@ -392,13 +396,16 @@
 
         <div class="grid grid-cols-2 gap-2">
           <label class="block">
-            <span class="text-sky-300/70 text-xs">Уровень (макс. {levelCap})</span>
+            <span class="text-sky-300/70 text-xs">
+              {disableLevelInputs ? 'Уровень (задан диапазоном ниже)' : `Уровень (макс. ${levelCap})`}
+            </span>
             <input
               type="number"
               min="1"
               max={levelCap}
               bind:value={slot.level}
-              class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-sm px-2 py-1.5"
+              disabled={disableLevelInputs}
+              class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-sm px-2 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
             />
           </label>
           <label class="block">

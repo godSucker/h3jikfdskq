@@ -425,6 +425,25 @@
   let openItem:any = $state(null);
   const openModal  = (it:any) => { openItem = it; };
   const closeModal = () => { openItem = null; };
+
+  // Диплинк из сайтового поиска (SearchBox.svelte -> /mutants?mutant=<id>):
+  // открываем модалку сразу при заходе на страницу, минуя текущие фильтры,
+  // поэтому ищем прямо в сыром items, а не в отфильтрованном списке.
+  // deepLinkHandled - страховка от повторного открытия: $effect формально
+  // реагирует на items (реактивное чтение), и хотя проп меняется один раз за
+  // жизнь страницы, без флага случайное повторное срабатывание молча
+  // переоткрыло бы модалку, которую пользователь уже закрыл сам.
+  let deepLinkHandled = false;
+  $effect(() => {
+    if (typeof window === 'undefined' || deepLinkHandled) return;
+    const id = new URLSearchParams(window.location.search).get('mutant');
+    if (!id) return;
+    const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
+    if (match) {
+      deepLinkHandled = true;
+      openModal(enrichItem(match));
+    }
+  });
 </script>
 
 <svelte:window onclick={closeIconDropdowns} />
