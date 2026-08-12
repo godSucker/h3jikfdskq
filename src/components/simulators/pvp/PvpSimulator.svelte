@@ -36,6 +36,21 @@
 
   let myTeam = $state<SlotConfig[]>([defaultSlot(), defaultSlot(), defaultSlot()])
   let enemyTeam = $state<SlotConfig[]>([defaultSlot(), defaultSlot(), defaultSlot()])
+
+  // Диапазон уровней команды оппонента - альтернатива фиксированному level на слот.
+  // Применяется только к enemyTeam (для неё же buildBattleUnit и так клэмпит по
+  // maxLevelForHp конкретного мутанта, так что выход за его личный кап не страшен).
+  // Роллится заново на каждый вызов buildTeam(..., true) - и на ручной "Начать бой"
+  // (один раз на слот), и на КАЖДЫЙ прогон батч-симуляции (simulate-batch.ts зовёт
+  // buildEnemy() свежо в цикле - см. его шапку про "юниты нужно строить заново").
+  let enemyLevelRange = $state({ enabled: false, min: 150, max: 300 })
+
+  function rollEnemyLevel(slotLevel: number): number {
+    if (!enemyLevelRange.enabled) return slotLevel
+    const lo = Math.max(1, Math.min(enemyLevelRange.min, enemyLevelRange.max) || 1)
+    const hi = Math.max(lo, enemyLevelRange.max || lo)
+    return lo + Math.floor(Math.random() * (hi - lo + 1))
+  }
   let myMode = $state<FighterMode>('manual')
   let enemyMode = $state<FighterMode>('ai')
   // Крит/антикрит-чармы - аккаунтные бустеры (активируются на весь аккаунт на N дней),
@@ -91,11 +106,12 @@
     slots: SlotConfig[],
     side: 'mine' | 'enemy',
     critCharmActive: boolean,
-    anticritCharmActive: boolean
+    anticritCharmActive: boolean,
+    randomizeLevel = false
   ) {
     const units = slots.map((s, i) =>
       buildBattleUnit(s.mutantId, {
-        level: s.level,
+        level: randomizeLevel ? rollEnemyLevel(s.level) : s.level,
         star: s.star,
         side,
         orbs: { basicOrbIds: s.basicOrbIds, specialOrbId: s.specialOrbId },
@@ -109,7 +125,7 @@
 
   function startFight() {
     const mine = buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm)
-    const enemy = buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm)
+    const enemy = buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true)
     session = createBattleSession(mine, enemy, myMode, enemyMode)
     tick += 1
   }
@@ -158,7 +174,7 @@
     setTimeout(() => {
       batchResult = simulateBatch(
         () => buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm),
-        () => buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm),
+        () => buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true),
         runs
       )
       batchRunning = false
@@ -199,8 +215,37 @@
         </div>
       </div>
       <div class="space-y-3">
-        <TeamBuilder title="Команда оппонента" bind:slots={enemyTeam} />
+        <TeamBuilder title="Команда оппонента" bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
+          <DarkCheckbox
+            bind:checked={enemyLevelRange.enabled}
+            label="Случайный уровень в диапазоне (для всей команды оппонента)"
+          />
+          {#if enemyLevelRange.enabled}
+            <div class="flex items-center gap-2 text-sm text-sky-200/80">
+              <label class="flex items-center gap-1">
+                от
+                <input
+                  type="number"
+                  min="1"
+                  bind:value={enemyLevelRange.min}
+                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1"
+                />
+              </label>
+              <label class="flex items-center gap-1">
+                до
+                <input
+                  type="number"
+                  min="1"
+                  bind:value={enemyLevelRange.max}
+                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1"
+                />
+              </label>
+              <span class="text-sky-300/60 text-xs">
+                рандомится заново на каждый бой/прогон симуляции, отдельно на каждого мутанта
+              </span>
+            </div>
+          {/if}
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
             Режим оппонента:
             <select bind:value={enemyMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1">
