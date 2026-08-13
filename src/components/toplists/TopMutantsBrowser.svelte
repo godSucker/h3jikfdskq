@@ -199,7 +199,7 @@
      колонка оставляла огромные пустые поля по бокам. */
   .rank-list {
     list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.5rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr)); gap: 0.5rem;
   }
 
   .rank-btn {
@@ -226,13 +226,13 @@
   .load-more:hover { background: rgba(59, 130, 246, 0.28); }
 
   @media (min-width: 1440px) {
-    .rank-list { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0.65rem; }
+    .rank-list { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 0.65rem; }
     .rank-icon { width: 46px; height: 46px; }
     .rank-name { font-size: 0.92rem; }
     .rank-value { font-size: 0.95rem; }
   }
   @media (min-width: 1921px) {
-    .rank-list { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 0.8rem; }
+    .rank-list { grid-template-columns: repeat(auto-fill, minmax(22.5rem, 1fr)); gap: 0.8rem; }
     .rank-icon { width: 52px; height: 52px; }
     .rank-name { font-size: 1rem; }
     .rank-value { font-size: 1.02rem; }
