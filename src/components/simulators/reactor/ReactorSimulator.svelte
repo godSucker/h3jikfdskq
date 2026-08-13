@@ -4,6 +4,7 @@
     GACHA_NAME_RU,
     STAR_ICON,
     getMutantName,
+    rollWeighted,
   } from '@/lib/reactor-gacha';
   import { textureUrl } from '@/lib/texture-cdn';
   import { pluralize } from '@/lib/utils';
@@ -94,6 +95,11 @@
   const getRewardName = (id: string) => rewardDisplay.get(id)?.name ?? getMutantName(id);
   const getRewardTexture = (id: string) => rewardDisplay.get(id)?.texture ?? null;
 
+  // weightDenominator может быть 0, если пул наград пуст (в теории для
+  // некорректных данных гачи) - без гарда деление даёт NaN%, тот же паттерн
+  // guard'а, что уже используется в остальных симуляторах (cash/lucky/madness/craft).
+  const oddsPercent = (odds: number) => (weightDenominator > 0 ? (odds / weightDenominator) * 100 : 0);
+
   function updateUnlocked(specimenId: string): boolean {
     if (unlocked.has(specimenId)) return false;
     const next = new Set(unlocked);
@@ -128,15 +134,6 @@
     inventory.set(key, (inventory.get(key) || 0) + 1);
     inventory = new Map(inventory);
     history = [result, ...history].slice(0, 10);
-  }
-
-  function rollWeighted(pool: BasicReward[], totalW: number): BasicReward {
-      let threshold = Math.random() * totalW;
-      for (const item of pool) {
-          threshold -= item.odds;
-          if (threshold <= 0) return item;
-      }
-      return pool[pool.length - 1];
   }
 
   function spin(costType: 'token' | 'hc') {
@@ -237,7 +234,7 @@
                 <img class="slot-stars" src={textureUrl(STAR_ICON[reward.stars])} alt="Звёзды награды" />
               {/if}
               <!-- ПРЯМОЙ РАСЧЕТ ШАНСА В ВЕРСТКЕ ДЛЯ ГАРАНТИИ ПЕРЕСЧЕТА -->
-              <span class="slot-odds">{(reward.odds / weightDenominator * 100).toFixed(2)}%</span>
+              <span class="slot-odds">{oddsPercent(reward.odds).toFixed(2)}%</span>
             </div>
             <div class="slot-art">
               {#if reward.texture}
@@ -261,7 +258,7 @@
               <span class="completion-label">Награда</span>
               <span class="slot-odds">
                 {#if completionGranted}
-                    {(completionReward.odds / weightDenominator * 100).toFixed(2)}%
+                    {oddsPercent(completionReward.odds).toFixed(2)}%
                 {:else}
                     ---
                 {/if}
@@ -331,7 +328,7 @@
           </div>
           <div class="result-info">
             <h3>{getRewardName(lastResult.item.specimen)}</h3>
-            <p>Шанс: {(lastResult.item.odds / weightDenominator * 100).toFixed(2)}%</p>
+            <p>Шанс: {oddsPercent(lastResult.item.odds).toFixed(2)}%</p>
             {#if lastResult.completedNow}<p class="result-complete">Собрано!</p>{/if}
           </div>
         </div>

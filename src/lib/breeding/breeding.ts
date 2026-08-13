@@ -285,15 +285,9 @@ export function calculateBreeding(
     c.probability = totalWeight > 0 ? (c.weight / totalWeight) * 100 : 0
   }
 
-  // ========================================
-  // STEP 6: SORT RESULTS
-  // ========================================
-  return rawCandidates.sort((a, b) => {
-    if (a.isSecret !== b.isSecret) return a.isSecret ? -1 : 1
-    if (a.tag === 'КОПИЯ' && b.tag !== 'КОПИЯ') return -1
-    if (b.tag === 'КОПИЯ' && a.tag !== 'КОПИЯ') return 1
-    return b.probability - a.probability
-  })
+  // Порядок возврата не гарантирован - оба вызывающих (BreedingUI.svelte и
+  // findParentsFor ниже) сами сортируют/ищут по нужному критерию.
+  return rawCandidates
 }
 
 // --- 7. Breeding Duration Calculation ---

@@ -5,7 +5,7 @@
   import { orbingMap } from '@/lib/orbing-map';
   import { ABILITY_RU, TYPE_RU } from '@/lib/mutant-dicts';
   import { normalizeSearch } from '@/lib/search-normalize';
-  import { calculateFinalStats } from '@/lib/stats/unified-calculator';
+  import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator';
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { applySpeedSphere } from '@/lib/stats/speed-sphere-table';
   import { textureUrl } from '@/lib/texture-cdn';
@@ -850,6 +850,20 @@
     return m?.starMultipliers?.[s] ?? 1.0;
   }
 
+  // Реального лимита уровня в игре нет - единственный настоящий потолок это int32-баг
+  // HP (см. HP_OVERFLOW_THRESHOLD в unified-calculator.ts, тот же порог что и в PvP-
+  // калькуляторе). "Серебро" (bank_base × level, без звезды/орбов) считалось отдельно
+  // на предмет того же риска: bank_base в данных 42..340, что даёт порог переполнения
+  // серебра от ~6.3М до ~51М уровня - на 1-2 порядка выше HP-порога для ЛЮБОГО реального
+  // мутанта/звезды/орбов (HP переполняется первым всегда), так что клэмпа по HP тут
+  // достаточно, отдельный клэмп по серебру не нужен.
+  function computeMaxLevel(m, s, mods){
+    if (!m) return 1;
+    const starMul = starMulOf(m, s);
+    const hpPct = mods?.hpPct || 0;
+    return maxLevelForHp((m.hpBase || 0) * starMul * (1 + hpPct / 100));
+  }
+
   function calcStats(m, lvl, s, mods){
     // Use unified smart stats calculator with debug
     const starMul = starMulOf(m, s);
@@ -888,6 +902,7 @@
   let stats = $derived(selected ? calcStats(selected, level, stars, orbModifiers) : {hp:0, atk1:0, atk2:0, speed:0, bank: 0});
   let abilityRows = $derived(selected ? calcAbilityRows(selected, stats, orbModifiers, level, specialSlot) : []);
   let attackRows = $derived(buildAttackRows(selected, stats, abilityRows));
+  let maxLevel = $derived(selected ? computeMaxLevel(selected, stars, orbModifiers) : 1);
 
   // --- ВТОРОЙ МУТАНТ (сравнение) ---
   let orbModifiers2 = $derived(calcOrbModifiers(basicSlots2, specialSlot2));
@@ -896,6 +911,19 @@
   let attackRows2 = $derived(buildAttackRows(selected2, stats2, abilityRows2));
   let typeIconCurrent = $derived(selected ? typeIconPath(selected.typeKey || selected.type) : '');
   let typeIconCurrent2 = $derived(selected2 ? typeIconPath(selected2.typeKey || selected2.type) : '');
+  let maxLevel2 = $derived(selected2 ? computeMaxLevel(selected2, stars2, orbModifiers2) : 1);
+
+  // Кап уровня зависит от мутанта/звезды/HP-орбов и может ПОНИЗИТЬСЯ после того, как
+  // уровень уже был выставлен (смена звезды на более сильную, добавление HP-орба, смена
+  // самого мутанта) - тот же паттерн клэмпа, что в TeamBuilder.svelte (PvP-калькулятор).
+  $effect(() => {
+    if (!(level >= 1)) level = 1;
+    else if (level > maxLevel) level = maxLevel;
+  });
+  $effect(() => {
+    if (!(level2 >= 1)) level2 = 1;
+    else if (level2 > maxLevel2) level2 = maxLevel2;
+  });
 
   function buildAttackRows(mutant, statLine, abilityList){
     if (!mutant) return [];
@@ -1249,6 +1277,17 @@
     if (showSearch2 && !target?.closest('.compare-search-wrap[data-slot="2"]')) showSearch2 = false;
   }
 
+  // Орб-дропдауны и compare-поиск закрывались раньше ТОЛЬКО кликом вне (windowClick выше) -
+  // с клавиатуры их было не закрыть никак (Tab уводил фокус дальше по странице, оставляя
+  // список открытым). Escape - стандартное ожидание для любого попап-виджета.
+  function windowKeydown(e: KeyboardEvent){
+    if (e.key !== 'Escape') return;
+    if (openDropdown) openDropdown = null;
+    if (openDropdown2) openDropdown2 = null;
+    if (showSearch1) showSearch1 = false;
+    if (showSearch2) showSearch2 = false;
+  }
+
   // --- NEW CODE: Логика скрытия каталога и скриншота ---
 
   function toggleCatalog() {
@@ -1384,7 +1423,7 @@
 </script>
 
 
-<svelte:window onclick={windowClick} />
+<svelte:window onclick={windowClick} onkeydown={windowKeydown} />
 
 <div class="stats-page" class:single-col={!showCatalog && !compareMode} class:compare-active={compareMode}>
 
@@ -1570,7 +1609,12 @@
             <!-- базовые -->
             {#each basicSlots as orb, i}
               <div class="slot">
-                <button class="slot-btn" onclick={() => openDropdown = openDropdown === `basic-${i}` ? null : `basic-${i}`}>
+                <button
+                  class="slot-btn"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === `basic-${i}`}
+                  onclick={() => openDropdown = openDropdown === `basic-${i}` ? null : `basic-${i}`}
+                >
                   <img class="slot-bg" src={textureUrl("/orbs/basic/orb_slot.webp")} alt="slot" />
                   {#if orb}<img class="orb" src={textureUrl(orb.icon)} alt={orb.id} />{/if}
                 </button>
@@ -1580,7 +1624,7 @@
                 {#if openDropdown === `basic-${i}`}
                   <div class="dropdown">
                     {#each groupOrbsByCategory(basicOrbOptions, 'basic') as cat}
-                      <button class="cat-header" class:collapsed={!isCatOpen('basic', cat.key)} onclick={() => toggleCat('basic', cat.key)}>
+                      <button class="cat-header" class:collapsed={!isCatOpen('basic', cat.key)} aria-expanded={isCatOpen('basic', cat.key)} onclick={() => toggleCat('basic', cat.key)}>
                         <span class="cat-arrow">{isCatOpen('basic', cat.key) ? '▾' : '▸'}</span>
                         {#if cat.icon}<img class="cat-icon" src={textureUrl(cat.icon)} alt="" />{/if}
                         {cat.label}
@@ -1602,7 +1646,12 @@
             <!-- спец-слот -->
             {#if selected.specialSlotCount > 0}
             <div class="slot">
-              <button class="slot-btn" onclick={() => openDropdown = openDropdown === 'special' ? null : 'special'}>
+              <button
+                class="slot-btn"
+                aria-haspopup="true"
+                aria-expanded={openDropdown === 'special'}
+                onclick={() => openDropdown = openDropdown === 'special' ? null : 'special'}
+              >
                 <img class="slot-bg" src={textureUrl("/orbs/special/orb_slot_spe.webp")} alt="special" />
                 {#if specialSlot}<img class="orb" src={textureUrl(specialSlot.icon)} alt={specialSlot.id} />{/if}
               </button>
@@ -1612,7 +1661,7 @@
               {#if openDropdown === 'special'}
                 <div class="dropdown">
                   {#each groupOrbsByCategory(specialOrbOptions, 'special') as cat}
-                    <button class="cat-header" class:collapsed={!isCatOpen('special', cat.key)} onclick={() => toggleCat('special', cat.key)}>
+                    <button class="cat-header" class:collapsed={!isCatOpen('special', cat.key)} aria-expanded={isCatOpen('special', cat.key)} onclick={() => toggleCat('special', cat.key)}>
                       <span class="cat-arrow">{isCatOpen('special', cat.key) ? '▾' : '▸'}</span>
                       {#if cat.icon}<img class="cat-icon" src={textureUrl(cat.icon)} alt="" />{/if}
                       {cat.label}
@@ -1634,12 +1683,12 @@
 
           <div class="controls">
               <div class="control">
-              <span class="control-label">Уровень:</span>
+              <span class="control-label">Уровень (макс. {maxLevel}):</span>
               <input
                 class="lvl"
                 type="number"
                 min="1"
-                max="500"
+                max={maxLevel}
                 bind:value={level}
                 onkeydown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                 oninput={(e) => { if (e.target.value < 0) level = 0; }}
@@ -1865,7 +1914,12 @@
           <div class="slots">
             {#each basicSlots2 as orb, i}
               <div class="slot">
-                <button class="slot-btn" onclick={() => openDropdown2 = openDropdown2 === `basic2-${i}` ? null : `basic2-${i}`}>
+                <button
+                  class="slot-btn"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown2 === `basic2-${i}`}
+                  onclick={() => openDropdown2 = openDropdown2 === `basic2-${i}` ? null : `basic2-${i}`}
+                >
                   <img class="slot-bg" src={textureUrl("/orbs/basic/orb_slot.webp")} alt="slot" />
                   {#if orb}<img class="orb" src={textureUrl(orb.icon)} alt={orb.id} />{/if}
                 </button>
@@ -1875,7 +1929,7 @@
                 {#if openDropdown2 === `basic2-${i}`}
                   <div class="dropdown">
                     {#each groupOrbsByCategory(basicOrbOptions2, 'basic') as cat}
-                      <button class="cat-header" class:collapsed={!isCatOpen('basic', cat.key)} onclick={() => toggleCat('basic', cat.key)}>
+                      <button class="cat-header" class:collapsed={!isCatOpen('basic', cat.key)} aria-expanded={isCatOpen('basic', cat.key)} onclick={() => toggleCat('basic', cat.key)}>
                         <span class="cat-arrow">{isCatOpen('basic', cat.key) ? '▾' : '▸'}</span>
                         {#if cat.icon}<img class="cat-icon" src={textureUrl(cat.icon)} alt="" />{/if}
                         {cat.label}
@@ -1896,7 +1950,12 @@
 
             {#if selected2.specialSlotCount > 0}
             <div class="slot">
-              <button class="slot-btn" onclick={() => openDropdown2 = openDropdown2 === 'special2' ? null : 'special2'}>
+              <button
+                class="slot-btn"
+                aria-haspopup="true"
+                aria-expanded={openDropdown2 === 'special2'}
+                onclick={() => openDropdown2 = openDropdown2 === 'special2' ? null : 'special2'}
+              >
                 <img class="slot-bg" src={textureUrl("/orbs/special/orb_slot_spe.webp")} alt="special" />
                 {#if specialSlot2}<img class="orb" src={textureUrl(specialSlot2.icon)} alt={specialSlot2.id} />{/if}
               </button>
@@ -1906,7 +1965,7 @@
               {#if openDropdown2 === 'special2'}
                 <div class="dropdown">
                   {#each groupOrbsByCategory(specialOrbOptions2, 'special') as cat}
-                    <button class="cat-header" class:collapsed={!isCatOpen('special', cat.key)} onclick={() => toggleCat('special', cat.key)}>
+                    <button class="cat-header" class:collapsed={!isCatOpen('special', cat.key)} aria-expanded={isCatOpen('special', cat.key)} onclick={() => toggleCat('special', cat.key)}>
                       <span class="cat-arrow">{isCatOpen('special', cat.key) ? '▾' : '▸'}</span>
                       {#if cat.icon}<img class="cat-icon" src={textureUrl(cat.icon)} alt="" />{/if}
                       {cat.label}
@@ -1928,12 +1987,12 @@
 
           <div class="controls">
               <div class="control">
-              <span class="control-label">Уровень:</span>
+              <span class="control-label">Уровень (макс. {maxLevel2}):</span>
               <input
                 class="lvl"
                 type="number"
                 min="1"
-                max="500"
+                max={maxLevel2}
                 bind:value={level2}
                 onkeydown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                 oninput={(e) => { if (e.target.value < 0) level2 = 0; }}

@@ -1287,7 +1287,7 @@
     .fighter-card { max-width: 100%; }
   }
 
-  .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.9rem; }
+  .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11.875rem, 1fr)); gap: 0.9rem; }
   .activity-card {
     display: flex; flex-direction: column; border-radius: 14px; overflow: hidden;
     background: linear-gradient(180deg, rgba(30,41,59,0.4) 0%, rgba(10,14,22,0.9) 70%);

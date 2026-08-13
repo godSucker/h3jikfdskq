@@ -272,7 +272,7 @@
       return;
     }
 
-    if (totalSpins <= 0) {
+    if (!Number.isFinite(totalSpins) || totalSpins <= 0) {
       error = 'Введите ресурсы для хотя бы одного прокрута.';
       return;
     }
@@ -877,9 +877,10 @@
   }
 
   .odds-toggle {
-    background: none;
-    border: none;
-    padding: 0;
+    background: rgba(17, 24, 39, 0.78);
+    border: 1px solid rgba(244, 114, 182, 0.25);
+    border-radius: 24px;
+    padding: 1.1rem 1.4rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -887,6 +888,12 @@
     cursor: pointer;
     color: inherit;
     text-align: left;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .odds-toggle:hover {
+    background: rgba(30, 41, 59, 0.85);
+    border-color: rgba(244, 114, 182, 0.45);
   }
 
   .chevron {

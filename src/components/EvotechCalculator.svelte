@@ -202,6 +202,13 @@
     let S = sIn;
     let G = gIn;
     let ups = 0;
+    // Локальные аккумуляторы - раньше это были внешние $state-переменные компонента
+    // (объявленные НИЖЕ по файлу), которые эта функция мутировала как побочный эффект,
+    // полагаясь на то, что calculateForward() обнулит их перед каждым вызовом. Работало,
+    // пока simulate() вызывается из одного места, но делало функцию скрыто нечистой -
+    // в отличие от reverseCost() выше, которая специально написана без $state-побочек.
+    let spentS = 0n;
+    let spentG = 0n;
 
     const constPair = safeConstPair(dIn);
 
@@ -283,14 +290,9 @@
     };
   }
 
-  let spentS = $state(0n);
-  let spentG = $state(0n);
-
   async function calculateForward() {
     errorMsg = '';
     busy = true;
-    spentS = 0n;
-    spentG = 0n;
 
     try {
       const res = simulate(startLevel, silver, gold, discount);

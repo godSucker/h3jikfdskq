@@ -14,7 +14,7 @@
 import mutantsRaw from '@/data/mutants/mutants.json'
 import orbsRaw from '@/data/materials/orbs.json'
 import charmsRaw from '@/data/materials/charms.json'
-import { calculateFinalStats } from '@/lib/stats/unified-calculator'
+import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator'
 import { applySpeedSphere } from '@/lib/stats/speed-sphere-table'
 import type { Gene } from './type-table'
 
@@ -25,25 +25,8 @@ const ATK2_UNLOCK_LEVEL = 5
 /** Макс. заряды strengthen (Effect strengthen_01 stackMax="2" в abilitydefinitions_decoded.xml). */
 export const STRENGTHEN_STACK_MAX = 2
 
-/**
- * Реального лимита уровня в игре нет ("Уровень эво/мутанта/игрока - без лимита",
- * /guides "Скрытые лимиты чисел") - единственный настоящий потолок это int32-баг:
- * итоговое HP мутанта, посчитанное по формуле роста (base × star × (level/10+0.9)),
- * переполняется и уходит в минус выше ≈21 474 836 (≈2^31/100 - хранится как
- * fixed-point ×100), причём HP-сферы опускают порог ещё ниже. 30 - произвольная
- * заглушка предыдущей версии калькулятора, не игровое ограничение; теперь порог
- * считается индивидуально на мутанта (влияют hp_base, звезда, HP-орбы).
- */
-export const HP_OVERFLOW_THRESHOLD = 21_474_836
-
-/** Наибольший уровень, при котором итоговое HP ещё не переполняется (см. выше).
- *  hpAtBaseLevelScale - hp_base × starMultiplier × (1 + hpOrbPct/100), т.е. HP при
- *  levelScale=1 (до применения роста по уровню) - инверсия формулы `level/10+0.9`. */
-export function maxLevelForHp(hpAtBaseLevelScale: number): number {
-  if (!(hpAtBaseLevelScale > 0)) return 1
-  const level = 10 * (HP_OVERFLOW_THRESHOLD / hpAtBaseLevelScale - 0.9)
-  return Math.max(1, Math.floor(level))
-}
+// HP_OVERFLOW_THRESHOLD/maxLevelForHp переехали в unified-calculator.ts (батч 06 аудита,
+// StatsCalculator.svelte стал вторым потребителем той же игровой константы).
 
 export interface CombatAbility {
   kind: AbilityKind
@@ -87,7 +70,14 @@ export interface CombatUnit {
   critCharmBonusPct: number
   /** Свой антикрит-чарм - снижает шанс крита ПРОТИВНИКА, когда он бьёт меня (не свой крит!). */
   anticritBonusPct: number
-  ability: CombatAbility | null
+  /** 0-2 записи, гарантированно РАЗНЫХ kind: родная способность мутанта (если её kind
+   *  резолвится в один из 6) + способность спец-сферы orb_special_add<kind>, если её kind
+   *  ОТЛИЧАЕТСЯ от родной (иначе UI-пикер такую сферу вообще не даёт выбрать - см. TeamBuilder
+   *  allowOrbForSpecialSlot/isOrbConflicting, тот же паттерн, что и в StatsCalculator.svelte).
+   *  Раньше здесь было единственное поле ability - спец-сфера "add<kind>", отличный от родного,
+   *  молча выбрасывалась (баг: игра явно называет эти сферы "ADD", т.е. добавляют вторую
+   *  способность, а не заменяют/бустят первую). */
+  abilities: CombatAbility[]
   isAlive: boolean
 
   /** Персистентный стейт эффектов способностей (abilitydefinitions_decoded.xml,
@@ -107,6 +97,11 @@ export interface CombatUnit {
    *  the end of the fight"). Снэпшотится в момент удара (% от damageTaken тогда),
    *  тикает в конце каждого хода поражённого юнита. 0 = не активен. */
   slashDot: number
+  /** Выбор сфер, каким он пришёл в buildBattleUnit - только для UI (мини-иконки в
+   *  списке команд, BattleView.svelte), на боевую математику не влияет напрямую
+   *  (та уже раскатана в atk1/atk2/hp/speedX100/abilities выше). */
+  basicOrbIds: (string | null)[]
+  specialOrbId: string | null
 }
 
 export interface OrbSelection {
@@ -272,27 +267,26 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
   const anticritBonusPct = charmCritBonus(opts.anticritCharmActive, 'Charm_Anticritical')
 
   // Способность: своя (первая по массиву abilities мутанта, base/plus по уровню 25)
-  // + возможный оверрайд/усиление спец-орбом.
+  // + способность спец-сферы orb_special_add<kind>, если её kind ОТЛИЧАЕТСЯ от родной -
+  // обе активны одновременно (0-2 записи). Same-kind спец-сфера (буст родной) сюда не
+  // доходит - UI-пикер такой выбор не даёт сделать (см. TeamBuilder), а orbs.json
+  // подтверждает, что все именные спец-сферы это ровно orb_special_add<kind> без
+  // отдельного "усиливающего" варианта.
   const abilityEntries: { name: string; pct: number }[] = Array.isArray(mutant.abilities)
     ? mutant.abilities
     : []
-  let ability: CombatAbility | null = null
+  const abilities: CombatAbility[] = []
+  let ownKind: AbilityKind | null = null
   if (abilityEntries.length) {
     const own =
       abilityEntries.find((a) => a.name.endsWith('_plus')) && level >= 25
         ? abilityEntries.find((a) => a.name.endsWith('_plus'))!
         : abilityEntries.find((a) => !a.name.endsWith('_plus')) || abilityEntries[0]
-    const kind = abilityKindFromCode(own.name)
-    if (kind) {
-      const orbBonus =
-        mods.abilityBonus && mods.abilityBonus.kind === kind ? mods.abilityBonus.pct : 0
-      const pct = Math.abs(own.pct) + orbBonus
-      ability = { kind, pct }
-    }
+    ownKind = abilityKindFromCode(own.name)
+    if (ownKind) abilities.push({ kind: ownKind, pct: Math.abs(own.pct) })
   }
-  if (!ability && mods.abilityBonus) {
-    // спец-орб выдал способность мутанту, у которого своей не было
-    ability = { kind: mods.abilityBonus.kind, pct: mods.abilityBonus.pct }
+  if (mods.abilityBonus && mods.abilityBonus.kind !== ownKind) {
+    abilities.push({ kind: mods.abilityBonus.kind, pct: mods.abilityBonus.pct })
   }
 
   const ownGene = normalizeGene(Array.isArray(mutant.genes) ? mutant.genes[0] : undefined)
@@ -325,12 +319,14 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
     speedX100,
     critCharmBonusPct,
     anticritBonusPct,
-    ability,
+    abilities,
     isAlive: true,
     shieldPool: 0,
     strengthenCharges: 0,
     weakenCharge: false,
     weakenPct: 0,
     slashDot: 0,
+    basicOrbIds: opts.orbs?.basicOrbIds ?? [],
+    specialOrbId: opts.orbs?.specialOrbId ?? null,
   }
 }

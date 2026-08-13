@@ -10,6 +10,7 @@
     turnLog,
     currentTurn,
     winner,
+    turnQueue,
     onResolve,
     onAutoPlay,
   }: {
@@ -17,9 +18,25 @@
     turnLog: TurnLogGroup[]
     currentTurn: CurrentTurnInfo | null
     winner: 'mine' | 'enemy' | null
+    turnQueue: CombatUnit[]
     onResolve: (choice?: TurnChoice) => void
     onAutoPlay: () => void
   } = $props()
+
+  function orbIcon(id: string | null, kind: 'basic' | 'special'): string | null {
+    return id ? `/orbs/${kind}/${id}.webp` : null
+  }
+
+  function unitOrbIcons(u: CombatUnit): { icon: string; kind: 'basic' | 'special' }[] {
+    const icons: { icon: string; kind: 'basic' | 'special' }[] = []
+    for (const id of u.basicOrbIds) {
+      const icon = orbIcon(id, 'basic')
+      if (icon) icons.push({ icon, kind: 'basic' })
+    }
+    const special = orbIcon(u.specialOrbId, 'special')
+    if (special) icons.push({ icon: special, kind: 'special' })
+    return icons
+  }
 
   let pendingAttack = $state<'atk1' | 'atk2' | null>(null)
 
@@ -50,10 +67,47 @@
   function attackGene(u: CombatUnit, attack: 'atk1' | 'atk2') {
     return attack === 'atk1' ? u.atk1Gene : u.atk2Gene
   }
+
+  function attackValue(u: CombatUnit, attack: 'atk1' | 'atk2'): number {
+    return attack === 'atk1' ? u.atk1 : u.atk2
+  }
 </script>
 
 <div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur space-y-4">
   <h2 class="text-sky-100 font-bold">Бой</h2>
+
+  {#if !winner && turnQueue.length > 0}
+    <div class="rounded-lg border border-slate-700/50 bg-slate-950/40 p-2">
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1.5">Очередь ходов</div>
+      <div class="flex items-end gap-2.5 overflow-x-auto px-1.5 pb-0.5">
+        {#each turnQueue as u, i (u.instanceId + '-' + i)}
+          <div class="flex flex-col items-center gap-1 shrink-0">
+            {#if i === 0}
+              <span class="text-[9px] font-bold text-amber-300 leading-none">СЕЙЧАС</span>
+            {/if}
+            <div
+              class={`rounded-lg overflow-hidden ring-2 ${i === 0 ? 'w-12 h-12 ring-amber-400' : 'w-8 h-8 ring-transparent opacity-80'} ${
+                u.side === 'mine' ? 'bg-sky-950' : 'bg-rose-950'
+              }`}
+            >
+              <img
+                src={textureUrl(u.portraitUrl)}
+                alt={u.name}
+                title={`${u.name} (${u.side === 'mine' ? 'моя команда' : 'оппонент'})`}
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <span class={`block w-full h-1.5 rounded-full ${u.side === 'mine' ? 'bg-sky-500' : 'bg-rose-500'}`}></span>
+          </div>
+        {/each}
+      </div>
+      <div class="flex items-center gap-3 mt-1.5 text-[10px] text-slate-400">
+        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-sky-500"></span>моя команда</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-rose-500"></span>оппонент</span>
+      </div>
+    </div>
+  {/if}
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     {#each ['mine', 'enemy'] as side (side)}
@@ -93,6 +147,13 @@
                     />
                   {/if}
                   <span class="truncate">{u.name}</span>
+                  {#each unitOrbIcons(u) as o, oi (oi)}
+                    <img
+                      src={textureUrl(o.icon)}
+                      alt=""
+                      class={`w-3.5 h-3.5 shrink-0 rounded-sm ${o.kind === 'special' ? 'ring-1 ring-amber-400/70' : ''}`}
+                    />
+                  {/each}
                 </span>
                 <span class="shrink-0">{u.hp} / {u.maxHp}</span>
               </div>
@@ -171,6 +232,7 @@
                   <img src={textureUrl(`/genes/icon_gene_${gene.toLowerCase()}.webp`)} alt="" class="w-3.5 h-3.5" />
                 {/if}
                 {attackLabel(currentTurn.unit, action.attack)}{action.isAOE ? ' (по всем)' : ''}
+                <span class="text-white/70 font-normal">({attackValue(currentTurn.unit, action.attack)})</span>
               </button>
             {/each}
           </div>

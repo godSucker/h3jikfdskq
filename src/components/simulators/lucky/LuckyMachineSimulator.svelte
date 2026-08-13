@@ -88,7 +88,7 @@
   }
 
   function resetSimulation() {
-    if (controller) controller.abort();
+    if (controller) { controller.abort(); controller = null; }
     result = null; progress = 0; completedPaid = 0; error = null; showResultsModal = false;
   }
 
@@ -121,9 +121,13 @@
       result = simulation;
       showResultsModal = true;
     } catch (err) {
-      if (!(err instanceof DOMException && err.name === 'AbortError')) error = 'Ошибка симуляции.';
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        error = 'Симуляция остановлена.';
+      } else {
+        error = 'Ошибка симуляции.';
+      }
     } finally {
-      controller = null; isSimulating = false;
+      controller = null; isSimulating = false; progress = 0; completedPaid = 0;
     }
   }
 
@@ -162,6 +166,15 @@
     }
     return '—';
   }
+
+  // В отличие от Cash/Madness, здесь не было cleanup при размонтировании -
+  // уход со страницы во время симуляции оставлял simulateLuckyMachineAsync
+  // крутиться в фоне и писать в состояние уже уничтоженного компонента.
+  $effect(() => {
+    return () => {
+      controller?.abort();
+    };
+  });
 </script>
 
 <div class="machine-shell">

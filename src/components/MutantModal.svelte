@@ -272,16 +272,20 @@
   // ОДНОЙ и той же способности — не отдельная способность на атаку (источник истины:
   // unified-calculator.ts abilityPct1/abilityPct2 и StatsCalculator.svelte calcAbilityRows,
   // где активный тир выбирается ЦЕЛИКОМ по уровню: level>=25 -> plus, иначе база).
-  // Каждый тир несёт готовые value_atk{1,2}_lvl{1,30} — читаем их напрямую, чтобы не
-  // разъезжаться с этими компонентами при пересчёте по pct.
+  // ВСЕГДА считаем от s1/s30.atk{1,2} (уже отмасштабированы под displayMultiplier), НЕ от
+  // предрасчитанных value_atk{1,2}_lvl{1,30} в данных — те посчитаны sync-mutants.ts при
+  // множителе 1.0x (см. "Статы при множителе 1.0x (raw)") и НЕ реагируют на смену звезды.
+  // Раньше читались напрямую как "быстрый путь" - баг: переключение звезды в модалке
+  // масштабировало статы, но не абилку (звезда всегда показывала способность как на
+  // обычной/normal), несмотря на то что калькулятор статов считает её правильно.
   const getAbilityValue = (level: number, tierIndex: number, atkSlot: 1 | 2, s1: any, s30: any): number => {
     const abilities = displayMutant?.abilities ?? [];
     const ability = abilities[tierIndex];
     if (!ability) return 0;
-    const field = level < 25
-      ? (atkSlot === 1 ? 'value_atk1_lvl1' : 'value_atk2_lvl1')
-      : (atkSlot === 1 ? 'value_atk1_lvl30' : 'value_atk2_lvl30');
-    if (typeof ability[field] === 'number') return ability[field];
+    // retaliate работает только через ATK1 - ATK2-слот всегда 0, чтобы вторая строка
+    // самогасла (see getRows: value2 === 0 -> ab2 = null), как раньше давали заранее
+    // зануленные value_atk2_lvl* в данных.
+    if (atkSlot === 2 && String(ability.name || '').toLowerCase().includes('retaliate')) return 0;
     const atk = atkSlot === 1
       ? (level < 25 ? s1.atk1 : s30.atk1)
       : (level < 25 ? s1.atk2 : s30.atk2);
@@ -380,8 +384,8 @@
     const rows: Row[] = [];
 
     // Тир выбирается один раз по уровню и применяется к обеим строкам (атака1/атака2) —
-    // для retaliate value_atk2_lvl* в данных заранее записаны нулями, поэтому вторая
-    // строка гаснет сама (value2 === 0 -> ab2 = null), без отдельной ветки на retaliate.
+    // для retaliate getAbilityValue сама возвращает 0 для ATK2-слота, поэтому вторая
+    // строка гаснет сама (value2 === 0 -> ab2 = null), без отдельной ветки здесь.
     const tierIndex = level < 25 ? 0 : (list[1] ? 1 : 0);
     const ab1 = list[tierIndex];
 

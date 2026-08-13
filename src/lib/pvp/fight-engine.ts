@@ -114,6 +114,22 @@ export class BattleSession {
     return this.units
   }
 
+  /** Превью ближайших N ходов очереди (для шкалы ходов в UI) - лучшая доступная оценка,
+   *  не гарантия: если в этом окне кто-то умрёт раньше своего хода, реальный порядок
+   *  может немного разъехаться (та же причина, по которой currentTurn() скипает мёртвых
+   *  "на лету", а не пересчитывает очередь заранее). Юниты резолвятся через byId(), т.к.
+   *  сама очередь хранит ссылки на снапшоты units с МОМЕНТА computeTurnQueue - после
+   *  каждого resolveTurn() this.units целиком заменяется (см. cloneUnits в resolve-attack.ts). */
+  upcomingQueue(n: number): CombatUnit[] {
+    this.ensureQueue()
+    const result: CombatUnit[] = []
+    for (let i = this.queuePos; i < this.queue.length && result.length < n; i += 1) {
+      const u = this.byId(this.queue[i].instanceId)
+      if (u.isAlive) result.push(u)
+    }
+    return result
+  }
+
   isFinished(): boolean {
     const mineAlive = this.units.some((u) => u.side === 'mine' && u.isAlive)
     const enemyAlive = this.units.some((u) => u.side === 'enemy' && u.isAlive)
@@ -242,7 +258,7 @@ export class BattleSession {
       targetName: nameOf(e.attackerId),
       damage: e.damage,
       crit: false,
-      shieldAbsorbed: 0,
+      shieldAbsorbed: e.shieldAbsorbed,
       died: e.died,
       baseDamage: e.baseDamage,
       typeModPct: 0,
@@ -264,10 +280,14 @@ export class BattleSession {
     // нумеруются НЕЗАВИСИМО - "моя Робот I" и "вражья Робот I" совпадают текстом,
     // и в строке лога это снова читалось бы как самоатака. Цель/контратакующий тут
     // ВСЕГДА на противоположной стороне от unit (атаки бьют только по врагу) - если
-    // имя всё равно совпало с unit.name, помечаем сторону явно.
+    // имя всё равно совпало с unit.name, помечаем сторону явно. Тег читается с точки
+    // зрения читателя лога ("моя команда"/"оппонент" - те же слова, что в остальном
+    // UI), а не с точки зрения unit: если unit - враг, а совпавшая по имени цель раз
+    // атаки всегда межсторонние - значит на МОЕЙ стороне, это "(моя команда)", не
+    // "(союзник)" - у unit'а тут в принципе нет союзников, слово вводило в заблуждение.
     function sideTag(otherName: string): string {
       if (otherName !== unit.name) return ''
-      return unit.side === 'mine' ? ' (враг)' : ' (союзник)'
+      return unit.side === 'mine' ? ' (враг)' : ' (моя команда)'
     }
 
     const turnLines: string[] = []
@@ -278,7 +298,7 @@ export class BattleSession {
     }
     for (const r of retaliateHits) {
       turnLines.push(
-        `${r.targetName}${sideTag(r.targetName)} контратакует ${unit.name}: ${r.damage}${r.died ? ' — убит' : ''}`,
+        `${r.targetName}${sideTag(r.targetName)} контратакует ${unit.name}: ${r.damage}${r.shieldAbsorbed ? ` (щит поглотил ${r.shieldAbsorbed})` : ''}${r.died ? ' — убит' : ''}`,
       )
     }
     if (slashTick > 0) {

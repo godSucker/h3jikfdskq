@@ -89,6 +89,7 @@ export const BINGO_RU: Record<string, string> = {
 // Переводы типов мутантов. Если тип не найден, возвращается исходное значение.
 export const TYPE_RU: Record<string, string> = {
   Pvp: 'ПВП',
+  PVP: 'ПВП',
   Special: 'Особые',
   SPECIAL: 'Особые',
   special: 'Особые',

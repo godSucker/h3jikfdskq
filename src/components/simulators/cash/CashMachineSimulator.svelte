@@ -89,7 +89,7 @@
     error = null;
     const spins = Math.floor(budget / costPerSpin);
 
-    if (budget <= 0) {
+    if (!Number.isFinite(budget) || budget <= 0) {
       error = 'Введите положительное количество золота.';
       return;
     }

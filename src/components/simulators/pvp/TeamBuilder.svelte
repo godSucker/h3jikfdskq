@@ -1,10 +1,17 @@
 <script lang="ts">
   import mutantsRaw from '@/data/mutants/mutants.json'
-  import orbsRaw from '@/data/materials/orbs.json'
   import { textureUrl } from '@/lib/texture-cdn'
   import { GENE_RU, ABILITY_RU } from '@/lib/mutant-dicts'
-  import { maxLevelForHp, orbHpBonusPct } from '@/lib/pvp/battle-profile'
+  import { orbHpBonusPct } from '@/lib/pvp/battle-profile'
+  import { maxLevelForHp } from '@/lib/stats/unified-calculator'
+  import {
+    basicOrbOptionsForMutant,
+    specialOrbOptionsForMutant,
+    orbingPresetsFor,
+    type OrbingPreset,
+  } from '@/lib/pvp/orb-catalog'
   import IconSelect from './IconSelect.svelte'
+  import OrbPicker from './OrbPicker.svelte'
 
   interface SlotConfig {
     mutantId: string
@@ -97,20 +104,6 @@
   const MUTANT_OPTIONS = MUTANTS.map((m) => ({ id: m.id, name: m.name || m.id })).sort((a, b) =>
     a.name.localeCompare(b.name, 'ru')
   )
-
-  // orb_basic_xp* - бонус к получаемому опыту, не влияет на бой (нет боевого
-  // эффекта в PvP-симуляторе) - убраны из выбора, чтобы не путать пользователя.
-  const BASIC_ORBS = (orbsRaw as any[]).filter(
-    (o) =>
-      !String(o.id).includes('ephemeral') &&
-      String(o.id).startsWith('orb_basic') &&
-      !String(o.id).startsWith('orb_basic_xp')
-  )
-  const SPECIAL_ORBS = (orbsRaw as any[]).filter(
-    (o) => !String(o.id).includes('ephemeral') && String(o.id).startsWith('orb_special')
-  )
-  const orbIcon = (id: string | null, kind: 'basic' | 'special'): string | null =>
-    id ? `/orbs/${kind}/${id}.webp` : null
 
   const STAR_ORDER: SlotConfig['star'][] = ['normal', 'bronze', 'silver', 'gold', 'platinum']
   // Приоритет для дефолта - лучшая доступная звезда мутанта, не первая по алфавиту/порядку.
@@ -231,6 +224,30 @@
     }
   })
 
+  // Смена мутанта/спец-сферы может сделать текущий выбор ability-орбов невалидным
+  // (сфера подходила под способность прошлого мутанта/прошлой спец-сферы, а под новую -
+  // уже нет) - тот же паттерн, что levelCap-эффект выше: молча подчищаем, а не оставляем
+  // болтаться выбор, который движок при сборке боя всё равно проигнорирует.
+  $effect(() => {
+    for (const slot of slots) {
+      const mutant = MUTANT_MAP.get(slot.mutantId)
+      if (!mutant) continue
+      if (slot.specialOrbId) {
+        const allowedSpecial = new Set(specialOrbOptionsForMutant(mutant).map((o) => o.id))
+        if (!allowedSpecial.has(slot.specialOrbId)) slot.specialOrbId = null
+      }
+      const allowedBasic = new Set(basicOrbOptionsForMutant(mutant, slot.specialOrbId).map((o) => o.id))
+      const sanitized = slot.basicOrbIds.map((id) => (id && !allowedBasic.has(id) ? null : id))
+      // .map() ВСЕГДА возвращает новый массив, даже когда содержимое не изменилось -
+      // присваивать его безусловно означало бы писать в поле, которое этот же $effect
+      // читает, на КАЖДЫЙ прогон -> бесконечный реактивный цикл (вешает вкладку, клики
+      // перестают доходить). Пишем только когда реально что-то поменялось.
+      if (sanitized.some((id, idx) => id !== slot.basicOrbIds[idx])) {
+        slot.basicOrbIds = sanitized
+      }
+    }
+  })
+
   function pickMutant(i: number, id: string) {
     const mutant = MUTANT_MAP.get(id)
     slots[i].mutantId = id
@@ -246,6 +263,13 @@
     }
     searchOpen[i] = false
     search[i] = ''
+  }
+
+  function applyOrbingPreset(i: number, preset: OrbingPreset) {
+    const mutant = MUTANT_MAP.get(slots[i].mutantId)
+    const orbCount = normalOrbSlots(mutant)
+    slots[i].basicOrbIds = Array.from({ length: orbCount }, (_, idx) => preset.basicOrbIds[idx] ?? null)
+    slots[i].specialOrbId = hasSpecialOrbSlot(mutant) ? preset.specialOrbId : null
   }
 </script>
 
@@ -316,6 +340,7 @@
       {@const genes = mutant ? genesOf(mutant) : []}
       {@const ability = abilityLabel(mutant?.abilities?.[0]?.name)}
       {@const levelCap = maxLevel(mutant, slot.star, slot)}
+      {@const orbingPresets = mutant ? orbingPresetsFor(mutant.id) : []}
       <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-3">
         <div class="flex gap-3">
           {#if portrait}
@@ -419,37 +444,40 @@
           </label>
         </div>
 
-        <div class="grid grid-cols-3 gap-2">
-          {#each Array.from({ length: normalOrbSlots(mutant) }) as _, slotIdx (slotIdx)}
-            <label class="block">
-              <span class="text-sky-300/70 text-xs">Сфера {slotIdx + 1}</span>
-              <div class="mt-1">
-                <IconSelect
-                  bind:value={slot.basicOrbIds[slotIdx]}
-                  options={[
-                    { value: null, label: '—', icon: null },
-                    ...BASIC_ORBS.map((o) => ({ value: o.id, label: o.name, icon: orbIcon(o.id, 'basic') })),
-                  ]}
-                />
-              </div>
-            </label>
-          {/each}
-        </div>
-
-        {#if hasSpecialOrbSlot(mutant)}
-          <label class="block">
-            <span class="text-sky-300/70 text-xs">Спец-сфера</span>
-            <div class="mt-1">
-              <IconSelect
-                bind:value={slot.specialOrbId}
-                options={[
-                  { value: null, label: '—', icon: null },
-                  ...SPECIAL_ORBS.map((o) => ({ value: o.id, label: o.name, icon: orbIcon(o.id, 'special') })),
-                ]}
-              />
-            </div>
-          </label>
+        {#if orbingPresets.length}
+          <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+            <span class="text-sky-300/60 uppercase tracking-wide">Сферовка из вики:</span>
+            {#each orbingPresets as preset, pi (pi)}
+              <button
+                type="button"
+                onclick={() => applyOrbingPreset(i, preset)}
+                title="Заполнить слоты этим набором"
+                class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 hover:bg-emerald-500/25"
+              >
+                Пресет {pi + 1}
+              </button>
+            {/each}
+          </div>
         {/if}
+
+        <div class="flex flex-wrap items-end gap-3">
+          {#each Array.from({ length: normalOrbSlots(mutant) }) as _, slotIdx (slotIdx)}
+            <OrbPicker
+              bind:value={slot.basicOrbIds[slotIdx]}
+              options={mutant ? basicOrbOptionsForMutant(mutant, slot.specialOrbId) : []}
+              slotBg="/orbs/basic/orb_slot.webp"
+              label={`Сфера ${slotIdx + 1}`}
+            />
+          {/each}
+          {#if hasSpecialOrbSlot(mutant)}
+            <OrbPicker
+              bind:value={slot.specialOrbId}
+              options={mutant ? specialOrbOptionsForMutant(mutant) : []}
+              slotBg="/orbs/special/orb_slot_spe.webp"
+              label="Спец-сфера"
+            />
+          {/if}
+        </div>
       </div>
     {/each}
   </div>

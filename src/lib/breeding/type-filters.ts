@@ -4,34 +4,30 @@
  * This module defines which mutant types can be bred and under what conditions.
  */
 
-import { normalizeSearch } from '@/lib/search-normalize';
+import { normalizeSearch } from '@/lib/search-normalize'
 
 /**
  * Mutant types that CANNOT be bred under any circumstances.
  * These never appear in breeding results, even when breeding two of the same type.
  */
 export const UNBREEDABLE_TYPES = new Set([
-  'secret',      // Secret mutants (have specific recipes only)
-  'recipe',      // Recipe mutants (same as secret - only via specific recipes)
-  'videogame',   // Video game crossover mutants
-  'zodiac',      // Zodiac mutants
-  'event',       // Event-exclusive mutants
-  'special',     // Special mutants
-  'gacha',       // Gacha/Reactor mutants
-  'community',   // Community mutants
-  'seasonal',    // Seasonal mutants (e.g., Lincoln)
-  'boss'         // Boss mutants
-]);
+  'recipe', // Recipe mutants (secret recipes only)
+  'videogame', // Video game crossover mutants
+  'zodiac', // Zodiac mutants
+  'special', // Special mutants
+  'gacha', // Gacha/Reactor mutants
+  'community', // Community mutants
+  'seasonal', // Seasonal mutants (e.g., Lincoln)
+])
 
 /**
  * Mutant types that can ONLY be bred through inheritance.
  * These only appear if one of the parents is exactly this mutant.
  */
 export const INHERITANCE_ONLY_TYPES = new Set([
-  'heroic',      // Hero mutants
-  'hero',        // Alternative name for heroic
-  'pvp'          // PvP mutants
-]);
+  'heroic', // Hero mutants
+  'pvp', // PvP mutants
+])
 
 /**
  * Legendary mutants that are globally breedable (can be bred from any matching genes).
@@ -61,11 +57,11 @@ export const BREEDABLE_LEGENDS = new Set([
   'вампаа',
   'мастерйоуда',
   'анубис',
-  'воронийглаз'
+  'воронийглаз',
   // NOTE: Secret/Recipe mutants excluded:
   // буши, капитанкостьмилягу, капитангаечныйключ, мантидроид,
   // пожиратель, темновзор, перехватчица, киберслизень, коммодоракула
-]);
+])
 
 /**
  * Checks if a mutant type is completely unbreedable.
@@ -74,8 +70,8 @@ export const BREEDABLE_LEGENDS = new Set([
  * @returns true if this type cannot be bred at all
  */
 export function isUnbreedableType(type: string | undefined): boolean {
-  if (!type) return false;
-  return UNBREEDABLE_TYPES.has(type.toLowerCase());
+  if (!type) return false
+  return UNBREEDABLE_TYPES.has(type.toLowerCase())
 }
 
 /**
@@ -85,8 +81,8 @@ export function isUnbreedableType(type: string | undefined): boolean {
  * @returns true if this type can only be inherited
  */
 export function isInheritanceOnlyType(type: string | undefined): boolean {
-  if (!type) return false;
-  return INHERITANCE_ONLY_TYPES.has(type.toLowerCase());
+  if (!type) return false
+  return INHERITANCE_ONLY_TYPES.has(type.toLowerCase())
 }
 
 /**
@@ -96,8 +92,8 @@ export function isInheritanceOnlyType(type: string | undefined): boolean {
  * @returns true if this legend can be bred from any matching genes
  */
 export function isBreedableLegend(name: string): boolean {
-  const normalized = normalizeSearch(name);
-  return BREEDABLE_LEGENDS.has(normalized);
+  const normalized = normalizeSearch(name)
+  return BREEDABLE_LEGENDS.has(normalized)
 }
 
 /**
@@ -111,30 +107,30 @@ export function isBreedableLegend(name: string): boolean {
 export function canBreedByType(
   mutant: { id: string; name: string; type?: string },
   parent1Id: string,
-  parent2Id: string
+  parent2Id: string,
 ): boolean {
-  const mutantType = (mutant.type || 'default').toLowerCase();
-  const mutantId = String(mutant.id);
+  const mutantType = (mutant.type || 'default').toLowerCase()
+  const mutantId = String(mutant.id)
 
   // 1. Unbreedable types: Never appear (includes 'secret' and 'recipe')
   if (isUnbreedableType(mutantType)) {
-    return false;
+    return false
   }
 
   // 2. Legendary type: Check if it's in the breedable list OR is a parent
   if (mutantType === 'legend' || mutantType === 'legendary') {
-    const isParent = mutantId === parent1Id || mutantId === parent2Id;
-    const isBreedable = isBreedableLegend(mutant.name);
-    return isParent || isBreedable;
+    const isParent = mutantId === parent1Id || mutantId === parent2Id
+    const isBreedable = isBreedableLegend(mutant.name)
+    return isParent || isBreedable
   }
 
   // 3. Inheritance-only types (Heroic, PvP): Only if one parent is this mutant
   if (isInheritanceOnlyType(mutantType)) {
-    return mutantId === parent1Id || mutantId === parent2Id;
+    return mutantId === parent1Id || mutantId === parent2Id
   }
 
   // 4. Normal/Default types: Always breedable if genes match
-  return true;
+  return true
 }
 
 /**
@@ -148,23 +144,10 @@ export function canBreedByType(
 export function getBreedingTag(
   mutant: { id: string; name: string; type?: string },
   parent1Id: string,
-  parent2Id: string
+  parent2Id: string,
 ): string {
-  const mutantId = String(mutant.id);
-  const isParent = mutantId === parent1Id || mutantId === parent2Id;
+  const mutantId = String(mutant.id)
+  const isParent = mutantId === parent1Id || mutantId === parent2Id
 
-  if (isParent) {
-    return 'КОПИЯ';
-  }
-
-  const mutantType = (mutant.type || 'default').toLowerCase();
-
-  // Check if it's a restricted type that's breedable
-  if (mutantType === 'legend' || mutantType === 'legendary') {
-    if (isBreedableLegend(mutant.name)) {
-      return 'ВОЗМОЖНО';
-    }
-  }
-
-  return 'ВОЗМОЖНО';
+  return isParent ? 'КОПИЯ' : 'ВОЗМОЖНО'
 }

@@ -143,7 +143,8 @@ function resolveFighter(f: FighterRaw) {
   const starKey = STAR_KEYS[f.stars] ?? 'normal';
   const icon = mutantIconAtStar(m, m.stars?.[starKey] ? starKey : maxStar(m));
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const stats = calculateFinalStats(m.base_stats as any, f.level, STAR_MULTIPLIERS[starKey]);
+  const starMultiplier = m.stars?.[starKey]?.multiplier ?? STAR_MULTIPLIERS[starKey] ?? 1;
+  const stats = calculateFinalStats(m.base_stats as any, f.level, starMultiplier);
   if (f.adjustment) {
     stats.hp = Math.round((stats.hp * f.adjustment.lifePct) / 100);
     stats.atk1 = Math.round((stats.atk1 * f.adjustment.attackPct) / 100);

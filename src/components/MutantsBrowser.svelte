@@ -5,7 +5,7 @@
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { textureUrl } from '@/lib/texture-cdn';
   import { pluralize, baseMutantId as baseId } from '@/lib/utils';
-  import { getTypeIcon } from '@/lib/mutant-icons';
+  import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
 
   const normalizeForSearch = normalizeSearch;
@@ -218,18 +218,11 @@
     if (typeof it?.gene_code === 'string') return it.gene_code;
     return '';
   }
-  const geneOrder = new Map<string, number>([
-    ['A', 0], ['B', 1], ['C', 2], ['D', 3], ['E', 4], ['F', 5],
-  ]);
 
   function enrichItem(it: any) {
     const searchName = normalizeForSearch(String(it?.name ?? ''));
     const rawCode = readGeneCode(it);
     const code = normalizeGene(rawCode);
-    const first = code?.[0] ?? '';
-    const rank = first ? geneOrder.get(first) ?? 99 : 199;
-
-    const secondaryWeight = code.length <= 1 ? 0 : (geneOrder.get(code[1]) ?? 99) + 1;
 
     const typeKey = String(it?.type ?? '').toLowerCase();
 
@@ -237,7 +230,7 @@
     const bingoKeys = new Set(collectBingoKeys(it).map(String));
     return {
       ...it,
-      _meta: { searchName, code, rank, secondaryWeight, typeKey, starKey, bingoKeys, id: String(it?.id ?? '') }
+      _meta: { searchName, code, typeKey, starKey, bingoKeys, id: String(it?.id ?? '') }
     };
   }
 
@@ -249,8 +242,6 @@
     const sBingo = bingoSel ? String(bingoSel) : null;
     const sType = typeSel ? String(typeSel).toLowerCase() : null;
 
-    const isSearching = !!normalizedQ;
-
     const bingoData = sBingo ? bingos.find((b: any) => b.id === sBingo) : null;
     const isReactorSel = sBingo === 'reactor' || (sType === 'reactor' || sType === 'gacha');
 
@@ -260,26 +251,29 @@
 
       if (normalizedQ && !m.searchName.includes(normalizedQ)) continue;
 
-      if (!isSearching) {
-        if (gene1Sel) {
-          const firstGene = m.code?.[0];
-          if (firstGene !== gene1Sel.toUpperCase()) continue;
-          if (gene2Sel) {
-            if (gene2Sel === 'neutral') {
-              if (m.code.length !== 1) continue;
-            } else {
-              if (m.code.length < 2 || m.code[1] !== gene2Sel.toUpperCase()) continue;
-            }
+      // Поиск СУЖАЕТ уже применённые фильтры, не заменяет их - раньше поиск
+      // полностью игнорировал ген/тип/бинго (проверка была за `if (!isSearching)`),
+      // из-за чего чип фильтра оставался визуально нажатым, а выдача при этом
+      // включала мутантов ЛЮБОГО гена/типа - UI откровенно врал пользователю о том,
+      // что реально показано.
+      if (gene1Sel) {
+        const firstGene = m.code?.[0];
+        if (firstGene !== gene1Sel.toUpperCase()) continue;
+        if (gene2Sel) {
+          if (gene2Sel === 'neutral') {
+            if (m.code.length !== 1) continue;
+          } else {
+            if (m.code.length < 2 || m.code[1] !== gene2Sel.toUpperCase()) continue;
           }
         }
+      }
 
-        if (sType) {
-          if (m.typeKey !== sType) continue;
-        }
+      if (sType) {
+        if (m.typeKey !== sType) continue;
+      }
 
-        if (sBingo) {
-          if (!m.bingoKeys.has(sBingo)) continue;
-        }
+      if (sBingo) {
+        if (!m.bingoKeys.has(sBingo)) continue;
       }
 
       let fSkin = null;
@@ -314,17 +308,7 @@
         }
     }
 
-    return res.sort((a, b) => {
-      const rankA = a._meta?.rank ?? 199;
-      const rankB = b._meta?.rank ?? 199;
-      if (rankA !== rankB) return rankA - rankB;
-
-      const weight2A = a._meta?.secondaryWeight ?? 0;
-      const weight2B = b._meta?.secondaryWeight ?? 0;
-      if (weight2A !== weight2B) return weight2A - weight2B;
-
-      return (a._meta?.id || '').localeCompare(b._meta?.id || '');
-    });
+    return res.sort(sortMutantsByGene);
   })());
 
   let pageSize = $derived(viewMode === 'heads' ? 60 : 20);
@@ -402,14 +386,32 @@
   // Полная текстура (стойка), отрендеренная пайплайном scripts/character-textures/.
   // Лежит рядом со старыми specimen_*.webp: textures_by_mutant/<code>/FULL_<code>[_<tier>].png
   // baseId() не срезает префикс specimen_, поэтому нормализуем id здесь.
-  // FULL-версия есть не у каждого мутанта/тира -> в разметке onerror откатывает на портрет.
+  // Не у каждого мутанта есть все 5 звёзд (зодиаки - только normal/silver,
+  // реактор/сезонные/особые/видеоигры/сообщество - ещё уже) - принудительная
+  // звезда от бинго-фильтра (autoStar выше) может не существовать у конкретного
+  // мутанта. Раньше это тихо запрашивало заведомо несуществующий файл, и
+  // onerror откатывал на портрет-иконку вместо полной текстуры (баг найден
+  // 2026-08-13). Проверено по всему public/textures_by_mutant: у мутантов с
+  // 2+ звёздами суффиксный FULL-файл есть для КАЖДОЙ их звезды (432/432) -
+  // для них можно смело подставлять суффикс запрошенной/доступной звезды.
+  // У одно-звёздных мутантов суффиксный файл почти никогда не рендерился
+  // (1/124), а безсуффиксная база есть всегда (124/124) - для них суффикс
+  // добавлять нельзя, даже если их единственная звезда не "normal" (у части
+  // GACHA это gold/platinum).
+  // FULL-версия есть не у каждого мутанта/тира -> в разметке onerror всё равно
+  // остаётся страховкой на случай реальных пробелов в ассетах.
   function fullTexturePath(it: any): string {
     const code = String(it?.id ?? '')
       .replace(/^specimen[_-]/i, '')
       .replace(/_+(?:normal|bronze|silver|gold|platinum|plat).*$/i, '')
       .toLowerCase();
     if (!code) return '';
-    const star = String(it?._displayStar || starSelMutants || 'normal').toLowerCase();
+    const availableStars = it?.stars ? STAR_KEYS.filter((k) => it.stars[k]) : [];
+    let star = 'normal';
+    if (availableStars.length > 1) {
+      const requestedStar = String(it?._displayStar || starSelMutants || 'normal').toLowerCase();
+      star = availableStars.includes(requestedStar) ? requestedStar : availableStars[0];
+    }
     const suffix = star && star !== 'normal' ? `_${star}` : '';
     return `textures_by_mutant/${code}/FULL_${code}${suffix}.png`;
   }

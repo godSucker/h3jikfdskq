@@ -19,7 +19,7 @@ export interface MutantRaw {
   id: string
   name: string
   genes?: string[]
-  stars: Record<string, { images?: string[] } | undefined>
+  stars: Record<string, { images?: string[]; multiplier?: number } | undefined>
 }
 
 export interface MaterialEntry {
