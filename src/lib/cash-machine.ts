@@ -131,29 +131,6 @@ export function getRewardWithChance(
   };
 }
 
-export function spinOnce(
-  machine: CashMachineDefinition = cashMachine,
-  randomFn: () => number = Math.random,
-): CashReward {
-  const rewards = getValidRewards(machine);
-  if (!rewards.length) {
-    throw new Error('Нет доступных наград для симуляции.');
-  }
-
-  const totalWeight = getTotalWeight(machine);
-  const target = randomFn() * totalWeight;
-  let cumulative = 0;
-
-  for (const reward of rewards) {
-    cumulative += reward.odds;
-    if (target <= cumulative) {
-      return reward;
-    }
-  }
-
-  return rewards[rewards.length - 1];
-}
-
 export interface SpinSummary {
   reward: CashReward;
   label: string;
@@ -199,7 +176,6 @@ interface SimulationContext {
 }
 
 function createSimulationContext(
-  spins: number,
   machine: CashMachineDefinition,
   options: SimulationOptions,
 ): SimulationContext {
@@ -317,49 +293,13 @@ function finalizeSimulation(ctx: SimulationContext, spins: number): MachineSimul
   };
 }
 
-export function simulateMachine(
-  spins: number,
-  machine: CashMachineDefinition = cashMachine,
-  options: SimulationOptions = {},
-): MachineSimulation {
-  const { randomFn = Math.random } = options;
-  const ctx = createSimulationContext(spins, machine, options);
-
-  for (let i = 0; i < spins; i += 1) {
-    recordSpin(ctx, machine, i, randomFn);
-  }
-
-  return finalizeSimulation(ctx, spins);
-}
-
-export function simulateSpins(
-  spins: number,
-  machine: CashMachineDefinition = cashMachine,
-  randomFn: () => number = Math.random,
-): SpinSummary[] {
-  const results: SpinSummary[] = [];
-  const baseTimestamp = Date.now();
-
-  for (let i = 0; i < spins; i += 1) {
-    const reward = spinOnce(machine, randomFn);
-    results.push({
-      reward,
-      label: getRewardLabel(reward),
-      timestamp: baseTimestamp + i,
-      icon: getRewardIcon(reward),
-    });
-  }
-
-  return results;
-}
-
 export async function simulateMachineAsync(
   spins: number,
   machine: CashMachineDefinition = cashMachine,
   options: SimulationOptions = {},
 ): Promise<MachineSimulation> {
   const { randomFn = Math.random, batchSize = 2000, onProgress, signal } = options;
-  const ctx = createSimulationContext(spins, machine, options);
+  const ctx = createSimulationContext(machine, options);
 
   let completed = 0;
 

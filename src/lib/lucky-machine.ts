@@ -314,39 +314,6 @@ function finalizeSimulation(ctx: LuckySimulationContext, requestedSpins: number)
   }
 }
 
-export function simulateLuckyMachine(
-  spins: number,
-  machine: LuckyMachineDefinition = luckyMachine,
-  options: LuckySimulationOptions = {},
-): LuckySimulation {
-  const { randomFn = Math.random } = options
-  const ctx = createSimulationContext(machine, options)
-  let queue = spins
-  let remainingPaid = spins
-  let index = 0
-
-  while (queue > 0) {
-    queue -= 1
-    const reward = selectReward(ctx, randomFn)
-    ctx.totalSpins += 1
-
-    if (remainingPaid > 0) {
-      remainingPaid -= 1
-    }
-
-    if (reward.isFreeTry) {
-      queue += 1
-      recordFreeSpin(ctx, reward, index)
-    } else {
-      recordReward(ctx, reward, index)
-    }
-
-    index += 1
-  }
-
-  return finalizeSimulation(ctx, spins)
-}
-
 export async function simulateLuckyMachineAsync(
   spins: number,
   machine: LuckyMachineDefinition = luckyMachine,
