@@ -20,7 +20,7 @@ def create_session():
     providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
     opts = ort.SessionOptions()
     opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
-    return ort.InferenceSession(MODEL_PATH, opts, providers=ops)
+    return ort.InferenceSession(MODEL_PATH, opts, providers=providers)
 
 def preprocess(img: Image.Image) -> np.ndarray:
     arr = np.array(img).astype(np.float32) / 255.0
