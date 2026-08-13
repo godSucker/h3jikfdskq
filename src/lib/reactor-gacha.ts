@@ -89,3 +89,21 @@ export function listGachas(): GachaMeta[] {
 export function getMutantName(specimenId: string): string {
   return mutantNames[specimenId] ?? specimenId
 }
+
+// Взвешенный выбор награды из пула по odds. rng инжектируется (default
+// Math.random), тот же паттерн, что в cash-machine.ts/lucky-machine.ts/
+// madness-machine.ts/craft-simulator.ts - реальный UI ничего не передаёт,
+// это про тестируемость (детерминированный прогон с fixed rng), не про то,
+// что дефолт должен быть не Math.random.
+export function rollWeighted(
+  pool: BasicReward[],
+  totalW: number,
+  rng: () => number = Math.random,
+): BasicReward {
+  let threshold = rng() * totalW
+  for (const item of pool) {
+    threshold -= item.odds
+    if (threshold <= 0) return item
+  }
+  return pool[pool.length - 1]
+}

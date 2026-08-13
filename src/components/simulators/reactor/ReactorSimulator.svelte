@@ -4,6 +4,7 @@
     GACHA_NAME_RU,
     STAR_ICON,
     getMutantName,
+    rollWeighted,
   } from '@/lib/reactor-gacha';
   import { textureUrl } from '@/lib/texture-cdn';
   import { pluralize } from '@/lib/utils';
@@ -133,15 +134,6 @@
     inventory.set(key, (inventory.get(key) || 0) + 1);
     inventory = new Map(inventory);
     history = [result, ...history].slice(0, 10);
-  }
-
-  function rollWeighted(pool: BasicReward[], totalW: number): BasicReward {
-      let threshold = Math.random() * totalW;
-      for (const item of pool) {
-          threshold -= item.odds;
-          if (threshold <= 0) return item;
-      }
-      return pool[pool.length - 1];
   }
 
   function spin(costType: 'token' | 'hc') {
