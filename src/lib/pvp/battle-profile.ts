@@ -14,7 +14,7 @@
 import mutantsRaw from '@/data/mutants/mutants.json'
 import orbsRaw from '@/data/materials/orbs.json'
 import charmsRaw from '@/data/materials/charms.json'
-import { calculateFinalStats } from '@/lib/stats/unified-calculator'
+import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator'
 import { applySpeedSphere } from '@/lib/stats/speed-sphere-table'
 import type { Gene } from './type-table'
 
@@ -25,25 +25,8 @@ const ATK2_UNLOCK_LEVEL = 5
 /** Макс. заряды strengthen (Effect strengthen_01 stackMax="2" в abilitydefinitions_decoded.xml). */
 export const STRENGTHEN_STACK_MAX = 2
 
-/**
- * Реального лимита уровня в игре нет ("Уровень эво/мутанта/игрока - без лимита",
- * /guides "Скрытые лимиты чисел") - единственный настоящий потолок это int32-баг:
- * итоговое HP мутанта, посчитанное по формуле роста (base × star × (level/10+0.9)),
- * переполняется и уходит в минус выше ≈21 474 836 (≈2^31/100 - хранится как
- * fixed-point ×100), причём HP-сферы опускают порог ещё ниже. 30 - произвольная
- * заглушка предыдущей версии калькулятора, не игровое ограничение; теперь порог
- * считается индивидуально на мутанта (влияют hp_base, звезда, HP-орбы).
- */
-export const HP_OVERFLOW_THRESHOLD = 21_474_836
-
-/** Наибольший уровень, при котором итоговое HP ещё не переполняется (см. выше).
- *  hpAtBaseLevelScale - hp_base × starMultiplier × (1 + hpOrbPct/100), т.е. HP при
- *  levelScale=1 (до применения роста по уровню) - инверсия формулы `level/10+0.9`. */
-export function maxLevelForHp(hpAtBaseLevelScale: number): number {
-  if (!(hpAtBaseLevelScale > 0)) return 1
-  const level = 10 * (HP_OVERFLOW_THRESHOLD / hpAtBaseLevelScale - 0.9)
-  return Math.max(1, Math.floor(level))
-}
+// HP_OVERFLOW_THRESHOLD/maxLevelForHp переехали в unified-calculator.ts (батч 06 аудита,
+// StatsCalculator.svelte стал вторым потребителем той же игровой константы).
 
 export interface CombatAbility {
   kind: AbilityKind

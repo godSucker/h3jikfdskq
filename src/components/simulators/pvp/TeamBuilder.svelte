@@ -2,7 +2,8 @@
   import mutantsRaw from '@/data/mutants/mutants.json'
   import { textureUrl } from '@/lib/texture-cdn'
   import { GENE_RU, ABILITY_RU } from '@/lib/mutant-dicts'
-  import { maxLevelForHp, orbHpBonusPct } from '@/lib/pvp/battle-profile'
+  import { orbHpBonusPct } from '@/lib/pvp/battle-profile'
+  import { maxLevelForHp } from '@/lib/stats/unified-calculator'
   import {
     basicOrbOptionsForMutant,
     specialOrbOptionsForMutant,

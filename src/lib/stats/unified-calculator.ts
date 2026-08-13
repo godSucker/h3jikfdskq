@@ -113,3 +113,24 @@ export function getStarMultiplier(starTier: number): number {
   };
   return multipliers[starTier as keyof typeof multipliers] ?? 1.0;
 }
+
+/**
+ * Реального лимита уровня в игре нет ("Уровень эво/мутанта/игрока - без лимита",
+ * /guides "Скрытые лимиты чисел") - единственный настоящий потолок это int32-баг:
+ * итоговое HP мутанта, посчитанное по формуле роста (base × star × (level/10+0.9)),
+ * переполняется и уходит в минус выше ≈21 474 836 (≈2^31/100 - хранится как
+ * fixed-point ×100), причём HP-сферы опускают порог ещё ниже. Порог считается
+ * индивидуально на мутанта (влияют hp_base, звезда, HP-орбы). Используется и PvP-
+ * калькулятором (fight-engine), и StatsCalculator - единый источник, чтобы не
+ * разъезжались две копии одной и той же игровой константы.
+ */
+export const HP_OVERFLOW_THRESHOLD = 21_474_836;
+
+/** Наибольший уровень, при котором итоговое HP ещё не переполняется (см. выше).
+ *  hpAtBaseLevelScale - hp_base × starMultiplier × (1 + hpOrbPct/100), т.е. HP при
+ *  levelScale=1 (до применения роста по уровню) - инверсия формулы `level/10+0.9`. */
+export function maxLevelForHp(hpAtBaseLevelScale: number): number {
+  if (!(hpAtBaseLevelScale > 0)) return 1;
+  const level = 10 * (HP_OVERFLOW_THRESHOLD / hpAtBaseLevelScale - 0.9);
+  return Math.max(1, Math.floor(level));
+}
