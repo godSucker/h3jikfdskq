@@ -82,6 +82,10 @@
     tick
     return session ? session.winner() : null
   })
+  let turnQueue = $derived.by(() => {
+    tick
+    return session ? session.upcomingQueue(20) : []
+  })
 
   const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI']
 
@@ -315,14 +319,23 @@
     {/if}
   {:else}
     <div class="mt-6">
-      <BattleView {units} {turnLog} {currentTurn} {winner} onResolve={resolveTurn} onAutoPlay={autoPlay} />
-      <button
-        type="button"
-        onclick={reset}
-        class="mt-3 px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
-      >
-        Собрать заново
-      </button>
+      <BattleView {units} {turnLog} {currentTurn} {winner} {turnQueue} onResolve={resolveTurn} onAutoPlay={autoPlay} />
+      <div class="mt-3 flex flex-wrap gap-3">
+        <button
+          type="button"
+          onclick={startFight}
+          class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
+        >
+          Начать бой заново
+        </button>
+        <button
+          type="button"
+          onclick={reset}
+          class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
+        >
+          Собрать команды заново
+        </button>
+      </div>
     </div>
   {/if}
 </div>
