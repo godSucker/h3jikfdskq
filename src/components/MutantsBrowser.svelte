@@ -242,8 +242,6 @@
     const sBingo = bingoSel ? String(bingoSel) : null;
     const sType = typeSel ? String(typeSel).toLowerCase() : null;
 
-    const isSearching = !!normalizedQ;
-
     const bingoData = sBingo ? bingos.find((b: any) => b.id === sBingo) : null;
     const isReactorSel = sBingo === 'reactor' || (sType === 'reactor' || sType === 'gacha');
 
@@ -253,26 +251,29 @@
 
       if (normalizedQ && !m.searchName.includes(normalizedQ)) continue;
 
-      if (!isSearching) {
-        if (gene1Sel) {
-          const firstGene = m.code?.[0];
-          if (firstGene !== gene1Sel.toUpperCase()) continue;
-          if (gene2Sel) {
-            if (gene2Sel === 'neutral') {
-              if (m.code.length !== 1) continue;
-            } else {
-              if (m.code.length < 2 || m.code[1] !== gene2Sel.toUpperCase()) continue;
-            }
+      // Поиск СУЖАЕТ уже применённые фильтры, не заменяет их - раньше поиск
+      // полностью игнорировал ген/тип/бинго (проверка была за `if (!isSearching)`),
+      // из-за чего чип фильтра оставался визуально нажатым, а выдача при этом
+      // включала мутантов ЛЮБОГО гена/типа - UI откровенно врал пользователю о том,
+      // что реально показано.
+      if (gene1Sel) {
+        const firstGene = m.code?.[0];
+        if (firstGene !== gene1Sel.toUpperCase()) continue;
+        if (gene2Sel) {
+          if (gene2Sel === 'neutral') {
+            if (m.code.length !== 1) continue;
+          } else {
+            if (m.code.length < 2 || m.code[1] !== gene2Sel.toUpperCase()) continue;
           }
         }
+      }
 
-        if (sType) {
-          if (m.typeKey !== sType) continue;
-        }
+      if (sType) {
+        if (m.typeKey !== sType) continue;
+      }
 
-        if (sBingo) {
-          if (!m.bingoKeys.has(sBingo)) continue;
-        }
+      if (sBingo) {
+        if (!m.bingoKeys.has(sBingo)) continue;
       }
 
       let fSkin = null;
