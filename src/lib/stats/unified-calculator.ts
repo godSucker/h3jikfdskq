@@ -4,34 +4,34 @@
  */
 
 export interface BaseStatsInput {
-  hp?: number;
-  atk1?: number;
-  atk1r?: number;
-  atk2?: number;
-  atk2r?: number;
-  speed?: number;
-  spd?: number;
-  silver?: number;
-  abilityPct1?: number;
-  abilityPct2?: number;
-  hp_base?: number;
-  atk1_base?: number;
-  atk1p_base?: number;
-  atk2_base?: number;
-  atk2p_base?: number;
-  speed_base?: number;
-  bank_base?: number;
-  lvl1?: { spd?: number };
-  lvl30?: { spd?: number };
+  hp?: number
+  atk1?: number
+  atk1r?: number
+  atk2?: number
+  atk2r?: number
+  speed?: number
+  spd?: number
+  silver?: number
+  abilityPct1?: number
+  abilityPct2?: number
+  hp_base?: number
+  atk1_base?: number
+  atk1p_base?: number
+  atk2_base?: number
+  atk2p_base?: number
+  speed_base?: number
+  bank_base?: number
+  lvl1?: { spd?: number }
+  lvl30?: { spd?: number }
 }
 
 export interface CalculatedStats {
-  hp: number;
-  atk1: number;
-  atk2: number;
-  ability: number;
-  speed: number;
-  silver: number;
+  hp: number
+  atk1: number
+  atk2: number
+  ability: number
+  speed: number
+  silver: number
 }
 
 /**
@@ -43,52 +43,55 @@ export interface CalculatedStats {
 export function calculateFinalStats(
   baseStats: BaseStatsInput,
   level: number,
-  starMultiplier?: number
+  starMultiplier?: number,
 ): CalculatedStats {
-  const multiplier = starMultiplier || 1;
+  const multiplier = starMultiplier || 1
 
   // Normalize input - support both naming conventions
-  const hp = baseStats.hp ?? baseStats.hp_base ?? 0;
-  const atk1 = baseStats.atk1 ?? baseStats.atk1_base ?? 0;
-  const atk1r = baseStats.atk1r ?? baseStats.atk1p_base ?? atk1;
-  const atk2 = baseStats.atk2 ?? baseStats.atk2_base ?? 0;
-  const atk2r = baseStats.atk2r ?? baseStats.atk2p_base ?? atk2;
+  const hp = baseStats.hp ?? baseStats.hp_base ?? 0
+  const atk1 = baseStats.atk1 ?? baseStats.atk1_base ?? 0
+  const atk1r = baseStats.atk1r ?? baseStats.atk1p_base ?? atk1
+  const atk2 = baseStats.atk2 ?? baseStats.atk2_base ?? 0
+  const atk2r = baseStats.atk2r ?? baseStats.atk2p_base ?? atk2
 
-  const speed = baseStats.speed ?? baseStats.speed_base ??
-                baseStats.spd ??
-                baseStats.lvl1?.spd ??
-                baseStats.lvl30?.spd ?? 0;
+  const speed =
+    baseStats.speed ??
+    baseStats.speed_base ??
+    baseStats.spd ??
+    baseStats.lvl1?.spd ??
+    baseStats.lvl30?.spd ??
+    0
 
-  const silver = baseStats.silver ?? baseStats.bank_base ?? 42;
-  const abilityPct1 = baseStats.abilityPct1 ?? 0;
-  const abilityPct2 = baseStats.abilityPct2 ?? 0;
+  const silver = baseStats.silver ?? baseStats.bank_base ?? 42
+  const abilityPct1 = baseStats.abilityPct1 ?? 0
+  const abilityPct2 = baseStats.abilityPct2 ?? 0
 
   // Apply star multiplier to base stats
-  const finalBaseHp = hp * multiplier;
-  const finalBaseAtk1 = atk1 * multiplier;
-  const finalBaseAtk1r = atk1r * multiplier;
-  const finalBaseAtk2 = atk2 * multiplier;
-  const finalBaseAtk2r = atk2r * multiplier;
+  const finalBaseHp = hp * multiplier
+  const finalBaseAtk1 = atk1 * multiplier
+  const finalBaseAtk1r = atk1r * multiplier
+  const finalBaseAtk2 = atk2 * multiplier
+  const finalBaseAtk2r = atk2r * multiplier
 
   // Level scaling
-  const levelScale = level / 10 + 0.9;
+  const levelScale = level / 10 + 0.9
 
-  const finalHp = finalBaseHp * levelScale;
+  const finalHp = finalBaseHp * levelScale
 
   // ATK1: upgrades at level 10
-  const activeBaseAtk1 = level < 10 ? finalBaseAtk1 : finalBaseAtk1r;
-  const finalAtk1 = activeBaseAtk1 * levelScale;
+  const activeBaseAtk1 = level < 10 ? finalBaseAtk1 : finalBaseAtk1r
+  const finalAtk1 = activeBaseAtk1 * levelScale
 
   // ATK2: upgrades at level 15
-  const activeBaseAtk2 = level < 15 ? finalBaseAtk2 : finalBaseAtk2r;
-  const finalAtk2 = activeBaseAtk2 * levelScale;
+  const activeBaseAtk2 = level < 15 ? finalBaseAtk2 : finalBaseAtk2r
+  const finalAtk2 = activeBaseAtk2 * levelScale
 
   // Ability: switches at level 25
-  const abilityPercent = level < 25 ? abilityPct1 : abilityPct2;
-  const abilityValue = finalAtk1 * (Math.abs(abilityPercent) / 100);
+  const abilityPercent = level < 25 ? abilityPct1 : abilityPct2
+  const abilityValue = finalAtk1 * (Math.abs(abilityPercent) / 100)
 
-  const finalSpeed = speed;
-  const finalSilver = silver * level;
+  const finalSpeed = speed
+  const finalSilver = silver * level
 
   return {
     hp: Math.round(finalHp),
@@ -97,7 +100,7 @@ export function calculateFinalStats(
     ability: Math.round(abilityValue),
     speed: finalSpeed,
     silver: Math.round(finalSilver),
-  };
+  }
 }
 
 /**
@@ -110,8 +113,8 @@ export function getStarMultiplier(starTier: number): number {
     2: 1.3, // silver
     3: 1.75, // gold
     4: 2.0, // platinum
-  };
-  return multipliers[starTier as keyof typeof multipliers] ?? 1.0;
+  }
+  return multipliers[starTier as keyof typeof multipliers] ?? 1.0
 }
 
 /**
@@ -124,13 +127,13 @@ export function getStarMultiplier(starTier: number): number {
  * калькулятором (fight-engine), и StatsCalculator - единый источник, чтобы не
  * разъезжались две копии одной и той же игровой константы.
  */
-export const HP_OVERFLOW_THRESHOLD = 21_474_836;
+export const HP_OVERFLOW_THRESHOLD = 21_474_836
 
 /** Наибольший уровень, при котором итоговое HP ещё не переполняется (см. выше).
  *  hpAtBaseLevelScale - hp_base × starMultiplier × (1 + hpOrbPct/100), т.е. HP при
  *  levelScale=1 (до применения роста по уровню) - инверсия формулы `level/10+0.9`. */
 export function maxLevelForHp(hpAtBaseLevelScale: number): number {
-  if (!(hpAtBaseLevelScale > 0)) return 1;
-  const level = 10 * (HP_OVERFLOW_THRESHOLD / hpAtBaseLevelScale - 0.9);
-  return Math.max(1, Math.floor(level));
+  if (!(hpAtBaseLevelScale > 0)) return 1
+  const level = 10 * (HP_OVERFLOW_THRESHOLD / hpAtBaseLevelScale - 0.9)
+  return Math.max(1, Math.floor(level))
 }
