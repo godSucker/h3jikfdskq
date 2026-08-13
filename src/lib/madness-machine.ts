@@ -125,6 +125,10 @@ interface MadnessSimulationContext {
   totalSpins: number;
 }
 
+// research 9/10 намеренно отсутствуют: в игре они выключены (все их награды
+// в machine.json стоят с odds:0 и никогда не выпадают, независимо от уровня
+// игрока), maxResearch не должен их учитывать - иначе текст "доступны
+// исследования до N" врал бы на высоких уровнях (N=10 вместо реального 8).
 const researchLevelMap: Record<number, number> = {
   1: 1,
   2: 10,
@@ -134,8 +138,6 @@ const researchLevelMap: Record<number, number> = {
   6: 100,
   7: 150,
   8: 175,
-  9: 200,
-  10: 200,
 };
 
 export const madnessMachine: MadnessMachineDefinition = rawMachine as MadnessMachineDefinition;
