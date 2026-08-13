@@ -114,6 +114,22 @@ export class BattleSession {
     return this.units
   }
 
+  /** Превью ближайших N ходов очереди (для шкалы ходов в UI) - лучшая доступная оценка,
+   *  не гарантия: если в этом окне кто-то умрёт раньше своего хода, реальный порядок
+   *  может немного разъехаться (та же причина, по которой currentTurn() скипает мёртвых
+   *  "на лету", а не пересчитывает очередь заранее). Юниты резолвятся через byId(), т.к.
+   *  сама очередь хранит ссылки на снапшоты units с МОМЕНТА computeTurnQueue - после
+   *  каждого resolveTurn() this.units целиком заменяется (см. cloneUnits в resolve-attack.ts). */
+  upcomingQueue(n: number): CombatUnit[] {
+    this.ensureQueue()
+    const result: CombatUnit[] = []
+    for (let i = this.queuePos; i < this.queue.length && result.length < n; i += 1) {
+      const u = this.byId(this.queue[i].instanceId)
+      if (u.isAlive) result.push(u)
+    }
+    return result
+  }
+
   isFinished(): boolean {
     const mineAlive = this.units.some((u) => u.side === 'mine' && u.isAlive)
     const enemyAlive = this.units.some((u) => u.side === 'enemy' && u.isAlive)
@@ -242,7 +258,7 @@ export class BattleSession {
       targetName: nameOf(e.attackerId),
       damage: e.damage,
       crit: false,
-      shieldAbsorbed: 0,
+      shieldAbsorbed: e.shieldAbsorbed,
       died: e.died,
       baseDamage: e.baseDamage,
       typeModPct: 0,
@@ -278,7 +294,7 @@ export class BattleSession {
     }
     for (const r of retaliateHits) {
       turnLines.push(
-        `${r.targetName}${sideTag(r.targetName)} контратакует ${unit.name}: ${r.damage}${r.died ? ' — убит' : ''}`,
+        `${r.targetName}${sideTag(r.targetName)} контратакует ${unit.name}: ${r.damage}${r.shieldAbsorbed ? ` (щит поглотил ${r.shieldAbsorbed})` : ''}${r.died ? ' — убит' : ''}`,
       )
     }
     if (slashTick > 0) {

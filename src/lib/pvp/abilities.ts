@@ -24,17 +24,25 @@
  * результат - абсолютная магнитуда HP/щита, снэпшотится в момент триггера.
  */
 
-import type { CombatUnit } from './battle-profile'
+import type { AbilityKind, CombatAbility, CombatUnit } from './battle-profile'
 import { STRENGTHEN_STACK_MAX } from './battle-profile'
+
+/** Юнит может иметь до 2 способностей одновременно (родная + спец-сфера add<kind>,
+ *  гарантированно разных kind - см. battle-profile.ts) - все хелперы ниже ищут нужный
+ *  kind в массиве вместо старой проверки unit.ability?.kind === X. */
+function findAbility(unit: CombatUnit, kind: AbilityKind): CombatAbility | undefined {
+  return unit.abilities.find((a) => a.kind === kind)
+}
 
 /** В начале собственного хода (перед атакой): расходует 1 заряд strengthen (+pct) и
  *  заряд weaken (-pct), если есть, возвращает net % для buffPct этой атаки. */
 export function consumeAttackBuffPct(unit: CombatUnit): number | undefined {
   let pct = 0
   let any = false
-  if (unit.strengthenCharges > 0 && unit.ability?.kind === 'strengthen') {
+  const strengthen = findAbility(unit, 'strengthen')
+  if (unit.strengthenCharges > 0 && strengthen) {
     unit.strengthenCharges -= 1
-    pct += Math.abs(unit.ability.pct)
+    pct += Math.abs(strengthen.pct)
     any = true
   }
   if (unit.weakenCharge) {
@@ -45,21 +53,27 @@ export function consumeAttackBuffPct(unit: CombatUnit): number | undefined {
   return any ? pct : undefined
 }
 
-/** После разрешения атаки: shield/regen (оба trigger="attack", valueFrom="damageGiven") -
- *  считаются от суммарного фактического урона, нанесённого этой атакой (все цели, если AOE). */
-export function applyOwnAttackEffects(attacker: CombatUnit, totalDamageDealt: number): void {
-  if (attacker.ability?.kind === 'shield') {
-    // stackMax="1" - новое применение ЗАМЕНЯЕТ пул, не складывает.
-    attacker.shieldPool = Math.floor((totalDamageDealt * Math.abs(attacker.ability.pct)) / 100)
+/** Щит атакующего (trigger="attack", valueFrom="damageGiven") - считается от суммарного
+ *  фактического урона, нанесённого этой атакой (все цели, если AOE). Разрешается ДО
+ *  отражения цели (см. resolve-attack.ts) - в игре щит успевает встать до того, как
+ *  отражение снимет с него часть. stackMax="1" - новое применение ЗАМЕНЯЕТ пул. */
+export function applyOwnShield(attacker: CombatUnit, totalDamageDealt: number): void {
+  const shield = findAbility(attacker, 'shield')
+  if (shield) {
+    attacker.shieldPool = Math.floor((totalDamageDealt * Math.abs(shield.pct)) / 100)
   }
-  if (attacker.ability?.kind === 'regen') {
-    const heal = Math.floor((totalDamageDealt * Math.abs(attacker.ability.pct)) / 100)
+}
+
+/** Отхил + заряд усиления от собственной атаки - разрешаются ПОСЛЕ отражения (в игре
+ *  лайфстил тикает уже после того, как отражение цели отняло HP), в отличие от щита выше. */
+export function applyOwnRegenAndStrengthen(attacker: CombatUnit, totalDamageDealt: number): void {
+  const regen = findAbility(attacker, 'regen')
+  if (regen) {
+    const heal = Math.floor((totalDamageDealt * Math.abs(regen.pct)) / 100)
     attacker.hp = Math.min(attacker.maxHp, attacker.hp + heal)
   }
-  if (
-    attacker.ability?.kind === 'strengthen' &&
-    attacker.strengthenCharges < STRENGTHEN_STACK_MAX
-  ) {
+  const strengthen = findAbility(attacker, 'strengthen')
+  if (strengthen && attacker.strengthenCharges < STRENGTHEN_STACK_MAX) {
     attacker.strengthenCharges += 1
   }
 }
@@ -67,10 +81,8 @@ export function applyOwnAttackEffects(attacker: CombatUnit, totalDamageDealt: nu
 /** Владелец strengthen получает заряд и когда его атакуют (trigger="defend"), не
  *  только когда атакует сам. */
 export function grantStrengthenOnDefend(defender: CombatUnit): void {
-  if (
-    defender.ability?.kind === 'strengthen' &&
-    defender.strengthenCharges < STRENGTHEN_STACK_MAX
-  ) {
+  const strengthen = findAbility(defender, 'strengthen')
+  if (strengthen && defender.strengthenCharges < STRENGTHEN_STACK_MAX) {
     defender.strengthenCharges += 1
   }
 }
@@ -78,9 +90,10 @@ export function grantStrengthenOnDefend(defender: CombatUnit): void {
 /** Weaken атакующего (trigger="attack", applyOn="opponent") - вешает заряд на цель,
  *  сработает на ЕЁ следующей атаке. stackMax="0" = не стакуется, новое заменяет. */
 export function grantWeakenOnHit(attacker: CombatUnit, target: CombatUnit): void {
-  if (attacker.ability?.kind === 'weaken') {
+  const weaken = findAbility(attacker, 'weaken')
+  if (weaken) {
     target.weakenCharge = true
-    target.weakenPct = Math.abs(attacker.ability.pct)
+    target.weakenPct = Math.abs(weaken.pct)
   }
 }
 
@@ -91,17 +104,17 @@ export function grantSlashOnHit(
   target: CombatUnit,
   damageTakenThisHit: number,
 ): void {
-  if (attacker.ability?.kind === 'slash') {
-    target.slashDot = Math.floor((damageTakenThisHit * Math.abs(attacker.ability.pct)) / 100)
+  const slash = findAbility(attacker, 'slash')
+  if (slash) {
+    target.slashDot = Math.floor((damageTakenThisHit * Math.abs(slash.pct)) / 100)
   }
 }
 
 /** Retaliate (trigger="defend", valueFrom="damageGiven" атакующего) - % от урона,
  *  который атакующий только что нанёс этим ударом. */
 export function retaliateDamage(defender: CombatUnit, incomingHitDamage: number): number {
-  return defender.ability?.kind === 'retaliate'
-    ? Math.floor((incomingHitDamage * Math.abs(defender.ability.pct)) / 100)
-    : 0
+  const retaliate = findAbility(defender, 'retaliate')
+  return retaliate ? Math.floor((incomingHitDamage * Math.abs(retaliate.pct)) / 100) : 0
 }
 
 /** Поглощение входящего урона персистентным пулом щита - истощается (не сбрасывается
