@@ -23,10 +23,13 @@ export const POST: APIRoute = async ({ request }) => {
 
   const rawBody = await request.text()
 
-  const signature = request.headers.get('x-vercel-signature')
+  const signature = request.headers.get('x-vercel-signature') ?? ''
   const crypto = await import('node:crypto')
   const expected = crypto.createHmac('sha1', WEBHOOK_SECRET).update(rawBody).digest('hex')
-  if (!signature || signature !== expected) {
+  const sigBuf = Buffer.from(signature)
+  const expBuf = Buffer.from(expected)
+  const valid = sigBuf.length === expBuf.length && crypto.timingSafeEqual(sigBuf, expBuf)
+  if (!valid) {
     return new Response('Forbidden', { status: 403 })
   }
 
