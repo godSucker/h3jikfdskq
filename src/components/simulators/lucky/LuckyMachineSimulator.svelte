@@ -162,6 +162,15 @@
     }
     return '—';
   }
+
+  // В отличие от Cash/Madness, здесь не было cleanup при размонтировании -
+  // уход со страницы во время симуляции оставлял simulateLuckyMachineAsync
+  // крутиться в фоне и писать в состояние уже уничтоженного компонента.
+  $effect(() => {
+    return () => {
+      controller?.abort();
+    };
+  });
 </script>
 
 <div class="machine-shell">

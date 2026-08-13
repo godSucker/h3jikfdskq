@@ -272,7 +272,7 @@
       return;
     }
 
-    if (totalSpins <= 0) {
+    if (!Number.isFinite(totalSpins) || totalSpins <= 0) {
       error = 'Введите ресурсы для хотя бы одного прокрута.';
       return;
     }
