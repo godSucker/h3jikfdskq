@@ -179,7 +179,7 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 - No test files in src/ (only in node_modules)
 - API-роуты: `api/screenshot.ts` (headless Chromium скриншот стат-панели), `api/proxy-image.ts` (CORS-прокси, whitelist), `api/telegram-webhook.ts`
 - Python scripts in `src/data/simulators/CRAFT/` are reference implementations
-- Python-парсер тиров: `backend/tier_updater/`; приём файлов от бота — `src/pages/api/telegram-webhook.ts` (секрет обязателен)
+- Приём тир-файлов от бота: `src/pages/api/telegram-webhook.ts` (`src/lib/tier-parser.js`, секрет обязателен). `backend/tier_updater/` (старый Python-прототип) удалён 2026-08-13 — вытеснен этим JS-парсером.
 - The site simulates real game mechanics with accurate probabilities
 - Git history cleaned with filter-repo (evidence in `.git/filter-repo/`)
 
