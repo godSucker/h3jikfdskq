@@ -21,7 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Tech Stack
 
-- **Astro 5** with TypeScript — `output: 'server'` (SSR на Vercel), но почти все страницы `export const prerender = true`; серверными остаются только `src/pages/api/*`, `/panel-render` и `/top-evo`
+- **Astro 5** with TypeScript — `output: 'server'` (SSR на Vercel), но почти все страницы `export const prerender = true`; серверными остаются только `src/pages/api/*`, `/panel-render`, `/top-evo` и `/announcements/render/[id]` (изолированный рендер одной карточки анонса для скриншот-API, см. комментарий в файле)
 - **Svelte 5** for interactive components
 - **Tailwind CSS 4** via Vite plugin
 - **Sharp** for image optimization
