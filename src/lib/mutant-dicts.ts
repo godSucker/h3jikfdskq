@@ -476,6 +476,11 @@ export const STAR_DICT: Partial<Record<Locale, Record<string, string>>> = {
   en: { normal: 'Normal', bronze: 'Bronze', silver: 'Silver', gold: 'Gold', platinum: 'Platinum' },
   es: { normal: 'Normal', bronze: 'Bronce', silver: 'Plata', gold: 'Oro', platinum: 'Platino' },
   fr: { normal: 'Normal', bronze: 'Bronze', silver: 'Argent', gold: 'Or', platinum: 'Platine' },
+  de: { normal: 'Normal', bronze: 'Bronze', silver: 'Silber', gold: 'Gold', platinum: 'Platin' },
+  pt: { normal: 'Normal', bronze: 'Bronze', silver: 'Prata', gold: 'Ouro', platinum: 'Platina' },
+  it: { normal: 'Normale', bronze: 'Bronzo', silver: 'Argento', gold: 'Oro', platinum: 'Platino' },
+  tr: { normal: 'Normal', bronze: 'Bronz', silver: 'Gümüş', gold: 'Altın', platinum: 'Platin' },
+  nl: { normal: 'Normaal', bronze: 'Brons', silver: 'Zilver', gold: 'Goud', platinum: 'Platina' },
 }
 export function starLabelL(star: string, locale: Locale): string {
   const dict = STAR_DICT[locale] ?? STAR_DICT.en ?? STAR_LABEL

@@ -56,7 +56,11 @@ async function main() {
     return loc.get(key) ?? locLower.get(key.toLowerCase())
   }
 
-  function resolveName(itemId: string, caption: string | undefined, category: string | undefined): string {
+  function resolveName(
+    itemId: string,
+    caption: string | undefined,
+    category: string | undefined,
+  ): string {
     // Спецпредложение на конкретного мутанта (category="specimen", itemId
     // содержит Specimen_XX_NN[_Star][_sc]) - правильное имя не в локализации,
     // а "Спецпредложение «<имя мутанта>»" (см. obtain-trigger-offer-names-fixed).
@@ -150,7 +154,8 @@ async function main() {
       }
       if (candidates.length > 1) {
         ambiguous++
-        if (ambiguousExamples.length < 10) ambiguousExamples.push(`${e.where} -> [${candidates.join(', ')}]`)
+        if (ambiguousExamples.length < 10)
+          ambiguousExamples.push(`${e.where} -> [${candidates.join(', ')}]`)
         continue
       }
       e.itemId = candidates[0]

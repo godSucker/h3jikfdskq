@@ -22,6 +22,7 @@
     getGeneIcon,
   } from '@/lib/mutant-icons';
   import { baseMutantId as baseId } from '@/lib/utils';
+  import { renderObtainWhere } from '@/lib/obtain-render';
   import obtainData from '@/data/mutants/obtain.json';
   import toplistsData from '@/data/mutants/toplists.json';
   import skinIconsData from '@/data/mutants/skin-icons.json';
@@ -101,12 +102,12 @@
     obtainNames?: Record<string, string>;
   } = $props();
 
-  // Батч 11 (3): itemId -> bundle/box-название на 8 языках (obtain-names.{lang}.json,
-  // фолбэк target->en уже свёрнут в MutantsPage.astro). Нет itemId или нет
-  // перевода для него - остаёмся на RU-каноне ("where", 7 коммитов курации).
-  function displayObtainWhere(o: { where: string; itemId?: string }): string {
-    if (o.itemId && obtainNames[o.itemId]) return obtainNames[o.itemId];
-    return o.where;
+  // Батч 11 (3): пересборка "where" (не голая подмена - теряла префикс
+  // "Набор:"/"Лаки-бокс:" и суффикс-модификатор цены/тира/скина, см.
+  // src/lib/obtain-render.ts). obtainNames - obtain-names.{lang}.json,
+  // фолбэк target->en уже свёрнут в MutantsPage.astro.
+  function displayObtainWhere(o: { type: string; where: string; itemId?: string }): string {
+    return renderObtainWhere(o, locale, obtainNames);
   }
 
   const close = () => onclose?.();
