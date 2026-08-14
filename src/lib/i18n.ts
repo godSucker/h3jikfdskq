@@ -2,6 +2,11 @@ import ru from '@/i18n/ru.json'
 import en from '@/i18n/en.json'
 import es from '@/i18n/es.json'
 import fr from '@/i18n/fr.json'
+import de from '@/i18n/de.json'
+import pt from '@/i18n/pt.json'
+import it from '@/i18n/it.json'
+import tr from '@/i18n/tr.json'
+import nl from '@/i18n/nl.json'
 import {
   LOCALES,
   type Locale,
@@ -13,9 +18,10 @@ import {
 
 // Батч 11 (2): инфраструктура расширена на все 9 доступных на CDN Kobojo
 // локалей игровых данных. Собственные UI-словари (src/i18n/{locale}.json)
-// для de/pt/it/tr/nl ещё не написаны - это отдельный, дорогой этап перевода
-// авторского текста. До этого страницы на этих локалях рендерятся через
-// fallback-цепочку target -> en -> ru (см. FALLBACK_LOCALE ниже).
+// для de/pt/it/tr/nl написаны 2026-08-15 (см. память
+// i18n-next-session-plan-2026-08-15) - до этого рендерились через
+// fallback-цепочку target -> en -> ru (см. FALLBACK_LOCALE ниже), теперь
+// это только фолбэк для непереведённых страниц вне Главной/mutants.
 // LOCALES/DEFAULT_LOCALE/TRANSLATED_PATHS/TRANSLATED_UI_LOCALES/REDIRECT_LOCALES
 // переэкспортируются из i18n-locales.ts (единый источник, читает и middleware.ts).
 export {
@@ -28,7 +34,17 @@ export {
 }
 const FALLBACK_LOCALE: Locale = 'en'
 
-const DICTS: Partial<Record<Locale, Record<string, string>>> = { ru, en, es, fr }
+const DICTS: Partial<Record<Locale, Record<string, string>>> = {
+  ru,
+  en,
+  es,
+  fr,
+  de,
+  pt,
+  it,
+  tr,
+  nl,
+}
 
 export function isLocale(value: string | undefined | null): value is Locale {
   return !!value && (LOCALES as readonly string[]).includes(value)

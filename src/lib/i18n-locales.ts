@@ -16,10 +16,20 @@ export const DEFAULT_LOCALE: Locale = 'ru'
 export const TRANSLATED_PATHS = ['/', '/mutants'] as const
 
 // Локали с собственным src/i18n/{locale}.json (не через EN-фолбэк).
-// de/pt/it/tr/nl уже маршрутизируются (страницы существуют, см. src/pages/{locale}/),
-// но рендерятся через фолбэк - не рекламируем их поисковикам как отдельный
-// язык, пока авторский текст не написан.
-export const TRANSLATED_UI_LOCALES: readonly Locale[] = ['ru', 'en', 'es', 'fr']
+// de/pt/it/tr/nl получили свои словари 2026-08-15 (см. память
+// i18n-next-session-plan-2026-08-15) - на TRANSLATED_PATHS (Главная/mutants)
+// рендерятся авторским текстом, не фолбэком.
+export const TRANSLATED_UI_LOCALES: readonly Locale[] = [
+  'ru',
+  'en',
+  'es',
+  'fr',
+  'de',
+  'pt',
+  'it',
+  'tr',
+  'nl',
+]
 
 // Цели авторедиректа middleware.ts по Accept-Language: все не-RU локали, для
 // которых физически существуют страницы - даже те, что рендерятся через

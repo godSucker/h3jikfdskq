@@ -171,6 +171,11 @@ export const GENE_DICT: Partial<Record<Locale, Record<string, string>>> = {
   en: { A: 'Cyborg', B: 'Undead', C: 'Brawler', D: 'Beast', E: 'Galactic', F: 'Mythic' },
   es: { A: 'Cíborg', B: 'No muerto', C: 'Luchador', D: 'Bestia', E: 'Galáctico', F: 'Mítico' },
   fr: { A: 'Cyborg', B: 'Mort-vivant', C: 'Bagarreur', D: 'Bête', E: 'Galactique', F: 'Mythique' },
+  de: { A: 'Cyborg', B: 'Untot', C: 'Schläger', D: 'Bestie', E: 'Galaktisch', F: 'Mythisch' },
+  pt: { A: 'Ciborgue', B: 'Morto-vivo', C: 'Brigão', D: 'Fera', E: 'Galáctico', F: 'Mítico' },
+  it: { A: 'Cyborg', B: 'Non morto', C: 'Attaccabrighe', D: 'Bestia', E: 'Galattico', F: 'Mitico' },
+  tr: { A: 'Siborg', B: 'Yaşayan Ölü', C: 'Kavgacı', D: 'Canavar', E: 'Galaktik', F: 'Mitik' },
+  nl: { A: 'Cyborg', B: 'Ondode', C: 'Vechtersbaas', D: 'Beest', E: 'Galactisch', F: 'Mythisch' },
 }
 
 export const TYPE_DICT: Partial<Record<Locale, Record<string, string>>> = {
@@ -226,6 +231,91 @@ export const TYPE_DICT: Partial<Record<Locale, Record<string, string>>> = {
     SEASONAL: 'Événements',
     VIDEOGAME: 'Jeux vidéo',
   },
+  de: {
+    Pvp: 'PvP',
+    PVP: 'PvP',
+    Special: 'Spezial',
+    SPECIAL: 'Spezial',
+    special: 'Spezial',
+    ZODIAC: 'Tierkreis',
+    GACHA: 'Reaktor',
+    gacha: 'Reaktor',
+    COMMUNITY: 'Community',
+    default: 'Basis/Starter',
+    HEROIC: 'Helden',
+    LEGEND: 'Legendär',
+    RECIPE: 'Geheimnisse',
+    SEASONAL: 'Events',
+    VIDEOGAME: 'Videospiele',
+  },
+  pt: {
+    Pvp: 'PvP',
+    PVP: 'PvP',
+    Special: 'Especial',
+    SPECIAL: 'Especial',
+    special: 'Especial',
+    ZODIAC: 'Zodíaco',
+    GACHA: 'Reator',
+    gacha: 'Reator',
+    COMMUNITY: 'Comunidade',
+    default: 'Básico/Inicial',
+    HEROIC: 'Heróis',
+    LEGEND: 'Lendários',
+    RECIPE: 'Segredos',
+    SEASONAL: 'Eventos',
+    VIDEOGAME: 'Jogos eletrônicos',
+  },
+  it: {
+    Pvp: 'PvP',
+    PVP: 'PvP',
+    Special: 'Speciale',
+    SPECIAL: 'Speciale',
+    special: 'Speciale',
+    ZODIAC: 'Zodiaco',
+    GACHA: 'Reattore',
+    gacha: 'Reattore',
+    COMMUNITY: 'Community',
+    default: 'Base/Iniziale',
+    HEROIC: 'Eroi',
+    LEGEND: 'Leggendari',
+    RECIPE: 'Segreti',
+    SEASONAL: 'Eventi',
+    VIDEOGAME: 'Videogiochi',
+  },
+  tr: {
+    Pvp: 'PvP',
+    PVP: 'PvP',
+    Special: 'Özel',
+    SPECIAL: 'Özel',
+    special: 'Özel',
+    ZODIAC: 'Burç',
+    GACHA: 'Reaktör',
+    gacha: 'Reaktör',
+    COMMUNITY: 'Topluluk',
+    default: 'Temel/Başlangıç',
+    HEROIC: 'Kahramanlar',
+    LEGEND: 'Efsanevi',
+    RECIPE: 'Sırlar',
+    SEASONAL: 'Etkinlikler',
+    VIDEOGAME: 'Video Oyunları',
+  },
+  nl: {
+    Pvp: 'PvP',
+    PVP: 'PvP',
+    Special: 'Speciaal',
+    SPECIAL: 'Speciaal',
+    special: 'Speciaal',
+    ZODIAC: 'Dierenriem',
+    GACHA: 'Reactor',
+    gacha: 'Reactor',
+    COMMUNITY: 'Community',
+    default: 'Basis/Starter',
+    HEROIC: 'Helden',
+    LEGEND: 'Legendarisch',
+    RECIPE: 'Geheimen',
+    SEASONAL: 'Evenementen',
+    VIDEOGAME: 'Videogames',
+  },
 }
 
 export const ABILITY_DICT: Partial<Record<Locale, Record<string, string>>> = {
@@ -271,6 +361,76 @@ export const ABILITY_DICT: Partial<Record<Locale, Record<string, string>>> = {
     ability_strengthen_plus: 'Renforcer',
     ability_weaken: 'Malédiction',
     ability_weaken_plus: 'Malédiction',
+  },
+  de: {
+    ability_shield: 'Schild',
+    ability_shield_plus: 'Schild',
+    ability_regen: 'Lebensraub',
+    ability_regen_plus: 'Lebensraub',
+    ability_retaliate: 'Vergeltung',
+    ability_retaliate_plus: 'Vergeltung',
+    ability_slash: 'Wunde',
+    ability_slash_plus: 'Wunde',
+    ability_strengthen: 'Stärken',
+    ability_strengthen_plus: 'Stärken',
+    ability_weaken: 'Fluch',
+    ability_weaken_plus: 'Fluch',
+  },
+  pt: {
+    ability_shield: 'Escudo',
+    ability_shield_plus: 'Escudo',
+    ability_regen: 'Roubo de vida',
+    ability_regen_plus: 'Roubo de vida',
+    ability_retaliate: 'Retaliação',
+    ability_retaliate_plus: 'Retaliação',
+    ability_slash: 'Ferimento',
+    ability_slash_plus: 'Ferimento',
+    ability_strengthen: 'Fortalecer',
+    ability_strengthen_plus: 'Fortalecer',
+    ability_weaken: 'Maldição',
+    ability_weaken_plus: 'Maldição',
+  },
+  it: {
+    ability_shield: 'Scudo',
+    ability_shield_plus: 'Scudo',
+    ability_regen: 'Furto di vita',
+    ability_regen_plus: 'Furto di vita',
+    ability_retaliate: 'Rappresaglia',
+    ability_retaliate_plus: 'Rappresaglia',
+    ability_slash: 'Ferita',
+    ability_slash_plus: 'Ferita',
+    ability_strengthen: 'Rafforzare',
+    ability_strengthen_plus: 'Rafforzare',
+    ability_weaken: 'Maledizione',
+    ability_weaken_plus: 'Maledizione',
+  },
+  tr: {
+    ability_shield: 'Kalkan',
+    ability_shield_plus: 'Kalkan',
+    ability_regen: 'Can Emme',
+    ability_regen_plus: 'Can Emme',
+    ability_retaliate: 'Misilleme',
+    ability_retaliate_plus: 'Misilleme',
+    ability_slash: 'Yara',
+    ability_slash_plus: 'Yara',
+    ability_strengthen: 'Güçlendirme',
+    ability_strengthen_plus: 'Güçlendirme',
+    ability_weaken: 'Lanet',
+    ability_weaken_plus: 'Lanet',
+  },
+  nl: {
+    ability_shield: 'Schild',
+    ability_shield_plus: 'Schild',
+    ability_regen: 'Levensroof',
+    ability_regen_plus: 'Levensroof',
+    ability_retaliate: 'Vergelding',
+    ability_retaliate_plus: 'Vergelding',
+    ability_slash: 'Verwonding',
+    ability_slash_plus: 'Verwonding',
+    ability_strengthen: 'Versterken',
+    ability_strengthen_plus: 'Versterken',
+    ability_weaken: 'Vloek',
+    ability_weaken_plus: 'Vloek',
   },
 }
 
@@ -393,37 +553,262 @@ const bingoFr: Record<string, string> = {
   zodiac_silver: 'Zodiaques argent',
   '10years': '10 ans du jeu',
 }
+const bingoDe: Record<string, string> = {
+  hp: 'LP',
+  health: 'LP',
+  atk: 'Angriff',
+  attack: 'Angriff',
+  attack1: 'Angriff 1',
+  attack2: 'Angriff 2',
+  spd: 'Geschwindigkeit',
+  speed: 'Geschwindigkeit',
+  credit: 'Credits',
+  credits: 'Credits',
+  xp: 'XP',
+  gene_a: 'Cyborg',
+  gene_b: 'Untot',
+  gene_c: 'Schläger',
+  gene_d: 'Bestie',
+  gene_e: 'Galaktisch',
+  gene_f: 'Mythisch',
+  amazons: 'Amazonen',
+  anniversary_25: 'Jubiläum',
+  anniversary_21: 'Jubiläum 2021',
+  anniversary_24: 'Jubiläum 2024',
+  anniversary_26: 'Jubiläum 2026',
+  bingo_bronze: 'Bronze-Zucht',
+  bingo_silver: 'Silber-Zucht',
+  bingo_gold: 'Gold-Zucht',
+  bingo_plat: 'Platin-Zucht',
+  cross_mutation: 'Kreuzmutation',
+  events: 'Feiertage',
+  heroic: 'Helden',
+  legend: 'Legenden',
+  reactor: 'Reaktor',
+  rumble: 'Rumble',
+  Starter: 'Starter-Bingo',
+  starter_plat: 'Platin-Bingo',
+  zodiac: 'Tierkreiszeichen',
+  zodiac_silver: 'Silberne Tierkreiszeichen',
+  '10years': '10 Jahre Spiel',
+}
+const bingoPt: Record<string, string> = {
+  hp: 'PV',
+  health: 'PV',
+  atk: 'Ataque',
+  attack: 'Ataque',
+  attack1: 'Ataque 1',
+  attack2: 'Ataque 2',
+  spd: 'Velocidade',
+  speed: 'Velocidade',
+  credit: 'Créditos',
+  credits: 'Créditos',
+  xp: 'XP',
+  gene_a: 'Ciborgue',
+  gene_b: 'Morto-vivo',
+  gene_c: 'Brigão',
+  gene_d: 'Fera',
+  gene_e: 'Galáctico',
+  gene_f: 'Mítico',
+  amazons: 'Amazonas',
+  anniversary_25: 'Aniversário',
+  anniversary_21: 'Aniversário 2021',
+  anniversary_24: 'Aniversário 2024',
+  anniversary_26: 'Aniversário 2026',
+  bingo_bronze: 'Reprodução de Bronze',
+  bingo_silver: 'Reprodução de Prata',
+  bingo_gold: 'Reprodução de Ouro',
+  bingo_plat: 'Reprodução de Platina',
+  cross_mutation: 'Mutação cruzada',
+  events: 'Feriados',
+  heroic: 'Heróis',
+  legend: 'Lendas',
+  reactor: 'Reator',
+  rumble: 'Rumble',
+  Starter: 'Bingo Inicial',
+  starter_plat: 'Bingo Platina',
+  zodiac: 'Zodíacos',
+  zodiac_silver: 'Zodíacos de Prata',
+  '10years': '10 Anos do Jogo',
+}
+const bingoIt: Record<string, string> = {
+  hp: 'PV',
+  health: 'PV',
+  atk: 'Attacco',
+  attack: 'Attacco',
+  attack1: 'Attacco 1',
+  attack2: 'Attacco 2',
+  spd: 'Velocità',
+  speed: 'Velocità',
+  credit: 'Crediti',
+  credits: 'Crediti',
+  xp: 'XP',
+  gene_a: 'Cyborg',
+  gene_b: 'Non morto',
+  gene_c: 'Attaccabrighe',
+  gene_d: 'Bestia',
+  gene_e: 'Galattico',
+  gene_f: 'Mitico',
+  amazons: 'Amazzoni',
+  anniversary_25: 'Anniversario',
+  anniversary_21: 'Anniversario 2021',
+  anniversary_24: 'Anniversario 2024',
+  anniversary_26: 'Anniversario 2026',
+  bingo_bronze: 'Allevamento bronzo',
+  bingo_silver: 'Allevamento argento',
+  bingo_gold: 'Allevamento oro',
+  bingo_plat: 'Allevamento platino',
+  cross_mutation: 'Mutazione incrociata',
+  events: 'Festività',
+  heroic: 'Eroi',
+  legend: 'Leggende',
+  reactor: 'Reattore',
+  rumble: 'Rumble',
+  Starter: 'Bingo iniziale',
+  starter_plat: 'Bingo platino',
+  zodiac: 'Zodiaci',
+  zodiac_silver: 'Zodiaci argento',
+  '10years': '10 anni di gioco',
+}
+const bingoTr: Record<string, string> = {
+  hp: 'SP',
+  health: 'SP',
+  atk: 'Saldırı',
+  attack: 'Saldırı',
+  attack1: 'Saldırı 1',
+  attack2: 'Saldırı 2',
+  spd: 'Hız',
+  speed: 'Hız',
+  credit: 'Krediler',
+  credits: 'Krediler',
+  xp: 'XP',
+  gene_a: 'Siborg',
+  gene_b: 'Yaşayan Ölü',
+  gene_c: 'Kavgacı',
+  gene_d: 'Canavar',
+  gene_e: 'Galaktik',
+  gene_f: 'Mitik',
+  amazons: 'Amazonlar',
+  anniversary_25: 'Yıl Dönümü',
+  anniversary_21: '2021 Yıl Dönümü',
+  anniversary_24: '2024 Yıl Dönümü',
+  anniversary_26: '2026 Yıl Dönümü',
+  bingo_bronze: 'Bronz Üreme',
+  bingo_silver: 'Gümüş Üreme',
+  bingo_gold: 'Altın Üreme',
+  bingo_plat: 'Platin Üreme',
+  cross_mutation: 'Çapraz mutasyon',
+  events: 'Tatiller',
+  heroic: 'Kahramanlar',
+  legend: 'Efsaneler',
+  reactor: 'Reaktör',
+  rumble: 'Rumble',
+  Starter: 'Başlangıç Bingosu',
+  starter_plat: 'Platin Bingo',
+  zodiac: 'Burçlar',
+  zodiac_silver: 'Gümüş Burçlar',
+  '10years': 'Oyunun 10. Yılı',
+}
+const bingoNl: Record<string, string> = {
+  hp: 'GP',
+  health: 'GP',
+  atk: 'Aanval',
+  attack: 'Aanval',
+  attack1: 'Aanval 1',
+  attack2: 'Aanval 2',
+  spd: 'Snelheid',
+  speed: 'Snelheid',
+  credit: 'Credits',
+  credits: 'Credits',
+  xp: 'XP',
+  gene_a: 'Cyborg',
+  gene_b: 'Ondode',
+  gene_c: 'Vechtersbaas',
+  gene_d: 'Beest',
+  gene_e: 'Galactisch',
+  gene_f: 'Mythisch',
+  amazons: 'Amazones',
+  anniversary_25: 'Jubileum',
+  anniversary_21: 'Jubileum 2021',
+  anniversary_24: 'Jubileum 2024',
+  anniversary_26: 'Jubileum 2026',
+  bingo_bronze: 'Bronzen fokkerij',
+  bingo_silver: 'Zilveren fokkerij',
+  bingo_gold: 'Gouden fokkerij',
+  bingo_plat: 'Platina fokkerij',
+  cross_mutation: 'Kruismutatie',
+  events: 'Feestdagen',
+  heroic: 'Helden',
+  legend: 'Legendes',
+  reactor: 'Reactor',
+  rumble: 'Rumble',
+  Starter: 'Starter-bingo',
+  starter_plat: 'Platina bingo',
+  zodiac: 'Dierenriemtekens',
+  zodiac_silver: 'Zilveren dierenriemtekens',
+  '10years': '10 jaar spel',
+}
 // Ивенты/ёлки по годам (2016-2026) - механический паттерн "Events YYYY"/"Christmas YYYY" и т.п.
 for (let y = 2016; y <= 2026; y++) {
   if (BINGO_RU[`event_${y}`]) {
     bingoEn[`event_${y}`] = `Events ${y}`
     bingoEs[`event_${y}`] = `Eventos ${y}`
     bingoFr[`event_${y}`] = `Événements ${y}`
+    bingoDe[`event_${y}`] = `Events ${y}`
+    bingoPt[`event_${y}`] = `Eventos ${y}`
+    bingoIt[`event_${y}`] = `Eventi ${y}`
+    bingoTr[`event_${y}`] = `Etkinlikler ${y}`
+    bingoNl[`event_${y}`] = `Evenementen ${y}`
   }
   if (BINGO_RU[`event_xmas${y}`]) {
     bingoEn[`event_xmas${y}`] = `Christmas ${y}`
     bingoEs[`event_xmas${y}`] = `Navidad ${y}`
     bingoFr[`event_xmas${y}`] = `Noël ${y}`
+    bingoDe[`event_xmas${y}`] = `Weihnachten ${y}`
+    bingoPt[`event_xmas${y}`] = `Natal ${y}`
+    bingoIt[`event_xmas${y}`] = `Natale ${y}`
+    bingoTr[`event_xmas${y}`] = `Noel ${y}`
+    bingoNl[`event_xmas${y}`] = `Kerst ${y}`
   }
   if (BINGO_RU[`${y}_events`]) {
     bingoEn[`${y}_events`] = `Events ${y}`
     bingoEs[`${y}_events`] = `Eventos ${y}`
     bingoFr[`${y}_events`] = `Événements ${y}`
+    bingoDe[`${y}_events`] = `Events ${y}`
+    bingoPt[`${y}_events`] = `Eventos ${y}`
+    bingoIt[`${y}_events`] = `Eventi ${y}`
+    bingoTr[`${y}_events`] = `Etkinlikler ${y}`
+    bingoNl[`${y}_events`] = `Evenementen ${y}`
   }
   if (BINGO_RU[`${y}_mutants`]) {
     bingoEn[`${y}_mutants`] = `Mutants ${y}`
     bingoEs[`${y}_mutants`] = `Mutantes ${y}`
     bingoFr[`${y}_mutants`] = `Mutants ${y}`
+    bingoDe[`${y}_mutants`] = `Mutanten ${y}`
+    bingoPt[`${y}_mutants`] = `Mutantes ${y}`
+    bingoIt[`${y}_mutants`] = `Mutanti ${y}`
+    bingoTr[`${y}_mutants`] = `Mutantlar ${y}`
+    bingoNl[`${y}_mutants`] = `Mutanten ${y}`
   }
   if (BINGO_RU[`${y}_skins`]) {
     bingoEn[`${y}_skins`] = `Skins ${y}`
     bingoEs[`${y}_skins`] = `Skins ${y}`
     bingoFr[`${y}_skins`] = `Skins ${y}`
+    bingoDe[`${y}_skins`] = `Skins ${y}`
+    bingoPt[`${y}_skins`] = `Skins ${y}`
+    bingoIt[`${y}_skins`] = `Skin ${y}`
+    bingoTr[`${y}_skins`] = `Skinler ${y}`
+    bingoNl[`${y}_skins`] = `Skins ${y}`
   }
   if (BINGO_RU[`research_${y - 2015}`] && y - 2015 <= 11) {
     bingoEn[`research_${y - 2015}`] = `Research ${y - 2015}`
     bingoEs[`research_${y - 2015}`] = `Investigación ${y - 2015}`
     bingoFr[`research_${y - 2015}`] = `Recherche ${y - 2015}`
+    bingoDe[`research_${y - 2015}`] = `Forschung ${y - 2015}`
+    bingoPt[`research_${y - 2015}`] = `Pesquisa ${y - 2015}`
+    bingoIt[`research_${y - 2015}`] = `Ricerca ${y - 2015}`
+    bingoTr[`research_${y - 2015}`] = `Araştırma ${y - 2015}`
+    bingoNl[`research_${y - 2015}`] = `Onderzoek ${y - 2015}`
   }
 }
 export const BINGO_DICT: Partial<Record<Locale, Record<string, string>>> = {
@@ -431,6 +816,11 @@ export const BINGO_DICT: Partial<Record<Locale, Record<string, string>>> = {
   en: bingoEn,
   es: bingoEs,
   fr: bingoFr,
+  de: bingoDe,
+  pt: bingoPt,
+  it: bingoIt,
+  tr: bingoTr,
+  nl: bingoNl,
 }
 
 // Цепочка fallback для локале-осознанных словарей: locale -> EN -> RU (см.
