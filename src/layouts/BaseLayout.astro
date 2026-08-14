@@ -587,27 +587,27 @@ const structuredData = [
     <header>
       <div class="logo">
         {!isHome && (
-          <button onclick="history.back()" class="global-back-button" type="button" title="Назад">
+          <button onclick="history.back()" class="global-back-button" type="button" title={t('header.back', locale)}>
             <span style="font-size: 1.2rem; line-height: 1;">←</span>
           </button>
         )}
         <a href={`${localePrefix(locale)}/`}>Archivist-Library</a>
       </div>
       <nav>
-        <a href="/mutants">Мутанты</a>
-        <a href="/evolution/evotech-calculator">Калькулятор эво</a>
-        <a href="/simulators/stats">Калькулятор статов</a>
-        <a href="/materials">Материалы</a>
-        <a href="/simulators">Симуляторы</a>
-        <a href="/simulators/breeding">Скрещивания</a>
-        <a href="/bingo">Бинго</a>
-        <a href="/boxes">Боксы</a>
-        <a href="/tier-list">Тир-лист</a>
-        <a href="/rebalance">Ребаланс</a>
-        <a href="/top-mutants">Топ мутантов</a>
-        <a href="/guides">Полезности</a>
-        <a href="/credits">Разработчики</a>
-        <a href="/top-evo">Топ по эво</a>
+        <a href={`${localePrefix(locale)}/mutants`}>{t('nav.mutants', locale)}</a>
+        <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
+        <a href="/simulators/stats">{t('nav.statsCalculator', locale)}</a>
+        <a href="/materials">{t('nav.materials', locale)}</a>
+        <a href="/simulators">{t('nav.simulators', locale)}</a>
+        <a href="/simulators/breeding">{t('nav.breeding', locale)}</a>
+        <a href="/bingo">{t('nav.bingo', locale)}</a>
+        <a href="/boxes">{t('nav.boxes', locale)}</a>
+        <a href="/tier-list">{t('nav.tierList', locale)}</a>
+        <a href="/rebalance">{t('nav.rebalance', locale)}</a>
+        <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
+        <a href="/guides">{t('nav.guides', locale)}</a>
+        <a href="/credits">{t('nav.credits', locale)}</a>
+        <a href="/top-evo">{t('nav.topEvo', locale)}</a>
       </nav>
       <SearchBox client:visible />
       <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
@@ -621,42 +621,42 @@ const structuredData = [
           >{l.toUpperCase()}</a>
         ))}
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+      <button class="menu-toggle" id="menuToggle" aria-label={t('header.openMenu', locale)}>
         <span></span>
         <span></span>
         <span></span>
       </button>
     </header>
-    
+
     <!-- Mobile Navigation -->
     <div class="overlay" id="overlay"></div>
     <nav class="mobile-nav" id="mobileNav">
       <div class="mobile-nav-header">
-        <h2>Меню</h2>
-        <button class="close-btn" id="closeBtn" aria-label="Закрыть меню">&times;</button>
+        <h2>{t('mobileNav.title', locale)}</h2>
+        <button class="close-btn" id="closeBtn" aria-label={t('header.closeMenu', locale)}>&times;</button>
       </div>
-      <a href="/">Главная</a>
-      <a href="/mutants">Мутанты</a>
-      <a href="/simulators/stats">Калькулятор статов</a>
-      <a href="/evolution/evotech-calculator">Калькулятор эво</a>
-      <a href="/materials">Материалы</a>
-      <a href="/simulators">Симуляторы</a>
-      <a href="/simulators/breeding">Скрещивания</a>
-      <a href="/bingo">Бинго</a>
-      <a href="/boxes">Боксы</a>
-      <a href="/rebalance">Ребаланс</a>
-      <a href="/tier-list">Тир-лист</a>
-      <a href="/top-mutants">Топ мутантов</a>
-      <a href="/guides">Полезности</a>
-      <a href="/credits">Разработчики</a>
-      <a href="/top-evo">Топ по эво</a>
+      <a href={`${localePrefix(locale)}/`}>{t('nav.home', locale)}</a>
+      <a href={`${localePrefix(locale)}/mutants`}>{t('nav.mutants', locale)}</a>
+      <a href="/simulators/stats">{t('nav.statsCalculator', locale)}</a>
+      <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
+      <a href="/materials">{t('nav.materials', locale)}</a>
+      <a href="/simulators">{t('nav.simulators', locale)}</a>
+      <a href="/simulators/breeding">{t('nav.breeding', locale)}</a>
+      <a href="/bingo">{t('nav.bingo', locale)}</a>
+      <a href="/boxes">{t('nav.boxes', locale)}</a>
+      <a href="/rebalance">{t('nav.rebalance', locale)}</a>
+      <a href="/tier-list">{t('nav.tierList', locale)}</a>
+      <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
+      <a href="/guides">{t('nav.guides', locale)}</a>
+      <a href="/credits">{t('nav.credits', locale)}</a>
+      <a href="/top-evo">{t('nav.topEvo', locale)}</a>
     </nav>
-    
+
     <main class={fullWidth ? 'wide' : ''}>
       <slot />
     </main>
     <footer>
-      <p>&copy; {new Date().getFullYear()} Archivist-Library — база знаний по игре и симуляторы с реальными шансами.</p>
+      <p>{t('footer.copyright', locale).replace('{year}', String(new Date().getFullYear()))}</p>
     </footer>
     
     <script>
