@@ -10,11 +10,15 @@
 // выбор языка через переключатель в шапке не перебивался повторным
 // Accept-Language-редиректом на следующий визит.
 //
-// REDIRECT_LOCALES/TRANSLATED_PATHS импортируются из src/lib/i18n.ts - единый
-// источник правды (Батч 11 (2)), общий с BaseLayout.astro. Раздельные копии
-// этого списка исторически расходились.
+// REDIRECT_LOCALES/TRANSLATED_PATHS импортируются из src/lib/i18n-locales.ts -
+// единый источник правды (Батч 11 (2)), общий с BaseLayout.astro (через
+// i18n.ts). НЕ импортировать src/lib/i18n.ts напрямую - middleware.ts
+// собирается отдельным Edge Function бандлером (строгий Node ESM), который
+// не резолвит ни "@/"-алиас Vite/Astro, ни прямой JSON-импорт словарей -
+// деплой падает с "referencing unsupported modules". i18n-locales.ts
+// специально не содержит JSON-зависимостей.
 
-import { REDIRECT_LOCALES, TRANSLATED_PATHS, type Locale } from './src/lib/i18n'
+import { REDIRECT_LOCALES, TRANSLATED_PATHS, type Locale } from './src/lib/i18n-locales.js'
 
 const COOKIE_NAME = 'preferred_locale'
 
@@ -42,12 +46,17 @@ export default function middleware(request: Request): Response | undefined {
   if (!preferred) return undefined // RU или неизвестный язык - остаёмся на RU
 
   const redirectUrl = new URL(`/${preferred}${pathname === '/' ? '' : pathname}${url.search}`, url)
-  const response = Response.redirect(redirectUrl, 307)
-  response.headers.append(
-    'Set-Cookie',
-    `${COOKIE_NAME}=${preferred}; Path=/; Max-Age=31536000; SameSite=Lax`,
-  )
-  return response
+  // Response.redirect() возвращает Response с иммутабельными заголовками -
+  // headers.append() на нём кидает "TypeError: immutable" (поймано живым
+  // тестом на preview-деплое, build/tsc это не ловят). Собираем Response
+  // вручную, чтобы Location и Set-Cookie шли в одном изменяемом объекте.
+  return new Response(null, {
+    status: 307,
+    headers: {
+      Location: redirectUrl.toString(),
+      'Set-Cookie': `${COOKIE_NAME}=${preferred}; Path=/; Max-Age=31536000; SameSite=Lax`,
+    },
+  })
 }
 
 export const config = {
