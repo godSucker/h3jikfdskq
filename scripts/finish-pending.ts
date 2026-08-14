@@ -35,6 +35,11 @@ const OBTAIN_PATH = path.join(ROOT, 'src/data/mutants/obtain.json')
 const MUTANTS_PATH = path.join(ROOT, 'src/data/mutants/mutants.json')
 const RESOLVED_NAMES_PATH = path.join(ROOT, 'scripts/resolved-names-cache.json')
 const PENDING_PATH = path.join(ROOT, 'scripts/pending-names-cache.json')
+// Батч 11 (3), Bucket 4: опциональный EN-перевод из ".локал ... en:\"...\""
+// (telegram-webhook.ts). Отдельный файл, RESOLVED_NAMES_PATH/PENDING_PATH не
+// трогаются - format/поведение старого RU-only пути идентичны прежним.
+const RESOLVED_NAMES_EN_PATH = path.join(ROOT, 'scripts/resolved-names-en-cache.json')
+const GACHA_EVENT_I18N_PATH = path.join(ROOT, 'src/data/mutants/gacha-event-i18n.json')
 
 async function loadJson<T>(p: string, fallback: T): Promise<T> {
   try {
@@ -70,7 +75,7 @@ interface MutantLite {
   name: string
 }
 
-async function finishReactor(id: string, name: string) {
+async function finishReactor(id: string, name: string, enName?: string) {
   const xmlRes = await axios.get(GACHA_XML_URL, { timeout: 20000 })
   const active = parseGachaXml(xmlRes.data)
   const gacha = active.find((g) => g.id === id)
@@ -136,8 +141,20 @@ async function finishReactor(id: string, name: string) {
     'gacha',
     `Реактор — ${name}`,
   )
+  if (enName) await appendGachaEventI18n(name, enName)
 
   return { specimenCount: specimens.length, hasCover: Boolean(covers[id]) }
+}
+
+// Батч 11 (3), Bucket 4: EN-перевод кураторского имени реактора/данжа -
+// пишет в сайдкар по RU-имени как ключу (тот же ключ, что obtain.json's
+// "where" использует после "Реактор — "/"Рейд: "/"Лесенки: ", см.
+// src/lib/obtain-render.ts GACHA_NAME_DICT/RAID_NAME_DICT). Аддитивно -
+// только добавляет/обновляет одну запись, не трогает остальные.
+async function appendGachaEventI18n(ruName: string, enName: string) {
+  const data = await loadJson<Record<string, { en?: string }>>(GACHA_EVENT_I18N_PATH, {})
+  data[ruName] = { ...data[ruName], en: enName }
+  await saveJson(GACHA_EVENT_I18N_PATH, data)
 }
 
 async function appendObtain(specimenIds: string[], type: string, where: string) {
@@ -198,6 +215,7 @@ async function finishDungeon(
   id: string,
   name: string,
   dungeonType: 'raid' | 'experiment' | 'challenge',
+  enName?: string,
 ) {
   const [dungeonsRes, fightsRes] = await Promise.all([
     axios.get(DUNGEONS_XML_URL, { timeout: 20000 }),
@@ -239,6 +257,7 @@ async function finishDungeon(
     const label = dungeonType === 'raid' ? `Рейд: ${name}` : `Лесенки: ${name}`
     await appendObtain([mutantReward.id], 'event_raid', label)
   }
+  if (enName) await appendGachaEventI18n(name, enName)
 
   // Обложка для /guides (activity-hero background) и карточки анонса.
   // screen_<id>.jpg - реальный скриншот арены, предпочтителен для фона на
@@ -282,29 +301,32 @@ async function processOne(
   key: string,
   name: string,
   pending: Record<string, { dungeonType?: string }>,
+  enName?: string,
 ) {
   const [type, id] = key.split(':')
   if (!type || !id) throw new Error(`Некорректный ключ: "${key}"`)
 
   if (type === 'reactor') {
-    const r = await finishReactor(id, name)
+    const r = await finishReactor(id, name, enName)
     return [
       `✅ *Реактор "${name}" (${id}) добавлен*`,
       `Мутантов в пуле: ${r.specimenCount}`,
       r.hasCover
         ? 'Обложка: загружена с CDN'
         : 'Обложка: НЕ найдена, добавь вручную в public/reactor/',
+      enName ? `EN: "${enName}"` : '⚠️ EN-имя не задано - на сайте покажется RU',
     ].join('\n')
   }
   if (type === 'dungeon') {
     const dungeonType = (pending[key]?.dungeonType ?? 'raid') as 'raid' | 'experiment' | 'challenge'
-    const entry = await finishDungeon(id, name, dungeonType)
+    const entry = await finishDungeon(id, name, dungeonType, enName)
     return [
       `✅ *${dungeonType === 'raid' ? 'Рейд' : 'Лесенка'} "${name}" (${id}) добавлен(а)*`,
       `Боёв: ${entry.fightCount}, боссов: ${entry.bossCount}`,
       entry.mutantId
         ? `Мутант-награда: ${entry.mutantId}`
         : 'Мутант-награда: не найдена в dungeons.xml',
+      enName ? `EN: "${enName}"` : '⚠️ EN-имя не задано - на сайте покажется RU',
     ].join('\n')
   }
   throw new Error(`Неизвестный тип ключа: "${key}"`)
@@ -312,6 +334,7 @@ async function processOne(
 
 async function main() {
   const resolved = await loadJson<Record<string, string>>(RESOLVED_NAMES_PATH, {})
+  const resolvedEn = await loadJson<Record<string, string>>(RESOLVED_NAMES_EN_PATH, {})
   const pending = await loadJson<Record<string, { dungeonType?: string }>>(PENDING_PATH, {})
   const keys = Object.keys(resolved)
 
@@ -323,8 +346,9 @@ async function main() {
   for (const key of keys) {
     const name = resolved[key]
     try {
-      const resultText = await processOne(key, name, pending)
+      const resultText = await processOne(key, name, pending, resolvedEn[key])
       delete resolved[key]
+      delete resolvedEn[key]
       delete pending[key]
       await sendTelegramMessage(resultText)
       console.log(`[FINISH-PENDING] ${resultText.replace(/\*/g, '')}`)
@@ -339,6 +363,7 @@ async function main() {
   }
 
   await saveJson(RESOLVED_NAMES_PATH, resolved)
+  await saveJson(RESOLVED_NAMES_EN_PATH, resolvedEn)
   await saveJson(PENDING_PATH, pending)
 }
 

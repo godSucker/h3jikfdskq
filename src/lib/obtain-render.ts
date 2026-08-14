@@ -17,6 +17,7 @@
 import type { Locale } from './i18n'
 import { STAR_DICT, STAR_LABEL, BINGO_RU, bingoLabelL, GENE_RU, geneLabelL } from './mutant-dicts'
 import mutants from '@/data/mutants/mutants.json'
+import gachaEventI18n from '@/data/mutants/gacha-event-i18n.json'
 
 const PREFIX_DICT: Record<string, Partial<Record<Locale, string>>> = {
   Набор: {
@@ -2160,7 +2161,10 @@ export function renderObtainWhere(
     const m = entry.where.match(/^Реактор — (.+)$/)
     if (!m) return entry.where
     const label = GACHA_LABEL[locale] ?? GACHA_LABEL.en
-    const name = GACHA_NAME_DICT[m[1]]?.[locale] ?? GACHA_NAME_DICT[m[1]]?.en
+    const name =
+      GACHA_NAME_DICT[m[1]]?.[locale] ??
+      GACHA_NAME_DICT[m[1]]?.en ??
+      (gachaEventI18n as Record<string, { en?: string }>)[m[1]]?.en
     if (!label || !name) return entry.where
     return `${label} — ${name}`
   }
@@ -2179,7 +2183,10 @@ export function renderObtainWhere(
       return entry.where
     }
 
-    const name = RAID_NAME_DICT[m[2]]?.[locale] ?? RAID_NAME_DICT[m[2]]?.en
+    const name =
+      RAID_NAME_DICT[m[2]]?.[locale] ??
+      RAID_NAME_DICT[m[2]]?.en ??
+      (gachaEventI18n as Record<string, { en?: string }>)[m[2]]?.en
     if (!name) return entry.where
     return `${label}: ${name}`
   }

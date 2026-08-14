@@ -54,9 +54,9 @@ function getFormatsMessage(): string {
     '.анонс',
     '```',
     '',
-    '🏷️ *Локализация* — ответ на алерт про новый реактор/рейд/лесенку без офиц. RU-имени:',
+    '🏷️ *Локализация* — ответ на алерт про новый реактор/рейд/лесенку без офиц. RU-имени (en:"..." необязателен, но без него сайт покажет RU-имя на всех языках сайта):',
     '```',
-    '.локал reactor:gemstones "Самоцветы"',
+    '.локал reactor:gemstones "Самоцветы" en:"Gems"',
     '.локал dungeon:hexcity_2 "Hex City: Часть 2"',
     '```',
     '',
@@ -695,6 +695,13 @@ async function processOrbingFile(
 // с полным тулингом, докачивает арт/CDN/пишет данные/публикует анонс.
 const LOCAL_NAME_TRIGGER = '.локал'
 const RESOLVED_NAMES_PATH = 'scripts/resolved-names-cache.json'
+// Батч 11 (3), Bucket 4: опциональный EN-перевод сразу при вводе RU-имени -
+// ОТДЕЛЬНЫЙ файл, а не новое поле в RESOLVED_NAMES_PATH. RESOLVED_NAMES_PATH
+// читает finish-pending.yml (и по workflow_dispatch, и по 6ч cron-фолбэку)
+// как Record<string,string> - смена формата значения сломала бы неглядящий
+// cron-прогон на полу-мигрированных данных. RU-путь остаётся буквально
+// нетронутым, EN - аддитивный сайдкар, отсутствие файла/ключа не ошибка.
+const RESOLVED_NAMES_EN_PATH = 'scripts/resolved-names-en-cache.json'
 const FINISH_PENDING_WORKFLOW = 'finish-pending.yml'
 
 async function triggerWorkflow(
@@ -981,11 +988,15 @@ export const POST: APIRoute = async ({ request }) => {
           return await reply('🔴 GitHub credentials не настроены')
         }
 
-        const match = text.match(/\.локал\s+(\S+)\s+"([^"]+)"/i)
+        // en:"..." необязателен - старый формат ".локал key \"Имя\"" (без EN)
+        // продолжает работать один в один, ничего не меняется в RU-пути.
+        const match = text.match(/\.локал\s+(\S+)\s+"([^"]+)"(?:\s+en:"([^"]+)")?/i)
         if (!match) {
-          return await reply('🔴 Формат: .локал reactor:<id> "Имя" (или dungeon:<id> "Имя")')
+          return await reply(
+            '🔴 Формат: .локал reactor:<id> "Имя" (или dungeon:<id> "Имя"), можно добавить en:"Name"',
+          )
         }
-        const [, key, name] = match
+        const [, key, name, enName] = match
 
         const result = await mutateGithubJsonFile<Record<string, string>>(
           GITHUB_TOKEN,
@@ -1003,6 +1014,24 @@ export const POST: APIRoute = async ({ request }) => {
           return await reply(`🔴 Не удалось сохранить имя (${result.reason})`)
         }
 
+        if (enName) {
+          const enResult = await mutateGithubJsonFile<Record<string, string>>(
+            GITHUB_TOKEN,
+            REPO_OWNER,
+            REPO_NAME,
+            RESOLVED_NAMES_EN_PATH,
+            (data) => {
+              const map = data ?? {}
+              map[key] = enName
+              return map
+            },
+            `Локализация (EN): ${key} = "${enName}"`,
+          )
+          if (!enResult.ok) {
+            await reply(`⚠️ RU сохранён, но EN-имя не удалось записать (${enResult.reason})`)
+          }
+        }
+
         const triggered = await triggerWorkflow(
           GITHUB_TOKEN,
           REPO_OWNER,
@@ -1010,7 +1039,7 @@ export const POST: APIRoute = async ({ request }) => {
           FINISH_PENDING_WORKFLOW,
         )
         return await reply(
-          `✅ Имя "${name}" сохранено для ${key}.` +
+          `✅ Имя "${name}"${enName ? ` (EN: "${enName}")` : ''} сохранено для ${key}.` +
             (triggered
               ? ' Запускаю доделку (арт/CDN/публикация)...'
               : ' ⚠️ Не удалось запустить workflow — доделка произойдёт на следующем sync-cron.'),
