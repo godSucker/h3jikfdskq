@@ -90,7 +90,7 @@
     unavailable: '/etc/icon_timer.webp',
   };
 
-  let { open = false, mutant = null, star = 'normal', skins = [], onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }> }: {
+  let { open = false, mutant = null, star = 'normal', skins = [], onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
     open?: boolean;
     mutant?: any;
     star?: string;
@@ -98,17 +98,34 @@
     onclose?: () => void;
     locale?: Locale;
     names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>;
+    obtainNames?: Record<string, string>;
   } = $props();
+
+  // Батч 11 (3): itemId -> bundle/box-название на 8 языках (obtain-names.{lang}.json,
+  // фолбэк target->en уже свёрнут в MutantsPage.astro). Нет itemId или нет
+  // перевода для него - остаёмся на RU-каноне ("where", 7 коммитов курации).
+  function displayObtainWhere(o: { where: string; itemId?: string }): string {
+    if (o.itemId && obtainNames[o.itemId]) return obtainNames[o.itemId];
+    return o.where;
+  }
 
   const close = () => onclose?.();
 
   // i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
-  // сиблинг-перевод. RU-фолбэк, если для конкретного id перевода нет.
+  // сиблинг-перевод, ключи - id из mutants.json (всегда lowercase). skins.json
+  // хранит id в другом регистре (напр. "Specimen_A_01" vs "specimen_a_01") -
+  // без нормализации лукап молча промахивается для любого выбранного скина
+  // (найдено 2026-08-14 живым тестом: атаки откатывались на RU только при
+  // переключении скина, не звезды - там id всегда из mutants.json). RU-фолбэк,
+  // если для конкретного id перевода нет.
+  function namesFor(id: unknown): { name: string; lore: string; atk1Name: string; atk2Name: string } | undefined {
+    return names[String(id ?? '').toLowerCase()];
+  }
   function displayName(it: any): string {
-    return names[it?.id]?.name || it?.name || '';
+    return namesFor(it?.id)?.name || it?.name || '';
   }
   function displayLore(it: any): string {
-    return names[it?.id]?.lore || it?.name_lore || '';
+    return namesFor(it?.id)?.lore || it?.name_lore || '';
   }
 
   const rankBadges = $derived(computeRankBadges(mutant?.id, locale));
@@ -238,7 +255,8 @@
 
   // Names (i18n-пилот, Батч 11: names.{lang}.json -> m?.name_attackN -> "Атака N")
   const attackName = (m: any, which: 1 | 2): string => {
-    const translated = names[m?.id] ? (which === 1 ? names[m.id].atk1Name : names[m.id].atk2Name) : '';
+    const nm = namesFor(m?.id);
+    const translated = nm ? (which === 1 ? nm.atk1Name : nm.atk2Name) : '';
     if (translated) return translated;
     const local = which === 1 ? m?.name_attack1 : m?.name_attack2;
     if (local) return String(local);
@@ -784,7 +802,7 @@
                 <span class="w-11 h-11 shrink-0 flex items-center justify-center">
                   <img class={`${o.type === 'box' || o.type === 'breeding' || o.type === 'breeding_duplicate' ? 'w-11 h-11' : 'w-7 h-7'} object-contain rounded`} src={textureUrl(o.icon ?? OBTAIN_ICON[o.type] ?? '/etc/icon_bingo.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />
                 </span>
-                <span class="break-words">{o.where}</span>
+                <span class="break-words">{displayObtainWhere(o)}</span>
               </div>
             {/each}
           </div>

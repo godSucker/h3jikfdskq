@@ -11,7 +11,7 @@
 
   const normalizeForSearch = normalizeSearch;
 
-  let { items = [], skins = [], bingos = [], title = '', bingoIndex = [], locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }> } = $props();
+  let { items = [], skins = [], bingos = [], title = '', bingoIndex = [], locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> } = $props();
 
   // i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
   // сиблинг-словарь переводов имени/лора/атак по id. RU-фолбэк если перевода нет.
@@ -437,8 +437,26 @@
   };
 
   let openItem:any = $state(null);
-  const openModal  = (it:any) => { openItem = it; };
-  const closeModal = () => { openItem = null; };
+  // Клик по карточке мутанта тоже пишет ?mutant=<id> в адресную строку (не
+  // только диплинк из поиска) - модалку можно скопировать ссылкой/открыть
+  // назад через историю браузера. pushState на открытие (новая запись в
+  // истории - "назад" закрывает модалку), replaceState на закрытие (не
+  // плодим лишнюю запись "закрыто").
+  const openModal = (it: any) => {
+    openItem = it;
+    if (typeof window === 'undefined' || !it?.id) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set('mutant', it.id);
+    window.history.pushState({ mutant: it.id }, '', url);
+  };
+  const closeModal = () => {
+    openItem = null;
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has('mutant')) return;
+    url.searchParams.delete('mutant');
+    window.history.replaceState({}, '', url);
+  };
 
   // Диплинк из сайтового поиска (SearchBox.svelte -> /mutants?mutant=<id>):
   // открываем модалку сразу при заходе на страницу, минуя текущие фильтры,
@@ -448,15 +466,24 @@
   // жизнь страницы, без флага случайное повторное срабатывание молча
   // переоткрыло бы модалку, которую пользователь уже закрыл сам.
   let deepLinkHandled = false;
+  function tryOpenFromUrl() {
+    const id = new URLSearchParams(window.location.search).get('mutant');
+    if (!id) { openItem = null; return; }
+    const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
+    if (match) openItem = enrichItem(match);
+  }
   $effect(() => {
     if (typeof window === 'undefined' || deepLinkHandled) return;
-    const id = new URLSearchParams(window.location.search).get('mutant');
-    if (!id) return;
-    const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
-    if (match) {
-      deepLinkHandled = true;
-      openModal(enrichItem(match));
-    }
+    deepLinkHandled = true;
+    tryOpenFromUrl();
+  });
+  // Кнопка "назад" в браузере после клика по мутанту закрывает модалку
+  // (симметрично pushState в openModal), а не уводит со страницы целиком.
+  $effect(() => {
+    if (typeof window === 'undefined') return;
+    const onPopState = () => tryOpenFromUrl();
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   });
 </script>
 
@@ -683,7 +710,7 @@
   {/if}
 
   {#if openItem}
-    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} onclose={closeModal} locale={locale} names={names} />
+    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} onclose={closeModal} locale={locale} names={names} obtainNames={obtainNames} />
   {/if}
 
   {#if showScrollTop}
