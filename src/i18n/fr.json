@@ -80,5 +80,17 @@
   "nav.guides": "Guides",
   "nav.credits": "Crédits",
   "nav.topEvo": "Top par évo",
-  "footer.copyright": "© {year} Archivist-Library — base de connaissances du jeu et simulateurs avec de vraies probabilités."
+  "footer.copyright": "© {year} Archivist-Library — base de connaissances du jeu et simulateurs avec de vraies probabilités.",
+  "simulatorsIndex.description": "Tous les simulateurs de Mutants Genetic Gladiators (MGG) au même endroit : élevage, craft, réacteur, roulettes.",
+  "simulatorsIndex.intro": "Choisissez un simulateur pour tester son fonctionnement. Chaque simulateur calcule les récompenses et les probabilités en temps réel.",
+  "simulatorsIndex.card.breeding.title": "Simulateur d'élevage",
+  "simulatorsIndex.card.breeding.desc": "Votre guide d'élevage",
+  "simulatorsIndex.card.reactor.title": "Simulateur de réacteur",
+  "simulatorsIndex.card.reactor.desc": "Tous les générateurs et probabilités de mutants",
+  "simulatorsIndex.card.roulette.title": "Simulateur de roulettes",
+  "simulatorsIndex.card.roulette.desc": "Roulettes avec de vraies probabilités",
+  "simulatorsIndex.card.craft.title": "Simulateur de craft",
+  "simulatorsIndex.card.craft.desc": "Fonderie, Transformatron, Laboratoire & Trou noir",
+  "simulatorsIndex.card.pvp.title": "Simulateur de combat PvP",
+  "simulatorsIndex.card.pvp.desc": "Composez une équipe 3×3 et lancez le combat manuellement ou avec l'IA"
 }

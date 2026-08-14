@@ -80,5 +80,17 @@
   "nav.guides": "Guides",
   "nav.credits": "Credits",
   "nav.topEvo": "Top by evo",
-  "footer.copyright": "© {year} Archivist-Library — game knowledge base and simulators with real odds."
+  "footer.copyright": "© {year} Archivist-Library — game knowledge base and simulators with real odds.",
+  "simulatorsIndex.description": "All Mutants Genetic Gladiators (MGG) simulators in one place: breeding, crafting, reactor, roulettes.",
+  "simulatorsIndex.intro": "Choose a simulator to test how it works. Each simulator calculates rewards and odds in real time.",
+  "simulatorsIndex.card.breeding.title": "Breeding simulator",
+  "simulatorsIndex.card.breeding.desc": "Your guide to breeding",
+  "simulatorsIndex.card.reactor.title": "Reactor simulator",
+  "simulatorsIndex.card.reactor.desc": "All generators and mutant drop odds",
+  "simulatorsIndex.card.roulette.title": "Roulette simulator",
+  "simulatorsIndex.card.roulette.desc": "Roulettes with real odds",
+  "simulatorsIndex.card.craft.title": "Crafting simulator",
+  "simulatorsIndex.card.craft.desc": "Smelter, Transformatron, Lab & Black Hole",
+  "simulatorsIndex.card.pvp.title": "PvP battle simulator",
+  "simulatorsIndex.card.pvp.desc": "Build a 3×3 team and run the fight manually or with AI"
 }

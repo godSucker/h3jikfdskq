@@ -80,5 +80,17 @@
   "nav.guides": "Rehberler",
   "nav.credits": "Emeği geçenler",
   "nav.topEvo": "Evoya göre en iyi",
-  "footer.copyright": "© {year} Archivist-Library — gerçek olasılıklara sahip oyun bilgi bankası ve simülatörler."
+  "footer.copyright": "© {year} Archivist-Library — gerçek olasılıklara sahip oyun bilgi bankası ve simülatörler.",
+  "simulatorsIndex.description": "Tüm Mutants Genetic Gladiators (MGG) simülatörleri tek yerde: üreme, crafting, reaktör, ruletler.",
+  "simulatorsIndex.intro": "Nasıl çalıştığını test etmek için bir simülatör seçin. Her simülatör ödülleri ve olasılıkları gerçek zamanlı hesaplar.",
+  "simulatorsIndex.card.breeding.title": "Üreme simülatörü",
+  "simulatorsIndex.card.breeding.desc": "Üreme rehberiniz",
+  "simulatorsIndex.card.reactor.title": "Reaktör simülatörü",
+  "simulatorsIndex.card.reactor.desc": "Tüm jeneratörler ve mutant düşme olasılıkları",
+  "simulatorsIndex.card.roulette.title": "Rulet simülatörü",
+  "simulatorsIndex.card.roulette.desc": "Gerçek olasılıklara sahip ruletler",
+  "simulatorsIndex.card.craft.title": "Crafting simülatörü",
+  "simulatorsIndex.card.craft.desc": "Döküm, Transformatron, Laboratuvar ve Kara Delik",
+  "simulatorsIndex.card.pvp.title": "PvP savaş simülatörü",
+  "simulatorsIndex.card.pvp.desc": "3×3 takım kur ve savaşı manuel veya YZ ile yürüt"
 }

@@ -16,14 +16,39 @@ const {
 } = Astro.props;
 
 const locale = localeFromAstro(Astro.currentLocale);
-const OG_LOCALE_MAP: Partial<Record<Locale, string>> = { ru: 'ru_RU', en: 'en_US', es: 'es_ES', fr: 'fr_FR' };
+const OG_LOCALE_MAP: Partial<Record<Locale, string>> = {
+  ru: 'ru_RU',
+  en: 'en_US',
+  es: 'es_ES',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  pt: 'pt_BR',
+  it: 'it_IT',
+  tr: 'tr_TR',
+  nl: 'nl_NL',
+};
 
 // hreflang только для реально переведённых страниц и локалей с авторским
 // UI-словарём (Батч 11 (2), TRANSLATED_PATHS/TRANSLATED_UI_LOCALES в i18n.ts) -
 // de/pt/it/tr/nl страницы существуют (EN-фолбэк), но пока не рекламируются
 // поисковикам/переключателем как отдельный язык.
-const pathWithoutLocale = Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '') || '/';
+// Astro.url.pathname приходит с завершающим "/" для директорийных страниц
+// ("/simulators/", не "/simulators") - без replace(/\/$/, '') сравнение с
+// TRANSLATED_PATHS всегда проваливалось для любого пути кроме "/" самого,
+// поэтому hreflang молча не рендерился даже для /mutants (найдено при
+// добавлении /simulators, баг был и раньше, не только для нового пути).
+const pathWithoutLocale =
+  Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '').replace(/\/$/, '') || '/';
 const isPilotPage = (TRANSLATED_PATHS as readonly string[]).includes(pathWithoutLocale);
+
+// Nav-ссылки: путь префиксуется локалью ТОЛЬКО если у него реально есть
+// per-locale страница (TRANSLATED_PATHS) - иначе переход с /de/... на, скажем,
+// /materials сбросит пользователя на RU (страницы /de/materials не существует).
+// Централизовано здесь один раз, чтобы не чинить один и тот же баг (см.
+// коммит 986395357, /mutants) повторно на каждом новом переведённом пути.
+function navHref(path: string): string {
+  return (TRANSLATED_PATHS as readonly string[]).includes(path) ? `${localePrefix(locale)}${path}` : path;
+}
 
 // SEO: ключевые слова MGG / Mutants Genetic Gladiators присутствуют в
 // дефолтном заголовке и описании каждой страницы.
@@ -591,14 +616,14 @@ const structuredData = [
             <span style="font-size: 1.2rem; line-height: 1;">←</span>
           </button>
         )}
-        <a href={`${localePrefix(locale)}/`}>Archivist-Library</a>
+        <a href={navHref('/')}>Archivist-Library</a>
       </div>
       <nav>
-        <a href={`${localePrefix(locale)}/mutants`}>{t('nav.mutants', locale)}</a>
+        <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
         <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
         <a href="/simulators/stats">{t('nav.statsCalculator', locale)}</a>
         <a href="/materials">{t('nav.materials', locale)}</a>
-        <a href="/simulators">{t('nav.simulators', locale)}</a>
+        <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
         <a href="/simulators/breeding">{t('nav.breeding', locale)}</a>
         <a href="/bingo">{t('nav.bingo', locale)}</a>
         <a href="/boxes">{t('nav.boxes', locale)}</a>
@@ -635,12 +660,12 @@ const structuredData = [
         <h2>{t('mobileNav.title', locale)}</h2>
         <button class="close-btn" id="closeBtn" aria-label={t('header.closeMenu', locale)}>&times;</button>
       </div>
-      <a href={`${localePrefix(locale)}/`}>{t('nav.home', locale)}</a>
-      <a href={`${localePrefix(locale)}/mutants`}>{t('nav.mutants', locale)}</a>
+      <a href={navHref('/')}>{t('nav.home', locale)}</a>
+      <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
       <a href="/simulators/stats">{t('nav.statsCalculator', locale)}</a>
       <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
       <a href="/materials">{t('nav.materials', locale)}</a>
-      <a href="/simulators">{t('nav.simulators', locale)}</a>
+      <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
       <a href="/simulators/breeding">{t('nav.breeding', locale)}</a>
       <a href="/bingo">{t('nav.bingo', locale)}</a>
       <a href="/boxes">{t('nav.boxes', locale)}</a>

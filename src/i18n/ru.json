@@ -81,5 +81,17 @@
   "nav.guides": "Полезности",
   "nav.credits": "Разработчики",
   "nav.topEvo": "Топ по эво",
-  "footer.copyright": "© {year} Archivist-Library — база знаний по игре и симуляторы с реальными шансами."
+  "footer.copyright": "© {year} Archivist-Library — база знаний по игре и симуляторы с реальными шансами.",
+  "simulatorsIndex.description": "Все симуляторы Mutants Genetic Gladiators (MGG) в одном месте: скрещивание, крафт, реактор, рулетки.",
+  "simulatorsIndex.intro": "Выберите симулятор, чтобы протестировать его работу. Каждый симулятор рассчитывает награды и шансы в реальном времени.",
+  "simulatorsIndex.card.breeding.title": "Симулятор скрещивания",
+  "simulatorsIndex.card.breeding.desc": "Твой гид по скрещиванию",
+  "simulatorsIndex.card.reactor.title": "Симулятор реактора",
+  "simulatorsIndex.card.reactor.desc": "Все генераторы и шансы выпадения мутантов",
+  "simulatorsIndex.card.roulette.title": "Симулятор рулеток",
+  "simulatorsIndex.card.roulette.desc": "Рулетки с реальными шансами",
+  "simulatorsIndex.card.craft.title": "Симулятор крафта",
+  "simulatorsIndex.card.craft.desc": "Металлзавод, Трансформатрон, Лаборатория & Черная Дыра",
+  "simulatorsIndex.card.pvp.title": "Симулятор PvP-боя",
+  "simulatorsIndex.card.pvp.desc": "Собери команду 3×3 и прогони бой вручную или под ИИ"
 }

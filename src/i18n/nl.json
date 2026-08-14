@@ -80,5 +80,17 @@
   "nav.guides": "Gidsen",
   "nav.credits": "Makers",
   "nav.topEvo": "Top op evo",
-  "footer.copyright": "© {year} Archivist-Library — kennisbank voor het spel en simulators met echte kansen."
+  "footer.copyright": "© {year} Archivist-Library — kennisbank voor het spel en simulators met echte kansen.",
+  "simulatorsIndex.description": "Alle Mutants Genetic Gladiators (MGG) simulators op één plek: fokkerij, crafting, reactor, roulettes.",
+  "simulatorsIndex.intro": "Kies een simulator om te testen hoe deze werkt. Elke simulator berekent beloningen en kansen in realtime.",
+  "simulatorsIndex.card.breeding.title": "Fokkerij-simulator",
+  "simulatorsIndex.card.breeding.desc": "Jouw gids voor fokken",
+  "simulatorsIndex.card.reactor.title": "Reactor-simulator",
+  "simulatorsIndex.card.reactor.desc": "Alle generators en mutant-dropkansen",
+  "simulatorsIndex.card.roulette.title": "Roulette-simulator",
+  "simulatorsIndex.card.roulette.desc": "Roulettes met echte kansen",
+  "simulatorsIndex.card.craft.title": "Crafting-simulator",
+  "simulatorsIndex.card.craft.desc": "Smelterij, Transformatron, Laboratorium & Zwart Gat",
+  "simulatorsIndex.card.pvp.title": "PvP-gevechtssimulator",
+  "simulatorsIndex.card.pvp.desc": "Stel een 3×3-team samen en voer het gevecht handmatig of met AI uit"
 }

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CardGrid from '@/components/CardGrid.astro';
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+---
+<BaseLayout title={t('nav.simulators', locale)} description={t('simulatorsIndex.description', locale)}>
+  <h1>{t('nav.simulators', locale)}</h1>
+  <p>{t('simulatorsIndex.intro', locale)}</p>
+  <div class="sim-grid-wrapper">
+    <CardGrid
+      cards={[
+        {
+          title: t('simulatorsIndex.card.breeding.title', locale),
+          desc: t('simulatorsIndex.card.breeding.desc', locale),
+          href: '/simulators/breeding',
+          icon: '/sims/larva.webp'
+        },
+        {
+          title: t('simulatorsIndex.card.reactor.title', locale),
+          desc: t('simulatorsIndex.card.reactor.desc', locale),
+          href: '/simulators/reactor',
+          icon: '/sims/reactor.webp'
+        },
+        {
+          title: t('simulatorsIndex.card.roulette.title', locale),
+          desc: t('simulatorsIndex.card.roulette.desc', locale),
+          href: '/simulators/roulette',
+          icon: '/sims/roulette.webp'
+        },
+        {
+          title: t('simulatorsIndex.card.craft.title', locale),
+          desc: t('simulatorsIndex.card.craft.desc', locale),
+          href: '/simulators/craft',
+          icon: '/sims/black_hole.webp'
+        },
+        {
+          title: t('simulatorsIndex.card.pvp.title', locale),
+          desc: t('simulatorsIndex.card.pvp.desc', locale),
+          href: '/simulators/pvp',
+          icon: '/mut_icons/icon_pvp.webp'
+        },
+      ]}
+    />
+  </div>
+
+  <style>
+    .sim-grid-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+  </style>
+</BaseLayout>

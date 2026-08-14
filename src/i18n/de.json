@@ -80,5 +80,17 @@
   "nav.guides": "Ratgeber",
   "nav.credits": "Mitwirkende",
   "nav.topEvo": "Top nach Evo",
-  "footer.copyright": "© {year} Archivist-Library — Wissensdatenbank zum Spiel und Simulatoren mit echten Wahrscheinlichkeiten."
+  "footer.copyright": "© {year} Archivist-Library — Wissensdatenbank zum Spiel und Simulatoren mit echten Wahrscheinlichkeiten.",
+  "simulatorsIndex.description": "Alle Simulatoren von Mutants Genetic Gladiators (MGG) an einem Ort: Zucht, Crafting, Reaktor, Roulette.",
+  "simulatorsIndex.intro": "Wähle einen Simulator, um seine Funktionsweise zu testen. Jeder Simulator berechnet Belohnungen und Chancen in Echtzeit.",
+  "simulatorsIndex.card.breeding.title": "Zucht-Simulator",
+  "simulatorsIndex.card.breeding.desc": "Dein Leitfaden für die Zucht",
+  "simulatorsIndex.card.reactor.title": "Reaktor-Simulator",
+  "simulatorsIndex.card.reactor.desc": "Alle Generatoren und Mutanten-Drop-Chancen",
+  "simulatorsIndex.card.roulette.title": "Roulette-Simulator",
+  "simulatorsIndex.card.roulette.desc": "Roulette mit echten Chancen",
+  "simulatorsIndex.card.craft.title": "Crafting-Simulator",
+  "simulatorsIndex.card.craft.desc": "Hütte, Transformatron, Labor & Schwarzes Loch",
+  "simulatorsIndex.card.pvp.title": "PvP-Kampf-Simulator",
+  "simulatorsIndex.card.pvp.desc": "Stelle ein 3×3-Team zusammen und führe den Kampf manuell oder per KI aus"
 }
