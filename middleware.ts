@@ -9,18 +9,22 @@
 // навсегда отключает повторные проверки для этого браузера - чтобы ручной
 // выбор языка через переключатель в шапке не перебивался повторным
 // Accept-Language-редиректом на следующий визит.
+//
+// REDIRECT_LOCALES/TRANSLATED_PATHS импортируются из src/lib/i18n.ts - единый
+// источник правды (Батч 11 (2)), общий с BaseLayout.astro. Раздельные копии
+// этого списка исторически расходились.
 
-const LOCALES = ['en', 'es', 'fr'] as const
+import { REDIRECT_LOCALES, TRANSLATED_PATHS, type Locale } from './src/lib/i18n'
+
 const COOKIE_NAME = 'preferred_locale'
-const PILOT_PATHS = ['/', '/mutants'] // только реально переведённые страницы (см. Батч 11)
 
-function detectLocale(acceptLanguage: string): (typeof LOCALES)[number] | null {
+function detectLocale(acceptLanguage: string): Locale | null {
   const lower = acceptLanguage.toLowerCase()
-  // Простое сопоставление по первому подходящему языку в заголовке (без веса q,
-  // этого достаточно для пилота на 2 страницах) - ищем по порядку в заголовке.
+  // Простое сопоставление по первому подходящему языку в заголовке (без веса q) -
+  // ищем по порядку в заголовке.
   const langs = lower.split(',').map((part) => part.split(';')[0].trim().slice(0, 2))
   for (const lang of langs) {
-    if ((LOCALES as readonly string[]).includes(lang)) return lang as (typeof LOCALES)[number]
+    if ((REDIRECT_LOCALES as readonly string[]).includes(lang)) return lang as Locale
   }
   return null
 }
@@ -29,7 +33,7 @@ export default function middleware(request: Request): Response | undefined {
   const url = new URL(request.url)
   const { pathname } = url
 
-  if (!PILOT_PATHS.includes(pathname)) return undefined // остальной сайт пока RU-only
+  if (!(TRANSLATED_PATHS as readonly string[]).includes(pathname)) return undefined // остальной сайт пока RU-only
 
   const cookieHeader = request.headers.get('cookie') || ''
   if (cookieHeader.includes(`${COOKIE_NAME}=`)) return undefined // решение уже было принято

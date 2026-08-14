@@ -166,14 +166,14 @@ export const ABILITY_RU: Record<string, string> = {
 // используются только на переведённых страницах (MutantsBrowser/MutantModal).
 import type { Locale } from './i18n'
 
-export const GENE_DICT: Record<Locale, Record<string, string>> = {
+export const GENE_DICT: Partial<Record<Locale, Record<string, string>>> = {
   ru: GENE_RU,
   en: { A: 'Cyborg', B: 'Undead', C: 'Brawler', D: 'Beast', E: 'Galactic', F: 'Mythic' },
   es: { A: 'Cíborg', B: 'No muerto', C: 'Luchador', D: 'Bestia', E: 'Galáctico', F: 'Mítico' },
   fr: { A: 'Cyborg', B: 'Mort-vivant', C: 'Bagarreur', D: 'Bête', E: 'Galactique', F: 'Mythique' },
 }
 
-export const TYPE_DICT: Record<Locale, Record<string, string>> = {
+export const TYPE_DICT: Partial<Record<Locale, Record<string, string>>> = {
   ru: TYPE_RU,
   en: {
     Pvp: 'PvP',
@@ -228,7 +228,7 @@ export const TYPE_DICT: Record<Locale, Record<string, string>> = {
   },
 }
 
-export const ABILITY_DICT: Record<Locale, Record<string, string>> = {
+export const ABILITY_DICT: Partial<Record<Locale, Record<string, string>>> = {
   ru: ABILITY_RU,
   en: {
     ability_shield: 'Shield',
@@ -426,47 +426,58 @@ for (let y = 2016; y <= 2026; y++) {
     bingoFr[`research_${y - 2015}`] = `Recherche ${y - 2015}`
   }
 }
-export const BINGO_DICT: Record<Locale, Record<string, string>> = {
+export const BINGO_DICT: Partial<Record<Locale, Record<string, string>>> = {
   ru: BINGO_RU,
   en: bingoEn,
   es: bingoEs,
   fr: bingoFr,
 }
 
+// Цепочка fallback для локале-осознанных словарей: locale -> EN -> RU (см.
+// FALLBACK_LOCALE в i18n.ts). Для de/pt/it/tr/nl своих словарей пока нет -
+// отрисовываются через EN, не через RU, пока перевод не написан.
 export function geneLabelL(code: string, locale: Locale): string {
   if (!code) return ''
-  const dict = GENE_DICT[locale] ?? GENE_RU
+  const dict = GENE_DICT[locale] ?? GENE_DICT.en ?? GENE_RU
   return code
     .toUpperCase()
     .split('')
-    .map((ch) => dict[ch] || ch)
+    .map((ch) => dict[ch] || GENE_DICT.en?.[ch] || GENE_RU[ch] || ch)
     .join('+')
 }
 
 export function bingoLabelL(key: string, locale: Locale): string {
   if (!key) return ''
-  const dict = BINGO_DICT[locale] ?? BINGO_RU
+  const dict = BINGO_DICT[locale] ?? BINGO_DICT.en ?? BINGO_RU
   const lower = key.toLowerCase()
-  return dict[lower] || dict[key] || BINGO_RU[lower] || BINGO_RU[key] || key
+  return (
+    dict[lower] ||
+    dict[key] ||
+    BINGO_DICT.en?.[lower] ||
+    BINGO_DICT.en?.[key] ||
+    BINGO_RU[lower] ||
+    BINGO_RU[key] ||
+    key
+  )
 }
 
 export function typeLabelL(type: string, locale: Locale): string {
-  const dict = TYPE_DICT[locale] ?? TYPE_RU
-  return dict[type] ?? TYPE_RU[type] ?? type
+  const dict = TYPE_DICT[locale] ?? TYPE_DICT.en ?? TYPE_RU
+  return dict[type] ?? TYPE_DICT.en?.[type] ?? TYPE_RU[type] ?? type
 }
 
 export function abilityLabelL(name: string, locale: Locale): string {
-  const dict = ABILITY_DICT[locale] ?? ABILITY_RU
-  return dict[name] ?? ABILITY_RU[name] ?? name
+  const dict = ABILITY_DICT[locale] ?? ABILITY_DICT.en ?? ABILITY_RU
+  return dict[name] ?? ABILITY_DICT.en?.[name] ?? ABILITY_RU[name] ?? name
 }
 
-export const STAR_DICT: Record<Locale, Record<string, string>> = {
+export const STAR_DICT: Partial<Record<Locale, Record<string, string>>> = {
   ru: STAR_LABEL,
   en: { normal: 'Normal', bronze: 'Bronze', silver: 'Silver', gold: 'Gold', platinum: 'Platinum' },
   es: { normal: 'Normal', bronze: 'Bronce', silver: 'Plata', gold: 'Oro', platinum: 'Platino' },
   fr: { normal: 'Normal', bronze: 'Bronze', silver: 'Argent', gold: 'Or', platinum: 'Platine' },
 }
 export function starLabelL(star: string, locale: Locale): string {
-  const dict = STAR_DICT[locale] ?? STAR_LABEL
-  return dict[star] ?? STAR_LABEL[star] ?? star
+  const dict = STAR_DICT[locale] ?? STAR_DICT.en ?? STAR_LABEL
+  return dict[star] ?? STAR_DICT.en?.[star] ?? STAR_LABEL[star] ?? star
 }

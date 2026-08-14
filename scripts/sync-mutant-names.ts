@@ -10,7 +10,7 @@ import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
 
-const LOCALES = ['en', 'es', 'fr'] as const
+const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 const LOC_URL = (locale: string) =>
   `https://s-beta.kobojo.com/mutants/gameconfig/localisation_${locale}.txt`
 const DATA_DIR = path.join(process.cwd(), 'src/data/mutants')

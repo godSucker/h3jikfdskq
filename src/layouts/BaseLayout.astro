@@ -4,7 +4,7 @@ import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
 import SearchBox from '@/components/search/SearchBox.svelte';
-import { LOCALES, localeFromAstro, localePrefix, t, type Locale } from '@/lib/i18n';
+import { TRANSLATED_UI_LOCALES, TRANSLATED_PATHS, localeFromAstro, localePrefix, t, type Locale } from '@/lib/i18n';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -16,14 +16,14 @@ const {
 } = Astro.props;
 
 const locale = localeFromAstro(Astro.currentLocale);
-const OG_LOCALE_MAP: Record<Locale, string> = { ru: 'ru_RU', en: 'en_US', es: 'es_ES', fr: 'fr_FR' };
+const OG_LOCALE_MAP: Partial<Record<Locale, string>> = { ru: 'ru_RU', en: 'en_US', es: 'es_ES', fr: 'fr_FR' };
 
-// hreflang только для реально переведённых страниц (i18n-пилот, Батч 11: Главная
-// и /mutants) - остальные пока RU-only, добавлять на них hreflang на несуществующие
-// /en/... страницы значило бы слать ботам битые альтернативы.
+// hreflang только для реально переведённых страниц и локалей с авторским
+// UI-словарём (Батч 11 (2), TRANSLATED_PATHS/TRANSLATED_UI_LOCALES в i18n.ts) -
+// de/pt/it/tr/nl страницы существуют (EN-фолбэк), но пока не рекламируются
+// поисковикам/переключателем как отдельный язык.
 const pathWithoutLocale = Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '') || '/';
-const I18N_PILOT_PATHS = ['/', '/mutants'];
-const isPilotPage = I18N_PILOT_PATHS.includes(pathWithoutLocale);
+const isPilotPage = (TRANSLATED_PATHS as readonly string[]).includes(pathWithoutLocale);
 
 // SEO: ключевые слова MGG / Mutants Genetic Gladiators присутствуют в
 // дефолтном заголовке и описании каждой страницы.
@@ -74,7 +74,7 @@ const structuredData = [
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content="https://archivist-library.com/preview.jpg" />
     <meta property="og:locale" content={OG_LOCALE_MAP[locale]} />
-    {isPilotPage && LOCALES.filter((l) => l !== locale).map((l) => (
+    {isPilotPage && TRANSLATED_UI_LOCALES.filter((l) => l !== locale).map((l) => (
       <meta property="og:locale:alternate" content={OG_LOCALE_MAP[l]} />
     ))}
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@ const structuredData = [
     <!-- Каноническая ссылка (говорит ботам, что это главная версия страницы) -->
     <link rel="canonical" href={canonicalUrl} />
     <!-- hreflang: только на реально переведённых страницах пилота (Батч 11) -->
-    {isPilotPage && LOCALES.map((l) => (
+    {isPilotPage && TRANSLATED_UI_LOCALES.map((l) => (
       <link rel="alternate" hreflang={l} href={`https://archivist-library.com${localePrefix(l)}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
     ))}
     {isPilotPage && (
@@ -613,7 +613,7 @@ const structuredData = [
       <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
            ведёт на локализованную главную, а не на 404 несуществующей страницы. -->
       <div class="lang-switcher">
-        {LOCALES.map((l) => (
+        {TRANSLATED_UI_LOCALES.map((l) => (
           <a
             href={`${localePrefix(l)}${isPilotPage ? (pathWithoutLocale === '/' ? '' : pathWithoutLocale) : '/'}` || '/'}
             class={l === locale ? 'active' : ''}
