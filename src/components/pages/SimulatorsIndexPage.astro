@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CardGrid from '@/components/CardGrid.astro';
-import { t, localeFromAstro } from '@/lib/i18n';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
 
@@ -40,7 +40,7 @@ export const prerender = true;
         {
           title: t('simulatorsIndex.card.pvp.title', locale),
           desc: t('simulatorsIndex.card.pvp.desc', locale),
-          href: '/simulators/pvp',
+          href: translatedHref('/simulators/pvp', locale),
           icon: '/mut_icons/icon_pvp.webp'
         },
       ]}

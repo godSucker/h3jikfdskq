@@ -94,3 +94,15 @@ export function localeFromAstro(astroCurrentLocale: string | undefined): Locale 
 export function localePrefix(locale: Locale): string {
   return locale === DEFAULT_LOCALE ? '' : `/${locale}`
 }
+
+// Путь префиксуется локалью ТОЛЬКО если у него реально есть per-locale
+// страница (TRANSLATED_PATHS) - иначе переход с /de/... на, скажем,
+// /materials сбросит пользователя на RU (страницы /de/materials не
+// существует). Общий хелпер для BaseLayout.astro и любых других мест,
+// где строится ссылка на один из известных путей сайта (см. коммит
+// 986395357, баг с /mutants без префикса, больше не чинить точечно).
+export function translatedHref(path: string, locale: Locale): string {
+  return (TRANSLATED_PATHS as readonly string[]).includes(path)
+    ? `${localePrefix(locale)}${path}`
+    : path
+}

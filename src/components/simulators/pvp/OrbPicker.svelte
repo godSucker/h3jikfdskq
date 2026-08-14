@@ -1,17 +1,20 @@
 <script lang="ts">
   import { textureUrl } from '@/lib/texture-cdn'
   import { groupOrbsByCategory, type CatalogOrb } from '@/lib/pvp/orb-catalog'
+  import { t, type Locale } from '@/lib/i18n'
 
   let {
     value = $bindable(),
     options,
     slotBg,
     label,
+    locale = 'ru' as Locale,
   }: {
     value: string | null
     options: CatalogOrb[]
     slotBg: string
     label: string
+    locale?: Locale
   } = $props()
 
   let open = $state(false)
@@ -52,7 +55,7 @@
   {#if selected}
     <button
       type="button"
-      title="убрать"
+      title={t('pvp.orb.remove', locale)}
       onclick={() => pick(null)}
       class="absolute -right-1.5 -top-1.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] leading-4 z-10"
     >
@@ -63,7 +66,7 @@
   {#if open}
     <button
       type="button"
-      aria-label="закрыть"
+      aria-label={t('pvp.orb.close', locale)}
       onclick={() => (open = false)}
       class="fixed inset-0 z-40 cursor-default bg-black/70"
     ></button>
@@ -75,7 +78,7 @@
         <button type="button" onclick={() => (open = false)} class="text-slate-400 hover:text-slate-200 text-lg leading-none">×</button>
       </div>
       {#if options.length === 0}
-        <div class="text-sky-300/60 text-xs px-1 py-2">Нет доступных сфер</div>
+        <div class="text-sky-300/60 text-xs px-1 py-2">{t('pvp.orb.none', locale)}</div>
       {/if}
       {#each groups as cat (cat.key)}
         <div class="mt-1.5 mb-1 flex items-center gap-1.5 px-1 text-xs font-bold uppercase tracking-wide text-sky-200/80">

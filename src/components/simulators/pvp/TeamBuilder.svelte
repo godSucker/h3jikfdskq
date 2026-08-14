@@ -1,7 +1,7 @@
 <script lang="ts">
   import mutantsRaw from '@/data/mutants/mutants.json'
   import { textureUrl } from '@/lib/texture-cdn'
-  import { GENE_RU, ABILITY_RU } from '@/lib/mutant-dicts'
+  import { GENE_RU, ABILITY_RU, geneLabelL, abilityLabelL } from '@/lib/mutant-dicts'
   import { orbHpBonusPct } from '@/lib/pvp/battle-profile'
   import { maxLevelForHp } from '@/lib/stats/unified-calculator'
   import {
@@ -12,6 +12,7 @@
   } from '@/lib/pvp/orb-catalog'
   import IconSelect from './IconSelect.svelte'
   import OrbPicker from './OrbPicker.svelte'
+  import { t, type Locale } from '@/lib/i18n'
 
   interface SlotConfig {
     mutantId: string
@@ -25,7 +26,8 @@
     title,
     slots = $bindable(),
     disableLevelInputs = false,
-  }: { title: string; slots: SlotConfig[]; disableLevelInputs?: boolean } = $props()
+    locale = 'ru' as Locale,
+  }: { title: string; slots: SlotConfig[]; disableLevelInputs?: boolean; locale?: Locale } = $props()
 
   // Пресеты команд - общий список на localStorage (не привязан к стороне мои/оппонент,
   // это просто "сборка из 3 мутантов", годная для любой из двух TeamBuilder-карточек).
@@ -108,13 +110,13 @@
   const STAR_ORDER: SlotConfig['star'][] = ['normal', 'bronze', 'silver', 'gold', 'platinum']
   // Приоритет для дефолта - лучшая доступная звезда мутанта, не первая по алфавиту/порядку.
   const STAR_PRIORITY: SlotConfig['star'][] = ['platinum', 'gold', 'silver', 'bronze', 'normal']
-  const STAR_LABEL: Record<SlotConfig['star'], string> = {
-    normal: 'Без звезды',
-    bronze: 'Бронза',
-    silver: 'Серебро',
-    gold: 'Золото',
-    platinum: 'Платина',
-  }
+  let STAR_LABEL = $derived<Record<SlotConfig['star'], string>>({
+    normal: t('pvp.star.none', locale),
+    bronze: t('pvp.star.bronze', locale),
+    silver: t('pvp.star.silver', locale),
+    gold: t('pvp.star.gold', locale),
+    platinum: t('pvp.star.platinum', locale),
+  })
   const STAR_ICON: Record<SlotConfig['star'], string> = {
     normal: '/stars/no_stars.webp',
     bronze: '/stars/star_bronze.webp',
@@ -138,7 +140,12 @@
 
   function abilityLabel(name: string | undefined): string | null {
     if (!name) return null
-    return ABILITY_RU[name] || ABILITY_RU[name.toLowerCase()] || null
+    // ABILITY_RU - лукап на существование ключа (как раньше), abilityLabelL - сам
+    // перевод под locale. abilityLabelL() всегда что-то возвращает (фолбэк на raw
+    // key), поэтому existence-проверка нужна отдельно, иначе неизвестное имя
+    // способности показывалось бы как есть вместо того, чтобы скрыться.
+    const key = ABILITY_RU[name] ? name : ABILITY_RU[name.toLowerCase()] ? name.toLowerCase() : null
+    return key ? abilityLabelL(key, locale) : null
   }
 
   /** ability_regen -> ability_regenerate.webp - единственное расхождение имени
@@ -280,7 +287,7 @@
     <div class="flex flex-wrap items-center gap-2">
       <input
         type="text"
-        placeholder="Название пресета..."
+        placeholder={t('pvp.preset.namePlaceholder', locale)}
         bind:value={newPresetName}
         class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1 min-w-0 flex-1 basis-24"
       />
@@ -290,14 +297,14 @@
         disabled={!newPresetName.trim()}
         class="px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white shrink-0"
       >
-        Сохранить
+        {t('pvp.preset.save', locale)}
       </button>
       {#if presets.length}
         <select
           bind:value={selectedPresetName}
           class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1 min-w-0 max-w-32"
         >
-          <option value="">Выбрать пресет...</option>
+          <option value="">{t('pvp.preset.selectPlaceholder', locale)}</option>
           {#each presets as p (p.name)}
             <option value={p.name}>{p.name}</option>
           {/each}
@@ -308,7 +315,7 @@
           disabled={!selectedPresetName}
           class="px-2 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white shrink-0"
         >
-          Загрузить
+          {t('pvp.preset.load', locale)}
         </button>
         <button
           type="button"
@@ -316,7 +323,7 @@
           disabled={!selectedPresetName}
           class="px-2 py-1 rounded-lg bg-rose-700/80 hover:bg-rose-600 disabled:opacity-50 text-white shrink-0"
         >
-          Удалить
+          {t('pvp.preset.delete', locale)}
         </button>
       {/if}
     </div>
@@ -327,7 +334,7 @@
         <span
           class="inline-flex items-center gap-1 rounded px-1.5 py-1 text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/40"
         >
-          ✓ Активен: {activePresetName}
+          {t('pvp.preset.active', locale).replace('{name}', activePresetName)}
         </span>
       </div>
     {/if}
@@ -361,7 +368,7 @@
             <div class="relative">
               <input
                 type="text"
-                placeholder={searchOpen[i] ? 'Начните вводить имя...' : mutant ? mutant.name : `Мутант ${i + 1}...`}
+                placeholder={searchOpen[i] ? t('pvp.mutantSearch.placeholder', locale) : mutant ? mutant.name : t('pvp.mutantSearch.slotPlaceholder', locale).replace('{n}', String(i + 1))}
                 bind:value={search[i]}
                 onfocus={() => (searchOpen[i] = true)}
                 onblur={() => setTimeout(() => (searchOpen[i] = false), 150)}
@@ -393,8 +400,8 @@
                     {#each genes as gene (gene)}
                       <img
                         src={textureUrl(`/genes/icon_gene_${gene.toLowerCase()}.webp`)}
-                        alt={GENE_RU[gene] || gene}
-                        title={GENE_RU[gene] || gene}
+                        alt={geneLabelL(gene, locale) || gene}
+                        title={geneLabelL(gene, locale) || gene}
                         class="w-4 h-4"
                       />
                     {/each}
@@ -402,7 +409,7 @@
                 {/if}
                 {#if mutant.tier}
                   <span class={`inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold ${tierClass(mutant.tier)}`}>
-                    Тир {mutant.tier}
+                    {t('pvp.tier', locale).replace('{n}', mutant.tier)}
                   </span>
                 {/if}
                 {#if ability}
@@ -413,7 +420,7 @@
                 {/if}
               </div>
               <div class="text-[11px] text-sky-400/70 truncate">
-                {mutant.name_attack1 || 'Атака 1'} · {mutant.name_attack2 || 'Атака 2'}
+                {mutant.name_attack1 || t('pvp.attack1Default', locale)} · {mutant.name_attack2 || t('pvp.attack2Default', locale)}
               </div>
             {/if}
           </div>
@@ -422,7 +429,7 @@
         <div class="grid grid-cols-2 gap-2">
           <label class="block">
             <span class="text-sky-300/70 text-xs">
-              {disableLevelInputs ? 'Уровень (задан диапазоном ниже)' : `Уровень (макс. ${levelCap})`}
+              {disableLevelInputs ? t('pvp.level.disabledLabel', locale) : t('pvp.level.label', locale).replace('{n}', String(levelCap))}
             </span>
             <input
               type="number"
@@ -434,7 +441,7 @@
             />
           </label>
           <label class="block">
-            <span class="text-sky-300/70 text-xs">Звезда</span>
+            <span class="text-sky-300/70 text-xs">{t('pvp.star.label', locale)}</span>
             <div class="mt-1">
               <IconSelect
                 bind:value={slot.star}
@@ -446,15 +453,15 @@
 
         {#if orbingPresets.length}
           <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
-            <span class="text-sky-300/60 uppercase tracking-wide">Сферовка из вики:</span>
+            <span class="text-sky-300/60 uppercase tracking-wide">{t('pvp.orbingPreset.wiki', locale)}</span>
             {#each orbingPresets as preset, pi (pi)}
               <button
                 type="button"
                 onclick={() => applyOrbingPreset(i, preset)}
-                title="Заполнить слоты этим набором"
+                title={t('pvp.orbingPreset.applyTitle', locale)}
                 class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 hover:bg-emerald-500/25"
               >
-                Пресет {pi + 1}
+                {t('pvp.orbingPreset.label', locale).replace('{n}', String(pi + 1))}
               </button>
             {/each}
           </div>
@@ -466,7 +473,8 @@
               bind:value={slot.basicOrbIds[slotIdx]}
               options={mutant ? basicOrbOptionsForMutant(mutant, slot.specialOrbId) : []}
               slotBg="/orbs/basic/orb_slot.webp"
-              label={`Сфера ${slotIdx + 1}`}
+              label={t('pvp.orb.basicLabel', locale).replace('{n}', String(slotIdx + 1))}
+              {locale}
             />
           {/each}
           {#if hasSpecialOrbSlot(mutant)}
@@ -474,7 +482,8 @@
               bind:value={slot.specialOrbId}
               options={mutant ? specialOrbOptionsForMutant(mutant) : []}
               slotBg="/orbs/special/orb_slot_spe.webp"
-              label="Спец-сфера"
+              label={t('pvp.orb.specialLabel', locale)}
+              {locale}
             />
           {/if}
         </div>

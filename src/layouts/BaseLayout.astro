@@ -4,7 +4,7 @@ import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
 import SearchBox from '@/components/search/SearchBox.svelte';
-import { TRANSLATED_UI_LOCALES, TRANSLATED_PATHS, localeFromAstro, localePrefix, t, type Locale } from '@/lib/i18n';
+import { TRANSLATED_UI_LOCALES, TRANSLATED_PATHS, localeFromAstro, localePrefix, translatedHref, t, type Locale } from '@/lib/i18n';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -41,13 +41,11 @@ const pathWithoutLocale =
   Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '').replace(/\/$/, '') || '/';
 const isPilotPage = (TRANSLATED_PATHS as readonly string[]).includes(pathWithoutLocale);
 
-// Nav-ссылки: путь префиксуется локалью ТОЛЬКО если у него реально есть
-// per-locale страница (TRANSLATED_PATHS) - иначе переход с /de/... на, скажем,
-// /materials сбросит пользователя на RU (страницы /de/materials не существует).
-// Централизовано здесь один раз, чтобы не чинить один и тот же баг (см.
-// коммит 986395357, /mutants) повторно на каждом новом переведённом пути.
+// translatedHref(path, locale) вынесен в i18n.ts - переиспользуется и здесь
+// (nav), и в других местах, строящих ссылки на переведённые пути сайта
+// (напр. карточки на /simulators).
 function navHref(path: string): string {
-  return (TRANSLATED_PATHS as readonly string[]).includes(path) ? `${localePrefix(locale)}${path}` : path;
+  return translatedHref(path, locale);
 }
 
 // SEO: ключевые слова MGG / Mutants Genetic Gladiators присутствуют в
