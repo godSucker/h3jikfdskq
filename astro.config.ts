@@ -13,6 +13,16 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   prefetch: true,
+  // i18n-пилот (Батч 11): RU остаётся канонической версией без префикса в URL,
+  // EN/ES/FR живут под /en /es /fr. Язык первого визита определяет middleware.ts
+  // (Accept-Language), дальше — переключатель в шапке.
+  i18n: {
+    defaultLocale: 'ru',
+    locales: ['ru', 'en', 'es', 'fr'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   // Старые тир-адреса каталога мутантов: страницы удалены, фильтрация по звёздам
   // живёт внутри /mutants. Редиректы сохраняют внешние ссылки/закладки.
   redirects: {
@@ -31,7 +41,13 @@ export default defineConfig({
   integrations: [
     svelte(),
     // Карта сайта из всех prerender-страниц; служебные не включаем
-    sitemap({ filter: (page) => !page.includes('/panel-render') }),
+    sitemap({
+      filter: (page) => !page.includes('/panel-render'),
+      i18n: {
+        defaultLocale: 'ru',
+        locales: { ru: 'ru', en: 'en', es: 'es', fr: 'fr' },
+      },
+    }),
   ],
 
   vite: {

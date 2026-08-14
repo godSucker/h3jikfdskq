@@ -4,6 +4,7 @@ import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
 import SearchBox from '@/components/search/SearchBox.svelte';
+import { LOCALES, localeFromAstro, localePrefix, t, type Locale } from '@/lib/i18n';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -14,12 +15,21 @@ const {
   viewport = "width=device-width, initial-scale=1",
 } = Astro.props;
 
+const locale = localeFromAstro(Astro.currentLocale);
+const OG_LOCALE_MAP: Record<Locale, string> = { ru: 'ru_RU', en: 'en_US', es: 'es_ES', fr: 'fr_FR' };
+
+// hreflang только для реально переведённых страниц (i18n-пилот, Батч 11: Главная
+// и /mutants) - остальные пока RU-only, добавлять на них hreflang на несуществующие
+// /en/... страницы значило бы слать ботам битые альтернативы.
+const pathWithoutLocale = Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '') || '/';
+const I18N_PILOT_PATHS = ['/', '/mutants'];
+const isPilotPage = I18N_PILOT_PATHS.includes(pathWithoutLocale);
+
 // SEO: ключевые слова MGG / Mutants Genetic Gladiators присутствуют в
 // дефолтном заголовке и описании каждой страницы.
-const SITE_NAME = 'Archivist-Library — база знаний MGG (Mutants Genetic Gladiators)';
+const SITE_NAME = t('site.name', locale);
 const pageTitle = title ? `${title} | Archivist-Library (MGG)` : SITE_NAME;
-const pageDescription = description ??
-  'База знаний по игре Mutants Genetic Gladiators (MGG): вики мутантов, симуляторы скрещивания, реактора и рулеток, калькуляторы статов и эво.';
+const pageDescription = description ?? t('site.description', locale);
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, 'https://archivist-library.com').href;
 const isHome = Astro.url.pathname === "/";
 
@@ -35,9 +45,8 @@ const structuredData = [
     name: 'Archivist-Library',
     alternateName: 'MGG Hub',
     url: 'https://archivist-library.com/',
-    description:
-      'База знаний по игре Mutants Genetic Gladiators (MGG): вики мутантов, симуляторы скрещивания, реактора и рулеток, калькуляторы статов и эво.',
-    inLanguage: 'ru',
+    description: t('site.description', locale),
+    inLanguage: locale,
   },
   {
     '@context': 'https://schema.org',
@@ -50,7 +59,7 @@ const structuredData = [
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content={viewport} />
@@ -64,13 +73,23 @@ const structuredData = [
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content="https://archivist-library.com/preview.jpg" />
-    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale" content={OG_LOCALE_MAP[locale]} />
+    {isPilotPage && LOCALES.filter((l) => l !== locale).map((l) => (
+      <meta property="og:locale:alternate" content={OG_LOCALE_MAP[l]} />
+    ))}
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin>
     <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css">
     <!-- Каноническая ссылка (говорит ботам, что это главная версия страницы) -->
     <link rel="canonical" href={canonicalUrl} />
+    <!-- hreflang: только на реально переведённых страницах пилота (Батч 11) -->
+    {isPilotPage && LOCALES.map((l) => (
+      <link rel="alternate" hreflang={l} href={`https://archivist-library.com${localePrefix(l)}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+    ))}
+    {isPilotPage && (
+      <link rel="alternate" hreflang="x-default" href={`https://archivist-library.com${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+    )}
     <!-- Иконка вкладки браузера -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     <!-- Structured data (schema.org): помогает поисковикам распознать бренд/сайт -->
@@ -174,6 +193,33 @@ const structuredData = [
         transform: translateX(-2px);
       }
       
+      /* Языковой переключатель (i18n-пилот, Батч 11) */
+      .lang-switcher {
+        display: flex;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .lang-switcher a {
+        color: #8b949e;
+        text-decoration: none;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.35rem 0.45rem;
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
+
+      .lang-switcher a:hover {
+        background-color: rgba(88, 166, 255, 0.1);
+        color: #79c0ff;
+      }
+
+      .lang-switcher a.active {
+        color: #58a6ff;
+        background-color: rgba(88, 166, 255, 0.15);
+      }
+
       /* Hamburger menu button */
       .menu-toggle {
         display: none;
@@ -545,7 +591,7 @@ const structuredData = [
             <span style="font-size: 1.2rem; line-height: 1;">←</span>
           </button>
         )}
-        <a href="/">Archivist-Library</a>
+        <a href={`${localePrefix(locale)}/`}>Archivist-Library</a>
       </div>
       <nav>
         <a href="/mutants">Мутанты</a>
@@ -564,6 +610,17 @@ const structuredData = [
         <a href="/top-evo">Топ по эво</a>
       </nav>
       <SearchBox client:visible />
+      <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
+           ведёт на локализованную главную, а не на 404 несуществующей страницы. -->
+      <div class="lang-switcher">
+        {LOCALES.map((l) => (
+          <a
+            href={`${localePrefix(l)}${isPilotPage ? (pathWithoutLocale === '/' ? '' : pathWithoutLocale) : '/'}` || '/'}
+            class={l === locale ? 'active' : ''}
+            aria-current={l === locale ? 'true' : undefined}
+          >{l.toUpperCase()}</a>
+        ))}
+      </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
         <span></span>
         <span></span>

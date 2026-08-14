@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import MutantsBrowser from '@/components/MutantsBrowser.svelte';
+
+import mutants from '@/data/mutants/mutants.json';
+import skins  from '@/data/mutants/skins.json';
+import bingos from '@/data/bingos.json';
+import namesEn from '@/data/mutants/names.en.json';
+import namesEs from '@/data/mutants/names.es.json';
+import namesFr from '@/data/mutants/names.fr.json';
+import { t, localeFromAstro, type Locale } from '@/lib/i18n';
+
+// Универсальный сбор ключей бинго
+const collectBingoKeys = (it: unknown) => {
+  const b = (it as { bingo?: unknown } | null)?.bingo;
+  if (!b) return [];
+  if (Array.isArray(b)) return b.map(x => typeof x === 'string' ? x : (x?.key ?? '')).filter(Boolean);
+  if (typeof b === 'object') return Object.keys(b);
+  return [];
+};
+
+const bingoIndex = Array.from(new Set(
+  [...mutants, ...(skins?.specimens ?? [])]
+    .flatMap(collectBingoKeys)
+));
+
+const locale = localeFromAstro(Astro.currentLocale);
+// i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
+// сиблинг-словарь переводов (генерируется scripts/sync-mutant-names.ts).
+const NAMES_BY_LOCALE: Partial<Record<Locale, Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>>> = {
+  en: namesEn,
+  es: namesEs,
+  fr: namesFr,
+};
+const names = NAMES_BY_LOCALE[locale] ?? {};
+
+export const prerender = true;
+---
+
+<BaseLayout title={t('mutants.pageTitle', locale)} description={t('mutants.pageDescription', locale)}>
+  <MutantsBrowser
+    client:load
+    items={mutants}
+    skins={skins?.specimens ?? []}
+    bingos={bingos}
+    title={t('mutants.pageTitle', locale)}
+    bingoIndex={bingoIndex}
+    locale={locale}
+    names={names}
+  />
+</BaseLayout>
