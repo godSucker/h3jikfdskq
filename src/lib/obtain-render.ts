@@ -84,10 +84,17 @@ const CURRENCY_DICT: Record<'gold' | 'silver' | 'credits', Partial<Record<Locale
   },
 }
 
-// gold_shop/credits_shop: "версия: {прилагательное}" - прилагательная форма
-// тира, не существительная (STAR_LABEL). Ключи - те же, что в STAR_DICT.
+// "версия: {прилагательное}" (gold_shop/credits_shop) и тир-префикс имени
+// бандла ("Золотой X") - прилагательная форма тира, не существительная
+// (STAR_LABEL). Все формы рода/числа - ключи те же, что в STAR_DICT.
+// Лукап всегда через .toLowerCase() - источник данных нормализован по-разному
+// в разных местах (gold_shop уже lowercase, префикс имени - с большой буквы).
 const TIER_ADJ_TO_KEY: Record<string, string> = {
-  обычный: 'normal', бронзовый: 'bronze', серебряный: 'silver', золотой: 'gold', платиновый: 'platinum',
+  обычный: 'normal', обычная: 'normal',
+  бронзовый: 'bronze', бронзовая: 'bronze', бронзовые: 'bronze',
+  серебряный: 'silver', серебряная: 'silver', серебряные: 'silver',
+  золотой: 'gold', золотая: 'gold', золотые: 'gold',
+  платиновый: 'platinum', платиновая: 'platinum', платиновые: 'platinum',
 }
 
 const SHOP_TEMPLATE: Partial<Record<Locale, string>> = {
@@ -322,21 +329,218 @@ function renderSuffix(raw: string, locale: Locale): string {
   return raw
 }
 
+// Батч 11 (3), retired-бандлы (без живого itemId): резолв имени идёт в 4
+// уровня, от самого дешёвого/надёжного к самому дорогому - см. коммит.
+// 1) TIER + имя мутанта ("Золотой Гор") - механика, склонения не важны
+//    (target-язык невариантен, та же логика что STAR_DICT).
+// 2) Шаблон-обёртка + имя мутанта ("Пакет «X»", "Уникальный пакет X") -
+//    17 шаблонов с >=2 вхождениями на живых данных, остальные (типы/опечатки
+//    вроде "Брозновый X" единичные) намеренно не покрыты - падают на RU.
+// 3) Полностью свободное имя без мутанта (110 строк) - переведено вручную.
+// 4) Нет кириллицы вообще (сырые коды типа "ea 13 25ct", "Specimen AB 04
+//    gold" - нерезолвленные исторические itemId) - показываются как есть,
+//    это не текст ни на каком языке, переводить нечего.
+// (TIER_ADJ_TO_KEY переиспользуется отсюда же, объявлен выше для gold_shop)
+
+interface WrapperRule {
+  re: RegExp
+  build: (name: string, locale: Locale) => string | null
+}
+
+function wrap(tpl: Partial<Record<Locale, string>>): (name: string, locale: Locale) => string | null {
+  return (name, locale) => {
+    const t = tpl[locale] ?? tpl.en
+    return t ? t.replace('{NAME}', name) : null
+  }
+}
+
+const WRAPPER_RULES: WrapperRule[] = [
+  // Специфичные (тир+модификатор зашиты в саму фразу) - проверяются первыми.
+  { re: /^Зимний золотой (.+)$/, build: wrap({ en: 'Winter Gold {NAME}', es: 'Oro de invierno {NAME}', fr: 'Or hivernal {NAME}', de: 'Wintergold-{NAME}', pt: 'Ouro de inverno {NAME}', it: 'Oro invernale {NAME}', tr: 'Kış Altın {NAME}', nl: 'Wintergoud {NAME}' }) },
+  { re: /^Золотой (.+) Хеллоуина$/, build: wrap({ en: 'Halloween Gold {NAME}', es: '{NAME} dorado de Halloween', fr: 'Halloween Or {NAME}', de: 'Halloween-Gold-{NAME}', pt: 'Halloween Ouro {NAME}', it: 'Halloween Oro {NAME}', tr: 'Cadılar Bayramı Altın {NAME}', nl: 'Halloween Goud {NAME}' }) },
+  { re: /^св\. Валентина золотой (.+)$/, build: wrap({ en: "Valentine's Gold {NAME}", es: 'Oro de San Valentín {NAME}', fr: 'Saint-Valentin Or {NAME}', de: 'Valentinstag-Gold-{NAME}', pt: 'Ouro Dia dos Namorados {NAME}', it: 'Oro San Valentino {NAME}', tr: "Sevgililer Günü Altın {NAME}", nl: 'Valentijn Goud {NAME}' }) },
+  { re: /^Пакет «Независимость» (.+)$/, build: wrap({ en: 'Independence Pack {NAME}', es: 'Paquete Independencia {NAME}', fr: 'Pack Indépendance {NAME}', de: 'Unabhängigkeitspaket {NAME}', pt: 'Pacote Independência {NAME}', it: 'Pacchetto Indipendenza {NAME}', tr: 'Bağımsızlık Paketi {NAME}', nl: 'Onafhankelijkheidspakket {NAME}' }) },
+  // Общие обёртки.
+  { re: /^Уникальный пакет (.+)$/, build: wrap({ en: 'Unique Pack {NAME}', es: 'Paquete único {NAME}', fr: 'Pack unique {NAME}', de: 'Einzigartiges Paket {NAME}', pt: 'Pacote único {NAME}', it: 'Pacchetto unico {NAME}', tr: 'Eşsiz Paket {NAME}', nl: 'Uniek pakket {NAME}' }) },
+  { re: /^Пакет «([^»]+)»$/, build: wrap({ en: 'Pack "{NAME}"', es: 'Paquete "{NAME}"', fr: 'Pack « {NAME} »', de: 'Paket „{NAME}“', pt: 'Pacote "{NAME}"', it: 'Pacchetto "{NAME}"', tr: '"{NAME}" Paketi', nl: 'Pakket "{NAME}"' }) },
+  { re: /^Престижный пакет «([^»]+)»$/, build: wrap({ en: 'Prestige Pack "{NAME}"', es: 'Paquete de prestigio "{NAME}"', fr: 'Pack prestige « {NAME} »', de: 'Prestige-Paket „{NAME}“', pt: 'Pacote de prestígio "{NAME}"', it: 'Pacchetto prestigio "{NAME}"', tr: 'Prestij Paketi "{NAME}"', nl: 'Prestigepakket "{NAME}"' }) },
+  { re: /^Спецпредложение «([^»]+)»$/, build: wrap({ en: 'Special Offer "{NAME}"', es: 'Oferta especial "{NAME}"', fr: 'Offre spéciale « {NAME} »', de: 'Sonderangebot „{NAME}“', pt: 'Oferta especial "{NAME}"', it: 'Offerta speciale "{NAME}"', tr: 'Özel Teklif "{NAME}"', nl: 'Speciale aanbieding "{NAME}"' }) },
+  { re: /^Пакет ветерана «([^»]+)»$/, build: wrap({ en: 'Veteran Pack "{NAME}"', es: 'Paquete de veterano "{NAME}"', fr: 'Pack vétéran « {NAME} »', de: 'Veteranenpaket „{NAME}“', pt: 'Pacote veterano "{NAME}"', it: 'Pacchetto veterano "{NAME}"', tr: 'Kıdemli Paketi "{NAME}"', nl: 'Veteranenpakket "{NAME}"' }) },
+]
+
+// Батч 11 (3): 110 полностью свободных названий бандлов без имени мутанта
+// и без живого itemId (см. коммит - разведка показала, что это авторский
+// маркетинговый текст сайта/куратора, не игровые данные). Переведено вручную
+// одним разом на все 8 языков - LLM ок для перевода уже решённого текста
+// (не для изобретения новых имён, см. память feedback-no-llm-authored-names).
+const FREEFORM_PAYLOAD_DICT: Record<string, Partial<Record<Locale, string>>> = {
+  'Бронзовая Принцесса Космоса': { en: 'Bronze Space Princess', es: 'Princesa del Espacio de bronce', fr: "Princesse de l'Espace bronze", de: 'Bronze-Weltraumprinzessin', pt: 'Princesa do Espaço de bronze', it: 'Principessa dello Spazio di bronzo', tr: 'Bronz Uzay Prensesi', nl: 'Bronzen Ruimteprinses' },
+  'Бронзовый Трехглаз': { en: 'Bronze Three-Eye', es: 'Tres Ojos de bronce', fr: 'Troisœil bronze', de: 'Bronze-Dreiauge', pt: 'Três Olhos de bronze', it: 'Tre Occhi di bronzo', tr: 'Bronz Üçgöz', nl: 'Bronzen Drieoog' },
+  'Ветеран Пасхальное предложение': { en: 'Veteran Easter Offer', es: 'Oferta de Pascua para veteranos', fr: 'Offre de Pâques vétéran', de: 'Veteranen-Osterangebot', pt: 'Oferta de Páscoa veterano', it: 'Offerta di Pasqua veterano', tr: 'Kıdemli Paskalya Teklifi', nl: 'Veteranen Paasaanbieding' },
+  'Галактический контейнер': { en: 'Galactic Container', es: 'Contenedor galáctico', fr: 'Conteneur galactique', de: 'Galaktischer Container', pt: 'Contêiner galáctico', it: 'Contenitore galattico', tr: 'Galaktik Konteyner', nl: 'Galactische Container' },
+  'Ежедневное предложение по случаю 10-летнего юбилея': { en: '10th Anniversary Daily Offer', es: 'Oferta diaria del 10.º aniversario', fr: "Offre quotidienne du 10e anniversaire", de: 'Tägliches Angebot zum 10. Jubiläum', pt: 'Oferta diária do 10.º aniversário', it: 'Offerta giornaliera del 10° anniversario', tr: '10. Yıl Dönümü Günlük Teklifi', nl: '10-jarig jubileum dagelijkse aanbieding' },
+  'Ежедневное предложение по случаю 11-летнего юбилея': { en: '11th Anniversary Daily Offer', es: 'Oferta diaria del 11.º aniversario', fr: "Offre quotidienne du 11e anniversaire", de: 'Tägliches Angebot zum 11. Jubiläum', pt: 'Oferta diária do 11.º aniversário', it: 'Offerta giornaliera dell\'11° anniversario', tr: '11. Yıl Dönümü Günlük Teklifi', nl: '11-jarig jubileum dagelijkse aanbieding' },
+  'Ежедневное предложение по случаю 12-летнего юбилея': { en: '12th Anniversary Daily Offer', es: 'Oferta diaria del 12.º aniversario', fr: "Offre quotidienne du 12e anniversaire", de: 'Tägliches Angebot zum 12. Jubiläum', pt: 'Oferta diária do 12.º aniversário', it: 'Offerta giornaliera del 12° anniversario', tr: '12. Yıl Dönümü Günlük Teklifi', nl: '12-jarig jubileum dagelijkse aanbieding' },
+  'Зимний контейнер': { en: 'Winter Container', es: 'Contenedor de invierno', fr: "Conteneur d'hiver", de: 'Wintercontainer', pt: 'Contêiner de inverno', it: 'Contenitore invernale', tr: 'Kış Konteyneri', nl: 'Wintercontainer' },
+  'Золотой Рождественский подарок': { en: 'Gold Christmas Gift', es: 'Regalo de Navidad dorado', fr: 'Cadeau de Noël or', de: 'Goldenes Weihnachtsgeschenk', pt: 'Presente de Natal dourado', it: 'Regalo di Natale oro', tr: 'Altın Noel Hediyesi', nl: 'Gouden Kerstcadeau' },
+  'Золотой контейнер героя': { en: 'Gold Hero Container', es: 'Contenedor de héroe dorado', fr: 'Conteneur héros or', de: 'Goldener Helden-Container', pt: 'Contêiner de herói dourado', it: "Contenitore dell'eroe oro", tr: 'Altın Kahraman Konteyneri', nl: 'Gouden Heldencontainer' },
+  'Золотой легендарный контейнер х2': { en: 'Gold Legendary Container x2', es: 'Contenedor legendario dorado x2', fr: 'Conteneur légendaire or x2', de: 'Goldener legendärer Container x2', pt: 'Contêiner lendário dourado x2', it: 'Contenitore leggendario oro x2', tr: 'Altın Efsanevi Konteyner x2', nl: 'Gouden Legendarische Container x2' },
+  'Золотой молниеносный пакет': { en: 'Gold Lightning Pack', es: 'Paquete relámpago dorado', fr: 'Pack éclair or', de: 'Goldenes Blitzpaket', pt: 'Pacote relâmpago dourado', it: 'Pacchetto fulmine oro', tr: 'Altın Yıldırım Paketi', nl: 'Gouden Bliksempakket' },
+  'Золотой танковый пакет': { en: 'Gold Tank Pack', es: 'Paquete de tanque dorado', fr: 'Pack tank or', de: 'Goldenes Tank-Paket', pt: 'Pacote tanque dourado', it: 'Pacchetto tank oro', tr: 'Altın Tank Paketi', nl: 'Gouden Tankpakket' },
+  'Комплект механика': { en: 'Mechanic Kit', es: 'Kit de mecánico', fr: 'Kit de mécanicien', de: 'Mechaniker-Set', pt: 'Kit de mecânico', it: 'Kit del meccanico', tr: 'Tamirci Seti', nl: 'Monteurkit' },
+  'Контейнер «Зодиак»': { en: 'Container "Zodiac"', es: 'Contenedor "Zodiaco"', fr: 'Conteneur « Zodiaque »', de: 'Container „Zodiac“', pt: 'Contêiner "Zodíaco"', it: 'Contenitore "Zodiaco"', tr: '"Zodyak" Konteyneri', nl: 'Container "Zodiac"' },
+  'Контейнер героя': { en: 'Hero Container', es: 'Contenedor de héroe', fr: 'Conteneur héros', de: 'Helden-Container', pt: 'Contêiner de herói', it: "Contenitore dell'eroe", tr: 'Kahraman Konteyneri', nl: 'Heldencontainer' },
+  'Контейнер мификов': { en: 'Mythic Container', es: 'Contenedor mítico', fr: 'Conteneur mythique', de: 'Mythischer Container', pt: 'Contêiner mítico', it: 'Contenitore mitico', tr: 'Mitik Konteyner', nl: 'Mythische Container' },
+  'Контейнер с мутантом-Молниеносный': { en: 'Container with Lightning Mutant', es: 'Contenedor con mutante Relámpago', fr: 'Conteneur avec mutant Éclair', de: 'Container mit Blitz-Mutant', pt: 'Contêiner com mutante Relâmpago', it: 'Contenitore con mutante Fulmine', tr: 'Yıldırım Mutantlı Konteyner', nl: 'Container met Bliksem-mutant' },
+  'Контейнер с мутантом-танком': { en: 'Container with Tank Mutant', es: 'Contenedor con mutante tanque', fr: 'Conteneur avec mutant tank', de: 'Container mit Tank-Mutant', pt: 'Contêiner com mutante tanque', it: 'Contenitore con mutante tank', tr: 'Tank Mutantlı Konteyner', nl: 'Container met Tank-mutant' },
+  'Легендарный Мертвякконтейнер': { en: 'Legendary Zombie Container', es: 'Contenedor zombi legendario', fr: 'Conteneur zombie légendaire', de: 'Legendärer Zombie-Container', pt: 'Contêiner zumbi lendário', it: 'Contenitore zombie leggendario', tr: 'Efsanevi Zombi Konteyneri', nl: 'Legendarische Zombiecontainer' },
+  'Легендарный золотой контейнер': { en: 'Legendary Gold Container', es: 'Contenedor legendario dorado', fr: 'Conteneur légendaire or', de: 'Legendärer goldener Container', pt: 'Contêiner lendário dourado', it: 'Contenitore leggendario oro', tr: 'Efsanevi Altın Konteyner', nl: 'Legendarische Gouden Container' },
+  'Легендарный киберконтейнер': { en: 'Legendary Cyber Container', es: 'Contenedor cibernético legendario', fr: 'Conteneur cyber légendaire', de: 'Legendärer Cyber-Container', pt: 'Contêiner cibernético lendário', it: 'Contenitore cyber leggendario', tr: 'Efsanevi Siber Konteyner', nl: 'Legendarische Cybercontainer' },
+  'Легендарный пакет': { en: 'Legendary Pack', es: 'Paquete legendario', fr: 'Pack légendaire', de: 'Legendäres Paket', pt: 'Pacote lendário', it: 'Pacchetto leggendario', tr: 'Efsanevi Paket', nl: 'Legendarisch pakket' },
+  'Молниеносный пакет': { en: 'Lightning Pack', es: 'Paquete relámpago', fr: 'Pack éclair', de: 'Blitzpaket', pt: 'Pacote relâmpago', it: 'Pacchetto fulmine', tr: 'Yıldırım Paketi', nl: 'Bliksempakket' },
+  'Новогоднее предложение': { en: 'New Year Offer', es: 'Oferta de Año Nuevo', fr: "Offre du Nouvel An", de: 'Neujahrsangebot', pt: 'Oferta de Ano Novo', it: "Offerta di Capodanno", tr: 'Yılbaşı Teklifi', nl: 'Nieuwjaarsaanbieding' },
+  'Огненный пакет': { en: 'Fire Pack', es: 'Paquete de fuego', fr: 'Pack de feu', de: 'Feuerpaket', pt: 'Pacote de fogo', it: 'Pacchetto di fuoco', tr: 'Ateş Paketi', nl: 'Vuurpakket' },
+  'Особое предложение на день рождения': { en: 'Special Birthday Offer', es: 'Oferta especial de cumpleaños', fr: "Offre spéciale d'anniversaire", de: 'Besonderes Geburtstagsangebot', pt: 'Oferta especial de aniversário', it: 'Offerta speciale di compleanno', tr: 'Özel Doğum Günü Teklifi', nl: 'Speciale verjaardagsaanbieding' },
+  'Пакет «10-летня»': { en: 'Pack "10th Anniversary"', es: 'Paquete "10.º aniversario"', fr: '« 10e anniversaire »', de: 'Paket „10. Jubiläum“', pt: 'Pacote "10.º aniversário"', it: 'Pacchetto "10° anniversario"', tr: '"10. Yıl Dönümü" Paketi', nl: 'Pakket "10-jarig jubileum"' },
+  'Пакет «Год петуха»': { en: 'Pack "Year of the Rooster"', es: 'Paquete "Año del Gallo"', fr: '« Année du Coq »', de: 'Paket „Jahr des Hahns“', pt: 'Pacote "Ano do Galo"', it: 'Pacchetto "Anno del Gallo"', tr: '"Horoz Yılı" Paketi', nl: 'Pakket "Jaar van de Haan"' },
+  'Пакет «Год собаки»': { en: 'Pack "Year of the Dog"', es: 'Paquete "Año del Perro"', fr: '« Année du Chien »', de: 'Paket „Jahr des Hundes“', pt: 'Pacote "Ano do Cão"', it: 'Pacchetto "Anno del Cane"', tr: '"Köpek Yılı" Paketi', nl: 'Pakket "Jaar van de Hond"' },
+  'Пакет «День святого Валентина»': { en: "Pack \"Valentine's Day\"", es: 'Paquete "San Valentín"', fr: '« Saint-Valentin »', de: 'Paket „Valentinstag“', pt: 'Pacote "Dia dos Namorados"', it: 'Pacchetto "San Valentino"', tr: '"Sevgililer Günü" Paketi', nl: 'Pakket "Valentijnsdag"' },
+  'Пакет «Джекпот»': { en: 'Pack "Jackpot"', es: 'Paquete "Bote"', fr: '« Jackpot »', de: 'Paket „Jackpot“', pt: 'Pacote "Jackpot"', it: 'Pacchetto "Jackpot"', tr: '"Jackpot" Paketi', nl: 'Pakket "Jackpot"' },
+  'Пакет «Железный трон»': { en: 'Pack "Iron Throne"', es: 'Paquete "Trono de Hierro"', fr: '« Trône de fer »', de: 'Paket „Eiserner Thron“', pt: 'Pacote "Trono de Ferro"', it: 'Pacchetto "Trono di Ferro"', tr: '"Demir Taht" Paketi', nl: 'Pakket "IJzeren Troon"' },
+  'Пакет «Зодиак»': { en: 'Pack "Zodiac"', es: 'Paquete "Zodiaco"', fr: '« Zodiaque »', de: 'Paket „Zodiac“', pt: 'Pacote "Zodíaco"', it: 'Pacchetto "Zodiaco"', tr: '"Zodyak" Paketi', nl: 'Pakket "Zodiac"' },
+  'Пакет «Икс-27»': { en: 'Pack "X-27"', es: 'Paquete "X-27"', fr: '« X-27 »', de: 'Paket „X-27“', pt: 'Pacote "X-27"', it: 'Pacchetto "X-27"', tr: '"X-27" Paketi', nl: 'Pakket "X-27"' },
+  'Пакет «Казино»': { en: 'Pack "Casino"', es: 'Paquete "Casino"', fr: '« Casino »', de: 'Paket „Casino“', pt: 'Pacote "Casino"', it: 'Pacchetto "Casinò"', tr: '"Kumarhane" Paketi', nl: 'Pakket "Casino"' },
+  'Пакет «Контратака»': { en: 'Pack "Counterattack"', es: 'Paquete "Contraataque"', fr: '« Contre-attaque »', de: 'Paket „Gegenangriff“', pt: 'Pacote "Contra-ataque"', it: 'Pacchetto "Contrattacco"', tr: '"Karşı Saldırı" Paketi', nl: 'Pakket "Tegenaanval"' },
+  'Пакет «Новый год»': { en: 'Pack "New Year"', es: 'Paquete "Año Nuevo"', fr: '« Nouvel An »', de: 'Paket „Neujahr“', pt: 'Pacote "Ano Novo"', it: 'Pacchetto "Capodanno"', tr: '"Yılbaşı" Paketi', nl: 'Pakket "Nieuwjaar"' },
+  'Пакет «Проклятие»': { en: 'Pack "Curse"', es: 'Paquete "Maldición"', fr: '« Malédiction »', de: 'Paket „Fluch“', pt: 'Pacote "Maldição"', it: 'Pacchetto "Maledizione"', tr: '"Lanet" Paketi', nl: 'Pakket "Vloek"' },
+  'Пакет «Силы добра»': { en: 'Pack "Forces of Good"', es: 'Paquete "Fuerzas del bien"', fr: '« Forces du bien »', de: 'Paket „Kräfte des Guten“', pt: 'Pacote "Forças do bem"', it: 'Pacchetto "Forze del bene"', tr: '"İyilik Güçleri" Paketi', nl: 'Pakket "Krachten van het Goede"' },
+  'Пакет «Силы зла»': { en: 'Pack "Forces of Evil"', es: 'Paquete "Fuerzas del mal"', fr: '« Forces du mal »', de: 'Paket „Kräfte des Bösen“', pt: 'Pacote "Forças do mal"', it: 'Pacchetto "Forze del male"', tr: '"Kötülük Güçleri" Paketi', nl: 'Pakket "Krachten van het Kwaad"' },
+  'Пакет «Скрещивание»': { en: 'Pack "Breeding"', es: 'Paquete "Cría"', fr: '« Élevage »', de: 'Paket „Zucht“', pt: 'Pacote "Cria"', it: 'Pacchetto "Incrocio"', tr: '"Üretim" Paketi', nl: 'Pakket "Fokken"' },
+  'Пакет «Снова в школу»': { en: 'Pack "Back to School"', es: 'Paquete "Vuelta al cole"', fr: '« Rentrée scolaire »', de: 'Paket „Zurück zur Schule“', pt: 'Pacote "Volta às aulas"', it: 'Pacchetto "Ritorno a scuola"', tr: '"Okula Dönüş" Paketi', nl: 'Pakket "Terug naar school"' },
+  'Пакет «Созвездие»': { en: 'Pack "Constellation"', es: 'Paquete "Constelación"', fr: '« Constellation »', de: 'Paket „Sternbild“', pt: 'Pacote "Constelação"', it: 'Pacchetto "Costellazione"', tr: '"Takımyıldız" Paketi', nl: 'Pakket "Sterrenbeeld"' },
+  'Пакет «Хэллоуин»': { en: 'Pack "Halloween"', es: 'Paquete "Halloween"', fr: '« Halloween »', de: 'Paket „Halloween“', pt: 'Pacote "Halloween"', it: 'Pacchetto "Halloween"', tr: '"Cadılar Bayramı" Paketi', nl: 'Pakket "Halloween"' },
+  'Пакет «Щит»': { en: 'Pack "Shield"', es: 'Paquete "Escudo"', fr: '« Bouclier »', de: 'Paket „Schild“', pt: 'Pacote "Escudo"', it: 'Pacchetto "Scudo"', tr: '"Kalkan" Paketi', nl: 'Pakket "Schild"' },
+  'Пакет «манга»': { en: 'Pack "Manga"', es: 'Paquete "Manga"', fr: '« Manga »', de: 'Paket „Manga“', pt: 'Pacote "Manga"', it: 'Pacchetto "Manga"', tr: '"Manga" Paketi', nl: 'Pakket "Manga"' },
+  'Пакет «спелеологии»': { en: 'Pack "Speleology"', es: 'Paquete "Espeleología"', fr: '« Spéléologie »', de: 'Paket „Höhlenforschung“', pt: 'Pacote "Espeleologia"', it: 'Pacchetto "Speleologia"', tr: '"Mağaracılık" Paketi', nl: 'Pakket "Speleologie"' },
+  'Пакет Ворчуна Клауса': { en: 'Grumpy Claus Pack', es: 'Paquete Claus Gruñón', fr: 'Pack Père Fouettard', de: 'Grantiger-Klaus-Paket', pt: 'Pacote Claus Rabugento', it: 'Pacchetto Claus Burbero', tr: 'Huysuz Claus Paketi', nl: 'Chagrijnige Klaas-pakket' },
+  'Пакет ветерана': { en: 'Veteran Pack', es: 'Paquete de veterano', fr: 'Pack vétéran', de: 'Veteranenpaket', pt: 'Pacote veterano', it: 'Pacchetto veterano', tr: 'Kıdemli Paketi', nl: 'Veteranenpakket' },
+  'Пакет ветерана «10-летня»': { en: 'Veteran Pack "10th Anniversary"', es: 'Paquete de veterano "10.º aniversario"', fr: 'Pack vétéran « 10e anniversaire »', de: 'Veteranenpaket „10. Jubiläum“', pt: 'Pacote veterano "10.º aniversário"', it: 'Pacchetto veterano "10° anniversario"', tr: 'Kıdemli Paketi "10. Yıl Dönümü"', nl: 'Veteranenpakket "10-jarig jubileum"' },
+  'Пакет ветерана «День святого Валентина»': { en: "Veteran Pack \"Valentine's Day\"", es: 'Paquete de veterano "San Valentín"', fr: 'Pack vétéran « Saint-Valentin »', de: 'Veteranenpaket „Valentinstag“', pt: 'Pacote veterano "Dia dos Namorados"', it: 'Pacchetto veterano "San Valentino"', tr: 'Kıdemli Paketi "Sevgililer Günü"', nl: 'Veteranenpakket "Valentijnsdag"' },
+  'Пакет ветерана «Новый год»': { en: 'Veteran Pack "New Year"', es: 'Paquete de veterano "Año Nuevo"', fr: 'Pack vétéran « Nouvel An »', de: 'Veteranenpaket „Neujahr“', pt: 'Pacote veterano "Ano Novo"', it: 'Pacchetto veterano "Capodanno"', tr: 'Kıdemli Paketi "Yılbaşı"', nl: 'Veteranenpakket "Nieuwjaar"' },
+  'Пакет ветерана «Хэллоуин»': { en: 'Veteran Pack "Halloween"', es: 'Paquete de veterano "Halloween"', fr: 'Pack vétéran « Halloween »', de: 'Veteranenpaket „Halloween“', pt: 'Pacote veterano "Halloween"', it: 'Pacchetto veterano "Halloween"', tr: 'Kıdemli Paketi "Cadılar Bayramı"', nl: 'Veteranenpakket "Halloween"' },
+  'Пакет ветерана «спелеологии»': { en: 'Veteran Pack "Speleology"', es: 'Paquete de veterano "Espeleología"', fr: 'Pack vétéran « Spéléologie »', de: 'Veteranenpaket „Höhlenforschung“', pt: 'Pacote veterano "Espeleologia"', it: 'Pacchetto veterano "Speleologia"', tr: 'Kıdemli Paketi "Mağaracılık"', nl: 'Veteranenpakket "Speleologie"' },
+  'Пакет вытягивания жизни': { en: 'Life Drain Pack', es: 'Paquete de absorción de vida', fr: 'Pack vol de vie', de: 'Lebensraub-Paket', pt: 'Pacote de dreno de vida', it: 'Pacchetto assorbimento vita', tr: 'Can Emme Paketi', nl: 'Levensroof-pakket' },
+  'Пакет для начинающих': { en: 'Beginner Pack', es: 'Paquete para principiantes', fr: 'Pack débutant', de: 'Anfängerpaket', pt: 'Pacote para iniciantes', it: 'Pacchetto principianti', tr: 'Başlangıç Paketi', nl: 'Beginnerspakket' },
+  'Пакет кролика': { en: 'Rabbit Pack', es: 'Paquete de conejo', fr: 'Pack lapin', de: 'Hasenpaket', pt: 'Pacote de coelho', it: 'Pacchetto coniglio', tr: 'Tavşan Paketi', nl: 'Konijnenpakket' },
+  'Пакет лояльности — 1 год': { en: 'Loyalty Pack - 1 year', es: 'Paquete de lealtad: 1 año', fr: 'Pack fidélité - 1 an', de: 'Treuepaket - 1 Jahr', pt: 'Pacote de fidelidade - 1 ano', it: 'Pacchetto fedeltà - 1 anno', tr: 'Sadakat Paketi - 1 yıl', nl: 'Loyaliteitspakket - 1 jaar' },
+  'Пакет лояльности — 2 года': { en: 'Loyalty Pack - 2 years', es: 'Paquete de lealtad: 2 años', fr: 'Pack fidélité - 2 ans', de: 'Treuepaket - 2 Jahre', pt: 'Pacote de fidelidade - 2 anos', it: 'Pacchetto fedeltà - 2 anni', tr: 'Sadakat Paketi - 2 yıl', nl: 'Loyaliteitspakket - 2 jaar' },
+  'Пакет лояльности — 3 года': { en: 'Loyalty Pack - 3 years', es: 'Paquete de lealtad: 3 años', fr: 'Pack fidélité - 3 ans', de: 'Treuepaket - 3 Jahre', pt: 'Pacote de fidelidade - 3 anos', it: 'Pacchetto fedeltà - 3 anni', tr: 'Sadakat Paketi - 3 yıl', nl: 'Loyaliteitspakket - 3 jaar' },
+  'Пакет мастера': { en: 'Master Pack', es: 'Paquete de maestro', fr: 'Pack maître', de: 'Meisterpaket', pt: 'Pacote de mestre', it: 'Pacchetto maestro', tr: 'Usta Paketi', nl: 'Meesterpakket' },
+  'Пакет новичка': { en: 'Newbie Pack', es: 'Paquete de novato', fr: 'Pack débutant', de: 'Neulingspaket', pt: 'Pacote de novato', it: 'Pacchetto novizio', tr: 'Acemi Paketi', nl: 'Nieuwelingenpakket' },
+  'Пакет новобранца': { en: 'Recruit Pack', es: 'Paquete de recluta', fr: 'Pack recrue', de: 'Rekrutenpaket', pt: 'Pacote de recruta', it: 'Pacchetto recluta', tr: 'Acemi Er Paketi', nl: 'Rekrutenpakket' },
+  'Пасхальное золотой Художник Синигами': { en: 'Easter Gold Shinigami Artist', es: 'Artista Shinigami dorado de Pascua', fr: 'Artiste Shinigami or de Pâques', de: 'Oster-Gold-Shinigami-Künstler', pt: 'Artista Shinigami dourado de Páscoa', it: 'Artista Shinigami oro di Pasqua', tr: 'Paskalya Altın Shinigami Sanatçı', nl: 'Pasen Gouden Shinigami Kunstenaar' },
+  'Пасхальное предложение': { en: 'Easter Offer', es: 'Oferta de Pascua', fr: 'Offre de Pâques', de: 'Osterangebot', pt: 'Oferta de Páscoa', it: 'Offerta di Pasqua', tr: 'Paskalya Teklifi', nl: 'Paasaanbieding' },
+  'Пасхальный таинственный контейнер': { en: 'Easter Mystery Container', es: 'Contenedor misterioso de Pascua', fr: 'Conteneur mystère de Pâques', de: 'Oster-Mystery-Container', pt: 'Contêiner misterioso de Páscoa', it: 'Contenitore misterioso di Pasqua', tr: 'Paskalya Gizem Konteyneri', nl: 'Paasmysteriecontainer' },
+  'Праздничный пакет': { en: 'Holiday Pack', es: 'Paquete festivo', fr: 'Pack festif', de: 'Feiertagspaket', pt: 'Pacote festivo', it: 'Pacchetto festivo', tr: 'Bayram Paketi', nl: 'Feestpakket' },
+  'Предложение Евы': { en: "Eve's Offer", es: 'Oferta de Eva', fr: "Offre d'Eve", de: 'Evas Angebot', pt: 'Oferta de Eva', it: 'Offerta di Eva', tr: 'Eve Teklifi', nl: 'Eve\'s aanbieding' },
+  'Предложение адвент-календаря': { en: 'Advent Calendar Offer', es: 'Oferta del calendario de adviento', fr: "Offre du calendrier de l'Avent", de: 'Adventskalender-Angebot', pt: 'Oferta do calendário do advento', it: "Offerta del calendario dell'Avvento", tr: 'Advent Takvimi Teklifi', nl: 'Adventskalenderaanbieding' },
+  'Предложение контейнеров': { en: 'Containers Offer', es: 'Oferta de contenedores', fr: 'Offre de conteneurs', de: 'Container-Angebot', pt: 'Oferta de contêineres', it: 'Offerta contenitori', tr: 'Konteyner Teklifi', nl: 'Containeraanbieding' },
+  'Предложение контейнеров мификов': { en: 'Mythic Containers Offer', es: 'Oferta de contenedores míticos', fr: 'Offre de conteneurs mythiques', de: 'Angebot für mythische Container', pt: 'Oferta de contêineres míticos', it: 'Offerta contenitori mitici', tr: 'Mitik Konteyner Teklifi', nl: 'Mythische containeraanbieding' },
+  'Предложение мутантов': { en: 'Mutants Offer', es: 'Oferta de mutantes', fr: 'Offre de mutants', de: 'Mutanten-Angebot', pt: 'Oferta de mutantes', it: 'Offerta mutanti', tr: 'Mutant Teklifi', nl: 'Mutantenaanbieding' },
+  'Предложение на День святого Валентина': { en: "Valentine's Day Offer", es: 'Oferta de San Valentín', fr: 'Offre de la Saint-Valentin', de: 'Valentinstag-Angebot', pt: 'Oferta do Dia dos Namorados', it: 'Offerta di San Valentino', tr: 'Sevgililer Günü Teklifi', nl: 'Valentijnsdagaanbieding' },
+  'Престижное Пасхальное предложение': { en: 'Prestige Easter Offer', es: 'Oferta de Pascua de prestigio', fr: 'Offre de Pâques prestige', de: 'Oster-Prestige-Angebot', pt: 'Oferta de Páscoa de prestígio', it: 'Offerta di Pasqua prestigio', tr: 'Prestij Paskalya Teklifi', nl: 'Prestige Paasaanbieding' },
+  'Престижный пакет': { en: 'Prestige Pack', es: 'Paquete de prestigio', fr: 'Pack prestige', de: 'Prestige-Paket', pt: 'Pacote de prestígio', it: 'Pacchetto prestigio', tr: 'Prestij Paketi', nl: 'Prestigepakket' },
+  'Престижный пакет «10-летня»': { en: 'Prestige Pack "10th Anniversary"', es: 'Paquete de prestigio "10.º aniversario"', fr: 'Pack prestige « 10e anniversaire »', de: 'Prestige-Paket „10. Jubiläum“', pt: 'Pacote de prestígio "10.º aniversário"', it: 'Pacchetto prestigio "10° anniversario"', tr: 'Prestij Paketi "10. Yıl Dönümü"', nl: 'Prestigepakket "10-jarig jubileum"' },
+  'Престижный пакет «День святого Валентина»': { en: "Prestige Pack \"Valentine's Day\"", es: 'Paquete de prestigio "San Valentín"', fr: 'Pack prestige « Saint-Valentin »', de: 'Prestige-Paket „Valentinstag“', pt: 'Pacote de prestígio "Dia dos Namorados"', it: 'Pacchetto prestigio "San Valentino"', tr: 'Prestij Paketi "Sevgililer Günü"', nl: 'Prestigepakket "Valentijnsdag"' },
+  'Престижный пакет «Хэллоуин»': { en: 'Prestige Pack "Halloween"', es: 'Paquete de prestigio "Halloween"', fr: 'Pack prestige « Halloween »', de: 'Prestige-Paket „Halloween“', pt: 'Pacote de prestígio "Halloween"', it: 'Pacchetto prestigio "Halloween"', tr: 'Prestij Paketi "Cadılar Bayramı"', nl: 'Prestigepakket "Halloween"' },
+  'Престижный пакет «спелеологии»': { en: 'Prestige Pack "Speleology"', es: 'Paquete de prestigio "Espeleología"', fr: 'Pack prestige « Spéléologie »', de: 'Prestige-Paket „Höhlenforschung“', pt: 'Pacote de prestígio "Espeleologia"', it: 'Pacchetto prestigio "Speleologia"', tr: 'Prestij Paketi "Mağaracılık"', nl: 'Prestigepakket "Speleologie"' },
+  'Рождественский Престижный пакет': { en: 'Christmas Prestige Pack', es: 'Paquete de prestigio navideño', fr: 'Pack prestige de Noël', de: 'Weihnachts-Prestige-Paket', pt: 'Pacote de prestígio de Natal', it: 'Pacchetto prestigio natalizio', tr: 'Noel Prestij Paketi', nl: 'Kerst Prestigepakket' },
+  'Рождественский пакет': { en: 'Christmas Pack', es: 'Paquete navideño', fr: 'Pack de Noël', de: 'Weihnachtspaket', pt: 'Pacote de Natal', it: 'Pacchetto natalizio', tr: 'Noel Paketi', nl: 'Kerstpakket' },
+  'Рождественский суперпакет': { en: 'Christmas Super Pack', es: 'Superpaquete navideño', fr: 'Super pack de Noël', de: 'Weihnachts-Superpaket', pt: 'Superpacote de Natal', it: 'Super pacchetto natalizio', tr: 'Noel Süper Paketi', nl: 'Kerst Superpakket' },
+  'Рождественское предложение контейнеров': { en: 'Christmas Containers Offer', es: 'Oferta navideña de contenedores', fr: 'Offre de conteneurs de Noël', de: 'Weihnachts-Container-Angebot', pt: 'Oferta de contêineres de Natal', it: 'Offerta contenitori natalizia', tr: 'Noel Konteyner Teklifi', nl: 'Kerst containeraanbieding' },
+  'Рождественское предложение контейнеров 5': { en: 'Christmas Containers Offer 5', es: 'Oferta navideña de contenedores 5', fr: 'Offre de conteneurs de Noël 5', de: 'Weihnachts-Container-Angebot 5', pt: 'Oferta de contêineres de Natal 5', it: 'Offerta contenitori natalizia 5', tr: 'Noel Konteyner Teklifi 5', nl: 'Kerst containeraanbieding 5' },
+  "Серебряные Bones 'n' Roses": { en: "Silver Bones 'n' Roses", es: "Bones 'n' Roses de plata", fr: "Bones 'n' Roses argent", de: "Silber Bones 'n' Roses", pt: "Bones 'n' Roses de prata", it: "Bones 'n' Roses argento", tr: "Gümüş Bones 'n' Roses", nl: "Zilveren Bones 'n' Roses" },
+  'Серебряный Вампара': { en: 'Silver Vampara', es: 'Vampara de plata', fr: 'Vampara argent', de: 'Silber-Vampara', pt: 'Vampara de prata', it: 'Vampara argento', tr: 'Gümüş Vampara', nl: 'Zilveren Vampara' },
+  'Серебряный Король Мимфиса': { en: 'Silver King of Mimfis', es: 'Rey de Mimfis de plata', fr: 'Roi de Mimfis argent', de: 'Silber-König von Mimfis', pt: 'Rei de Mimfis de prata', it: 'Re di Mimfis argento', tr: 'Gümüş Mimfis Kralı', nl: 'Zilveren Koning van Mimfis' },
+  'Серебряный Художник Синигами': { en: 'Silver Shinigami Artist', es: 'Artista Shinigami de plata', fr: 'Artiste Shinigami argent', de: 'Silber-Shinigami-Künstler', pt: 'Artista Shinigami de prata', it: 'Artista Shinigami argento', tr: 'Gümüş Shinigami Sanatçı', nl: 'Zilveren Shinigami Kunstenaar' },
+  'Серебряный контейнер «Зодиак»': { en: 'Silver Container "Zodiac"', es: 'Contenedor de plata "Zodiaco"', fr: 'Conteneur argent « Zodiaque »', de: 'Silber-Container „Zodiac“', pt: 'Contêiner de prata "Zodíaco"', it: 'Contenitore argento "Zodiaco"', tr: 'Gümüş "Zodyak" Konteyneri', nl: 'Zilveren Container "Zodiac"' },
+  'Спецпредложение «Тёмный Лорд»': { en: 'Special Offer "Dark Lord"', es: 'Oferta especial "Señor Oscuro"', fr: '« Seigneur Noir »', de: 'Sonderangebot „Dunkler Lord“', pt: 'Oferta especial "Senhor das Trevas"', it: 'Offerta speciale "Signore Oscuro"', tr: 'Özel Teklif "Karanlık Lord"', nl: 'Speciale aanbieding "Duistere Heer"' },
+  'Сундук «Исследование III»': { en: 'Chest "Research III"', es: 'Cofre "Investigación III"', fr: '« Recherche III »', de: 'Truhe „Forschung III“', pt: 'Baú "Pesquisa III"', it: 'Forziere "Ricerca III"', tr: '"Araştırma III" Sandığı', nl: 'Kist "Onderzoek III"' },
+  'Сундук «Исследование II»': { en: 'Chest "Research II"', es: 'Cofre "Investigación II"', fr: '« Recherche II »', de: 'Truhe „Forschung II“', pt: 'Baú "Pesquisa II"', it: 'Forziere "Ricerca II"', tr: '"Araştırma II" Sandığı', nl: 'Kist "Onderzoek II"' },
+  'Сундук «Исследование IV»': { en: 'Chest "Research IV"', es: 'Cofre "Investigación IV"', fr: '« Recherche IV »', de: 'Truhe „Forschung IV“', pt: 'Baú "Pesquisa IV"', it: 'Forziere "Ricerca IV"', tr: '"Araştırma IV" Sandığı', nl: 'Kist "Onderzoek IV"' },
+  'Сундук «Исследование VI»': { en: 'Chest "Research VI"', es: 'Cofre "Investigación VI"', fr: '« Recherche VI »', de: 'Truhe „Forschung VI“', pt: 'Baú "Pesquisa VI"', it: 'Forziere "Ricerca VI"', tr: '"Araştırma VI" Sandığı', nl: 'Kist "Onderzoek VI"' },
+  'Суперпакет «Юбилейная»': { en: 'Super Pack "Anniversary"', es: 'Superpaquete "Aniversario"', fr: '« Anniversaire »', de: 'Superpaket „Jubiläum“', pt: 'Superpacote "Aniversário"', it: 'Super pacchetto "Anniversario"', tr: '"Yıl Dönümü" Süper Paketi', nl: 'Superpakket "Jubileum"' },
+  'Таинственный контейнер «Перекрестные реальности»': { en: 'Mystery Container "Crossed Realities"', es: 'Contenedor misterioso "Realidades cruzadas"', fr: '« Réalités croisées »', de: 'Mystery-Container „Gekreuzte Realitäten“', pt: 'Contêiner misterioso "Realidades cruzadas"', it: 'Contenitore misterioso "Realtà incrociate"', tr: '"Kesişen Gerçeklikler" Gizem Konteyneri', nl: 'Mysteriecontainer "Gekruiste realiteiten"' },
+  'Таинственный контейнер св. Валентина': { en: "Valentine's Mystery Container", es: 'Contenedor misterioso de San Valentín', fr: 'Conteneur mystère Saint-Valentin', de: 'Valentinstag-Mystery-Container', pt: 'Contêiner misterioso Dia dos Namorados', it: 'Contenitore misterioso San Valentino', tr: 'Sevgililer Günü Gizem Konteyneri', nl: 'Valentijn Mysteriecontainer' },
+  'Тайная коробка Заговор': { en: 'Secret Box Conspiracy', es: 'Caja secreta Conspiración', fr: 'Boîte secrète Conspiration', de: 'Geheimbox Verschwörung', pt: 'Caixa secreta Conspiração', it: 'Scatola segreta Cospirazione', tr: 'Gizli Kutu Komplo', nl: 'Geheime Doos Samenzwering' },
+  'Тайное мутобезумие': { en: 'Secret Mutant Madness', es: 'Locura mutante secreta', fr: 'Folie mutante secrète', de: 'Geheimer Mutanten-Wahnsinn', pt: 'Loucura mutante secreta', it: 'Follia mutante segreta', tr: 'Gizli Mutant Çılgınlığı', nl: 'Geheime Mutantenwaanzin' },
+  'Танковый пакет': { en: 'Tank Pack', es: 'Paquete de tanque', fr: 'Pack tank', de: 'Tank-Paket', pt: 'Pacote tanque', it: 'Pacchetto tank', tr: 'Tank Paketi', nl: 'Tankpakket' },
+  'Уникальное предложение': { en: 'Unique Offer', es: 'Oferta única', fr: 'Offre unique', de: 'Einzigartiges Angebot', pt: 'Oferta única', it: 'Offerta unica', tr: 'Eşsiz Teklif', nl: 'Unieke aanbieding' },
+  'Усиленный контейнер': { en: 'Enhanced Container', es: 'Contenedor mejorado', fr: 'Conteneur amélioré', de: 'Verstärkter Container', pt: 'Contêiner aprimorado', it: 'Contenitore potenziato', tr: 'Geliştirilmiş Konteyner', nl: 'Verbeterde Container' },
+  'Усиленный контейнер «Мертвяк»': { en: 'Enhanced Container "Zombie"', es: 'Contenedor mejorado "Zombi"', fr: 'Conteneur amélioré « Zombie »', de: 'Verstärkter Container „Zombie“', pt: 'Contêiner aprimorado "Zumbi"', it: 'Contenitore potenziato "Zombie"', tr: 'Geliştirilmiş "Zombi" Konteyneri', nl: 'Verbeterde Container "Zombie"' },
+  'Эксклюзивный пакет': { en: 'Exclusive Pack', es: 'Paquete exclusivo', fr: 'Pack exclusif', de: 'Exklusivpaket', pt: 'Pacote exclusivo', it: 'Pacchetto esclusivo', tr: 'Özel Paket', nl: 'Exclusief pakket' },
+  'Юбилейная коробка': { en: 'Anniversary Box', es: 'Caja de aniversario', fr: "Boîte d'anniversaire", de: 'Jubiläumsbox', pt: 'Caixa de aniversário', it: 'Scatola anniversario', tr: 'Yıl Dönümü Kutusu', nl: 'Jubileumdoos' },
+  'контейнер «Хэллоуин»': { en: 'container "Halloween"', es: 'contenedor "Halloween"', fr: '« Halloween »', de: 'Container „Halloween“', pt: 'contêiner "Halloween"', it: 'contenitore "Halloween"', tr: '"Cadılar Bayramı" konteyneri', nl: 'container "Halloween"' },
+  'контейнер мификов': { en: 'mythic container', es: 'contenedor mítico', fr: 'conteneur mythique', de: 'mythischer Container', pt: 'contêiner mítico', it: 'contenitore mitico', tr: 'mitik konteyner', nl: 'mythische container' },
+  'элитный контейнер «Киборг»': { en: 'elite container "Cyborg"', es: 'contenedor de élite "Cíborg"', fr: '« Cyborg »', de: 'Elite-Container „Cyborg“', pt: 'contêiner de elite "Ciborgue"', it: 'contenitore elite "Cyborg"', tr: 'elit "Cyborg" konteyneri', nl: 'elite container "Cyborg"' },
+  'элитный контейнер «зооморфа»': { en: 'elite container "zoomorph"', es: 'contenedor de élite "zoomorfo"', fr: '« zoomorphe »', de: 'Elite-Container „Zoomorph“', pt: 'contêiner de elite "zoomorfo"', it: 'contenitore elite "zoomorfo"', tr: 'elit "zoomorf" konteyneri', nl: 'elite container "zoömorf"' },
+}
+
+function resolveTierName(payload: string, locale: Locale, mutantNames: Record<string, { name: string }>): string | null {
+  const m = payload.match(/^(\S+)\s+(.+)$/)
+  if (!m) return null
+  const tierKey = TIER_ADJ_TO_KEY[m[1].toLowerCase()]
+  if (!tierKey) return null
+  const mutantId = MUTANT_ID_BY_RU_NAME[m[2]]
+  if (!mutantId) return null
+  const name = mutantNames[mutantId]?.name ?? m[2]
+  return `${tierLabel(m[1], tierKey, locale)} ${name}`
+}
+
+function resolveWrapperName(payload: string, locale: Locale, mutantNames: Record<string, { name: string }>): string | null {
+  for (const rule of WRAPPER_RULES) {
+    const m = payload.match(rule.re)
+    if (!m) continue
+    const mutantId = MUTANT_ID_BY_RU_NAME[m[1]]
+    if (!mutantId) continue
+    const name = mutantNames[mutantId]?.name ?? m[1]
+    return rule.build(name, locale)
+  }
+  return null
+}
+
+function resolvePayloadName(payload: string, locale: Locale, mutantNames: Record<string, { name: string }>): string | null {
+  // Голое имя мутанта без тира/обёртки ("Набор: Андроид (120 золота)").
+  const bareMutantId = MUTANT_ID_BY_RU_NAME[payload]
+  if (bareMutantId) return mutantNames[bareMutantId]?.name ?? payload
+
+  return (
+    resolveTierName(payload, locale, mutantNames) ??
+    resolveWrapperName(payload, locale, mutantNames) ??
+    FREEFORM_PAYLOAD_DICT[payload]?.[locale] ??
+    FREEFORM_PAYLOAD_DICT[payload]?.en ??
+    (/[а-яА-ЯёЁ]/.test(payload) ? null : payload)
+  )
+}
+
 function renderBundleBoxWhere(
   entry: { where: string; itemId?: string },
   locale: Locale,
   obtainNames: Record<string, string>,
+  mutantNames: Record<string, { name: string }>,
 ): string {
-  if (!entry.itemId) return entry.where
-  const translatedName = obtainNames[entry.itemId]
-  if (!translatedName) return entry.where
-
   const prefixMatch = entry.where.match(/^(Набор|Лаки-бокс|Мистери-бокс):\s*/)
   const prefixRu = prefixMatch?.[1]
   const rest = prefixMatch ? entry.where.slice(prefixMatch[0].length) : entry.where
 
   const suffixMatch = rest.match(/\s*\(([^()]*)\)\s*$/)
   const suffixRaw = suffixMatch?.[1]
+  const payload = suffixMatch ? rest.slice(0, suffixMatch.index).trim() : rest.trim()
+
+  const translatedName = entry.itemId
+    ? obtainNames[entry.itemId]
+    : resolvePayloadName(payload, locale, mutantNames)
+  if (!translatedName) return entry.where
 
   const prefix = prefixRu
     ? (PREFIX_DICT[prefixRu]?.[locale] ?? PREFIX_DICT[prefixRu]?.en ?? prefixRu)
@@ -380,7 +584,7 @@ export function renderObtainWhere(
   if (locale === 'ru') return entry.where
 
   if (entry.type === 'bundle' || entry.type === 'box') {
-    return renderBundleBoxWhere(entry, locale, obtainNames)
+    return renderBundleBoxWhere(entry, locale, obtainNames, mutantNames)
   }
 
   if (entry.type === 'gold_shop' || entry.type === 'credits_shop') {
@@ -388,7 +592,7 @@ export function renderObtainWhere(
     if (!m) return entry.where
     const n = Number(m[1].replace(/\s/g, ''))
     const currencyKey: 'gold' | 'credits' = m[2] === 'золота' ? 'gold' : 'credits'
-    const tierKey = TIER_ADJ_TO_KEY[m[3]]
+    const tierKey = TIER_ADJ_TO_KEY[m[3].toLowerCase()]
     const tpl = SHOP_TEMPLATE[locale] ?? SHOP_TEMPLATE.en
     if (!tpl || !tierKey) return entry.where
     return fillTemplate(tpl, {
