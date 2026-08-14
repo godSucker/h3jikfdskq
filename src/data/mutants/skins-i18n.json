@@ -43,6 +43,17 @@
     "tr": "Army",
     "nl": "Army"
   },
+  "chess": {
+    "ru": "Шахматы",
+    "en": "Chess",
+    "es": "Ajedrez",
+    "fr": "Échecs",
+    "de": "Schach",
+    "pt": "Xadrez",
+    "it": "Scacchi",
+    "tr": "Satranç",
+    "nl": "Schaak"
+  },
   "confrontation": {
     "ru": "Кризис",
     "en": "Crisis",
@@ -96,6 +107,17 @@
     "it": "BOSS",
     "tr": "BOSS",
     "nl": "BAAS"
+  },
+  "gemstones": {
+    "ru": "Самоцветы",
+    "en": "Gems",
+    "es": "Gemas",
+    "fr": "Gemmes",
+    "de": "Edelsteine",
+    "pt": "Gemas",
+    "it": "Gemme",
+    "tr": "Değerli Taşlar",
+    "nl": "Edelstenen"
   },
   "girl": {
     "ru": "Хищницы",

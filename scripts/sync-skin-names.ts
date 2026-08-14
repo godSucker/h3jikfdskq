@@ -22,6 +22,41 @@ const LOC_URL = (locale: string) =>
 const DATA_DIR = path.join(process.cwd(), 'src/data/mutants')
 const OUT_PATH = path.join(DATA_DIR, 'skins-i18n.json')
 
+// Два слага без прямого ключа в localisation_*.txt, но подтверждённо
+// совпадающие с уже переведёнными вручную (через .локал, не LLM) реакторными
+// именами из GACHA_NAME_DICT (src/lib/obtain-render.ts):
+// - "chess" - live gacha.xml переименовал id с "checkmate" на "chess"
+//   (проверено побайтово: тот же набор specimens/stars/odds/bonus в обоих
+//   <Gacha> блоках), а "checkmate" -> "Шахматы" уже был в gacha-name-ru.json.
+// - "gemstones" - id совпадает буквально с gacha.json/gacha-name-ru.json
+//   ("gemstones" -> "Самоцветы"), просто "gemstones" как строка отсутствует
+//   в localisation_*.txt как отдельный ключ.
+// Переиспользование, не новый перевод - см. память feedback-no-llm-authored-names.
+const MANUAL_REUSE: Record<string, Partial<Record<(typeof LOCALES)[number], string>>> = {
+  chess: {
+    ru: 'Шахматы',
+    en: 'Chess',
+    es: 'Ajedrez',
+    fr: 'Échecs',
+    de: 'Schach',
+    pt: 'Xadrez',
+    it: 'Scacchi',
+    tr: 'Satranç',
+    nl: 'Schaak',
+  },
+  gemstones: {
+    ru: 'Самоцветы',
+    en: 'Gems',
+    es: 'Gemas',
+    fr: 'Gemmes',
+    de: 'Edelsteine',
+    pt: 'Gemas',
+    it: 'Gemme',
+    tr: 'Değerli Taşlar',
+    nl: 'Edelstenen',
+  },
+}
+
 async function loadLocMap(locale: string): Promise<Map<string, string>> {
   // RU уже лежит локально (src/data/localisation_ru.txt), остальные качаем.
   let raw: string
@@ -61,6 +96,10 @@ async function main() {
   const missingEverywhere: string[] = []
 
   for (const slug of slugs) {
+    if (MANUAL_REUSE[slug]) {
+      out[slug] = MANUAL_REUSE[slug]
+      continue
+    }
     const entry: Partial<Record<(typeof LOCALES)[number], string>> = {}
     let any = false
     for (const locale of LOCALES) {
