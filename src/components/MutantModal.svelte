@@ -107,7 +107,7 @@
   // src/lib/obtain-render.ts). obtainNames - obtain-names.{lang}.json,
   // фолбэк target->en уже свёрнут в MutantsPage.astro.
   function displayObtainWhere(o: { type: string; where: string; itemId?: string }): string {
-    return renderObtainWhere(o, locale, obtainNames);
+    return renderObtainWhere(o, locale, obtainNames, names);
   }
 
   const close = () => onclose?.();
