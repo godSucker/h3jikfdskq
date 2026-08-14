@@ -50,7 +50,10 @@ async function main() {
     console.log(`[${locale}] Загрузка localisation_${locale}.txt...`)
     const locMap = await loadLocMap(locale)
 
-    const names: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }> = {}
+    const names: Record<
+      string,
+      { name: string; lore: string; atk1Name: string; atk2Name: string }
+    > = {}
     let missing = 0
     for (const m of mutants) {
       const name = findLocalizedText(locMap, m.id)
@@ -70,7 +73,9 @@ async function main() {
 
     const outPath = path.join(DATA_DIR, `names.${locale}.json`)
     await fs.writeFile(outPath, JSON.stringify(names, null, 2), 'utf-8')
-    console.log(`[${locale}] Записано ${Object.keys(names).length}/${mutants.length} (${missing} без перевода имени) -> ${outPath}`)
+    console.log(
+      `[${locale}] Записано ${Object.keys(names).length}/${mutants.length} (${missing} без перевода имени) -> ${outPath}`,
+    )
   }
 
   console.log('[DONE]')
