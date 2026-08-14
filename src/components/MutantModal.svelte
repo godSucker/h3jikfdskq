@@ -10,7 +10,7 @@
     starLabelL,
   } from '@/lib/mutant-dicts';
   import { orbingMap } from '@/lib/orbing-map';
-  import { getSkinNameRu } from '@/lib/localisation';
+  import { getSkinName } from '@/lib/localisation';
   import { calculateFinalStats } from '@/lib/stats/unified-calculator';
   import { textureUrl } from '@/lib/texture-cdn';
   import {
@@ -621,7 +621,7 @@
             <button
               class="skin-switch-btn {selectedSkin === s ? 'active' : ''}"
               onclick={() => { selectedSkin = (selectedSkin === s ? null : s); }}
-              title={getSkinNameRu(s.skin) ?? s.skin}
+              title={getSkinName(s.skin, locale) ?? s.skin}
             >
               <!-- Иконка гачи; если её нет на CDN — откатываемся на текстуру самого скина. -->
               <img
@@ -663,7 +663,7 @@
       <!-- Header -->
       <div class="flex items-start justify-between gap-2">
         <div class="min-w-0">
-          <h2 id="mutant-title" class="text-lg md:text-xl font-bold tracking-wide break-words">{displayName(mutant)}{selectedSkin ? ` — ${getSkinNameRu(selectedSkin.skin) ?? selectedSkin.skin}` : ''}</h2>
+          <h2 id="mutant-title" class="text-lg md:text-xl font-bold tracking-wide break-words">{displayName(mutant)}{selectedSkin ? ` — ${getSkinName(selectedSkin.skin, locale) ?? selectedSkin.skin}` : ''}</h2>
           <div class="mt-0.5 text-xs md:text-sm text-slate-300 flex items-center gap-2 flex-wrap">
             {#if typeIcon(displayType)}
               <span class="inline-flex items-center gap-1 break-words">
