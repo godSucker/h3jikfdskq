@@ -13,7 +13,13 @@ export const DEFAULT_LOCALE: Locale = 'ru'
 
 // Какие пути реально переведены (используется middleware.ts для авторедиректа
 // и BaseLayout.astro для hreflang/og:locale/переключателя в шапке).
-export const TRANSLATED_PATHS = ['/', '/mutants', '/simulators', '/simulators/pvp'] as const
+export const TRANSLATED_PATHS = [
+  '/',
+  '/mutants',
+  '/simulators',
+  '/simulators/pvp',
+  '/simulators/craft',
+] as const
 
 // Локали с собственным src/i18n/{locale}.json (не через EN-фолбэк).
 // de/pt/it/tr/nl получили свои словари 2026-08-15 (см. память

@@ -17,8 +17,27 @@
     type CraftRecipe,
     type DetailedSimulationResult,
   } from '@/lib/craft-simulator';
+  import { t, type Locale } from '@/lib/i18n';
+
+  let { locale = 'ru' as Locale }: { locale?: Locale } = $props();
 
   type FacilityId = 'metal' | 'transformatron' | 'supplies' | 'blackhole';
+
+  // facility.tagline/description ниже в массиве facilities остаются RU-заглушками
+  // (нужны интерфейсом), реальный рендер идёт через эти локале-осознанные лукапы -
+  // не трогаем структуру facilities целиком ради двух текстовых полей.
+  const FACILITY_TAGLINE_KEY: Record<FacilityId, string> = {
+    metal: 'craft.facility.metal.tagline',
+    transformatron: 'craft.facility.transformatron.tagline',
+    supplies: 'craft.facility.supplies.tagline',
+    blackhole: 'craft.facility.blackhole.tagline',
+  };
+  const FACILITY_DESCRIPTION_KEY: Record<FacilityId, string> = {
+    metal: 'craft.facility.metal.description',
+    transformatron: 'craft.facility.transformatron.description',
+    supplies: 'craft.facility.supplies.description',
+    blackhole: 'craft.facility.blackhole.description',
+  };
 
   interface FeaturedItem {
     id: string;
@@ -135,11 +154,14 @@
   let introOpen = $state(false);
 
   function ingredientTypesLabel(n: number): string {
-    const mod10 = n % 10;
-    const mod100 = n % 100;
-    if (mod10 === 1 && mod100 !== 11) return 'тип';
-    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'типа';
-    return 'типов';
+    if (locale === 'ru') {
+      const mod10 = n % 10;
+      const mod100 = n % 100;
+      if (mod10 === 1 && mod100 !== 11) return t('craft.ingredientType.one', locale);
+      if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return t('craft.ingredientType.few', locale);
+      return t('craft.ingredientType.many', locale);
+    }
+    return n === 1 ? t('craft.ingredientType.one', locale) : t('craft.ingredientType.other', locale);
   }
 
   // Цикл доп. наград детерминирован (см. getIncentiveCycleState) - по умолчанию
@@ -265,7 +287,10 @@
   // превышать 1 - formatPercent тут дал бы бессмысленные "250%". Реальный
   // % шанса — в getRewardDisplay() выше, для темпа выхода нужен свой формат.
   function formatPerCraft(value: number): string {
-    return `${value.toFixed(value < 1 ? 2 : value < 10 ? 2 : 1)} шт./крафт`;
+    return t('craft.perCraftRate', locale).replace(
+      '{n}',
+      value.toFixed(value < 1 ? 2 : value < 10 ? 2 : 1),
+    );
   }
 
   // Рецепты для перемещения из "Рецепты" в "Крафты"
@@ -283,7 +308,7 @@
   );
 </script>
 
-<div class="facility-tabs" role="tablist" aria-label="Станции крафта">
+<div class="facility-tabs" role="tablist" aria-label={t('craft.tabsAriaLabel', locale)}>
   {#each facilities as facility (facility.id)}
     <button
       type="button"
@@ -293,7 +318,7 @@
       aria-selected={facility.id === activeFacilityId}
     >
       <span class="facility-tabs__name">{facility.name}</span>
-      <span class="facility-tabs__tagline">{facility.tagline}</span>
+      <span class="facility-tabs__tagline">{t(FACILITY_TAGLINE_KEY[facility.id], locale)}</span>
     </button>
   {/each}
 </div>
@@ -310,7 +335,7 @@
     aria-expanded={introOpen}
   >
     <span class="badge">Sim • Black Hole Lab</span>
-    <span class="craft-intro-toggle__title">Black Hole Craft Lab — о симуляторе и бонусах</span>
+    <span class="craft-intro-toggle__title">{t('craft.intro.toggleTitle', locale)}</span>
     <svg class="sidebar-toggle__chevron" class:rotated={introOpen} width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
@@ -318,20 +343,19 @@
     <div class="craft-hero__card">
       <h1>Black Hole Craft Lab</h1>
       <p>
-        Четыре станции крафта на одной странице. Повторяет реальные рецепты Metal Factory,
-        Transformatron, Supplies Lab и Black Hole: берём данные из игры, считаем шансы и бонусы.
+        {t('craft.hero.description', locale)}
       </p>
-      <dl class="hero-stats" aria-label="Основные показатели симулятора">
+      <dl class="hero-stats" aria-label={t('craft.hero.statsAriaLabel', locale)}>
         <div>
-          <dt>Рецептов</dt>
+          <dt>{t('craft.stat.recipes', locale)}</dt>
           <dd>{totalRecipes}</dd>
         </div>
         <div>
-          <dt>Уникальных наград</dt>
+          <dt>{t('craft.stat.uniqueRewards', locale)}</dt>
           <dd>{uniqueRewardIds.size}</dd>
         </div>
         <div>
-          <dt>Максимальный бонус за качество</dt>
+          <dt>{t('craft.stat.maxBonus', locale)}</dt>
           <dd>{(maxBonus / 10).toFixed(1)}%</dd>
         </div>
       </dl>
@@ -342,12 +366,12 @@
     <div class="incentive-card">
       <div class="incentive-card__grid">
       <div class="incentive-card__info">
-        <span class="badge badge--soft">Доп. награды</span>
-        <h2>Выбери активный бонус</h2>
-        <p>Симулятор учитывает шанс бонусной награды.</p>
+        <span class="badge badge--soft">{t('craft.incentive.badge', locale)}</span>
+        <h2>{t('craft.incentive.title', locale)}</h2>
+        <p>{t('craft.incentive.description', locale)}</p>
       </div>
       <div class="incentive-card__controls">
-        <label for="incentive-select">Активный бонус</label>
+        <label for="incentive-select">{t('craft.incentive.selectLabel', locale)}</label>
         <select
           id="incentive-select"
           value={useCycleIncentive ? '__cycle__' : activeIncentiveId}
@@ -356,10 +380,10 @@
             if (v === '__cycle__') { useCycleIncentive = true; selectedCycleIndex = null; }
             else { pickManualIncentive(v); }
           }}
-          aria-label="Активная дополнительная награда"
+          aria-label={t('craft.incentive.selectAriaLabel', locale)}
         >
-          <option value="__cycle__">Текущая по расписанию (авто)</option>
-          <option value="">Без бонуса</option>
+          <option value="__cycle__">{t('craft.incentive.cycleOption', locale)}</option>
+          <option value="">{t('craft.incentive.noneOption', locale)}</option>
           {#each incentiveRewards as incentive, index (index)}
             <option value={incentive.id}>
               {translateItemId(incentive.id)} — {(incentive.per1000 / 10).toFixed(1)}%
@@ -370,21 +394,21 @@
       {#if activeIncentive}
         <div class="incentive-card__stats">
           <div>
-            <span class="metric-label">Награда</span>
+            <span class="metric-label">{t('craft.incentive.metric.reward', locale)}</span>
             <span class="metric-value">{translateItemId(activeIncentive.id)}</span>
           </div>
           <div>
-            <span class="metric-label">Шанс</span>
+            <span class="metric-label">{t('craft.incentive.metric.chance', locale)}</span>
             <span class="metric-value">{(activeIncentive.probability * 100).toFixed(1)}%</span>
           </div>
           <div>
-            <span class="metric-label">Длительность</span>
-            <span class="metric-value">{formatDurationMinutes(activeIncentive.duration)}</span>
+            <span class="metric-label">{t('craft.incentive.metric.duration', locale)}</span>
+            <span class="metric-value">{formatDurationMinutes(activeIncentive.duration, locale)}</span>
           </div>
           {#if useCycleIncentive && cycleState}
             <div>
-              <span class="metric-label">Сменится через</span>
-              <span class="metric-value">{formatDurationMinutes(Math.round(cycleState.remainingMinutes))}</span>
+              <span class="metric-label">{t('craft.incentive.metric.changesIn', locale)}</span>
+              <span class="metric-value">{formatDurationMinutes(Math.round(cycleState.remainingMinutes), locale)}</span>
             </div>
           {/if}
         </div>
@@ -394,11 +418,11 @@
       {#if cycleState}
         <div class="incentive-cycle">
           <div class="incentive-cycle__header">
-            <span class="badge badge--soft">Цикл наград</span>
+            <span class="badge badge--soft">{t('craft.incentive.cycleBadge', locale)}</span>
             <span class="incentive-cycle__hint">
-              Игра крутит эти {incentiveLoopOrder.length} наград по кругу с фиксированной длительностью каждой
-              (полный круг — {formatDurationMinutes(cycleState.totalCycleMinutes)}). Ниже — вся
-              последовательность, подсвечена активная сейчас.
+              {t('craft.incentive.cycleHint', locale)
+                .replace('{n}', String(incentiveLoopOrder.length))
+                .replace('{duration}', formatDurationMinutes(cycleState.totalCycleMinutes, locale))}
             </span>
           </div>
           <div class="incentive-cycle__track">
@@ -408,18 +432,18 @@
                 class:active={i === cycleState.activeIndex}
                 class:selected={i === selectedCycleIndex}
                 onclick={() => pickManualIncentive(entry.id, i)}
-                title={`${translateItemId(entry.id)} — ${(entry.per1000 / 10).toFixed(1)}%, ${formatDurationMinutes(entry.duration)}`}
+                title={`${translateItemId(entry.id)} — ${(entry.per1000 / 10).toFixed(1)}%, ${formatDurationMinutes(entry.duration, locale)}`}
               >
                 {#if i === cycleState.activeIndex}
-                  <span class="incentive-cycle__now">сейчас</span>
+                  <span class="incentive-cycle__now">{t('craft.incentive.now', locale)}</span>
                 {:else if i === selectedCycleIndex}
-                  <span class="incentive-cycle__picked">выбрано</span>
+                  <span class="incentive-cycle__picked">{t('craft.incentive.picked', locale)}</span>
                 {/if}
                 {#if getItemTexture(entry.id)}
                   <img src={textureUrl(getItemTexture(entry.id) ?? '')} alt="" loading="lazy" />
                 {/if}
                 <span class="incentive-cycle__slot-name">{translateItemId(entry.id)}</span>
-                <span class="incentive-cycle__slot-meta">{(entry.per1000 / 10).toFixed(1)}% · {formatDurationMinutes(entry.duration)}</span>
+                <span class="incentive-cycle__slot-meta">{(entry.per1000 / 10).toFixed(1)}% · {formatDurationMinutes(entry.duration, locale)}</span>
               </button>
             {/each}
           </div>
@@ -450,16 +474,16 @@
           class="sidebar-toggle"
           onclick={() => sidebarOpen = !sidebarOpen}
           aria-expanded={sidebarOpen}
-          aria-label={sidebarOpen ? 'Свернуть информацию' : 'Развернуть информацию'}
+          aria-label={sidebarOpen ? t('craft.sidebar.collapse', locale) : t('craft.sidebar.expand', locale)}
         >
           <span class="badge badge--outline">{activeFacility.badge}</span>
           <h2>{activeFacility.name}</h2>
           <svg class="sidebar-toggle__chevron" class:rotated={sidebarOpen} width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="facility__header">
-          <p>{activeFacility.description}</p>
+          <p>{t(FACILITY_DESCRIPTION_KEY[activeFacility.id], locale)}</p>
         </div>
-        <div class="facility__featured" aria-label="Ключевые награды">
+        <div class="facility__featured" aria-label={t('craft.sidebar.featuredAriaLabel', locale)}>
           {#each activeFacility.featuredRewards as item (item.id)}
             <div class="featured-item">
               {#if item.icon}
@@ -471,13 +495,13 @@
             </div>
           {/each}
         </div>
-        <dl class="facility__stats" aria-label="Статистика секции">
+        <dl class="facility__stats" aria-label={t('craft.sidebar.statsAriaLabel', locale)}>
           <div>
-            <dt>Рецептов</dt>
+            <dt>{t('craft.stat.recipes', locale)}</dt>
             <dd>{activeFacility.recipes.length}</dd>
           </div>
           <div>
-            <dt>Бонус за качество материалов</dt>
+            <dt>{t('craft.stat.materialBonus', locale)}</dt>
             <dd>
               {bonusRange.min === bonusRange.max
                 ? `${(bonusRange.max / 10).toFixed(1)}%`
@@ -491,13 +515,13 @@
         {#if activeFacility.id === 'blackhole'}
           <div class="recipes-container">
             <div class="recipes-group">
-              <h4 class="group-title">Рецепты</h4>
+              <h4 class="group-title">{t('craft.group.recipes', locale)}</h4>
               <div class="recipe-selector">
                 {#each regularRecipes as recipe (recipe.id)}
                   {@const displayReward = recipe.rewards[0]}
                   <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                   {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                  {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                  {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                   {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                   <button
                     type="button"
@@ -516,7 +540,7 @@
             </div>
 
             <div class="recipes-group">
-              <h4 class="group-title">Крафты</h4>
+              <h4 class="group-title">{t('craft.group.crafts', locale)}</h4>
               <div class="recipe-selector">
                 {#each potPourriRecipes as recipe (recipe.id)}
                   {@const displayReward = recipe.rewards[0]}
@@ -524,7 +548,7 @@
                   {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
                   {@const isMovedRecipe = RECIPES_TO_MOVE.has(recipe.id)}
                   {@const useRecipeIdLabel = isSpecialRecipe || isMovedRecipe}
-                  {@const baseLabel = useRecipeIdLabel ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                  {@const baseLabel = useRecipeIdLabel ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                   {@const totalIngredients = recipe.ingredients.reduce(
                     (sum, ing) => sum + ing.amount,
                     0,
@@ -534,7 +558,7 @@
                   {@const isTokenSinkRecipe = recipe.id.startsWith('token_sink_')}
                   {@const skipMultiplier = isTokenSinkRecipe || recipe.id === 'big_rewards_01' || recipe.id === 'big_rewards_02' || recipe.id === 'little_rewards_01'}
                   {@const rewardLabel = isPotPourriRecipe
-                    ? `Средняя аптечка x${totalIngredients}`
+                    ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                     : skipMultiplier
                       ? baseLabel
                       : useRecipeIdLabel
@@ -598,19 +622,19 @@
           <div class="recipe-groups">
             {#if level1Recipes.length > 0}
               <div class="recipes-group">
-                <h4 class="group-title">КРАФТ СФЕР 1 УРОВНЯ</h4>
+                <h4 class="group-title">{t('craft.group.orbLevel', locale).replace('{n}', '1')}</h4>
                 <div class="recipe-selector grid-3-4">
                   {#each level1Recipes as recipe (recipe.id)}
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
                     )}
                     {@const rewardLabel = recipe.id.startsWith('pot_pourri_')
-                      ? `Средняя аптечка x${totalIngredients}`
+                      ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                       : baseLabel}
                     {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                     <button
@@ -632,19 +656,19 @@
 
             {#if filteredLevel2Recipes.length > 0}
               <div class="recipes-group">
-                <h4 class="group-title">КРАФТ СФЕР 2 УРОВНЯ</h4>
+                <h4 class="group-title">{t('craft.group.orbLevel', locale).replace('{n}', '2')}</h4>
                 <div class="recipe-selector grid-3-4">
                   {#each filteredLevel2Recipes as recipe (recipe.id)}
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
                     )}
                     {@const rewardLabel = recipe.id.startsWith('pot_pourri_')
-                      ? `Средняя аптечка x${totalIngredients}`
+                      ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                       : baseLabel}
                     {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                     <button
@@ -666,19 +690,19 @@
 
             {#if filteredLevel3Recipes.length > 0}
               <div class="recipes-group">
-                <h4 class="group-title">КРАФТ СФЕР 3 УРОВНЯ</h4>
+                <h4 class="group-title">{t('craft.group.orbLevel', locale).replace('{n}', '3')}</h4>
                 <div class="recipe-selector grid-3-4">
                   {#each filteredLevel3Recipes as recipe (recipe.id)}
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
                     )}
                     {@const rewardLabel = recipe.id.startsWith('pot_pourri_')
-                      ? `Средняя аптечка x${totalIngredients}`
+                      ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                       : baseLabel}
                     {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                     <button
@@ -700,19 +724,19 @@
 
             {#if filteredLevel4Recipes.length > 0}
               <div class="recipes-group">
-                <h4 class="group-title">КРАФТ СФЕР 4 УРОВНЯ</h4>
+                <h4 class="group-title">{t('craft.group.orbLevel', locale).replace('{n}', '4')}</h4>
                 <div class="recipe-selector grid-3-4">
                   {#each filteredLevel4Recipes as recipe (recipe.id)}
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
                     )}
                     {@const rewardLabel = recipe.id.startsWith('pot_pourri_')
-                      ? `Средняя аптечка x${totalIngredients}`
+                      ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                       : baseLabel}
                     {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                     <button
@@ -736,20 +760,20 @@
           <div
             class="recipe-selector"
             role="tablist"
-            aria-label={`Рецепты ${activeFacility.name}`}
+            aria-label={t('craft.recipesAriaLabel', locale).replace('{name}', activeFacility.name)}
             class:grid-3-4={activeFacility.id !== 'metal'}
           >
             {#each activeFacility.recipes as recipe (recipe.id)}
               {@const displayReward = recipe.rewards[0]}
               <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
               {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-              {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : 'Рецепт')}
+              {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
               {@const totalIngredients = recipe.ingredients.reduce(
                 (sum, ing) => sum + ing.amount,
                 0,
               )}
               {@const rewardLabel = recipe.id.startsWith('pot_pourri_')
-                ? `Средняя аптечка x${totalIngredients}`
+                ? t('craft.recipe.avgMedKit', locale).replace('{n}', String(totalIngredients))
                 : baseLabel}
               {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
               <button
@@ -778,21 +802,24 @@
                 <h3>
                   {currentRecipe.rewards.length
                     ? (RECIPE_HEADER_TITLES[currentRecipe.id] ?? translateItemId(currentRecipe.id))
-                    : 'Рецепт'}
+                    : t('craft.recipe.fallback', locale)}
                 </h3>
                 <p class="recipe-card__subtitle">
-                  {currentRecipe.ingredients.length} {ingredientTypesLabel(currentRecipe.ingredients.length)} ингредиентов • {totalIngredientPieces} предметов
+                  {t('craft.recipeCard.ingredientsCount', locale)
+                    .replace('{count}', String(currentRecipe.ingredients.length))
+                    .replace('{type}', ingredientTypesLabel(currentRecipe.ingredients.length))
+                    .replace('{pieces}', String(totalIngredientPieces))}
                 </p>
               </div>
               <div class="recipe-card__meta">
                 {#if currentRecipe.bonusPer1000 > 0}
                   <span class="meta-pill">
-                    Бонус за качество материалов: {(currentRecipe.bonusPer1000 / 10).toFixed(1)}%
+                    {t('craft.recipeCard.materialBonus', locale).replace('{pct}', (currentRecipe.bonusPer1000 / 10).toFixed(1))}
                   </span>
                 {/if}
                 {#if incentiveChance > 0}
                   <span class="meta-pill meta-pill--accent">
-                    Шанс доп. награды: {formatPercent(incentiveChance)}
+                    {t('craft.recipeCard.incentiveChance', locale).replace('{pct}', formatPercent(incentiveChance))}
                   </span>
                 {/if}
               </div>
@@ -801,7 +828,7 @@
             <div class="recipe-card__body">
               <!-- Ингредиенты -->
               <div class="recipe-section">
-                <h4>Ингредиенты</h4>
+                <h4>{t('craft.section.ingredients', locale)}</h4>
                 <ul class="ingredient-list">
                   {#each currentRecipe.ingredients as ingredient, index (ingredient.regex + index)}
                     {@const label = describeIngredientRegex(ingredient.regex)}
@@ -825,7 +852,7 @@
 
               <!-- Награды -->
               <div class="recipe-section">
-                <h4>Награды</h4>
+                <h4>{t('craft.section.rewards', locale)}</h4>
                 <div class="rewards-scroll">
                   <ul class="reward-list">
                     {#each rewardDisplay as reward, index (index)}
@@ -858,7 +885,7 @@
             <!-- Блок симуляции -->
             <div class="simulation-controls">
               <div class="craft-input">
-                <label for={`craft-count-${activeFacility.id}`}>Количество крафтов</label>
+                <label for={`craft-count-${activeFacility.id}`}>{t('craft.craftCountLabel', locale)}</label>
                 <input
                   id={`craft-count-${activeFacility.id}`}
                   type="number"
@@ -874,7 +901,7 @@
                 class="simulate-btn"
                 onclick={() => runSimulation(activeFacility.id)}
               >
-                🎲 Симулировать
+                {t('craft.simulateButton', locale)}
               </button>
             </div>
 
@@ -885,18 +912,17 @@
               {@const totalMain = rewardDetails.reduce((sum, item) => sum + item.amount, 0)}
               <div class="results-card">
                 <header>
-                  <h4>Результаты {state.result.crafts} крафтов</h4>
+                  <h4>{t('craft.results.title', locale).replace('{n}', String(state.result.crafts))}</h4>
                   {#if state.result.expectedIncentiveChance > 0 && activeIncentive}
                     <span>
-                      Ожидалось доп. награды:
-                      {formatPercent(state.result.expectedIncentiveChance)} за крафт
+                      {t('craft.results.expectedIncentive', locale).replace('{pct}', formatPercent(state.result.expectedIncentiveChance))}
                     </span>
                   {/if}
                 </header>
 
                 <div class="results-grid">
                   <div>
-                    <h5>Основные награды</h5>
+                    <h5>{t('craft.results.mainRewardsTitle', locale)}</h5>
                     {#if rewardDetails.length > 0}
                       <ul>
                         {#each rewardDetails as detail (detail.id)}
@@ -913,25 +939,28 @@
                             <div class="item-info">
                               <span class="item-title">{label}</span>
                               <span class="item-sub">
-                                {detail.amount} шт. • {formatPerCraft(detail.perCraft)}
+                                {t('craft.results.perCraftSub', locale)
+                                  .replace('{amount}', String(detail.amount))
+                                  .replace('{unit}', t('craft.unit.pieces', locale))
+                                  .replace('{perCraft}', formatPerCraft(detail.perCraft))}
                               </span>
                             </div>
                             <div class="item-odds">
                               <span>{formatPerCraft(detail.perCraft)}</span>
                               <span class="item-odds__raw">
-                                {totalMain > 0 ? formatPercent(detail.share) : '—'} от дропа
+                                {t('craft.results.shareOfDrop', locale).replace('{pct}', totalMain > 0 ? formatPercent(detail.share) : '—')}
                               </span>
                             </div>
                           </li>
                         {/each}
                       </ul>
                     {:else}
-                      <p class="empty">Наград нет — попробуйте увеличить количество крафтов.</p>
+                      <p class="empty">{t('craft.results.noMainRewards', locale)}</p>
                     {/if}
                   </div>
 
                   <div>
-                    <h5>Дополнительные награды</h5>
+                    <h5>{t('craft.results.incentiveRewardsTitle', locale)}</h5>
                     {#if incentiveDetails.length > 0}
                       <ul>
                         {#each incentiveDetails as detail (detail.id)}
@@ -948,21 +977,24 @@
                             <div class="item-info">
                               <span class="item-title">{label}</span>
                               <span class="item-sub">
-                                {detail.amount} шт. • {formatPercent(detail.perCraft)} за крафт
+                                {t('craft.results.incentivePerCraftSub', locale)
+                                  .replace('{amount}', String(detail.amount))
+                                  .replace('{unit}', t('craft.unit.pieces', locale))
+                                  .replace('{pct}', formatPercent(detail.perCraft))}
                               </span>
                             </div>
                           </li>
                         {/each}
                       </ul>
                     {:else}
-                      <p class="empty">Дополнительные награды не выпали.</p>
+                      <p class="empty">{t('craft.results.noIncentiveRewards', locale)}</p>
                     {/if}
                   </div>
                 </div>
 
                 {#if state.result.log.length > 0}
                   <div class="results-log">
-                    <h5>Текстовый лог</h5>
+                    <h5>{t('craft.results.log', locale)}</h5>
                     <ul>
                       {#each state.result.log as line, index}
                         <li>

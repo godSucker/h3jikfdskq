@@ -13,6 +13,7 @@ import starRaw from '@/data/simulators/CRAFT/star.txt?raw'
 import incentiveRaw from '@/data/simulators/CRAFT/incentreward.txt?raw'
 import mutantNamesData from '@/data/mutant_names.json'
 import { textureUrl } from '@/lib/texture-cdn'
+import type { Locale } from '@/lib/i18n'
 
 export type CraftCategory = 'blackhole' | 'lab' | 'orb' | 'star'
 
@@ -775,9 +776,26 @@ export function getRewardChance(reward: CraftReward, recipe: CraftRecipe): numbe
   return reward.odds / totalOdds
 }
 
-export function formatDurationMinutes(minutes: number): string {
+// Короткие единицы длительности - не игровые данные, обычная UI-обвязка
+// (как STAR_LABEL/TIER_ADJ_TO_KEY), поэтому переведено напрямую, без
+// официального источника Kobojo (для длительности его и нет).
+const DURATION_UNITS: Record<Locale, { instant: string; day: string; hour: string; min: string }> =
+  {
+    ru: { instant: 'мгновенно', day: 'д', hour: 'ч', min: 'мин' },
+    en: { instant: 'instant', day: 'd', hour: 'h', min: 'min' },
+    es: { instant: 'instantáneo', day: 'd', hour: 'h', min: 'min' },
+    fr: { instant: 'instantané', day: 'j', hour: 'h', min: 'min' },
+    de: { instant: 'sofort', day: 'T', hour: 'Std', min: 'Min' },
+    pt: { instant: 'instantâneo', day: 'd', hour: 'h', min: 'min' },
+    it: { instant: 'istantaneo', day: 'g', hour: 'h', min: 'min' },
+    tr: { instant: 'anlık', day: 'g', hour: 's', min: 'dk' },
+    nl: { instant: 'direct', day: 'd', hour: 'u', min: 'min' },
+  }
+
+export function formatDurationMinutes(minutes: number, locale: Locale = 'ru'): string {
+  const units = DURATION_UNITS[locale] ?? DURATION_UNITS.ru
   if (minutes <= 0) {
-    return 'мгновенно'
+    return units.instant
   }
 
   const days = Math.floor(minutes / (60 * 24))
@@ -785,11 +803,11 @@ export function formatDurationMinutes(minutes: number): string {
   const mins = minutes % 60
 
   const parts: string[] = []
-  if (days) parts.push(`${days} д`)
-  if (hours) parts.push(`${hours} ч`)
-  if (mins) parts.push(`${mins} мин`)
+  if (days) parts.push(`${days} ${units.day}`)
+  if (hours) parts.push(`${hours} ${units.hour}`)
+  if (mins) parts.push(`${mins} ${units.min}`)
 
-  return parts.join(' ') || 'мгновенно'
+  return parts.join(' ') || units.instant
 }
 
 export function getBonusRange(recipes: CraftRecipe[]): { min: number; max: number } {
