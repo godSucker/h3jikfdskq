@@ -105,6 +105,9 @@ const TIER_ADJ_TO_KEY: Record<string, string> = {
   платиновый: 'platinum',
   платиновая: 'platinum',
   платиновые: 'platinum',
+  // "брозновый" - опечатка в исходных RU-данных ("Брозновый Шнайдер"),
+  // единственное вхождение - алиас на bronze, не новая форма слова.
+  брозновый: 'bronze',
 }
 
 const SHOP_TEMPLATE: Partial<Record<Locale, string>> = {
@@ -127,6 +130,20 @@ const PVP_TEMPLATE: Partial<Record<Locale, string>> = {
   it: 'PVP: Stagione {n}',
   tr: 'PVP: Sezon {n}',
   nl: 'PVP: Seizoen {n}',
+}
+
+// Второй вариант pvp-записи (без номера сезона) - "Награда за прогресс в
+// ПВП/арене". Авторский UI-текст сайта (не игровые данные), как и
+// PVP_TEMPLATE выше.
+const PVP_PROGRESS_LABEL: Partial<Record<Locale, string>> = {
+  en: 'PVP/Arena progress reward',
+  es: 'Recompensa de progreso en PVP/Arena',
+  fr: 'Récompense de progression PVP/Arène',
+  de: 'PVP/Arena-Fortschrittsbelohnung',
+  pt: 'Recompensa de progresso em PVP/Arena',
+  it: 'Ricompensa di progresso PVP/Arena',
+  tr: 'PVP/Arena İlerleme Ödülü',
+  nl: 'PVP/Arena-voortgangsbeloning',
 }
 
 // Зал обмена: "N {описание жетонов}". Закрытый список - 10 уникальных
@@ -1187,6 +1204,24 @@ const MUTANT_ID_BY_RU_NAME: Record<string, string> = Object.fromEntries(
   (mutants as Array<{ id: string; name: string }>).map((m) => [m.name, m.id]),
 )
 
+// Точечные алиасы для payload'ов obtain.json, где имя мутанта встречается
+// НЕ в именительном падеже (русская грамматика бандлов - "Пакет
+// Мегастрала" = родительный падеж от "Мегастрал") или на другом языке
+// (Specimen_FB_05 в RU-каноне - "Аццкий металл", но конкретно в этом
+// bundle-payload использовано игровое EN-имя "Bones 'n' Roses" - см.
+// names.en.json). Верифицировано по mutants.json/names.en.json, не
+// придумано - тот же принцип, что declined/alt-name резолв везде выше.
+const MUTANT_ID_BY_PAYLOAD_ALIAS: Record<string, string> = {
+  Центавра: 'specimen_ae_09', // родительный от "Центавр"
+  Мегастрала: 'specimen_ee_09', // родительный от "Мегастрал"
+  'Мага-дракона': 'specimen_fd_09', // родительный от "Маг-дракон"
+  'Bones ‘n’ Roses': 'specimen_fb_05', // EN игровое имя вместо RU "Аццкий металл"
+}
+
+function mutantIdByAnyName(name: string): string | undefined {
+  return MUTANT_ID_BY_RU_NAME[name] ?? MUTANT_ID_BY_PAYLOAD_ALIAS[name]
+}
+
 const SKIN_LABEL_DICT: Partial<Record<Locale, string>> = {
   en: 'skin',
   es: 'skin',
@@ -1402,6 +1437,149 @@ const WRAPPER_RULES: WrapperRule[] = [
       it: 'Pacchetto veterano "{NAME}"',
       tr: 'Kıdemli Paketi "{NAME}"',
       nl: 'Veteranenpakket "{NAME}"',
+    }),
+  },
+  // Ниже - варианты уже существующих правил выше (сокращение/род/лишний
+  // токен в RU-payload'е), найдены живым тестом на остатке 3.7%
+  // непереведённых записей obtain.json (2026-08-15). Шаблоны переиспользуют
+  // тот же перевод, что и канонический вариант, а не изобретают новый.
+  {
+    // "Зимн. золот. X" - сокращённый вариант "Зимний золотой X".
+    re: /^Зимн\.\s*золот\.\s*(.+)$/,
+    build: wrap({
+      en: 'Winter Gold {NAME}',
+      es: 'Oro de invierno {NAME}',
+      fr: 'Or hivernal {NAME}',
+      de: 'Wintergold-{NAME}',
+      pt: 'Ouro de inverno {NAME}',
+      it: 'Oro invernale {NAME}',
+      tr: 'Kış Altın {NAME}',
+      nl: 'Wintergoud {NAME}',
+    }),
+  },
+  {
+    // "Зимняя золотая X" - женский род "Зимний золотой X".
+    re: /^Зимняя золотая (.+)$/,
+    build: wrap({
+      en: 'Winter Gold {NAME}',
+      es: 'Oro de invierno {NAME}',
+      fr: 'Or hivernal {NAME}',
+      de: 'Wintergold-{NAME}',
+      pt: 'Ouro de inverno {NAME}',
+      it: 'Oro invernale {NAME}',
+      tr: 'Kış Altın {NAME}',
+      nl: 'Wintergoud {NAME}',
+    }),
+  },
+  {
+    // "Золотая X Хеллоуина" - женский род "Золотой X Хеллоуина".
+    re: /^Золотая (.+) Хеллоуина$/,
+    build: wrap({
+      en: 'Halloween Gold {NAME}',
+      es: '{NAME} dorado de Halloween',
+      fr: 'Halloween Or {NAME}',
+      de: 'Halloween-Gold-{NAME}',
+      pt: 'Halloween Ouro {NAME}',
+      it: 'Halloween Oro {NAME}',
+      tr: 'Cadılar Bayramı Altın {NAME}',
+      nl: 'Halloween Goud {NAME}',
+    }),
+  },
+  {
+    // "1 апреля золотой X" - "1 апреля" уже официально переведено как имя
+    // скина (см. skins-i18n.json, тот же ключ "aprilfools" в gacha.xml).
+    re: /^1 апреля золотой (.+)$/,
+    build: wrap({
+      en: 'April 1st Gold {NAME}',
+      es: 'Oro del 1 de abril {NAME}',
+      fr: 'Or 1er Avril {NAME}',
+      de: '1. April Gold {NAME}',
+      pt: 'Ouro 1º de abril {NAME}',
+      it: 'Oro 1 Aprile {NAME}',
+      tr: '1 Nisan Altın {NAME}',
+      nl: '1 april Goud {NAME}',
+    }),
+  },
+  {
+    // "Октоберфеста Золотой X" - Oktoberfest уже официально переведено как
+    // имя скина (см. skins-i18n.json, ключ "oktoberfest").
+    re: /^Октоберфеста Золотой (.+)$/,
+    build: wrap({
+      en: 'Oktoberfest Gold {NAME}',
+      es: 'Oktoberfest Oro {NAME}',
+      fr: 'Oktoberfest Or {NAME}',
+      de: 'Oktoberfest Gold {NAME}',
+      pt: 'Oktoberfest Ouro {NAME}',
+      it: 'Oktoberfest Oro {NAME}',
+      tr: 'Oktoberfest Altın {NAME}',
+      nl: 'Oktoberfest Goud {NAME}',
+    }),
+  },
+  {
+    // Голое "Пакет X" (без кавычек) - тот же перевод, что квотированный
+    // "Пакет «X»" выше, просто без кавычек в источнике.
+    re: /^Пакет (.+)$/,
+    build: wrap({
+      en: 'Pack {NAME}',
+      es: 'Paquete {NAME}',
+      fr: 'Pack {NAME}',
+      de: 'Paket {NAME}',
+      pt: 'Pacote {NAME}',
+      it: 'Pacchetto {NAME}',
+      tr: '{NAME} Paketi',
+      nl: 'Pakket {NAME}',
+    }),
+  },
+  {
+    re: /^Суперпакет (.+)$/,
+    build: wrap({
+      en: 'Super Pack {NAME}',
+      es: 'Superpaquete {NAME}',
+      fr: 'Super Pack {NAME}',
+      de: 'Superpaket {NAME}',
+      pt: 'Superpacote {NAME}',
+      it: 'Superpacchetto {NAME}',
+      tr: 'Süper {NAME} Paketi',
+      nl: 'Superpakket {NAME}',
+    }),
+  },
+  {
+    re: /^Элитный пакет (.+)$/,
+    build: wrap({
+      en: 'Elite Pack {NAME}',
+      es: 'Paquete de élite {NAME}',
+      fr: 'Pack élite {NAME}',
+      de: 'Elite-Paket {NAME}',
+      pt: 'Pacote de elite {NAME}',
+      it: 'Pacchetto elite {NAME}',
+      tr: 'Elit {NAME} Paketi',
+      nl: 'Elitepakket {NAME}',
+    }),
+  },
+  {
+    re: /^Паладин (.+)$/,
+    build: wrap({
+      en: 'Paladin {NAME}',
+      es: 'Paladín {NAME}',
+      fr: 'Paladin {NAME}',
+      de: 'Paladin {NAME}',
+      pt: 'Paladino {NAME}',
+      it: 'Paladino {NAME}',
+      tr: 'Paladin {NAME}',
+      nl: 'Paladijn {NAME}',
+    }),
+  },
+  {
+    re: /^Демонический (.+)$/,
+    build: wrap({
+      en: 'Demonic {NAME}',
+      es: 'Demoníaco {NAME}',
+      fr: 'Démoniaque {NAME}',
+      de: 'Dämonischer {NAME}',
+      pt: 'Demoníaco {NAME}',
+      it: 'Demoniaco {NAME}',
+      tr: 'Şeytani {NAME}',
+      nl: 'Demonische {NAME}',
     }),
   },
 ]
@@ -2452,6 +2630,30 @@ const FREEFORM_PAYLOAD_DICT: Record<string, Partial<Record<Locale, string>>> = {
     tr: 'Geliştirilmiş "Zombi" Konteyneri',
     nl: 'Verbeterde Container "Zombie"',
   },
+  // "Рубака" = "Saber" - подтверждено официально через itemId LuckyBox_Saber_Elite
+  // (уже резолвится в obtain-names.{lang}.json), слово выделено диффом против
+  // LuckyBox_Necro_Elite/LuckyBox_Galactic_Elite в том же шаблоне "Elite Mystery
+  // Box <X>", не придумано.
+  'Усиленный контейнер «Рубака»': {
+    en: 'Enhanced Container "Saber"',
+    es: 'Contenedor mejorado "Sable"',
+    fr: 'Conteneur amélioré « Sabre »',
+    de: 'Verstärkter Container „Säbelrassler“',
+    pt: 'Contêiner aprimorado "Sabre"',
+    it: 'Contenitore potenziato "Sciabola"',
+    tr: 'Geliştirilmiş "Süvari" Konteyneri',
+    nl: 'Verbeterde Container "Sabel"',
+  },
+  Рубакаконтейнер: {
+    en: 'container "Saber"',
+    es: 'contenedor "Sable"',
+    fr: '« Sabre »',
+    de: 'Container „Säbelrassler“',
+    pt: 'contêiner "Sabre"',
+    it: 'contenitore "Sciabola"',
+    tr: '"Süvari" konteyneri',
+    nl: 'container "Sabel"',
+  },
   'Эксклюзивный пакет': {
     en: 'Exclusive Pack',
     es: 'Paquete exclusivo',
@@ -2523,7 +2725,7 @@ function resolveTierName(
   if (!m) return null
   const tierKey = TIER_ADJ_TO_KEY[m[1].toLowerCase()]
   if (!tierKey) return null
-  const mutantId = MUTANT_ID_BY_RU_NAME[m[2]]
+  const mutantId = mutantIdByAnyName(m[2])
   if (!mutantId) return null
   const name = mutantNames[mutantId]?.name ?? m[2]
   return `${tierLabel(m[1], tierKey, locale)} ${name}`
@@ -2537,7 +2739,7 @@ function resolveWrapperName(
   for (const rule of WRAPPER_RULES) {
     const m = payload.match(rule.re)
     if (!m) continue
-    const mutantId = MUTANT_ID_BY_RU_NAME[m[1]]
+    const mutantId = mutantIdByAnyName(m[1])
     if (!mutantId) continue
     const name = mutantNames[mutantId]?.name ?? m[1]
     return rule.build(name, locale)
@@ -2551,7 +2753,7 @@ function resolvePayloadName(
   mutantNames: Record<string, { name: string }>,
 ): string | null {
   // Голое имя мутанта без тира/обёртки ("Набор: Андроид (120 золота)").
-  const bareMutantId = MUTANT_ID_BY_RU_NAME[payload]
+  const bareMutantId = mutantIdByAnyName(payload)
   if (bareMutantId) return mutantNames[bareMutantId]?.name ?? payload
 
   return (
@@ -2577,9 +2779,14 @@ function renderBundleBoxWhere(
   const suffixRaw = suffixMatch?.[1]
   const payload = suffixMatch ? rest.slice(0, suffixMatch.index).trim() : rest.trim()
 
-  const translatedName = entry.itemId
-    ? obtainNames[entry.itemId]
-    : resolvePayloadName(payload, locale, mutantNames)
+  // itemId - приоритетный источник (официальная локализация), но когда его
+  // нет в словаре (напр. trigger-offer id вида "#winGene-e-Specimen_AD_01" -
+  // не настоящий shop-itemId, см. память obtain-trigger-offer-names-fixed) -
+  // падаем на резолв по самому RU-payload'у ("Жукобот" - обычное имя
+  // мутанта), а не сразу сдаёмся на голый RU.
+  const translatedName =
+    (entry.itemId ? obtainNames[entry.itemId] : undefined) ??
+    resolvePayloadName(payload, locale, mutantNames)
   if (!translatedName) return entry.where
 
   const prefix = prefixRu
@@ -2645,6 +2852,9 @@ export function renderObtainWhere(
   }
 
   if (entry.type === 'pvp') {
+    if (entry.where === 'Награда за прогресс в ПВП/арене') {
+      return PVP_PROGRESS_LABEL[locale] ?? PVP_PROGRESS_LABEL.en ?? entry.where
+    }
     const m = entry.where.match(/^PVP: Сезон (\d+)$/)
     if (!m) return entry.where
     const tpl = PVP_TEMPLATE[locale] ?? PVP_TEMPLATE.en

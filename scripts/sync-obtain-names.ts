@@ -37,7 +37,9 @@ function balanceQuotes(name: string): string {
   return open > close ? name + '»'.repeat(open - close) : name
 }
 
-async function loadLocMap(locale: string): Promise<Map<string, string>> {
+async function loadLocMap(
+  locale: string,
+): Promise<{ loc: Map<string, string>; locLower: Map<string, string> }> {
   const res = await axios.get<string>(LOC_URL(locale), { responseType: 'text' })
   const loc = new Map<string, string>()
   const locLower = new Map<string, string>()
@@ -49,10 +51,21 @@ async function loadLocMap(locale: string): Promise<Map<string, string>> {
     loc.set(key, val)
     if (!locLower.has(key.toLowerCase())) locLower.set(key.toLowerCase(), val)
   }
-  // Регистронезависимый фолбэк слит в один Map для простоты - точный ключ
-  // всегда предпочтителен (см. lookup() ниже, дублирует приём build-boxes.ts).
-  for (const [k, v] of locLower) if (!loc.has(k)) loc.set(k, v)
-  return loc
+  return { loc, locLower }
+}
+
+// Локализация регистро-непоследовательна относительно itemId в shopitems.xml
+// (Pack_Bone в shopitems.xml/obtain.json, pack_bone в localisation_*.txt) -
+// точный ключ предпочтителен, регистронезависимый - фолбэк (тот же приём,
+// что build-boxes.ts's lookup()). Раньше здесь был баг: lowercase-варианты
+// сливались В loc заранее, но loc.get(itemId) искал исходным регистром и
+// никогда не попадал на слитый lowercase-ключ - фолбэк не работал.
+function lookup(
+  loc: Map<string, string>,
+  locLower: Map<string, string>,
+  key: string,
+): string | undefined {
+  return loc.get(key) ?? locLower.get(key.toLowerCase())
 }
 
 async function main() {
@@ -76,7 +89,7 @@ async function main() {
 
   for (const locale of LOCALES) {
     console.log(`[${locale}] Загрузка localisation_${locale}.txt...`)
-    const [loc, mutantNames] = await Promise.all([
+    const [{ loc, locLower }, mutantNames] = await Promise.all([
       loadLocMap(locale),
       fs
         .readFile(NAMES_PATH(locale), 'utf-8')
@@ -99,7 +112,7 @@ async function main() {
           continue
         }
       }
-      const val = loc.get(itemId)
+      const val = lookup(loc, locLower, itemId)
       if (val) {
         names[itemId] = balanceQuotes(val)
       } else {
