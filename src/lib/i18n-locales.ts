@@ -30,6 +30,7 @@ export const TRANSLATED_PATHS = [
   '/materials/charms',
   '/materials/orbs',
   '/bingo',
+  '/boxes',
 ] as const
 
 // Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS

@@ -560,5 +560,21 @@
   "bingo.part": "Bölüm",
   "bingo.rewards": "Ödüller",
   "bingo.share.copied": "Kopyalandı!",
-  "bingo.share.promptLabel": "Bağlantıyı kopyalayın:"
+  "bingo.share.promptLabel": "Bağlantıyı kopyalayın:",
+  "boxes.pageTitle": "Kutular",
+  "boxes.pageDescription": "Mutants Genetic Gladiators lucky box ve mystery box kataloğu: simgeler, tierlar ve her kutudan çıkabilecek mutantların tam listesi.",
+  "boxes.subtitle": "{count} kutu mağazada şimdiye kadar satıldı. Tam listeyi görmek için bir kutuya tıkla.",
+  "boxes.searchPlaceholder": "Kutu ara…",
+  "boxes.categoryAll": "Tümü",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Hiçbir şey bulunamadı — başka bir arama dene.",
+  "boxes.closeAria": "Kapat",
+  "boxes.mutantsInDropList": "Listedeki mutant sayısı: {n}",
+  "boxes.guaranteedTitle": "Pakette garanti",
+  "boxes.drawTitle": "Çekiliş",
+  "boxes.skinTitle": "Skin: {skin}",
+  "boxes.skinLabel": "\"{skin}\" skini",
+  "boxes.count.reward.one": "ödül",
+  "boxes.count.reward.other": "ödül"
 }

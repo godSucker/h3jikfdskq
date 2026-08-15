@@ -560,5 +560,21 @@
   "bingo.part": "Parte",
   "bingo.rewards": "Recompensas",
   "bingo.share.copied": "Copiado!",
-  "bingo.share.promptLabel": "Copie o link:"
+  "bingo.share.promptLabel": "Copie o link:",
+  "boxes.pageTitle": "Caixas",
+  "boxes.pageDescription": "Catálogo de caixas lucky e mystery de Mutants Genetic Gladiators: ícones, tiers e a lista completa de mutantes que podem sair de cada caixa.",
+  "boxes.subtitle": "{count} caixas já vendidas na loja. Clique em uma caixa para ver a lista completa.",
+  "boxes.searchPlaceholder": "Buscar caixa…",
+  "boxes.categoryAll": "Todas",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Nada encontrado — tente outra busca.",
+  "boxes.closeAria": "Fechar",
+  "boxes.mutantsInDropList": "Mutantes na lista: {n}",
+  "boxes.guaranteedTitle": "Garantido no pacote",
+  "boxes.drawTitle": "Sorteio",
+  "boxes.skinTitle": "Skin: {skin}",
+  "boxes.skinLabel": "skin «{skin}»",
+  "boxes.count.reward.one": "recompensa",
+  "boxes.count.reward.other": "recompensas"
 }

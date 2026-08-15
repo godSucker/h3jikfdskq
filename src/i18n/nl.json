@@ -560,5 +560,21 @@
   "bingo.part": "Deel",
   "bingo.rewards": "Beloningen",
   "bingo.share.copied": "Gekopieerd!",
-  "bingo.share.promptLabel": "Kopieer de link:"
+  "bingo.share.promptLabel": "Kopieer de link:",
+  "boxes.pageTitle": "Boxen",
+  "boxes.pageDescription": "Catalogus van lucky box en mystery box van Mutants Genetic Gladiators: iconen, tiers en de volledige droplijst van elke box.",
+  "boxes.subtitle": "{count} boxen die ooit in de winkel zijn verkocht. Klik op een box voor de volledige lijst.",
+  "boxes.searchPlaceholder": "Box zoeken…",
+  "boxes.categoryAll": "Alle",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Niets gevonden — probeer een andere zoekopdracht.",
+  "boxes.closeAria": "Sluiten",
+  "boxes.mutantsInDropList": "Mutanten in de lijst: {n}",
+  "boxes.guaranteedTitle": "Gegarandeerd in het pakket",
+  "boxes.drawTitle": "Trekking",
+  "boxes.skinTitle": "Skin: {skin}",
+  "boxes.skinLabel": "skin \"{skin}\"",
+  "boxes.count.reward.one": "beloning",
+  "boxes.count.reward.other": "beloningen"
 }

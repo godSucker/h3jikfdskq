@@ -75,16 +75,19 @@ export function t(key: string, locale: Locale): string {
 }
 
 // RU: один/пять форм (один мутант/два мутантА/пять мутантОВ), EN/ES/FR: singular/plural.
-export function pluralizeCount(n: number, locale: Locale): string {
+// keyPrefix позволяет переиспользовать логику для других существительных
+// (см. `boxes.count.reward.*` в /boxes) - по умолчанию `mutants.count.*`,
+// как было изначально.
+export function pluralizeCount(n: number, locale: Locale, keyPrefix = 'mutants.count'): string {
   if (locale === 'ru') {
     const mod10 = n % 10
     const mod100 = n % 100
-    if (mod10 === 1 && mod100 !== 11) return t('mutants.count.one', locale)
+    if (mod10 === 1 && mod100 !== 11) return t(`${keyPrefix}.one`, locale)
     if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20))
-      return t('mutants.count.few', locale)
-    return t('mutants.count.many', locale)
+      return t(`${keyPrefix}.few`, locale)
+    return t(`${keyPrefix}.many`, locale)
   }
-  return n === 1 ? t('mutants.count.one', locale) : t('mutants.count.other', locale)
+  return n === 1 ? t(`${keyPrefix}.one`, locale) : t(`${keyPrefix}.other`, locale)
 }
 
 // Локаль текущей страницы для .astro (Astro.currentLocale) и Svelte-компонентов

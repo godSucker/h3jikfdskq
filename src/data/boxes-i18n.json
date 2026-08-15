@@ -1,0 +1,1761 @@
+{
+  "pack_daily_luckybox_mythic": {
+    "en": "Mythic Box Offer",
+    "es": "Oferta Caja Mítica",
+    "fr": "Offre Boîte Mythique",
+    "de": "Angebot Mythische Box",
+    "pt": "Oferta de caixa mítica",
+    "it": "Offerta Scatola Mitico",
+    "tr": "Mitik Kutu Fırsatı",
+    "nl": "Mythische Doos Aanbieding"
+  },
+  "LuckyBox_Saber_V3_2": {
+    "en": "Mystery Box Offer",
+    "es": "Oferta de Caja Misteriosa",
+    "fr": "Offre Boite Mystère",
+    "de": "Mystery-Box-Angebot",
+    "pt": "Oferta da Caixa Misteriosa",
+    "it": "Offerta Scatola Misteriosa",
+    "tr": "Gizemli Kutu Fırsatı",
+    "nl": "Aanbieding Geheime Doos"
+  },
+  "luckybox_research_iv_2": {
+    "en": "Research IV Chest",
+    "es": "Cofre Investigación IV",
+    "fr": "Coffre Recherche IV",
+    "de": "Suche IV Truhe",
+    "pt": "Cofre Pesquisa IV",
+    "it": "Scrigno Ricerca IV",
+    "tr": "Araştırma IV Sandığı",
+    "nl": "Onderzoek IV Kist"
+  },
+  "Lucky_Box_Basic_1": {
+    "en": "Mystery Box",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte Mystère",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "LuckyBox_Fight": {
+    "en": "Baron Urban's Box",
+    "es": "Caja del Barón Urban",
+    "fr": "Coffre de Baron Urban",
+    "de": "Baron Urbans Truhe",
+    "pt": "Caixa Barão Urbano",
+    "it": "Scatola di Baron Urban",
+    "tr": "Baron Urban'ın Kutusu",
+    "nl": "Baron Urbans Doos"
+  },
+  "LuckyBox_Breeding": {
+    "en": "Darwin's Box",
+    "es": "Caja de Darwin",
+    "fr": "Coffre de Darwin",
+    "de": "Darwins Truhe",
+    "pt": "Caixa do Darwin",
+    "it": "Scatola di Darwin",
+    "tr": "Darvin'in Kutusu",
+    "nl": "Darwins Doos"
+  },
+  "Lucky_Box_Bingo_2_old": {
+    "en": "Research II Chest",
+    "es": "Cofre Investigación II",
+    "fr": "Coffre Recherche II",
+    "de": "Suche II Truhe",
+    "pt": "Cofre Pesquisa II",
+    "it": "Scrigno Ricerca II",
+    "tr": "Araştırma II Sandığı",
+    "nl": "Onderzoek II Kist"
+  },
+  "Galactic_Box": {
+    "en": "Galactic Chest",
+    "es": "Cofre Galáctico",
+    "fr": "Coffre Galactique",
+    "de": "Galaktische Truhe",
+    "pt": "Cofre Galáctico",
+    "it": "Scrigno Galattico",
+    "tr": "Galaktik Sandık",
+    "nl": "Galactische koffer"
+  },
+  "Lucky_Box_6": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Mutanten-Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Lucky_Box_5": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Mutanten-Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Lucky_Box_4": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Mutanten-Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Lucky_Box_3": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Mutanten-Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Lucky_Box_2": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Mutanten-Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Lucky_Box_1": {
+    "en": "Mutant Mystery Madness",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte de la Chance",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Anniversary_Box_6": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_5": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_4": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_3": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_2": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_1": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "Anniversary_Box_Mystery": {
+    "en": "Anniversary Box",
+    "es": "Caja Aniversario",
+    "fr": "Boîte Anniversaire",
+    "de": "Geburtstagsbox",
+    "pt": "Caixa Aniversário",
+    "it": "Scatola anniversario",
+    "tr": "Yıldönümü Kutusu",
+    "nl": "Verjaardagsbox"
+  },
+  "LuckyBox_Xmas_bronze": {
+    "en": "Bronze Christmas Chest",
+    "es": "Cofre Navidad Bronce",
+    "fr": "Coffre de Noël Bronze",
+    "de": "Bronzefarbene Weihnachtstruhe",
+    "pt": "Cofre de Natal Bronze",
+    "it": "Scrigno di Natale Bronzo",
+    "tr": "Bronz Noel hediyesi",
+    "nl": "Bronzen Kerstcassette"
+  },
+  "LuckyBox_Xmas_gold": {
+    "en": "Gold Christmas Chest",
+    "es": "Cofre Navidad Oro",
+    "fr": "Coffre de Noël Or",
+    "de": "Goldene Weihnachtstruhe",
+    "pt": "Cofre de Natal Ouro",
+    "it": "Scrigno di Natale Oro",
+    "tr": "Altın Noel hediyesi",
+    "nl": "Gouden Kerstcassette"
+  },
+  "LuckyBox_Zodiac": {
+    "en": "Zodiac Mystery Box",
+    "es": "Caja Misteriosa Zodiaco",
+    "fr": "Boîte Mystère Zodiaque",
+    "de": "Zodiakus Mystery-Box",
+    "pt": "Caixa Mistério Zodíaco",
+    "it": "Scatola Misteriosa Zodiaco",
+    "tr": "Burç Gizem Kutusu",
+    "nl": "Zodiak Geheime Doos"
+  },
+  "LuckyBox_Legendary_1": {
+    "en": "Legendary Box",
+    "es": "Caja Legendaria",
+    "fr": "Coffre Légendaire",
+    "de": "Legendäre-Box",
+    "pt": "Caixa Lendária",
+    "it": "Scatola Leggendario",
+    "tr": "Efsanevi Kutusu",
+    "nl": "Legendarische box"
+  },
+  "LuckyBox_Saber": {
+    "en": "Saber Box",
+    "es": "Caja Sable",
+    "fr": "Boîte Sabre",
+    "de": "Säbelrassler-Box",
+    "pt": "Caixa Sabre",
+    "it": "Scatola Sciabola",
+    "tr": "Süvari Kutusu",
+    "nl": "Sabelbox"
+  },
+  "LuckyBox_Cyber": {
+    "en": "Legendary Cyber Box",
+    "es": "Caja Ciber Legendaria",
+    "fr": "Boîte Cyber Légendaire",
+    "de": "Legendäre Cyber-Box",
+    "pt": "Caixa Ciber Lendária",
+    "it": "Scatola Cyber Leggendario",
+    "tr": "Efsanevi Siber Kutusu",
+    "nl": "Legendarische Cyberbox"
+  },
+  "LuckyBox_Girls": {
+    "en": "Fighter Girls Box",
+    "es": "Caja Luchadoras",
+    "fr": "Coffre Combatante",
+    "de": "Kämpferinnen-Truhe",
+    "pt": "Caixa Meninas Combatente",
+    "it": "Scatola Lottatrici",
+    "tr": "Dövüşçü Kızlar Kutusu",
+    "nl": "Gevechtsmeidendoos"
+  },
+  "LuckyBox_Speed": {
+    "en": "Very Fast Mutants Box",
+    "es": "Cofre de Mutantes Muy Rápidos",
+    "fr": "Coffre aux Mutants Très Rapide",
+    "de": "Speed Mutanten-Box",
+    "pt": "Cofre de Mutantes Velozes",
+    "it": "Scatola Mutanti Molto Veloci",
+    "tr": "Yıldırım Mutantlar Kutusu",
+    "nl": "Snelle Mutanten Doos"
+  },
+  "LuckyBox_Tank": {
+    "en": "Tank Mutants Box",
+    "es": "Cofre de Mutantes Acorazados",
+    "fr": "Coffre aux Mutants Tank",
+    "de": "Tank Mutanten-Box",
+    "pt": "Cofre de Mutantes Tank",
+    "it": "Scatola Mutanti Tank",
+    "tr": "Tank Mutantlar Kutusu",
+    "nl": "Tank Mutanten Doos"
+  },
+  "LuckyBox_Anniversary_SC": {
+    "en": "Bronze Legends Anniversary Chest",
+    "es": "Cofre Aniversario Leyendas Bronce",
+    "fr": "Coffre Anniversaire Légendes Bronze",
+    "de": "Geburtstagsbox Bronze-Legenden",
+    "pt": "Cofre Aniversário Lendas Bronze",
+    "it": "Scrigno Anniversario Leggende Bronzo",
+    "tr": "Bronz Efsaneler Yıldönümü Sandığı",
+    "nl": "Verjaardagskoffer Bronzen Legenden"
+  },
+  "LuckyBox_Anniversary_HC": {
+    "en": "Gold Legends Anniversary Chest",
+    "es": "Cofre Aniversario Leyendas Oro",
+    "fr": "Coffre Anniversaire Légendes Or",
+    "de": "Geburtstagsbox Gold-Legenden",
+    "pt": "Cofre Aniversário Lendas Ouro",
+    "it": "Scrigno Anniversario Leggende Oro",
+    "tr": "Altın Efsaneler Yıldönümü Sandığı",
+    "nl": "Verjaardagskoffer Gouden Legenden"
+  },
+  "Lucky_Box_Bingo_3_Old": {
+    "en": "Research III Chest",
+    "es": "Cofre Investigación III",
+    "fr": "Coffre Recherche III",
+    "de": "Suche III Truhe",
+    "pt": "Cofre Pesquisa III",
+    "it": "Scrigno Ricerca III",
+    "tr": "Araştırma III Sandığı",
+    "nl": "Onderzoek III Kist"
+  },
+  "Lucky_Box_Bingo_3": {
+    "en": "Research III Chest",
+    "es": "Cofre Investigación III",
+    "fr": "Coffre Recherche III",
+    "de": "Suche III Truhe",
+    "pt": "Cofre Pesquisa III",
+    "it": "Scrigno Ricerca III",
+    "tr": "Araştırma III Sandığı",
+    "nl": "Onderzoek III Kist"
+  },
+  "Lucky_Box_Bingo_2": {
+    "en": "Research II Chest",
+    "es": "Cofre Investigación II",
+    "fr": "Coffre Recherche II",
+    "de": "Suche II Truhe",
+    "pt": "Cofre Pesquisa II",
+    "it": "Scrigno Ricerca II",
+    "tr": "Araştırma II Sandığı",
+    "nl": "Onderzoek II Kist"
+  },
+  "Lucky_Box_Bingo_1": {
+    "en": "Research I Chest",
+    "es": "Cofre Investigación I",
+    "fr": "Coffre Recherche I",
+    "de": "Suche I Truhe",
+    "pt": "Cofre Pesquisa I",
+    "it": "Scrigno Ricerca I",
+    "tr": "Araştırma I Sandığı",
+    "nl": "Onderzoek I Kist"
+  },
+  "LuckyBox_Saber_V2": {
+    "en": "Saber Box",
+    "es": "Caja Sable",
+    "fr": "Boîte Sabre",
+    "de": "Säbelrassler-Box",
+    "pt": "Caixa Sabre",
+    "it": "Scatola Sciabola",
+    "tr": "Süvari Kutusu",
+    "nl": "Sabelbox"
+  },
+  "LuckyBox_Legend_Bronze": {
+    "en": "Legendary Box Bronze",
+    "es": "Caja Legendaria Bronce",
+    "fr": "Boite Légendaire Bronze",
+    "de": "Legendäre Box, Bronze",
+    "pt": "Caixa Lendária Bronze",
+    "it": "Scatola Leggendario Bronzo",
+    "tr": "Efsanevi Kutu Gümüş",
+    "nl": "Legendarische Bronzen Doos"
+  },
+  "LuckyBox_Legend_Gold": {
+    "en": "Legendary Box Gold",
+    "es": "Caja Legendaria Oro",
+    "fr": "Boite Légendaire Or",
+    "de": "Legendäre Box, Gold",
+    "pt": "Caixa Lendária Ouro",
+    "it": "Scatola Leggendario Oro",
+    "tr": "Efsanevi Kutu Altın",
+    "nl": "Legendarische Gouden Doos"
+  },
+  "LuckyBox_Starter": {
+    "en": "Mystery Box Starter",
+    "es": "Caja Misteriosa Iniciación",
+    "fr": "Boîte Mystère Starter",
+    "de": "Mystery-Box Starter",
+    "pt": "Caixa Mistério Starter",
+    "it": "Scatola Misteriosa Starter",
+    "tr": "Gizemli Kutu Yeni Başlayan",
+    "nl": "Starters Geheime Doos"
+  },
+  "Lucky_Box_Basic_V3": {
+    "en": "Boosted Mystery Box",
+    "es": "Caja Misteriosa Mejorada",
+    "fr": "Boîte Mystère Améliorée",
+    "de": "Verbesserte Mystery-Box",
+    "pt": "Caixa Mistério Melhorada",
+    "it": "Scatola Misteriosa Migliorata",
+    "tr": "Güçlendirilmiş Gizem Kutusu",
+    "nl": "Verbeterde Geheime Doos"
+  },
+  "LuckyBox_Legend_Gold_Duo": {
+    "en": "Gold Legendary Box x2",
+    "es": "Caja Legendaria Oro x2",
+    "fr": "Duo de Boites Légendaires Or",
+    "de": "Legendäre Gold-Box x2",
+    "pt": "Caixa Lendária x2",
+    "it": "Scatola Leggendario Oro x2",
+    "tr": "Altın Efsanevi Kutu x2",
+    "nl": "Gouden Legendarische Doos x2"
+  },
+  "lucky_box_necro_v6": {
+    "en": "Boosted Mystery Box Necro",
+    "es": "Caja Misteriosa Necro Mejorada",
+    "fr": "Boite Mystère Nécro Améliorée",
+    "de": "Verbesserte Zombie-Mystery-Box",
+    "pt": "Caixa Misteriosa Necro Melhorada",
+    "it": "Scatola Misteriosa Necro Migliorata",
+    "tr": "Güçlendirilmiş Gizem Kutusu Nekro",
+    "nl": "Verbeterde Necro Geheime Doos"
+  },
+  "golden_heroic_box": {
+    "en": "Golden Heroic Box",
+    "es": "Caja Heroica Oro",
+    "fr": "Boite Héroïque Dorée",
+    "de": "Goldene Heldenbox",
+    "pt": "Caixa heroica dourada",
+    "it": "Scatola Eroica Dorata",
+    "tr": "Altın Destansı Kutu",
+    "nl": "Gouden Heldhaftige Doos"
+  },
+  "luckybox_april_gold_2017": {
+    "en": "April's Smart Box Gold",
+    "es": "Caja de Abril Oro",
+    "fr": "Boîte Festive Gold",
+    "de": "April-Smartbox, Gold",
+    "pt": "Caixa Festiva de Ouro",
+    "it": "Scatola delle Feste Oro",
+    "tr": "Nisan'ın Akıllı Altın Kutusu",
+    "nl": "Gouden April Smart Doos"
+  },
+  "luckybox_april_bronze_2017": {
+    "en": "April's Smart Box Bronze",
+    "es": "Caja de Abril Bronce",
+    "fr": "Boîte Festive Bronze",
+    "de": "April-Smartbox, Bronze",
+    "pt": "Caixa Festiva de Bronze",
+    "it": "Scatola delle Feste Bronzo",
+    "tr": "Nisan'ın Akıllı Bronz Kutusu",
+    "nl": "Bronzen April Smart Doos"
+  },
+  "mystery_box_da_10_elite": {
+    "en": "Random Elite Hawkeye",
+    "es": "Hawkeye Élite Aleatorio",
+    "fr": "Hawkeye Élite Aléatoire",
+    "de": "Zufälliger Elite-Falkenauge",
+    "pt": "Elite Hawkeye Aleatório",
+    "it": "Hawkeye Élite a Sorpresa",
+    "tr": "Rastgele Elit Şahin Göz",
+    "nl": "Willekeurige Elite Hawkeye"
+  },
+  "mystery_box_ba_07_elite": {
+    "en": "Random Elite Peekaboo",
+    "es": "Pikabú Élite Aleatorio",
+    "fr": "Bonguiboo Élite Aléatoire",
+    "de": "Zufälliger Elite-Kuckuck",
+    "pt": "Elite Peekaboo Aleatório",
+    "it": "Bubù-settete Élite a Sorpresa",
+    "tr": "Rastgele Elit Ce-ee",
+    "nl": "Willekeurige Elite Kiekeboe"
+  },
+  "LuckyBox_Galactic": {
+    "en": "Galactic Box",
+    "es": "Caja Galáctica",
+    "fr": "Boîte Galactique",
+    "de": "Galactic Box",
+    "pt": "Caixa Galáctico",
+    "it": "Scatola Galattica",
+    "tr": "Galaktik Kutu",
+    "nl": "Galactische Doos"
+  },
+  "LuckyBox_Cyber_V3": {
+    "en": "Boosted Mystery Box Cyber",
+    "es": "Caja Misteriosa Ciber Mejorada",
+    "fr": "Boite Mystère Cyber Améliorée",
+    "de": "Verbesserte geheimnisvolle Cyber-Truhe",
+    "pt": "Caixa do Cyber Mistério Melhorada",
+    "it": "Scatola Misteriosa Cyber Migliorata",
+    "tr": "Güçlendirilmiş Gizem Kutusu Siber",
+    "nl": "Verbeterde Geheime Cyberdoos"
+  },
+  "mystery_box_be_10_elite": {
+    "en": "Random Elite Overkill",
+    "es": "Overkill Élite Aleatorio",
+    "fr": "Overkill Élite Aléatoire",
+    "de": "Zufälliger Elite-Falkenauge",
+    "pt": "Elite Matança exagerada Aleatório",
+    "it": "Overkill Élite a Sorpresa",
+    "tr": "Rastgele Elit Overkill",
+    "nl": "Willekeurige Elite Overkill"
+  },
+  "LuckyBox_Heroic_7_2": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_6_2": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_5_2": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "mystery_box_old_winter_skin": {
+    "en": "Gold Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno Oro",
+    "fr": "Boîte Mystère Hiver Or",
+    "de": "Winter-Mystery-Box Gold",
+    "pt": "Caixa Mistério Ouro Inverno",
+    "it": "Scat. Misteriosa Inverno Oro",
+    "tr": "Altın Kış Gizemli Kutu",
+    "nl": "Gouden Geheime Winterdoos"
+  },
+  "mystery_box_bd_11_elite": {
+    "en": "Random Elite Cooktouille",
+    "es": "Cooktouille Élite Aleatorio",
+    "fr": "Cooktouille Élite Aléatoire",
+    "de": "Zufälliger Elite-Cooktouille",
+    "pt": "Elite Cooktouille Aleatório",
+    "it": "Cooktouille Élite a Sorpresa",
+    "tr": "Rastgele Elit Cooktouille",
+    "nl": "Willekeurige Elite Cooktouille"
+  },
+  "mystery_box_ce_11_elite": {
+    "en": "Random Elite Chun-Lei",
+    "es": "Chun-Lei Élite Aleatorio",
+    "fr": "Chun-Lei Élite Aléatoire",
+    "de": "Zufälliger Elite-Chun-Lei",
+    "pt": "Elite Chun-Lei Aleatório",
+    "it": "Chun-Lei Élite a Sorpresa",
+    "tr": "Rastgele Elit Chun-Lei",
+    "nl": "Willekeurige Elite Chun-Lei"
+  },
+  "LuckyBox_Space_V3": {
+    "en": "Boosted Mystery Box Space",
+    "es": "Caja Misteriosa Galáctica Mejorada",
+    "fr": "Boite Mystère Galactique Améliorée",
+    "de": "Verbesserte Mystery-Box Galaxis",
+    "pt": "Caixa Misteriosa Galáctica Melhorada",
+    "it": "Scatola Misteriosa Galattica Migliorata",
+    "tr": "Güçlendirilmiş Gizem Kutusu Uzay",
+    "nl": "Verbeterde Geheime Ruimtedoos"
+  },
+  "mystery_box_ed_11_elite": {
+    "en": "Random Elite Owlock",
+    "es": "Owlock Élite Aleatorio",
+    "fr": "Owlbator Élite Aléatoire",
+    "de": "Zufälliger Elite-Eulock",
+    "pt": "Elite Owlock Aleatório",
+    "it": "Harlufo Élite a Sorpresa",
+    "tr": "Rastgele Elit Baykutant",
+    "nl": "Willekeurige Elite Owlock"
+  },
+  "LuckyBox_Zoomorph": {
+    "en": "Zoomorph Box",
+    "es": "Caja Zoomorfo",
+    "fr": "Boîte Zoomorphe",
+    "de": "Zoomorph Box",
+    "pt": "Caixa Zoomorfa",
+    "it": "Scatola zoomorfa",
+    "tr": "Hayvansı Kutusu",
+    "nl": "Zoömorf-doos"
+  },
+  "LuckyBox_Necro_v8": {
+    "en": "Boosted Mystery Box Necro",
+    "es": "Caja Misteriosa Necro Mejorada",
+    "fr": "Boite Mystère Nécro Améliorée",
+    "de": "Verbesserte Zombie-Mystery-Box",
+    "pt": "Caixa Misteriosa Necro Melhorada",
+    "it": "Scatola Misteriosa Necro Migliorata",
+    "tr": "Güçlendirilmiş Gizem Kutusu Nekro",
+    "nl": "Verbeterde Necro Geheime Doos"
+  },
+  "LuckyBox_Heroic_12_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_11_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_10_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_9_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_8_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_7_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_6_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_5_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_4_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_3_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_2_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Heroic_1_4": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Mythic": {
+    "en": "Mythic Box",
+    "es": "Caja Mítico",
+    "fr": "Boîte Mythique",
+    "de": "Mythic-Box",
+    "pt": "Caixa Mítico",
+    "it": "Scatola Mitico",
+    "tr": "Mitik Kutusu",
+    "nl": "Mythischbox"
+  },
+  "Luckybox_Xmas_Gold_2018": {
+    "en": "Gold Christmas Chest",
+    "es": "Cofre Navidad Oro",
+    "fr": "Coffre de Noël Or",
+    "de": "Goldene Weihnachtstruhe",
+    "pt": "Cofre de Natal Ouro",
+    "it": "Scrigno di Natale Oro",
+    "tr": "Altın Noel hediyesi",
+    "nl": "Gouden Kerstcassette"
+  },
+  "Luckybox_Xmas_Bronze_2018": {
+    "en": "Bronze Legendary Box",
+    "es": "Caja Legendaria Bronce",
+    "fr": "Coffre Légendaire Bronze",
+    "de": "Legendäre-Box, Bronze",
+    "pt": "Caixa Lendária Bronze",
+    "it": "Scatola Leggendario Bronzo",
+    "tr": "Bronz Efsanevi Kutusu",
+    "nl": "Bronzen Legendarische box"
+  },
+  "mystery_box_old_winter_skin_2018_2": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "LuckyBox_Halloween": {
+    "en": "Halloween Mystery Box",
+    "es": "Caja Misteriosa Halloween",
+    "fr": "Boite Mystère Halloween",
+    "de": "Halloween-Mystery-Box",
+    "pt": "Caixa Misteriosa Halloween",
+    "it": "Scatola Misteriosa Halloween",
+    "tr": "Cadılar Bayramı Gizem Kutusu",
+    "nl": "Halloween Geheime Doos"
+  },
+  "mystery_box_winter_2019_1": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "mystery_box_winter_2019_2": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Luckybox_Easter20": {
+    "en": "Easter Mystery Box",
+    "es": "Caja Misteriosa de Pascua",
+    "fr": "Boîte Mystère de Pâques",
+    "de": "Oster-Mystery-Box",
+    "pt": "Caixa Mistério de Páscoa",
+    "it": "Scatola Misteriosa di Pasqua",
+    "tr": "Gizemli Paskalya Kutusu",
+    "nl": "Geheime Paasdoos"
+  },
+  "Heroic_Mysterybox_v2": {
+    "en": "Mystery Box Heroic",
+    "es": "Caja Misteriosa Heroica",
+    "fr": "Boite Mystère Héroïque",
+    "de": "Heldenhafte Mystery-Box",
+    "pt": "Caixa Misteriosa Heróica",
+    "it": "Scatola Misteriosa Eroica",
+    "tr": "Gizemli Kutu Destansı",
+    "nl": "Heroïsche Geheime Doos"
+  },
+  "LuckyBox_Plague": {
+    "en": "Halloween Mystery Box",
+    "es": "Caja Misteriosa Halloween",
+    "fr": "Boite Mystère Halloween",
+    "de": "Halloween-Mystery-Box",
+    "pt": "Caixa Misteriosa Halloween",
+    "it": "Scatola Misteriosa Halloween",
+    "tr": "Cadılar Bayramı Gizem Kutusu",
+    "nl": "Halloween Geheime Doos"
+  },
+  "mystery_box_e_12_elite": {
+    "en": "Random Elite Sidereal Explorer",
+    "es": "Explorador Sideral Élite Aleatorio",
+    "fr": "Explorateur Sidéral Élite Aléatoire",
+    "de": "Zufälliger Elite-Siderischer Entdecker",
+    "pt": "Elite Explorador Sideral Aleatório",
+    "it": "Esploratore siderale Élite a Sorpresa",
+    "tr": "Rastgele Elit Yıldız Kaşifi",
+    "nl": "Willekeurige Elite Stellaire ontdekker"
+  },
+  "Luckybox_xmas20_1": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Luckybox_xmas20_2": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Luckybox_xmas20_3": {
+    "en": "Event Mystery Box",
+    "es": "Caja Misteriosa Evento",
+    "fr": "Boîte Mystère Evenements",
+    "de": "Ereignis-Mystery-Box",
+    "pt": "Caixa Mistério Evento",
+    "it": "Scat. Misteriosa Evento",
+    "tr": "Olaylar Gizemli  ",
+    "nl": "Geheime Evenementdoos"
+  },
+  "Luckybox_Valentines21": {
+    "en": "Valentine's Day Mystery Box",
+    "es": "Caja Misteriosa San Valentín",
+    "fr": "Boîte Mystère Saint-Valentin",
+    "de": "Valentinstag Mystery-Box",
+    "pt": "Caixa Mistério Dia dos Namorados",
+    "it": "Scatola Misteriosa San Valentino",
+    "tr": "Gizemli Sevgililer Günü Kutusu",
+    "nl": "Geheime Valentijnsdoos"
+  },
+  "Luckybox_Easter21": {
+    "en": "Easter Mystery Box",
+    "es": "Caja Misteriosa de Pascua",
+    "fr": "Boîte Mystère de Pâques",
+    "de": "Oster-Mystery-Box",
+    "pt": "Caixa Mistério de Páscoa",
+    "it": "Scatola Misteriosa di Pasqua",
+    "tr": "Gizemli Paskalya Kutusu",
+    "nl": "Geheime Paasdoos"
+  },
+  "Mysterybox_2021_4": {
+    "en": "Mystery Box",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte Mystère",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Mysterybox_2021_3": {
+    "en": "Mystery Box",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte Mystère",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Mysterybox_2021_2": {
+    "en": "Mystery Box",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte Mystère",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "Mysterybox_2021_1": {
+    "en": "Mystery Box",
+    "es": "Misteriosa Locura Mutante",
+    "fr": "Boîte Mystère",
+    "de": "Rätselhafter Wahnsinn",
+    "pt": "Loucura Misteriosa do Mutante",
+    "it": "Follia misteriosa mutante",
+    "tr": "Gizemli Mutant Çılgınlığı",
+    "nl": "Mutant Mysterie Mafheid"
+  },
+  "mystery_box_winter21": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "mystery_box_xmas21_2": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Luckybox_Valentines": {
+    "en": "Valentine's Day Mystery Box",
+    "es": "Caja Misteriosa San Valentín",
+    "fr": "Boîte Mystère Saint-Valentin",
+    "de": "Valentinstag Mystery-Box",
+    "pt": "Caixa Mistério Dia dos Namorados",
+    "it": "Scatola Misteriosa San Valentino",
+    "tr": "Gizemli Sevgililer Günü Kutusu",
+    "nl": "Geheime Valentijnsdoos"
+  },
+  "Luckybox_Easter22": {
+    "en": "Bunny Mystery Box",
+    "es": "Caja Misteriosa Conejos",
+    "fr": "Boîte Mystère Lapins",
+    "de": "Kaninchen-Mystery-Box",
+    "pt": "Caixa Mistério Coelhos",
+    "it": "Scatola Misteriosa Conigli",
+    "tr": "Gizemli tavşan kutusu",
+    "nl": "Geheime Doos Konijnen"
+  },
+  "Luckybox_Anniversary22": {
+    "en": "Data Mystery Box",
+    "es": "Caja Misteriosa Digital",
+    "fr": "Boîte mystère Numérique",
+    "de": "Daten-Mystery-Box",
+    "pt": "Caixa Mistério Digital",
+    "it": "Scat. Misteriosa digitale",
+    "tr": "Gizemli Veri Kutu",
+    "nl": "Geheime Gegevensdoos"
+  },
+  "Luckybox_Valentines23": {
+    "en": "Valentine's Day Mystery Box",
+    "es": "Caja Misteriosa San Valentín",
+    "fr": "Boîte Mystère Saint-Valentin",
+    "de": "Valentinstag Mystery-Box",
+    "pt": "Caixa Mistério Dia dos Namorados",
+    "it": "Scatola Misteriosa San Valentino",
+    "tr": "Gizemli Sevgililer Günü Kutusu",
+    "nl": "Geheime Valentijnsdoos"
+  },
+  "mystery_weirdtech": {
+    "en": "FutureTech Mystery Box",
+    "es": "Caja Misteriosa FutureTech",
+    "fr": "Boîte Mystère FutureTech",
+    "de": "FutureTech-Mystery-Box",
+    "pt": "Caixa Mistério FutureTech",
+    "it": "Scatola Misteriosa FutureTech",
+    "tr": "FutureTech Gizem Kutusu",
+    "nl": "ToekomstTech Geheime Doos"
+  },
+  "Luckybox_Anniversary23_1": {
+    "en": "Crossed Realities Mystery Box",
+    "es": "Caja Misteriosa Realidades Cruzadas",
+    "fr": "Boîte mystère Réalités Croisées",
+    "de": "Mystery-Box Gekreuzte Realitäten",
+    "pt": "Caixa Mistério Realidades Cruzadas",
+    "it": "Scatola Misteriosa Realtà Incrociate",
+    "tr": "Gizemli Çapraz Gerçeklikler Kutusu",
+    "nl": "Geheime Doos Gekruiste Realiteiten"
+  },
+  "Luckybox_Anniversary23_2": {
+    "en": "Crossed Realities Mystery Box",
+    "es": "Caja Misteriosa Realidades Cruzadas",
+    "fr": "Boîte mystère Réalités Croisées",
+    "de": "Mystery-Box Gekreuzte Realitäten",
+    "pt": "Caixa Mistério Realidades Cruzadas",
+    "it": "Scatola Misteriosa Realtà Incrociate",
+    "tr": "Gizemli Çapraz Gerçeklikler Kutusu",
+    "nl": "Geheime Doos Gekruiste Realiteiten"
+  },
+  "Luckybox_Anniversary23_3": {
+    "en": "Crossed Realities Mystery Box",
+    "es": "Caja Misteriosa Realidades Cruzadas",
+    "fr": "Boîte mystère Réalités Croisées",
+    "de": "Mystery-Box Gekreuzte Realitäten",
+    "pt": "Caixa Mistério Realidades Cruzadas",
+    "it": "Scatola Misteriosa Realtà Incrociate",
+    "tr": "Gizemli Çapraz Gerçeklikler Kutusu",
+    "nl": "Geheime Doos Gekruiste Realiteiten"
+  },
+  "LuckyBox_Halloween23": {
+    "en": "Halloween Mystery Box",
+    "es": "Caja Misteriosa Halloween",
+    "fr": "Boite Mystère Halloween",
+    "de": "Halloween-Mystery-Box",
+    "pt": "Caixa Misteriosa Halloween",
+    "it": "Scatola Misteriosa Halloween",
+    "tr": "Cadılar Bayramı Gizem Kutusu",
+    "nl": "Halloween Geheime Doos"
+  },
+  "mystery_box_xmas23_1": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Mystery_GlassCannon": {
+    "en": "Glass Cannon Mystery Box",
+    "es": "Caja Misteriosa Coloso con pies de barro",
+    "fr": "Boîte Mystère Colosse aux pieds d'argile",
+    "de": "Mystery-Box Koloss auf tönernen Füssen",
+    "pt": "Caixa Mistério Gigante dos Pés de Barro",
+    "it": "Scatola Misteriosa Colosso dai piedi d’argilla",
+    "tr": "Fos Oyuncu Gizemli Kutusu",
+    "nl": "Geheime Doos Glass Cannon"
+  },
+  "LuckyBox_Orbs": {
+    "en": "Orbs Mystery Box",
+    "es": "Caja Misteriosa Orbes",
+    "fr": "Boîte Mystère Orbes",
+    "de": "Mystery-Box Sphären",
+    "pt": "Caixa Mistério Orbes",
+    "it": "Scatola Misteriosa Globi",
+    "tr": "Küre Gizem Kutusu",
+    "nl": "Bollen Geheime Doos"
+  },
+  "mystery_box_xmas23_2": {
+    "en": "Winter Mystery Box",
+    "es": "Caja Misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Caixa Mistério Inverno",
+    "it": "Scat. Misteriosa Inverno",
+    "tr": "Kış Gizemli Kutu",
+    "nl": "Geheime Winterdoos"
+  },
+  "Luckybox_Valentines24": {
+    "en": "Valentine's Day Mystery Box",
+    "es": "Caja Misteriosa San Valentín",
+    "fr": "Boîte Mystère Saint-Valentin",
+    "de": "Valentinstag Mystery-Box",
+    "pt": "Caixa Mistério Dia dos Namorados",
+    "it": "Scatola Misteriosa San Valentino",
+    "tr": "Gizemli Sevgililer Günü Kutusu",
+    "nl": "Geheime Valentijnsdoos"
+  },
+  "LuckyBox_Good_Luck_3": {
+    "en": "Lucky Charms Mystery Box",
+    "es": "Caja Misteriosa Encantos Afortunados",
+    "fr": "Boîte Mystère Charmes chanceux",
+    "de": "Glückszauber Mystery-Box",
+    "pt": "Caixa Mistério Charmes da Sorte",
+    "it": "Scatola Misteriosa Bonus della Fortuna",
+    "tr": "Gizemli Şanslı Cazibe Kutusu",
+    "nl": "Geheime doos Fortuinlijke spreuken"
+  },
+  "Luckybox_Easter24": {
+    "en": "Easter Mystery Box",
+    "es": "Caja Misteriosa de Pascua",
+    "fr": "Boîte Mystère de Pâques",
+    "de": "Oster-Mystery-Box",
+    "pt": "Caixa Mistério de Páscoa",
+    "it": "Scatola Misteriosa di Pasqua",
+    "tr": "Gizemli Paskalya Kutusu",
+    "nl": "Geheime Paasdoos"
+  },
+  "LuckyBox_Research_VI": {
+    "en": "Research VI Chest",
+    "es": "Cofre Investigación VI",
+    "fr": "Coffre Recherche VI",
+    "de": "Suche VI Truhe",
+    "pt": "Arca de Pesquisa VI",
+    "it": "Scrigno Ricerca VI",
+    "tr": "Araştırma VI Sandığı",
+    "nl": "Onderzoek VI Kist"
+  },
+  "Luckybox_Memorial": {
+    "en": "Memorial Mystery Box",
+    "es": "Caja Misteriosa Día de los Caídos",
+    "fr": "Boîte Mystère Souvenir",
+    "de": "Gedenktag Mystery-Box",
+    "pt": "Caixa Mistério da Memória",
+    "it": "Scatola Misteriosa Commemorazione",
+    "tr": "Gizemli Anma Günü Kutusu",
+    "nl": "Memorial Geheime Doos"
+  },
+  "Luckybox_Anniversary24_1": {
+    "en": "Conspiracy Mystery Box",
+    "es": "Caja misteriosa Conspiración",
+    "fr": "Boîte Mystère Conspiration",
+    "de": "Caja misteriosa Conspiración",
+    "pt": "Caixa Mistério da Conspiração",
+    "it": "Scatola misteriosa Cospirazione",
+    "tr": "Komplo Gizem Kutusu",
+    "nl": "Samenzwering Mysteriedoos"
+  },
+  "Luckybox_Anniversary24_2": {
+    "en": "Conspiracy Mystery Box",
+    "es": "Caja misteriosa Conspiración",
+    "fr": "Boîte Mystère Conspiration",
+    "de": "Caja misteriosa Conspiración",
+    "pt": "Caixa Mistério da Conspiração",
+    "it": "Scatola misteriosa Cospirazione",
+    "tr": "Komplo Gizem Kutusu",
+    "nl": "Samenzwering Mysteriedoos"
+  },
+  "LuckyBox_Halloween24": {
+    "en": "Halloween Mystery Box",
+    "es": "Caja Misteriosa Halloween",
+    "fr": "Boite Mystère Halloween",
+    "de": "Halloween-Mystery-Box",
+    "pt": "Caixa Misteriosa Halloween",
+    "it": "Scatola Misteriosa Halloween",
+    "tr": "Cadılar Bayramı Gizem Kutusu",
+    "nl": "Halloween Geheime Doos"
+  },
+  "mystery_box_xmas24_1": {
+    "en": "Sunset Resort Mystery Box",
+    "es": "Caja misteriosa Sunset Resort",
+    "fr": "Boîte Mystère Sunset Resort",
+    "de": "Sunset Resort Mystery Box",
+    "pt": "Scatola del mistero Sunset Resort",
+    "it": "Scatola del mistero Sunset Resort",
+    "tr": "Sunset Resort Gizemli Kutu",
+    "nl": "Sunset Resort Mysterie Box"
+  },
+  "mystery_box_xmas24_2": {
+    "en": "Twilight Christmas Mystery Box",
+    "es": "Caja misteriosa Crepúsculo Navideño",
+    "fr": "Boîte Mystère Twilight Christmas",
+    "de": "Twilight Christmas Mystery Box",
+    "pt": "Scatola del mistero Natale crepuscolare",
+    "it": "Scatola del mistero Natale crepuscolare",
+    "tr": "Alacakaranlık Noel Gizem Kutusu",
+    "nl": "Twilight Kerst Mystery Doos"
+  },
+  "Luckybox_Gold_Heroic_v2": {
+    "en": "Golden Heroic Box",
+    "es": "Caja Heroica Oro",
+    "fr": "Boite Héroïque Dorée",
+    "de": "Goldene Heldenbox",
+    "pt": "Caixa heroica dourada",
+    "it": "Scatola Eroica Dorata",
+    "tr": "Altın Destansı Kutu",
+    "nl": "Gouden Heldhaftige Doos"
+  },
+  "Luckybox_Anniversary25_1": {
+    "en": "12th anniversary Mystery Box - Pt. 1",
+    "es": "Caja misteriosa del 12.º aniversario - Parte 1",
+    "fr": "Boïte Mystère du 12e anniversaire - Pt. 1",
+    "de": "12-jähriges Jubiläum Mystery Box – Teil 1",
+    "pt": "Caixa Misteriosa do 12.º aniversário - Parte 1",
+    "it": "Mystery Box del 12° anniversario - Parte 1",
+    "tr": "12. yıl dönümü Gizemli Kutu - Bölüm 1",
+    "nl": "12e verjaardag Mystery Box - Deel 1"
+  },
+  "Luckybox_Anniversary25_2": {
+    "en": "12th anniversary Mystery Box - Pt. 2",
+    "es": "Caja misteriosa del 12.º aniversario - Parte 2",
+    "fr": "Boïte Mystère du 12e anniversaire - Pt. 2",
+    "de": "12-jähriges Jubiläum Mystery Box – Teil 2",
+    "pt": "Caixa Misteriosa do 12.º aniversário - Parte 2",
+    "it": "Mystery Box del 12° anniversario - Parte 2",
+    "tr": "12. yıl dönümü Gizemli Kutu - Bölüm 2",
+    "nl": "12e verjaardag Mystery Box - Deel 2"
+  },
+  "Luckybox_School_2025": {
+    "en": "Back to School Mystery Box",
+    "es": "Caja Misteriosa Vuelta al Cole",
+    "fr": "Boîte Mystère Rentrée des classes",
+    "de": "Schulstart Mystery-Box",
+    "pt": "Caixa Mistério da Volta às Aulas",
+    "it": "Scatola Misteriosa Ritorno a scuola",
+    "tr": "Gizemli Okula Dönüş Kutusu",
+    "nl": "Geheime Doos terug naar school"
+  },
+  "Luckybox_Autumn_2025": {
+    "en": "Autumn Mystery Box",
+    "es": "Caja Misteriosa Otoño",
+    "fr": "Boïte Mystère d'automne",
+    "de": "Herbst-Mystery-Box",
+    "pt": "Caixa Mistério de Outono",
+    "it": "Scatola Misteriosa dell’autunno",
+    "tr": "Gizemli Güz Kutusu",
+    "nl": "Geheime doos herfst"
+  },
+  "Luckybox_Oktoberfest_2025": {
+    "en": "Oktoberfest Mystery Box",
+    "es": "Caja Misteriosa Oktoberfest",
+    "fr": "Boîte Mystère Oktoberfest",
+    "de": "Oktoberfest Mystery-Box",
+    "pt": "Caixa Mistério da Oktoberfest",
+    "it": "Scatola Misteriosa Oktoberfest",
+    "tr": "Oktoberfest Gizemli Kutu",
+    "nl": "Oktoberfest Geheime Doos"
+  },
+  "LuckyBox_Halloween25": {
+    "en": "Halloween Mystery Box",
+    "es": "Caja Misteriosa Halloween",
+    "fr": "Boite Mystère Halloween",
+    "de": "Halloween-Mystery-Box",
+    "pt": "Caixa Misteriosa Halloween",
+    "it": "Scatola Misteriosa Halloween",
+    "tr": "Cadılar Bayramı Gizem Kutusu",
+    "nl": "Halloween Geheime Doos"
+  },
+  "Luckybox_Science_2025": {
+    "en": "Science Day Mystery Box",
+    "es": "Caja misteriosa del Día de la Ciencia",
+    "fr": "Boïte Mystère Journée de la Science",
+    "de": "Wissenschaftstag-Mystery-Box",
+    "pt": "Caixa Misteriosa do Dia da Ciência",
+    "it": "Scatola misteriosa della Giornata della Scienza",
+    "tr": "Bilim Günü Gizem Kutusu",
+    "nl": "Wetenschapsdag mysteriedoos"
+  },
+  "Mystery_Thanksgiving_2025": {
+    "en": "Thanksgiving Mystery Box",
+    "es": "Caja Misteriosa Acción de Gracias",
+    "fr": "Boîte Mystère Thanksgiving",
+    "de": "Erntedank Mystery-Box",
+    "pt": "Caixa Mistério do Thanksgiving",
+    "it": "Scatola Misteriosa Giorno del Ringraziamento",
+    "tr": "Thanksgiving Gizemli Kutu",
+    "nl": "Thanksgiving Geheime Doos"
+  },
+  "Mystery_Cyberweek_2025": {
+    "en": "Cyberweek Mystery Box",
+    "es": "Caja misteriosa de Cyberweek ",
+    "fr": "Boîte Mystère Cyberweek",
+    "de": "Cyberwoche Mystery Box",
+    "pt": "Caixa Mistério Cyberweek",
+    "it": "Scatola misteriosa Cyberweek",
+    "tr": "Siber Hafta Gizem Kutusu",
+    "nl": "Cyberweek Mysterie Box"
+  },
+  "Mystery_Winter_2025": {
+    "en": "Winter Mystery Box",
+    "es": "Caja misteriosa Invierno",
+    "fr": "Boîte Mystère Hiver",
+    "de": "Winter-Mystery-Box",
+    "pt": "Scatola del mistero invernale",
+    "it": "Scatola del mistero invernale",
+    "tr": "Kış Gizemli Kutusu",
+    "nl": "Winter mysterie doos"
+  },
+  "Mystery_Xmas_2025_1": {
+    "en": "Constellation Mystery Box",
+    "es": "Caja misteriosa de Constelaciones",
+    "fr": "Boîte Mystère Constellations",
+    "de": "Constellation Mystery Box",
+    "pt": "Constellation Mystery Box",
+    "it": "Scatola misteriosa Costellazioni",
+    "tr": "Takımyıldızı Gizemli Kutusu",
+    "nl": "Constellation Mystery Box"
+  },
+  "Mystery_Xmas_2025_2": {
+    "en": "Constellations Pt. 2 Mystery Box",
+    "es": "Caja misteriosa de Constelaciones 2",
+    "fr": "Boîte Mystère Constellations Pt. 2",
+    "de": "Constellation Mystery Box 2",
+    "pt": "Constellation Mystery Box 2",
+    "it": "Scatola misteriosa Costellazioni 2",
+    "tr": "Takımyıldızı Gizemli Kutusu 2",
+    "nl": "Constellation Mystery Box 2"
+  },
+  "Mystery_Kings_2026": {
+    "en": "Kings Mystery Box",
+    "es": "Caja misteriosa de Reyes",
+    "fr": "Boîte Mystère des Rois",
+    "de": "Könige Mystery Box",
+    "pt": "Caixa Mistério dos Reis",
+    "it": "Scatola misteriosa dei Re",
+    "tr": "Krallar Gizem Kutusu",
+    "nl": "Konings mysterie doos"
+  },
+  "Mystery_Valentines_2026": {
+    "en": "Valentine's Day Mystery Box",
+    "es": "Caja Misteriosa San Valentín",
+    "fr": "Boîte Mystère Saint-Valentin",
+    "de": "Valentinstag Mystery-Box",
+    "pt": "Caixa Mistério Dia dos Namorados",
+    "it": "Scatola Misteriosa San Valentino",
+    "tr": "Gizemli Sevgililer Günü Kutusu",
+    "nl": "Geheime Valentijnsdoos"
+  },
+  "Mystery_Xinnian_2026": {
+    "en": "Chinese New Year Mystery Box",
+    "es": "Caja misteriosa del Año Nuevo chino",
+    "fr": "Boîte Mystère Nouvel An Chinois",
+    "de": "Caixa Mistério do Ano Novo Chinês",
+    "it": "Scatola Misteriosa Capodanno Cinese",
+    "tr": "Çin Yeni Yılı Gizemli Kutusu",
+    "nl": "Chinees Nieuwjaar Mystery Box"
+  },
+  "Mystery_Carnival_2026": {
+    "en": "Carnival Mystery Box",
+    "es": "Caja misteriosa de carnaval",
+    "fr": "Boîte Mystère du Carnaval",
+    "de": "Karneval Mystery Box",
+    "pt": "Caixa Mistério do Carnaval",
+    "it": "Scatola misteriosa di Carnevale",
+    "tr": "Karnaval Gizem Kutusu",
+    "nl": "Carnaval Mysterie Doos"
+  },
+  "Mystery_Patrick_2026": {
+    "en": "St. Patrick Mystery Box",
+    "es": "Caja misteriosa San Patricio",
+    "fr": "Boîte Mystère Saint-Patrick",
+    "de": "St. Patrick Mystery-Box",
+    "pt": "Caixa Misteriosa de São Patrício",
+    "it": "Scatola misteriosa di San Patrizio",
+    "tr": "Aziz Patrick Gizemli Kutusu",
+    "nl": "St. Patrick Mysteriedoos"
+  },
+  "Luckybox_Zodiac_Silver_17": {
+    "en": "Silver Zodiac Mystery Box",
+    "es": "Caja Misteriosa Zodiaco Plata",
+    "fr": "Boîte Mystère Zodiaque Argent",
+    "de": "Zodiakus Mystery-Box Silber",
+    "pt": "Caixa Misteriosa do Zodíaco Prateado",
+    "it": "Scatola Misteriosa Zodiaco Argento",
+    "tr": "Gümüş Burç Gizem Kutusu",
+    "nl": "Zilveren Zodiak Geheime Doos"
+  },
+  "Mystery_Spring_2026": {
+    "en": "Spring Mystery Box",
+    "es": "Caja Misteriosa Primavera",
+    "fr": "Boîte Mystère de Printemps",
+    "de": "Frühlings-Mystery-Box",
+    "pt": "Caixa Mistério da Primavera",
+    "it": "Scatola Misteriosa di Primavera",
+    "tr": "Gizemli İlkbahar Kutusu",
+    "nl": "Lente Geheime Doos"
+  },
+  "Mystery_Fools_2026": {
+    "en": "April Fools Mystery Box",
+    "es": "Caja misteriosa Tontos de abril",
+    "fr": "Boîte Mystère 1er Avril",
+    "de": "Aprilscherze Mystery-Box",
+    "pt": "Caixa Misteriosa de Dia da mentira",
+    "it": "Scatola misteriosa di Pesce d'aprile",
+    "tr": "Nisan şakaları Gizemli Kutusu",
+    "nl": "St. Patrick Mysteriedoos"
+  },
+  "Mystery_Easter_2026": {
+    "en": "Easter Mystery Box",
+    "es": "Caja Misteriosa de Pascua",
+    "fr": "Boîte Mystère de Pâques",
+    "de": "Oster-Mystery-Box",
+    "pt": "Caixa Mistério de Páscoa",
+    "it": "Scatola Misteriosa di Pasqua",
+    "tr": "Gizemli Paskalya Kutusu",
+    "nl": "Geheime Paasdoos"
+  },
+  "Mystery_Labor_2026": {
+    "en": "Labor Day Mystery Box",
+    "es": "Caja Misteriosa Fiesta del Trabajo",
+    "fr": "Boîte Mystère Fête du travail",
+    "de": "Mystery-Box Tag der Arbeit",
+    "pt": "Caixa Mistério Dia do Trabalho",
+    "it": "Scatola Misteriosa Festa dei lavoratori",
+    "tr": "İşçi Bayramı Gizemli Kutusu",
+    "nl": "Geheime Doos Dag van de Arbeid"
+  },
+  "Mystery_Europe_2026": {
+    "en": "Europe Day Mystery Box",
+    "es": "Caja misteriosa Día de Europa",
+    "fr": "Boîte Mystère Journée de l’Europe",
+    "de": "Mystery Box Europatag",
+    "pt": "Caixa Misteriosa Dia da Europa",
+    "it": "Scatola Misteriosa Giornata dell'Europa",
+    "tr": "Avrupa Günü Gizem Kutusu",
+    "nl": "Geheime Doos Dag van Europa"
+  },
+  "Mystery_Bees_2026": {
+    "en": "Bees Mystery Box",
+    "es": "Caja misteriosa Abejas",
+    "fr": "Boîte Mystère Abeilles",
+    "de": "Bienen Mystery Box",
+    "pt": "Caixa Misteriosa das Abelhas",
+    "it": "Scatola misteriosa delle api",
+    "tr": "Arılar Gizem Kutusu",
+    "nl": "Bijen Mystery Box"
+  },
+  "Luckybox_Hyperspeed": {
+    "en": "Hyperspeed Mutants Box",
+    "es": "Cofre de Mutantes Muy Rápidos",
+    "fr": "Coffre Vitesse Extrême",
+    "de": "Speed Mutanten-Box",
+    "pt": "Cofre de Mutantes Velozes",
+    "it": "Scatola Mutanti Molto Veloci",
+    "tr": "Yıldırım Mutantlar Kutusu",
+    "nl": "Snelle Mutanten Doos"
+  },
+  "Mystery_BluePlanet_2026": {
+    "en": "Blue Planet Mystery Box",
+    "es": "Caja misteriosa Planeta Azul",
+    "fr": "Boîte Mystère Planète Bleue",
+    "de": "Mystery Box Blauer Planet",
+    "pt": "Caixa Mistério Planeta Azul",
+    "it": "Scatola misteriosa del Pianeta Blu",
+    "tr": "Mavi Gezegen Gizemli Kutu",
+    "nl": "Blauwe planeet mysteriedoos"
+  },
+  "LuckyBox_Zodiac_v3": {
+    "en": "Zodiac Mystery Box",
+    "es": "Caja Misteriosa Zodiaco",
+    "fr": "Boîte Mystère Zodiaque",
+    "de": "Zodiakus Mystery-Box",
+    "pt": "Caixa Mistério Zodíaco",
+    "it": "Scatola Misteriosa Zodiaco",
+    "tr": "Burç Gizem Kutusu",
+    "nl": "Zodiak Geheime Doos"
+  },
+  "Luckybox_Summer_2026": {
+    "en": "Summer Mystery Box",
+    "es": "Caja Misteriosa Verano",
+    "fr": "Boïte Mystère d'été",
+    "de": "Sommer-Mystery-Box",
+    "pt": "Caixa Mistério de Verão",
+    "it": "Scatola Misteriosa dell’estate",
+    "tr": "Gizemli Yaz Kutusu",
+    "nl": "Geheime doos zomer"
+  },
+  "Luckybox_Independence_2026": {
+    "en": "Independence Day Mystery Box",
+    "es": "Caja Misteriosa Independence Day",
+    "fr": "Boïte Mystère Independence Day",
+    "de": "Independence Day-Mystery-Box",
+    "pt": "Caixa Mistério de Independence Day",
+    "it": "Scatola Misteriosa Independence Day",
+    "tr": "Bağımsızlık Günü Gizemli Kutusu",
+    "nl": "Geheime doos Independence Day"
+  },
+  "LuckyBox_Stars_22": {
+    "en": "Star Box",
+    "es": "Caja Estrella",
+    "fr": "Boite Etoiles",
+    "de": "Sternentruhe",
+    "pt": "Caixa Estrelas",
+    "it": "Scatola delle stelle",
+    "tr": "Yıldız Kutusu",
+    "nl": "Sterrendoos"
+  },
+  "Mystery_Revolution26": {
+    "en": "Revolution Mystery Box",
+    "es": "Caja misteriosa Revolución",
+    "fr": "Boïte Mystère Révolution",
+    "de": "Revolution Mystery-Box",
+    "pt": "Caixa Mistério da Revolução",
+    "it": "Scatola misteriosa della Rivoluzione",
+    "tr": "Devrim Gizemli Kutu",
+    "nl": "Revolution Geheimedoos"
+  },
+  "Luckybox_Hyperheavy": {
+    "en": "Supermassive Mystery Box",
+    "es": "Caja Misteriosa Supermasiva",
+    "fr": "Boite Mystère Supermassive",
+    "de": "Supermassive Mystery-Box",
+    "pt": "Caixa Mistério Supermassiva",
+    "it": "Scatola Misteriosa Supermassiccia",
+    "tr": "Süper Büyük Gizemli Kutu",
+    "nl": "Supermassieve Geheime doos"
+  },
+  "LuckyBox_Zoo_Prime": {
+    "en": "Legendary Zoomorph Box",
+    "es": "Caja Zoomorfo Legendaria",
+    "fr": "Boîte Zoomorph Légendaire",
+    "de": "Legendäre Zoomorph-Box",
+    "pt": "Caixa Zoomorfo Lendária",
+    "it": "Scatola Zoomorfo Leggendario",
+    "tr": "Efsanevi Hayvansı Kutusu",
+    "nl": "Legendarische Zoömorfbox"
+  },
+  "LuckyBox_Mythic_Prime": {
+    "en": "Legendary Mythic Box",
+    "es": "Caja Mítico Legendaria",
+    "fr": "Boîte Mythique Légendaire",
+    "de": "Legendäre Mythic-Box",
+    "pt": "Caixa Mítico Lendária",
+    "it": "Scatola Mitico Leggendario",
+    "tr": "Efsanevi Mitik Kutusu",
+    "nl": "Legendarische Mythischbox"
+  },
+  "LuckyBox_Necro_Prime": {
+    "en": "Legendary Necro Box",
+    "es": "Caja Necro Legendaria",
+    "fr": "Boîte Nécro Légendaire",
+    "de": "Legendäre Zombie-Box",
+    "pt": "Caixa Necro Lendária",
+    "it": "Scatola Necro Leggendario",
+    "tr": "Efsanevi Nekro Kutusu",
+    "nl": "Legendarische Necrobox"
+  },
+  "LuckyBox_Saber_Prime": {
+    "en": "Legendary Saber Box",
+    "es": "Caja Sable Legendaria",
+    "fr": "Boîte Sabre Légendaire",
+    "de": "Legendäre Säbelrassler-Box",
+    "pt": "Caixa Sabre Lendária",
+    "it": "Scatola Sciabola Leggendario",
+    "tr": "Efsanevi Süvari Kutusu",
+    "nl": "Legendarische Sabelbox"
+  },
+  "LuckyBox_Cyber_Prime": {
+    "en": "Legendary Cyber Box",
+    "es": "Caja Ciber Legendaria",
+    "fr": "Boîte Cyber Légendaire",
+    "de": "Legendäre Cyber-Box",
+    "pt": "Caixa Ciber Lendária",
+    "it": "Scatola Cyber Leggendario",
+    "tr": "Efsanevi Siber Kutusu",
+    "nl": "Legendarische Cyberbox"
+  },
+  "LuckyBox_Galactic_Prime": {
+    "en": "Legendary Galactic Box",
+    "es": "Caja Galáctico Legendaria",
+    "fr": "Boîte Galactique Légendaire",
+    "de": "Legendäre Galactic-Box",
+    "pt": "Caixa Galáctico Lendária",
+    "it": "Scatola Galattico Leggendario",
+    "tr": "Efsanevi Galaktik Kutusu",
+    "nl": "Legendarische Galactischbox"
+  },
+  "LuckyBox_Research_VII": {
+    "en": "Research VII Chest",
+    "es": "Cofre Investigación VII",
+    "fr": "Coffre Recherche VII",
+    "de": "Suche VII Truhe",
+    "pt": "Arca da Pesquisa VII",
+    "it": "Scrigno Ricerca VII",
+    "tr": "Araştırma VII Sandığı",
+    "nl": "Onderzoek VII Koffer"
+  },
+  "LuckyBox_Research_IX": {
+    "en": "Research IX Chest",
+    "es": "Cofre Investigación IX",
+    "fr": "Coffre Recherche IX",
+    "de": "Suche IX Truhe",
+    "pt": "Arca da Pesquisa IX",
+    "it": "Scrigno Ricerca IX",
+    "tr": "Araştırma IX Sandığı",
+    "nl": "Onderzoek IX Koffer"
+  },
+  "lucky_box_research_viii": {
+    "en": "Research VIII Chest",
+    "es": "Cofre Investigación VIII",
+    "fr": "Coffre Recherche VIII",
+    "de": "Suche VIII Truhe",
+    "pt": "Arca da Pesquisa VIII",
+    "it": "Scrigno Ricerca VIII",
+    "tr": "Araştırma VIII Sandığı",
+    "nl": "Onderzoek VIII Koffer"
+  },
+  "LuckyBox_Research_V": {
+    "en": "Research V Chest",
+    "es": "Cofre Investigación V",
+    "fr": "Coffre Recherche V",
+    "de": "Suche V Truhe",
+    "pt": "Arca de Pesquisa V",
+    "it": "Scrigno Ricerca V",
+    "tr": "Araştırma V Sandığı",
+    "nl": "Onderzoek V Kist"
+  },
+  "Mystery_Anniversary26_1": {
+    "en": "13th anniversary Mystery Box - Pt. 1",
+    "es": "Caja misteriosa del 13.º aniversario - Parte 1",
+    "fr": "Boïte Mystère du 13e anniversaire - Pt. 1",
+    "de": "13-jähriges Jubiläum Mystery Box – Teil 1",
+    "pt": "Caixa Misteriosa do 13.º aniversário - Parte 1",
+    "it": "Mystery Box del 13° anniversario - Parte 1",
+    "tr": "13. yıl dönümü Gizemli Kutu - Bölüm 1",
+    "nl": "13e verjaardag Mystery Box - Deel 1"
+  },
+  "LuckyBox_Research_VI_v3": {
+    "en": "Research VI Chest",
+    "es": "Cofre Investigación VI",
+    "fr": "Coffre Recherche VI",
+    "de": "Suche VI Truhe",
+    "pt": "Arca de Pesquisa VI",
+    "it": "Scrigno Ricerca VI",
+    "tr": "Araştırma VI Sandığı",
+    "nl": "Onderzoek VI Kist"
+  },
+  "LuckyBox_Research_IV": {
+    "en": "Research IV Chest",
+    "es": "Cofre Investigación IV",
+    "fr": "Coffre Recherche IV",
+    "de": "Suche IV Truhe",
+    "pt": "Cofre Pesquisa IV",
+    "it": "Scrigno Ricerca IV",
+    "tr": "Araştırma IV Sandığı",
+    "nl": "Onderzoek IV Kist"
+  },
+  "LuckyBox_Zoo_Elite": {
+    "en": "Elite Mystery Box Zoomorph",
+    "es": "Caja Misteriosa Zoomorfo Élite",
+    "fr": "Boite Mystère Zoomorphe Elite",
+    "de": "Elite Zoomorph-Mystery-Box",
+    "pt": "Caixa Misteriosa Zoomorfa Elite",
+    "it": "Scatola Misteriosa Zoomorfa Élite",
+    "tr": "Elit Gizem Kutusu Hayvansı ",
+    "nl": "Elite Zoömorf Geheime Doos"
+  },
+  "LuckyBox_Cyber_Elite": {
+    "en": "Elite Mystery Box Cyber ",
+    "es": "Caja Misteriosa Ciber Élite",
+    "fr": "Boite Mystère Cyber Elite",
+    "de": "Elite Cyber-Mystery-Box",
+    "pt": "Caixa Misteriosa Ciber Elite",
+    "it": "Scatola Misteriosa Cyber Élite",
+    "tr": "Elit Gizem Kutusu Hayvansı ",
+    "nl": "Elite Cyber Geheime Doos"
+  },
+  "LuckyBox_Galactic_Elite": {
+    "en": "Elite Mystery Box Galactic ",
+    "es": "Caja Misteriosa Galáctico Élite",
+    "fr": "Boite Mystère Galactique Elite",
+    "de": "Elite Galaktisch-Mystery-Box",
+    "pt": "Caixa Misteriosa Galáctica Elite",
+    "it": "Scatola Misteriosa Galattica Élite",
+    "tr": "Elit Gizem Kutusu Galaktik ",
+    "nl": "Elite Galactische Geheime Doos"
+  },
+  "LuckyBox_Mystic_Elite": {
+    "en": "Elite Mystery Box Mythic ",
+    "es": "Caja Misteriosa Mítico Élite",
+    "fr": "Boite Mystère Mythique Elite",
+    "de": "Elite Mythic-Mystery-Box",
+    "pt": "Caixa Misteriosa Mítico Elite",
+    "it": "Scatola Misteriosa Mitico Élite",
+    "tr": "Elit Gizem Kutusu Mitik",
+    "nl": "Elite Mythisch Geheime Doos"
+  },
+  "LuckyBox_Saber_Elite": {
+    "en": "Elite Mystery Box Saber",
+    "es": "Caja Misteriosa Sable Élite",
+    "fr": "Boite Mystère Sabre Elite",
+    "de": "Elite Säbelrassler-Mystery-Box",
+    "pt": "Caixa Misteriosa Sabre Elite",
+    "it": "Scatola Misteriosa Sciabola Élite",
+    "tr": "Elit Gizem Kutusu Süvari",
+    "nl": "Elite Sabel Geheime Doos"
+  },
+  "LuckyBox_Necro_Elite": {
+    "en": "Elite Mystery Box Necro",
+    "es": "Caja Misteriosa Necro Élite",
+    "fr": "Boite Mystère Nécro Elite",
+    "de": "Elite Zombie-Mystery-Box",
+    "pt": "Caixa Misteriosa Necro Elite",
+    "it": "Scatola Misteriosa Necro Élite",
+    "tr": "Elit Gizem Kutusu Nekro",
+    "nl": "Elite Necro Geheime Doos"
+  },
+  "Mysterybox_Ability_Strengthen": {
+    "en": "Boost Mystery Box",
+    "es": "Caja Misteriosa Fortalecimiento",
+    "fr": "Boîte Mystère Boost",
+    "de": "Booster-Mystery-Box ",
+    "pt": "Caixa Mistério Boost",
+    "it": "Scatola Misteriosa Miglioramento",
+    "tr": "Gizemli Kutu  Artırma",
+    "nl": "Boost Geheime Doos"
+  },
+  "Mysterybox_Ability_Shield": {
+    "en": "Shield Mystery Box",
+    "es": "Caja Misteriosa Escudo",
+    "fr": "Boîte Mystère Bouclier",
+    "de": "Schild-Mystery-Box ",
+    "pt": "Caixa Mistério Escudo",
+    "it": "Scatola Misteriosa Scudo",
+    "tr": "Gizemli Kutu  Kalkan",
+    "nl": "Schild Geheime Doos"
+  },
+  "Mysterybox_Ability_Slash": {
+    "en": "Wound Mystery Box",
+    "es": "Caja Misteriosa Herida",
+    "fr": "Boîte Mystère Blessure",
+    "de": "Blessur-Mystery-Box ",
+    "pt": "Caixa Mistério Ferida",
+    "it": "Scatola Misteriosa Ferita",
+    "tr": "Gizemli Kutu Yara",
+    "nl": "Wond Geheime Doos"
+  },
+  "Mysterybox_Ability_Regenerate": {
+    "en": "Drain life Mystery Box",
+    "es": "Caja Misteriosa Absorción de Vida ",
+    "fr": "Boîte Mystère Drain de vie",
+    "de": "Leben aussaugen-Mystery-Box ",
+    "pt": "Caixa Mistério Drenagem de vida",
+    "it": "Scatola Misteriosa Risucchia vita",
+    "tr": "Gizemli Kutu  Can azaltma ",
+    "nl": "Drainleven Geheime Doos"
+  },
+  "Mysterybox_Ability_Retaliate": {
+    "en": "Retaliate’ Mystery Box",
+    "es": "Caja Misteriosa Respuesta ",
+    "fr": "Boîte Mystère Riposte",
+    "de": "Gegenschlag-Mystery-Box ",
+    "pt": "Caixa Mistério Riposta",
+    "it": "Scatola Misteriosa Contrattacca",
+    "tr": "Gizemli Kutu  Misilleme ",
+    "nl": "Terugslaan Geheime Doos"
+  },
+  "Mystery_Anniversary26_2": {
+    "en": "13th anniversary Mystery Box - Pt. 2",
+    "es": "Caja misteriosa del 13.º aniversario - Parte 2",
+    "fr": "Boïte Mystère du 13e anniversaire - Pt. 2",
+    "de": "13-jähriges Jubiläum Mystery Box – Teil 2",
+    "pt": "Caixa Misteriosa do 13.º aniversário - Parte 2",
+    "it": "Mystery Box del 13° anniversario - Parte 2",
+    "tr": "13. yıl dönümü Gizemli Kutu - Bölüm 2",
+    "nl": "13e verjaardag Mystery Box - Deel 2"
+  }
+}

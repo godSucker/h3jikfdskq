@@ -560,5 +560,21 @@
   "bingo.part": "Part",
   "bingo.rewards": "Rewards",
   "bingo.share.copied": "Copied!",
-  "bingo.share.promptLabel": "Copy the link:"
+  "bingo.share.promptLabel": "Copy the link:",
+  "boxes.pageTitle": "Boxes",
+  "boxes.pageDescription": "Mutants Genetic Gladiators lucky box and mystery box catalog: icons, tiers and the full drop list of mutants from each box.",
+  "boxes.subtitle": "{count} boxes ever sold in the shop. Click a box for the full drop list.",
+  "boxes.searchPlaceholder": "Search boxes…",
+  "boxes.categoryAll": "All",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Nothing found — try a different search.",
+  "boxes.closeAria": "Close",
+  "boxes.mutantsInDropList": "Mutants in drop list: {n}",
+  "boxes.guaranteedTitle": "Guaranteed in the bundle",
+  "boxes.drawTitle": "Draw",
+  "boxes.skinTitle": "Skin: {skin}",
+  "boxes.skinLabel": "skin \"{skin}\"",
+  "boxes.count.reward.one": "reward",
+  "boxes.count.reward.other": "rewards"
 }

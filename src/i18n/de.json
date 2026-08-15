@@ -560,5 +560,21 @@
   "bingo.part": "Teil",
   "bingo.rewards": "Belohnungen",
   "bingo.share.copied": "Kopiert!",
-  "bingo.share.promptLabel": "Link kopieren:"
+  "bingo.share.promptLabel": "Link kopieren:",
+  "boxes.pageTitle": "Boxen",
+  "boxes.pageDescription": "Katalog der Lucky- und Mystery-Boxen von Mutants Genetic Gladiators: Icons, Tiers und die vollständige Drop-Liste jeder Box.",
+  "boxes.subtitle": "{count} Boxen, die jemals im Shop verkauft wurden. Klicke auf eine Box für die vollständige Drop-Liste.",
+  "boxes.searchPlaceholder": "Box suchen…",
+  "boxes.categoryAll": "Alle",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Nichts gefunden — versuche eine andere Suche.",
+  "boxes.closeAria": "Schließen",
+  "boxes.mutantsInDropList": "Mutanten in der Drop-Liste: {n}",
+  "boxes.guaranteedTitle": "Garantiert im Paket",
+  "boxes.drawTitle": "Ziehung",
+  "boxes.skinTitle": "Skin: {skin}",
+  "boxes.skinLabel": "Skin „{skin}\"",
+  "boxes.count.reward.one": "Belohnung",
+  "boxes.count.reward.other": "Belohnungen"
 }

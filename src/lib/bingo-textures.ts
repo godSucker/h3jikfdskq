@@ -255,7 +255,7 @@ export function getRewardTexturePath(reward: {
 // Слова "золота"/"серебра" переведены на все 9 языков - сами имена предметов
 // (translateItemId, ITEM_TRANSLATIONS в craft-simulator.ts) остаются RU, это
 // общий для всего сайта пробел (см. память i18n-known-coverage-gaps).
-const GOLD_WORD: Record<Locale, string> = {
+export const GOLD_WORD: Record<Locale, string> = {
   ru: 'золота',
   en: 'gold',
   es: 'oro',
@@ -266,7 +266,7 @@ const GOLD_WORD: Record<Locale, string> = {
   tr: 'altın',
   nl: 'goud',
 }
-const SILVER_WORD: Record<Locale, string> = {
+export const SILVER_WORD: Record<Locale, string> = {
   ru: 'серебра',
   en: 'silver',
   es: 'plata',
@@ -277,7 +277,7 @@ const SILVER_WORD: Record<Locale, string> = {
   tr: 'gümüş',
   nl: 'zilver',
 }
-const INTL_LOCALE: Record<Locale, string> = {
+export const INTL_LOCALE: Record<Locale, string> = {
   ru: 'ru-RU',
   en: 'en-US',
   es: 'es-ES',
@@ -289,6 +289,21 @@ const INTL_LOCALE: Record<Locale, string> = {
   nl: 'nl-NL',
 }
 
+// Общий форматтер "N золота/серебра" - переиспользуется getRewardLabel() ниже
+// и BoxModal.svelte (цена бокса - та же валютная фраза, другой контекст).
+export function formatCurrencyAmount(
+  amount: number,
+  type: 'hardcurrency' | 'softcurrency',
+  locale: Locale = 'ru',
+): string {
+  const n = amount.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
+  const word =
+    type === 'hardcurrency'
+      ? (GOLD_WORD[locale] ?? GOLD_WORD.ru)
+      : (SILVER_WORD[locale] ?? SILVER_WORD.ru)
+  return `${n} ${word}`
+}
+
 export function getRewardLabel(
   reward: {
     name: string
@@ -297,14 +312,8 @@ export function getRewardLabel(
   },
   locale: Locale = 'ru',
 ): string {
-  if (reward.type === 'hardcurrency') {
-    const n = (reward.amount ?? 0).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
-    return `${n} ${GOLD_WORD[locale] ?? GOLD_WORD.ru}`
-  }
-
-  if (reward.type === 'softcurrency') {
-    const n = (reward.amount ?? 0).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
-    return `${n} ${SILVER_WORD[locale] ?? SILVER_WORD.ru}`
+  if (reward.type === 'hardcurrency' || reward.type === 'softcurrency') {
+    return formatCurrencyAmount(reward.amount ?? 0, reward.type, locale)
   }
 
   // Для entity используем перевод из craft-simulator

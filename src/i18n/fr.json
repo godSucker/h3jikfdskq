@@ -560,5 +560,21 @@
   "bingo.part": "Partie",
   "bingo.rewards": "Récompenses",
   "bingo.share.copied": "Copié !",
-  "bingo.share.promptLabel": "Copiez le lien :"
+  "bingo.share.promptLabel": "Copiez le lien :",
+  "boxes.pageTitle": "Coffres",
+  "boxes.pageDescription": "Catalogue des lucky box et mystery box de Mutants Genetic Gladiators : icônes, tiers et liste complète des mutants pouvant sortir de chaque coffre.",
+  "boxes.subtitle": "{count} coffres qui ont déjà été vendus dans la boutique. Cliquez sur un coffre pour voir la liste complète des récompenses.",
+  "boxes.searchPlaceholder": "Rechercher un coffre…",
+  "boxes.categoryAll": "Tous",
+  "boxes.category.lucky": "Lucky Box",
+  "boxes.category.mystery": "Mystery Box",
+  "boxes.emptyState": "Rien trouvé — essayez une autre recherche.",
+  "boxes.closeAria": "Fermer",
+  "boxes.mutantsInDropList": "Mutants dans la liste : {n}",
+  "boxes.guaranteedTitle": "Garanti dans le lot",
+  "boxes.drawTitle": "Tirage",
+  "boxes.skinTitle": "Skin : {skin}",
+  "boxes.skinLabel": "skin « {skin} »",
+  "boxes.count.reward.one": "récompense",
+  "boxes.count.reward.other": "récompenses"
 }

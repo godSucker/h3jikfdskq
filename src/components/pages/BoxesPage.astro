@@ -1,0 +1,265 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import boxesData from '@/data/boxes.json';
+import { textureUrl } from '@/lib/texture-cdn';
+import BoxModal from '@/components/boxes/BoxModal.svelte';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
+import { getBoxName } from '@/lib/boxes-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+interface BoxMutantRef {
+  id: string;
+  name: string;
+  tier: string | null;
+  skin: string | null;
+}
+interface BoxReward {
+  name: string;
+  type: 'entity' | 'hardcurrency' | 'softcurrency';
+  amount: number;
+}
+interface BoxGroup {
+  chance: number | null;
+  mutants: BoxMutantRef[];
+  rewards: BoxReward[];
+}
+interface Box {
+  itemId: string;
+  icon: string | null;
+  category: string;
+  name: string;
+  groups: BoxGroup[];
+}
+
+const boxes = boxesData as Box[];
+
+function allMutants(box: Box): BoxMutantRef[] {
+  return box.groups.flatMap((g) => g.mutants);
+}
+function allRewards(box: Box): BoxReward[] {
+  return box.groups.flatMap((g) => g.rewards);
+}
+
+const TIER_RANK: Record<string, number> = { 'платина': 4, 'золото': 3, 'серебро': 2, 'бронза': 1 };
+
+function rarityRank(box: Box): number {
+  let best = 0;
+  for (const m of allMutants(box)) if (m.tier) best = Math.max(best, TIER_RANK[m.tier] ?? 0);
+  return best;
+}
+
+const RARITY_CLASS = ['rarity-common', 'rarity-bronze', 'rarity-silver', 'rarity-gold', 'rarity-platinum'];
+
+// Категории - фиксированные 2 значения ('' - без категории), не данные игры -
+// переводятся через словарь UI-ключей, не через getBoxName.
+function categoryLabel(raw: string): string {
+  if (raw === 'Лаки-бокс') return t('boxes.category.lucky', locale);
+  if (raw === 'Мистери-бокс') return t('boxes.category.mystery', locale);
+  return raw;
+}
+
+// Сентинел '__all__' у data-cat вкладки "Все" не завязан на переведённый
+// текст (тот меняется по локали) - фильтрация в скрипте ниже сравнивает
+// именно с этим значением, не с текстом кнопки.
+const CATEGORY_ALL_SENTINEL = '__all__';
+const categoriesRaw = [...new Set(boxes.map((b) => b.category).filter(Boolean))];
+const categories = [
+  { raw: CATEGORY_ALL_SENTINEL, label: t('boxes.categoryAll', locale) },
+  ...categoriesRaw.map((c) => ({ raw: c, label: categoryLabel(c) })),
+];
+
+const localizedBoxes = boxes.map((box) => ({
+  ...box,
+  localizedName: getBoxName(box.itemId, locale, box.name),
+}));
+
+const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.length));
+---
+
+<BaseLayout
+  title={t('boxes.pageTitle', locale)}
+  description={t('boxes.pageDescription', locale)}
+  canonical="https://archivist-library.com/boxes"
+>
+  <section class="intro">
+    <div class="intro-header">
+      <img class="intro-icon" src={textureUrl('/boxes/mystery_legendary.png')} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <h1>{t('boxes.pageTitle', locale)}</h1>
+    </div>
+    <p>{subtitle}</p>
+  </section>
+
+  <div class="toolbar">
+    <input id="boxSearch" class="search-input" type="text" placeholder={t('boxes.searchPlaceholder', locale)} autocomplete="off" />
+    <div class="cat-tabs" role="tablist">
+      {categories.map((c, i) => (
+        <button class="cat-tab" data-cat={c.raw} aria-selected={i === 0 ? 'true' : 'false'}>{c.label}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="box-grid" id="boxGrid">
+    {localizedBoxes.map((box) => (
+      <button
+        class={`box-card ${RARITY_CLASS[rarityRank(box)]}`}
+        data-box-id={box.itemId}
+        data-name={box.localizedName.toLowerCase()}
+        data-cat={box.category}
+      >
+        <span class="box-card-frame">
+          {box.icon && <img class="box-card-icon" src={textureUrl(box.icon)} alt="" loading="lazy" decoding="async" />}
+        </span>
+        <span class="box-card-name">{box.localizedName}</span>
+        <span class="box-card-meta">
+          {box.category && <span class="box-card-cat">{categoryLabel(box.category)}</span>}
+          <span class="box-card-count">
+            {allMutants(box).length > 0
+              ? `${allMutants(box).length} ${pluralizeCount(allMutants(box).length, locale)}`
+              : `${allRewards(box).length} ${pluralizeCount(allRewards(box).length, locale, 'boxes.count.reward')}`}
+          </span>
+        </span>
+      </button>
+    ))}
+  </div>
+
+  <p class="empty-state" id="emptyState" hidden>{t('boxes.emptyState', locale)}</p>
+
+  <BoxModal client:load locale={locale} />
+  <BingoMutantModal client:load />
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('boxGrid')!;
+    const cards = Array.from(grid.querySelectorAll<HTMLButtonElement>('.box-card'));
+    const searchInput = document.getElementById('boxSearch') as HTMLInputElement;
+    const emptyState = document.getElementById('emptyState')!;
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.cat-tab'));
+
+    let activeCat = '__all__';
+
+    function applyFilter() {
+      const q = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      for (const card of cards) {
+        const matchesQuery = !q || card.dataset.name?.includes(q);
+        const matchesCat = activeCat === '__all__' || card.dataset.cat === activeCat;
+        const show = matchesQuery && matchesCat;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      }
+      emptyState.hidden = visible !== 0;
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        activeCat = tab.dataset.cat ?? '';
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        applyFilter();
+      });
+    });
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('archivist:open-box', { detail: { boxId: card.dataset.boxId } }));
+      });
+    });
+  });
+</script>
+
+<style>
+  .intro { margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .intro-header { display: flex; align-items: center; gap: 0.75rem; }
+  .intro-icon { width: 40px; height: 40px; filter: drop-shadow(0 4px 16px rgba(96, 165, 250, 0.4)); }
+  .intro h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; text-shadow: 0 3px 10px rgba(96, 165, 250, 0.4); }
+  .intro p { margin: 0.35rem 0 0; color: #94a3b8; font-size: 0.9rem; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem; }
+  .search-input { flex: 1 1 220px; min-width: 0; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.55rem 0.8rem; color: #e2e8f0; font-size: 0.9rem; }
+  .search-input:focus-visible { outline: 2px solid #38bdf8; outline-offset: 1px; }
+  .search-input::placeholder { color: #64748b; }
+
+  .cat-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+  .cat-tab { appearance: none; border: 1px solid rgba(48, 54, 61, 0.6); background: rgba(22, 27, 34, 0.9); color: #94a3b8; border-radius: 8px; padding: 0.45rem 0.9rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+  .cat-tab:hover { background: rgba(30, 58, 138, 0.2); color: #fff; }
+  .cat-tab[aria-selected="true"] { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border-color: rgba(96,165,250,0.4); }
+
+  .box-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.85rem; }
+
+  .box-card {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    padding: 1rem 0.6rem 0.85rem;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255,255,255,0.07);
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .box-card:hover { transform: translateY(-2px); background: rgba(30, 41, 59, 0.85); }
+  .box-card:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+
+  .box-card-frame {
+    position: relative;
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.06), rgba(0,0,0,0.2));
+    box-shadow: inset 0 0 0 2px var(--rarity-ring, rgba(148,163,184,0.35));
+  }
+  .box-card-icon { width: 52px; height: 52px; object-fit: contain; }
+
+  .box-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 14px;
+    box-shadow: 0 0 0 1px var(--rarity-ring, transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .box-card:hover::before { opacity: 1; box-shadow: 0 0 24px 2px var(--rarity-ring, transparent); }
+
+  .rarity-common   { --rarity-ring: rgba(148, 163, 184, 0.4); }
+  .rarity-bronze   { --rarity-ring: rgba(205, 127, 50, 0.55); }
+  .rarity-silver   { --rarity-ring: rgba(203, 213, 225, 0.6); }
+  .rarity-gold     { --rarity-ring: rgba(250, 204, 21, 0.65); }
+  .rarity-platinum { --rarity-ring: rgba(56, 189, 248, 0.75); }
+
+  .box-card-name { font-size: 12.5px; font-weight: 600; color: #e2e8f0; line-height: 1.25; }
+  .box-card-meta { display: flex; flex-direction: column; gap: 2px; }
+  .box-card-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: #60a5fa; }
+  .box-card-count { font-size: 10.5px; color: #64748b; }
+
+  .empty-state { text-align: center; color: #64748b; padding: 2rem 0; }
+
+  /* Крупные экраны (FHD+) - без этого сетка просто плодит те же 150px-карточки
+     в 10+ колонок, всё выглядит мелко. Раздвигаем сами карточки, не только
+     их количество в ряд. */
+  @media (min-width: 1440px) {
+    .box-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.1rem; }
+    .box-card-frame { width: 92px; height: 92px; }
+    .box-card-icon { width: 68px; height: 68px; }
+    .box-card-name { font-size: 14px; }
+    .box-card-cat { font-size: 11px; }
+    .box-card-count { font-size: 11.5px; }
+  }
+  @media (min-width: 1921px) {
+    .box-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.4rem; }
+    .box-card-frame { width: 112px; height: 112px; }
+    .box-card-icon { width: 84px; height: 84px; }
+    .box-card-name { font-size: 16px; }
+    .box-card-cat { font-size: 12.5px; }
+    .box-card-count { font-size: 13px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .box-card { transition: none; }
+  }
+</style>

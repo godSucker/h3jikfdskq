@@ -562,5 +562,22 @@
   "bingo.part": "Часть",
   "bingo.rewards": "Награды",
   "bingo.share.copied": "Скопировано!",
-  "bingo.share.promptLabel": "Скопируйте ссылку:"
+  "bingo.share.promptLabel": "Скопируйте ссылку:",
+  "boxes.pageTitle": "Боксы",
+  "boxes.pageDescription": "Каталог лаки- и мистери-боксов Mutants Genetic Gladiators: иконки, тиры и полный список мутантов, которые из них выпадают.",
+  "boxes.subtitle": "{count} коробок, которые когда-либо продавались в магазине. Клик по боксу — полный дроп-лист внутри.",
+  "boxes.searchPlaceholder": "Поиск бокса…",
+  "boxes.categoryAll": "Все",
+  "boxes.category.lucky": "Лаки-бокс",
+  "boxes.category.mystery": "Мистери-бокс",
+  "boxes.emptyState": "Ничего не найдено — попробуй другой запрос.",
+  "boxes.closeAria": "Закрыть",
+  "boxes.mutantsInDropList": "Мутантов в дроп-листе: {n}",
+  "boxes.guaranteedTitle": "Гарантированно в комплекте",
+  "boxes.drawTitle": "Розыгрыш",
+  "boxes.skinTitle": "Скин: {skin}",
+  "boxes.skinLabel": "скин «{skin}»",
+  "boxes.count.reward.one": "награда",
+  "boxes.count.reward.few": "награды",
+  "boxes.count.reward.many": "наград"
 }
