@@ -1,6 +1,7 @@
 <script lang="ts">
   import { normalizeSearch } from '@/lib/search-normalize'
   import { textureUrl } from '@/lib/texture-cdn'
+  import { t, type Locale } from '@/lib/i18n'
 
   function safeUrl(url: string): string {
     if (!url) return '#'
@@ -11,7 +12,7 @@
     return '#'
   }
 
-  let { players = [], mutantsDb = [] }: { players: { rank: number; name: string; level: number; id: string; tandem: string; atk1: string; atk2: string; socials: any[] }[]; mutantsDb: any[] } = $props()
+  let { players = [], mutantsDb = [], locale = 'ru' as Locale }: { players: { rank: number; name: string; level: number; id: string; tandem: string; atk1: string; atk2: string; socials: any[] }[]; mutantsDb: any[]; locale?: Locale } = $props()
 
   let query = $state('')
   let displayCount = $state(50)
@@ -112,8 +113,8 @@
   <a href="https://t.me/Donut_Safe" target="_blank" rel="noopener noreferrer">
     <span class="cta-icon">🚀</span>
     <span class="cta-text">
-      Хочешь попасть в ТОП?
-      <span class="cta-link">Напиши сюда (ТЫК)</span>
+      {t('topEvo.ctaText', locale)}
+      <span class="cta-link">{t('topEvo.ctaLink', locale)}</span>
     </span>
   </a>
 </div>
@@ -121,15 +122,15 @@
 <div class="leaderboard-container">
   <div class="search-bar">
     <div class="search-icon">🔍</div>
-    <input id="evo-top-search" name="evo-top-search" type="text" placeholder="Найти игрока..." bind:value={query} />
+    <input id="evo-top-search" name="evo-top-search" type="text" placeholder={t('topEvo.searchPlaceholder', locale)} bind:value={query} />
   </div>
 
   <div class="list">
     <div class="list-header mobile-hidden">
-      <span class="col-rank">Ранг</span>
-      <span class="col-name">Игрок</span>
-      <span class="col-tandem">Тандем</span>
-      <span class="col-lvl">Уровень Эво</span>
+      <span class="col-rank">{t('topEvo.col.rank', locale)}</span>
+      <span class="col-name">{t('topEvo.col.name', locale)}</span>
+      <span class="col-tandem">{t('topEvo.col.tandem', locale)}</span>
+      <span class="col-lvl">{t('topEvo.col.level', locale)}</span>
     </div>
 
     {#each visiblePlayers as player (player.id)}
@@ -161,12 +162,12 @@
     {/each}
 
     {#if filteredPlayers.length === 0}
-      <div class="empty-state">Игроки не найдены...</div>
+      <div class="empty-state">{t('topEvo.emptyState', locale)}</div>
     {/if}
   </div>
 
   {#if visiblePlayers.length < filteredPlayers.length}
-    <button class="load-more" onclick={loadMore}>Показать еще</button>
+    <button class="load-more" onclick={loadMore}>{t('topEvo.loadMore', locale)}</button>
   {/if}
 </div>
 
@@ -188,15 +189,15 @@
       {#if selectedPlayer.mutantData}
         {#if selectedPlayer.mutantData.isDisabled}
           <div class="tandem-section">
-            <h3 class="sad-title">Тандем отключен</h3>
+            <h3 class="sad-title">{t('topEvo.tandemDisabledTitle', locale)}</h3>
             <div class="mutant-preview sad-preview">
               <img src={textureUrl("/avatars/sad_emoji.gif")} alt="Sad" class="sad-icon" />
             </div>
-            <p class="sad-text">У этого игрока нет активного тандема.</p>
+            <p class="sad-text">{t('topEvo.noActiveTandem', locale)}</p>
           </div>
         {:else}
           <div class="tandem-section">
-            <h3>Тандем: <span class="tandem-name">{selectedPlayer.mutantData.name}</span></h3>
+            <h3>{t('topEvo.tandemLabel', locale)} <span class="tandem-name">{selectedPlayer.mutantData.name}</span></h3>
             <div class="mutant-preview">
               {#if selectedPlayer.mutantData.image}
                 <img src={textureUrl(selectedPlayer.mutantData.image)} alt={selectedPlayer.mutantData.name} />
@@ -222,13 +223,13 @@
         {/if}
       {:else}
         <div class="no-tandem">
-          <p>Мутант "{selectedPlayer.tandem}" не найден в базе.</p>
+          <p>{t('topEvo.mutantNotFound', locale).replace('{name}', selectedPlayer.tandem)}</p>
         </div>
       {/if}
 
       {#if selectedPlayer.socials && selectedPlayer.socials.length > 0}
         <div class="socials-section">
-          <div class="socials-header">Соц. сети игрока</div>
+          <div class="socials-header">{t('topEvo.socialsHeader', locale)}</div>
           <div class="socials-grid">
             {#each selectedPlayer.socials as social}
               <a href={safeUrl(social.url)} target="_blank" rel="noopener noreferrer" class="social-btn {social.type}">
@@ -239,7 +240,7 @@
                     {:else if social.type === 'fb'}f
                     {:else}🔗{/if}
                   </span>
-                  <span class="btn-label">{social.label}</span>
+                  <span class="btn-label">{social.type === 'link' ? t('topEvo.genericLinkLabel', locale) : social.label}</span>
                 </div>
                 <span class="btn-arrow">→</span>
               </a>

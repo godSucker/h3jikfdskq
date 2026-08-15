@@ -34,6 +34,7 @@ export const TRANSLATED_PATHS = [
   '/top-mutants',
   '/rebalance',
   '/credits',
+  '/top-evo',
 ] as const
 
 // Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS
