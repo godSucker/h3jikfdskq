@@ -613,5 +613,11 @@
   "rebalance.tierLabel": "Tier",
   "rebalance.aoeTitle": "Attacco AOE",
   "rebalance.count.mutant.one": "mutante",
-  "rebalance.count.mutant.other": "mutanti"
+  "rebalance.count.mutant.other": "mutanti",
+  "credits.pageTitle": "Crediti",
+  "credits.pageDescription": "Il team e gli autori del progetto Archivist-Library - una base di conoscenza sul gioco Mutants Genetic Gladiators (MGG).",
+  "credits.backToHome": "Torna alla home",
+  "credits.badge": "Team del progetto",
+  "credits.heading": "Gli Archivisti",
+  "credits.subtitle": "Le persone grazie alle quali esiste la biblioteca dell'archivista."
 }

@@ -613,5 +613,11 @@
   "rebalance.tierLabel": "Tier",
   "rebalance.aoeTitle": "AOE-aanval",
   "rebalance.count.mutant.one": "mutant",
-  "rebalance.count.mutant.other": "mutanten"
+  "rebalance.count.mutant.other": "mutanten",
+  "credits.pageTitle": "Colofon",
+  "credits.pageDescription": "Het team en de auteurs van Archivist-Library - een kennisbank voor de game Mutants Genetic Gladiators (MGG).",
+  "credits.backToHome": "Terug naar home",
+  "credits.badge": "Projectteam",
+  "credits.heading": "De Archivarissen",
+  "credits.subtitle": "De mensen dankzij wie de bibliotheek van de archivaris bestaat."
 }

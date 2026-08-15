@@ -613,5 +613,11 @@
   "rebalance.tierLabel": "Tier",
   "rebalance.aoeTitle": "AOE saldırısı",
   "rebalance.count.mutant.one": "mutant",
-  "rebalance.count.mutant.other": "mutant"
+  "rebalance.count.mutant.other": "mutant",
+  "credits.pageTitle": "Emeği Geçenler",
+  "credits.pageDescription": "Archivist-Library projesinin ekibi ve yazarları - Mutants Genetic Gladiators (MGG) oyunu için bir bilgi bankası.",
+  "credits.backToHome": "Ana sayfaya dön",
+  "credits.badge": "Proje Ekibi",
+  "credits.heading": "Arşivciler",
+  "credits.subtitle": "Arşivcinin kütüphanesinin var olmasını sağlayan insanlar."
 }

@@ -617,5 +617,11 @@
   "rebalance.aoeTitle": "AOE-атака",
   "rebalance.count.mutant.one": "мутант",
   "rebalance.count.mutant.few": "мутанта",
-  "rebalance.count.mutant.many": "мутантов"
+  "rebalance.count.mutant.many": "мутантов",
+  "credits.pageTitle": "Создатели",
+  "credits.pageDescription": "Команда и авторы проекта Archivist-Library — базы знаний по игре Mutants Genetic Gladiators (MGG).",
+  "credits.backToHome": "На главную",
+  "credits.badge": "Команда проекта",
+  "credits.heading": "Архивариусы",
+  "credits.subtitle": "Люди, благодаря которым существует библиотека архивариуса."
 }
