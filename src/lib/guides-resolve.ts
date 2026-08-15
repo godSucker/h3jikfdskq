@@ -182,7 +182,9 @@ export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): 
       const size = match ? Number(match[1]) + 1 : null
       const label =
         ctx.getLocalisedName(reward.id) ??
-        (size ? tr('guides.reward.luxZone', 'Люкс-зона x{n}', { n: String(size) }) : prettifyId(reward.id))
+        (size
+          ? tr('guides.reward.luxZone', 'Люкс-зона x{n}', { n: String(size) })
+          : prettifyId(reward.id))
       return { label, icon: null }
     }
     const ephemeralMatch = reward.id.match(/^(.+)_ephemeral_(\d+)$/)
@@ -232,7 +234,9 @@ export function resolveDungeon(d: DungeonRaw, ctx: RewardResolveCtx): ResolvedDu
     id: d.id,
     name: d.name,
     nameAuthored: d.nameAuthored,
-    mutant: d.mutantId ? resolveMutantLite(d.mutantId.toLowerCase(), ctx.mutantsById, ctx.names) : null,
+    mutant: d.mutantId
+      ? resolveMutantLite(d.mutantId.toLowerCase(), ctx.mutantsById, ctx.names)
+      : null,
     fightCount: d.fightCount,
     bossCount: d.bossCount,
     currency: resolveCurrencySummary(d.rewards.currency, ctx),
