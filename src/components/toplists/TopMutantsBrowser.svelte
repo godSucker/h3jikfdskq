@@ -1,8 +1,25 @@
 <script lang="ts">
   import toplistsData from '@/data/mutants/toplists.json'
   import { textureUrl } from '@/lib/texture-cdn'
-  import { ABILITY_RU, STAR_LABEL } from '@/lib/mutant-dicts'
+  import { abilityLabelL, starLabelL } from '@/lib/mutant-dicts'
   import { STAR_ICONS } from '@/lib/mutant-icons'
+  import { t, type Locale } from '@/lib/i18n'
+
+  let { locale = 'ru' as Locale }: { locale?: Locale } = $props()
+
+  // Числа/даты по локали - тот же приём, что numberFormatLocale в
+  // MaterialsIndexPage.astro (не общий модуль, но паттерн уже устоялся).
+  const INTL_LOCALE: Record<Locale, string> = {
+    ru: 'ru-RU',
+    en: 'en-US',
+    es: 'es-ES',
+    fr: 'fr-FR',
+    de: 'de-DE',
+    pt: 'pt-BR',
+    it: 'it-IT',
+    tr: 'tr-TR',
+    nl: 'nl-NL',
+  }
 
   interface RankEntry {
     id: string
@@ -38,12 +55,12 @@
   ]
 
   const CATEGORIES: { key: string; label: string; unit?: string }[] = [
-    { key: 'atk1', label: 'Атака (одиночная)' },
-    { key: 'atk2', label: 'Атака (массовая)' },
-    { key: 'hp', label: 'ХП' },
-    { key: 'speed', label: 'Скорость' },
-    { key: 'silver', label: 'Серебро' },
-    ...PLUS_ABILITIES.map((k) => ({ key: k, label: ABILITY_RU[k] ?? k })),
+    { key: 'atk1', label: t('topMutants.cat.atk1', locale) },
+    { key: 'atk2', label: t('topMutants.cat.atk2', locale) },
+    { key: 'hp', label: t('topMutants.cat.hp', locale) },
+    { key: 'speed', label: t('topMutants.cat.speed', locale) },
+    { key: 'silver', label: t('topMutants.cat.silver', locale) },
+    ...PLUS_ABILITIES.map((k) => ({ key: k, label: abilityLabelL(k, locale) })),
   ]
 
   let selectedCategory = $state('atk1')
@@ -88,7 +105,20 @@
   }
 
   function fmt(n: number): string {
-    return n.toLocaleString('ru-RU')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
+  }
+
+  // s.label (RU) игнорируется вне RU - дата пересобирается из ISO-id снапшота
+  // по локали (сам build-toplists.ts не трогаем, там только RU-текст).
+  function snapshotLabel(s: Snapshot): string {
+    if (locale === 'ru') return s.label
+    if (s.id === 'current') return t('topMutants.currentData', locale)
+    const date = new Date(s.id).toLocaleDateString(INTL_LOCALE[locale] ?? 'en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+    return t('topMutants.beforeRebalance', locale).replace('{date}', date)
   }
 </script>
 
@@ -106,28 +136,28 @@
   </div>
 
   <div class="controls-row">
-    <div class="pill-group" role="tablist" aria-label="Уровень">
-      <button class="pill" class:active={selectedLevel === '1'} onclick={() => (selectedLevel = '1')}>Ур. 1</button>
-      <button class="pill" class:active={selectedLevel === '30'} onclick={() => (selectedLevel = '30')}>Ур. 30</button>
+    <div class="pill-group" role="tablist" aria-label={t('topMutants.levelAriaLabel', locale)}>
+      <button class="pill" class:active={selectedLevel === '1'} onclick={() => (selectedLevel = '1')}>{t('topMutants.level1', locale)}</button>
+      <button class="pill" class:active={selectedLevel === '30'} onclick={() => (selectedLevel = '30')}>{t('topMutants.level30', locale)}</button>
     </div>
 
-    <div class="pill-group" role="tablist" aria-label="Направление">
-      <button class="pill" class:active={sortDir === 'top'} onclick={() => (sortDir = 'top')}>Лучшие</button>
+    <div class="pill-group" role="tablist" aria-label={t('topMutants.directionAriaLabel', locale)}>
+      <button class="pill" class:active={sortDir === 'top'} onclick={() => (sortDir = 'top')}>{t('topMutants.best', locale)}</button>
       <button
         class="pill"
         class:active={sortDir === 'bottom'}
         disabled={!bottomAllowed}
-        title={bottomAllowed ? '' : 'Серебро — плоский показатель уровня, анти-топ по нему неинформативен'}
+        title={bottomAllowed ? '' : t('topMutants.silverBottomDisabledTitle', locale)}
         onclick={() => bottomAllowed && (sortDir = 'bottom')}
       >
-        Худшие
+        {t('topMutants.worst', locale)}
       </button>
     </div>
 
     {#if snapshots.length > 1}
       <select class="date-select" bind:value={selectedDate}>
         {#each snapshots as s (s.id)}
-          <option value={s.id}>{s.label}</option>
+          <option value={s.id}>{snapshotLabel(s)}</option>
         {/each}
       </select>
     {/if}
@@ -136,8 +166,7 @@
 
 {#if isUnavailable}
   <p class="unavailable-note">
-    Для уровня 1 история изменений в этой категории пока не отслеживалась — точные прошлые значения
-    появятся только после следующего ребаланса. Доступны только текущие данные.
+    {t('topMutants.unavailableNote', locale)}
   </p>
 {:else}
   <ol class="rank-list">
@@ -152,7 +181,7 @@
           </span>
           <span class="rank-name">{entry.name}</span>
           <span class="rank-star">
-            <img src={textureUrl(STAR_ICONS[entry.star])} alt={STAR_LABEL[entry.star] ?? entry.star} title={STAR_LABEL[entry.star] ?? entry.star} loading="lazy" decoding="async" />
+            <img src={textureUrl(STAR_ICONS[entry.star])} alt={starLabelL(entry.star, locale)} title={starLabelL(entry.star, locale)} loading="lazy" decoding="async" />
           </span>
           {#if isAbilityCategory && entry.pct != null}
             <span class="rank-pct">{entry.pct}%</span>
@@ -165,7 +194,7 @@
 
   {#if visibleCount < orderedList.length}
     <button class="load-more" onclick={() => (visibleCount += 40)}>
-      Показать ещё ({orderedList.length - visibleCount})
+      {t('topMutants.loadMore', locale).replace('{n}', String(orderedList.length - visibleCount))}
     </button>
   {/if}
 {/if}
