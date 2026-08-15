@@ -21,6 +21,10 @@ export const TRANSLATED_PATHS = [
   '/simulators/craft',
   '/simulators/breeding',
   '/simulators/stats',
+  '/simulators/roulette',
+  '/simulators/roulette/cash',
+  '/simulators/roulette/lucky',
+  '/simulators/roulette/madness',
 ] as const
 
 // Локали с собственным src/i18n/{locale}.json (не через EN-фолбэк).

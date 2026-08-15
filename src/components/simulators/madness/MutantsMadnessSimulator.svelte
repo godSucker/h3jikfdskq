@@ -13,8 +13,9 @@
     madnessMachine,
     simulateMadnessAsync,
   } from '@/lib/madness-machine';
+  import { t, type Locale } from '@/lib/i18n';
 
-  let { machine = madnessMachine }: { machine?: MadnessMachineDefinition } = $props();
+  let { machine = madnessMachine, locale }: { machine?: MadnessMachineDefinition; locale: Locale } = $props();
 
   const discountOptions = [0, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 
@@ -61,39 +62,39 @@
 
   const resourceSummaryConfig: Record<ResourceSummaryKey, ResourceSummaryDefinition> = {
     consumables: {
-      label: 'Расходники',
+      label: t('roulette.madness.resourceConsumables', locale),
       icon: '/med/normal_med.webp',
-      metaLabel: 'Ресурсов суммарно',
+      metaLabel: t('roulette.madness.metaTotal', locale),
     },
     stars: {
-      label: 'Звёзды',
+      label: t('roulette.madness.resourceStars', locale),
       icon: '/stars/all_stars.webp',
-      metaLabel: 'Ресурсов суммарно',
+      metaLabel: t('roulette.madness.metaTotal', locale),
     },
     spheres: {
-      label: 'Сферы',
+      label: t('roulette.madness.resourceSpheres', locale),
       icon: '/orbs/basic/orb_slot.webp',
-      metaLabel: 'Ресурсов суммарно',
+      metaLabel: t('roulette.madness.metaTotal', locale),
     },
     boosters: {
-      label: 'Бустеры',
+      label: t('roulette.madness.resourceBoosters', locale),
       icon: '/boosters/charm_xpx2_7.webp',
-      metaLabel: 'Ресурсов суммарно',
+      metaLabel: t('roulette.madness.metaTotal', locale),
     },
     tokens: {
-      label: 'Жетоны',
+      label: t('roulette.madness.resourceTokens', locale),
       icon: '/materials/Material_Jackpot_Token.png',
-      metaLabel: 'Ресурсов суммарно',
+      metaLabel: t('roulette.madness.metaTotal', locale),
     },
     mutants: {
-      label: 'Мутанты',
+      label: t('roulette.madness.resourceMutants', locale),
       icon: '/etc/icon_larva.webp',
-      metaLabel: 'Выпало суммарно',
+      metaLabel: t('roulette.madness.metaDropped', locale),
     },
     jackpots: {
-      label: 'Джекпоты',
+      label: t('roulette.madness.resourceJackpots', locale),
       icon: '/cash/jackpot.webp',
-      metaLabel: 'Выпало суммарно',
+      metaLabel: t('roulette.madness.metaDropped', locale),
     },
   };
 
@@ -268,17 +269,17 @@
     error = null;
 
     if (level < 1) {
-      error = 'Уровень славы игрока должен быть не менее 1.';
+      error = t('roulette.madness.errorLevel', locale);
       return;
     }
 
     if (!Number.isFinite(totalSpins) || totalSpins <= 0) {
-      error = 'Введите ресурсы для хотя бы одного прокрута.';
+      error = t('roulette.madness.errorResources', locale);
       return;
     }
 
     if (!Number.isFinite(level)) {
-      error = 'Уровень славы игрока указан некорректно.';
+      error = t('roulette.madness.errorLevelInvalid', locale);
       return;
     }
 
@@ -307,9 +308,9 @@
       result = simulation;
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
-        error = 'Симуляция остановлена.';
+        error = t('roulette.madness.errorAborted', locale);
       } else {
-        error = 'Не удалось выполнить симуляцию. Попробуйте ещё раз.';
+        error = t('roulette.madness.errorGeneric', locale);
       }
     } finally {
       controller = null;
@@ -327,8 +328,8 @@
     const { token, gold } = entry.currencyCounts;
     if (!token && !gold) return '—';
     const parts: string[] = [];
-    if (token) parts.push(`${formatNumber(token)} × жетоны джекпота`);
-    if (gold) parts.push(`${formatNumber(gold)} × золото`);
+    if (token) parts.push(`${formatNumber(token)} ${t('roulette.madness.currencyTokens', locale)}`);
+    if (gold) parts.push(`${formatNumber(gold)} ${t('roulette.madness.currencyGold', locale)}`);
     return parts.join(' · ');
   }
 
@@ -343,28 +344,28 @@
   <form class="control-panel" onsubmit={(e) => { e.preventDefault(); handleSimulate(); }} style="order: -1;">
     <div class="inputs">
       <label class="field">
-        <span class="label">Уровень славы игрока</span>
+        <span class="label">{t('roulette.madness.levelLabel', locale)}</span>
         <input id="madness-level" name="madness-level" type="number" min={1} bind:value={level} />
-        <small>Максимальное исследование: {maxResearch > 0 ? maxResearch : 'не доступно'}</small>
+        <small>{t('roulette.madness.maxResearchLabel', locale).replace('{n}', maxResearch > 0 ? String(maxResearch) : t('roulette.madness.maxResearchNone', locale))}</small>
       </label>
       <label class="field">
-        <span class="label">Золото</span>
+        <span class="label">{t('roulette.madness.goldLabel', locale)}</span>
         <input id="madness-gold" name="madness-gold" type="number" min={0} step={1} bind:value={gold} />
-        <small>Стоимость прокрута: {formatNumber(goldCostPerSpin)} золота</small>
+        <small>{t('roulette.madness.goldCostHint', locale).replace('{n}', formatNumber(goldCostPerSpin))}</small>
       </label>
       <label class="field">
-        <span class="label">Жетоны джекпота</span>
+        <span class="label">{t('roulette.madness.tokensLabel', locale)}</span>
         <input id="madness-tokens" name="madness-tokens" type="number" min={0} step={1} bind:value={tokens} />
-        <small>Стоимость прокрута: {formatNumber(tokenCostPerSpin)} жетонов джекпота</small>
+        <small>{t('roulette.madness.tokensCostHint', locale).replace('{n}', formatNumber(tokenCostPerSpin))}</small>
       </label>
       <label class="field">
-        <span class="label">Скидка</span>
+        <span class="label">{t('roulette.madness.discountLabel', locale)}</span>
         <select id="madness-discount" name="madness-discount" bind:value={discountValue}>
           {#each discountOptions as option}
             <option value={option}>{option}%</option>
           {/each}
         </select>
-        <small>После скидки стоимость округляется вверх.</small>
+        <small>{t('roulette.madness.discountHint', locale)}</small>
       </label>
     </div>
 
@@ -374,9 +375,9 @@
           <img src={textureUrl("/materials/Material_Jackpot_Token.png")} alt="" loading="lazy" />
         </div>
         <div class="summary-body">
-          <span class="title">Прокруты за жетоны джекпота</span>
+          <span class="title">{t('roulette.madness.summaryTokenSpins', locale)}</span>
           <strong>{formatNumber(tokenSpins)}</strong>
-          <span class="meta">Останется: {formatNumber(tokenRemaining)} жетонов джекпота</span>
+          <span class="meta">{t('roulette.madness.summaryTokenRemaining', locale).replace('{n}', formatNumber(tokenRemaining))}</span>
         </div>
       </div>
       <div class="summary-card gold-spins">
@@ -384,9 +385,9 @@
           <img src={textureUrl("/cash/g20.webp")} alt="" loading="lazy" />
         </div>
         <div class="summary-body">
-          <span class="title">Прокруты за золото</span>
+          <span class="title">{t('roulette.madness.summaryGoldSpins', locale)}</span>
           <strong>{formatNumber(goldSpins)}</strong>
-          <span class="meta">Останется: {formatNumber(goldRemaining)} зол.</span>
+          <span class="meta">{t('roulette.madness.summaryGoldRemaining', locale).replace('{n}', formatNumber(goldRemaining))}</span>
         </div>
       </div>
       <div class="summary-card total-spins">
@@ -394,9 +395,9 @@
           <img src={textureUrl("/etc/icon_timer.webp")} alt="" loading="lazy" />
         </div>
         <div class="summary-body">
-          <span class="title">Всего прокрутов</span>
+          <span class="title">{t('roulette.madness.summaryTotalSpins', locale)}</span>
           <strong>{formatNumber(totalSpins)}</strong>
-          <span class="meta">Открыто исследований: {maxResearch}</span>
+          <span class="meta">{t('roulette.madness.summaryResearchOpen', locale).replace('{n}', String(maxResearch))}</span>
         </div>
       </div>
       <div class="summary-card highlight jackpot-chance">
@@ -404,11 +405,11 @@
           <img src={textureUrl("/cash/jackpot.webp")} alt="" loading="lazy" />
         </div>
         <div class="summary-body">
-          <span class="title">Шанс джекпота</span>
+          <span class="title">{t('roulette.madness.summaryJackpotChance', locale)}</span>
           <strong>{formatPercent(jackpotChance, 4)}</strong>
-          <span class="meta">Для уровня {level}</span>
+          <span class="meta">{t('roulette.madness.summaryForLevel', locale).replace('{n}', String(level))}</span>
           {#if jackpotOddsRatio}
-            <span class="meta odds">К общему количеству жетонов джекпота: 1 к {jackpotOddsRatio.toFixed(2)}</span>
+            <span class="meta odds">{t('roulette.madness.summaryOddsRatio', locale).replace('{n}', jackpotOddsRatio.toFixed(2))}</span>
           {/if}
         </div>
       </div>
@@ -416,14 +417,14 @@
 
     <div class="actions">
       <button type="submit" class="primary" disabled={isSimulating}>
-        {isSimulating ? 'Считаем…' : 'Запустить симуляцию'}
+        {isSimulating ? t('roulette.madness.btnSimulating', locale) : t('roulette.madness.btnRun', locale)}
       </button>
       <button
         type="button"
         class={`ghost ${isSimulating ? 'danger' : ''}`}
         onclick={isSimulating ? stopSimulation : resetSimulation}
       >
-        {isSimulating ? 'Остановить' : 'Очистить'}
+        {isSimulating ? t('roulette.madness.btnStop', locale) : t('roulette.madness.btnClear', locale)}
       </button>
     </div>
 
@@ -431,8 +432,10 @@
       <div class="progress">
         <div class="progress-bar" style={`--progress: ${Math.min(progress * 100, 100)}%`}></div>
         <div class="progress-label">
-          Выполнено {Math.floor(progress * 100)}% — {formatNumber(completedSpins)} из
-          {formatNumber(totalSpins)} спинов
+          {t('roulette.madness.progressLabel', locale)
+            .replace('{pct}', String(Math.floor(progress * 100)))
+            .replace('{done}', formatNumber(completedSpins))
+            .replace('{total}', formatNumber(totalSpins))}
         </div>
       </div>
     {/if}
@@ -445,16 +448,19 @@
   {#if result}
     <section class="results">
       <header class="results-header">
-        <h3>Результаты симуляции</h3>
+        <h3>{t('roulette.madness.resultsTitle', locale)}</h3>
         <p>
-          Выполнено {formatNumber(result.totalSpins)} прокрутов: {formatNumber(result.tokenSpins)} за жетоны джекпота и
-          {formatNumber(result.goldSpins)} за золото. Выпало джекпотов: {formatNumber(result.jackpotCount)}.
+          {t('roulette.madness.resultsSummary', locale)
+            .replace('{total}', formatNumber(result.totalSpins))
+            .replace('{tokenSpins}', formatNumber(result.tokenSpins))
+            .replace('{goldSpins}', formatNumber(result.goldSpins))
+            .replace('{jackpots}', formatNumber(result.jackpotCount))}
         </p>
       </header>
 
       <div class="resource-summary" role="presentation">
         {#if displayedResourceSummaries.length === 0}
-          <p class="muted">Мутанты и джекпоты ещё не выпадали.</p>
+          <p class="muted">{t('roulette.madness.emptyResources', locale)}</p>
         {:else}
           {#each displayedResourceSummaries as summary (summary.key)}
             <article class="resource-card">
@@ -475,7 +481,7 @@
 
       <div class="result-grid">
         <section class="result-column">
-          <h4>По наградам</h4>
+          <h4>{t('roulette.madness.byRewards', locale)}</h4>
           {#if result.rewardBreakdown.length}
             <ul class="reward-board">
               {#each result.rewardBreakdown as entry, index}
@@ -490,8 +496,8 @@
                       <span class="count-badge">{formatNumber(entry.count)}×</span>
                     </div>
                     <div class="pills">
-                      <span class="pill actual">Факт: {getActualShare(entry)}</span>
-                      <span class="pill expected">Теор: {formatPercent(entry.chance, 4)}</span>
+                      <span class="pill actual">{t('roulette.madness.actualShare', locale).replace('{pct}', getActualShare(entry))}</span>
+                      <span class="pill expected">{t('roulette.madness.expectedShare', locale).replace('{pct}', formatPercent(entry.chance, 4))}</span>
                     </div>
                     {#if currencyLabel !== '—'}
                       <span class="currency">{currencyLabel}</span>
@@ -501,12 +507,12 @@
               {/each}
             </ul>
           {:else}
-            <p class="muted">Награды пока не выпадали.</p>
+            <p class="muted">{t('roulette.madness.emptyRewards', locale)}</p>
           {/if}
         </section>
 
         <section class="result-column">
-          <h4>История последних выпадений</h4>
+          <h4>{t('roulette.madness.recentHistory', locale)}</h4>
           {#if result.history.length}
             <ul class="history-list">
               {#each result.history as entry}
@@ -517,35 +523,35 @@
                   <div class="details">
                     <span class="name">{entry.label}</span>
                     <span class="meta">
-                      {entry.currency === 'token' ? 'жетоны джекпота' : 'золото'} · {getResearchLabel(entry.researchKey)}
+                      {entry.currency === 'token' ? t('roulette.madness.currencyLabelToken', locale) : t('roulette.madness.currencyLabelGold', locale)} · {getResearchLabel(entry.researchKey)}
                     </span>
                   </div>
                 </li>
               {/each}
             </ul>
           {:else}
-            <p class="muted">История пуста — запустите симуляцию.</p>
+            <p class="muted">{t('roulette.madness.emptyHistory', locale)}</p>
           {/if}
         </section>
 
         <section class="result-column">
-          <h4>Распределение по исследованиям</h4>
+          <h4>{t('roulette.madness.researchDistribution', locale)}</h4>
           {#if result.researchBreakdown.length}
             <ul class="research-list">
               {#each result.researchBreakdown as entry}
                 <li>
                   <span>{entry.label}</span>
                   <span class="meta">
-                    {formatNumber(entry.count)}× · факт: {result.totalSpins > 0
+                    {formatNumber(entry.count)}× · {t('roulette.madness.actualShare', locale).replace('{pct}', result.totalSpins > 0
                       ? `${((entry.count / result.totalSpins) * 100).toFixed(2)}%`
-                      : '—'}
-                    · теор: {formatPercent(entry.chance, 4)}
+                      : '—')}
+                    · {t('roulette.madness.expectedShare', locale).replace('{pct}', formatPercent(entry.chance, 4))}
                   </span>
                 </li>
               {/each}
             </ul>
           {:else}
-            <p class="muted">Нет данных для отображения.</p>
+            <p class="muted">{t('roulette.madness.noData', locale)}</p>
           {/if}
         </section>
       </div>
@@ -556,12 +562,12 @@
   <section class="odds-section" class:collapsed={!showOdds}>
     <button class="odds-toggle" onclick={() => showOdds = !showOdds}>
       <header>
-        <h3>Шансы наград по исследованиям</h3>
-        <p>Для уровня {level} доступны исследования до {maxResearch}.</p>
+        <h3>{t('roulette.madness.oddsTitle', locale)}</h3>
+        <p>{t('roulette.madness.oddsForLevel', locale).replace('{n}', String(level)).replace('{max}', String(maxResearch))}</p>
       </header>
       <span class="chevron">{showOdds ? '▼' : '▲'}</span>
     </button>
-    
+
     {#if showOdds}
       <div class="odds-table">
         {#each researchChances as group}
@@ -570,7 +576,7 @@
               <h4>{group.label}</h4>
               <span class="chance">{formatPercent(group.chance, 4)}</span>
             </header>
-            <p class="odds-meta">Наград: {group.rewards.length}</p>
+            <p class="odds-meta">{t('roulette.madness.oddsRewardCount', locale).replace('{n}', String(group.rewards.length))}</p>
             <ul>
               {#each group.rewards.slice(0, 5) as reward}
                 <li>
@@ -579,7 +585,7 @@
                 </li>
               {/each}
               {#if group.rewards.length > 5}
-                <li class="more">…и ещё {group.rewards.length - 5}</li>
+                <li class="more">{t('roulette.madness.oddsMore', locale).replace('{n}', String(group.rewards.length - 5))}</li>
               {/if}
             </ul>
           </article>

@@ -1,0 +1,180 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CashMachineSimulator from '@/components/simulators/cash/CashMachineSimulator.svelte';
+import { cashMachine, getRewardChance } from '@/lib/cash-machine';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+
+const jackpotReward = cashMachine.rewards.find((reward) => reward.isSuperJackpot) ?? cashMachine.rewards[0];
+const jackpotChance = jackpotReward ? getRewardChance(jackpotReward, cashMachine) : 0;
+---
+<BaseLayout
+  title={t('roulette.cash.pageTitle', locale)}
+  description={t('roulette.cash.pageDescription', locale)}
+  fullWidth={true}
+>
+  <div class="back-nav">
+    <a href={translatedHref('/simulators/roulette', locale)} class="back-button">
+      <span class="icon">←</span>
+      <span class="text">{t('roulette.backToRoulettes', locale)}</span>
+    </a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="badge">{t('roulette.cash.badge', locale)}</span>
+      <h1>Cash Frenzy</h1>
+      <p>
+        {t('roulette.cash.intro', locale)}
+      </p>
+      <dl class="quick-stats" aria-label={t('roulette.quickStatsAriaLabel', locale)}>
+        <div>
+          <dt>{t('roulette.cash.statCostPerSpin', locale)}</dt>
+          <dd>{cashMachine.cost} {t('roulette.cash.unitGold', locale)}</dd>
+        </div>
+        <div>
+          <dt>{t('roulette.cash.statRewardCount', locale)}</dt>
+          <dd>{cashMachine.rewards.length}</dd>
+        </div>
+        <div>
+          <dt>{t('roulette.cash.statSuperJackpot', locale)}</dt>
+          <dd>{(jackpotChance * 100).toFixed(6)}%</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <CashMachineSimulator client:load machine={cashMachine} locale={locale} />
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-card {
+    position: relative;
+    padding: 2.75rem;
+    border-radius: 36px;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.28), rgba(13, 17, 23, 0.92));
+    border: 1px solid rgba(255, 202, 40, 0.3);
+    box-shadow: 0 24px 46px rgba(255, 193, 7, 0.18);
+    overflow: hidden;
+  }
+
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.12), transparent 55%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.15rem;
+    border-radius: 999px;
+    background: rgba(255, 160, 0, 0.15);
+    color: #ffe082;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 1rem 0 0.75rem;
+    font-size: 3rem;
+    color: #ffecb3;
+  }
+
+  p {
+    margin: 0;
+    max-width: 640px;
+    color: rgba(248, 250, 252, 0.78);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .quick-stats {
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  dt {
+    margin: 0 0 0.4rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e5e7eb;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.35rem;
+    color: #ffecb3;
+    font-weight: 600;
+  }
+
+  .back-nav {
+    margin-bottom: 1.5rem;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #f8fafc;
+    transform: translateX(-4px);
+  }
+
+  .back-button .icon {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 680px) {
+    .hero-card {
+      padding: 1.5rem;
+      border-radius: 24px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+
+    .quick-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .back-button {
+       width: 100%;
+       justify-content: center;
+    }
+  }
+</style>

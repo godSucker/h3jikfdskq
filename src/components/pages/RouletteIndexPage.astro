@@ -1,0 +1,252 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+
+interface RouletteCard {
+  id: string;
+  name: string;
+  description: string;
+  href: string;
+  accent: string;
+  status: 'available' | 'soon';
+  highlights: string[];
+}
+
+const roulettes: RouletteCard[] = [
+  {
+    id: 'cash',
+    name: 'Cash Frenzy',
+    description: t('roulette.card.cash.description', locale),
+    href: translatedHref('/simulators/roulette/cash', locale),
+    accent: '#ffca28',
+    status: 'available',
+    highlights: [
+      t('roulette.card.cash.highlight1', locale),
+      t('roulette.card.cash.highlight2', locale),
+      t('roulette.card.cash.highlight3', locale),
+    ],
+  },
+  {
+    id: 'lucky',
+    name: 'Lucky Slots',
+    description: t('roulette.card.lucky.description', locale),
+    href: translatedHref('/simulators/roulette/lucky', locale),
+    accent: '#7c4dff',
+    status: 'available',
+    highlights: [
+      t('roulette.card.lucky.highlight1', locale),
+      t('roulette.card.lucky.highlight2', locale),
+      t('roulette.card.lucky.highlight3', locale),
+    ],
+  },
+  {
+    id: 'madness',
+    name: 'Mutants Madness',
+    description: t('roulette.card.madness.description', locale),
+    href: translatedHref('/simulators/roulette/madness', locale),
+    accent: '#f06292',
+    status: 'available',
+    highlights: [
+      t('roulette.card.madness.highlight1', locale),
+      t('roulette.card.madness.highlight2', locale),
+      t('roulette.card.madness.highlight3', locale),
+    ],
+  },
+];
+---
+<BaseLayout
+  title={t('roulette.pageTitle', locale)}
+  description={t('roulette.pageDescription', locale)}
+>
+  <section class="intro">
+    <span class="eyebrow">Casino Zone</span>
+    <h1>{t('roulette.chooseTitle', locale)}</h1>
+    <p>
+      {t('roulette.intro', locale)}
+    </p>
+  </section>
+
+  <section class="roulette-grid" aria-label={t('roulette.listAriaLabel', locale)}>
+    <div class="grid">
+      {roulettes.map((roulette) => (
+        <a
+          class={`roulette-card ${roulette.status === 'soon' ? 'disabled' : ''}`}
+          href={roulette.status === 'available' ? roulette.href : '#'}
+          aria-disabled={roulette.status === 'soon'}
+          style={{ '--accent': roulette.accent }}
+        >
+          <header>
+            <span class="tag">{t('roulette.statusReady', locale)}</span>
+            <h2>{roulette.name}</h2>
+            <p>{roulette.description}</p>
+          </header>
+          <ul class="highlights">
+            {roulette.highlights.map((text) => (
+              <li>{text}</li>
+            ))}
+          </ul>
+          <footer>
+            {roulette.status === 'available' ? (
+              <span class="cta">{t('roulette.ctaOpen', locale)}</span>
+            ) : (
+              <span class="cta muted">{t('roulette.ctaSoon', locale)}</span>
+            )}
+          </footer>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(124, 77, 255, 0.18);
+    color: #c7b8ff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
+  h1 {
+    margin: 1rem 0 0.75rem;
+    font-size: 2.8rem;
+    color: #f8fafc;
+  }
+
+  .intro p {
+    margin: 0;
+    max-width: 720px;
+    color: #cbd5f5;
+    line-height: 1.7;
+  }
+
+  .roulette-grid .grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .roulette-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 28px;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: linear-gradient(140deg, rgba(20, 24, 36, 0.95), rgba(27, 17, 51, 0.9));
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+  }
+
+  .roulette-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.1), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .roulette-card:hover::after {
+    opacity: 1;
+  }
+
+  .roulette-card:not(.disabled):hover {
+    transform: translateY(-8px);
+    border-color: rgba(236, 72, 153, 0.45);
+    box-shadow: 0 20px 40px rgba(94, 234, 212, 0.2);
+  }
+
+  .roulette-card.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .roulette-card header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .roulette-card h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #f8fafc;
+  }
+
+  .roulette-card p {
+    margin: 0;
+    color: rgba(226, 232, 240, 0.75);
+  }
+
+  .tag {
+    align-self: flex-start;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .highlights {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .highlights li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+  }
+
+  .highlights li::before {
+    content: '★';
+    color: var(--accent);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cta {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #93c5fd;
+  }
+
+  .cta.muted {
+    color: rgba(148, 163, 184, 0.7);
+  }
+
+  @media (max-width: 640px) {
+    .roulette-card {
+      padding: 1.5rem;
+      border-radius: 24px;
+    }
+  }
+</style>
