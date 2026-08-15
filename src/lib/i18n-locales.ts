@@ -26,6 +26,9 @@ export const TRANSLATED_PATHS = [
   '/simulators/roulette/lucky',
   '/simulators/roulette/madness',
   '/simulators/reactor',
+  '/materials',
+  '/materials/charms',
+  '/materials/orbs',
 ] as const
 
 // Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS

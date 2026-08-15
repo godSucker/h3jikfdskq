@@ -1,0 +1,1042 @@
+{
+  "en": {
+    "habitat_a_1.webp": {
+      "name": "Zone Cyborg · capacity 2",
+      "description": "Gene: Robot • Capacity: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zone Zombie · capacity 2",
+      "description": "Gene: Zombie • Capacity: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zone Brawler · capacity 2",
+      "description": "Gene: Brawler • Capacity: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zone Beast · capacity 2",
+      "description": "Gene: Beast • Capacity: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zone Galactic · capacity 2",
+      "description": "Gene: Galactic • Capacity: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zone Mythic · capacity 2",
+      "description": "Gene: Mythic • Capacity: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zone Cyborg · capacity 3",
+      "description": "Gene: Robot • Capacity: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zone Zombie · capacity 3",
+      "description": "Gene: Zombie • Capacity: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zone Brawler · capacity 3",
+      "description": "Gene: Brawler • Capacity: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zone Beast · capacity 3",
+      "description": "Gene: Beast • Capacity: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zone Galactic · capacity 3",
+      "description": "Gene: Galactic • Capacity: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zone Mythic · capacity 3",
+      "description": "Gene: Mythic • Capacity: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zone Cyborg · capacity 4",
+      "description": "Gene: Robot • Capacity: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zone Zombie · capacity 4",
+      "description": "Gene: Zombie • Capacity: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zone Brawler · capacity 4",
+      "description": "Gene: Brawler • Capacity: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zone Beast · capacity 4",
+      "description": "Gene: Beast • Capacity: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zone Galactic · capacity 4",
+      "description": "Gene: Galactic • Capacity: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zone Mythic · capacity 4",
+      "description": "Gene: Mythic • Capacity: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Luxe · Cyborg · capacity 3",
+      "description": "Luxe zone. Gene: Robot • Capacity: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Luxe · Zombie · capacity 3",
+      "description": "Luxe zone. Gene: Zombie • Capacity: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Luxe · Brawler · capacity 3",
+      "description": "Luxe zone. Gene: Brawler • Capacity: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Luxe · Beast · capacity 3",
+      "description": "Luxe zone. Gene: Beast • Capacity: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Luxe · Galactic · capacity 3",
+      "description": "Luxe zone. Gene: Galactic • Capacity: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Luxe · Mythic · capacity 3",
+      "description": "Luxe zone. Gene: Mythic • Capacity: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Luxe · Cyborg · capacity 4",
+      "description": "Luxe zone. Gene: Robot • Capacity: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Luxe · Zombie · capacity 4",
+      "description": "Luxe zone. Gene: Zombie • Capacity: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Luxe · Brawler · capacity 4",
+      "description": "Luxe zone. Gene: Brawler • Capacity: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Luxe · Beast · capacity 4",
+      "description": "Luxe zone. Gene: Beast • Capacity: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Luxe · Galactic · capacity 4",
+      "description": "Luxe zone. Gene: Galactic • Capacity: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Luxe · Mythic · capacity 4",
+      "description": "Luxe zone. Gene: Mythic • Capacity: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Luxe · Universal zone · capacity 3",
+      "description": "Any genes • Capacity: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Luxe · Universal zone · capacity 4",
+      "description": "Any genes • Capacity: 4"
+    }
+  },
+  "es": {
+    "habitat_a_1.webp": {
+      "name": "Zona Cíborg · capacidad 2",
+      "description": "Gen: Robot • Capacidad: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zona Zombi · capacidad 2",
+      "description": "Gen: Zombi • Capacidad: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zona Luchador · capacidad 2",
+      "description": "Gen: Luchador • Capacidad: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zona Bestia · capacidad 2",
+      "description": "Gen: Bestia • Capacidad: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zona Galáctico · capacidad 2",
+      "description": "Gen: Galáctico • Capacidad: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zona Mítico · capacidad 2",
+      "description": "Gen: Mítico • Capacidad: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zona Cíborg · capacidad 3",
+      "description": "Gen: Robot • Capacidad: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zona Zombi · capacidad 3",
+      "description": "Gen: Zombi • Capacidad: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zona Luchador · capacidad 3",
+      "description": "Gen: Luchador • Capacidad: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zona Bestia · capacidad 3",
+      "description": "Gen: Bestia • Capacidad: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zona Galáctico · capacidad 3",
+      "description": "Gen: Galáctico • Capacidad: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zona Mítico · capacidad 3",
+      "description": "Gen: Mítico • Capacidad: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zona Cíborg · capacidad 4",
+      "description": "Gen: Robot • Capacidad: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zona Zombi · capacidad 4",
+      "description": "Gen: Zombi • Capacidad: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zona Luchador · capacidad 4",
+      "description": "Gen: Luchador • Capacidad: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zona Bestia · capacidad 4",
+      "description": "Gen: Bestia • Capacidad: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zona Galáctico · capacidad 4",
+      "description": "Gen: Galáctico • Capacidad: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zona Mítico · capacidad 4",
+      "description": "Gen: Mítico • Capacidad: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Lujo · Cíborg · capacidad 3",
+      "description": "Lujo zona. Gen: Robot • Capacidad: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Lujo · Zombi · capacidad 3",
+      "description": "Lujo zona. Gen: Zombi • Capacidad: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Lujo · Luchador · capacidad 3",
+      "description": "Lujo zona. Gen: Luchador • Capacidad: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Lujo · Bestia · capacidad 3",
+      "description": "Lujo zona. Gen: Bestia • Capacidad: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Lujo · Galáctico · capacidad 3",
+      "description": "Lujo zona. Gen: Galáctico • Capacidad: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Lujo · Mítico · capacidad 3",
+      "description": "Lujo zona. Gen: Mítico • Capacidad: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Lujo · Cíborg · capacidad 4",
+      "description": "Lujo zona. Gen: Robot • Capacidad: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Lujo · Zombi · capacidad 4",
+      "description": "Lujo zona. Gen: Zombi • Capacidad: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Lujo · Luchador · capacidad 4",
+      "description": "Lujo zona. Gen: Luchador • Capacidad: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Lujo · Bestia · capacidad 4",
+      "description": "Lujo zona. Gen: Bestia • Capacidad: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Lujo · Galáctico · capacidad 4",
+      "description": "Lujo zona. Gen: Galáctico • Capacidad: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Lujo · Mítico · capacidad 4",
+      "description": "Lujo zona. Gen: Mítico • Capacidad: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Lujo · Zona universal · capacidad 3",
+      "description": "Cualquier gen • Capacidad: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Lujo · Zona universal · capacidad 4",
+      "description": "Cualquier gen • Capacidad: 4"
+    }
+  },
+  "fr": {
+    "habitat_a_1.webp": {
+      "name": "Zone Cyborg · capacité 2",
+      "description": "Gène: Robot • Capacité: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zone Zombie · capacité 2",
+      "description": "Gène: Zombie • Capacité: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zone Bagarreur · capacité 2",
+      "description": "Gène: Bagarreur • Capacité: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zone Bête · capacité 2",
+      "description": "Gène: Bête • Capacité: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zone Galactique · capacité 2",
+      "description": "Gène: Galactique • Capacité: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zone Mythique · capacité 2",
+      "description": "Gène: Mythique • Capacité: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zone Cyborg · capacité 3",
+      "description": "Gène: Robot • Capacité: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zone Zombie · capacité 3",
+      "description": "Gène: Zombie • Capacité: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zone Bagarreur · capacité 3",
+      "description": "Gène: Bagarreur • Capacité: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zone Bête · capacité 3",
+      "description": "Gène: Bête • Capacité: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zone Galactique · capacité 3",
+      "description": "Gène: Galactique • Capacité: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zone Mythique · capacité 3",
+      "description": "Gène: Mythique • Capacité: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zone Cyborg · capacité 4",
+      "description": "Gène: Robot • Capacité: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zone Zombie · capacité 4",
+      "description": "Gène: Zombie • Capacité: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zone Bagarreur · capacité 4",
+      "description": "Gène: Bagarreur • Capacité: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zone Bête · capacité 4",
+      "description": "Gène: Bête • Capacité: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zone Galactique · capacité 4",
+      "description": "Gène: Galactique • Capacité: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zone Mythique · capacité 4",
+      "description": "Gène: Mythique • Capacité: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Luxe · Cyborg · capacité 3",
+      "description": "Luxe zone. Gène: Robot • Capacité: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Luxe · Zombie · capacité 3",
+      "description": "Luxe zone. Gène: Zombie • Capacité: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Luxe · Bagarreur · capacité 3",
+      "description": "Luxe zone. Gène: Bagarreur • Capacité: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Luxe · Bête · capacité 3",
+      "description": "Luxe zone. Gène: Bête • Capacité: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Luxe · Galactique · capacité 3",
+      "description": "Luxe zone. Gène: Galactique • Capacité: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Luxe · Mythique · capacité 3",
+      "description": "Luxe zone. Gène: Mythique • Capacité: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Luxe · Cyborg · capacité 4",
+      "description": "Luxe zone. Gène: Robot • Capacité: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Luxe · Zombie · capacité 4",
+      "description": "Luxe zone. Gène: Zombie • Capacité: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Luxe · Bagarreur · capacité 4",
+      "description": "Luxe zone. Gène: Bagarreur • Capacité: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Luxe · Bête · capacité 4",
+      "description": "Luxe zone. Gène: Bête • Capacité: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Luxe · Galactique · capacité 4",
+      "description": "Luxe zone. Gène: Galactique • Capacité: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Luxe · Mythique · capacité 4",
+      "description": "Luxe zone. Gène: Mythique • Capacité: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Luxe · Zone universelle · capacité 3",
+      "description": "N'importe quel gène • Capacité: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Luxe · Zone universelle · capacité 4",
+      "description": "N'importe quel gène • Capacité: 4"
+    }
+  },
+  "de": {
+    "habitat_a_1.webp": {
+      "name": "Zone Cyborg · Kapazität 2",
+      "description": "Gen: Roboter • Kapazität: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zone Zombie · Kapazität 2",
+      "description": "Gen: Zombie • Kapazität: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zone Schläger · Kapazität 2",
+      "description": "Gen: Schläger • Kapazität: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zone Bestie · Kapazität 2",
+      "description": "Gen: Bestie • Kapazität: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zone Galaktisch · Kapazität 2",
+      "description": "Gen: Galaktisch • Kapazität: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zone Mythisch · Kapazität 2",
+      "description": "Gen: Mythisch • Kapazität: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zone Cyborg · Kapazität 3",
+      "description": "Gen: Roboter • Kapazität: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zone Zombie · Kapazität 3",
+      "description": "Gen: Zombie • Kapazität: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zone Schläger · Kapazität 3",
+      "description": "Gen: Schläger • Kapazität: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zone Bestie · Kapazität 3",
+      "description": "Gen: Bestie • Kapazität: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zone Galaktisch · Kapazität 3",
+      "description": "Gen: Galaktisch • Kapazität: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zone Mythisch · Kapazität 3",
+      "description": "Gen: Mythisch • Kapazität: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zone Cyborg · Kapazität 4",
+      "description": "Gen: Roboter • Kapazität: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zone Zombie · Kapazität 4",
+      "description": "Gen: Zombie • Kapazität: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zone Schläger · Kapazität 4",
+      "description": "Gen: Schläger • Kapazität: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zone Bestie · Kapazität 4",
+      "description": "Gen: Bestie • Kapazität: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zone Galaktisch · Kapazität 4",
+      "description": "Gen: Galaktisch • Kapazität: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zone Mythisch · Kapazität 4",
+      "description": "Gen: Mythisch • Kapazität: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Luxus · Cyborg · Kapazität 3",
+      "description": "Luxus zone. Gen: Roboter • Kapazität: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Luxus · Zombie · Kapazität 3",
+      "description": "Luxus zone. Gen: Zombie • Kapazität: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Luxus · Schläger · Kapazität 3",
+      "description": "Luxus zone. Gen: Schläger • Kapazität: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Luxus · Bestie · Kapazität 3",
+      "description": "Luxus zone. Gen: Bestie • Kapazität: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Luxus · Galaktisch · Kapazität 3",
+      "description": "Luxus zone. Gen: Galaktisch • Kapazität: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Luxus · Mythisch · Kapazität 3",
+      "description": "Luxus zone. Gen: Mythisch • Kapazität: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Luxus · Cyborg · Kapazität 4",
+      "description": "Luxus zone. Gen: Roboter • Kapazität: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Luxus · Zombie · Kapazität 4",
+      "description": "Luxus zone. Gen: Zombie • Kapazität: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Luxus · Schläger · Kapazität 4",
+      "description": "Luxus zone. Gen: Schläger • Kapazität: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Luxus · Bestie · Kapazität 4",
+      "description": "Luxus zone. Gen: Bestie • Kapazität: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Luxus · Galaktisch · Kapazität 4",
+      "description": "Luxus zone. Gen: Galaktisch • Kapazität: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Luxus · Mythisch · Kapazität 4",
+      "description": "Luxus zone. Gen: Mythisch • Kapazität: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Luxus · Universalzone · Kapazität 3",
+      "description": "Beliebige Gene • Kapazität: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Luxus · Universalzone · Kapazität 4",
+      "description": "Beliebige Gene • Kapazität: 4"
+    }
+  },
+  "pt": {
+    "habitat_a_1.webp": {
+      "name": "Zona Ciborgue · capacidade 2",
+      "description": "Gene: Robô • Capacidade: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zona Zumbi · capacidade 2",
+      "description": "Gene: Zumbi • Capacidade: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zona Brigão · capacidade 2",
+      "description": "Gene: Brigão • Capacidade: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zona Fera · capacidade 2",
+      "description": "Gene: Fera • Capacidade: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zona Galáctico · capacidade 2",
+      "description": "Gene: Galáctico • Capacidade: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zona Mítico · capacidade 2",
+      "description": "Gene: Mítico • Capacidade: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zona Ciborgue · capacidade 3",
+      "description": "Gene: Robô • Capacidade: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zona Zumbi · capacidade 3",
+      "description": "Gene: Zumbi • Capacidade: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zona Brigão · capacidade 3",
+      "description": "Gene: Brigão • Capacidade: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zona Fera · capacidade 3",
+      "description": "Gene: Fera • Capacidade: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zona Galáctico · capacidade 3",
+      "description": "Gene: Galáctico • Capacidade: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zona Mítico · capacidade 3",
+      "description": "Gene: Mítico • Capacidade: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zona Ciborgue · capacidade 4",
+      "description": "Gene: Robô • Capacidade: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zona Zumbi · capacidade 4",
+      "description": "Gene: Zumbi • Capacidade: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zona Brigão · capacidade 4",
+      "description": "Gene: Brigão • Capacidade: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zona Fera · capacidade 4",
+      "description": "Gene: Fera • Capacidade: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zona Galáctico · capacidade 4",
+      "description": "Gene: Galáctico • Capacidade: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zona Mítico · capacidade 4",
+      "description": "Gene: Mítico • Capacidade: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Luxo · Ciborgue · capacidade 3",
+      "description": "Luxo zona. Gene: Robô • Capacidade: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Luxo · Zumbi · capacidade 3",
+      "description": "Luxo zona. Gene: Zumbi • Capacidade: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Luxo · Brigão · capacidade 3",
+      "description": "Luxo zona. Gene: Brigão • Capacidade: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Luxo · Fera · capacidade 3",
+      "description": "Luxo zona. Gene: Fera • Capacidade: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Luxo · Galáctico · capacidade 3",
+      "description": "Luxo zona. Gene: Galáctico • Capacidade: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Luxo · Mítico · capacidade 3",
+      "description": "Luxo zona. Gene: Mítico • Capacidade: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Luxo · Ciborgue · capacidade 4",
+      "description": "Luxo zona. Gene: Robô • Capacidade: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Luxo · Zumbi · capacidade 4",
+      "description": "Luxo zona. Gene: Zumbi • Capacidade: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Luxo · Brigão · capacidade 4",
+      "description": "Luxo zona. Gene: Brigão • Capacidade: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Luxo · Fera · capacidade 4",
+      "description": "Luxo zona. Gene: Fera • Capacidade: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Luxo · Galáctico · capacidade 4",
+      "description": "Luxo zona. Gene: Galáctico • Capacidade: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Luxo · Mítico · capacidade 4",
+      "description": "Luxo zona. Gene: Mítico • Capacidade: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Luxo · Zona universal · capacidade 3",
+      "description": "Qualquer gene • Capacidade: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Luxo · Zona universal · capacidade 4",
+      "description": "Qualquer gene • Capacidade: 4"
+    }
+  },
+  "it": {
+    "habitat_a_1.webp": {
+      "name": "Zona Cyborg · capacità 2",
+      "description": "Gene: Robot • Capacità: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zona Zombie · capacità 2",
+      "description": "Gene: Zombie • Capacità: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zona Attaccabrighe · capacità 2",
+      "description": "Gene: Attaccabrighe • Capacità: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zona Bestia · capacità 2",
+      "description": "Gene: Bestia • Capacità: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zona Galattico · capacità 2",
+      "description": "Gene: Galattico • Capacità: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zona Mitico · capacità 2",
+      "description": "Gene: Mitico • Capacità: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zona Cyborg · capacità 3",
+      "description": "Gene: Robot • Capacità: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zona Zombie · capacità 3",
+      "description": "Gene: Zombie • Capacità: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zona Attaccabrighe · capacità 3",
+      "description": "Gene: Attaccabrighe • Capacità: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zona Bestia · capacità 3",
+      "description": "Gene: Bestia • Capacità: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zona Galattico · capacità 3",
+      "description": "Gene: Galattico • Capacità: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zona Mitico · capacità 3",
+      "description": "Gene: Mitico • Capacità: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zona Cyborg · capacità 4",
+      "description": "Gene: Robot • Capacità: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zona Zombie · capacità 4",
+      "description": "Gene: Zombie • Capacità: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zona Attaccabrighe · capacità 4",
+      "description": "Gene: Attaccabrighe • Capacità: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zona Bestia · capacità 4",
+      "description": "Gene: Bestia • Capacità: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zona Galattico · capacità 4",
+      "description": "Gene: Galattico • Capacità: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zona Mitico · capacità 4",
+      "description": "Gene: Mitico • Capacità: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Lusso · Cyborg · capacità 3",
+      "description": "Lusso zona. Gene: Robot • Capacità: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Lusso · Zombie · capacità 3",
+      "description": "Lusso zona. Gene: Zombie • Capacità: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Lusso · Attaccabrighe · capacità 3",
+      "description": "Lusso zona. Gene: Attaccabrighe • Capacità: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Lusso · Bestia · capacità 3",
+      "description": "Lusso zona. Gene: Bestia • Capacità: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Lusso · Galattico · capacità 3",
+      "description": "Lusso zona. Gene: Galattico • Capacità: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Lusso · Mitico · capacità 3",
+      "description": "Lusso zona. Gene: Mitico • Capacità: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Lusso · Cyborg · capacità 4",
+      "description": "Lusso zona. Gene: Robot • Capacità: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Lusso · Zombie · capacità 4",
+      "description": "Lusso zona. Gene: Zombie • Capacità: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Lusso · Attaccabrighe · capacità 4",
+      "description": "Lusso zona. Gene: Attaccabrighe • Capacità: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Lusso · Bestia · capacità 4",
+      "description": "Lusso zona. Gene: Bestia • Capacità: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Lusso · Galattico · capacità 4",
+      "description": "Lusso zona. Gene: Galattico • Capacità: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Lusso · Mitico · capacità 4",
+      "description": "Lusso zona. Gene: Mitico • Capacità: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Lusso · Zona universale · capacità 3",
+      "description": "Qualsiasi gene • Capacità: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Lusso · Zona universale · capacità 4",
+      "description": "Qualsiasi gene • Capacità: 4"
+    }
+  },
+  "tr": {
+    "habitat_a_1.webp": {
+      "name": "Bölge Siborg · kapasite 2",
+      "description": "Gen: Robot • Kapasite: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Bölge Zombi · kapasite 2",
+      "description": "Gen: Zombi • Kapasite: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Bölge Kavgacı · kapasite 2",
+      "description": "Gen: Kavgacı • Kapasite: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Bölge Canavar · kapasite 2",
+      "description": "Gen: Canavar • Kapasite: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Bölge Galaktik · kapasite 2",
+      "description": "Gen: Galaktik • Kapasite: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Bölge Mitik · kapasite 2",
+      "description": "Gen: Mitik • Kapasite: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Bölge Siborg · kapasite 3",
+      "description": "Gen: Robot • Kapasite: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Bölge Zombi · kapasite 3",
+      "description": "Gen: Zombi • Kapasite: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Bölge Kavgacı · kapasite 3",
+      "description": "Gen: Kavgacı • Kapasite: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Bölge Canavar · kapasite 3",
+      "description": "Gen: Canavar • Kapasite: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Bölge Galaktik · kapasite 3",
+      "description": "Gen: Galaktik • Kapasite: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Bölge Mitik · kapasite 3",
+      "description": "Gen: Mitik • Kapasite: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Bölge Siborg · kapasite 4",
+      "description": "Gen: Robot • Kapasite: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Bölge Zombi · kapasite 4",
+      "description": "Gen: Zombi • Kapasite: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Bölge Kavgacı · kapasite 4",
+      "description": "Gen: Kavgacı • Kapasite: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Bölge Canavar · kapasite 4",
+      "description": "Gen: Canavar • Kapasite: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Bölge Galaktik · kapasite 4",
+      "description": "Gen: Galaktik • Kapasite: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Bölge Mitik · kapasite 4",
+      "description": "Gen: Mitik • Kapasite: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Lüks · Siborg · kapasite 3",
+      "description": "Lüks bölge. Gen: Robot • Kapasite: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Lüks · Zombi · kapasite 3",
+      "description": "Lüks bölge. Gen: Zombi • Kapasite: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Lüks · Kavgacı · kapasite 3",
+      "description": "Lüks bölge. Gen: Kavgacı • Kapasite: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Lüks · Canavar · kapasite 3",
+      "description": "Lüks bölge. Gen: Canavar • Kapasite: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Lüks · Galaktik · kapasite 3",
+      "description": "Lüks bölge. Gen: Galaktik • Kapasite: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Lüks · Mitik · kapasite 3",
+      "description": "Lüks bölge. Gen: Mitik • Kapasite: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Lüks · Siborg · kapasite 4",
+      "description": "Lüks bölge. Gen: Robot • Kapasite: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Lüks · Zombi · kapasite 4",
+      "description": "Lüks bölge. Gen: Zombi • Kapasite: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Lüks · Kavgacı · kapasite 4",
+      "description": "Lüks bölge. Gen: Kavgacı • Kapasite: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Lüks · Canavar · kapasite 4",
+      "description": "Lüks bölge. Gen: Canavar • Kapasite: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Lüks · Galaktik · kapasite 4",
+      "description": "Lüks bölge. Gen: Galaktik • Kapasite: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Lüks · Mitik · kapasite 4",
+      "description": "Lüks bölge. Gen: Mitik • Kapasite: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Lüks · Evrensel bölge · kapasite 3",
+      "description": "Herhangi bir gen • Kapasite: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Lüks · Evrensel bölge · kapasite 4",
+      "description": "Herhangi bir gen • Kapasite: 4"
+    }
+  },
+  "nl": {
+    "habitat_a_1.webp": {
+      "name": "Zone Cyborg · capaciteit 2",
+      "description": "Gen: Robot • Capaciteit: 2"
+    },
+    "habitat_b_1.webp": {
+      "name": "Zone Zombie · capaciteit 2",
+      "description": "Gen: Zombie • Capaciteit: 2"
+    },
+    "habitat_c_1.webp": {
+      "name": "Zone Vechtersbaas · capaciteit 2",
+      "description": "Gen: Vechtersbaas • Capaciteit: 2"
+    },
+    "habitat_d_1.webp": {
+      "name": "Zone Beest · capaciteit 2",
+      "description": "Gen: Beest • Capaciteit: 2"
+    },
+    "habitat_e_1.webp": {
+      "name": "Zone Galactisch · capaciteit 2",
+      "description": "Gen: Galactisch • Capaciteit: 2"
+    },
+    "habitat_f_1.webp": {
+      "name": "Zone Mythisch · capaciteit 2",
+      "description": "Gen: Mythisch • Capaciteit: 2"
+    },
+    "habitat_a_2.webp": {
+      "name": "Zone Cyborg · capaciteit 3",
+      "description": "Gen: Robot • Capaciteit: 3"
+    },
+    "habitat_b_2.webp": {
+      "name": "Zone Zombie · capaciteit 3",
+      "description": "Gen: Zombie • Capaciteit: 3"
+    },
+    "habitat_c_2.webp": {
+      "name": "Zone Vechtersbaas · capaciteit 3",
+      "description": "Gen: Vechtersbaas • Capaciteit: 3"
+    },
+    "habitat_d_2.webp": {
+      "name": "Zone Beest · capaciteit 3",
+      "description": "Gen: Beest • Capaciteit: 3"
+    },
+    "habitat_e_2.webp": {
+      "name": "Zone Galactisch · capaciteit 3",
+      "description": "Gen: Galactisch • Capaciteit: 3"
+    },
+    "habitat_f_2.webp": {
+      "name": "Zone Mythisch · capaciteit 3",
+      "description": "Gen: Mythisch • Capaciteit: 3"
+    },
+    "habitat_a_3.webp": {
+      "name": "Zone Cyborg · capaciteit 4",
+      "description": "Gen: Robot • Capaciteit: 4"
+    },
+    "habitat_b_3.webp": {
+      "name": "Zone Zombie · capaciteit 4",
+      "description": "Gen: Zombie • Capaciteit: 4"
+    },
+    "habitat_c_3.webp": {
+      "name": "Zone Vechtersbaas · capaciteit 4",
+      "description": "Gen: Vechtersbaas • Capaciteit: 4"
+    },
+    "habitat_d_3.webp": {
+      "name": "Zone Beest · capaciteit 4",
+      "description": "Gen: Beest • Capaciteit: 4"
+    },
+    "habitat_e_3.webp": {
+      "name": "Zone Galactisch · capaciteit 4",
+      "description": "Gen: Galactisch • Capaciteit: 4"
+    },
+    "habitat_f_3.webp": {
+      "name": "Zone Mythisch · capaciteit 4",
+      "description": "Gen: Mythisch • Capaciteit: 4"
+    },
+    "habitat_a_2_hc.webp": {
+      "name": "Luxe · Cyborg · capaciteit 3",
+      "description": "Luxe zone. Gen: Robot • Capaciteit: 3"
+    },
+    "habitat_b_2_hc.webp": {
+      "name": "Luxe · Zombie · capaciteit 3",
+      "description": "Luxe zone. Gen: Zombie • Capaciteit: 3"
+    },
+    "habitat_c_2_hc.webp": {
+      "name": "Luxe · Vechtersbaas · capaciteit 3",
+      "description": "Luxe zone. Gen: Vechtersbaas • Capaciteit: 3"
+    },
+    "habitat_d_2_hc.webp": {
+      "name": "Luxe · Beest · capaciteit 3",
+      "description": "Luxe zone. Gen: Beest • Capaciteit: 3"
+    },
+    "habitat_e_2_hc.webp": {
+      "name": "Luxe · Galactisch · capaciteit 3",
+      "description": "Luxe zone. Gen: Galactisch • Capaciteit: 3"
+    },
+    "habitat_f_2_hc.webp": {
+      "name": "Luxe · Mythisch · capaciteit 3",
+      "description": "Luxe zone. Gen: Mythisch • Capaciteit: 3"
+    },
+    "habitat_a_3_hc.webp": {
+      "name": "Luxe · Cyborg · capaciteit 4",
+      "description": "Luxe zone. Gen: Robot • Capaciteit: 4"
+    },
+    "habitat_b_3_hc.webp": {
+      "name": "Luxe · Zombie · capaciteit 4",
+      "description": "Luxe zone. Gen: Zombie • Capaciteit: 4"
+    },
+    "habitat_c_3_hc.webp": {
+      "name": "Luxe · Vechtersbaas · capaciteit 4",
+      "description": "Luxe zone. Gen: Vechtersbaas • Capaciteit: 4"
+    },
+    "habitat_d_3_hc.webp": {
+      "name": "Luxe · Beest · capaciteit 4",
+      "description": "Luxe zone. Gen: Beest • Capaciteit: 4"
+    },
+    "habitat_e_3_hc.webp": {
+      "name": "Luxe · Galactisch · capaciteit 4",
+      "description": "Luxe zone. Gen: Galactisch • Capaciteit: 4"
+    },
+    "habitat_f_3_hc.webp": {
+      "name": "Luxe · Mythisch · capaciteit 4",
+      "description": "Luxe zone. Gen: Mythisch • Capaciteit: 4"
+    },
+    "habitat_abcdef_2_hc.webp": {
+      "name": "Luxe · Universele zone · capaciteit 3",
+      "description": "Elk gen • Capaciteit: 3"
+    },
+    "habitat_abcdef_3_hc.webp": {
+      "name": "Luxe · Universele zone · capaciteit 4",
+      "description": "Elk gen • Capaciteit: 4"
+    }
+  }
+}

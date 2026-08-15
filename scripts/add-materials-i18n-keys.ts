@@ -1,0 +1,188 @@
+// Разовый скрипт: добавляет materials.* ключи во все 9 src/i18n/*.json.
+// Запуск: npx tsx scripts/add-materials-i18n-keys.ts
+import fs from 'fs/promises'
+import path from 'path'
+
+const LOCALES = ['ru', 'en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
+type Locale = (typeof LOCALES)[number]
+
+const KEYS: Record<string, Record<Locale, string>> = {
+  'materials.pageTitle': {
+    ru: 'Материалы и ресурсы', en: 'Materials & Resources', es: 'Materiales y recursos',
+    fr: 'Matériaux et ressources', de: 'Materialien & Ressourcen', pt: 'Materiais e recursos',
+    it: 'Materiali e risorse', tr: 'Materyaller ve Kaynaklar', nl: 'Materialen & Grondstoffen',
+  },
+  'materials.pageDescription': {
+    ru: 'Вики материалов и ресурсов MGG (Mutants Genetic Gladiators): чармы, сферы, здания, зоны мутантов и источники добычи.',
+    en: 'MGG (Mutants Genetic Gladiators) materials & resources wiki: charms, orbs, buildings, mutant habitat zones and where to obtain them.',
+    es: 'Wiki de materiales y recursos de MGG (Mutants Genetic Gladiators): amuletos, orbes, edificios, zonas de hábitat y dónde conseguirlos.',
+    fr: 'Wiki des matériaux et ressources de MGG (Mutants Genetic Gladiators) : charmes, orbes, bâtiments, zones d\'habitat et où les obtenir.',
+    de: 'MGG-Wiki (Mutants Genetic Gladiators) für Materialien und Ressourcen: Anhänger, Sphären, Gebäude, Habitatzonen und Fundorte.',
+    pt: 'Wiki de materiais e recursos do MGG (Mutants Genetic Gladiators): amuletos, orbes, construções, zonas de habitat e onde obtê-los.',
+    it: 'Wiki dei materiali e delle risorse di MGG (Mutants Genetic Gladiators): amuleti, sfere, edifici, zone habitat e dove ottenerli.',
+    tr: 'MGG (Mutants Genetic Gladiators) materyal ve kaynak wiki\'si: tılsımlar, küreler, binalar, mutant yaşam alanları ve nereden elde edileceği.',
+    nl: 'MGG-wiki (Mutants Genetic Gladiators) voor materialen en grondstoffen: charms, bollen, gebouwen, habitatzones en waar je ze vindt.',
+  },
+  'materials.intro': {
+    ru: 'Тут находятся все материалы, сферы, бустеры, здания и зоны.',
+    en: 'Here you will find all materials, orbs, boosters, buildings and zones.',
+    es: 'Aquí encontrarás todos los materiales, orbes, potenciadores, edificios y zonas.',
+    fr: 'Vous trouverez ici tous les matériaux, orbes, boosters, bâtiments et zones.',
+    de: 'Hier findest du alle Materialien, Sphären, Booster, Gebäude und Zonen.',
+    pt: 'Aqui você encontra todos os materiais, orbes, boosters, construções e zonas.',
+    it: 'Qui trovi tutti i materiali, le sfere, i booster, gli edifici e le zone.',
+    tr: 'Burada tüm materyalleri, küreleri, güçlendiricileri, binaları ve bölgeleri bulabilirsin.',
+    nl: 'Hier vind je alle materialen, bollen, boosters, gebouwen en zones.',
+  },
+  'materials.tabsLabel': {
+    ru: 'Разделы материалов', en: 'Materials sections', es: 'Secciones de materiales',
+    fr: 'Sections des matériaux', de: 'Materialbereiche', pt: 'Seções de materiais',
+    it: 'Sezioni dei materiali', tr: 'Materyal bölümleri', nl: "Materialen-secties",
+  },
+  'materials.tab.orbs': {
+    ru: 'Сферы', en: 'Orbs', es: 'Orbes', fr: 'Orbes', de: 'Sphären', pt: 'Orbes', it: 'Sfere', tr: 'Küreler', nl: 'Bollen',
+  },
+  'materials.tab.charms': {
+    ru: 'Бустеры', en: 'Charms', es: 'Amuletos', fr: 'Charmes', de: 'Anhänger', pt: 'Amuletos', it: 'Amuleti', tr: 'Tılsımlar', nl: 'Charms',
+  },
+  'materials.tab.materials': {
+    ru: 'Материалы', en: 'Materials', es: 'Materiales', fr: 'Matériaux', de: 'Materialien', pt: 'Materiais', it: 'Materiali', tr: 'Materyaller', nl: 'Materialen',
+  },
+  'materials.tab.buildings': {
+    ru: 'Здания', en: 'Buildings', es: 'Edificios', fr: 'Bâtiments', de: 'Gebäude', pt: 'Construções', it: 'Edifici', tr: 'Binalar', nl: 'Gebouwen',
+  },
+  'materials.tab.zones': {
+    ru: 'Зоны', en: 'Zones', es: 'Zonas', fr: 'Zones', de: 'Zonen', pt: 'Zonas', it: 'Zone', tr: 'Bölgeler', nl: 'Zones',
+  },
+  'materials.group.events': {
+    ru: 'Ивентовые', en: 'Event', es: 'De eventos', fr: 'Événementiels', de: 'Event', pt: 'De eventos', it: 'Evento', tr: 'Etkinlik', nl: 'Evenement',
+  },
+  'materials.group.materials': {
+    ru: 'Материалы', en: 'Materials', es: 'Materiales', fr: 'Matériaux', de: 'Materialien', pt: 'Materiais', it: 'Materiali', tr: 'Materyaller', nl: 'Materialen',
+  },
+  'materials.zones.kindLabel': {
+    ru: 'Тип зон', en: 'Zone type', es: 'Tipo de zona', fr: 'Type de zone', de: 'Zonentyp', pt: 'Tipo de zona', it: 'Tipo di zona', tr: 'Bölge türü', nl: 'Zonetype',
+  },
+  'materials.zones.normal': {
+    ru: 'Обычные', en: 'Standard', es: 'Normales', fr: 'Standard', de: 'Standard', pt: 'Padrão', it: 'Standard', tr: 'Standart', nl: 'Standaard',
+  },
+  'materials.zones.luxe': {
+    ru: 'Люкс', en: 'Luxe', es: 'Lujo', fr: 'Luxe', de: 'Luxus', pt: 'Luxo', it: 'Lusso', tr: 'Lüks', nl: 'Luxe',
+  },
+  'materials.zones.storesUpTo': {
+    ru: 'Хранит до:', en: 'Stores up to:', es: 'Almacena hasta:', fr: 'Stocke jusqu\'à :', de: 'Speichert bis zu:',
+    pt: 'Armazena até:', it: 'Conserva fino a:', tr: 'Şuna kadar depolar:', nl: 'Slaat op tot:',
+  },
+  'materials.zones.silver': {
+    ru: 'серебра', en: 'silver', es: 'de plata', fr: "d'argent", de: 'Silber', pt: 'de prata', it: "d'argento", tr: 'gümüş', nl: 'zilver',
+  },
+  'materials.zones.emptyNormal': {
+    ru: 'Обычных зон пока нет.', en: 'No standard zones yet.', es: 'Aún no hay zonas normales.',
+    fr: 'Pas encore de zones standard.', de: 'Noch keine Standardzonen.', pt: 'Ainda não há zonas padrão.',
+    it: 'Ancora nessuna zona standard.', tr: 'Henüz standart bölge yok.', nl: 'Nog geen standaardzones.',
+  },
+  'materials.zones.emptyLuxe': {
+    ru: 'Люкс-зон пока нет.', en: 'No luxe zones yet.', es: 'Aún no hay zonas de lujo.',
+    fr: 'Pas encore de zones de luxe.', de: 'Noch keine Luxuszonen.', pt: 'Ainda não há zonas de luxo.',
+    it: 'Ancora nessuna zona di lusso.', tr: 'Henüz lüks bölge yok.', nl: 'Nog geen luxezones.',
+  },
+  'materials.table.search': {
+    ru: 'Поиск по названию/описанию…', en: 'Search by name/description…', es: 'Buscar por nombre/descripción…',
+    fr: 'Rechercher par nom/description…', de: 'Suche nach Name/Beschreibung…', pt: 'Buscar por nome/descrição…',
+    it: 'Cerca per nome/descrizione…', tr: 'İsim/açıklamaya göre ara…', nl: 'Zoeken op naam/beschrijving…',
+  },
+  'materials.table.texture': {
+    ru: 'Текстура', en: 'Icon', es: 'Icono', fr: 'Icône', de: 'Symbol', pt: 'Ícone', it: 'Icona', tr: 'Simge', nl: 'Icoon',
+  },
+  'materials.table.name': {
+    ru: 'Название', en: 'Name', es: 'Nombre', fr: 'Nom', de: 'Name', pt: 'Nome', it: 'Nome', tr: 'İsim', nl: 'Naam',
+  },
+  'materials.table.description': {
+    ru: 'Описание', en: 'Description', es: 'Descripción', fr: 'Description', de: 'Beschreibung', pt: 'Descrição',
+    it: 'Descrizione', tr: 'Açıklama', nl: 'Beschrijving',
+  },
+  'materials.table.source': {
+    ru: 'Где добыть', en: 'Where to obtain', es: 'Dónde conseguir', fr: 'Où obtenir', de: 'Fundort',
+    pt: 'Onde obter', it: 'Dove ottenere', tr: 'Nereden elde edilir', nl: 'Waar te vinden',
+  },
+  'materials.table.level': {
+    ru: 'Уровень', en: 'Level', es: 'Nivel', fr: 'Niveau', de: 'Stufe', pt: 'Nível', it: 'Livello', tr: 'Seviye', nl: 'Niveau',
+  },
+  'materials.table.noDescription': {
+    ru: 'Описание пока не добавлено', en: 'Description not added yet', es: 'Descripción aún no añadida',
+    fr: "Description pas encore ajoutée", de: 'Beschreibung noch nicht hinzugefügt', pt: 'Descrição ainda não adicionada',
+    it: 'Descrizione non ancora aggiunta', tr: 'Açıklama henüz eklenmedi', nl: 'Beschrijving nog niet toegevoegd',
+  },
+  'materials.table.clickToOpen': {
+    ru: 'Нажмите, чтобы перейти', en: 'Click to open', es: 'Haz clic para abrir', fr: 'Cliquez pour ouvrir',
+    de: 'Klicken zum Öffnen', pt: 'Clique para abrir', it: 'Clicca per aprire', tr: 'Açmak için tıklayın', nl: 'Klik om te openen',
+  },
+  'materials.charms.title': {
+    ru: 'Чармы (Charms)', en: 'Charms', es: 'Amuletos (Charms)', fr: 'Charmes', de: 'Anhänger (Charms)',
+    pt: 'Amuletos (Charms)', it: 'Amuleti (Charms)', tr: 'Tılsımlar (Charms)', nl: 'Charms',
+  },
+  'materials.charms.description': {
+    ru: 'Все чармы (charms) Mutants Genetic Gladiators (MGG): характеристики, где добыть, на что влияют.',
+    en: 'All Mutants Genetic Gladiators (MGG) charms: stats, where to obtain them, and what they affect.',
+    es: 'Todos los amuletos (charms) de Mutants Genetic Gladiators (MGG): características, dónde conseguirlos y qué afectan.',
+    fr: 'Tous les charmes de Mutants Genetic Gladiators (MGG) : caractéristiques, où les obtenir, et leurs effets.',
+    de: 'Alle Anhänger (Charms) von Mutants Genetic Gladiators (MGG): Werte, Fundorte und Wirkung.',
+    pt: 'Todos os amuletos (charms) do Mutants Genetic Gladiators (MGG): características, onde obtê-los e o que afetam.',
+    it: 'Tutti gli amuleti (charms) di Mutants Genetic Gladiators (MGG): caratteristiche, dove ottenerli e cosa influenzano.',
+    tr: 'Mutants Genetic Gladiators (MGG) tüm tılsımları (charms): özellikler, nereden elde edileceği ve neyi etkiledikleri.',
+    nl: 'Alle charms van Mutants Genetic Gladiators (MGG): eigenschappen, waar je ze vindt en waar ze invloed op hebben.',
+  },
+  'materials.charms.intro': {
+    ru: 'Бустеры, увеличивающие статы и возможности мутантов.', en: 'Boosters that increase mutant stats and abilities.',
+    es: 'Potenciadores que aumentan las estadísticas y habilidades de los mutantes.', fr: 'Boosters qui augmentent les statistiques et capacités des mutants.',
+    de: 'Booster, die die Werte und Fähigkeiten der Mutanten erhöhen.', pt: 'Boosters que aumentam os atributos e habilidades dos mutantes.',
+    it: 'Booster che aumentano le statistiche e le abilità dei mutanti.', tr: 'Mutantların istatistiklerini ve yeteneklerini artıran güçlendiriciler.',
+    nl: 'Boosters die de stats en vaardigheden van mutanten verhogen.',
+  },
+  'materials.charms.tableTitle': {
+    ru: 'Список чармов', en: 'Charms list', es: 'Lista de amuletos', fr: 'Liste des charmes', de: 'Liste der Anhänger',
+    pt: 'Lista de amuletos', it: 'Elenco amuleti', tr: 'Tılsım listesi', nl: 'Lijst met charms',
+  },
+  'materials.orbs.title': {
+    ru: 'Сферы (Orbs)', en: 'Orbs', es: 'Orbes', fr: 'Orbes', de: 'Sphären (Orbs)', pt: 'Orbes', it: 'Sfere (Orbs)', tr: 'Küreler (Orbs)', nl: 'Bollen (Orbs)',
+  },
+  'materials.orbs.description': {
+    ru: 'Все сферы (orbs) MGG (Mutants Genetic Gladiators): типы, эффекты и где их получить.',
+    en: 'All Mutants Genetic Gladiators (MGG) orbs: types, effects and where to obtain them.',
+    es: 'Todos los orbes de Mutants Genetic Gladiators (MGG): tipos, efectos y dónde conseguirlos.',
+    fr: 'Tous les orbes de Mutants Genetic Gladiators (MGG) : types, effets et où les obtenir.',
+    de: 'Alle Sphären (Orbs) von Mutants Genetic Gladiators (MGG): Typen, Effekte und Fundorte.',
+    pt: 'Todos os orbes do Mutants Genetic Gladiators (MGG): tipos, efeitos e onde obtê-los.',
+    it: 'Tutte le sfere (orbs) di Mutants Genetic Gladiators (MGG): tipi, effetti e dove ottenerle.',
+    tr: 'Mutants Genetic Gladiators (MGG) tüm küreleri (orbs): türler, etkiler ve nereden elde edileceği.',
+    nl: 'Alle bollen (orbs) van Mutants Genetic Gladiators (MGG): types, effecten en waar je ze vindt.',
+  },
+  'materials.orbs.intro': {
+    ru: 'Сферы дают уникальные бонусы при установке на мутантов.', en: 'Orbs grant unique bonuses when equipped on mutants.',
+    es: 'Los orbes otorgan bonificaciones únicas al equiparlos en los mutantes.', fr: 'Les orbes confèrent des bonus uniques une fois équipés sur les mutants.',
+    de: 'Sphären verleihen einzigartige Boni, wenn sie auf Mutanten angewendet werden.', pt: 'Os orbes concedem bônus únicos ao serem equipados nos mutantes.',
+    it: 'Le sfere conferiscono bonus unici quando applicate ai mutanti.', tr: 'Küreler, mutantlara takıldığında benzersiz bonuslar sağlar.',
+    nl: 'Bollen geven unieke bonussen wanneer ze op mutanten worden toegepast.',
+  },
+  'materials.orbs.tableTitle': {
+    ru: 'Список сфер', en: 'Orbs list', es: 'Lista de orbes', fr: 'Liste des orbes', de: 'Liste der Sphären',
+    pt: 'Lista de orbes', it: 'Elenco sfere', tr: 'Küre listesi', nl: 'Lijst met bollen',
+  },
+}
+
+async function main() {
+  for (const locale of LOCALES) {
+    const filePath = path.join(process.cwd(), `src/i18n/${locale}.json`)
+    const data = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+    for (const [key, values] of Object.entries(KEYS)) {
+      data[key] = values[locale]
+    }
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2) + '\n', 'utf-8')
+    console.log(`Updated ${locale}.json (+${Object.keys(KEYS).length} keys)`)
+  }
+}
+
+main().catch((err) => {
+  console.error(err)
+  process.exit(1)
+})

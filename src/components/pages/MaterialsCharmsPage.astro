@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DataTable from '@/components/DataTable.astro';
+import charmsData from '@/data/materials/charms.json';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getItemName, getItemDescription } from '@/lib/materials-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+// Запрет масштабирования на мобильных для страницы материалов
+const NO_ZOOM_VIEWPORT = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+
+const localizedCharms = charmsData.map((c) => ({
+  ...c,
+  name: getItemName(c.id, locale, c.name),
+  description: getItemDescription(c.id, locale, c.description),
+}));
+
+const charmsColumns = localizedCharms && localizedCharms.length > 0
+  ? Object.keys(localizedCharms[0]).map((key) => ({ key, label: key }))
+  : [];
+---
+
+<BaseLayout
+  title={t('materials.charms.title', locale)}
+  description={t('materials.charms.description', locale)}
+  canonical="https://archivist-library.com/materials"
+  viewport={NO_ZOOM_VIEWPORT}
+>
+  <h1>{t('materials.tab.charms', locale)}</h1>
+  <p>{t('materials.charms.intro', locale)}</p>
+  <DataTable columns={charmsColumns} rows={localizedCharms} title={t('materials.charms.tableTitle', locale)} />
+</BaseLayout>

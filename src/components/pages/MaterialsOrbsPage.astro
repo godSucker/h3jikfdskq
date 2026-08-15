@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DataTable from '@/components/DataTable.astro';
+import orbsDataRaw from '@/data/materials/orbs.json';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getItemName, getItemDescription } from '@/lib/materials-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+// Запрет масштабирования на мобильных для страницы материалов
+const NO_ZOOM_VIEWPORT = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+
+const localizedOrbs = orbsDataRaw.map((o) => ({
+  ...o,
+  name: getItemName(o.id, locale, o.name),
+  description: getItemDescription(o.id, locale, o.description),
+}));
+
+const orbsColumns = localizedOrbs && localizedOrbs.length > 0
+  ? Object.keys(localizedOrbs[0]).map((key) => ({ key, label: key }))
+  : [];
+---
+
+<BaseLayout
+  title={t('materials.orbs.title', locale)}
+  description={t('materials.orbs.description', locale)}
+  canonical="https://archivist-library.com/materials"
+  viewport={NO_ZOOM_VIEWPORT}
+>
+  <h1>{t('materials.tab.orbs', locale)}</h1>
+  <p>{t('materials.orbs.intro', locale)}</p>
+  <DataTable columns={orbsColumns} rows={localizedOrbs} title={t('materials.orbs.tableTitle', locale)} />
+</BaseLayout>
