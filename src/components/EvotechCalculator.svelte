@@ -2,6 +2,15 @@
   // ВАЖНО: Импорт без alias. Файл должен существовать: src/data/evotech-data.js
   // Формат ожидается как default export массива: [ null, {id:1,gold:...,silver:...}, ... ]
   import EvoRows from '../data/evotech-data.js';
+  import { t, type Locale } from '@/lib/i18n';
+
+  let { locale = 'ru' as Locale }: { locale?: Locale } = $props();
+
+  // Тот же приём, что INTL_LOCALE в TopMutantsBrowser.svelte (не общий модуль).
+  const INTL_LOCALE: Record<Locale, string> = {
+    ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR',
+    de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+  };
 
   const MIN_LEVEL = 5;
   const MAX_LEVEL = 1_000_000;
@@ -41,8 +50,9 @@
     return s ? BigInt(s) : 0n;
   }
 
-  // Группировка тысяч — запятыми
-  const fmt = (big) => big.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // Группировка тысяч по локали (BigInt.toLocaleString поддерживает
+  // произвольную точность, в отличие от Number).
+  const fmt = (big) => big.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
 
   // Автоформат ввода с сохранением позиции курсора
   const addCommasFromDigits = (digits) => digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -150,13 +160,13 @@
     const dIn = Number(discountStr || 0);
 
     if (!Number.isFinite(start) || start < MIN_LEVEL) {
-      return { error: `Минимальный стартовый уровень — ${MIN_LEVEL}.` };
+      return { error: t('evotech.errorMinLevel', locale).replace('{min}', String(MIN_LEVEL)) };
     }
     if (!Number.isFinite(target) || target <= start) {
-      return { error: 'Целевой уровень должен быть больше стартового.' };
+      return { error: t('evotech.errorTargetLessThanStart', locale) };
     }
     if (target > MAX_LEVEL) {
-      return { error: `Максимальный уровень — ${MAX_LEVEL.toLocaleString('ru-RU')}.` };
+      return { error: t('evotech.errorMaxLevel', locale).replace('{max}', MAX_LEVEL.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')) };
     }
 
     let totalSilver = 0n;
@@ -177,7 +187,7 @@
       if (remainLevels > 0n) {
         const { s: sConst, g: gConst } = safeConstPair(dIn);
         if (sConst === 0n && gConst === 0n) {
-          return { error: 'Данные стоимости некорректны (нулевая цена после 328).' };
+          return { error: t('evotech.errorBadConstPrice', locale).replace('{n}', String(PRICE_CONST_FROM_LEVEL)) };
         }
         totalSilver += sConst * remainLevels;
         totalGold += gConst * remainLevels;
@@ -195,7 +205,7 @@
     const dIn   = Number(discountStr || 0);
 
     if (!Number.isFinite(start) || start < MIN_LEVEL) {
-      return { error: `Минимальный стартовый уровень — ${MIN_LEVEL}.`, endLevel: MIN_LEVEL };
+      return { error: t('evotech.errorMinLevel', locale).replace('{min}', String(MIN_LEVEL)), endLevel: MIN_LEVEL };
     }
 
     let lvl = Math.max(MIN_LEVEL, Math.floor(start));
@@ -246,7 +256,7 @@
 
       // если обе цены нулевые — данные некорректные (иначе бесконечный ап)
       if (sConst === 0n && gConst === 0n) {
-        return { error: 'Данные стоимости некорректны (нулевая цена после 328).', endLevel: lvl };
+        return { error: t('evotech.errorBadConstPrice', locale).replace('{n}', String(PRICE_CONST_FROM_LEVEL)), endLevel: lvl };
       }
 
       const remainLevels = BigInt(MAX_LEVEL - lvl);
@@ -309,8 +319,8 @@
         return;
       }
 
-      endLevel     = res.endLevel.toLocaleString('ru-RU');
-      upgrades     = res.upgrades.toLocaleString('ru-RU');
+      endLevel     = res.endLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
+      upgrades     = res.upgrades.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
       spentSilver  = fmt(res.spentSilver);
       spentGold    = fmt(res.spentGold);
       leftSilver   = fmt(res.leftSilver);
@@ -319,7 +329,7 @@
 
       busy = false;
     } catch {
-      errorMsg = 'Ошибка расчёта.';
+      errorMsg = t('evotech.errorCalc', locale);
       busy = false;
     }
   }
@@ -342,7 +352,7 @@
       neededGold   = fmt(res.gold);
       busy = false;
     } catch {
-      errorMsg = 'Ошибка расчёта.';
+      errorMsg = t('evotech.errorCalc', locale);
       busy = false;
     }
   }
@@ -354,58 +364,58 @@
 </script>
 
 <div class="max-w-5xl mx-auto p-4">
-  <h1 class="text-2xl md:text-3xl font-bold text-sky-100">Калькулятор эво</h1>
+  <h1 class="text-2xl md:text-3xl font-bold text-sky-100">{t('evotech.heading', locale)}</h1>
   <p class="text-sky-200/80 mt-1">
     {#if mode === 'forward'}
-      Введите стартовый уровень и ресурсы — калькулятор посчитает финальный уровень.
+      {t('evotech.subtitleForward', locale)}
     {:else}
-      Введите стартовый и целевой уровень — калькулятор посчитает, сколько ресурсов нужно.
+      {t('evotech.subtitleReverse', locale)}
     {/if}
   </p>
 
   <div class="mt-4 inline-flex rounded-xl border border-slate-700/70 bg-slate-950/60 p-1">
     <button type="button" onclick={() => { mode = 'forward'; errorMsg = ''; }}
       class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'forward' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
-      Ресурсы → уровень
+      {t('evotech.modeForward', locale)}
     </button>
     <button type="button" onclick={() => { mode = 'reverse'; errorMsg = ''; }}
       class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'reverse' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
-      Уровень → ресурсы
+      {t('evotech.modeReverse', locale)}
     </button>
   </div>
 
   <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur">
-      <h2 class="text-sky-100 font-bold mb-3">Ввод данных</h2>
+      <h2 class="text-sky-100 font-bold mb-3">{t('evotech.inputTitle', locale)}</h2>
       <div class="space-y-3">
         <label class="block">
-          <span class="text-sky-300/80 text-sm">Стартовый уровень (≥ 5)</span>
-          <input id="evo-start-level" name="evo-start-level" type="text" bind:value={startLevel} oninput={onInputStartLevel} inputmode="numeric" placeholder="Например, 120"
+          <span class="text-sky-300/80 text-sm">{t('evotech.startLevelLabel', locale).replace('{min}', String(MIN_LEVEL))}</span>
+          <input id="evo-start-level" name="evo-start-level" type="text" bind:value={startLevel} oninput={onInputStartLevel} inputmode="numeric" placeholder={t('evotech.startLevelPlaceholder', locale)}
             class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
         </label>
 
         {#if mode === 'forward'}
           <label class="block">
-            <span class="text-sky-300/80 text-sm">Серебро</span>
-             <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder="Можно оставить пустым"
+            <span class="text-sky-300/80 text-sm">{t('evotech.silverLabel', locale)}</span>
+             <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder={t('evotech.silverPlaceholder', locale)}
               class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
           </label>
 
           <label class="block">
-            <span class="text-sky-300/80 text-sm">Золото</span>
-             <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder="Можно оставить пустым"
+            <span class="text-sky-300/80 text-sm">{t('evotech.goldLabel', locale)}</span>
+             <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder={t('evotech.goldPlaceholder', locale)}
                 class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
           </label>
         {:else}
           <label class="block">
-            <span class="text-sky-300/80 text-sm">Целевой уровень</span>
-            <input id="evo-target-level" name="evo-target-level" type="text" bind:value={targetLevel} oninput={onInputTargetLevel} inputmode="numeric" placeholder="Например, 400"
+            <span class="text-sky-300/80 text-sm">{t('evotech.targetLevelLabel', locale)}</span>
+            <input id="evo-target-level" name="evo-target-level" type="text" bind:value={targetLevel} oninput={onInputTargetLevel} inputmode="numeric" placeholder={t('evotech.targetLevelPlaceholder', locale)}
               class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
           </label>
         {/if}
 
         <label class="block">
-          <span class="text-sky-300/80 text-sm">Скидка</span>
+          <span class="text-sky-300/80 text-sm">{t('evotech.discountLabel', locale)}</span>
            <select id="evo-discount" name="evo-discount" bind:value={discount}
                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
             <option value="0">0%</option>
@@ -419,36 +429,36 @@
           <button onclick={calculate}
                   class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white ring-1 ring-white/10 disabled:opacity-60"
                   disabled={busy}>
-            {busy ? 'Считаю…' : 'Рассчитать'}
+            {busy ? t('evotech.calculating', locale) : t('evotech.calculateBtn', locale)}
           </button>
         </div>
       </div>
     </div>
 
     <div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur">
-      <h2 class="text-sky-100 font-bold mb-3">Результат</h2>
+      <h2 class="text-sky-100 font-bold mb-3">{t('evotech.resultTitle', locale)}</h2>
       {#if errorMsg}
         <div class="text-rose-300/90">{errorMsg}</div>
       {:else if mode === 'forward'}
         <div class="space-y-1.5">
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Финальный уровень:</span><strong>{endLevel}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Поднятно уровней:</span><strong>{upgrades}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.finalLevel', locale)}</span><strong>{endLevel}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.upgradesLabel', locale)}</span><strong>{upgrades}</strong></div>
           <hr class="my-2 border-slate-700/70" />
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Потрачено серебра:</span><strong>{spentSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Потрачено золота:</span><strong>{spentGold}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Остаток серебра:</span><strong>{leftSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Остаток золота:</span><strong>{leftGold}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentSilverLabel', locale)}</span><strong>{spentSilver}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentGoldLabel', locale)}</span><strong>{spentGold}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftSilverLabel', locale)}</span><strong>{leftSilver}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftGoldLabel', locale)}</span><strong>{leftGold}</strong></div>
         </div>
         <p class="mt-3 text-sky-200/70 text-sm">
-          Можно вводить только золото или только серебро — калькулятор сам поймёт.
+          {t('evotech.forwardNote', locale)}
         </p>
         {#if hitCap}
-          <p class="mt-1 text-sky-300/80 text-sm">Достигнут верхний предел уровня.</p>
+          <p class="mt-1 text-sky-300/80 text-sm">{t('evotech.hitCapNote', locale)}</p>
         {/if}
       {:else}
         <div class="space-y-1.5">
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Нужно серебра:</span><strong>{neededSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">Нужно золота:</span><strong>{neededGold}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededSilverLabel', locale)}</span><strong>{neededSilver}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededGoldLabel', locale)}</span><strong>{neededGold}</strong></div>
         </div>
       {/if}
     </div>
