@@ -22,6 +22,7 @@ import { geneLabelL } from '@/lib/mutant-dicts';
 import { calculateFinalStats } from '@/lib/stats/unified-calculator';
 import { t, localeFromAstro, type Locale } from '@/lib/i18n';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { getFarmerText, getLocationText, getQuestText } from '@/lib/guides-content-i18n';
 import divisionFightsData from '@/data/guides/division-fights.json';
 import GuidesBrowser from '@/components/guides/GuidesBrowser.svelte';
 import dungeonCovers from '@/data/guides/dungeon-covers.json';
@@ -106,7 +107,8 @@ const farmers = (farmerRows as FarmerRow[]).map((row) => {
   const mutants = row.ids.map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
   const silverPerHour = mutantsById.get(row.ids[0])?.base_stats.lvl1.silver ?? 0;
   const relative = Math.round((silverPerHour / SILVER_BASELINE) * 100) / 100;
-  return { ...row, mutants, silverPerHour, relative };
+  const text = getFarmerText(row.ids[0], locale, { price: row.price, verdict: row.verdict });
+  return { ...row, ...text, mutants, silverPerHour, relative };
 });
 
 // Событийные жетоны (Material_*_Token) не всегда есть в localisation_ru.txt /
@@ -180,7 +182,8 @@ const divisions = divisionsRaw.map((camp, campIndex) => ({
   name: camp.name_ru,
   recommendedLevel: camp.recommendation,
   maps: camp.maps.map((m) => {
-    const loc = locationsByMapId.get(m.map_id);
+    const locRaw = locationsByMapId.get(m.map_id);
+    const loc = locRaw ? getLocationText(m.map_id, locale, { name: locRaw.name, lore: locRaw.lore }) : undefined;
     const enemies = m.enemy_ids.map((id) => resolve(id.toLowerCase())).filter((x): x is NonNullable<typeof x> => x !== null);
     const nextName = divisionsRaw[campIndex + 1]?.name_ru;
     // Название следующего дивизиона (nextName, из name_ru) остаётся RU - не
@@ -220,12 +223,15 @@ const divisions = divisionsRaw.map((camp, campIndex) => ({
 
 interface QuestRaw { id: string; title: string; caption: string; rewards: RewardRaw[] }
 
-const quests = (questsData as QuestRaw[]).map((q) => ({
-  id: q.id,
-  title: q.title,
-  caption: q.caption,
-  rewards: q.rewards.map(resolveReward),
-}));
+const quests = (questsData as QuestRaw[]).map((q) => {
+  const text = getQuestText(q.title, q.caption, locale);
+  return {
+    id: q.id,
+    title: text.title,
+    caption: text.caption,
+    rewards: q.rewards.map(resolveReward),
+  };
+});
 
 interface RewardCurrency { softcurrency: number; hardcurrency: number; experience: number }
 interface RewardItem { id: string; amount: number }
