@@ -2,6 +2,7 @@ import gachaRaw from '@/data/simulators/reactor/gacha.json'
 import mutantNamesRaw from '@/data/simulators/reactor/mutant_names.json'
 import gachaNameRuRaw from '@/data/simulators/reactor/gacha-name-ru.json'
 import gachaCoversRaw from '@/data/simulators/reactor/gacha-covers.json'
+import gachaCoversI18nRaw from '@/data/simulators/reactor/gacha-covers-i18n.json'
 
 export type GachaId = keyof typeof gachaRaw
 
@@ -58,18 +59,35 @@ export const GACHA_NAME_RU: Record<string, string> = gachaNameRuRaw
 // авто-добавления реакторов дописывает сюда путь после загрузки арта на CDN.
 export const GACHA_COVERS: Partial<Record<string, string>> = gachaCoversRaw
 
+// Локализованные обложки (2026-08-15) - те же официальные крoп-арты с Kobojo
+// CDN, но с текстом названия реактора на нужном языке
+// (assets/gachacontent/btn_gacha_<live-id>-<lang>.png). RU остаётся в
+// GACHA_COVERS выше (обратная совместимость с build-announcements.ts/
+// simulate-announcements-page-data.ts, которые читают только этот флэт-файл
+// и не должны знать о локалях). checkmate тоже смаплен на "chess" live-id,
+// как и в GACHA_COVERS.
+const GACHA_COVERS_I18N: Partial<Record<string, Partial<Record<string, string>>>> =
+  gachaCoversI18nRaw
+
+export function getGachaCover(id: string, locale: string): string | null {
+  if (locale === 'ru') {
+    return GACHA_COVERS[id] ?? null
+  }
+  return GACHA_COVERS_I18N[id]?.[locale] ?? GACHA_COVERS[id] ?? null
+}
+
 export const mutantNames: Record<string, string> = mutantNamesRaw
 
 export const gachaMap: Record<string, GachaDefinition> = gachaRaw
 
-export function getGachaMeta(id: string): GachaMeta | null {
+export function getGachaMeta(id: string, locale = 'ru'): GachaMeta | null {
   const definition = gachaMap[id]
   if (!definition) {
     return null
   }
   const totalOdds = definition.basic_elements.reduce((sum, item) => sum + item.odds, 0)
   const name = GACHA_NAME_RU[id] ?? id
-  const cover = GACHA_COVERS[id] ?? null
+  const cover = getGachaCover(id, locale)
   return {
     id,
     name,
@@ -79,9 +97,9 @@ export function getGachaMeta(id: string): GachaMeta | null {
   }
 }
 
-export function listGachas(): GachaMeta[] {
+export function listGachas(locale = 'ru'): GachaMeta[] {
   return Object.keys(gachaMap)
-    .map((id) => getGachaMeta(id)!)
+    .map((id) => getGachaMeta(id, locale)!)
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
 }

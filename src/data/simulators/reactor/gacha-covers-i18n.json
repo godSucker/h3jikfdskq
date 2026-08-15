@@ -1,0 +1,212 @@
+{
+  "western": {
+    "en": "/reactor/western-en.png",
+    "es": "/reactor/western-es.png",
+    "fr": "/reactor/western-fr.png",
+    "de": "/reactor/western-de.png",
+    "pt": "/reactor/western-pt.png",
+    "it": "/reactor/western-it.png",
+    "tr": "/reactor/western-tr.png",
+    "nl": "/reactor/western-nl.png"
+  },
+  "beach": {
+    "en": "/reactor/beach-en.png",
+    "es": "/reactor/beach-es.png",
+    "fr": "/reactor/beach-fr.png",
+    "de": "/reactor/beach-de.png",
+    "pt": "/reactor/beach-pt.png",
+    "it": "/reactor/beach-it.png",
+    "tr": "/reactor/beach-tr.png",
+    "nl": "/reactor/beach-nl.png"
+  },
+  "soldiers": {
+    "en": "/reactor/soldiers-en.png",
+    "es": "/reactor/soldiers-es.png",
+    "fr": "/reactor/soldiers-fr.png",
+    "de": "/reactor/soldiers-de.png",
+    "pt": "/reactor/soldiers-pt.png",
+    "it": "/reactor/soldiers-it.png",
+    "tr": "/reactor/soldiers-tr.png",
+    "nl": "/reactor/soldiers-nl.png"
+  },
+  "heroes": {
+    "en": "/reactor/heroes-en.png",
+    "es": "/reactor/heroes-es.png",
+    "fr": "/reactor/heroes-fr.png",
+    "de": "/reactor/heroes-de.png",
+    "pt": "/reactor/heroes-pt.png",
+    "it": "/reactor/heroes-it.png",
+    "tr": "/reactor/heroes-tr.png",
+    "nl": "/reactor/heroes-nl.png"
+  },
+  "villains": {
+    "en": "/reactor/villains-en.png",
+    "es": "/reactor/villains-es.png",
+    "fr": "/reactor/villains-fr.png",
+    "de": "/reactor/villains-de.png",
+    "pt": "/reactor/villains-pt.png",
+    "it": "/reactor/villains-it.png",
+    "tr": "/reactor/villains-tr.png",
+    "nl": "/reactor/villains-nl.png"
+  },
+  "steampunk": {
+    "en": "/reactor/steampunk-en.png",
+    "es": "/reactor/steampunk-es.png",
+    "fr": "/reactor/steampunk-fr.png",
+    "de": "/reactor/steampunk-de.png",
+    "pt": "/reactor/steampunk-pt.png",
+    "it": "/reactor/steampunk-it.png",
+    "tr": "/reactor/steampunk-tr.png",
+    "nl": "/reactor/steampunk-nl.png"
+  },
+  "starwars": {
+    "en": "/reactor/starwars-en.png",
+    "es": "/reactor/starwars-es.png",
+    "fr": "/reactor/starwars-fr.png",
+    "de": "/reactor/starwars-de.png",
+    "pt": "/reactor/starwars-pt.png",
+    "it": "/reactor/starwars-it.png",
+    "tr": "/reactor/starwars-tr.png",
+    "nl": "/reactor/starwars-nl.png"
+  },
+  "lucha": {
+    "en": "/reactor/lucha-en.png",
+    "es": "/reactor/lucha-es.png",
+    "fr": "/reactor/lucha-fr.png",
+    "de": "/reactor/lucha-de.png",
+    "pt": "/reactor/lucha-pt.png",
+    "it": "/reactor/lucha-it.png",
+    "tr": "/reactor/lucha-tr.png",
+    "nl": "/reactor/lucha-nl.png"
+  },
+  "movies": {
+    "en": "/reactor/movies-en.png",
+    "es": "/reactor/movies-es.png",
+    "fr": "/reactor/movies-fr.png",
+    "de": "/reactor/movies-de.png",
+    "pt": "/reactor/movies-pt.png",
+    "it": "/reactor/movies-it.png",
+    "tr": "/reactor/movies-tr.png",
+    "nl": "/reactor/movies-nl.png"
+  },
+  "girl": {
+    "en": "/reactor/girl-en.png",
+    "es": "/reactor/girl-es.png",
+    "fr": "/reactor/girl-fr.png",
+    "de": "/reactor/girl-de.png",
+    "pt": "/reactor/girl-pt.png",
+    "it": "/reactor/girl-it.png",
+    "tr": "/reactor/girl-tr.png",
+    "nl": "/reactor/girl-nl.png"
+  },
+  "japan": {
+    "en": "/reactor/japan-en.png",
+    "es": "/reactor/japan-es.png",
+    "fr": "/reactor/japan-fr.png",
+    "de": "/reactor/japan-de.png",
+    "pt": "/reactor/japan-pt.png",
+    "it": "/reactor/japan-it.png",
+    "tr": "/reactor/japan-tr.png",
+    "nl": "/reactor/japan-nl.png"
+  },
+  "gothic": {
+    "en": "/reactor/gothic-en.png",
+    "es": "/reactor/gothic-es.png",
+    "fr": "/reactor/gothic-fr.png",
+    "de": "/reactor/gothic-de.png",
+    "pt": "/reactor/gothic-pt.png",
+    "it": "/reactor/gothic-it.png",
+    "tr": "/reactor/gothic-tr.png",
+    "nl": "/reactor/gothic-nl.png"
+  },
+  "olympians": {
+    "en": "/reactor/olympians-en.png",
+    "es": "/reactor/olympians-es.png",
+    "fr": "/reactor/olympians-fr.png",
+    "de": "/reactor/olympians-de.png",
+    "pt": "/reactor/olympians-pt.png",
+    "it": "/reactor/olympians-it.png",
+    "tr": "/reactor/olympians-tr.png",
+    "nl": "/reactor/olympians-nl.png"
+  },
+  "fantasy": {
+    "en": "/reactor/fantasy-en.png",
+    "es": "/reactor/fantasy-es.png",
+    "fr": "/reactor/fantasy-fr.png",
+    "de": "/reactor/fantasy-de.png",
+    "pt": "/reactor/fantasy-pt.png",
+    "it": "/reactor/fantasy-it.png",
+    "tr": "/reactor/fantasy-tr.png",
+    "nl": "/reactor/fantasy-nl.png"
+  },
+  "elements": {
+    "en": "/reactor/elements-en.png",
+    "es": "/reactor/elements-es.png",
+    "fr": "/reactor/elements-fr.png",
+    "de": "/reactor/elements-de.png",
+    "pt": "/reactor/elements-pt.png",
+    "it": "/reactor/elements-it.png",
+    "tr": "/reactor/elements-tr.png",
+    "nl": "/reactor/elements-nl.png"
+  },
+  "music": {
+    "en": "/reactor/music-en.png",
+    "es": "/reactor/music-es.png",
+    "fr": "/reactor/music-fr.png",
+    "de": "/reactor/music-de.png",
+    "pt": "/reactor/music-pt.png",
+    "it": "/reactor/music-it.png",
+    "tr": "/reactor/music-tr.png",
+    "nl": "/reactor/music-nl.png"
+  },
+  "olympics": {
+    "en": "/reactor/olympics-en.png",
+    "es": "/reactor/olympics-es.png",
+    "fr": "/reactor/olympics-fr.png",
+    "de": "/reactor/olympics-de.png",
+    "pt": "/reactor/olympics-pt.png",
+    "it": "/reactor/olympics-it.png",
+    "tr": "/reactor/olympics-tr.png",
+    "nl": "/reactor/olympics-nl.png"
+  },
+  "gachaboss": {
+    "en": "/reactor/gachaboss-en.png",
+    "es": "/reactor/gachaboss-es.png",
+    "fr": "/reactor/gachaboss-fr.png",
+    "de": "/reactor/gachaboss-de.png",
+    "pt": "/reactor/gachaboss-pt.png",
+    "it": "/reactor/gachaboss-it.png",
+    "tr": "/reactor/gachaboss-tr.png",
+    "nl": "/reactor/gachaboss-nl.png"
+  },
+  "vegetal": {
+    "en": "/reactor/vegetal-en.png",
+    "es": "/reactor/vegetal-es.png",
+    "fr": "/reactor/vegetal-fr.png",
+    "de": "/reactor/vegetal-de.png",
+    "pt": "/reactor/vegetal-pt.png",
+    "it": "/reactor/vegetal-it.png",
+    "tr": "/reactor/vegetal-tr.png",
+    "nl": "/reactor/vegetal-nl.png"
+  },
+  "checkmate": {
+    "en": "/reactor/checkmate-en.png",
+    "es": "/reactor/checkmate-es.png",
+    "fr": "/reactor/checkmate-fr.png",
+    "de": "/reactor/checkmate-de.png",
+    "pt": "/reactor/checkmate-pt.png",
+    "it": "/reactor/checkmate-it.png",
+    "tr": "/reactor/checkmate-tr.png",
+    "nl": "/reactor/checkmate-nl.png"
+  },
+  "gemstones": {
+    "en": "/reactor/gemstones-en.png",
+    "es": "/reactor/gemstones-es.png",
+    "fr": "/reactor/gemstones-fr.png",
+    "de": "/reactor/gemstones-de.png",
+    "pt": "/reactor/gemstones-pt.png",
+    "it": "/reactor/gemstones-it.png",
+    "tr": "/reactor/gemstones-tr.png",
+    "nl": "/reactor/gemstones-nl.png"
+  }
+}
