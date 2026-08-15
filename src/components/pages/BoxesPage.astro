@@ -7,8 +7,10 @@ import BoxModal from '@/components/boxes/BoxModal.svelte';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
 import { getBoxName } from '@/lib/boxes-i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 
 interface BoxMutantRef {
   id: string;
@@ -127,8 +129,8 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
 
   <p class="empty-state" id="emptyState" hidden>{t('boxes.emptyState', locale)}</p>
 
-  <BoxModal client:load locale={locale} />
-  <BingoMutantModal client:load />
+  <BoxModal client:load locale={locale} names={names} />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
 
 <script>

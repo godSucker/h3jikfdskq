@@ -12,7 +12,17 @@
     return '#'
   }
 
-  let { players = [], mutantsDb = [], locale = 'ru' as Locale }: { players: { rank: number; name: string; level: number; id: string; tandem: string; atk1: string; atk2: string; socials: any[] }[]; mutantsDb: any[]; locale?: Locale } = $props()
+  let {
+    players = [],
+    mutantsDb = [],
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+  }: {
+    players: { rank: number; name: string; level: number; id: string; tandem: string; atk1: string; atk2: string; socials: any[] }[]
+    mutantsDb: any[]
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+  } = $props()
 
   let query = $state('')
   let displayCount = $state(50)
@@ -93,7 +103,7 @@
 
     return {
       isDisabled: false,
-      name: found.name,
+      name: names[found.id]?.name || found.name,
       image: image ? `/${image}` : null,
       speed: Math.round(speed * 100) / 100
     }

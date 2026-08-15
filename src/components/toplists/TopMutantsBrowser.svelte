@@ -5,7 +5,18 @@
   import { STAR_ICONS } from '@/lib/mutant-icons'
   import { t, type Locale } from '@/lib/i18n'
 
-  let { locale = 'ru' as Locale }: { locale?: Locale } = $props()
+  let {
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+  }: {
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+  } = $props()
+
+  // Тот же приём, что MutantsBrowser.svelte/TierList.svelte.
+  function displayName(entry: { id: string; name: string }): string {
+    return names[entry.id]?.name || entry.name
+  }
 
   // Числа/даты по локали - тот же приём, что numberFormatLocale в
   // MaterialsIndexPage.astro (не общий модуль, но паттерн уже устоялся).
@@ -179,7 +190,7 @@
               <img src={textureUrl(entry.icon)} alt="" loading="lazy" decoding="async" />
             {/if}
           </span>
-          <span class="rank-name">{entry.name}</span>
+          <span class="rank-name">{displayName(entry)}</span>
           <span class="rank-star">
             <img src={textureUrl(STAR_ICONS[entry.star])} alt={starLabelL(entry.star, locale)} title={starLabelL(entry.star, locale)} loading="lazy" decoding="async" />
           </span>

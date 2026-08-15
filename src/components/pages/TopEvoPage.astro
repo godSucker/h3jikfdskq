@@ -9,19 +9,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import EvoLeaderboard from '@/components/EvoLeaderboard.svelte';
 import { loadEvoTop } from '@/lib/google-sheets-loader';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 // Импортируем базу мутантов
 import mutantsRaw from '@/data/mutants/mutants.json';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
 
 const players = await loadEvoTop();
 
-// EvoLeaderboard читает у мутанта только name/stars/base_stats (поиск
-// текстуры + скорость для лидерборда) - полный mutants.json тащит ещё
-// abilities/bingo/genes/name_lore и т.д. на каждый SSR-запрос этой
-// prerender=false страницы. Слим-проекция режет пейлоад, который иначе
-// дублируется дважды (SSR-рендер + сериализация в HTML для гидрации).
+// EvoLeaderboard читает у мутанта только id/name/stars/base_stats (поиск
+// текстуры + скорость для лидерборда, id - для лукапа локализованного имени
+// в names) - полный mutants.json тащит ещё abilities/bingo/genes/name_lore и
+// т.д. на каждый SSR-запрос этой prerender=false страницы. Слим-проекция
+// режет пейлоад, который иначе дублируется дважды (SSR-рендер + сериализация
+// в HTML для гидрации).
 const mutantsSlim = mutantsRaw.map((m) => ({
+  id: m.id,
   name: m.name,
   stars: m.stars,
   base_stats: m.base_stats,
@@ -42,7 +46,7 @@ const mutantsSlim = mutantsRaw.map((m) => ({
     </div>
 
     <!-- Передаем игроков И базу мутантов -->
-    <EvoLeaderboard client:load players={players} mutantsDb={mutantsSlim} locale={locale} />
+    <EvoLeaderboard client:load players={players} mutantsDb={mutantsSlim} locale={locale} names={names} />
   </div>
 </BaseLayout>
 

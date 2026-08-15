@@ -5,7 +5,19 @@
   import { getBoxName } from '@/lib/boxes-i18n'
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
 
-  let { locale = 'ru' as Locale }: { locale?: Locale } = $props()
+  let {
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+  }: {
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+  } = $props()
+
+  // Тот же приём, что MutantsBrowser.svelte/TierList.svelte: id уже базовый
+  // (см. boxes.json - lowercase specimen_*, без суффикса звезды).
+  function displayMutantName(m: { id: string; name: string }): string {
+    return names[m.id]?.name || m.name
+  }
 
   interface BoxMutantRef {
     id: string
@@ -167,7 +179,7 @@
                     {#if mutantIcon(m)}
                       <img src={textureUrl(mutantIcon(m))} alt="" loading="lazy" decoding="async" />
                     {/if}
-                    {m.name}
+                    {displayMutantName(m)}
                   </button>
                 {/each}
               {/each}
@@ -189,7 +201,7 @@
                             <img src={textureUrl(mutantIcon(m))} alt="" loading="lazy" decoding="async" />
                           {/if}
                         </span>
-                        <span class="mutant-cell-name">{m.name}</span>
+                        <span class="mutant-cell-name">{displayMutantName(m)}</span>
                         {#if m.tier && TIER_ICON[m.tier]}
                           <img class="tier-icon" src={textureUrl(TIER_ICON[m.tier])} alt={m.tier} title={m.tier} loading="lazy" decoding="async" />
                         {/if}

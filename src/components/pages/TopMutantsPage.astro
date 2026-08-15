@@ -5,8 +5,10 @@ import { textureUrl } from '@/lib/texture-cdn';
 import TopMutantsBrowser from '@/components/toplists/TopMutantsBrowser.svelte';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 ---
 
 <BaseLayout
@@ -24,8 +26,8 @@ const locale = localeFromAstro(Astro.currentLocale);
     </p>
   </section>
 
-  <TopMutantsBrowser client:load locale={locale} />
-  <BingoMutantModal client:load />
+  <TopMutantsBrowser client:load locale={locale} names={names} />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
 
 <style>

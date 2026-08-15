@@ -1,6 +1,23 @@
 <script lang="ts">
   import MutantModal from '../MutantModal.svelte'
   import { baseMutantId as baseId, buildSkinLookup } from '@/lib/utils'
+  import { type Locale } from '@/lib/i18n'
+
+  // locale/names/obtainNames - опциональные пропы (не влияют на 5 страниц,
+  // где ещё нет локали): страницы с уже готовым i18n (bingo/top-mutants/boxes)
+  // передают их из своего NAMES_BY_LOCALE (тот же паттерн, что
+  // TierListPage.astro) - это просто сериализованный объект имён ОДНОЙ
+  // локали (~100КБ), не 8 файлов, поэтому бандл-стоимость незначительна и
+  // не требует отдельного динамического импорта, как для mutants.json ниже.
+  let {
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+    obtainNames = {} as Record<string, string>,
+  }: {
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+    obtainNames?: Record<string, string>
+  } = $props()
 
   // BingoMutantModal монтируется client:load на 5 страницах (bingo,
   // top-mutants, announcements, boxes, guides), но модалка реально
@@ -59,5 +76,14 @@
 </script>
 
 {#if modalOpen && selectedMutant}
-  <MutantModal open={modalOpen} mutant={selectedMutant} star={selectedStar} skins={selectedSkins} onclose={closeModal} />
+  <MutantModal
+    open={modalOpen}
+    mutant={selectedMutant}
+    star={selectedStar}
+    skins={selectedSkins}
+    onclose={closeModal}
+    locale={locale}
+    names={names}
+    obtainNames={obtainNames}
+  />
 {/if}

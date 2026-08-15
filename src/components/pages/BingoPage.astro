@@ -7,9 +7,12 @@ import { getMutantTexturePath, getRewardTexturePath, getRewardLabel } from '@/li
 import { bingoLabelL } from '@/lib/mutant-dicts';
 import { textureUrl } from '@/lib/texture-cdn';
 import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { baseMutantId } from '@/lib/utils';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 
 interface BingoMutant {
   specimenId: string;
@@ -63,12 +66,14 @@ function formatBingoTitle(title: string, id: string): string {
     .join(" ");
 }
 
-// Имена мутантов (mutant_names.json) нигде на сайте не локализованы - общий
-// для всего сайта пробел (см. память i18n-known-coverage-gaps), не
-// специфичен для /bingo.
+// mutant_names.json - RU-канон, ключи в точном регистре игры (incl. суффиксы
+// звёзд типа _Platinum). Для остальных 8 языков используем names.{lang}.json
+// (тот же словарь, что TierListPage.astro) по базовому id - звёздные варианты
+// визуально один и тот же мутант, имя не меняется от звезды.
 function getMutantName(specimenId: string): string {
   const mutantNames = mutantNamesData as Record<string, string>;
-  return mutantNames[specimenId] || specimenId;
+  if (locale === 'ru') return mutantNames[specimenId] || specimenId;
+  return names[baseMutantId(specimenId)]?.name || mutantNames[specimenId] || specimenId;
 }
 
 function getBingoLayout(bingo: Bingo) {
@@ -388,7 +393,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
       );
     })}
   </div>
-  <BingoMutantModal client:load />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
 
 <script define:vars={{ i18nShareCopied, i18nSharePromptLabel }}>

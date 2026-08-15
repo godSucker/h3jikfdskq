@@ -9,8 +9,10 @@ import { abilityLabelL } from '@/lib/mutant-dicts';
 import { getGeneIcon, STAR_KEYS, STAR_MULTIPLIERS } from '@/lib/mutant-icons';
 import { sortMutantsByGene } from '@/lib/mutant-sort';
 import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
 const INTL_LOCALE: Record<string, string> = { ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL' };
 
 type AbilityField = 'pct' | 'atk1' | 'atk2';
@@ -228,7 +230,7 @@ function buildRow(entry: RebalanceEntry): MutantRow {
 
   return {
     id: entry.id,
-    name: entry.name,
+    name: names[entry.id]?.name || entry.name,
     head: meta.head,
     genes: meta.genes,
     tier: meta.tier,

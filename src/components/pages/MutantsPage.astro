@@ -5,23 +5,8 @@ import MutantsBrowser from '@/components/MutantsBrowser.svelte';
 import mutants from '@/data/mutants/mutants.json';
 import skins  from '@/data/mutants/skins.json';
 import bingos from '@/data/bingos.json';
-import namesEn from '@/data/mutants/names.en.json';
-import namesEs from '@/data/mutants/names.es.json';
-import namesFr from '@/data/mutants/names.fr.json';
-import namesDe from '@/data/mutants/names.de.json';
-import namesPt from '@/data/mutants/names.pt.json';
-import namesIt from '@/data/mutants/names.it.json';
-import namesTr from '@/data/mutants/names.tr.json';
-import namesNl from '@/data/mutants/names.nl.json';
-import obtainEn from '@/data/mutants/obtain-names.en.json';
-import obtainEs from '@/data/mutants/obtain-names.es.json';
-import obtainFr from '@/data/mutants/obtain-names.fr.json';
-import obtainDe from '@/data/mutants/obtain-names.de.json';
-import obtainPt from '@/data/mutants/obtain-names.pt.json';
-import obtainIt from '@/data/mutants/obtain-names.it.json';
-import obtainTr from '@/data/mutants/obtain-names.tr.json';
-import obtainNl from '@/data/mutants/obtain-names.nl.json';
-import { t, localeFromAstro, type Locale } from '@/lib/i18n';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 // Универсальный сбор ключей бинго
 const collectBingoKeys = (it: unknown) => {
@@ -40,24 +25,7 @@ const bingoIndex = Array.from(new Set(
 const locale = localeFromAstro(Astro.currentLocale);
 // i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
 // сиблинг-словарь переводов (генерируется scripts/sync-mutant-names.ts).
-const NAMES_BY_LOCALE: Partial<Record<Locale, Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>>> = {
-  en: namesEn, es: namesEs, fr: namesFr,
-  de: namesDe, pt: namesPt, it: namesIt, tr: namesTr, nl: namesNl,
-};
-// Фолбэк target->en (см. FALLBACK_LOCALE в src/lib/i18n.ts) - на случай
-// точечных пропусков (напр. pt 555/556, см. Батч 11 в памяти). RU не участвует
-// в лукапе вообще - mutants.json уже RU-канон, оригинальные m.name/lore и т.д.
-const names = locale === 'ru' ? {} : { ...NAMES_BY_LOCALE.en, ...NAMES_BY_LOCALE[locale] };
-
-// Батч 11 (3): itemId -> название товара (bundle/box) на 8 языках, генерируется
-// scripts/sync-obtain-names.ts. Фолбэк-цепочка target->en->ru свёрнута здесь же
-// (не в компоненте) - на RU лукап не нужен вообще, obtain.json's "where" уже
-// RU-канон.
-const OBTAIN_NAMES_BY_LOCALE: Partial<Record<Locale, Record<string, string>>> = {
-  en: obtainEn, es: obtainEs, fr: obtainFr,
-  de: obtainDe, pt: obtainPt, it: obtainIt, tr: obtainTr, nl: obtainNl,
-};
-const obtainNames = locale === 'ru' ? {} : { ...OBTAIN_NAMES_BY_LOCALE.en, ...OBTAIN_NAMES_BY_LOCALE[locale] };
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 
 export const prerender = true;
 ---
