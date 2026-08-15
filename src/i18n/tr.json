@@ -550,5 +550,15 @@
   "materials.orbs.title": "Küreler (Orbs)",
   "materials.orbs.description": "Mutants Genetic Gladiators (MGG) tüm küreleri (orbs): türler, etkiler ve nereden elde edileceği.",
   "materials.orbs.intro": "Küreler, mutantlara takıldığında benzersiz bonuslar sağlar.",
-  "materials.orbs.tableTitle": "Küre listesi"
+  "materials.orbs.tableTitle": "Küre listesi",
+  "bingo.pageTitle": "Bingo",
+  "bingo.pageDescription": "Tüm Mutants Genetic Gladiators (MGG) bingo kartları: mutantlar, skinler ve her bingonun ödülleri.",
+  "bingo.subtitle": "Mutantlı ve ödüllü tüm bingo kartları",
+  "bingo.archived": "Arşivlendi",
+  "bingo.shareTitle": "Bu bingonun bağlantısını kopyala",
+  "bingo.share": "Paylaş",
+  "bingo.part": "Bölüm",
+  "bingo.rewards": "Ödüller",
+  "bingo.share.copied": "Kopyalandı!",
+  "bingo.share.promptLabel": "Bağlantıyı kopyalayın:"
 }

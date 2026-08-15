@@ -1,6 +1,7 @@
 import { getItemTexture, translateItemId } from './craft-simulator'
 import { getMutantTexture, getSkinTexture } from './mutant-textures'
 import { normalizeSearch } from '@/lib/search-normalize'
+import type { Locale } from '@/lib/i18n'
 
 import { normalizeMutantId } from '@/lib/utils'
 
@@ -251,17 +252,59 @@ export function getRewardTexturePath(reward: {
 /**
  * Получает название награды для отображения
  */
-export function getRewardLabel(reward: {
-  name: string
-  type: 'entity' | 'hardcurrency' | 'softcurrency'
-  amount?: number
-}): string {
+// Слова "золота"/"серебра" переведены на все 9 языков - сами имена предметов
+// (translateItemId, ITEM_TRANSLATIONS в craft-simulator.ts) остаются RU, это
+// общий для всего сайта пробел (см. память i18n-known-coverage-gaps).
+const GOLD_WORD: Record<Locale, string> = {
+  ru: 'золота',
+  en: 'gold',
+  es: 'oro',
+  fr: "d'or",
+  de: 'Gold',
+  pt: 'ouro',
+  it: 'oro',
+  tr: 'altın',
+  nl: 'goud',
+}
+const SILVER_WORD: Record<Locale, string> = {
+  ru: 'серебра',
+  en: 'silver',
+  es: 'plata',
+  fr: "d'argent",
+  de: 'Silber',
+  pt: 'prata',
+  it: 'argento',
+  tr: 'gümüş',
+  nl: 'zilver',
+}
+const INTL_LOCALE: Record<Locale, string> = {
+  ru: 'ru-RU',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  it: 'it-IT',
+  tr: 'tr-TR',
+  nl: 'nl-NL',
+}
+
+export function getRewardLabel(
+  reward: {
+    name: string
+    type: 'entity' | 'hardcurrency' | 'softcurrency'
+    amount?: number
+  },
+  locale: Locale = 'ru',
+): string {
   if (reward.type === 'hardcurrency') {
-    return `${reward.amount?.toLocaleString('ru-RU') || 0} золота`
+    const n = (reward.amount ?? 0).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
+    return `${n} ${GOLD_WORD[locale] ?? GOLD_WORD.ru}`
   }
 
   if (reward.type === 'softcurrency') {
-    return `${reward.amount?.toLocaleString('ru-RU') || 0} серебра`
+    const n = (reward.amount ?? 0).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
+    return `${n} ${SILVER_WORD[locale] ?? SILVER_WORD.ru}`
   }
 
   // Для entity используем перевод из craft-simulator

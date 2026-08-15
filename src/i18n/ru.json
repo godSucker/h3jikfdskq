@@ -552,5 +552,15 @@
   "materials.orbs.title": "Сферы (Orbs)",
   "materials.orbs.description": "Все сферы (orbs) MGG (Mutants Genetic Gladiators): типы, эффекты и где их получить.",
   "materials.orbs.intro": "Сферы дают уникальные бонусы при установке на мутантов.",
-  "materials.orbs.tableTitle": "Список сфер"
+  "materials.orbs.tableTitle": "Список сфер",
+  "bingo.pageTitle": "Бинго",
+  "bingo.pageDescription": "Все бинго Mutants Genetic Gladiators (MGG): мутанты, скины и награды каждого бинго.",
+  "bingo.subtitle": "Все доступные бинго с мутантами и наградами",
+  "bingo.archived": "Архивное",
+  "bingo.shareTitle": "Скопировать ссылку на это бинго",
+  "bingo.share": "Поделиться",
+  "bingo.part": "Часть",
+  "bingo.rewards": "Награды",
+  "bingo.share.copied": "Скопировано!",
+  "bingo.share.promptLabel": "Скопируйте ссылку:"
 }

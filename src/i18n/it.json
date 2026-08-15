@@ -550,5 +550,15 @@
   "materials.orbs.title": "Sfere (Orbs)",
   "materials.orbs.description": "Tutte le sfere (orbs) di Mutants Genetic Gladiators (MGG): tipi, effetti e dove ottenerle.",
   "materials.orbs.intro": "Le sfere conferiscono bonus unici quando applicate ai mutanti.",
-  "materials.orbs.tableTitle": "Elenco sfere"
+  "materials.orbs.tableTitle": "Elenco sfere",
+  "bingo.pageTitle": "Bingo",
+  "bingo.pageDescription": "Tutte le schede bingo di Mutants Genetic Gladiators (MGG): mutanti, skin e ricompense di ogni bingo.",
+  "bingo.subtitle": "Tutte le schede bingo disponibili con mutanti e ricompense",
+  "bingo.archived": "Archiviato",
+  "bingo.shareTitle": "Copia il link a questo bingo",
+  "bingo.share": "Condividi",
+  "bingo.part": "Parte",
+  "bingo.rewards": "Ricompense",
+  "bingo.share.copied": "Copiato!",
+  "bingo.share.promptLabel": "Copia il link:"
 }

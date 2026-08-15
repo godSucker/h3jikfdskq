@@ -550,5 +550,15 @@
   "materials.orbs.title": "Sphären (Orbs)",
   "materials.orbs.description": "Alle Sphären (Orbs) von Mutants Genetic Gladiators (MGG): Typen, Effekte und Fundorte.",
   "materials.orbs.intro": "Sphären verleihen einzigartige Boni, wenn sie auf Mutanten angewendet werden.",
-  "materials.orbs.tableTitle": "Liste der Sphären"
+  "materials.orbs.tableTitle": "Liste der Sphären",
+  "bingo.pageTitle": "Bingo",
+  "bingo.pageDescription": "Alle Mutants Genetic Gladiators (MGG) Bingo-Tafeln: Mutanten, Skins und Belohnungen für jedes Bingo.",
+  "bingo.subtitle": "Alle verfügbaren Bingo-Tafeln mit Mutanten und Belohnungen",
+  "bingo.archived": "Archiviert",
+  "bingo.shareTitle": "Link zu diesem Bingo kopieren",
+  "bingo.share": "Teilen",
+  "bingo.part": "Teil",
+  "bingo.rewards": "Belohnungen",
+  "bingo.share.copied": "Kopiert!",
+  "bingo.share.promptLabel": "Link kopieren:"
 }

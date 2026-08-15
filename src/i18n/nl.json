@@ -550,5 +550,15 @@
   "materials.orbs.title": "Bollen (Orbs)",
   "materials.orbs.description": "Alle bollen (orbs) van Mutants Genetic Gladiators (MGG): types, effecten en waar je ze vindt.",
   "materials.orbs.intro": "Bollen geven unieke bonussen wanneer ze op mutanten worden toegepast.",
-  "materials.orbs.tableTitle": "Lijst met bollen"
+  "materials.orbs.tableTitle": "Lijst met bollen",
+  "bingo.pageTitle": "Bingo",
+  "bingo.pageDescription": "Alle Mutants Genetic Gladiators (MGG) bingokaarten: mutanten, skins en beloningen van elk bingo.",
+  "bingo.subtitle": "Alle beschikbare bingokaarten met mutanten en beloningen",
+  "bingo.archived": "Gearchiveerd",
+  "bingo.shareTitle": "Link naar dit bingo kopiëren",
+  "bingo.share": "Delen",
+  "bingo.part": "Deel",
+  "bingo.rewards": "Beloningen",
+  "bingo.share.copied": "Gekopieerd!",
+  "bingo.share.promptLabel": "Kopieer de link:"
 }

@@ -550,5 +550,15 @@
   "materials.orbs.title": "Orbes",
   "materials.orbs.description": "Todos los orbes de Mutants Genetic Gladiators (MGG): tipos, efectos y dónde conseguirlos.",
   "materials.orbs.intro": "Los orbes otorgan bonificaciones únicas al equiparlos en los mutantes.",
-  "materials.orbs.tableTitle": "Lista de orbes"
+  "materials.orbs.tableTitle": "Lista de orbes",
+  "bingo.pageTitle": "Bingo",
+  "bingo.pageDescription": "Todos los tableros de bingo de Mutants Genetic Gladiators (MGG): mutantes, skins y recompensas de cada bingo.",
+  "bingo.subtitle": "Todos los tableros de bingo disponibles con mutantes y recompensas",
+  "bingo.archived": "Archivado",
+  "bingo.shareTitle": "Copiar enlace a este bingo",
+  "bingo.share": "Compartir",
+  "bingo.part": "Parte",
+  "bingo.rewards": "Recompensas",
+  "bingo.share.copied": "¡Copiado!",
+  "bingo.share.promptLabel": "Copia el enlace:"
 }
