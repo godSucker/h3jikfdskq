@@ -639,5 +639,15 @@
   "topEvo.tandemLabel": "Tandem:",
   "topEvo.mutantNotFound": "Mutant \"{name}\" niet gevonden in de database.",
   "topEvo.socialsHeader": "Social media van de speler",
-  "topEvo.genericLinkLabel": "Link"
+  "topEvo.genericLinkLabel": "Link",
+  "tierList.pageTitle": "Mutant-tierlijst",
+  "tierList.pageDescription": "De community-tierlijst voor MGG-mutanten (Mutants Genetic Gladiators).",
+  "tierList.heading": "Tierlijst van de beste PvP-mutanten",
+  "tierList.updatedPrefix": "Bijgewerkt:",
+  "tierList.subtitleGenes": "Mutanten zijn gerangschikt op gen, van {a} tot {b}.",
+  "tierList.disclaimer": "Let op: deze tierlijst weerspiegelt de subjectieve kijk van de groepsbeheerders op de meta van het spel. We hebben behoorlijk wat spelervaring en een ruw begrip van de meta, maar de lijst kan altijd onnauwkeurigheden bevatten — niet iedereen is het met elkaar eens. De lijst is bedoeld om een algemeen beeld te geven van de kracht van mutanten en het totaalbeeld van de spelbalans te vereenvoudigen.",
+  "tierList.tierLabel": "TIER",
+  "tierList.sub.top": "Top van de tier",
+  "tierList.sub.mid": "Midden",
+  "tierList.sub.bottom": "Onder in de tier"
 }

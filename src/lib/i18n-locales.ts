@@ -35,6 +35,7 @@ export const TRANSLATED_PATHS = [
   '/rebalance',
   '/credits',
   '/top-evo',
+  '/tier-list',
 ] as const
 
 // Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS

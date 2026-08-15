@@ -639,5 +639,15 @@
   "topEvo.tandemLabel": "Tandem:",
   "topEvo.mutantNotFound": "\"{name}\" adlı mutant veritabanında bulunamadı.",
   "topEvo.socialsHeader": "Oyuncunun sosyal medyası",
-  "topEvo.genericLinkLabel": "Bağlantı"
+  "topEvo.genericLinkLabel": "Bağlantı",
+  "tierList.pageTitle": "Mutant Tier Listesi",
+  "tierList.pageDescription": "MGG (Mutants Genetic Gladiators) mutantları için topluluk tier listesi.",
+  "tierList.heading": "PvP'de En İyi Mutantlar Tier Listesi",
+  "tierList.updatedPrefix": "Güncellendi:",
+  "tierList.subtitleGenes": "Mutantlar gene göre {a} ile {b} arasında sıralanmıştır.",
+  "tierList.disclaimer": "Bu tier listesinin grup yöneticilerinin oyun metasına dair öznel görüşünü yansıttığını unutmayın. İyi bir oyun deneyimimiz ve metaya dair yaklaşık bir anlayışımız var, ancak listede her zaman hatalar olabilir — herkes aynı fikirde olmayabilir. Bu liste, mutantların gücü hakkında genel bir fikir vermek ve oyun dengesinin genel resmini basitleştirmek için oluşturulmuştur.",
+  "tierList.tierLabel": "TIER",
+  "tierList.sub.top": "Tier üstü",
+  "tierList.sub.mid": "Orta",
+  "tierList.sub.bottom": "Tier altı"
 }

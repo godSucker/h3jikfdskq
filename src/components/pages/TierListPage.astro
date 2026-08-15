@@ -1,0 +1,86 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TierList from '@/components/TierList.svelte';
+import mutants from '@/data/mutants/mutants.json';
+import tierMeta from '@/data/mutants/tier-updated-at.json';
+import namesEn from '@/data/mutants/names.en.json';
+import namesEs from '@/data/mutants/names.es.json';
+import namesFr from '@/data/mutants/names.fr.json';
+import namesDe from '@/data/mutants/names.de.json';
+import namesPt from '@/data/mutants/names.pt.json';
+import namesIt from '@/data/mutants/names.it.json';
+import namesTr from '@/data/mutants/names.tr.json';
+import namesNl from '@/data/mutants/names.nl.json';
+import obtainEn from '@/data/mutants/obtain-names.en.json';
+import obtainEs from '@/data/mutants/obtain-names.es.json';
+import obtainFr from '@/data/mutants/obtain-names.fr.json';
+import obtainDe from '@/data/mutants/obtain-names.de.json';
+import obtainPt from '@/data/mutants/obtain-names.pt.json';
+import obtainIt from '@/data/mutants/obtain-names.it.json';
+import obtainTr from '@/data/mutants/obtain-names.tr.json';
+import obtainNl from '@/data/mutants/obtain-names.nl.json';
+import { t, localeFromAstro, type Locale } from '@/lib/i18n';
+import { geneLabelL } from '@/lib/mutant-dicts';
+
+// Тиры живут прямо в mutants.json (поле `tier`); писать их может и
+// телеграм-вебхук (src/pages/api/telegram-webhook.ts -> tier-parser.js), и
+// редактор на превью-ветке (кнопка публикации в mutants.json на main) - оба
+// пути обновляют tier-updated-at.json той же коммитной операцией, так что
+// дата на странице не зависит от того, кто именно правил тиры последним.
+const tieredMutants = mutants.filter((m) => m.name && String(m.tier ?? '').trim());
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+// Тот же приём, что MutantsPage.astro (i18n-пилот, Батч 11): mutants.json
+// остаётся RU-каноном, names.{lang}.json - сиблинг-словарь официальных
+// переводов имени/лора/атак по id (556/556 покрытие). RU не участвует в
+// лукапе - m.name уже RU-канон.
+const NAMES_BY_LOCALE: Partial<Record<Locale, Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>>> = {
+  en: namesEn, es: namesEs, fr: namesFr,
+  de: namesDe, pt: namesPt, it: namesIt, tr: namesTr, nl: namesNl,
+};
+const names = locale === 'ru' ? {} : { ...NAMES_BY_LOCALE.en, ...NAMES_BY_LOCALE[locale] };
+
+const OBTAIN_NAMES_BY_LOCALE: Partial<Record<Locale, Record<string, string>>> = {
+  en: obtainEn, es: obtainEs, fr: obtainFr,
+  de: obtainDe, pt: obtainPt, it: obtainIt, tr: obtainTr, nl: obtainNl,
+};
+const obtainNames = locale === 'ru' ? {} : { ...OBTAIN_NAMES_BY_LOCALE.en, ...OBTAIN_NAMES_BY_LOCALE[locale] };
+
+// Локализация даты - тот же приём, что INTL_LOCALE в TopMutantsBrowser.svelte
+// (не общий модуль, паттерн уже устоялся).
+const INTL_LOCALE: Record<Locale, string> = {
+  ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR',
+  de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+};
+
+const tierUpdatedLabel = tierMeta.updatedAt
+  ? new Date(tierMeta.updatedAt).toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  : null;
+
+const subtitleGenes = t('tierList.subtitleGenes', locale)
+  .replace('{a}', geneLabelL('A', locale))
+  .replace('{b}', geneLabelL('F', locale));
+---
+
+<BaseLayout title={t('tierList.pageTitle', locale)} description={t('tierList.pageDescription', locale)} fullWidth>
+  <div class="mb-3 sm:mb-4 text-center">
+    <h1 class="text-lg sm:text-2xl font-extrabold text-white tracking-wide mb-1">
+      {t('tierList.heading', locale)}
+    </h1>
+    <p class="text-xs text-slate-300">
+      {tierUpdatedLabel && `${t('tierList.updatedPrefix', locale)} ${tierUpdatedLabel} `}{subtitleGenes}
+    </p>
+  </div>
+
+  <TierList client:load mutants={tieredMutants} locale={locale} names={names} obtainNames={obtainNames} />
+
+  <p class="mt-4 sm:mt-6 text-[10px] sm:text-xs text-slate-300 leading-relaxed text-center max-w-3xl mx-auto">
+    {t('tierList.disclaimer', locale)}
+  </p>
+</BaseLayout>

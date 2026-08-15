@@ -1,11 +1,28 @@
 <script lang="ts">
   import { sortMutantsByGene } from '@/lib/mutant-sort'
   import { textureUrl } from '@/lib/texture-cdn'
-  import { pluralize, baseMutantId as baseId, buildSkinLookup } from '@/lib/utils'
+  import { baseMutantId as baseId, buildSkinLookup } from '@/lib/utils'
+  import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import MutantModal from './MutantModal.svelte'
   import skinsData from '@/data/mutants/skins.json'
 
-  let { mutants = [] }: { mutants: any[] } = $props()
+  let {
+    mutants = [],
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+    obtainNames = {} as Record<string, string>,
+  }: {
+    mutants: any[]
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+    obtainNames?: Record<string, string>
+  } = $props()
+
+  // Тот же приём, что MutantsBrowser.svelte: mutants.json остаётся
+  // RU-каноном, names[] - сиблинг-словарь официальных переводов по id.
+  function displayName(m: any): string {
+    return names[m?.id]?.name || m?.name || ''
+  }
 
   const skinLookup = buildSkinLookup((skinsData as any)?.specimens ?? [])
 
@@ -25,10 +42,11 @@
     '4': { border: 'border-green-500', bg: 'bg-[#141922]', headerBg: 'bg-green-600', subText: 'text-green-300' },
   }
 
-  const SUB_LABELS: Record<string, string> = {
-    '1+': 'Топ тира', '1': 'Середина', '1-': 'Низ тира',
-    '2+': 'Топ тира', '2': 'Середина', '2-': 'Низ тира',
-    '3+': 'Топ тира', '3': 'Середина', '3-': 'Низ тира',
+  // '+' - верх подтира, '-' - низ, без суффикса - середина (см. SUB_ORDER выше).
+  function subLabel(subTier: string): string {
+    if (subTier.endsWith('+')) return t('tierList.sub.top', locale)
+    if (subTier.endsWith('-')) return t('tierList.sub.bottom', locale)
+    return t('tierList.sub.mid', locale)
   }
 
   function groupByTier(list: any[]): Record<string, any[]> {
@@ -128,9 +146,9 @@
     {#if hasAny}
       <section class="rounded-xl border-2 {colors.border} {colors.bg} overflow-hidden">
         <div class="flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 {colors.headerBg}">
-          <span class="text-sm sm:text-base font-extrabold text-white tracking-wide">ТИР {mainTier}</span>
+          <span class="text-sm sm:text-base font-extrabold text-white tracking-wide">{t('tierList.tierLabel', locale)} {mainTier}</span>
           <span class="text-[10px] sm:text-xs text-slate-300">
-            {tierCount} {pluralize(tierCount, 'мутант', 'мутанта', 'мутантов')}
+            {tierCount} {pluralizeCount(tierCount, locale)}
           </span>
         </div>
 
@@ -145,7 +163,7 @@
                     {subTier}
                   </span>
                   <span class="text-[9px] sm:text-[10px] text-slate-400">
-                    {SUB_LABELS[subTier] ?? ''}
+                    {subLabel(subTier)}
                   </span>
                   <div class="flex-1 h-px bg-white/5"></div>
                 </div>
@@ -160,11 +178,11 @@
                            hover:ring-1 hover:ring-sky-400/60 hover:z-10"
                     style="background-color: {gc}"
                     onclick={() => openModal(m)}
-                    title={m.name}
+                    title={displayName(m)}
                   >
                     <img
                       src={textureUrl(specimenSrc(m))}
-                      alt={m.name}
+                      alt={displayName(m)}
                       class="absolute inset-0 w-full h-full object-contain"
                       loading="lazy"
                       decoding="async"
@@ -173,7 +191,7 @@
                     <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent
                                 px-px py-px opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                       <span class="text-[6px] sm:text-[7px] md:text-[8px] text-white leading-tight line-clamp-2 text-center block">
-                        {m.name}
+                        {displayName(m)}
                       </span>
                     </div>
                   </button>
@@ -194,6 +212,9 @@
     star={selectedStar}
     skins={selectedSkins}
     onclose={closeModal}
+    locale={locale}
+    names={names}
+    obtainNames={obtainNames}
   />
 {/if}
 

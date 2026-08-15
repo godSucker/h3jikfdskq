@@ -643,5 +643,15 @@
   "topEvo.tandemLabel": "Тандем:",
   "topEvo.mutantNotFound": "Мутант \"{name}\" не найден в базе.",
   "topEvo.socialsHeader": "Соц. сети игрока",
-  "topEvo.genericLinkLabel": "Ссылка"
+  "topEvo.genericLinkLabel": "Ссылка",
+  "tierList.pageTitle": "Тир-лист мутантов",
+  "tierList.pageDescription": "Актуальный тир-лист мутантов MGG (Mutants Genetic Gladiators) от сообщества.",
+  "tierList.heading": "Тир-лист лучших мутантов в PvP",
+  "tierList.updatedPrefix": "Обновлено:",
+  "tierList.subtitleGenes": "Мутанты расположены по генам от {a} до {b}.",
+  "tierList.disclaimer": "Напоминаем, что этот топ является субъективным виденьем меты игры админами группы. У нас есть неплохой игровой опыт и примерное понимание меты. Однако, в тире всегда могут быть неточности, всем людям не сойтись на одном мнении. Тир создан для примерного понимания силы мутантов и упрощенного восприятия общей картины игрового баланса.",
+  "tierList.tierLabel": "ТИР",
+  "tierList.sub.top": "Топ тира",
+  "tierList.sub.mid": "Середина",
+  "tierList.sub.bottom": "Низ тира"
 }

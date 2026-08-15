@@ -639,5 +639,15 @@
   "topEvo.tandemLabel": "Tandem:",
   "topEvo.mutantNotFound": "Mutant „{name}“ nicht in der Datenbank gefunden.",
   "topEvo.socialsHeader": "Soziale Netzwerke des Spielers",
-  "topEvo.genericLinkLabel": "Link"
+  "topEvo.genericLinkLabel": "Link",
+  "tierList.pageTitle": "Mutanten-Tierliste",
+  "tierList.pageDescription": "Die Community-Tierliste für MGG-Mutanten (Mutants Genetic Gladiators).",
+  "tierList.heading": "Tierliste der besten PvP-Mutanten",
+  "tierList.updatedPrefix": "Aktualisiert:",
+  "tierList.subtitleGenes": "Die Mutanten sind nach Gen sortiert, von {a} bis {b}.",
+  "tierList.disclaimer": "Bitte beachten: Diese Tierliste spiegelt die subjektive Sicht der Gruppen-Admins auf die Meta des Spiels wider. Wir haben solide Spielerfahrung und ein ungefähres Verständnis der Meta, aber die Liste kann immer Ungenauigkeiten enthalten — nicht alle werden sich auf eine Meinung einigen. Sie soll ein grobes Gefühl für die Stärke der Mutanten geben und das Gesamtbild der Spielbalance vereinfachen.",
+  "tierList.tierLabel": "TIER",
+  "tierList.sub.top": "Tier-Spitze",
+  "tierList.sub.mid": "Mitte",
+  "tierList.sub.bottom": "Tier-Ende"
 }

@@ -639,5 +639,15 @@
   "topEvo.tandemLabel": "Tándem:",
   "topEvo.mutantNotFound": "Mutante \"{name}\" no encontrado en la base de datos.",
   "topEvo.socialsHeader": "Redes sociales del jugador",
-  "topEvo.genericLinkLabel": "Enlace"
+  "topEvo.genericLinkLabel": "Enlace",
+  "tierList.pageTitle": "Lista de tiers de mutantes",
+  "tierList.pageDescription": "La lista de tiers de la comunidad para los mutantes de MGG (Mutants Genetic Gladiators).",
+  "tierList.heading": "Lista de tiers de los mejores mutantes en PvP",
+  "tierList.updatedPrefix": "Actualizado:",
+  "tierList.subtitleGenes": "Los mutantes están ordenados por gen, de {a} a {b}.",
+  "tierList.disclaimer": "Recuerda que esta lista de tiers refleja la visión subjetiva de la meta del juego según los administradores del grupo. Tenemos bastante experiencia de juego y una comprensión aproximada de la meta, pero la lista siempre puede tener imprecisiones: no todo el mundo coincide en la misma opinión. Está pensada para dar una idea general de la fuerza de los mutantes y simplificar el panorama general del balance del juego.",
+  "tierList.tierLabel": "TIER",
+  "tierList.sub.top": "Parte alta",
+  "tierList.sub.mid": "Medio",
+  "tierList.sub.bottom": "Parte baja"
 }
