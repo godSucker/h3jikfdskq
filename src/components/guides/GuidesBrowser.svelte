@@ -4,6 +4,7 @@
   import tabsData from '@/data/guides/tabs.json'
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
+  import { geneLabelL } from '@/lib/mutant-dicts'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -147,9 +148,6 @@
     return t(`guides.tab.${key}`, locale)
   }
 
-  const GENE_LABEL: Record<string, string> = {
-    A: 'Киборг', B: 'Нежить', C: 'Рубака', D: 'Зверь', E: 'Галактик', F: 'Мифик',
-  }
   // Таблица преимуществ типов (StrengthsAndWeaknesses::getDamageModifier) -
   // строка = атакующий, столбец = защищающийся, значение = модификатор урона в %.
   const TYPE_TABLE: Record<string, Record<string, number>> = {
@@ -663,95 +661,81 @@
   {:else if activeTab === 'numbers'}
     <div class="text-block guide-prose numbers-tab">
       <div class="note">
-        Раздел основан на реверс-инжиниринге игрового бинарника — не догадки и не подсчёты по наблюдениям.
+        {t('guides.numbers.note', locale)}
       </div>
 
-      <h2>Рост HP с уровнем мутанта</h2>
+      <h2>{t('guides.numbers.hp.title', locale)}</h2>
       <p>
-        При повышении уровня мутант получает +10% HP от базового HP (HP мутанта на первом уровне).
+        {t('guides.numbers.hp.p1', locale)}
       </p>
       <div class="formula-box">
-        Итоговое HP = HP на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.hp.formula', locale)}
       </div>
 
-      <h2>Рост урона с уровнем мутанта</h2>
+      <h2>{t('guides.numbers.damage.title', locale)}</h2>
       <p>
-        Каждый уровень добавляет +10% от атаки мутанта на первом уровне (не от текущей атаки, а именно от
-        «базового» значения).
+        {t('guides.numbers.damage.p1', locale)}
       </p>
       <p>
-        В файлах игры у каждого мутанта изначально прописаны два варианта базовых характеристик:
-        <strong>atk1</strong> и <strong>atk2</strong> — стандартная база, <strong>atk1p</strong> и
-        <strong>atk2p</strong> — усиленная база (начинает использоваться с 10 и 15 уровня соответственно).
+        {t('guides.numbers.damage.p2Intro', locale)}
+        <strong>atk1</strong> {t('guides.numbers.damage.p2Mid', locale)} <strong>atk1p</strong>
+        {t('guides.numbers.damage.p2End', locale)}
       </p>
       <p>
-        На 10 уровне игра не просто накидывает бонус к текущему урону — она полностью подменяет переменную
-        в формуле расчёта: старая база atk1 заменяется на усиленную atk1p. После этого все накопленные
-        бонусы за уровни пересчитываются так, будто мутант с самого 1-го уровня имел эту новую, более
-        высокую атаку. Так же это работает и для второй атаки (atk2), но на 15 уровне.
+        {t('guides.numbers.damage.p3', locale)}
       </p>
       <div class="formula-box">
-        Итоговый урон (до 10/15 уровня) = урон на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.damage.formula1', locale)}
       </div>
       <div class="formula-box">
-        Итоговый урон (после 10/15 уровня) = усиленный урон на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.damage.formula2', locale)}
       </div>
       <p>
-        Пример: на 1 уровне (atk1) у мутанта 200 атаки — игра прибавляет по 10% (20 атаки) за уровень, на 9
-        уровне атака становится 360. Без замены базы на 10 уровне атака стала бы 380, но вместо этого atk1
-        (200) меняется на atk1p (300), и все накопленные бонусы (+90% за уровни) применяются уже к новой
-        базе: 300 + 90% = <strong>570</strong>. Каждый следующий уровень прибавляет по 10% уже от atk1p
-        (300).
+        {t('guides.numbers.damage.example', locale)}
       </p>
 
-      <h2>Прибавка звёзд к характеристикам мутантов</h2>
+      <h2>{t('guides.numbers.stars.title', locale)}</h2>
       <p>
-        При получении любой звезды характеристики (урон и HP) мутанта увеличиваются на то значение,
-        которое звезда даёт: бронза ×1.1, серебро ×1.3, золото ×1.75, платина ×2.0.
+        {t('guides.numbers.stars.p1', locale)}
       </p>
 
-      <h2>Рост доходов серебра мутантов с уровнем</h2>
+      <h2>{t('guides.numbers.silver.title', locale)}</h2>
       <p>
-        Базовый доход мутанта равен 42 единицам серебра в час (с/ч). На следующих уровнях базовое значение
-        умножается на уровень мутанта. У некоторых мутантов базовое значение доходов отличается.
+        {t('guides.numbers.silver.p1', locale)}
       </p>
       <div class="formula-box">
-        Итоговый доход = 42 с/ч × уровень мутанта
+        {t('guides.numbers.silver.formula', locale)}
       </div>
 
-      <h2>Крит-шанс</h2>
+      <h2>{t('guides.numbers.crit.title', locale)}</h2>
       <p>
-        Базовый шанс крита — <strong>5%</strong>.
+        {t('guides.numbers.crit.p1', locale)}
       </p>
       <p>
-        К нему добавляются все бонусы крит-шанса (бустеры + сферы), и вся сумма умножается на эти 5%,
-        а не складывается напрямую:
+        {t('guides.numbers.crit.p2', locale)}
       </p>
       <div class="formula-box crit-formula">
-        шанс крита = 5% × (100 + бустеры<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" /></sub> + бустеры<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" /></sub> + сферы<sub>крит</sub>) / 100
+        {t('guides.numbers.crit.formulaLabel', locale)} = 5% × (100 + {t('guides.numbers.crit.formulaBoosters', locale)}<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt={t('guides.numbers.crit.altBooster', locale)} class="formula-icon" loading="lazy" decoding="async" /></sub> + {t('guides.numbers.crit.formulaBoosters', locale)}<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt={t('guides.numbers.crit.altAntiBooster', locale)} class="formula-icon" loading="lazy" decoding="async" /></sub> + {t('guides.numbers.crit.formulaOrbs', locale)}<sub>{t('guides.numbers.crit.formulaCritSub', locale)}</sub>) / 100
       </div>
       <p>
-        Сферы крит шанса бустят именно <strong>шанс</strong> крита, а не урон от него — в ру локализации
-        написано иначе, и это опечатка локализаторов.
+        {t('guides.numbers.crit.p3', locale)}
       </p>
       <p class="crit-booster-line">
-        Бустер крита даёт +50% получаемого шанса. Антикрит-бустер — −75% получаемого шанса.
+        {t('guides.numbers.crit.boosterLine', locale)}
       </p>
       <p class="formula-example">
-        Пример (сфера +2%, ваш бустер крита<img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" />, антикрит-бустер противника<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" />):
-        5% × (100 + 50 − 75 + 2) / 100 =
-        <strong>3.85%</strong>.
+        {t('guides.numbers.crit.exampleBefore', locale)}<img src={textureUrl('/boosters/charm_critical_7.webp')} alt={t('guides.numbers.crit.altBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleMid', locale)}<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt={t('guides.numbers.crit.altAntiBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleAfter', locale)}
       </p>
 
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
             <tr>
-              <th class="corner">Ур. сферы</th>
-              <th>Бонус от сферы крита</th>
-              <th>Крит шанс с 1 сферой</th>
-              <th>Крит шанс с 2 сферами</th>
-              <th>Крит шанс с 2 сферами и бустерами</th>
+              <th class="corner">{t('guides.numbers.crit.tableSphereLevel', locale)}</th>
+              <th>{t('guides.numbers.crit.tableSphereBonus', locale)}</th>
+              <th>{t('guides.numbers.crit.table1Sphere', locale)}</th>
+              <th>{t('guides.numbers.crit.table2Spheres', locale)}</th>
+              <th>{t('guides.numbers.crit.table2SpheresBoosted', locale)}</th>
             </tr>
           </thead>
           <tbody>
@@ -771,42 +755,37 @@
         </table>
       </div>
 
-      <h2>Формула урона</h2>
+      <h2>{t('guides.numbers.damageFormula.title', locale)}</h2>
       <p>
-        Базовый урон и активный бафф/дебафф атаки считаются <strong>раздельными ветками</strong> — каждый
-        проходит крит и модификатор типа сам по себе, а не «бафф плоско сверху готового числа»:
+        {t('guides.numbers.damageFormula.p1', locale)}
       </p>
       <div class="formula-box formula-steps">
-        <div><span class="step-num">1</span> базовый урон → крит (если сработал, ×2) → тип (±25% / ±50% из таблицы ниже)</div>
-        <div><span class="step-num">2</span> отдельно: база баффа → тот же крит → тот же тип → берётся % баффа от результата</div>
-        <div><span class="step-num">3</span> итог = результат шага 1 + результат шага 2</div>
+        <div><span class="step-num">1</span> {t('guides.numbers.damageFormula.step1', locale)}</div>
+        <div><span class="step-num">2</span> {t('guides.numbers.damageFormula.step2', locale)}</div>
+        <div><span class="step-num">3</span> {t('guides.numbers.damageFormula.step3', locale)}</div>
       </div>
       <p>
-        Пример: атака 10 000, крит сработал (×2), тип +25%, бафф атаки +40%. Основная ветка: 10 000 →
-        20 000 → 25 000. Ветка баффа: 10 000 → 20 000 → 25 000 → 40% = 10 000. Итог —
-        <strong>35 000</strong>, а не 29 000 (плоское сложение 25000+40%) и не наивные 35000 по совпадению —
-        механизм именно раздельный.
+        {t('guides.numbers.damageFormula.example', locale)}
       </p>
 
-      <h2>Таблица пониж/повыш урона</h2>
+      <h2>{t('guides.numbers.typeTable.title', locale)}</h2>
       <p>
-        Таблица показывает, сколько процентов урона атакующий добавляет или теряет против типа
-        защищающегося.
+        {t('guides.numbers.typeTable.p1', locale)}
       </p>
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
             <tr>
-              <th class="corner">атк ↓ / защ →</th>
+              <th class="corner">{t('guides.numbers.typeTable.cornerHeader', locale)}</th>
               {#each GENE_LETTERS as g (g)}
-                <th>{GENE_LABEL[g]}</th>
+                <th>{geneLabelL(g, locale)}</th>
               {/each}
             </tr>
           </thead>
           <tbody>
             {#each GENE_LETTERS as row (row)}
               <tr>
-                <th>{GENE_LABEL[row]}</th>
+                <th>{geneLabelL(row, locale)}</th>
                 {#each GENE_LETTERS as col (col)}
                   {@const v = TYPE_TABLE[row][col]}
                   <td class:pos={v > 0} class:neg={v < 0} class:neutral={v === 0}>
@@ -819,74 +798,66 @@
         </table>
       </div>
 
-      <h2>Скрытые лимиты чисел</h2>
+      <h2>{t('guides.numbers.limits.title', locale)}</h2>
       <p>
-        Игра считает часть значений в 32-битных числах, и при определённых пределах это ломается.
+        {t('guides.numbers.limits.p1', locale)}
       </p>
       <div class="numbers-grid">
         <div class="number-card bad">
-          <div class="number-card-title">HP мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.hpTitle', locale)}</div>
           <div class="number-card-value">≈21 474 836</div>
           <p>
-            При базовом HP выше этого порога (без HP-сфер) значение переполняется и уходит в минус.
-            HP-сферы опускают порог ещё ниже — чем больше % бонуса, тем раньше ловит баг.
+            {t('guides.numbers.limits.hpP', locale)}
           </p>
         </div>
         <div class="number-card bad">
-          <div class="number-card-title">Скорость мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.speedTitle', locale)}</div>
           <div class="number-card-value">&gt; 21 474 836</div>
-          <p>Тот же класс бага, что и с HP. Порог тут не зависит от сфер скорости.</p>
+          <p>{t('guides.numbers.limits.speedP', locale)}</p>
         </div>
         <div class="number-card bad">
-          <div class="number-card-title">Золото (баланс игрока)</div>
+          <div class="number-card-title">{t('guides.numbers.limits.goldTitle', locale)}</div>
           <div class="number-card-value">2 147 483 647</div>
           <p>
-            При переходе через это значение весь баланс золота <strong>обнуляется до 0</strong> (не уходит
-            в минус — просто сгорает).
+            {t('guides.numbers.limits.goldP', locale)}
           </p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Атака мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.atkTitle', locale)}</div>
           <div class="number-card-value">≈214 748 364</div>
-          <p>Это просто потолок значения — при его достижении атака перестаёт расти дальше, но не ломается и не уходит в минус.</p>
+          <p>{t('guides.numbers.limits.atkP', locale)}</p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Серебро (баланс игрока)</div>
+          <div class="number-card-title">{t('guides.numbers.limits.silverTitle', locale)}</div>
           <div class="number-card-value">9 223 372 036 854 775 807</div>
-          <p>Считается в 64-битном числе — реалистично упереться в этот предел невозможно.</p>
+          <p>{t('guides.numbers.limits.silverP', locale)}</p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Уровень эво / мутанта / игрока</div>
-          <div class="number-card-value">без лимита</div>
-          <p>Обычное сохранённое значение без вычислений на клиенте — переполняться нечему.</p>
+          <div class="number-card-title">{t('guides.numbers.limits.levelTitle', locale)}</div>
+          <div class="number-card-value">{t('guides.numbers.limits.noLimit', locale)}</div>
+          <p>{t('guides.numbers.limits.levelP', locale)}</p>
         </div>
       </div>
 
-      <h2>Как думают боты (PvE и защита в PvP)</h2>
+      <h2>{t('guides.numbers.bots.title', locale)}</h2>
       <p>
-        У ПвЕ-противников и защиты в PvP <strong>один и тот же ИИ</strong> — отдельного «защитного»
-        алгоритма не существует. У каждого бота есть скрытый параметр «сообразительности» (IQ), и на
-        каждый ход это решается заново:
+        {t('guides.numbers.bots.p1', locale)}
       </p>
       <div class="formula-box formula-steps">
-        <div><span class="step-num">1</span> бросается случайное число от 0 до 99</div>
-        <div><span class="step-num">2</span> число ≥ IQ — случайный ход: случайная атака по случайной живой цели, вообще без расчётов</div>
-        <div><span class="step-num">3</span> число &lt; IQ — «умный» ход: бот честно симулирует урон для каждой пары атака×цель и берёт связку с лучшим итогом боя (если атака AOE — дальше цели не перебираются)</div>
+        <div><span class="step-num">1</span> {t('guides.numbers.bots.step1', locale)}</div>
+        <div><span class="step-num">2</span> {t('guides.numbers.bots.step2', locale)}</div>
+        <div><span class="step-num">3</span> {t('guides.numbers.bots.step3', locale)}</div>
       </div>
       <p>
-        Важный нюанс: во время этого перебора крит математически невозможен — бот сравнивает варианты
-        по гарантированному не-крит урону. Настоящий бросок крита происходит один раз, уже в момент
-        реального удара уже выбранным ходом — тем же кодом, что обрабатывает ваш собственный тап по
-        экрану.
+        {t('guides.numbers.bots.p2', locale)}
       </p>
       <p>
-        Значение IQ у боя в кампании не считается — это ручной хардкод разработчиков на каждый конкретный
-        бой, растёт вместе с прогрессией мира:
+        {t('guides.numbers.bots.p3', locale)}
       </p>
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
-            <tr><th class="corner">мир</th><th>IQ ранних боёв главы</th></tr>
+            <tr><th class="corner">{t('guides.numbers.bots.tableWorld', locale)}</th><th>{t('guides.numbers.bots.tableIq', locale)}</th></tr>
           </thead>
           <tbody>
             <tr><th>Detroit 01→03</th><td>5 → 40 → 45</td></tr>
@@ -895,56 +866,52 @@
             <tr><th>New Delhi 01→03</th><td>60 → 60 → 65</td></tr>
             <tr><th>Shanghai 01→03</th><td>65 → 65/70 → 70</td></tr>
             <tr><th>Tokyo 01→03</th><td>75/80 → 80/85 → 90</td></tr>
-            <tr><th>Atlantis / Paris / Cairo</th><td>100 (везде, без исключений)</td></tr>
+            <tr><th>Atlantis / Paris / Cairo</th><td>100 ({t('guides.numbers.bots.everywhereNoExceptions', locale)})</td></tr>
           </tbody>
         </table>
       </div>
       <p>
-        Внутри одной главы IQ у первых ~6 «сюжетных» боёв переменный (см. таблицу), а у всех остальных
-        боёв этой же главы (повторное прохождение/фарм) — всегда 100.
+        {t('guides.numbers.bots.p4', locale)}
       </p>
 
-      <h2>Хил неиспользованного тандема</h2>
+      <h2>{t('guides.numbers.tandemHeal.title', locale)}</h2>
       <p>
-        Тандем, который вы не задействовали в бою, всё равно лечит вашего мутанта — да, тандемы умеют
-        хилить.
+        {t('guides.numbers.tandemHeal.p1', locale)}
       </p>
       <div class="formula-box">
-        хил = уровень славы тандема × 100 ÷ 3 &nbsp;(или, что то же самое, уровень славы ÷ 0,03)
+        {t('guides.numbers.tandemHeal.formula', locale)}
       </div>
       <div class="numbers-grid">
         <div class="number-card ok">
-          <div class="number-card-title">Слава 100</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '100')}</div>
           <div class="number-card-value">3 333 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 200</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '200')}</div>
           <div class="number-card-value">6 666 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 300</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '300')}</div>
           <div class="number-card-value">10 000 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 400</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '400')}</div>
           <div class="number-card-value">13 333 HP</div>
         </div>
       </div>
       <p>
-        При поражении в PvP тандем не лечит — этот хил срабатывает только при победе.
+        {t('guides.numbers.tandemHeal.p2', locale)}
       </p>
 
-      <h2>Цена скипа противника в PvP</h2>
+      <h2>{t('guides.numbers.skipCost.title', locale)}</h2>
       <p>
-        Скип оппонента в PvP-турнире стоит серебра, и цена зависит не от вашей славы, а от
-        <strong>уровня оппонента</strong>, которого вы скипаете:
+        {t('guides.numbers.skipCost.p1', locale)}
       </p>
       <div class="formula-box">
-        цена скипа = уровень оппонента × 250
+        {t('guides.numbers.skipCost.formula', locale)}
       </div>
       <p>
-        250 серебра за уровень — константа из игровых настроек (<code>PvpTournamentSkipping</code>).
-        Чем выше уровень показанного оппонента, тем дороже его пропустить.
+        {t('guides.numbers.skipCost.p2Before', locale)}<code>PvpTournamentSkipping</code>{t('guides.numbers.skipCost.p2After', locale)}
       </p>
     </div>
   {:else}
