@@ -7,7 +7,9 @@ import materialsI18nRaw from '@/data/materials/materials-i18n.json'
 import sourcesWhereI18nRaw from '@/data/materials/sources-where-i18n.json'
 import zonesI18nRaw from '@/data/materials/zones-i18n.json'
 
-type ItemI18n = Partial<Record<string, Partial<Record<string, { name?: string; description?: string }>>>>
+type ItemI18n = Partial<
+  Record<string, Partial<Record<string, { name?: string; description?: string }>>>
+>
 const materialsI18n = materialsI18nRaw as ItemI18n
 const sourcesWhereI18n = sourcesWhereI18nRaw as Partial<Record<string, Record<string, string>>>
 const zonesI18n = zonesI18nRaw as Partial<

@@ -17,38 +17,141 @@ const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 type Locale = (typeof LOCALES)[number]
 
 const ZONE_WORD: Record<Locale, string> = {
-  en: 'Zone', es: 'Zona', fr: 'Zone', de: 'Zone', pt: 'Zona', it: 'Zona', tr: 'Bölge', nl: 'Zone',
+  en: 'Zone',
+  es: 'Zona',
+  fr: 'Zone',
+  de: 'Zone',
+  pt: 'Zona',
+  it: 'Zona',
+  tr: 'Bölge',
+  nl: 'Zone',
 }
 const LUXE_WORD: Record<Locale, string> = {
-  en: 'Luxe', es: 'Lujo', fr: 'Luxe', de: 'Luxus', pt: 'Luxo', it: 'Lusso', tr: 'Lüks', nl: 'Luxe',
+  en: 'Luxe',
+  es: 'Lujo',
+  fr: 'Luxe',
+  de: 'Luxus',
+  pt: 'Luxo',
+  it: 'Lusso',
+  tr: 'Lüks',
+  nl: 'Luxe',
 }
 const CAPACITY_WORD: Record<Locale, string> = {
-  en: 'capacity', es: 'capacidad', fr: 'capacité', de: 'Kapazität', pt: 'capacidade', it: 'capacità', tr: 'kapasite', nl: 'capaciteit',
+  en: 'capacity',
+  es: 'capacidad',
+  fr: 'capacité',
+  de: 'Kapazität',
+  pt: 'capacidade',
+  it: 'capacità',
+  tr: 'kapasite',
+  nl: 'capaciteit',
 }
 const GENE_LABEL: Record<Locale, string> = {
-  en: 'Gene', es: 'Gen', fr: 'Gène', de: 'Gen', pt: 'Gene', it: 'Gene', tr: 'Gen', nl: 'Gen',
+  en: 'Gene',
+  es: 'Gen',
+  fr: 'Gène',
+  de: 'Gen',
+  pt: 'Gene',
+  it: 'Gene',
+  tr: 'Gen',
+  nl: 'Gen',
 }
 const ANY_GENES: Record<Locale, string> = {
-  en: 'Any genes', es: 'Cualquier gen', fr: "N'importe quel gène", de: 'Beliebige Gene',
-  pt: 'Qualquer gene', it: 'Qualsiasi gene', tr: 'Herhangi bir gen', nl: 'Elk gen',
+  en: 'Any genes',
+  es: 'Cualquier gen',
+  fr: "N'importe quel gène",
+  de: 'Beliebige Gene',
+  pt: 'Qualquer gene',
+  it: 'Qualsiasi gene',
+  tr: 'Herhangi bir gen',
+  nl: 'Elk gen',
 }
 const UNIVERSAL_ZONE: Record<Locale, string> = {
-  en: 'Universal zone', es: 'Zona universal', fr: 'Zone universelle', de: 'Universalzone',
-  pt: 'Zona universal', it: 'Zona universale', tr: 'Evrensel bölge', nl: 'Universele zone',
+  en: 'Universal zone',
+  es: 'Zona universal',
+  fr: 'Zone universelle',
+  de: 'Universalzone',
+  pt: 'Zona universal',
+  it: 'Zona universale',
+  tr: 'Evrensel bölge',
+  nl: 'Universele zone',
 }
 // "name" зон использует другие слова, чем "description" (см. коммент выше) -
 // отдельный словарь, 1:1 с реальными словами, встречающимися в name-полях
 const NAME_GENE_WORD: Record<string, Record<Locale, string>> = {
-  Киборг: { en: 'Cyborg', es: 'Cíborg', fr: 'Cyborg', de: 'Cyborg', pt: 'Ciborgue', it: 'Cyborg', tr: 'Siborg', nl: 'Cyborg' },
-  Зомби: { en: 'Zombie', es: 'Zombi', fr: 'Zombie', de: 'Zombie', pt: 'Zumbi', it: 'Zombie', tr: 'Zombi', nl: 'Zombie' },
-  Рубака: { en: 'Brawler', es: 'Luchador', fr: 'Bagarreur', de: 'Schläger', pt: 'Brigão', it: 'Attaccabrighe', tr: 'Kavgacı', nl: 'Vechtersbaas' },
-  Зверь: { en: 'Beast', es: 'Bestia', fr: 'Bête', de: 'Bestie', pt: 'Fera', it: 'Bestia', tr: 'Canavar', nl: 'Beest' },
-  Галактик: { en: 'Galactic', es: 'Galáctico', fr: 'Galactique', de: 'Galaktisch', pt: 'Galáctico', it: 'Galattico', tr: 'Galaktik', nl: 'Galactisch' },
-  Мифик: { en: 'Mythic', es: 'Mítico', fr: 'Mythique', de: 'Mythisch', pt: 'Mítico', it: 'Mitico', tr: 'Mitik', nl: 'Mythisch' },
+  Киборг: {
+    en: 'Cyborg',
+    es: 'Cíborg',
+    fr: 'Cyborg',
+    de: 'Cyborg',
+    pt: 'Ciborgue',
+    it: 'Cyborg',
+    tr: 'Siborg',
+    nl: 'Cyborg',
+  },
+  Зомби: {
+    en: 'Zombie',
+    es: 'Zombi',
+    fr: 'Zombie',
+    de: 'Zombie',
+    pt: 'Zumbi',
+    it: 'Zombie',
+    tr: 'Zombi',
+    nl: 'Zombie',
+  },
+  Рубака: {
+    en: 'Brawler',
+    es: 'Luchador',
+    fr: 'Bagarreur',
+    de: 'Schläger',
+    pt: 'Brigão',
+    it: 'Attaccabrighe',
+    tr: 'Kavgacı',
+    nl: 'Vechtersbaas',
+  },
+  Зверь: {
+    en: 'Beast',
+    es: 'Bestia',
+    fr: 'Bête',
+    de: 'Bestie',
+    pt: 'Fera',
+    it: 'Bestia',
+    tr: 'Canavar',
+    nl: 'Beest',
+  },
+  Галактик: {
+    en: 'Galactic',
+    es: 'Galáctico',
+    fr: 'Galactique',
+    de: 'Galaktisch',
+    pt: 'Galáctico',
+    it: 'Galattico',
+    tr: 'Galaktik',
+    nl: 'Galactisch',
+  },
+  Мифик: {
+    en: 'Mythic',
+    es: 'Mítico',
+    fr: 'Mythique',
+    de: 'Mythisch',
+    pt: 'Mítico',
+    it: 'Mitico',
+    tr: 'Mitik',
+    nl: 'Mythisch',
+  },
 }
 // "description" зон использует "Робот"/"Зомби"/"Рубака"/"Зверь"/"Галактик"/"Мифик"
 const DESC_GENE_WORD: Record<string, Record<Locale, string>> = {
-  Робот: { en: 'Robot', es: 'Robot', fr: 'Robot', de: 'Roboter', pt: 'Robô', it: 'Robot', tr: 'Robot', nl: 'Robot' },
+  Робот: {
+    en: 'Robot',
+    es: 'Robot',
+    fr: 'Robot',
+    de: 'Roboter',
+    pt: 'Robô',
+    it: 'Robot',
+    tr: 'Robot',
+    nl: 'Robot',
+  },
   Зомби: NAME_GENE_WORD.Зомби,
   Рубака: NAME_GENE_WORD.Рубака,
   Зверь: NAME_GENE_WORD.Зверь,
@@ -70,7 +173,8 @@ function translateName(ru: string, locale: Locale): string | null {
     return `${ZONE_WORD[locale]} ${word} · ${CAPACITY_WORD[locale]} ${m[2]}`
   }
   m = ru.match(/^Люкс · Универсальная зона · вместимость (\d+)$/)
-  if (m) return `${LUXE_WORD[locale]} · ${UNIVERSAL_ZONE[locale]} · ${CAPACITY_WORD[locale]} ${m[1]}`
+  if (m)
+    return `${LUXE_WORD[locale]} · ${UNIVERSAL_ZONE[locale]} · ${CAPACITY_WORD[locale]} ${m[1]}`
   m = ru.match(/^Люкс · (.+?) · вместимость (\d+)$/)
   if (m) {
     const word = NAME_GENE_WORD[m[1]]?.[locale]
@@ -94,7 +198,8 @@ function translateDescription(ru: string, locale: Locale): string | null {
     return `${LUXE_WORD[locale]} ${ZONE_WORD[locale].toLowerCase()}. ${GENE_LABEL[locale]}: ${word} • ${CAPACITY_WORD[locale][0].toUpperCase()}${CAPACITY_WORD[locale].slice(1)}: ${m[2]}`
   }
   m = ru.match(/^Любые гены • Вместимость: (\d+)$/)
-  if (m) return `${ANY_GENES[locale]} • ${CAPACITY_WORD[locale][0].toUpperCase()}${CAPACITY_WORD[locale].slice(1)}: ${m[1]}`
+  if (m)
+    return `${ANY_GENES[locale]} • ${CAPACITY_WORD[locale][0].toUpperCase()}${CAPACITY_WORD[locale].slice(1)}: ${m[1]}`
   return null
 }
 

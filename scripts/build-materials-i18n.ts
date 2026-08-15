@@ -62,7 +62,9 @@ async function loadAllLocs(): Promise<Record<string, LocMap>> {
   return maps
 }
 
-type NameDescMap = Partial<Record<Locale, Partial<Record<string, { name?: string; description?: string }>>>>
+type NameDescMap = Partial<
+  Record<Locale, Partial<Record<string, { name?: string; description?: string }>>>
+>
 
 async function main() {
   const maps = await loadAllLocs()
@@ -185,10 +187,36 @@ async function main() {
   await fs.writeFile(outPath, JSON.stringify(out, null, 2) + '\n', 'utf-8')
 
   console.log('\n=== Отчёт ===')
-  console.log('material.json:', material.length, 'записей;', unresolvedMaterialNames.length, 'без имени ни на одном языке:', unresolvedMaterialNames)
-  console.log('material.json: description официально резолвлен для', materialDescResolved.length, '/', material.length)
-  console.log('charms.json:', charms.length, 'записей;', unresolvedCharms.length, 'с неполным покрытием (хотя бы 1 язык):', unresolvedCharms)
-  console.log('orbs.json:', orbs.length, 'записей;', unresolvedOrbs.length, 'без имени ни на одном языке:', unresolvedOrbs)
+  console.log(
+    'material.json:',
+    material.length,
+    'записей;',
+    unresolvedMaterialNames.length,
+    'без имени ни на одном языке:',
+    unresolvedMaterialNames,
+  )
+  console.log(
+    'material.json: description официально резолвлен для',
+    materialDescResolved.length,
+    '/',
+    material.length,
+  )
+  console.log(
+    'charms.json:',
+    charms.length,
+    'записей;',
+    unresolvedCharms.length,
+    'с неполным покрытием (хотя бы 1 язык):',
+    unresolvedCharms,
+  )
+  console.log(
+    'orbs.json:',
+    orbs.length,
+    'записей;',
+    unresolvedOrbs.length,
+    'без имени ни на одном языке:',
+    unresolvedOrbs,
+  )
   console.log('Записано в', outPath)
 }
 
