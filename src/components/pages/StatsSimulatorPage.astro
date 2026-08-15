@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StatsCalculator from '@/components/StatsCalculator.svelte';
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+---
+<BaseLayout title={t('nav.statsCalculator', locale)} description={t('stats.pageDescription', locale)}>
+  <section class="intro">
+    <h1>{t('nav.statsCalculator', locale)} MGG</h1>
+    <p>
+      {t('stats.pageIntro', locale)}
+    </p>
+  </section>
+  <StatsCalculator client:load locale={locale} />
+</BaseLayout>
+
+<style>
+  .intro {
+    max-width: 900px;
+    margin: 0 auto 1rem;
+    padding: 0 1rem;
+  }
+  .intro h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    color: #f8fafc;
+  }
+  .intro p {
+    margin: 0;
+    color: #e5e7eb;
+  }
+</style>

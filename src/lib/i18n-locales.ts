@@ -20,6 +20,7 @@ export const TRANSLATED_PATHS = [
   '/simulators/pvp',
   '/simulators/craft',
   '/simulators/breeding',
+  '/simulators/stats',
 ] as const
 
 // Локали с собственным src/i18n/{locale}.json (не через EN-фолбэк).
