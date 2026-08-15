@@ -4,7 +4,7 @@ import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
 import SearchBox from '@/components/search/SearchBox.svelte';
-import { TRANSLATED_UI_LOCALES, TRANSLATED_PATHS, localeFromAstro, localePrefix, translatedHref, t, type Locale } from '@/lib/i18n';
+import { TRANSLATED_UI_LOCALES, isTranslatedPath, localeFromAstro, localePrefix, translatedHref, t, type Locale } from '@/lib/i18n';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -39,7 +39,7 @@ const OG_LOCALE_MAP: Partial<Record<Locale, string>> = {
 // добавлении /simulators, баг был и раньше, не только для нового пути).
 const pathWithoutLocale =
   Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '').replace(/\/$/, '') || '/';
-const isPilotPage = (TRANSLATED_PATHS as readonly string[]).includes(pathWithoutLocale);
+const isPilotPage = isTranslatedPath(pathWithoutLocale);
 
 // translatedHref(path, locale) вынесен в i18n.ts - переиспользуется и здесь
 // (nav), и в других местах, строящих ссылки на переведённые пути сайта

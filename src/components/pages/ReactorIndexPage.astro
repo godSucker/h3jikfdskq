@@ -1,0 +1,135 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { listGachas } from '@/lib/reactor-gacha';
+import { textureUrl } from '@/lib/texture-cdn';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import priorityGachasRaw from '@/data/simulators/reactor/priority-gachas.json';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+
+const gachas = listGachas(locale);
+
+// --- УПОРЯДОЧИВАНИЕ ГЕНЕРАТОРОВ ---
+// Вынесено в JSON (2026-08-07) - раньше был текстовый массив прямо тут,
+// finish-pending.ts патчил его строковым regex-ом, что хрупко (сломается
+// от любого переформатирования prettier). Первый элемент = последний релиз,
+// finish-pending.ts делает unshift в этот файл через GitHub Contents API.
+// Имена в приоритетном списке остаются RU (GACHA_NAME_RU) - названия
+// реакторов нигде на сайте не переведены, только окружающий UI.
+const PRIORITY_GACHAS = priorityGachasRaw as string[];
+
+const sortedGachas = [...gachas].sort((a, b) => {
+  const nameA = a.name || '';
+  const nameB = b.name || '';
+
+  const indexA = PRIORITY_GACHAS.indexOf(nameA);
+  const indexB = PRIORITY_GACHAS.indexOf(nameB);
+
+  // Если оба в приоритетном списке — сортируем по порядку списка
+  if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+
+  // Если только один в приоритетном списке — он идет выше
+  if (indexA !== -1) return -1;
+  if (indexB !== -1) return 1;
+
+  // Остальные — в исходном порядке
+  return 0;
+});
+---
+<BaseLayout title={t('reactorIndex.title', locale)} description={t('reactorIndex.description', locale)}>
+  <section class="intro">
+    <h1>{t('reactorIndex.h1', locale)}</h1>
+    <p>{t('reactorIndex.intro', locale)}</p>
+  </section>
+
+  <section class="gacha-list" aria-label={t('reactorIndex.ariaLabel', locale)}>
+    <div class="list-grid">
+      {sortedGachas.map((gacha) => (
+        <a class="gacha-card" href={`${translatedHref('/simulators/reactor', locale)}/${gacha.id}`} aria-label={gacha.name}>
+          {gacha.cover ? (
+            <div class="card-cover">
+              <img class="cover" src={textureUrl(gacha.cover)} alt="" loading="lazy" />
+            </div>
+          ) : (
+            <div class="card-cover no-cover" aria-hidden="true"></div>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :root {
+    /* Подкрути размер здесь: */
+    --min-card: 220px;      /* минимальная ширина карточки */
+    --card-aspect: 3 / 2;   /* соотношение сторон карточки */
+  }
+
+  .intro { margin-bottom: 1.25rem; }
+  .intro h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    color: #f8fafc;
+  }
+  .intro p { margin: 0; color: #e5e7eb; }
+
+  .list-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-card), 1fr));
+    align-items: start;
+  }
+
+  .gacha-card {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(96, 165, 250, 0.28);
+    background: rgba(15, 23, 42, 0.92);
+    text-decoration: none;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    will-change: transform;
+  }
+  .gacha-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(96, 165, 250, 0.6);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.24);
+  }
+  .gacha-card:focus-visible { outline: 2px solid #93c5fd; outline-offset: 2px; }
+
+  .card-cover {
+    position: relative;
+    aspect-ratio: var(--card-aspect);
+    background: radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.22), rgba(15, 23, 42, 0.9));
+    display: grid;
+    place-items: center;
+  }
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* показываем всю картинку без кропа */
+    transition: transform 0.3s ease;
+  }
+  .gacha-card:hover .cover { transform: scale(1.02); }
+
+  .card-cover.no-cover {
+    background:
+      radial-gradient(60% 60% at 30% 30%, rgba(59, 130, 246, 0.18), transparent 60%),
+      radial-gradient(60% 60% at 70% 70%, rgba(147, 197, 253, 0.15), transparent 60%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95));
+    min-height: calc(160px * (2 / 3)); /* на случай, если аспект меняют на лету */
+  }
+
+ @media (max-width: 640px) {
+  :root { --min-card: 150px; --card-aspect: 1 / 1; }
+  .intro { margin-bottom: .6rem; }
+  .list-grid { gap: .65rem; }
+}
+@media (max-width: 400px) {
+  :root { --min-card: 140px; }
+}
+</style>

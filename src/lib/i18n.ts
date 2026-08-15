@@ -14,6 +14,7 @@ import {
   TRANSLATED_PATHS,
   TRANSLATED_UI_LOCALES,
   REDIRECT_LOCALES,
+  isTranslatedPath,
 } from './i18n-locales'
 
 // Батч 11 (2): инфраструктура расширена на все 9 доступных на CDN Kobojo
@@ -31,6 +32,7 @@ export {
   TRANSLATED_PATHS,
   TRANSLATED_UI_LOCALES,
   REDIRECT_LOCALES,
+  isTranslatedPath,
 }
 const FALLBACK_LOCALE: Locale = 'en'
 
@@ -102,7 +104,5 @@ export function localePrefix(locale: Locale): string {
 // где строится ссылка на один из известных путей сайта (см. коммит
 // 986395357, баг с /mutants без префикса, больше не чинить точечно).
 export function translatedHref(path: string, locale: Locale): string {
-  return (TRANSLATED_PATHS as readonly string[]).includes(path)
-    ? `${localePrefix(locale)}${path}`
-    : path
+  return isTranslatedPath(path) ? `${localePrefix(locale)}${path}` : path
 }

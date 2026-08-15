@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ReactorSimulator from '@/components/simulators/reactor/ReactorSimulator.svelte';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import type { getGachaMeta } from '@/lib/reactor-gacha';
+
+interface Props {
+  gacha: ReturnType<typeof getGachaMeta> extends infer T ? Exclude<T, null> : never;
+  baseTextures: Record<string, string | null>;
+  completionTexture: string | null;
+}
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { gacha, baseTextures, completionTexture } = Astro.props as Props;
+---
+
+<BaseLayout
+  title={`${t('reactor.pageTitlePrefix', locale)} — ${gacha.name}`}
+  description={t('reactor.pageDescription', locale).replace('{name}', gacha.name)}
+  fullWidth
+  viewport="width=device-width, initial-scale=1"
+>
+  <!-- Главная обертка с защитой от горизонтальной прокрутки всего сайта -->
+  <div class="page-wrapper">
+    <div class="nav-header">
+      <a class="back-link" href={translatedHref('/simulators/reactor', locale)}>
+        <span class="arrow">←</span> {t('reactor.back', locale)}
+      </a>
+    </div>
+
+    <!-- Враппер для компонента -->
+    <div class="component-container">
+      <ReactorSimulator
+        client:load
+        gachaId={gacha.id}
+        gacha={gacha}
+        baseTextures={baseTextures}
+        completionTexture={completionTexture}
+        locale={locale}
+      />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /*
+     1. Защита хедера/футера от обрезания.
+     overflow-x: hidden гарантирует, что если контент внутри шире экрана,
+     он не растянет тег <body> и не сломает верстку сайта.
+  */
+  .page-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 1rem 0.5rem;
+    box-sizing: border-box;
+  }
+
+  /* Центровка для больших экранов */
+  @media (min-width: 1200px) {
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+  }
+
+  .nav-header {
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+  }
+
+  .back-link:hover {
+    color: #fff;
+  }
+
+  .component-container {
+    width: 100%;
+  }
+
+  /*
+     2. Глобальный фикс ТОЛЬКО для заголовков.
+     Картинки (img) я отсюда убрал, чтобы они не ломались.
+     Лечим только текст, чтобы он переносился и не растягивал контейнер.
+  */
+  .component-container :global(h1) {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    font-size: clamp(1.5rem, 6vw, 2.2rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Разрешаем шапке складываться */
+  .component-container :global(.stage-header) {
+    flex-wrap: wrap !important;
+  }
+</style>

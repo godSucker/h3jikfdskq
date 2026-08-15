@@ -25,7 +25,22 @@ export const TRANSLATED_PATHS = [
   '/simulators/roulette/cash',
   '/simulators/roulette/lucky',
   '/simulators/roulette/madness',
+  '/simulators/reactor',
 ] as const
+
+// Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS
+// (точное совпадение строки) не подходит - у /simulators/reactor/[gachaId]
+// одинаковый slug реактора на всех 9 локалях (сами названия реакторов не
+// переводятся), поэтому достаточно проверить префикс, не перечислять все
+// 21 id вручную. Используется isTranslatedPath() ниже.
+export const TRANSLATED_PATH_PREFIXES = ['/simulators/reactor/'] as const
+
+export function isTranslatedPath(path: string): boolean {
+  return (
+    (TRANSLATED_PATHS as readonly string[]).includes(path) ||
+    TRANSLATED_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))
+  )
+}
 
 // Локали с собственным src/i18n/{locale}.json (не через EN-фолбэк).
 // de/pt/it/tr/nl получили свои словари 2026-08-15 (см. память

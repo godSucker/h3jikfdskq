@@ -7,7 +7,7 @@
     rollWeighted,
   } from '@/lib/reactor-gacha';
   import { textureUrl } from '@/lib/texture-cdn';
-  import { pluralize } from '@/lib/utils';
+  import { pluralizeCount, t, type Locale } from '@/lib/i18n';
 
   interface DecoratedReward extends BasicReward {
     name: string;
@@ -22,11 +22,12 @@
     completionTrigger?: string;
   }
 
-  let { gachaId, gacha, baseTextures, completionTexture } = $props<{
+  let { gachaId, gacha, baseTextures, completionTexture, locale } = $props<{
     gachaId: string;
     gacha: GachaDefinition;
     baseTextures: Record<string, string | null>;
     completionTexture: string | null;
+    locale: Locale;
   }>();
 
   const gachaName = GACHA_NAME_RU[gachaId] ?? gachaId;
@@ -215,7 +216,7 @@
     <div class="stage-header">
       <div class="header-info">
         <h1>{gachaName}</h1>
-        <p>Соберите коллекцию из {baseRewards.length} {pluralize(baseRewards.length, 'мутант', 'мутанта', 'мутантов')}.</p>
+        <p>{t('reactor.collectIntro', locale).replace('{n}', String(baseRewards.length)).replace('{word}', pluralizeCount(baseRewards.length, locale))}</p>
       </div>
       <div class="header-progress">
         <span>{progressSummary}</span>
@@ -231,7 +232,7 @@
           <div class="slot-inner">
             <div class="slot-top">
               {#if STAR_ICON[reward.stars]}
-                <img class="slot-stars" src={textureUrl(STAR_ICON[reward.stars])} alt="Звёзды награды" />
+                <img class="slot-stars" src={textureUrl(STAR_ICON[reward.stars])} alt={t('reactor.starsAlt', locale)} />
               {/if}
               <!-- ПРЯМОЙ РАСЧЕТ ШАНСА В ВЕРСТКЕ ДЛЯ ГАРАНТИИ ПЕРЕСЧЕТА -->
               <span class="slot-odds">{oddsPercent(reward.odds).toFixed(2)}%</span>
@@ -255,7 +256,7 @@
         <div class={`slot-card completion ${completed ? 'unlocked' : ''} ${lastResult?.item.specimen === completionReward.specimen ? 'active' : ''}`}>
           <div class="slot-inner">
             <div class="slot-top">
-              <span class="completion-label">Награда</span>
+              <span class="completion-label">{t('reactor.completionLabel', locale)}</span>
               <span class="slot-odds">
                 {#if completionGranted}
                     {oddsPercent(completionReward.odds).toFixed(2)}%
@@ -282,32 +283,32 @@
 
     <div class="stage-controls">
       <div class="cost-line">
-        <div class="cost-pill"><span>Жетоны</span> <strong>{gacha.token_cost}</strong></div>
-        <div class="cost-pill"><span>Золото</span> <strong>{gacha.hc_cost}</strong></div>
+        <div class="cost-pill"><span>{t('reactor.costTokensLabel', locale)}</span> <strong>{gacha.token_cost}</strong></div>
+        <div class="cost-pill"><span>{t('reactor.costGoldLabel', locale)}</span> <strong>{gacha.hc_cost}</strong></div>
       </div>
       <div class="spin-buttons">
-        <button class="spin token" onclick={() => spin('token')}>Крутить ({gacha.token_cost} Ж)</button>
-        <button class="spin hc" onclick={() => spin('hc')}>Крутить ({gacha.hc_cost} З)</button>
+        <button class="spin token" onclick={() => spin('token')}>{t('reactor.spinButton', locale).replace('{n}', String(gacha.token_cost)).replace('{abbr}', t('reactor.tokenAbbr', locale))}</button>
+        <button class="spin hc" onclick={() => spin('hc')}>{t('reactor.spinButton', locale).replace('{n}', String(gacha.hc_cost)).replace('{abbr}', t('reactor.goldAbbr', locale))}</button>
       </div>
     </div>
   </div>
 
   <aside class="info-panel">
     <div class="info-card stats-card">
-        <h3 class="stats-title">Статистика</h3>
+        <h3 class="stats-title">{t('reactor.statsTitle', locale)}</h3>
         <div class="stats-total">
-            <span class="total-label">Сделано прокрутов:</span>
+            <span class="total-label">{t('reactor.totalSpinsLabel', locale)}</span>
             <span class="total-val">{totalSpins}</span>
         </div>
         <div class="stats-row">
-            <div class="stat-item"><span class="stat-label">Жетонов:</span><span class="stat-val token">{tokensSpent}</span></div>
-            <div class="stat-item"><span class="stat-label">Золота:</span><span class="stat-val hc">{goldSpent}</span></div>
+            <div class="stat-item"><span class="stat-label">{t('reactor.tokensSpentLabel', locale)}</span><span class="stat-val token">{tokensSpent}</span></div>
+            <div class="stat-item"><span class="stat-label">{t('reactor.goldSpentLabel', locale)}</span><span class="stat-val hc">{goldSpent}</span></div>
         </div>
         {#if inventory.size > 0}
             <div class="inventory-list custom-scroll">
                 {#each [...inventory.entries()].sort((a,b) => b[1] - a[1]) as [id, count]}
                     <div class="inv-item">
-                        <div class="inv-thumb"><img src={textureUrl(getRewardTexture(id) || '')} alt="Текстура награды"/></div>
+                        <div class="inv-thumb"><img src={textureUrl(getRewardTexture(id) || '')} alt={t('reactor.rewardTextureAlt', locale)}/></div>
                         <div class="inv-name">{getRewardName(id)}</div>
                         <div class="inv-count">x{count}</div>
                     </div>
@@ -319,17 +320,17 @@
     {#if lastResult}
       <div class="info-card result-card">
         <header>
-          <span class={`badge ${lastResult.costType === 'token' ? 'token' : 'hc'}`}>{lastResult.costType === 'token' ? 'Жетон' : 'Золото'}</span>
+          <span class={`badge ${lastResult.costType === 'token' ? 'token' : 'hc'}`}>{lastResult.costType === 'token' ? t('reactor.tokenBadge', locale) : t('reactor.goldBadge', locale)}</span>
           {#if lastResult.isCompletionReward}<span class="badge completion">🏆</span>{/if}
         </header>
         <div class="result-body">
           <div class="result-art-wrapper">
-             <img class="result-art" src={textureUrl(getRewardTexture(lastResult.item.specimen) ?? '')} alt="Итоговая награда"/>
+             <img class="result-art" src={textureUrl(getRewardTexture(lastResult.item.specimen) ?? '')} alt={t('reactor.finalRewardAlt', locale)}/>
           </div>
           <div class="result-info">
             <h3>{getRewardName(lastResult.item.specimen)}</h3>
-            <p>Шанс: {oddsPercent(lastResult.item.odds).toFixed(2)}%</p>
-            {#if lastResult.completedNow}<p class="result-complete">Собрано!</p>{/if}
+            <p>{t('reactor.chanceLabel', locale).replace('{pct}', oddsPercent(lastResult.item.odds).toFixed(2))}</p>
+            {#if lastResult.completedNow}<p class="result-complete">{t('reactor.collected', locale)}</p>{/if}
           </div>
         </div>
       </div>
@@ -337,17 +338,17 @@
 
     {#if history.length}
       <div class="info-card history-card">
-        <h3>История</h3>
+        <h3>{t('reactor.historyTitle', locale)}</h3>
         <ul>
           {#each history as entry}
             <li>
               <div class="history-thumb">
-                 <img src={textureUrl(getRewardTexture(entry.item.specimen) ?? '')} alt="Иконка награды"/>
+                 <img src={textureUrl(getRewardTexture(entry.item.specimen) ?? '')} alt={t('reactor.rewardIconAlt', locale)}/>
               </div>
               <div class="history-main">
                 <div class="history-name">{getRewardName(entry.item.specimen)}</div>
                 <div class="history-meta">
-                  <span class={`mini-badge ${entry.costType === 'token' ? 'token' : 'hc'}`}>{entry.costType === 'token' ? 'Ж' : 'З'}</span>
+                  <span class={`mini-badge ${entry.costType === 'token' ? 'token' : 'hc'}`}>{entry.costType === 'token' ? t('reactor.tokenAbbr', locale) : t('reactor.goldAbbr', locale)}</span>
                   {#if entry.isCompletionReward}<span class="history-flag">🏆</span>{/if}
                 </div>
               </div>
