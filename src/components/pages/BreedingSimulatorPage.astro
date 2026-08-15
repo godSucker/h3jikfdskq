@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BreedingUI from '@/components/breeding/BreedingUI.svelte';
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+---
+<BaseLayout
+  title={t('simulatorsIndex.card.breeding.title', locale)}
+  description={t('breeding.pageDescription', locale)}
+  fullWidth={true}>
+  <p class="breeding-intro">
+    {t('breeding.intro', locale)}
+  </p>
+  <BreedingUI client:load locale={locale} />
+</BaseLayout>
+
+<style>
+  .breeding-intro {
+    max-width: 900px;
+    margin: 0 auto 0.75rem;
+    padding: 0 1rem;
+    color: #e5e7eb;
+    font-size: 0.95rem;
+  }
+</style>
