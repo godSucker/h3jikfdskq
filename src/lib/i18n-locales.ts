@@ -37,6 +37,7 @@ export const TRANSLATED_PATHS = [
   '/top-evo',
   '/tier-list',
   '/evolution/evotech-calculator',
+  '/guides',
 ] as const
 
 // Префиксы для динамических путей (getStaticPaths), где TRANSLATED_PATHS

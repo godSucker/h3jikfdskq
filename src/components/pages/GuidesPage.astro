@@ -1,0 +1,370 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import mutantsData from '@/data/mutants/mutants.json';
+import legendaryIds from '@/data/guides/legendaries.json';
+import zodiacEntries from '@/data/guides/zodiac.json';
+import farmerRows from '@/data/guides/farmers.json';
+import speedOrbs from '@/data/guides/speed-orbs.json';
+import divisionsData from '@/data/guides/divisions.json';
+import divisionLocations from '@/data/guides/division-locations.json';
+import questsData from '@/data/guides/quests.json';
+import raidsData from '@/data/guides/raids.json';
+import eventLaddersData from '@/data/guides/event-ladders.json';
+import specialLaddersData from '@/data/guides/special-ladders.json';
+import specialOffersData from '@/data/guides/special-offers.json';
+import materialData from '@/data/materials/material.json';
+import { translateItemId, getItemTexture } from '@/lib/craft-simulator';
+import { getLocalisedName } from '@/lib/localisation';
+import { getMutantTexturePath } from '@/lib/bingo-textures';
+import { getGeneIcon, STAR_KEYS, STAR_MULTIPLIERS } from '@/lib/mutant-icons';
+import { geneLabelL } from '@/lib/mutant-dicts';
+import { calculateFinalStats } from '@/lib/stats/unified-calculator';
+import { t, localeFromAstro, type Locale } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import divisionFightsData from '@/data/guides/division-fights.json';
+import GuidesBrowser from '@/components/guides/GuidesBrowser.svelte';
+import dungeonCovers from '@/data/guides/dungeon-covers.json';
+import divisionArenas from '@/data/guides/division-arenas.json';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+import {
+  resolveMutantLite,
+  maxStar,
+  mutantIcon,
+  resolveReward as resolveRewardShared,
+  resolveCurrencySummary as resolveCurrencySummaryShared,
+  resolveItemList as resolveItemListShared,
+  resolveDungeon as resolveDungeonShared,
+  type MutantRaw,
+  type RewardResolveCtx,
+  type RewardRaw as SharedRewardRaw,
+} from '@/lib/guides-resolve';
+
+interface Mutant extends MutantRaw {
+  base_stats: { lvl1: { silver: number } };
+}
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
+const INTL_LOCALE: Record<Locale, string> = {
+  ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR',
+  de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+};
+const formatNumber = (n: number) => n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
+const geneLabels: Record<string, string> = Object.fromEntries(
+  ['A', 'B', 'C', 'D', 'E', 'F'].map((g) => [g, geneLabelL(g, locale)]),
+);
+
+const mutantsById = new Map((mutantsData as Mutant[]).map((m) => [m.id, m]));
+
+function mutantIconAtStar(m: Mutant, star: string): string {
+  const raw = m.stars?.[star]?.images?.[0];
+  if (!raw) return mutantIcon(m);
+  return raw.startsWith('/') ? raw : `/${raw}`;
+}
+
+function resolve(id: string) {
+  return resolveMutantLite(id, mutantsById, names);
+}
+
+const legendaries = (legendaryIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
+
+const zodiac = (
+  zodiacEntries as {
+    id: string;
+    sign: string;
+    dateFrom: string;
+    dateTo: string;
+    priceNormal?: number;
+    priceSilver?: number;
+  }[]
+)
+  .map((z) => {
+    const m = mutantsById.get(z.id);
+    const resolved = resolve(z.id);
+    if (!m || !resolved) return null;
+    return {
+      ...z,
+      ...resolved,
+      iconNormal: mutantIconAtStar(m, 'normal'),
+      iconSilver: mutantIconAtStar(m, 'silver'),
+    };
+  })
+  .filter((x): x is NonNullable<typeof x> => x !== null);
+
+const SILVER_BASELINE = 42; // обычный стартовый мутант, см. src/data/mutants/mutants.json specimen_a_01
+
+interface FarmerRow {
+  ids: string[];
+  breedable: 'yes' | 'no';
+  price: string;
+  rating: number;
+  verdict: string;
+}
+
+const farmers = (farmerRows as FarmerRow[]).map((row) => {
+  const mutants = row.ids.map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
+  const silverPerHour = mutantsById.get(row.ids[0])?.base_stats.lvl1.silver ?? 0;
+  const relative = Math.round((silverPerHour / SILVER_BASELINE) * 100) / 100;
+  return { ...row, mutants, silverPerHour, relative };
+});
+
+// Событийные жетоны (Material_*_Token) не всегда есть в localisation_ru.txt /
+// craft-simulator.ts, но почти всегда описаны на /materials (material.json).
+interface MaterialEntry { id: string; name?: string; texture?: string }
+const materialsById = new Map((materialData as MaterialEntry[]).map((m) => [m.id, m]));
+
+const rewardCtx: RewardResolveCtx = {
+  mutantsById,
+  materialsById,
+  translateItemId,
+  getItemTexture,
+  getLocalisedName,
+  getGeneIcon,
+  geneRu: geneLabels,
+  names,
+  t: (key: string) => t(key, locale),
+  formatNumber,
+};
+
+type RewardRaw = SharedRewardRaw;
+
+function resolveReward(reward: RewardRaw | null) {
+  return resolveRewardShared(reward, rewardCtx);
+}
+
+const locationsByMapId = new Map((divisionLocations as { map_id: string; name: string; lore: string }[]).map((l) => [l.map_id, l]));
+
+interface DivisionMapRaw {
+  map_id: string;
+  finishing_reward: RewardRaw | null;
+  fight_count: number;
+  level_range: [number, number];
+  enemy_ids: string[];
+}
+interface DivisionRaw { campaign_id: string; name_ru: string; recommendation: number; maps: DivisionMapRaw[] }
+
+interface FighterRaw { id: string; level: number; stars: number; boss: boolean; adjustment?: { speedPct: number; lifePct: number; attackPct: number } }
+interface WaveRaw { number: number; fighters: FighterRaw[] }
+interface FightRaw { fightId: number; waves: WaveRaw[] }
+interface MapFightsRaw { campaignId: string; mapId: string; fights: FightRaw[] }
+
+const divisionFightsByMap = new Map(
+  (divisionFightsData as MapFightsRaw[]).map((mf) => [`${mf.campaignId}_${mf.mapId}`, mf.fights]),
+);
+
+function resolveFighter(f: FighterRaw) {
+  const m = mutantsById.get(f.id.toLowerCase());
+  if (!m) return null;
+  const starKey = STAR_KEYS[f.stars] ?? 'normal';
+  const icon = mutantIconAtStar(m, m.stars?.[starKey] ? starKey : maxStar(m));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const starMultiplier = m.stars?.[starKey]?.multiplier ?? STAR_MULTIPLIERS[starKey] ?? 1;
+  const stats = calculateFinalStats(m.base_stats as any, f.level, starMultiplier);
+  if (f.adjustment) {
+    stats.hp = Math.round((stats.hp * f.adjustment.lifePct) / 100);
+    stats.atk1 = Math.round((stats.atk1 * f.adjustment.attackPct) / 100);
+    stats.atk2 = Math.round((stats.atk2 * f.adjustment.attackPct) / 100);
+    stats.speed = Math.round((stats.speed * f.adjustment.speedPct) / 100 * 100) / 100;
+  }
+  return { id: m.id, name: names[m.id]?.name || m.name, icon, level: f.level, boss: f.boss, stats };
+}
+
+const divisionsRaw = divisionsData as DivisionRaw[];
+
+// В нескольких дивизионах у ровно одной карты finishing_reward отсутствует в
+// исходных данных - это переход в следующий дивизион (подтверждено в самой
+// игре), а не пробел парсера.
+const divisions = divisionsRaw.map((camp, campIndex) => ({
+  id: camp.campaign_id,
+  name: camp.name_ru,
+  recommendedLevel: camp.recommendation,
+  maps: camp.maps.map((m) => {
+    const loc = locationsByMapId.get(m.map_id);
+    const enemies = m.enemy_ids.map((id) => resolve(id.toLowerCase())).filter((x): x is NonNullable<typeof x> => x !== null);
+    const nextName = divisionsRaw[campIndex + 1]?.name_ru;
+    // Название следующего дивизиона (nextName, из name_ru) остаётся RU - не
+    // входит в разрешённые 76 кураторских имён (raids/special-ladders), см.
+    // память guides-i18n-plan-2026-08-15. RU-специфичная замена падежа
+    // "Дивизион"->"дивизион" применяется только для RU-локали.
+    const reward = m.finishing_reward
+      ? resolveReward(m.finishing_reward)
+      : {
+          label: nextName
+            ? t('guides.division.opensNext', locale).replace(
+                '{name}',
+                locale === 'ru' ? nextName.replace(/^Дивизион /, 'дивизион ') : nextName,
+              )
+            : t('guides.division.transitionNext', locale),
+          icon: null,
+        };
+    const fights = (divisionFightsByMap.get(`${camp.campaign_id}_${m.map_id}`) ?? []).map((f) => ({
+      fightId: f.fightId,
+      waves: f.waves.map((w) => ({
+        number: w.number,
+        fighters: w.fighters.map(resolveFighter).filter((x): x is NonNullable<typeof x> => x !== null),
+      })),
+    }));
+    return {
+      mapId: m.map_id,
+      locationName: loc?.name ?? t('guides.division.locationFallback', locale).replace('{n}', String(Number(m.map_id) + 1)),
+      lore: loc?.lore ?? '',
+      reward,
+      fightCount: m.fight_count,
+      levelRange: m.level_range,
+      enemies,
+      fights,
+    };
+  }),
+}));
+
+interface QuestRaw { id: string; title: string; caption: string; rewards: RewardRaw[] }
+
+const quests = (questsData as QuestRaw[]).map((q) => ({
+  id: q.id,
+  title: q.title,
+  caption: q.caption,
+  rewards: q.rewards.map(resolveReward),
+}));
+
+interface RewardCurrency { softcurrency: number; hardcurrency: number; experience: number }
+interface RewardItem { id: string; amount: number }
+interface DungeonRewardsRaw { currency: RewardCurrency; items: RewardItem[] }
+interface DungeonRaw {
+  id: string;
+  name: string;
+  nameAuthored: boolean;
+  mutantId: string | null;
+  fightCount: number;
+  bossCount: number;
+  rewards: DungeonRewardsRaw;
+}
+interface EventLadderMapRaw { mapId: string; fightCount: number; reward: RewardItem | null }
+interface EventLadderRaw {
+  id: string;
+  name: string;
+  nameAuthored: boolean;
+  mapCount: number;
+  mutantId: string | null;
+  maps: EventLadderMapRaw[];
+}
+
+function resolveCurrencySummary(currency: RewardCurrency) {
+  return resolveCurrencySummaryShared(currency, rewardCtx);
+}
+
+function resolveItemList(items: RewardItem[]) {
+  return resolveItemListShared(items, rewardCtx);
+}
+
+function resolveDungeon(d: DungeonRaw) {
+  return resolveDungeonShared(d, rewardCtx);
+}
+
+const raids = (raidsData as DungeonRaw[]).map(resolveDungeon);
+
+const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
+  const mutantIdLower = e.mutantId?.toLowerCase();
+  const tally = new Map<string, number>();
+  let fightCount = 0;
+  for (const m of e.maps) {
+    fightCount += m.fightCount;
+    if (m.reward && m.reward.id.toLowerCase() !== mutantIdLower) {
+      tally.set(m.reward.id, (tally.get(m.reward.id) ?? 0) + m.reward.amount);
+    }
+  }
+  return {
+    id: e.id,
+    name: e.name,
+    nameAuthored: e.nameAuthored,
+    mapCount: e.mapCount,
+    mutant: e.mutantId ? resolve(e.mutantId.toLowerCase()) : null,
+    fightCount,
+    items: resolveItemList(Array.from(tally, ([id, amount]) => ({ id, amount }))),
+  };
+});
+
+const specialLaddersRaw = specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] };
+const specialLadders = {
+  experiment: specialLaddersRaw.experiment.map(resolveDungeon),
+  challenge: specialLaddersRaw.challenge.map(resolveDungeon),
+};
+
+interface SpecialOfferMutantRaw { id: string; name: string; tier: string | null; skin: string | null }
+interface SpecialOfferRewardRaw { name: string; type: 'entity' | 'hardcurrency' | 'softcurrency'; amount: number }
+interface SpecialOfferGroupRaw { chance: number | null; mutants: SpecialOfferMutantRaw[]; rewards: SpecialOfferRewardRaw[] }
+interface SpecialOfferRaw {
+  id: string;
+  shopItemId: string;
+  name: string;
+  icon: string | null;
+  level: number;
+  cost: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null;
+  realPriceUsd: number | null;
+  groups: SpecialOfferGroupRaw[];
+}
+
+const TIER_VARIANT: Record<string, 'bronze' | 'silver' | 'gold' | 'platinum'> = {
+  'бронза': 'bronze',
+  'серебро': 'silver',
+  'золото': 'gold',
+  'платина': 'platinum',
+};
+
+function resolveOfferMutant(m: SpecialOfferMutantRaw) {
+  const variant = m.tier ? (TIER_VARIANT[m.tier] ?? 'normal') : 'normal';
+  const icon = getMutantTexturePath(m.id, m.skin ?? '_any', variant);
+  return { id: m.id, name: names[m.id]?.name || m.name, tier: m.tier, skin: m.skin, icon };
+}
+
+const specialOffers = (specialOffersData as SpecialOfferRaw[]).map((o) => ({
+  id: o.id,
+  name: o.name,
+  icon: o.icon,
+  level: o.level,
+  cost: o.cost,
+  realPriceUsd: o.realPriceUsd,
+  groups: o.groups.map((g) => ({
+    chance: g.chance,
+    mutants: g.mutants.map(resolveOfferMutant),
+    rewards: g.rewards.map((r) =>
+      resolveReward({ type: r.type, id: r.type === 'entity' ? r.name : undefined, amount: r.amount }),
+    ),
+  })),
+}));
+---
+
+<BaseLayout
+  title={t('guides.pageTitle', locale)}
+  description={t('guides.pageDescription', locale)}
+  canonical="https://archivist-library.com/guides"
+>
+  <section class="intro">
+    <h1>{t('guides.heading', locale)}</h1>
+    <p>{t('guides.subtitle', locale)}</p>
+  </section>
+
+  <GuidesBrowser
+    client:load
+    locale={locale}
+    legendaries={legendaries}
+    zodiac={zodiac}
+    farmers={farmers}
+    speedOrbs={speedOrbs}
+    divisions={divisions}
+    quests={quests}
+    raids={raids}
+    eventLadders={eventLadders}
+    specialLadders={specialLadders}
+    specialOffers={specialOffers}
+    dungeonCovers={dungeonCovers}
+    divisionArenas={divisionArenas}
+  />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
+</BaseLayout>
+
+<style>
+  .intro { margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .intro h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; text-shadow: 0 3px 10px rgba(96, 165, 250, 0.4); }
+  .intro p { margin: 0.35rem 0 0; color: #94a3b8; font-size: 0.9rem; }
+</style>

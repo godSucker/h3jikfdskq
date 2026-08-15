@@ -2,6 +2,8 @@
   import { textureUrl } from '@/lib/texture-cdn'
   import { getGeneIcon } from '@/lib/mutant-icons'
   import tabsData from '@/data/guides/tabs.json'
+  import { t, pluralizeCount, type Locale } from '@/lib/i18n'
+  import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -74,6 +76,7 @@
   }
 
   let {
+    locale = 'ru' as Locale,
     legendaries = [],
     zodiac = [],
     farmers = [],
@@ -87,6 +90,7 @@
     dungeonCovers = {},
     divisionArenas = {},
   }: {
+    locale?: Locale
     legendaries: MutantLite[]
     zodiac: ZodiacEntry[]
     farmers: FarmerRow[]
@@ -135,8 +139,13 @@
   // scripts/build-search-index.ts для генерации ссылок сайтового поиска на
   // конкретные вкладки гайдов, один источник правды вместо двух копий списка.
   // 'pvp-seasons' временно скрыт из списка - обсуждается отдельно, вернуть
-  // после решения, не удалять оттуда.
+  // после решения, не удалять оттуда. label из JSON (RU) больше не
+  // используется для отображения - см. tabLabel() ниже, ключи гайдов
+  // переведены на 9 языков через guides.tab.<key>.
   const TABS = tabsData as { key: string; label: string; ready: boolean }[]
+  function tabLabel(key: string): string {
+    return t(`guides.tab.${key}`, locale)
+  }
 
   const GENE_LABEL: Record<string, string> = {
     A: 'Киборг', B: 'Нежить', C: 'Рубака', D: 'Зверь', E: 'Галактик', F: 'Мифик',
@@ -199,19 +208,22 @@
   }
 
   function breedableLabel(b: 'yes' | 'no'): string {
-    return b === 'yes' ? 'Выводится' : 'Не выводится'
+    return b === 'yes' ? t('guides.breedable.yes', locale) : t('guides.breedable.no', locale)
   }
 
   function fmtSilver(n: number): string {
-    return n.toLocaleString('ru-RU')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
   }
 
+  // toLocaleString с maximumFractionDigits/minimumFractionDigits сам берёт
+  // верный десятичный разделитель по локали (запятая для ru/es/fr/de/pt/it/tr/nl,
+  // точка для en) - раньше было захардкожено ru-стилем через .replace('.', ',').
   function fmtSpeed(n: number): string {
-    return n.toFixed(2).replace('.', ',')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
   function fmtPct(n: number): string {
-    return n.toFixed(1).replace('.', ',')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
   }
 
   let activeLadderSection = $state<'event' | 'experiment' | 'challenge'>('event')
@@ -227,8 +239,8 @@
 
   function fmtCost(o: SpecialOffer): string {
     if (o.cost) {
-      const label = o.cost.type === 'hardcurrency' ? 'золота' : 'серебра'
-      return `${o.cost.amount.toLocaleString('ru-RU')} ${label}`
+      const label = o.cost.type === 'hardcurrency' ? (GOLD_WORD[locale] ?? GOLD_WORD.ru) : (SILVER_WORD[locale] ?? SILVER_WORD.ru)
+      return `${o.cost.amount.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')} ${label}`
     }
     if (o.realPriceUsd != null) return `$${o.realPriceUsd}`
     return '—'
@@ -247,9 +259,9 @@
 </script>
 
 <div class="tab-bar" role="tablist">
-  {#each TABS as t (t.key)}
-    <button class="tab-btn" class:active={activeTab === t.key} class:soon={!t.ready} onclick={() => (activeTab = t.key)}>
-      {t.label}{#if !t.ready}<span class="soon-badge">скоро</span>{/if}
+  {#each TABS as tab (tab.key)}
+    <button class="tab-btn" class:active={activeTab === tab.key} class:soon={!tab.ready} onclick={() => (activeTab = tab.key)}>
+      {tabLabel(tab.key)}{#if !tab.ready}<span class="soon-badge">{t('guides.soon', locale)}</span>{/if}
     </button>
   {/each}
 </div>
@@ -273,7 +285,7 @@
           class="activity-hero"
           style={cover ? `background-image: linear-gradient(180deg, rgba(10,14,22,0.15), rgba(10,14,22,0.75)), url(${cover})` : ''}
           onclick={() => openMutant(mutant.id)}
-          title={`Открыть ${mutant.name}`}
+          title={t('guides.activity.openMutant', locale).replace('{name}', mutant.name)}
         >
           <img class="activity-hero-art" src={textureUrl(mutant.fullArt)} alt={mutant.name} loading="lazy" decoding="async" />
         </button>
@@ -290,7 +302,7 @@
         {#if mutant}
           <button class="activity-mutant-name" onclick={() => openMutant(mutant.id)}>{mutant.name}</button>
         {:else}
-          <div class="activity-mutant-name muted">без уникального мутанта</div>
+          <div class="activity-mutant-name muted">{t('guides.activity.noUniqueMutant', locale)}</div>
         {/if}
         <div class="activity-secondary">{secondaryLine}</div>
         {#if currency.length}
@@ -353,8 +365,8 @@
       </p>
     </div>
     <div class="zodiac-star-switcher">
-      <button class="division-btn" class:active={zodiacStar === 'normal'} onclick={() => (zodiacStar = 'normal')}>Обычная версия</button>
-      <button class="division-btn" class:active={zodiacStar === 'silver'} onclick={() => (zodiacStar = 'silver')}>Серебряная версия</button>
+      <button class="division-btn" class:active={zodiacStar === 'normal'} onclick={() => (zodiacStar = 'normal')}>{t('guides.zodiac.normalVersion', locale)}</button>
+      <button class="division-btn" class:active={zodiacStar === 'silver'} onclick={() => (zodiacStar = 'silver')}>{t('guides.zodiac.silverVersion', locale)}</button>
     </div>
     <div class="zodiac-grid">
       {#each zodiac as z (z.id)}
@@ -485,8 +497,8 @@
             </span>
           </div>
           <div class="farmer-card-stats">
-            <span class="farmer-stat"><strong>{fmtSilver(row.silverPerHour)}</strong> серебра/час</span>
-            <span class="farmer-stat farmer-stat-muted">×{row.relative} к обычным</span>
+            <span class="farmer-stat"><strong>{fmtSilver(row.silverPerHour)}</strong> {t('guides.farmer.silverPerHour', locale)}</span>
+            <span class="farmer-stat farmer-stat-muted">×{row.relative} {t('guides.farmer.relativeToNormal', locale)}</span>
             <span class="farmer-badge" class:breedable-yes={row.breedable === 'yes'} class:breedable-no={row.breedable === 'no'}>
               {breedableLabel(row.breedable)}
             </span>
@@ -514,10 +526,10 @@
       <table class="speed-table">
         <thead>
           <tr>
-            <th>Скорость</th>
-            <th>Сфера 3 (+15%)</th>
-            <th>Сфера 4 (+18%)</th>
-            <th>Сфера 5 (+20%)</th>
+            <th>{t('guides.speedOrbs.colBase', locale)}</th>
+            <th>{t('guides.speedOrbs.colL3', locale)}</th>
+            <th>{t('guides.speedOrbs.colL4', locale)}</th>
+            <th>{t('guides.speedOrbs.colL5', locale)}</th>
           </tr>
         </thead>
         <tbody>
@@ -540,7 +552,7 @@
         реально выглядят как квест: название → условие → награда.
       </p>
     </div>
-    <input class="quest-search" type="search" placeholder="Поиск по названию или условию…" bind:value={questSearch} />
+    <input class="quest-search" type="search" placeholder={t('guides.quests.searchPlaceholder', locale)} bind:value={questSearch} />
     <div class="quest-list">
       {#each filteredQuests as q (q.id)}
         <div class="quest-row">
@@ -566,7 +578,7 @@
         </div>
       {/each}
       {#if !filteredQuests.length}
-        <p class="soon-block">Ничего не найдено.</p>
+        <p class="soon-block">{t('guides.emptyState', locale)}</p>
       {/if}
     </div>
   {:else if activeTab === 'divisions'}
@@ -584,7 +596,7 @@
     {#if divisions[activeDivision]}
       <div class="division-rec">
         <img class="division-rec-badge" src={divisionBadge(divisions[activeDivision].id)} alt="" loading="lazy" decoding="async" />
-        Рекомендуемый эво для прохождение: «{divisions[activeDivision].recommendedLevel}»
+        {t('guides.division.recommendedLevel', locale).replace('{level}', String(divisions[activeDivision].recommendedLevel))}
       </div>
       <div class="division-maps">
         {#each divisions[activeDivision].maps as m, i (m.mapId)}
@@ -594,15 +606,15 @@
             style={arena ? `background-image: linear-gradient(180deg, rgba(15,23,42,0.75), rgba(15,23,42,0.92)), url(${arena}); background-size: cover; background-position: center;` : ''}
           >
             <div class="division-map-head">
-              <span class="division-map-num">Карта {i + 1}</span>
+              <span class="division-map-num">{t('guides.division.mapNumber', locale).replace('{n}', String(i + 1))}</span>
               <span class="division-map-title">{m.locationName}</span>
             </div>
             <div class="division-map-meta">
-              <span>Боёв: <strong>{m.fightCount}</strong></span>
-              <span>Уровни врагов: <strong>{m.levelRange[0]}–{m.levelRange[1]}</strong></span>
+              <span>{t('guides.division.fightsCount', locale)} <strong>{m.fightCount}</strong></span>
+              <span>{t('guides.division.enemyLevelsLabel', locale)} <strong>{m.levelRange[0]}–{m.levelRange[1]}</strong></span>
             </div>
             <div class="division-map-reward">
-              <span class="division-map-reward-label">Награда за прохождение:</span>
+              <span class="division-map-reward-label">{t('guides.division.completionReward', locale)}</span>
               {#if m.reward.mutant}
                 <button class="farmer-chip" onclick={() => openMutant(m.reward.mutant.id)}>
                   {#if m.reward.mutant.icon}<img src={textureUrl(m.reward.mutant.icon)} alt="" loading="lazy" decoding="async" />{/if}
@@ -615,7 +627,7 @@
                 </span>
               {/if}
             </div>
-            <button class="division-map-toggle" onclick={() => openFights(m)}>Посмотреть все бои</button>
+            <button class="division-map-toggle" onclick={() => openFights(m)}>{t('guides.division.viewAllFights', locale)}</button>
           </div>
         {/each}
       </div>
@@ -626,25 +638,25 @@
     </div>
     <div class="division-switcher">
       <button class="division-btn" class:active={activeLadderSection === 'event'} onclick={() => (activeLadderSection = 'event')}>
-        Ивенты ({eventLadders.length})
+        {t('guides.ladders.events', locale).replace('{n}', String(eventLadders.length))}
       </button>
       <button class="division-btn" class:active={activeLadderSection === 'experiment'} onclick={() => (activeLadderSection = 'experiment')}>
-        Эксперименты ({specialLadders.experiment.length})
+        {t('guides.ladders.experiments', locale).replace('{n}', String(specialLadders.experiment.length))}
       </button>
       <button class="division-btn" class:active={activeLadderSection === 'challenge'} onclick={() => (activeLadderSection = 'challenge')}>
-        Испытания ({specialLadders.challenge.length})
+        {t('guides.ladders.challenges', locale).replace('{n}', String(specialLadders.challenge.length))}
       </button>
     </div>
     {#if activeLadderSection === 'event'}
       <div class="activity-grid">
         {#each eventLadders as e (e.id)}
-          {@render activityCard(e.id, 'event', e.name, e.nameAuthored, e.mutant, `${e.mapCount} этапов`, [], e.items)}
+          {@render activityCard(e.id, 'event', e.name, e.nameAuthored, e.mutant, `${e.mapCount} ${pluralizeCount(e.mapCount, locale, 'guides.count.stage')}`, [], e.items)}
         {/each}
       </div>
     {:else}
       <div class="activity-grid">
         {#each specialLadders[activeLadderSection] as d (d.id)}
-          {@render activityCard(d.id, activeLadderSection, d.name, d.nameAuthored, d.mutant, `${d.fightCount} этапов`, d.currency, d.items)}
+          {@render activityCard(d.id, activeLadderSection, d.name, d.nameAuthored, d.mutant, `${d.fightCount} ${pluralizeCount(d.fightCount, locale, 'guides.count.stage')}`, d.currency, d.items)}
         {/each}
       </div>
     {/if}
@@ -658,7 +670,7 @@
     </div>
     <div class="activity-grid">
       {#each raids as r (r.id)}
-        {@render activityCard(r.id, 'raid', r.name, r.nameAuthored, r.mutant, `${r.fightCount} этапов`, r.currency, r.items)}
+        {@render activityCard(r.id, 'raid', r.name, r.nameAuthored, r.mutant, `${r.fightCount} ${pluralizeCount(r.fightCount, locale, 'guides.count.stage')}`, r.currency, r.items)}
       {/each}
     </div>
   {:else if activeTab === 'special-offers'}
@@ -670,7 +682,7 @@
     </div>
     {#each offersByLevel as [level, offers] (level)}
       <div class="offer-level">
-        <div class="offer-level-title">Уровень {level}</div>
+        <div class="offer-level-title">{t('guides.offers.levelHeader', locale).replace('{n}', String(level))}</div>
         <div class="offer-grid">
           {#each offers as o (o.id)}
             <button class="offer-card" onclick={() => (offersModalOffer = o)}>
@@ -681,7 +693,7 @@
                   <div class="offer-card-cost">{fmtCost(o)}</div>
                 </div>
               </div>
-              <div class="offer-card-outcomes-hint">Нажмите, чтобы открыть</div>
+              <div class="offer-card-outcomes-hint">{t('guides.offers.clickToOpen', locale)}</div>
             </button>
           {/each}
         </div>
@@ -976,7 +988,7 @@
     </div>
   {:else}
     <div class="soon-block">
-      <p>Этот раздел ещё в разработке — данные вытаскиваются из игры.</p>
+      <p>{t('guides.tabInProgress', locale)}</p>
     </div>
   {/if}
 </div>
@@ -994,28 +1006,28 @@
           <div class="fights-modal-title">{fightsModalMap.locationName}</div>
           {#if fightsModalMap.lore}<p class="fights-modal-lore">{fightsModalMap.lore}</p>{/if}
         </div>
-        <button class="close-btn" onclick={closeFights} aria-label="Закрыть">&times;</button>
+        <button class="close-btn" onclick={closeFights} aria-label={t('guides.close', locale)}>&times;</button>
       </div>
       <div class="fights-modal-body">
         {#each fightsModalMap.fights as fight, i (fight.fightId)}
           <div class="fight-row">
-            <div class="fight-row-num">Бой {i + 1}</div>
+            <div class="fight-row-num">{t('guides.fight.roundLabel', locale).replace('{n}', String(i + 1))}</div>
             <div class="fight-row-waves">
               {#each fight.waves as wave (wave.number)}
                 <div class="fight-wave">
-                  {#if fight.waves.length > 1}<span class="fight-wave-label">Волна {wave.number}</span>{/if}
+                  {#if fight.waves.length > 1}<span class="fight-wave-label">{t('guides.fight.wave', locale).replace('{n}', String(wave.number))}</span>{/if}
                   <div class="fight-wave-fighters">
                     {#each wave.fighters as f, j (j)}
                       <button class="fighter-card" class:boss={f.boss} onclick={() => openMutant(f.id)}>
                         {#if f.icon}<img src={textureUrl(f.icon)} alt="" loading="lazy" decoding="async" />{/if}
                         <div class="fighter-card-body">
-                          <span class="fighter-card-name">{f.name}{#if f.boss} <span class="fighter-boss-badge">БОСС</span>{/if}</span>
-                          <span class="fighter-card-level">Ур. {f.level}</span>
+                          <span class="fighter-card-name">{f.name}{#if f.boss} <span class="fighter-boss-badge">{t('guides.fight.bossBadge', locale)}</span>{/if}</span>
+                          <span class="fighter-card-level">{t('guides.fight.levelShort', locale).replace('{n}', String(f.level))}</span>
                           <div class="fighter-card-stats">
-                            <span class="stat-chip stat-hp">HP {f.stats.hp.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-atk">АТК1 {f.stats.atk1.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-atk">АТК2 {f.stats.atk2.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-speed">СКР {f.stats.speed}</span>
+                            <span class="stat-chip stat-hp">HP {f.stats.hp.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-atk">{t('guides.stat.atk1', locale)} {f.stats.atk1.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-atk">{t('guides.stat.atk2', locale)} {f.stats.atk2.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-speed">{t('guides.stat.speed', locale)} {f.stats.speed}</span>
                           </div>
                         </div>
                       </button>
@@ -1043,9 +1055,9 @@
         {#if offersModalOffer.icon}<img class="offer-modal-icon" src={textureUrl(offersModalOffer.icon)} alt="" loading="lazy" decoding="async" />{/if}
         <div class="fights-modal-head-body">
           <div class="fights-modal-title">{offersModalOffer.name}</div>
-          <p class="fights-modal-lore">{fmtCost(offersModalOffer)} · уровень {offersModalOffer.level}</p>
+          <p class="fights-modal-lore">{fmtCost(offersModalOffer)} · {t('guides.offers.levelInline', locale).replace('{n}', String(offersModalOffer.level))}</p>
         </div>
-        <button class="close-btn" onclick={() => (offersModalOffer = null)} aria-label="Закрыть">&times;</button>
+        <button class="close-btn" onclick={() => (offersModalOffer = null)} aria-label={t('guides.close', locale)}>&times;</button>
       </div>
       <div class="fights-modal-body">
         {#each offersModalOffer.groups as g, i (i)}
@@ -1062,7 +1074,7 @@
                 {r.label}
               </span>
             {/each}
-            <span class="offer-outcome-chance">{g.chance != null ? `${g.chance.toFixed(1)}%` : 'гарантировано'}</span>
+            <span class="offer-outcome-chance">{g.chance != null ? `${g.chance.toFixed(1)}%` : t('guides.offers.guaranteed', locale)}</span>
           </div>
         {/each}
       </div>
