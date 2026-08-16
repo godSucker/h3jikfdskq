@@ -2,8 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BreedingUI from '@/components/breeding/BreedingUI.svelte';
 import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
 
 export const prerender = true;
 ---
@@ -14,7 +16,7 @@ export const prerender = true;
   <p class="breeding-intro">
     {t('breeding.intro', locale)}
   </p>
-  <BreedingUI client:load locale={locale} />
+  <BreedingUI client:load locale={locale} names={names} />
 </BaseLayout>
 
 <style>

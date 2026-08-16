@@ -10,8 +10,12 @@
   import { textureUrl } from '@/lib/texture-cdn';
   import { getGeneIcon as getGeneIconPath, getTypeIcon as getTypeIconPath } from '@/lib/mutant-icons';
   import { t, type Locale } from '@/lib/i18n';
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n';
 
-  let { locale = 'ru' as Locale }: { locale?: Locale } = $props();
+  let {
+    locale = 'ru' as Locale,
+    names = {},
+  }: { locale?: Locale; names?: Record<string, MutantNameEntry> } = $props();
 
   // --- DATA ---
   const allMutants: Mutant[] = (mutantsAll as any[]).map((m: any) => ({
@@ -29,7 +33,7 @@
   const secretNames = new Set(secretCombos.map(s => normalize(s.childName)));
 
   // --- HELPERS ---
-  const getName = (m: Mutant) => m.name || m.id;
+  const getName = (m: Mutant) => names[m.id]?.name || m.name || m.id;
 
   function getImageSrc(m: Mutant): string {
     const img = m.image;
