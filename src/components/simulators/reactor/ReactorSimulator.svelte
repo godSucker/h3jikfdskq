@@ -8,6 +8,8 @@
   } from '@/lib/reactor-gacha';
   import { textureUrl } from '@/lib/texture-cdn';
   import { pluralizeCount, t, type Locale } from '@/lib/i18n';
+  import { baseMutantId } from '@/lib/utils';
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n';
 
   interface DecoratedReward extends BasicReward {
     name: string;
@@ -22,19 +24,29 @@
     completionTrigger?: string;
   }
 
-  let { gachaId, gacha, baseTextures, completionTexture, locale } = $props<{
+  let { gachaId, gacha, baseTextures, completionTexture, locale, names = {} } = $props<{
     gachaId: string;
     gacha: GachaDefinition;
     baseTextures: Record<string, string | null>;
     completionTexture: string | null;
     locale: Locale;
+    names?: Record<string, MutantNameEntry>;
   }>();
 
   const gachaName = GACHA_NAME_RU[gachaId] ?? gachaId;
 
+  // mutant_names.json - RU-канон с суффиксами звёзд (_Platinum и т.п.). Для
+  // остальных 8 языков используем names.{lang}.json по базовому id - тот же
+  // паттерн, что уже применён в BingoPage.astro::getMutantName() (звёздные
+  // варианты визуально один и тот же мутант, имя не меняется от звезды).
+  function getMutantNameL(specimenId: string): string {
+    if (locale === 'ru') return getMutantName(specimenId);
+    return names[baseMutantId(specimenId)]?.name || getMutantName(specimenId);
+  }
+
   const baseRewards: DecoratedReward[] = gacha.basic_elements.map((item) => ({
     ...item,
-    name: getMutantName(item.specimen),
+    name: getMutantNameL(item.specimen),
     texture: baseTextures[item.specimen] ?? null,
   }));
 
@@ -65,7 +77,7 @@
   const completionReward: DecoratedReward | null = gacha.completion_reward
     ? {
         ...gacha.completion_reward,
-        name: getMutantName(gacha.completion_reward.specimen),
+        name: getMutantNameL(gacha.completion_reward.specimen),
         texture: completionTexture ?? null,
       }
     : null;
@@ -93,7 +105,7 @@
   let weightDenominator = $derived(currentPool.reduce((sum, item) => sum + item.odds, 0));
   
   // Хелпер для получения названия и текстуры
-  const getRewardName = (id: string) => rewardDisplay.get(id)?.name ?? getMutantName(id);
+  const getRewardName = (id: string) => rewardDisplay.get(id)?.name ?? getMutantNameL(id);
   const getRewardTexture = (id: string) => rewardDisplay.get(id)?.texture ?? null;
 
   // weightDenominator может быть 0, если пул наград пуст (в теории для
@@ -113,7 +125,7 @@
       if (!completed && unlockedBaseCount >= totalUniqueBaseRewards) {
         completed = true;
         completedNow = true;
-        completionTrigger = getMutantName(specimenId);
+        completionTrigger = getMutantNameL(specimenId);
       }
     }
     return completedNow;
@@ -206,7 +218,7 @@
       completionTrigger: trigger ?? completionReward.specimen,
     }, false);
     if (!completionTrigger) {
-      completionTrigger = getMutantName(trigger ?? completionReward.specimen);
+      completionTrigger = getMutantNameL(trigger ?? completionReward.specimen);
     }
   }
 </script>

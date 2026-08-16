@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ReactorSimulator from '@/components/simulators/reactor/ReactorSimulator.svelte';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
 import type { getGachaMeta } from '@/lib/reactor-gacha';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 interface Props {
   gacha: ReturnType<typeof getGachaMeta> extends infer T ? Exclude<T, null> : never;
@@ -12,6 +13,7 @@ interface Props {
 
 const locale = localeFromAstro(Astro.currentLocale);
 const { gacha, baseTextures, completionTexture } = Astro.props as Props;
+const { names } = getLocalizedMutantNames(locale);
 ---
 
 <BaseLayout
@@ -37,6 +39,7 @@ const { gacha, baseTextures, completionTexture } = Astro.props as Props;
         baseTextures={baseTextures}
         completionTexture={completionTexture}
         locale={locale}
+        names={names}
       />
     </div>
   </div>
