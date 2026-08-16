@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 de prata por nível é uma constante das configurações do jogo (",
   "guides.numbers.skipCost.p2After": "). Quanto maior o nível do oponente exibido, mais caro é pulá-lo.",
   "guides.numbers.crit.altBooster": "impulsionador de crítico",
-  "guides.numbers.crit.altAntiBooster": "impulsionador anticrítico"
+  "guides.numbers.crit.altAntiBooster": "impulsionador anticrítico",
+  "guides.division.name.alpha": "Divisão Alfa",
+  "guides.division.name.beta": "Divisão Beta",
+  "guides.division.name.delta": "Divisão Delta",
+  "guides.division.name.omega": "Divisão Ômega",
+  "guides.division.name.supra": "Divisão Supra",
+  "guides.division.name.mega": "Divisão Mega",
+  "guides.division.name.giga": "Divisão Giga"
 }

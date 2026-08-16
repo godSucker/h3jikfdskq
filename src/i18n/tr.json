@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "Seviye başına 250 gümüş, oyun ayarlarından gelen sabit bir değerdir (",
   "guides.numbers.skipCost.p2After": "). Gösterilen rakibin seviyesi ne kadar yüksekse, onu atlamak o kadar pahalıya mal olur.",
   "guides.numbers.crit.altBooster": "kritik güçlendirici",
-  "guides.numbers.crit.altAntiBooster": "anti-kritik güçlendirici"
+  "guides.numbers.crit.altAntiBooster": "anti-kritik güçlendirici",
+  "guides.division.name.alpha": "Divizyon Alfa",
+  "guides.division.name.beta": "Divizyon Beta",
+  "guides.division.name.delta": "Divizyon Delta",
+  "guides.division.name.omega": "Divizyon Omega",
+  "guides.division.name.supra": "Divizyon Supra",
+  "guides.division.name.mega": "Divizyon Mega",
+  "guides.division.name.giga": "Divizyon Giga"
 }

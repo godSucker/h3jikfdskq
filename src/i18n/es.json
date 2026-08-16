@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 de plata por nivel es una constante de la configuración del juego (",
   "guides.numbers.skipCost.p2After": "). Cuanto más alto sea el nivel del rival mostrado, más caro será saltárselo.",
   "guides.numbers.crit.altBooster": "potenciador de crítico",
-  "guides.numbers.crit.altAntiBooster": "potenciador anticrítico"
+  "guides.numbers.crit.altAntiBooster": "potenciador anticrítico",
+  "guides.division.name.alpha": "División Alfa",
+  "guides.division.name.beta": "División Beta",
+  "guides.division.name.delta": "División Delta",
+  "guides.division.name.omega": "División Omega",
+  "guides.division.name.supra": "División Supra",
+  "guides.division.name.mega": "División Mega",
+  "guides.division.name.giga": "División Giga"
 }

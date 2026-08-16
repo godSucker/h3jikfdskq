@@ -858,5 +858,12 @@
   "guides.numbers.skipCost.p2Before": "250 серебра за уровень — константа из игровых настроек (",
   "guides.numbers.skipCost.p2After": "). Чем выше уровень показанного оппонента, тем дороже его пропустить.",
   "guides.numbers.crit.altBooster": "бустер крита",
-  "guides.numbers.crit.altAntiBooster": "антикрит-бустер"
+  "guides.numbers.crit.altAntiBooster": "антикрит-бустер",
+  "guides.division.name.alpha": "Дивизион Альфа",
+  "guides.division.name.beta": "Дивизион Бета",
+  "guides.division.name.delta": "Дивизион Дельта",
+  "guides.division.name.omega": "Дивизион Омега",
+  "guides.division.name.supra": "Дивизион Супра",
+  "guides.division.name.mega": "Дивизион Мега",
+  "guides.division.name.giga": "Дивизион Гига"
 }

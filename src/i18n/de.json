@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 Silber pro Level ist eine Konstante aus den Spieleinstellungen (",
   "guides.numbers.skipCost.p2After": "). Je höher das Level des angezeigten Gegners, desto teurer ist es, ihn zu überspringen.",
   "guides.numbers.crit.altBooster": "Krit-Booster",
-  "guides.numbers.crit.altAntiBooster": "Anti-Krit-Booster"
+  "guides.numbers.crit.altAntiBooster": "Anti-Krit-Booster",
+  "guides.division.name.alpha": "Division Alpha",
+  "guides.division.name.beta": "Division Beta",
+  "guides.division.name.delta": "Division Delta",
+  "guides.division.name.omega": "Division Omega",
+  "guides.division.name.supra": "Division Supra",
+  "guides.division.name.mega": "Division Mega",
+  "guides.division.name.giga": "Division Giga"
 }

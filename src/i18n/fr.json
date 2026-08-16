@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 d'argent par niveau est une constante des paramètres du jeu (",
   "guides.numbers.skipCost.p2After": "). Plus le niveau de l'adversaire affiché est élevé, plus il est coûteux de le passer.",
   "guides.numbers.crit.altBooster": "boost de critique",
-  "guides.numbers.crit.altAntiBooster": "boost anti-critique"
+  "guides.numbers.crit.altAntiBooster": "boost anti-critique",
+  "guides.division.name.alpha": "Division Alpha",
+  "guides.division.name.beta": "Division Bêta",
+  "guides.division.name.delta": "Division Delta",
+  "guides.division.name.omega": "Division Oméga",
+  "guides.division.name.supra": "Division Supra",
+  "guides.division.name.mega": "Division Méga",
+  "guides.division.name.giga": "Division Giga"
 }

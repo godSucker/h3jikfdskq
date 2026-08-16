@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 silver per level is a constant from the game settings (",
   "guides.numbers.skipCost.p2After": "). The higher the level of the shown opponent, the more expensive it is to skip them.",
   "guides.numbers.crit.altBooster": "crit booster",
-  "guides.numbers.crit.altAntiBooster": "anti-crit booster"
+  "guides.numbers.crit.altAntiBooster": "anti-crit booster",
+  "guides.division.name.alpha": "Division Alpha",
+  "guides.division.name.beta": "Division Beta",
+  "guides.division.name.delta": "Division Delta",
+  "guides.division.name.omega": "Division Omega",
+  "guides.division.name.supra": "Division Supra",
+  "guides.division.name.mega": "Division Mega",
+  "guides.division.name.giga": "Division Giga"
 }

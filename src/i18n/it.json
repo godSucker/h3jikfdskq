@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 di argento per livello è una costante delle impostazioni di gioco (",
   "guides.numbers.skipCost.p2After": "). Più alto è il livello dell'avversario mostrato, più costoso è saltarlo.",
   "guides.numbers.crit.altBooster": "booster critico",
-  "guides.numbers.crit.altAntiBooster": "booster anticritico"
+  "guides.numbers.crit.altAntiBooster": "booster anticritico",
+  "guides.division.name.alpha": "Divisione Alfa",
+  "guides.division.name.beta": "Divisione Beta",
+  "guides.division.name.delta": "Divisione Delta",
+  "guides.division.name.omega": "Divisione Omega",
+  "guides.division.name.supra": "Divisione Supra",
+  "guides.division.name.mega": "Divisione Mega",
+  "guides.division.name.giga": "Divisione Giga"
 }

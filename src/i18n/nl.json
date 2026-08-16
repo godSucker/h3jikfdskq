@@ -853,5 +853,12 @@
   "guides.numbers.skipCost.p2Before": "250 zilver per level is een constante uit de spelinstellingen (",
   "guides.numbers.skipCost.p2After": "). Hoe hoger het level van de getoonde tegenstander, hoe duurder het is om hem over te slaan.",
   "guides.numbers.crit.altBooster": "kritieke booster",
-  "guides.numbers.crit.altAntiBooster": "anti-kritieke booster"
+  "guides.numbers.crit.altAntiBooster": "anti-kritieke booster",
+  "guides.division.name.alpha": "Divisie Alfa",
+  "guides.division.name.beta": "Divisie Beta",
+  "guides.division.name.delta": "Divisie Delta",
+  "guides.division.name.omega": "Divisie Omega",
+  "guides.division.name.supra": "Divisie Supra",
+  "guides.division.name.mega": "Divisie Mega",
+  "guides.division.name.giga": "Divisie Giga"
 }
