@@ -860,5 +860,18 @@
   "guides.division.name.omega": "Divizyon Omega",
   "guides.division.name.supra": "Divizyon Supra",
   "guides.division.name.mega": "Divizyon Mega",
-  "guides.division.name.giga": "Divizyon Giga"
+  "guides.division.name.giga": "Divizyon Giga",
+  "guides.intro.legendaries.p1": "Bu mutantlar, uygun genlere sahip hemen hemen her mutantın melezlenmesiyle ortaya çıkabilir (örneğin, Kavgacı + Kavgacı = Sıçrayan Maurice). Üreme Merkezi seviyen ne kadar yüksekse, melezlemeden efsanevi bir mutant çıkma şansı da o kadar yüksek olur.",
+  "guides.intro.legendaries.p2": "Bu mutantlar arasında yalnızca {name} gerçekten dikkat çekiyor — kesinlikle melezlemeye değer. Ama başlangıçta güçlü mutantların eksikse, istatistikleri biraz şişirilmiş olan {starTrooper} ve {dezinger}'i ya da listedeki herhangi bir tek genli mutantı melezleyebilirsin. Genel olarak ise gizli tariflerin arasında bile genelde daha iyi seçenekler bulursun.",
+  "guides.intro.zodiac.p1": "Tüm mutantlar burçlarla ilişkilendirilmiştir ve gerçek dünyadaki karşılıklarıyla tam olarak aynı tarihlerde ortaya çıkarlar. Bunları esas olarak koleksiyon ve bingo için edinmeni öneririz.",
+  "guides.intro.farmers.p1": "Standart dışı gümüş geliri olan mutantların tablosu. Bunların çoğu, farm için neredeyse değersiz sayılabilecek etkinlik mutantları, ama burada gerçekten hepsini eklemeye karar verdik.",
+  "guides.intro.farmers.p2": "Değer verilebilecek yeni mutantlar arasında Dab ve Zagam öne çıkıyor, ancak ikincisi fazlasıyla pahalı. Değerlendirmeler özneldir ama gerçeğe yakındır — saatlik gelir, melezlemenin kolaylığı (ve konforu), lüks bölgeler dışında farm yapabilme ve elde etme kolaylığı dikkate alındı.",
+  "guides.intro.farmers.p3": "Midas, Ödül Avcısı ve D.A.B.'ı farm için yıldıza yükseltmene gerek yok — hangi yıldızda olurlarsa olsunlar aynı miktarda gümüş getirirler.",
+  "guides.intro.speedOrbs.p1": "Seviye 3-5 hız sferalarından elde edilen tam hız kazancının tablosu. Bir mutanta hız sferası verdiğinde, kazanç yüzdesi her zaman sferanın üzerinde yazan %15, %18 ve %20 ile eşleşmez — her belirli taban hız için gerçek kazanç parantez içinde gösterilir.",
+  "guides.intro.speedOrbs.p2": "Görebildiğin gibi, sferadan gelen kazanç neredeyse her zaman nominal değerin üzerinde, özellikle 1-2 fazladan yüzde puanın birikebildiği yüksek hızlarda. Görünüşe göre her sfera bonusu tek bir formülle hesaplanmak yerine geliştiriciler tarafından elle ayarlanmış — belirli bir sferayla elde edilen hız bazen başka bir mutantın taban hızıyla ya da aynı mutantın farklı bir sfera seviyesindeki hızıyla eşleşiyor.",
+  "guides.intro.quests.p1": "Oyunun ödüllü ana (etkinlik dışı) görevleri — başarımlar, hikaye görevleri ve sistem görevleri. Oyun 5300'den fazla görev saklıyor, ama çoğunun ne adı ne de ayrı bir ödülü var — buraya yalnızca gerçekten bir göreve benzeyenler alındı: ad → koşul → ödül.",
+  "guides.intro.divisions.p1": "7 kampanya divizyonu (Alfa → Gama), her birinde 9 harita var — aynı 9 konum, ancak artan düşman seviyesi ve ödüllerle. Evo seviyesi ve takım kompozisyonu önerileri bizim kendi tahminimizdir; oyunun kendisi böyle ipuçları vermez.",
+  "guides.intro.ladders.p1": "Burada oyunda şimdiye kadar var olmuş neredeyse tüm merdivenler listelenmiştir.",
+  "guides.intro.raids.p1": "Baskınlar oyundaki en zor \"merdivenler\"dir, ama her biri benzersiz bir mutant verir (oldukça iyi oynanan). Bazı baskınların oyunda ayrı bir adı yoktur — bu adlar bizim tarafımızdan sanat temasına göre uydurulmuştur ve italik olarak işaretlenmiştir.",
+  "guides.intro.specialOffers.p1": "Oyuncu belirli bir seviyeye ulaştığında ortaya çıkan tek seferlik teklifler (mağazadaki normal kutularla karıştırılmamalı — bunlar özellikle seviyeye bağlıdır ve yalnızca bir kez gösterilir)."
 }

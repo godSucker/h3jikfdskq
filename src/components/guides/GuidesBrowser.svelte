@@ -327,18 +327,18 @@
     </div>
   {/snippet}
   {#if activeTab === 'legendaries'}
+    {@const featuredName = locale === 'ru' ? 'Бак Моррис' : (legendaries.find((m) => m.id === FEATURED_LEGENDARY)?.name ?? 'Buck Maurice')}
+    {@const p2Filled = t('guides.intro.legendaries.p2', locale)
+      .replace('{starTrooper}', legendaries.find((m) => m.id === 'specimen_ec_03')?.name ?? 'Star Trooper')
+      .replace('{dezinger}', legendaries.find((m) => m.id === 'specimen_ac_03')?.name ?? 'Dezinger')}
+    {@const nameIdx = p2Filled.indexOf('{name}')}
     <div class="text-block">
-      <p>
-        Эти мутанты могут получиться у вас в результате скрещивания вообще любых мутантов с подходящими генами
-        (например, Воин + Воин = Бак Моррис). Чем выше уровень вашего центра разведений, тем выше шанс на выпадение
-        легендарного мутанта со скрещивания.
-      </p>
-      <p>
-        Среди этих мутантов стоит внимания в основном только <strong>Бак Моррис</strong>, его определённо стоит
-        выводить. Но в случае нехватки сильных мутантов на старте, можно вывести Звёздного Десантника и Дезингера,
-        либо же любого моногена из списка, ибо у них слегка завышены статы. Но в целом, чаще всего найдутся варианты
-        получше даже среди секретных.
-      </p>
+      <p>{t('guides.intro.legendaries.p1', locale)}</p>
+      {#if nameIdx === -1}
+        <p>{p2Filled}</p>
+      {:else}
+        <p>{p2Filled.slice(0, nameIdx)}<strong>{featuredName}</strong>{p2Filled.slice(nameIdx + 6)}</p>
+      {/if}
     </div>
     <div class="mutant-grid">
       {#each legendaries as m (m.id)}
@@ -357,10 +357,7 @@
     </div>
   {:else if activeTab === 'zodiac'}
     <div class="text-block">
-      <p>
-        Все мутанты распределены относительно знаков зодиака и появляются в точно те же даты, что и их аналоги из
-        реального мира. Брать их рекомендуем преимущественно ради коллекции и бинго.
-      </p>
+      <p>{t('guides.intro.zodiac.p1', locale)}</p>
     </div>
     <div class="zodiac-star-switcher">
       <button class="division-btn" class:active={zodiacStar === 'normal'} onclick={() => (zodiacStar = 'normal')}>{t('guides.zodiac.normalVersion', locale)}</button>
@@ -425,19 +422,9 @@
     </div>
   {:else if activeTab === 'farmers'}
     <div class="text-block">
-      <p>
-        Таблица мутантов с нестандартным доходом серебра. Большинство из них — ивентовые мутанты, которых можно
-        назвать около мусором в плане фарма, но решили добавить сюда вообще всех.
-      </p>
-      <p>
-        Из достойных новых мутантов можно отметить Даба и Загама, хоть второй и стоит слишком дорого. Оценки
-        субъективные, но приближены к реальности — учитывались доход/час, возможность выведения (и комфорт
-        выведения), возможность фарма вне люкс-зон и лёгкость получения.
-      </p>
-      <p>
-        Мидасов, Охотников и ДАБов не обязательно выводить в звёзды для фарма — в любой звезде они принесут
-        одинаковое количество серебра.
-      </p>
+      <p>{t('guides.intro.farmers.p1', locale)}</p>
+      <p>{t('guides.intro.farmers.p2', locale)}</p>
+      <p>{t('guides.intro.farmers.p3', locale)}</p>
     </div>
     <div class="farmers-grid">
       {#each farmers as row, i (i)}
@@ -469,17 +456,8 @@
     </div>
   {:else if activeTab === 'speed-orbs'}
     <div class="text-block">
-      <p>
-        Таблица точного прироста от сфер скорости 3–5 уровня. Когда даёшь мутанту ту или иную сферу скорости, %
-        прироста не всегда соответствует указанным на самой сфере 15%, 18% и 20% — в скобках указан реальный прирост
-        для каждой конкретной базовой скорости.
-      </p>
-      <p>
-        Как можно заметить, почти везде прирост от сферы выше номинала, особенно на больших скоростях, где может
-        набегать по 1–2 лишних процента. Похоже, что каждая прибавка со сферы прописывалась разработчиками вручную, а
-        не считалась по единой формуле — скорость с той или иной сферой у части мутантов совпадает с чужой стоковой
-        скоростью или скоростью с другим уровнем сферы.
-      </p>
+      <p>{t('guides.intro.speedOrbs.p1', locale)}</p>
+      <p>{t('guides.intro.speedOrbs.p2', locale)}</p>
     </div>
     <div class="speed-table-wrap">
       <table class="speed-table">
@@ -505,11 +483,7 @@
     </div>
   {:else if activeTab === 'quests'}
     <div class="text-block">
-      <p>
-        Основные (не ивентовые) квесты игры с наградой — ачивки, сюжетные квесты и системные задания. Игра хранит
-        5300+ миссий, но у большинства из них нет ни названия, ни отдельной награды — сюда попали только те, что
-        реально выглядят как квест: название → условие → награда.
-      </p>
+      <p>{t('guides.intro.quests.p1', locale)}</p>
     </div>
     <input class="quest-search" type="search" placeholder={t('guides.quests.searchPlaceholder', locale)} bind:value={questSearch} />
     <div class="quest-list">
@@ -542,10 +516,7 @@
     </div>
   {:else if activeTab === 'divisions'}
     <div class="text-block">
-      <p>
-        7 дивизионов кампании (Альфа → Гига), в каждом по 9 карт — одни и те же 9 локаций, но с растущим уровнем
-        противников и наградами. Рекомендации по эво-уровню и составу команды — наша оценка, в игре таких подсказок нет.
-      </p>
+      <p>{t('guides.intro.divisions.p1', locale)}</p>
     </div>
     <div class="division-switcher">
       {#each divisions as d, i (d.id)}
@@ -593,7 +564,7 @@
     {/if}
   {:else if activeTab === 'ladders'}
     <div class="text-block">
-      <p>Здесь представлены практически все когда-либо существовавшие «лесенки» в игре.</p>
+      <p>{t('guides.intro.ladders.p1', locale)}</p>
     </div>
     <div class="division-switcher">
       <button class="division-btn" class:active={activeLadderSection === 'event'} onclick={() => (activeLadderSection = 'event')}>
@@ -621,11 +592,7 @@
     {/if}
   {:else if activeTab === 'raids'}
     <div class="text-block">
-      <p>
-        Рейды — самые сложные «лесенки» в игре, но зато каждый даёт уникального мутанта (который неплохо
-        играется). У части рейдов в игре нет отдельного текстового названия — такие названия придуманы нами по
-        тематике арта и помечены курсивом.
-      </p>
+      <p>{t('guides.intro.raids.p1', locale)}</p>
     </div>
     <div class="activity-grid">
       {#each raids as r (r.id)}
@@ -634,10 +601,7 @@
     </div>
   {:else if activeTab === 'special-offers'}
     <div class="text-block">
-      <p>
-        Разовые предложения, которые всплывают при достижении определённого уровня игрока (не путать с
-        обычными боксами из магазина — эти привязаны именно к уровню и показываются один раз).
-      </p>
+      <p>{t('guides.intro.specialOffers.p1', locale)}</p>
     </div>
     {#each offersByLevel as [level, offers] (level)}
       <div class="offer-level">

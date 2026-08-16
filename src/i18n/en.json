@@ -860,5 +860,18 @@
   "guides.division.name.omega": "Division Omega",
   "guides.division.name.supra": "Division Supra",
   "guides.division.name.mega": "Division Mega",
-  "guides.division.name.giga": "Division Giga"
+  "guides.division.name.giga": "Division Giga",
+  "guides.intro.legendaries.p1": "These mutants can result from breeding practically any mutants with matching genes (for example, Brawler + Brawler = Buck Maurice). The higher your Breeding Center level, the higher the chance of a legendary mutant appearing from a cross.",
+  "guides.intro.legendaries.p2": "Of these mutants, only {name} is really worth your attention — definitely worth breeding. But if you're short on strong mutants early on, you can breed {starTrooper} and {dezinger}, or any mono-gene mutant from the list, since their stats are slightly inflated. Overall though, you'll usually find better options even among the secrets.",
+  "guides.intro.zodiac.p1": "All mutants are tied to zodiac signs and appear on exactly the same dates as their real-world counterparts. We recommend getting them mainly for the collection and for bingo.",
+  "guides.intro.farmers.p1": "A table of mutants with non-standard silver income. Most of them are event mutants that could be called near-worthless for farming, but we decided to include literally all of them here.",
+  "guides.intro.farmers.p2": "Among the worthwhile new mutants, Dab and Zagam stand out, though the latter is way too expensive. The ratings are subjective but close to reality — they factor in income/hour, how easy (and comfortable) the mutant is to breed, the ability to farm outside lux zones, and how easy it is to obtain.",
+  "guides.intro.farmers.p3": "You don't need to level up Midas, Bounty Hunter, or D.A.B. to a star for farming — at any star, they'll bring in the same amount of silver.",
+  "guides.intro.speedOrbs.p1": "A table of the exact speed gain from level 3–5 speed orbs. When you give a mutant a speed orb, the % gain doesn't always match the 15%, 18%, and 20% printed on the orb itself — the actual gain for each specific base speed is shown in parentheses.",
+  "guides.intro.speedOrbs.p2": "As you can see, the gain from the orb is almost always above nominal, especially at high speeds, where it can add up to 1–2 extra percent. It looks like each orb bonus was hand-tuned by the developers rather than calculated from a single formula — the speed with a given orb sometimes matches another mutant's base speed, or the same mutant's speed with a different orb level.",
+  "guides.intro.quests.p1": "The game's main (non-event) quests with rewards — achievements, story quests, and system tasks. The game stores 5300+ missions, but most of them have neither a name nor a distinct reward — only the ones that actually look like a proper quest made it here: name → condition → reward.",
+  "guides.intro.divisions.p1": "7 campaign divisions (Alpha → Giga), each with 9 maps — the same 9 locations, but with rising enemy levels and rewards. The Evo-level and team-composition recommendations are our own estimate; the game itself gives no such hints.",
+  "guides.intro.ladders.p1": "This lists practically every ladder that has ever existed in the game.",
+  "guides.intro.raids.p1": "Raids are the hardest \"ladders\" in the game, but each one gives a unique mutant (that plays pretty well). Some raids don't have a proper in-game name — those names were invented by us based on the art's theme and are marked in italics.",
+  "guides.intro.specialOffers.p1": "One-time offers that pop up when the player reaches a certain level (not to be confused with regular shop boxes — these are tied specifically to your level and shown only once)."
 }
