@@ -16,6 +16,8 @@ import orbsRaw from '@/data/materials/orbs.json'
 import charmsRaw from '@/data/materials/charms.json'
 import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator'
 import { applySpeedSphere } from '@/lib/stats/speed-sphere-table'
+import { t, type Locale } from '@/lib/i18n'
+import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 import type { Gene } from './type-table'
 
 export type AbilityKind = 'shield' | 'regen' | 'retaliate' | 'slash' | 'strengthen' | 'weaken'
@@ -117,6 +119,11 @@ export interface BuildUnitOptions {
   critCharmActive?: boolean
   anticritCharmActive?: boolean
   instanceId?: string
+  /** Локаль + локализованные имена мутантов - для ростера/лога PvP на не-RU
+   *  языках (имя, названия атак). `locale` по умолчанию 'ru' - тогда names
+   *  игнорируется и берётся сырой RU-текст мутанта, как раньше. */
+  locale?: Locale
+  names?: Record<string, MutantNameEntry>
 }
 
 interface RawOrb {
@@ -297,10 +304,21 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
   const portraitUrl =
     mutant.stars?.[opts.star]?.images?.[0] || mutant.stars?.normal?.images?.[0] || ''
 
+  // Локализация - только для не-RU (RU-фолбэк идентичен старому поведению).
+  // names передаётся вызывающей стороной (getLocalizedMutantNames), поэтому
+  // отсутствие записи (напр. частичное покрытие) само по себе безопасно
+  // падает на сырой RU-текст, не на пустую строку.
+  const isRu = !opts.locale || opts.locale === 'ru'
+  const localizedName = isRu ? mutant.name : opts.names?.[mutantId]?.name || mutant.name
+  const localizedAtk1 = isRu ? mutant.name_attack1 : opts.names?.[mutantId]?.atk1Name || mutant.name_attack1
+  const localizedAtk2 = isRu ? mutant.name_attack2 : opts.names?.[mutantId]?.atk2Name || mutant.name_attack2
+  const attack1Fallback = isRu ? 'Атака 1' : t('pvp.attack1Default', opts.locale as Locale)
+  const attack2Fallback = isRu ? 'Атака 2' : t('pvp.attack2Default', opts.locale as Locale)
+
   return {
     instanceId: opts.instanceId || `${mutantId}-${Math.random().toString(36).slice(2, 9)}`,
     mutantId,
-    name: mutant.name || mutantId,
+    name: localizedName || mutantId,
     side: opts.side,
     gene: ownGene,
     gene2,
@@ -310,11 +328,11 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
     atk1,
     atk1Gene: normalizeGene(bs.atk1_gene ?? lvl1.atk1_gene),
     atk1IsAOE: Boolean(bs.atk1_AOE ?? lvl1.atk1_AOE),
-    attack1Name: mutant.name_attack1 || 'Атака 1',
+    attack1Name: localizedAtk1 || attack1Fallback,
     atk2,
     atk2Gene: normalizeGene(bs.atk2_gene ?? lvl1.atk2_gene),
     atk2IsAOE: Boolean(bs.atk2_AOE ?? lvl1.atk2_AOE),
-    attack2Name: mutant.name_attack2 || 'Атака 2',
+    attack2Name: localizedAtk2 || attack2Fallback,
     atk2Available: level >= ATK2_UNLOCK_LEVEL,
     speedX100,
     critCharmBonusPct,

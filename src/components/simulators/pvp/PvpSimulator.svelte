@@ -8,8 +8,10 @@
   import { simulateBatch, type BatchResult } from '@/lib/pvp/simulate-batch'
   import { textureUrl } from '@/lib/texture-cdn'
   import { t, type Locale } from '@/lib/i18n'
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
-  let { locale = 'ru' as Locale }: { locale?: Locale } = $props()
+  let { locale = 'ru' as Locale, names = {} }: { locale?: Locale; names?: Record<string, MutantNameEntry> } =
+    $props()
 
   const FIRST_MUTANT_ID = (mutantsRaw as any[])[0]?.id ?? ''
 
@@ -125,6 +127,8 @@
         critCharmActive,
         anticritCharmActive,
         instanceId: `${side}-${i}`,
+        locale,
+        names,
       })
     )
     return disambiguateNames(units)
@@ -198,7 +202,7 @@
   {#if !session}
     <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="space-y-3">
-        <TeamBuilder title={t('pvp.team.mine', locale)} bind:slots={myTeam} {locale} />
+        <TeamBuilder title={t("pvp.team.mine", locale)} bind:slots={myTeam} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
             {t('pvp.mode.mine', locale)}
@@ -222,7 +226,7 @@
         </div>
       </div>
       <div class="space-y-3">
-        <TeamBuilder title={t('pvp.team.opponent', locale)} bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} {locale} />
+        <TeamBuilder title={t("pvp.team.opponent", locale)} bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <DarkCheckbox
             bind:checked={enemyLevelRange.enabled}

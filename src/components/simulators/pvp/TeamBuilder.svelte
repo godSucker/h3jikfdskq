@@ -13,6 +13,7 @@
   import IconSelect from './IconSelect.svelte'
   import OrbPicker from './OrbPicker.svelte'
   import { t, type Locale } from '@/lib/i18n'
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
   interface SlotConfig {
     mutantId: string
@@ -27,7 +28,14 @@
     slots = $bindable(),
     disableLevelInputs = false,
     locale = 'ru' as Locale,
-  }: { title: string; slots: SlotConfig[]; disableLevelInputs?: boolean; locale?: Locale } = $props()
+    names = {},
+  }: {
+    title: string
+    slots: SlotConfig[]
+    disableLevelInputs?: boolean
+    locale?: Locale
+    names?: Record<string, MutantNameEntry>
+  } = $props()
 
   // Пресеты команд - общий список на localStorage (не привязан к стороне мои/оппонент,
   // это просто "сборка из 3 мутантов", годная для любой из двух TeamBuilder-карточек).
@@ -103,8 +111,25 @@
 
   const MUTANTS = mutantsRaw as any[]
   const MUTANT_MAP = new Map(MUTANTS.map((m) => [String(m.id), m]))
-  const MUTANT_OPTIONS = MUTANTS.map((m) => ({ id: m.id, name: m.name || m.id })).sort((a, b) =>
-    a.name.localeCompare(b.name, 'ru')
+
+  // Локализованное имя/названия атак мутанта - RU остаётся сырым текстом
+  // (как раньше), для остальных 8 языков резолвится через names.{lang}.json
+  // (тот же паттерн, что уже применён в breeding/reactor/bingo/boxes).
+  function getName(id: string): string {
+    const raw = MUTANT_MAP.get(id)
+    return (locale !== 'ru' && names[id]?.name) || raw?.name || id
+  }
+  function getAtk1Name(id: string): string | undefined {
+    const raw = MUTANT_MAP.get(id)
+    return (locale !== 'ru' && names[id]?.atk1Name) || raw?.name_attack1
+  }
+  function getAtk2Name(id: string): string | undefined {
+    const raw = MUTANT_MAP.get(id)
+    return (locale !== 'ru' && names[id]?.atk2Name) || raw?.name_attack2
+  }
+
+  const MUTANT_OPTIONS = MUTANTS.map((m) => ({ id: m.id, name: getName(m.id) })).sort((a, b) =>
+    a.name.localeCompare(b.name, locale)
   )
 
   const STAR_ORDER: SlotConfig['star'][] = ['normal', 'bronze', 'silver', 'gold', 'platinum']
@@ -353,7 +378,7 @@
           {#if portrait}
             <img
               src={textureUrl(portrait)}
-              alt={mutant?.name || ''}
+              alt={mutant ? getName(mutant.id) : ''}
               loading="lazy"
               class="w-16 h-16 rounded-lg object-cover border border-slate-700/60 bg-slate-900/60 shrink-0"
             />
@@ -368,7 +393,7 @@
             <div class="relative">
               <input
                 type="text"
-                placeholder={searchOpen[i] ? t('pvp.mutantSearch.placeholder', locale) : mutant ? mutant.name : t('pvp.mutantSearch.slotPlaceholder', locale).replace('{n}', String(i + 1))}
+                placeholder={searchOpen[i] ? t('pvp.mutantSearch.placeholder', locale) : mutant ? getName(mutant.id) : t('pvp.mutantSearch.slotPlaceholder', locale).replace('{n}', String(i + 1))}
                 bind:value={search[i]}
                 onfocus={() => (searchOpen[i] = true)}
                 onblur={() => setTimeout(() => (searchOpen[i] = false), 150)}
@@ -420,7 +445,7 @@
                 {/if}
               </div>
               <div class="text-[11px] text-sky-400/70 truncate">
-                {mutant.name_attack1 || t('pvp.attack1Default', locale)} · {mutant.name_attack2 || t('pvp.attack2Default', locale)}
+                {getAtk1Name(mutant.id) || t('pvp.attack1Default', locale)} · {getAtk2Name(mutant.id) || t('pvp.attack2Default', locale)}
               </div>
             {/if}
           </div>
