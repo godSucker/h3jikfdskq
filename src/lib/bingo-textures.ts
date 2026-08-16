@@ -1,6 +1,7 @@
 import { getItemTexture, translateItemId } from './craft-simulator'
 import { getMutantTexture, getSkinTexture } from './mutant-textures'
 import { normalizeSearch } from '@/lib/search-normalize'
+import { getItemName } from '@/lib/materials-i18n'
 import type { Locale } from '@/lib/i18n'
 
 import { normalizeMutantId } from '@/lib/utils'
@@ -316,8 +317,12 @@ export function getRewardLabel(
     return formatCurrencyAmount(reward.amount ?? 0, reward.type, locale)
   }
 
-  // Для entity используем перевод из craft-simulator
-  const translated = translateItemId(reward.name)
+  // Для entity используем перевод из craft-simulator (RU-only), прогнанный
+  // через materials-i18n для не-RU локалей - тот же баг и фикс, что был
+  // в /guides (translateItemId игнорировал locale), см. память
+  // i18n-known-coverage-gaps.md раздел /bingo.
+  const ru = translateItemId(reward.name)
+  const translated = locale === 'ru' ? ru : getItemName(reward.name, locale, ru)
   if (reward.amount && reward.amount > 1) {
     return `${translated} ×${reward.amount}`
   }
