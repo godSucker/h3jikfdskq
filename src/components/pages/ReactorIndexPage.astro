@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { listGachas } from '@/lib/reactor-gacha';
+import { listGachas, GACHA_NAME_RU } from '@/lib/reactor-gacha';
 import { textureUrl } from '@/lib/texture-cdn';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
 import priorityGachasRaw from '@/data/simulators/reactor/priority-gachas.json';
@@ -16,13 +16,14 @@ const gachas = listGachas(locale);
 // finish-pending.ts патчил его строковым regex-ом, что хрупко (сломается
 // от любого переформатирования prettier). Первый элемент = последний релиз,
 // finish-pending.ts делает unshift в этот файл через GitHub Contents API.
-// Имена в приоритетном списке остаются RU (GACHA_NAME_RU) - названия
-// реакторов нигде на сайте не переведены, только окружающий UI.
+// priority-gachas.json хранит RU-имена (не id) - сравниваем ПО RU-имени
+// (GACHA_NAME_RU[a.id]) независимо от locale, т.к. a.name теперь может
+// быть переведён (EN-текст с баннера для не-RU, см. reactor-gacha.ts).
 const PRIORITY_GACHAS = priorityGachasRaw as string[];
 
 const sortedGachas = [...gachas].sort((a, b) => {
-  const nameA = a.name || '';
-  const nameB = b.name || '';
+  const nameA = GACHA_NAME_RU[a.id] || a.name || '';
+  const nameB = GACHA_NAME_RU[b.id] || b.name || '';
 
   const indexA = PRIORITY_GACHAS.indexOf(nameA);
   const indexB = PRIORITY_GACHAS.indexOf(nameB);

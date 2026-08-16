@@ -49,6 +49,43 @@ export const STAR_ICON: Record<number, string> = {
 // патчить объект внутри .ts строковыми правками было бы хрупко.
 export const GACHA_NAME_RU: Record<string, string> = gachaNameRuRaw
 
+// Официальный текст с самого баннера (assets/gachacontent/btn_gacha_<id>-*.png)
+// - подтверждено визуально 2026-08-16, что Kobojo НЕ локализует эти баннеры
+// (все 8 языковых копий на CDN оказались побайтово идентичны, MD5 совпадает -
+// GACHA_COVERS_I18N ниже физически хранит одну и ту же картинку под разными
+// путями). Название реактора на баннере - английское для ЛЮБОЙ локали игры,
+// поэтому это единственный официальный источник для не-RU локалей - RU-имя в
+// GACHA_NAME_RU выше творческая адаптация сайта ("Хищницы" для "Girl Power" и
+// т.п.), не дословный перевод, LLM-перевод кураторского RU не использовался.
+export const GACHA_NAME_EN: Record<string, string> = {
+  western: 'Western',
+  gachaboss: 'Big Boss!',
+  japan: 'Japan',
+  fantasy: 'Dark Fantasy',
+  lucha: 'Lucha Libre',
+  olympians: 'Gods of the Arena',
+  music: 'Music',
+  villains: 'Mutants Super-Villains',
+  starwars: 'Space Wars',
+  beach: 'Tropical Summer',
+  heroes: 'Mutants Super-Heroes',
+  soldiers: 'Time Soldiers',
+  gothic: 'Gothic',
+  movies: 'Movies',
+  elements: 'Elements Squad',
+  steampunk: 'The Steampunk',
+  vegetal: 'Photosynthesis',
+  girl: 'Girl Power',
+  olympics: 'Bloody Games',
+  checkmate: 'Checkmate',
+  gemstones: 'Gemstones',
+}
+
+function gachaName(id: string, locale: string): string {
+  if (locale === 'ru') return GACHA_NAME_RU[id] ?? id
+  return GACHA_NAME_EN[id] ?? GACHA_NAME_RU[id] ?? id
+}
+
 // Обложки - официальный крoп-арт игры (assets/gachacontent/btn_gacha_<live-id>-ru.png
 // на Kobojo CDN), локализованная RU-версия с русским текстом на баннере, .png
 // (перезалиты 2026-08-06 взамен старых .webp с английским текстом). Ключ здесь -
@@ -86,7 +123,7 @@ export function getGachaMeta(id: string, locale = 'ru'): GachaMeta | null {
     return null
   }
   const totalOdds = definition.basic_elements.reduce((sum, item) => sum + item.odds, 0)
-  const name = GACHA_NAME_RU[id] ?? id
+  const name = gachaName(id, locale)
   const cover = getGachaCover(id, locale)
   return {
     id,
@@ -101,7 +138,7 @@ export function listGachas(locale = 'ru'): GachaMeta[] {
   return Object.keys(gachaMap)
     .map((id) => getGachaMeta(id, locale)!)
     .filter(Boolean)
-    .sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+    .sort((a, b) => a.name.localeCompare(b.name, locale))
 }
 
 export function getMutantName(specimenId: string): string {

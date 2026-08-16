@@ -2,6 +2,7 @@
   import type { BasicReward, GachaDefinition } from '@/lib/reactor-gacha';
   import {
     GACHA_NAME_RU,
+    GACHA_NAME_EN,
     STAR_ICON,
     getMutantName,
     rollWeighted,
@@ -33,7 +34,7 @@
     names?: Record<string, MutantNameEntry>;
   }>();
 
-  const gachaName = GACHA_NAME_RU[gachaId] ?? gachaId;
+  const gachaName = locale === 'ru' ? (GACHA_NAME_RU[gachaId] ?? gachaId) : (GACHA_NAME_EN[gachaId] ?? GACHA_NAME_RU[gachaId] ?? gachaId);
 
   // mutant_names.json - RU-канон с суффиксами звёзд (_Platinum и т.п.). Для
   // остальных 8 языков используем names.{lang}.json по базовому id - тот же
