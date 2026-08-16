@@ -23,7 +23,7 @@ import { geneLabelL } from '@/lib/mutant-dicts';
 import { calculateFinalStats } from '@/lib/stats/unified-calculator';
 import { t, localeFromAstro, type Locale } from '@/lib/i18n';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
-import { getFarmerText, getLocationText, getQuestText, getDungeonName } from '@/lib/guides-content-i18n';
+import { getFarmerText, getLocationText, getQuestText, getDungeonName, getSpecialOfferName } from '@/lib/guides-content-i18n';
 import divisionFightsData from '@/data/guides/division-fights.json';
 import GuidesBrowser from '@/components/guides/GuidesBrowser.svelte';
 import dungeonCovers from '@/data/guides/dungeon-covers.json';
@@ -305,6 +305,9 @@ const raids = (raidsData as DungeonRaw[]).map((d) => {
   return d.nameAuthored ? { ...resolved, name: getDungeonName(d.id, locale, d.name) } : resolved;
 });
 
+// event-ladders: все 33 названия - официальные игровые (event_name_* из
+// localisation_{lang}.txt на CDN Kobojo), не кураторские - извлечены
+// напрямую, не LLM-переведены. Ключ "event/<id>".
 const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
   const mutantIdLower = e.mutantId?.toLowerCase();
   const tally = new Map<string, number>();
@@ -317,7 +320,7 @@ const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
   }
   return {
     id: e.id,
-    name: e.name,
+    name: getDungeonName(`event/${e.id}`, locale, e.name),
     nameAuthored: e.nameAuthored,
     mapCount: e.mapCount,
     mutant: e.mutantId ? resolve(e.mutantId.toLowerCase()) : null,
@@ -327,14 +330,14 @@ const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
 });
 
 const specialLaddersRaw = specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] };
-// 60/88 названий (nameAuthored) переведены - та же разрешённая группа 76,
-// что и raids выше. Ключ в dungeonNames - "<group>/<id>", т.к. id
-// не уникален между experiment и challenge (напр. jungle_bells_1).
+// 60/88 названий (nameAuthored) переведены с разрешения пользователя (76
+// кураторских). Остальные 28 - официальные игровые (event_name_* с CDN
+// Kobojo), извлечены напрямую, не LLM. Обе группы теперь в dungeonNames,
+// поэтому getDungeonName вызывается безусловно. Ключ - "<group>/<id>",
+// т.к. id не уникален между experiment и challenge (напр. jungle_bells_1).
 function resolveSpecialLadder(group: 'experiment' | 'challenge', d: DungeonRaw) {
   const resolved = resolveDungeon(d);
-  return d.nameAuthored
-    ? { ...resolved, name: getDungeonName(`${group}/${d.id}`, locale, d.name) }
-    : resolved;
+  return { ...resolved, name: getDungeonName(`${group}/${d.id}`, locale, d.name) };
 }
 const specialLadders = {
   experiment: specialLaddersRaw.experiment.map((d) => resolveSpecialLadder('experiment', d)),
@@ -370,7 +373,7 @@ function resolveOfferMutant(m: SpecialOfferMutantRaw) {
 
 const specialOffers = (specialOffersData as SpecialOfferRaw[]).map((o) => ({
   id: o.id,
-  name: o.name,
+  name: getSpecialOfferName(o.id, locale, o.name),
   icon: o.icon,
   level: o.level,
   cost: o.cost,

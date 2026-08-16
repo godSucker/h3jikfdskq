@@ -5767,6 +5767,1338 @@
       "it": "Halloween 2018 (II)",
       "tr": "Halloween 2018 (II)",
       "nl": "Halloween 2018 (II)"
+    },
+    "experiment/halloween24": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "experiment/halloween23": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "experiment/halloween22": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "experiment/halloween20": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "challenge/jungle_bells_1": {
+      "en": "Jungle Bells 1",
+      "es": "Jungle Bells 1",
+      "fr": "Jungle Bells 1",
+      "de": "Jungle Bells 1",
+      "pt": "Jungle Bells 1",
+      "it": "Jungle Bells 1",
+      "tr": "Jungle Bells 1",
+      "nl": "Jungle Bells 1"
+    },
+    "challenge/jungle_bells_2": {
+      "en": "Jungle Bells 2",
+      "es": "Jungle Bells 2",
+      "fr": "Jungle Bells 2",
+      "de": "Jungle Bells 2",
+      "pt": "Jungle Bells 2",
+      "it": "Jungle Bells 2",
+      "tr": "Jungle Bells 2",
+      "nl": "Jungle Bells 2"
+    },
+    "challenge/jungle_bells_3": {
+      "en": "Jungle Bells 3",
+      "es": "Jungle Bells 3",
+      "fr": "Jungle Bells 3",
+      "de": "Jungle Bells 3",
+      "pt": "Jungle Bells 3",
+      "it": "Jungle Bells 3",
+      "tr": "Jungle Bells 3",
+      "nl": "Jungle Bells 3"
+    },
+    "challenge/rome_hardcore": {
+      "en": "Colosseum",
+      "es": "Coliseo",
+      "fr": "Colosseum",
+      "de": "Kolosseum",
+      "pt": "Coliseu",
+      "it": "Colosseo",
+      "tr": "Kolezyum",
+      "nl": "Colosseum"
+    },
+    "challenge/halloween": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "challenge/halloween_1": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "challenge/halloween_2": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "challenge/jungle_16": {
+      "en": "Amazonia",
+      "es": "Amazonia",
+      "fr": "Amazonie",
+      "de": "Amazonien",
+      "pt": "Amazônia",
+      "it": "Amazzonia",
+      "tr": "Amazon",
+      "nl": "Amazonie"
+    },
+    "challenge/ice_16": {
+      "en": "Antarctica",
+      "es": "Antártica",
+      "fr": "Antarctique",
+      "de": "Antarktis",
+      "pt": "Antártica",
+      "it": "Antartico",
+      "tr": "Antarktika",
+      "nl": "Antartica"
+    },
+    "challenge/vegas_16": {
+      "en": "Vegas",
+      "es": "Vegas",
+      "fr": "Vegas",
+      "de": "Vegas",
+      "pt": "Vegas",
+      "it": "Vegas",
+      "tr": "Vegas",
+      "nl": "Vegas"
+    },
+    "challenge/olympus_16": {
+      "en": "Mount Olympus",
+      "es": "Monte Olimpo",
+      "fr": "Mont Olympe",
+      "de": "Berg Olymp",
+      "pt": "Monte Olimpo",
+      "it": "Monte Olimpo",
+      "tr": "Olympos Dağı",
+      "nl": "Olympusberg"
+    },
+    "challenge/rome_16": {
+      "en": "Colosseum",
+      "es": "Coliseo",
+      "fr": "Colosseum",
+      "de": "Kolosseum",
+      "pt": "Coliseu",
+      "it": "Colosseo",
+      "tr": "Kolezyum",
+      "nl": "Colosseum"
+    },
+    "challenge/space_16": {
+      "en": "Spaceport",
+      "es": "Spaceport",
+      "fr": "Station Spatiale",
+      "de": "Raumstation",
+      "pt": "Estação Espacial",
+      "it": "Spaceport",
+      "tr": "Uzay İstasyonu",
+      "nl": "Ruimtestation"
+    },
+    "challenge/moon_3": {
+      "en": "Moon",
+      "es": "Luna",
+      "fr": "Lune",
+      "de": "Mond",
+      "pt": "Lua",
+      "it": "Luna",
+      "tr": "Ay",
+      "nl": "Maan"
+    },
+    "challenge/mars_16": {
+      "en": "Mars",
+      "es": "Marte",
+      "fr": "Mars",
+      "de": "März",
+      "pt": "Martes",
+      "it": "Marte",
+      "tr": "Mars",
+      "nl": "Mars"
+    },
+    "challenge/miami_16": {
+      "en": "Beach Clash Miami",
+      "es": "Beach Clash Miami",
+      "fr": "Beach Clash Miami",
+      "de": "Beach Clash Miami",
+      "pt": "Beach Clash Miami",
+      "it": "Beach Clash Miami",
+      "tr": "Plaj Mücadelesi Miami",
+      "nl": "Beach Clash Miami"
+    },
+    "challenge/rapanui_16": {
+      "en": "Rapa Nui",
+      "es": "Rapa Nui",
+      "fr": "Rapa Nui",
+      "de": "Rapa Nui",
+      "pt": "Rapa Nui",
+      "it": "Rapa Nui",
+      "tr": "Rapa Nui",
+      "nl": "Rapa Nui"
+    },
+    "challenge/gotham_16": {
+      "en": "Dark City",
+      "es": "Dark City",
+      "fr": "Dark City",
+      "de": "Dark City",
+      "pt": "Dark City",
+      "it": "Dark City",
+      "tr": "Karanlık Şehir",
+      "nl": "Dark City"
+    },
+    "challenge/japan_16": {
+      "en": "Japan",
+      "es": "Japón",
+      "fr": "Japon",
+      "de": "Japan",
+      "pt": "Japão",
+      "it": "Giappone",
+      "tr": "Japonya",
+      "nl": "Japan"
+    },
+    "event/season_jungle_bells_1": {
+      "en": "Jungle Bells 1",
+      "es": "Jungle Bells 1",
+      "fr": "Jungle Bells 1",
+      "de": "Jungle Bells 1",
+      "pt": "Jungle Bells 1",
+      "it": "Jungle Bells 1",
+      "tr": "Jungle Bells 1",
+      "nl": "Jungle Bells 1"
+    },
+    "event/season_jungle_bells_2": {
+      "en": "Jungle Bells 2",
+      "es": "Jungle Bells 2",
+      "fr": "Jungle Bells 2",
+      "de": "Jungle Bells 2",
+      "pt": "Jungle Bells 2",
+      "it": "Jungle Bells 2",
+      "tr": "Jungle Bells 2",
+      "nl": "Jungle Bells 2"
+    },
+    "event/season_jungle_bells_3": {
+      "en": "Jungle Bells 3",
+      "es": "Jungle Bells 3",
+      "fr": "Jungle Bells 3",
+      "de": "Jungle Bells 3",
+      "pt": "Jungle Bells 3",
+      "it": "Jungle Bells 3",
+      "tr": "Jungle Bells 3",
+      "nl": "Jungle Bells 3"
+    },
+    "event/season_anniversary_18_1": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_anniversary_18_2": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_anniversary_18_3": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_anniversary_18_4": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_anniversary_18_5": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_anniversary_18_6": {
+      "en": "Uprising",
+      "es": "Uprising",
+      "fr": "Uprising",
+      "de": "Uprising",
+      "pt": "Uprising",
+      "it": "Uprising",
+      "tr": "Uprising",
+      "nl": "Uprising"
+    },
+    "event/season_jungle": {
+      "en": "Amazonia",
+      "es": "Amazonia",
+      "fr": "Amazonie",
+      "de": "Amazonien",
+      "pt": "Amazônia",
+      "it": "Amazzonia",
+      "tr": "Amazon",
+      "nl": "Amazonie"
+    },
+    "event/season_ice": {
+      "en": "Antarctica",
+      "es": "Antártica",
+      "fr": "Antarctique",
+      "de": "Antarktis",
+      "pt": "Antártica",
+      "it": "Antartico",
+      "tr": "Antarktika",
+      "nl": "Antartica"
+    },
+    "event/season_vegas": {
+      "en": "Vegas",
+      "es": "Vegas",
+      "fr": "Vegas",
+      "de": "Vegas",
+      "pt": "Vegas",
+      "it": "Vegas",
+      "tr": "Vegas",
+      "nl": "Vegas"
+    },
+    "event/season_olympus": {
+      "en": "Mount Olympus",
+      "es": "Monte Olimpo",
+      "fr": "Mont Olympe",
+      "de": "Berg Olymp",
+      "pt": "Monte Olimpo",
+      "it": "Monte Olimpo",
+      "tr": "Olympos Dağı",
+      "nl": "Olympusberg"
+    },
+    "event/season_rome": {
+      "en": "Colosseum",
+      "es": "Coliseo",
+      "fr": "Colosseum",
+      "de": "Kolosseum",
+      "pt": "Coliseu",
+      "it": "Colosseo",
+      "tr": "Kolezyum",
+      "nl": "Colosseum"
+    },
+    "event/season_rome_hardcore": {
+      "en": "Colosseum",
+      "es": "Coliseo",
+      "fr": "Colosseum",
+      "de": "Kolosseum",
+      "pt": "Coliseu",
+      "it": "Colosseo",
+      "tr": "Kolezyum",
+      "nl": "Colosseum"
+    },
+    "event/season_space": {
+      "en": "Spaceport",
+      "es": "Spaceport",
+      "fr": "Station Spatiale",
+      "de": "Raumstation",
+      "pt": "Estação Espacial",
+      "it": "Spaceport",
+      "tr": "Uzay İstasyonu",
+      "nl": "Ruimtestation"
+    },
+    "event/season_halloween": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "event/season_anniversary_1": {
+      "en": "Crisis",
+      "es": "Crisis",
+      "fr": "Conflit",
+      "de": "Krise",
+      "pt": "Crise",
+      "it": "Crisi",
+      "tr": "Kriz",
+      "nl": "Crisis"
+    },
+    "event/season_anniversary_2": {
+      "en": "Crisis",
+      "es": "Crisis",
+      "fr": "Conflit",
+      "de": "Krise",
+      "pt": "Crise",
+      "it": "Crisi",
+      "tr": "Kriz",
+      "nl": "Crisis"
+    },
+    "event/season_anniversary_3": {
+      "en": "Crisis",
+      "es": "Crisis",
+      "fr": "Conflit",
+      "de": "Krise",
+      "pt": "Crise",
+      "it": "Crisi",
+      "tr": "Kriz",
+      "nl": "Crisis"
+    },
+    "event/season_moon": {
+      "en": "Moon",
+      "es": "Luna",
+      "fr": "Lune",
+      "de": "Mond",
+      "pt": "Lua",
+      "it": "Luna",
+      "tr": "Ay",
+      "nl": "Maan"
+    },
+    "event/season_mars": {
+      "en": "Mars",
+      "es": "Marte",
+      "fr": "Mars",
+      "de": "März",
+      "pt": "Martes",
+      "it": "Marte",
+      "tr": "Mars",
+      "nl": "Mars"
+    },
+    "event/season_miami": {
+      "en": "Beach Clash Miami",
+      "es": "Beach Clash Miami",
+      "fr": "Beach Clash Miami",
+      "de": "Beach Clash Miami",
+      "pt": "Beach Clash Miami",
+      "it": "Beach Clash Miami",
+      "tr": "Plaj Mücadelesi Miami",
+      "nl": "Beach Clash Miami"
+    },
+    "event/season_rapanui": {
+      "en": "Rapa Nui",
+      "es": "Rapa Nui",
+      "fr": "Rapa Nui",
+      "de": "Rapa Nui",
+      "pt": "Rapa Nui",
+      "it": "Rapa Nui",
+      "tr": "Rapa Nui",
+      "nl": "Rapa Nui"
+    },
+    "event/season_gotham": {
+      "en": "Dark City",
+      "es": "Dark City",
+      "fr": "Dark City",
+      "de": "Dark City",
+      "pt": "Dark City",
+      "it": "Dark City",
+      "tr": "Karanlık Şehir",
+      "nl": "Dark City"
+    },
+    "event/season_japan": {
+      "en": "Japan",
+      "es": "Japón",
+      "fr": "Japon",
+      "de": "Japan",
+      "pt": "Japão",
+      "it": "Giappone",
+      "tr": "Japonya",
+      "nl": "Japan"
+    },
+    "event/season_anniversary_19_1": {
+      "en": "Aftermath",
+      "es": "Aftermath",
+      "fr": "Aftermath",
+      "de": "Aftermath",
+      "pt": "Aftermath",
+      "it": "Aftermath",
+      "tr": "Aftermath",
+      "nl": "Aftermath"
+    },
+    "event/season_anniversary_19_2": {
+      "en": "Aftermath",
+      "es": "Aftermath",
+      "fr": "Aftermath",
+      "de": "Aftermath",
+      "pt": "Aftermath",
+      "it": "Aftermath",
+      "tr": "Aftermath",
+      "nl": "Aftermath"
+    },
+    "event/season_anniversary_19_3": {
+      "en": "Aftermath",
+      "es": "Aftermath",
+      "fr": "Aftermath",
+      "de": "Aftermath",
+      "pt": "Aftermath",
+      "it": "Aftermath",
+      "tr": "Aftermath",
+      "nl": "Aftermath"
+    },
+    "event/season_xmas_19": {
+      "en": "Jungle Bells",
+      "es": "Jungle Bells",
+      "fr": "Jungle Bells",
+      "de": "Jungle Bells",
+      "pt": "Jungle Bells",
+      "it": "Jungle Bells",
+      "tr": "Jungle Bells",
+      "nl": "Jungle Bells"
+    },
+    "event/season_halloween_1": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "event/season_halloween_19": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "event/season_halloween_2": {
+      "en": "Halloween Nightmare",
+      "es": "Halloween Nightmare",
+      "fr": "Halloween Nightmare",
+      "de": "Halloween Nightmare",
+      "pt": "Pesadelo de Halloween",
+      "it": "Halloween Nightmare",
+      "tr": "Cadılar Bayramı Kabusu",
+      "nl": "Halloween Nightmare"
+    },
+    "experiment/xmas20_1": {
+      "en": "Jungle Bells 1",
+      "es": "Jungle Bells 1",
+      "fr": "Jungle Bells 1",
+      "de": "Jungle Bells 1",
+      "pt": "Jungle Bells 1",
+      "it": "Jungle Bells 1",
+      "tr": "Jungle Bells 1",
+      "nl": "Jungle Bells 1"
+    },
+    "experiment/xmas21_1": {
+      "en": "Jungle Bells 1",
+      "es": "Jungle Bells 1",
+      "fr": "Jungle Bells 1",
+      "de": "Jungle Bells 1",
+      "pt": "Jungle Bells 1",
+      "it": "Jungle Bells 1",
+      "tr": "Jungle Bells 1",
+      "nl": "Jungle Bells 1"
+    },
+    "experiment/xmas20_2": {
+      "en": "Jungle Bells 2",
+      "es": "Jungle Bells 2",
+      "fr": "Jungle Bells 2",
+      "de": "Jungle Bells 2",
+      "pt": "Jungle Bells 2",
+      "it": "Jungle Bells 2",
+      "tr": "Jungle Bells 2",
+      "nl": "Jungle Bells 2"
+    },
+    "experiment/xmas21_2": {
+      "en": "Jungle Bells 2",
+      "es": "Jungle Bells 2",
+      "fr": "Jungle Bells 2",
+      "de": "Jungle Bells 2",
+      "pt": "Jungle Bells 2",
+      "it": "Jungle Bells 2",
+      "tr": "Jungle Bells 2",
+      "nl": "Jungle Bells 2"
+    },
+    "experiment/xmas20_3": {
+      "en": "Jungle Bells 3",
+      "es": "Jungle Bells 3",
+      "fr": "Jungle Bells 3",
+      "de": "Jungle Bells 3",
+      "pt": "Jungle Bells 3",
+      "it": "Jungle Bells 3",
+      "tr": "Jungle Bells 3",
+      "nl": "Jungle Bells 3"
+    }
+  },
+  "specialOfferNames": {
+    "levelup-6-promo_health_kit": {
+      "en": "Mega Med Pack",
+      "es": "Medikit Mega",
+      "fr": "Méga Médikit",
+      "de": "Mega Med-Set",
+      "pt": "Mega Kit Médico",
+      "it": "Mega Medikit",
+      "tr": "Mega Sağlık Paketi",
+      "nl": "Mega EHBOset"
+    },
+    "levelup-6-starter_pack_v8": {
+      "en": "Exclusive Pack",
+      "es": "Paquete Exclusivo",
+      "fr": "Pack Exclusif",
+      "de": "Exklusiv-Paket",
+      "pt": "Pacote Exclusivo",
+      "it": "Pacchetto esclusivo",
+      "tr": "Ayrıcalıklı Paketi",
+      "nl": "Exclusief Pack"
+    },
+    "levelup-6-medium_pack_v8": {
+      "en": "Exclusive Pack",
+      "es": "Paquete Exclusivo",
+      "fr": "Pack Exclusif",
+      "de": "Exklusiv-Paket",
+      "pt": "Pacote Exclusivo",
+      "it": "Pacchetto esclusivo",
+      "tr": "Ayrıcalıklı Paketi",
+      "nl": "Exclusief Pack"
+    },
+    "levelup-9-lucky_box_basic_v3": {
+      "en": "Boosted Mystery Box",
+      "es": "Caja Misteriosa Mejorada",
+      "fr": "Boîte Mystère Améliorée",
+      "de": "Verbesserte Mystery-Box",
+      "pt": "Caixa Mistério Melhorada",
+      "it": "Scatola Misteriosa Migliorata",
+      "tr": "Güçlendirilmiş Gizem Kutusu",
+      "nl": "Verbeterde Geheime Doos"
+    },
+    "levelup-13-specimen_da_04_bronze": {
+      "en": "Bronze Rhino Squadron",
+      "es": "Escuadrón Rhino Bronce",
+      "fr": "Escadron Rhino Bronze",
+      "de": "Rhino-Schwadron, Bronze",
+      "pt": "Esquadrão Rino Bronze",
+      "it": "Squadrone Rino Bronzo",
+      "tr": "Bronz Gergedan Filosu",
+      "nl": "Bronzen Neushoorneskader"
+    },
+    "levelup-15-starter_pack_2": {
+      "en": "Exclusive Pack",
+      "es": "Paquete Exclusivo",
+      "fr": "Pack Exclusif",
+      "de": "Exklusiv-Paket",
+      "pt": "Pacote Exclusivo",
+      "it": "Pacchetto esclusivo",
+      "tr": "Ayrıcalıklı Paketi",
+      "nl": "Exclusief Pack"
+    },
+    "levelup-18-luckybox_cyber": {
+      "en": "Legendary Cyber Box",
+      "es": "Caja Ciber Legendaria",
+      "fr": "Boîte Cyber Légendaire",
+      "de": "Legendäre Cyber-Box",
+      "pt": "Caixa Ciber Lendária",
+      "it": "Scatola Cyber Leggendario",
+      "tr": "Efsanevi Siber Kutusu",
+      "nl": "Legendarische Cyberbox"
+    },
+    "levelup-18-luckybox_saber_v2": {
+      "en": "Saber Box",
+      "es": "Caja Sable",
+      "fr": "Boîte Sabre",
+      "de": "Säbelrassler-Box",
+      "pt": "Caixa Sabre",
+      "it": "Scatola Sciabola",
+      "tr": "Süvari Kutusu",
+      "nl": "Sabelbox"
+    },
+    "levelup-21-specimen_dc_04": {
+      "en": "Cézanne",
+      "es": "Cézanne",
+      "fr": "Cézanne",
+      "de": "Cézanne",
+      "pt": "Cézanne",
+      "it": "Cézanne",
+      "tr": "Cézanne",
+      "nl": "Cézanne"
+    },
+    "levelup-21-specimen_ac_03_silver": {
+      "en": "Silver Dezinger",
+      "es": "Dezinger Plata",
+      "fr": "Dezinger Argent",
+      "de": "Silber Dezinger",
+      "pt": "Silver Dezinger",
+      "it": "Dezinger Argento",
+      "tr": "Gümüş Dezinger",
+      "nl": "Zilveren Dezinger"
+    },
+    "levelup-25-specimen_cf_02_gold": {
+      "en": "Gold Thor",
+      "es": "Thor Oro",
+      "fr": "Gold Thor",
+      "de": "Thor Gold",
+      "pt": "Thor de Ouro",
+      "it": "Thor Oro",
+      "tr": "Altın Tor",
+      "nl": "Gouden Thor"
+    },
+    "levelup-25-luckybox_legendary_1": {
+      "en": "Legendary Box",
+      "es": "Caja Legendaria",
+      "fr": "Coffre Légendaire",
+      "de": "Legendäre-Box",
+      "pt": "Caixa Lendária",
+      "it": "Scatola Leggendario",
+      "tr": "Efsanevi Kutusu",
+      "nl": "Legendarische box"
+    },
+    "levelup-33-specimen_cd_04": {
+      "en": "Battle Toad",
+      "es": "Battle Toad",
+      "fr": "Battle Toad",
+      "de": "Battle Toad",
+      "pt": "Battle Toad",
+      "it": "Battle Toad",
+      "tr": "Savaş Kurbağası",
+      "nl": "Battle Toad"
+    },
+    "levelup-33-specimen_af_03_bronze": {
+      "en": "Bronze Halbeard",
+      "es": "Barbaroca Bronce",
+      "fr": "Hallebarbe Bronze",
+      "de": "Halbeard, Bronze",
+      "pt": "Barbanão Bronze",
+      "it": "Barboluto Bronzo",
+      "tr": "Bronz Halbeard",
+      "nl": "Bronzen Halbeard"
+    },
+    "levelup-33-specimen_dc_06_gold": {
+      "en": "Gold Grannyvore",
+      "es": "Comeabuelas Oro",
+      "fr": "Grannyvore Or",
+      "de": "Grannyvore, Gold",
+      "pt": "Grannyvore Ouro",
+      "it": "Grannyvore Oro",
+      "tr": "Altın Grannyvore",
+      "nl": "Gouden Grannyvore"
+    },
+    "levelup-37-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-37-specimen_de_02": {
+      "en": "Cosmo Kong",
+      "es": "Cosmo Kong",
+      "fr": "Cosmo Kong",
+      "de": "Kosmo Kong",
+      "pt": "Cosmo Kong",
+      "it": "Cosmo Kong",
+      "tr": "Kozmo Kong",
+      "nl": "Cosmo Kong"
+    },
+    "levelup-40-bundle_mutants_tank_gold": {
+      "en": "Gold Tank Pack",
+      "es": "Paquete Acorazado Oro",
+      "fr": "Pack Tank Or",
+      "de": "Tank-Paket, Gold",
+      "pt": "Pacote Tank Ouro",
+      "it": "Pacchetto Tank Oro",
+      "tr": "Altın Tank Paketi",
+      "nl": "Gouden Tank Pack"
+    },
+    "levelup-40-bundle_mutants_fast_gold": {
+      "en": "Gold Lightning Pack",
+      "es": "Paquete Vertiginoso Oro",
+      "fr": "Pack Vitesse Éclair Or",
+      "de": "Hochgeschwindigkeits-Paket, Gold",
+      "pt": "Pacote Velocidade Relâmpago Ouro",
+      "it": "Pacchetto Fulmineo Oro",
+      "tr": "Altın Yıldırım Paketi",
+      "nl": "Gouden Bliksemflits-pack"
+    },
+    "levelup-45-bundle_casino_3": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-45-bundle_casino_2": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-51-bundle_rookie_7": {
+      "en": "Rookie Pack",
+      "es": "Paquete Novato",
+      "fr": "Pack Rookie",
+      "de": "Anfänger-Paket",
+      "pt": "Pacote Iniciante",
+      "it": "Pacchetto Principiante",
+      "tr": "Çaylak Paketi",
+      "nl": "Rookiepack"
+    },
+    "levelup-51-bundle_veteran_7": {
+      "en": "Veteran Pack",
+      "es": "Paquete Veterano",
+      "fr": "Pack Vétéran",
+      "de": "Veteran-Paket",
+      "pt": "Pacote Veterano",
+      "it": "Pacchetto Veterano",
+      "tr": "Kıdemli Paketi",
+      "nl": "Veteranenpack"
+    },
+    "levelup-51-bundle_prestige_7": {
+      "en": "Prestige Pack",
+      "es": "Paquete Prestigio",
+      "fr": "Pack Prestige",
+      "de": "Prestige-Paket",
+      "pt": "Pacote Prestígio",
+      "it": "Pacchetto Prestigio",
+      "tr": "Prestij Paketi",
+      "nl": "Prestigepack"
+    },
+    "levelup-57-luckybox_legend_gold": {
+      "en": "Legendary Box Gold",
+      "es": "Caja Legendaria Oro",
+      "fr": "Boite Légendaire Or",
+      "de": "Legendäre Box, Gold",
+      "pt": "Caixa Lendária Ouro",
+      "it": "Scatola Leggendario Oro",
+      "tr": "Efsanevi Kutu Altın",
+      "nl": "Legendarische Gouden Doos"
+    },
+    "levelup-57-luckybox_legend_gold_duo": {
+      "en": "Gold Legendary Box x2",
+      "es": "Caja Legendaria Oro x2",
+      "fr": "Duo de Boites Légendaires Or",
+      "de": "Legendäre Gold-Box x2",
+      "pt": "Caixa Lendária x2",
+      "it": "Scatola Leggendario Oro x2",
+      "tr": "Altın Efsanevi Kutu x2",
+      "nl": "Gouden Legendarische Doos x2"
+    },
+    "levelup-78-starter_pack_v7": {
+      "en": "Eva's Offer",
+      "es": "Oferta de Eva",
+      "fr": "Offre d'Eva",
+      "de": "Evas Angebot",
+      "pt": "Oferta da Eva",
+      "it": "Offerta di Eva",
+      "tr": "Eva'nın Fırsatı",
+      "nl": "Eva's aanbieding"
+    },
+    "levelup-78-medium_pack_7": {
+      "en": "Spoils of Azog",
+      "es": "Botín de Azog",
+      "fr": "Le Butin d'Azog",
+      "de": "Azogs Beute",
+      "pt": "Os despojos de Azog",
+      "it": "Bottino di Azog",
+      "tr": "Azog Çürükleri",
+      "nl": "De Buit van Azog"
+    },
+    "levelup-85-bundle_mutants_shield_pack": {
+      "en": "Shield Pack",
+      "es": "Paquete Escudo",
+      "fr": "Pack Bouclier",
+      "de": "Schutzschild-Paket",
+      "pt": "Pacote Escudo",
+      "it": "Pacchetto Scudo",
+      "tr": "Kalkan Paketi",
+      "nl": "Schild-Pack"
+    },
+    "levelup-85-bundle_mutants_retaliate_pack": {
+      "en": "Retaliate Pack",
+      "es": "Paquete Respuesta",
+      "fr": "Pack Riposte",
+      "de": "Gegenschlag-Paket",
+      "pt": "Pacote Riposta",
+      "it": "Pacchetto Contrattacca",
+      "tr": "Misilleme Paketi",
+      "nl": "Pack Terugslaan"
+    },
+    "levelup-98-bundle_bank_ac_05_19_99": {
+      "en": "VIP Offer",
+      "es": "Oferta Única",
+      "fr": "Offre VIP",
+      "de": "Einzigartigen Angebot",
+      "pt": "Oferta Única",
+      "it": "Offerta Unica",
+      "tr": "BENZERSİZ FIRSAT",
+      "nl": "Unieke Aanbod"
+    },
+    "levelup-98-bundle_bank_ac_05_49_99": {
+      "en": "VIP Veteran Offer",
+      "es": "Oferta Única",
+      "fr": "Offre VIP Vétéran",
+      "de": "Einzigartigen Angebot",
+      "pt": "Oferta Única",
+      "it": "Offerta Unica",
+      "tr": "BENZERSİZ FIRSAT",
+      "nl": "Unieke Aanbod"
+    },
+    "levelup-98-bundle_bank_ac_05_99_99": {
+      "en": "VIP Prestige Offer",
+      "es": "Oferta Única",
+      "fr": "Offre VIP Prestige",
+      "de": "Einzigartigen Angebot",
+      "pt": "Oferta Única",
+      "it": "Offerta Unica",
+      "tr": "BENZERSİZ FIRSAT",
+      "nl": "Unieke Aanbod"
+    },
+    "levelup-105-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-105-specimen_aa_03_sc": {
+      "en": "H.U.M.A.N.",
+      "es": "H.U.M.A.N.",
+      "fr": "H.U.M.A.N.",
+      "de": "H.U.M.A.N.",
+      "pt": "H.U.M.A.N.",
+      "it": "H.U.M.A.N.",
+      "tr": "H.U.M.A.N.",
+      "nl": "H.U.M.A.N."
+    },
+    "levelup-110-bundle_challenge_1999": {
+      "en": "Challenge Pack",
+      "es": "Paquete Reto",
+      "fr": "Pack Challenge",
+      "de": "Challenge-Paket",
+      "pt": "Pacote Challenge",
+      "it": "Pacchetto Sfida",
+      "tr": "Meydan Okuma Paketi",
+      "nl": "Challengepack"
+    },
+    "levelup-121-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-139-bundle_rookie_7": {
+      "en": "Rookie Pack",
+      "es": "Paquete Novato",
+      "fr": "Pack Rookie",
+      "de": "Anfänger-Paket",
+      "pt": "Pacote Iniciante",
+      "it": "Pacchetto Principiante",
+      "tr": "Çaylak Paketi",
+      "nl": "Rookiepack"
+    },
+    "levelup-139-bundle_veteran_7": {
+      "en": "Veteran Pack",
+      "es": "Paquete Veterano",
+      "fr": "Pack Vétéran",
+      "de": "Veteran-Paket",
+      "pt": "Pacote Veterano",
+      "it": "Pacchetto Veterano",
+      "tr": "Kıdemli Paketi",
+      "nl": "Veteranenpack"
+    },
+    "levelup-151-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-178-luckybox_legend_gold": {
+      "en": "Legendary Box Gold",
+      "es": "Caja Legendaria Oro",
+      "fr": "Boite Légendaire Or",
+      "de": "Legendäre Box, Gold",
+      "pt": "Caixa Lendária Ouro",
+      "it": "Scatola Leggendario Oro",
+      "tr": "Efsanevi Kutu Altın",
+      "nl": "Legendarische Gouden Doos"
+    },
+    "levelup-178-luckybox_legend_gold_duo": {
+      "en": "Gold Legendary Box x2",
+      "es": "Caja Legendaria Oro x2",
+      "fr": "Duo de Boites Légendaires Or",
+      "de": "Legendäre Gold-Box x2",
+      "pt": "Caixa Lendária x2",
+      "it": "Scatola Leggendario Oro x2",
+      "tr": "Altın Efsanevi Kutu x2",
+      "nl": "Gouden Legendarische Doos x2"
+    },
+    "levelup-189-bundle_mutants_fast_gold": {
+      "en": "Gold Lightning Pack",
+      "es": "Paquete Vertiginoso Oro",
+      "fr": "Pack Vitesse Éclair Or",
+      "de": "Hochgeschwindigkeits-Paket, Gold",
+      "pt": "Pacote Velocidade Relâmpago Ouro",
+      "it": "Pacchetto Fulmineo Oro",
+      "tr": "Altın Yıldırım Paketi",
+      "nl": "Gouden Bliksemflits-pack"
+    },
+    "levelup-189-bundle_mutants_tank_gold": {
+      "en": "Gold Tank Pack",
+      "es": "Paquete Acorazado Oro",
+      "fr": "Pack Tank Or",
+      "de": "Tank-Paket, Gold",
+      "pt": "Pacote Tank Ouro",
+      "it": "Pacchetto Tank Oro",
+      "tr": "Altın Tank Paketi",
+      "nl": "Gouden Tank Pack"
+    },
+    "levelup-200-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-211-bundle_challenge_1999": {
+      "en": "Challenge Pack",
+      "es": "Paquete Reto",
+      "fr": "Pack Challenge",
+      "de": "Challenge-Paket",
+      "pt": "Pacote Challenge",
+      "it": "Pacchetto Sfida",
+      "tr": "Meydan Okuma Paketi",
+      "nl": "Challengepack"
+    },
+    "levelup-232-luckybox_legend_gold": {
+      "en": "Legendary Box Gold",
+      "es": "Caja Legendaria Oro",
+      "fr": "Boite Légendaire Or",
+      "de": "Legendäre Box, Gold",
+      "pt": "Caixa Lendária Ouro",
+      "it": "Scatola Leggendario Oro",
+      "tr": "Efsanevi Kutu Altın",
+      "nl": "Legendarische Gouden Doos"
+    },
+    "levelup-232-luckybox_legend_gold_duo": {
+      "en": "Gold Legendary Box x2",
+      "es": "Caja Legendaria Oro x2",
+      "fr": "Duo de Boites Légendaires Or",
+      "de": "Legendäre Gold-Box x2",
+      "pt": "Caixa Lendária x2",
+      "it": "Scatola Leggendario Oro x2",
+      "tr": "Altın Efsanevi Kutu x2",
+      "nl": "Gouden Legendarische Doos x2"
+    },
+    "levelup-243-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-251-bundle_rookie_4": {
+      "en": "Rookie Pack",
+      "es": "Paquete Novato",
+      "fr": "Pack Rookie",
+      "de": "Anfänger-Paket",
+      "pt": "Pacote Iniciante",
+      "it": "Pacchetto Principiante",
+      "tr": "Çaylak Paketi",
+      "nl": "Rookiepack"
+    },
+    "levelup-251-bundle_veteran_4": {
+      "en": "Veteran Pack",
+      "es": "Paquete Veterano",
+      "fr": "Pack Vétéran",
+      "de": "Veteran-Paket",
+      "pt": "Pacote Veterano",
+      "it": "Pacchetto Veterano",
+      "tr": "Kıdemli Paketi",
+      "nl": "Veteranenpack"
+    },
+    "levelup-251-prestige_pack_v8": {
+      "en": "Exclusive Pack",
+      "es": "Paquete Exclusivo",
+      "fr": "Pack Exclusif",
+      "de": "Exklusiv-Paket",
+      "pt": "Pacote Exclusivo",
+      "it": "Pacchetto esclusivo",
+      "tr": "Ayrıcalıklı Paketi",
+      "nl": "Exclusief Pack"
+    },
+    "levelup-262-luckybox_tank": {
+      "en": "Tank Mutants Box",
+      "es": "Cofre de Mutantes Acorazados",
+      "fr": "Coffre aux Mutants Tank",
+      "de": "Tank Mutanten-Box",
+      "pt": "Cofre de Mutantes Tank",
+      "it": "Scatola Mutanti Tank",
+      "tr": "Tank Mutantlar Kutusu",
+      "nl": "Tank Mutanten Doos"
+    },
+    "levelup-262-luckybox_speed": {
+      "en": "Very Fast Mutants Box",
+      "es": "Cofre de Mutantes Muy Rápidos",
+      "fr": "Coffre aux Mutants Très Rapide",
+      "de": "Speed Mutanten-Box",
+      "pt": "Cofre de Mutantes Velozes",
+      "it": "Scatola Mutanti Molto Veloci",
+      "tr": "Yıldırım Mutantlar Kutusu",
+      "nl": "Snelle Mutanten Doos"
+    },
+    "levelup-281-luckybox_galactic": {
+      "en": "Galactic Box",
+      "es": "Caja Galáctica",
+      "fr": "Boîte Galactique",
+      "de": "Galactic Box",
+      "pt": "Caixa Galáctico",
+      "it": "Scatola Galattica",
+      "tr": "Galaktik Kutu",
+      "nl": "Galactische Doos"
+    },
+    "levelup-281-luckybox_mythic": {
+      "en": "Mythic Box",
+      "es": "Caja Mítico",
+      "fr": "Boîte Mythique",
+      "de": "Mythic-Box",
+      "pt": "Caixa Mítico",
+      "it": "Scatola Mitico",
+      "tr": "Mitik Kutusu",
+      "nl": "Mythischbox"
+    },
+    "levelup-295-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-295-bundle_casino_6": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-300-bundle_mutants_forcesofevil": {
+      "en": "Pack Forces of Evil",
+      "es": "Paquete Fuerzas del Mal",
+      "fr": "Pack Forces du Mal",
+      "de": "Paket Kräfte des Bösen",
+      "pt": "Pacote Forças do Mal",
+      "it": "Pacchetto Forze del Male",
+      "tr": "İblis Kuvvetleri Paketi",
+      "nl": "Pack Krachten van het Kwaad"
+    },
+    "levelup-309-specimen_dc_06_gold": {
+      "en": "Gold Grannyvore",
+      "es": "Comeabuelas Oro",
+      "fr": "Grannyvore Or",
+      "de": "Grannyvore, Gold",
+      "pt": "Grannyvore Ouro",
+      "it": "Grannyvore Oro",
+      "tr": "Altın Grannyvore",
+      "nl": "Gouden Grannyvore"
+    },
+    "levelup-318-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-318-bundle_casino_6": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-329-bundle_mutants_forcesofgood": {
+      "en": "Pack Forces of Good",
+      "es": "Paquete Fuerzas del Bien",
+      "fr": "Pack Forces du Bien",
+      "de": "Paket Kräfte des Guten",
+      "pt": "Pacote Forças do Bem",
+      "it": "Pacchetto Forze del Bene",
+      "tr": "İyi Kuvvetler Paketi",
+      "nl": "Pack Krachten van het Goede"
+    },
+    "levelup-350-bundle_bank_ca_04": {
+      "en": "X27 Pack",
+      "es": "Paquete X27",
+      "fr": "Pack X27",
+      "de": "Paket X27",
+      "pt": "Pacote X27",
+      "it": "Pacchetto X27",
+      "tr": "X27 Paketi",
+      "nl": "X27 Pack"
+    },
+    "levelup-361-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-361-bundle_casino_6": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-370-bundle_mechanics_pack": {
+      "en": "Mechanics pack",
+      "es": "Paquete Mecánica",
+      "fr": "Pack Mechanics",
+      "de": "Paket Mechanische Roboter",
+      "pt": "Pacote Mecânicos",
+      "it": "Pacchetto Mechanics",
+      "tr": "Tamirci paketi",
+      "nl": "Mechanica-pack"
+    },
+    "levelup-388-luckybox_tank": {
+      "en": "Tank Mutants Box",
+      "es": "Cofre de Mutantes Acorazados",
+      "fr": "Coffre aux Mutants Tank",
+      "de": "Tank Mutanten-Box",
+      "pt": "Cofre de Mutantes Tank",
+      "it": "Scatola Mutanti Tank",
+      "tr": "Tank Mutantlar Kutusu",
+      "nl": "Tank Mutanten Doos"
+    },
+    "levelup-388-luckybox_speed": {
+      "en": "Very Fast Mutants Box",
+      "es": "Cofre de Mutantes Muy Rápidos",
+      "fr": "Coffre aux Mutants Très Rapide",
+      "de": "Speed Mutanten-Box",
+      "pt": "Cofre de Mutantes Velozes",
+      "it": "Scatola Mutanti Molto Veloci",
+      "tr": "Yıldırım Mutantlar Kutusu",
+      "nl": "Snelle Mutanten Doos"
+    },
+    "levelup-390-bundle_casino_1": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-390-bundle_casino_6": {
+      "en": "Casino Pack",
+      "es": "Paquete Casino",
+      "fr": "Pack Casino",
+      "de": "Casino-Paket",
+      "pt": "Pacote Casino",
+      "it": "Pacchetto Casinò",
+      "tr": "Kumarhane Paketi",
+      "nl": "Casinopack"
+    },
+    "levelup-400-bundle_mutants_curse_pack": {
+      "en": "Curse Pack",
+      "es": "Paquete Debilitamiento",
+      "fr": "Pack Faiblesse",
+      "de": "Fluch-Paket",
+      "pt": "Pacote Maldição",
+      "it": "Pacchetto Maledizione",
+      "tr": "Lanet Paketi",
+      "nl": "Vloekenpack"
     }
   }
 }

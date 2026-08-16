@@ -22,6 +22,7 @@ interface ContentI18n {
   questTitles: Record<string, Partial<Record<Locale, string>>>
   questCaptionTemplates: Record<string, Partial<Record<Locale, string>>>
   dungeonNames: Record<string, Partial<Record<Locale, string>>>
+  specialOfferNames: Record<string, Partial<Record<Locale, string>>>
 }
 
 const data = contentI18n as ContentI18n
@@ -60,6 +61,13 @@ export function getLocationText(
 export function getDungeonName(dungeonId: string, locale: Locale, fallback: string): string {
   if (locale === 'ru') return fallback
   return data.dungeonNames[dungeonId]?.[locale] ?? fallback
+}
+
+// Официальные игровые названия (localisation_{lang}.txt на CDN Kobojo),
+// не куратор-текст - извлечены напрямую скриптом, не LLM.
+export function getSpecialOfferName(offerId: string, locale: Locale, fallback: string): string {
+  if (locale === 'ru') return fallback
+  return data.specialOfferNames[offerId]?.[locale] ?? fallback
 }
 
 export function getQuestText(
