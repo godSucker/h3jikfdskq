@@ -1,23 +1,28 @@
 {
   "en": {
     "Daily_Token": {
-      "name": "Magnetic Key"
+      "name": "Magnetic Key",
+      "description": "Removed item"
     },
     "Material_Jackpot_Token": {
-      "name": "Jackpot Token"
+      "name": "Jackpot Token",
+      "description": "Use this token in the Mutants Madness machine and try to win the Super Jackpot!"
     },
     "Material_Gacha_Token": {
-      "name": "Reactor Token"
+      "name": "Reactor Token",
+      "description": "Each token gives you a chance to win a unique mutant in the Mutant Generator."
     },
     "Material_Event_Token": {
-      "name": "Challenge Token"
+      "name": "Challenge Token",
+      "description": "Use this token in the Challenge Hall to win unique prizes!"
     },
     "Material_Halloween_Soul": {
       "name": "Lost Soul",
       "description": "A mutant soul. Can be traded with the Soul Merchant."
     },
     "Material_Love_Token": {
-      "name": "Love Token"
+      "name": "Love Token",
+      "description": "Love Token"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -48,112 +53,148 @@
       "description": "A \"gift\" left by Santagonist when defeated."
     },
     "Material_Plague_Token": {
-      "name": "Plague Token"
+      "name": "Plague Token",
+      "description": "Plague Token"
     },
     "Material_Toybox_Token": {
-      "name": "Toybox Token"
+      "name": "Toybox Token",
+      "description": "Toybox Token"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "7th Anniversary Token"
+      "name": "7th Anniversary Token",
+      "description": "A token celebrating the 7th anniversary of Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Easter Token (2021)"
+      "name": "Easter Token (2021)",
+      "description": "An Easter token"
     },
     "Material_Pyramid_Token": {
-      "name": "Pyramid Token"
+      "name": "Pyramid Token",
+      "description": "Pyramid Token"
     },
     "Material_Stygian_Token": {
-      "name": "Stygian token"
+      "name": "Stygian token",
+      "description": "Stygian token"
     },
     "Material_Rime_Token": {
-      "name": "Rime Token"
+      "name": "Rime Token",
+      "description": "Rime Token"
     },
     "Material_Valentines22_Token": {
-      "name": "Heart Token"
+      "name": "Heart Token",
+      "description": "A Valentine's Day token"
     },
     "Material_Easter22_Token": {
-      "name": "Bunny Token"
+      "name": "Bunny Token",
+      "description": "An Easter token"
     },
     "Material_Data_Token": {
-      "name": "Data Token"
+      "name": "Data Token",
+      "description": "Data Token"
     },
     "Material_Grave_Token": {
-      "name": "Graveyard Token"
+      "name": "Graveyard Token",
+      "description": "Graveyard Token"
     },
     "Material_Snowstorm_Token": {
-      "name": "Snowstorm token"
+      "name": "Snowstorm token",
+      "description": "Snowstorm token"
     },
     "Material_Cherub_Token": {
-      "name": "Cherub Token"
+      "name": "Cherub Token",
+      "description": "Cherub Token"
     },
     "Material_Spelunking_Token": {
-      "name": "Spelunking Token"
+      "name": "Spelunking Token",
+      "description": "Spelunking Token"
     },
     "Material_Overlay_Token": {
-      "name": "Overlay token"
+      "name": "Overlay token",
+      "description": "Overlay token"
     },
     "Material_Trick_Token": {
-      "name": "Trick Token"
+      "name": "Trick Token",
+      "description": "Trick Token"
     },
     "Material_Capsule_Token": {
-      "name": "Capsule Token"
+      "name": "Capsule Token",
+      "description": "Capsule Token"
     },
     "Material_Cuteness_Token": {
-      "name": "Cuteness Token"
+      "name": "Cuteness Token",
+      "description": "Cuteness Token"
     },
     "Material_Moai_Token": {
-      "name": "Moai Token"
+      "name": "Moai Token",
+      "description": "Moai Token"
     },
     "Material_Conspiracy_Token": {
-      "name": "Conspiracy Token"
+      "name": "Conspiracy Token",
+      "description": "Conspiracy Token"
     },
     "Material_Crawling_Token": {
-      "name": "Crawling Token"
+      "name": "Crawling Token",
+      "description": "Crawling Token"
     },
     "Material_Xmas24_Token": {
-      "name": "Sunset Token"
+      "name": "Sunset Token",
+      "description": "Sunset Token"
     },
     "Material_Runic_Token": {
-      "name": "Runic Token"
+      "name": "Runic Token",
+      "description": "Runic Token"
     },
     "Material_BUN_Token": {
-      "name": "B.U.N. Token"
+      "name": "B.U.N. Token",
+      "description": "B.U.N. Token"
     },
     "Material_Masks_Token": {
-      "name": "Turmoil Token"
+      "name": "Turmoil Token",
+      "description": "Turmoil Token"
     },
     "Material_Mystery25_Token": {
-      "name": "Mystery Token 2025"
+      "name": "Mystery Token 2025",
+      "description": "Mystery Token 2025"
     },
     "Material_Signal_Token": {
-      "name": "Signal Token"
+      "name": "Signal Token",
+      "description": "Signal Token"
     },
     "Material_Xmas25_Token": {
-      "name": "Constellation Token"
+      "name": "Constellation Token",
+      "description": "Constellation Token"
     },
     "Material_Valentines26_Token": {
-      "name": "Pixel Heart Token"
+      "name": "Pixel Heart Token",
+      "description": "Pixel Heart Token"
     },
     "Material_Easter26_Token": {
-      "name": "Chocolate Token"
+      "name": "Chocolate Token",
+      "description": "Chocolate Token"
     },
     "Material_Mystery26_Token": {
-      "name": "Mystery Token 2026"
+      "name": "Mystery Token 2026",
+      "description": "Mystery Token 2026"
     },
     "Material_Easter_Token": {
-      "name": "Easter Token"
+      "name": "Easter Token",
+      "description": "An Easter token"
     },
     "Material_Weirdtech_Token": {
-      "name": "FutureTech Token"
+      "name": "FutureTech Token",
+      "description": "A spelunking token"
     },
     "Material_Preorder_Token": {
-      "name": "Sergeant Dusk Token"
+      "name": "Sergeant Dusk Token",
+      "description": "Sergeant Dusk Token"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Gold Mad Mike Token"
+      "name": "Gold Mad Mike Token",
+      "description": "Gold Mad Mike Token"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Mutants: The Card Game Drei Token"
+      "name": "Mutants: The Card Game Drei Token",
+      "description": "A reward for backers of the Mutants: The Card Game (2019) crowdfunding campaign, exchanged for the mutant \"Drei, Space Corgi\""
     },
     "Material_Banshee_Veil": {
       "name": "Fragment of the Veil",
@@ -164,80 +205,104 @@
       "description": "Snowball"
     },
     "Material_Mutenstein_Token": {
-      "name": "Mutenstein Token"
+      "name": "Mutenstein Token",
+      "description": "Mutenstein Token"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Bronze Egg"
+      "name": "Bronze Egg",
+      "description": "What's inside?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Silver Egg"
+      "name": "Silver Egg",
+      "description": "What's inside?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Basic Egg"
+      "name": "Basic Egg",
+      "description": "What's inside?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Gold Egg"
+      "name": "Gold Egg",
+      "description": "What's inside?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Platinum Egg"
+      "name": "Platinum Egg",
+      "description": "What's inside?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "A legendary sword. It might be a good idea to bring it back to its rightful owner."
     },
     "Material_Hexcity_Token": {
-      "name": "Hexaspell token"
+      "name": "Hexaspell token",
+      "description": "A Hex City event token"
     },
     "Star_Bronze": {
-      "name": "Bronze Star"
+      "name": "Bronze Star",
+      "description": "Use it when breeding 2 level 10 creatures to get a bronze mutant (10% stronger)."
     },
     "Star_Silver": {
-      "name": "Silver Star"
+      "name": "Silver Star",
+      "description": "Use it when breeding 2 level 15 creatures to get a silver mutant (30% stronger)."
     },
     "Star_Gold": {
-      "name": "Gold Star"
+      "name": "Gold Star",
+      "description": "Use it when breeding 2 level 20 creatures to get a gold mutant (75% stronger)."
     },
     "Star_Platinum": {
-      "name": "Platinum Star"
+      "name": "Platinum Star",
+      "description": "Breed two identical gold mutants of level 30+ using this star to get a platinum mutant (100% stronger). Note: mutants from the Reactor collection cannot be used for merging."
     },
     "Material_LP10": {
-      "name": "Small Med Pack"
+      "name": "Small Med Pack",
+      "description": "Restores 1% health."
     },
     "Material_LP100": {
-      "name": "Med Pack"
+      "name": "Med Pack",
+      "description": "Restores 10% health."
     },
     "Material_LP1000": {
-      "name": "Big Med Pack"
+      "name": "Big Med Pack",
+      "description": "Restores 25% health."
     },
     "Material_Muto1": {
-      "name": "Small shot of Mutosterone"
+      "name": "Small shot of Mutosterone",
+      "description": "The creature gains 1% mutosterone."
     },
     "Material_Muto10": {
-      "name": "Shot of Mutosterone"
+      "name": "Shot of Mutosterone",
+      "description": "The creature gains 10% mutosterone."
     },
     "Material_Muto50": {
-      "name": "Big shot of Mutosterone"
+      "name": "Big shot of Mutosterone",
+      "description": "The creature gains 50% mutosterone."
     },
     "Material_Energy1": {
-      "name": "Campaign Pass"
+      "name": "Campaign Pass",
+      "description": "1 pass."
     },
     "Material_Energy5": {
-      "name": "Campaign Passes x5"
+      "name": "Campaign Passes x5",
+      "description": "5 passes."
     },
     "Material_Energy25": {
-      "name": "Campaign Passes x25"
+      "name": "Campaign Passes x25",
+      "description": "25 passes."
     },
     "Material_XP10": {
-      "name": "Experience Bar"
+      "name": "Experience Bar",
+      "description": "The creature gains 10 experience points."
     },
     "Material_XP250": {
-      "name": "Experience Drink"
+      "name": "Experience Drink",
+      "description": "The creature gains 250 experience points."
     },
     "Material_XP1000": {
-      "name": "Experience Jar"
+      "name": "Experience Jar",
+      "description": "The creature gains 1000 experience points."
     },
     "Material_EnergyMax10": {
-      "name": "Max Passes +10"
+      "name": "Max Passes +10",
+      "description": "Permanently increases the maximum number of energy passes by 10."
     },
     "Charm_Critical_1": {
       "name": "Critical Strikes",
@@ -938,27 +1003,67 @@
     "orb_basic_xp_06": {
       "name": "XP +300%",
       "description": "Increases the experience acquired by a mutant during a battle (+300%)"
+    },
+    "Building_Forge": {
+      "name": "Gold Forge"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Gold Furnace"
+    },
+    "Building_Med_Lab": {
+      "name": "Med Lab"
+    },
+    "Building_Evo_Center": {
+      "name": "Evolution Center"
+    },
+    "Building_Exchange": {
+      "name": "Exchange office"
+    },
+    "Building_Incubator": {
+      "name": "Incubator"
+    },
+    "Building_Trial_Hall": {
+      "name": "Challenge Hall"
+    },
+    "Building_Mystery": {
+      "name": "Mysteries Analyzer"
+    },
+    "Building_Breeding_Center": {
+      "name": "Breeding Center"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Nightmare Token",
+      "description": "A Halloween token"
+    },
+    "Material_XP10000": {
+      "name": "Jar of Spirit",
+      "description": "The creature gains 10000 experience points. An item not added to the game."
     }
   },
   "es": {
     "Daily_Token": {
-      "name": "Pase Magnético"
+      "name": "Pase Magnético",
+      "description": "Objeto eliminado"
     },
     "Material_Jackpot_Token": {
-      "name": "Ficha Jackpot"
+      "name": "Ficha Jackpot",
+      "description": "¡Usa esta ficha en la máquina Mutants Madness e intenta ganar el Superjackpot!"
     },
     "Material_Gacha_Token": {
-      "name": "Ficha Reactor"
+      "name": "Ficha Reactor",
+      "description": "Cada ficha te da la oportunidad de ganar un mutante único en el Generador de mutantes."
     },
     "Material_Event_Token": {
-      "name": "Ficha Reto"
+      "name": "Ficha Reto",
+      "description": "¡Usa esta ficha en la Sala Reto para ganar premios únicos!"
     },
     "Material_Halloween_Soul": {
       "name": "Alma Perdida",
       "description": "Un alma de mutante. Canjeable con el Mercader de Almas."
     },
     "Material_Love_Token": {
-      "name": "Ficha Corazón"
+      "name": "Ficha Corazón",
+      "description": "Ficha Corazón"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -989,112 +1094,148 @@
       "description": "Un «regalo» que dejó Santagonista cuando fue derrotado."
     },
     "Material_Plague_Token": {
-      "name": "Ficha Peste"
+      "name": "Ficha Peste",
+      "description": "Ficha Peste"
     },
     "Material_Toybox_Token": {
-      "name": "Ficha Baúl de Juguetes"
+      "name": "Ficha Baúl de Juguetes",
+      "description": "Ficha Baúl de Juguetes"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Ficha 7º aniversario"
+      "name": "Ficha 7º aniversario",
+      "description": "Una ficha para celebrar el 7.º aniversario de Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Ficha Pascua (2021)"
+      "name": "Ficha Pascua (2021)",
+      "description": "Una ficha de Pascua"
     },
     "Material_Pyramid_Token": {
-      "name": "Ficha Piramidal"
+      "name": "Ficha Piramidal",
+      "description": "Ficha Piramidal"
     },
     "Material_Stygian_Token": {
-      "name": "Ficha Estigia"
+      "name": "Ficha Estigia",
+      "description": "Ficha Estigia"
     },
     "Material_Rime_Token": {
-      "name": "Ficha Escarcha"
+      "name": "Ficha Escarcha",
+      "description": "Ficha Escarcha"
     },
     "Material_Valentines22_Token": {
-      "name": "Ficha Corazón"
+      "name": "Ficha Corazón",
+      "description": "Una ficha de San Valentín"
     },
     "Material_Easter22_Token": {
-      "name": "Ficha Conejo"
+      "name": "Ficha Conejo",
+      "description": "Una ficha de Pascua"
     },
     "Material_Data_Token": {
-      "name": "Ficha Digital"
+      "name": "Ficha Digital",
+      "description": "Ficha Digital"
     },
     "Material_Grave_Token": {
-      "name": "Ficha Tumbal"
+      "name": "Ficha Tumbal",
+      "description": "Ficha Tumbal"
     },
     "Material_Snowstorm_Token": {
-      "name": "Ficha Ventisca"
+      "name": "Ficha Ventisca",
+      "description": "Ficha Ventisca"
     },
     "Material_Cherub_Token": {
-      "name": "Ficha Querubín"
+      "name": "Ficha Querubín",
+      "description": "Ficha Querubín"
     },
     "Material_Spelunking_Token": {
-      "name": "Ficha Espeleología"
+      "name": "Ficha Espeleología",
+      "description": "Ficha Espeleología"
     },
     "Material_Overlay_Token": {
-      "name": "Ficha Superposición"
+      "name": "Ficha Superposición",
+      "description": "Ficha Superposición"
     },
     "Material_Trick_Token": {
-      "name": "Ficha Truco"
+      "name": "Ficha Truco",
+      "description": "Ficha Truco"
     },
     "Material_Capsule_Token": {
-      "name": "Ficha Cápsula"
+      "name": "Ficha Cápsula",
+      "description": "Ficha Cápsula"
     },
     "Material_Cuteness_Token": {
-      "name": "Ficha Monada"
+      "name": "Ficha Monada",
+      "description": "Ficha Monada"
     },
     "Material_Moai_Token": {
-      "name": "Ficha Moai"
+      "name": "Ficha Moai",
+      "description": "Ficha Moai"
     },
     "Material_Conspiracy_Token": {
-      "name": "Ficha Conspiración"
+      "name": "Ficha Conspiración",
+      "description": "Ficha Conspiración"
     },
     "Material_Crawling_Token": {
-      "name": "Ficha de rastreo"
+      "name": "Ficha de rastreo",
+      "description": "Ficha de rastreo"
     },
     "Material_Xmas24_Token": {
-      "name": "Ficha Puesta de sol"
+      "name": "Ficha Puesta de sol",
+      "description": "Ficha Puesta de sol"
     },
     "Material_Runic_Token": {
-      "name": "Ficha rúnica"
+      "name": "Ficha rúnica",
+      "description": "Ficha rúnica"
     },
     "Material_BUN_Token": {
-      "name": "Ficha B.U.N."
+      "name": "Ficha B.U.N.",
+      "description": "Ficha B.U.N."
     },
     "Material_Masks_Token": {
-      "name": "Ficha de agitación"
+      "name": "Ficha de agitación",
+      "description": "Ficha de agitación"
     },
     "Material_Mystery25_Token": {
-      "name": "Ficha Misterio 2025"
+      "name": "Ficha Misterio 2025",
+      "description": "Ficha Misterio 2025"
     },
     "Material_Signal_Token": {
-      "name": "Ficha Señal"
+      "name": "Ficha Señal",
+      "description": "Ficha Señal"
     },
     "Material_Xmas25_Token": {
-      "name": "Ficha Constelación"
+      "name": "Ficha Constelación",
+      "description": "Ficha Constelación"
     },
     "Material_Valentines26_Token": {
-      "name": "Ficha Corazón de píxel"
+      "name": "Ficha Corazón de píxel",
+      "description": "Ficha Corazón de píxel"
     },
     "Material_Easter26_Token": {
-      "name": "Ficha Chocolate"
+      "name": "Ficha Chocolate",
+      "description": "Ficha Chocolate"
     },
     "Material_Mystery26_Token": {
-      "name": "Ficha Misterio 2026"
+      "name": "Ficha Misterio 2026",
+      "description": "Ficha Misterio 2026"
     },
     "Material_Easter_Token": {
-      "name": "Ficha Pascua"
+      "name": "Ficha Pascua",
+      "description": "Una ficha de Pascua"
     },
     "Material_Weirdtech_Token": {
-      "name": "Ficha FutureTech"
+      "name": "Ficha FutureTech",
+      "description": "Una ficha de espeleología"
     },
     "Material_Preorder_Token": {
-      "name": "Ficha Sargento Dusk"
+      "name": "Ficha Sargento Dusk",
+      "description": "Ficha Sargento Dusk"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Ficha Mad Mike Oro"
+      "name": "Ficha Mad Mike Oro",
+      "description": "Ficha Mad Mike Oro"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Ficha Drei Mutants: El Juego de Cartas"
+      "name": "Ficha Drei Mutants: El Juego de Cartas",
+      "description": "Recompensa para los patrocinadores de la campaña de micromecenazgo de Mutants: The Card Game (2019), canjeable por el mutante \"Drei, Space Corgi\""
     },
     "Material_Banshee_Veil": {
       "name": "Fragmento de Velo",
@@ -1105,80 +1246,104 @@
       "description": "Bola de nieve"
     },
     "Material_Mutenstein_Token": {
-      "name": "Ficha Mutenstein"
+      "name": "Ficha Mutenstein",
+      "description": "Ficha Mutenstein"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Huevo de Bronce"
+      "name": "Huevo de Bronce",
+      "description": "¿Qué habrá dentro?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Huevo de Plata"
+      "name": "Huevo de Plata",
+      "description": "¿Qué habrá dentro?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Huevo Básico"
+      "name": "Huevo Básico",
+      "description": "¿Qué habrá dentro?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Huevo de Oro"
+      "name": "Huevo de Oro",
+      "description": "¿Qué habrá dentro?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Huevo de Platino"
+      "name": "Huevo de Platino",
+      "description": "¿Qué habrá dentro?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Una espada legendaria. Tal vez no estaría mal devolvérsela a su legítimo dueño."
     },
     "Material_Hexcity_Token": {
-      "name": "Ficha Hexáhechizo"
+      "name": "Ficha Hexáhechizo",
+      "description": "Una ficha del evento Hex City"
     },
     "Star_Bronze": {
-      "name": "Estrella Bronce"
+      "name": "Estrella Bronce",
+      "description": "Úsala al cruzar 2 criaturas de nivel 10 para obtener un mutante de bronce (10% más fuerte)."
     },
     "Star_Silver": {
-      "name": "Estrella Plata"
+      "name": "Estrella Plata",
+      "description": "Úsala al cruzar 2 criaturas de nivel 15 para obtener un mutante de plata (30% más fuerte)."
     },
     "Star_Gold": {
-      "name": "Estrella Oro"
+      "name": "Estrella Oro",
+      "description": "Úsala al cruzar 2 criaturas de nivel 20 para obtener un mutante de oro (75% más fuerte)."
     },
     "Star_Platinum": {
-      "name": "Estrella Platino"
+      "name": "Estrella Platino",
+      "description": "Cruza dos mutantes de oro idénticos de nivel 30+ usando esta estrella para obtener un mutante de platino (100% más fuerte). Nota: los mutantes de la colección Reactor no se pueden usar para fusionar."
     },
     "Material_LP10": {
-      "name": "Medikit pequeño"
+      "name": "Medikit pequeño",
+      "description": "Restaura el 1% de la salud."
     },
     "Material_LP100": {
-      "name": "Medikit"
+      "name": "Medikit",
+      "description": "Restaura el 10% de la salud."
     },
     "Material_LP1000": {
-      "name": "Medikit grande"
+      "name": "Medikit grande",
+      "description": "Restaura el 25% de la salud."
     },
     "Material_Muto1": {
-      "name": "Dosis de Mutosterona pequeña"
+      "name": "Dosis de Mutosterona pequeña",
+      "description": "La criatura gana 1% de mutosterona."
     },
     "Material_Muto10": {
-      "name": "Dosis de Mutosterona"
+      "name": "Dosis de Mutosterona",
+      "description": "La criatura gana 10% de mutosterona."
     },
     "Material_Muto50": {
-      "name": "Dosis de Mutosterona grande"
+      "name": "Dosis de Mutosterona grande",
+      "description": "La criatura gana 50% de mutosterona."
     },
     "Material_Energy1": {
-      "name": "Ticket"
+      "name": "Ticket",
+      "description": "1 pase."
     },
     "Material_Energy5": {
-      "name": "Tickets x5"
+      "name": "Tickets x5",
+      "description": "5 pases."
     },
     "Material_Energy25": {
-      "name": "Tickets x25"
+      "name": "Tickets x25",
+      "description": "25 pases."
     },
     "Material_XP10": {
-      "name": "Barra de Experiencia"
+      "name": "Barra de Experiencia",
+      "description": "La criatura gana 10 puntos de experiencia."
     },
     "Material_XP250": {
-      "name": "Bebida de Experiencia"
+      "name": "Bebida de Experiencia",
+      "description": "La criatura gana 250 puntos de experiencia."
     },
     "Material_XP1000": {
-      "name": "Tarro de Experiencia"
+      "name": "Tarro de Experiencia",
+      "description": "La criatura gana 1000 puntos de experiencia."
     },
     "Material_EnergyMax10": {
-      "name": "Máx. Tickets +10"
+      "name": "Máx. Tickets +10",
+      "description": "Aumenta permanentemente el número máximo de pases de energía en 10."
     },
     "Charm_Critical_1": {
       "name": "Ataques Críticos",
@@ -1879,27 +2044,67 @@
     "orb_basic_xp_06": {
       "name": "Experiencia +300 %",
       "description": "Aumenta la experiencia adquirida por un mutante durante un combate (+300 %)"
+    },
+    "Building_Forge": {
+      "name": "Forja de Oro"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Horno de Oro"
+    },
+    "Building_Med_Lab": {
+      "name": "Laboratorio Médico"
+    },
+    "Building_Evo_Center": {
+      "name": "Centro de Evolución"
+    },
+    "Building_Exchange": {
+      "name": "Oficina de cambio"
+    },
+    "Building_Incubator": {
+      "name": "Incubadora"
+    },
+    "Building_Trial_Hall": {
+      "name": "Sala Reto"
+    },
+    "Building_Mystery": {
+      "name": "Analizador de Misterios"
+    },
+    "Building_Breeding_Center": {
+      "name": "Hibridador"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Ficha de la Pesadilla",
+      "description": "Una ficha de Halloween"
+    },
+    "Material_XP10000": {
+      "name": "Frasco de Alcohol",
+      "description": "La criatura gana 10000 puntos de experiencia. Un objeto no añadido al juego."
     }
   },
   "fr": {
     "Daily_Token": {
-      "name": "Clé magnétique"
+      "name": "Clé magnétique",
+      "description": "Objet supprimé"
     },
     "Material_Jackpot_Token": {
-      "name": "Jeton Jackpot"
+      "name": "Jeton Jackpot",
+      "description": "Utilise ce jeton dans la machine Mutants Madness et tente de remporter le Super Jackpot !"
     },
     "Material_Gacha_Token": {
-      "name": "Jeton Réacteur"
+      "name": "Jeton Réacteur",
+      "description": "Chaque jeton te donne une chance de remporter un mutant unique dans le Générateur de mutants."
     },
     "Material_Event_Token": {
-      "name": "Jeton Challenge"
+      "name": "Jeton Challenge",
+      "description": "Utilise ce jeton dans le Challenge Hall pour remporter des prix uniques !"
     },
     "Material_Halloween_Soul": {
       "name": "Âme perdue",
       "description": "Une âme de mutant. À échanger auprès du Marchand d'âmes."
     },
     "Material_Love_Token": {
-      "name": "Jeton Cœur"
+      "name": "Jeton Cœur",
+      "description": "Jeton Cœur"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -1930,112 +2135,148 @@
       "description": "Un \"cadeau\" laissé par Santagoniste une fois vaincu."
     },
     "Material_Plague_Token": {
-      "name": "Jeton Peste"
+      "name": "Jeton Peste",
+      "description": "Jeton Peste"
     },
     "Material_Toybox_Token": {
-      "name": "Jeton Coffre à jouets"
+      "name": "Jeton Coffre à jouets",
+      "description": "Jeton Coffre à jouets"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Jeton 7e anniversaire"
+      "name": "Jeton 7e anniversaire",
+      "description": "Un jeton célébrant le 7e anniversaire de Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Jeton Pâques (2021)"
+      "name": "Jeton Pâques (2021)",
+      "description": "Un jeton de Pâques"
     },
     "Material_Pyramid_Token": {
-      "name": "Jeton Pyramidal"
+      "name": "Jeton Pyramidal",
+      "description": "Jeton Pyramidal"
     },
     "Material_Stygian_Token": {
-      "name": "Jeton stygien"
+      "name": "Jeton stygien",
+      "description": "Jeton stygien"
     },
     "Material_Rime_Token": {
-      "name": "Jeton Givre"
+      "name": "Jeton Givre",
+      "description": "Jeton Givre"
     },
     "Material_Valentines22_Token": {
-      "name": "Jeton Cœur"
+      "name": "Jeton Cœur",
+      "description": "Un jeton de la Saint-Valentin"
     },
     "Material_Easter22_Token": {
-      "name": "Jeton Lapin"
+      "name": "Jeton Lapin",
+      "description": "Un jeton de Pâques"
     },
     "Material_Data_Token": {
-      "name": "Jeton Numérique"
+      "name": "Jeton Numérique",
+      "description": "Jeton Numérique"
     },
     "Material_Grave_Token": {
-      "name": "Jeton Tombal"
+      "name": "Jeton Tombal",
+      "description": "Jeton Tombal"
     },
     "Material_Snowstorm_Token": {
-      "name": "Jeton Blizzard"
+      "name": "Jeton Blizzard",
+      "description": "Jeton Blizzard"
     },
     "Material_Cherub_Token": {
-      "name": "Jeton Chérubin"
+      "name": "Jeton Chérubin",
+      "description": "Jeton Chérubin"
     },
     "Material_Spelunking_Token": {
-      "name": "Jeton Spéléologie"
+      "name": "Jeton Spéléologie",
+      "description": "Jeton Spéléologie"
     },
     "Material_Overlay_Token": {
-      "name": "Jeton Superposé"
+      "name": "Jeton Superposé",
+      "description": "Jeton Superposé"
     },
     "Material_Trick_Token": {
-      "name": "Jeton Farce"
+      "name": "Jeton Farce",
+      "description": "Jeton Farce"
     },
     "Material_Capsule_Token": {
-      "name": "Jeton Capsule"
+      "name": "Jeton Capsule",
+      "description": "Jeton Capsule"
     },
     "Material_Cuteness_Token": {
-      "name": "Jeton Choupi"
+      "name": "Jeton Choupi",
+      "description": "Jeton Choupi"
     },
     "Material_Moai_Token": {
-      "name": "Jeton Moai"
+      "name": "Jeton Moai",
+      "description": "Jeton Moai"
     },
     "Material_Conspiracy_Token": {
-      "name": "Jeton Conspiration"
+      "name": "Jeton Conspiration",
+      "description": "Jeton Conspiration"
     },
     "Material_Crawling_Token": {
-      "name": "Jeton Grouillant"
+      "name": "Jeton Grouillant",
+      "description": "Jeton Grouillant"
     },
     "Material_Xmas24_Token": {
-      "name": "Jeton Couchant"
+      "name": "Jeton Couchant",
+      "description": "Jeton Couchant"
     },
     "Material_Runic_Token": {
-      "name": "Jeton Runique"
+      "name": "Jeton Runique",
+      "description": "Jeton Runique"
     },
     "Material_BUN_Token": {
-      "name": "Jeton B.U.N."
+      "name": "Jeton B.U.N.",
+      "description": "Jeton B.U.N."
     },
     "Material_Masks_Token": {
-      "name": "Jeton Tumulte"
+      "name": "Jeton Tumulte",
+      "description": "Jeton Tumulte"
     },
     "Material_Mystery25_Token": {
-      "name": "Jeton Mystère 2025"
+      "name": "Jeton Mystère 2025",
+      "description": "Jeton Mystère 2025"
     },
     "Material_Signal_Token": {
-      "name": "Jeton Mire"
+      "name": "Jeton Mire",
+      "description": "Jeton Mire"
     },
     "Material_Xmas25_Token": {
-      "name": "Jeton Constellation"
+      "name": "Jeton Constellation",
+      "description": "Jeton Constellation"
     },
     "Material_Valentines26_Token": {
-      "name": "Jeton Coeur de Pixel"
+      "name": "Jeton Coeur de Pixel",
+      "description": "Jeton Coeur de Pixel"
     },
     "Material_Easter26_Token": {
-      "name": "Jeton Chocolat"
+      "name": "Jeton Chocolat",
+      "description": "Jeton Chocolat"
     },
     "Material_Mystery26_Token": {
-      "name": "Jeton Mystère 2026"
+      "name": "Jeton Mystère 2026",
+      "description": "Jeton Mystère 2026"
     },
     "Material_Easter_Token": {
-      "name": "Jeton Pâques"
+      "name": "Jeton Pâques",
+      "description": "Un jeton de Pâques"
     },
     "Material_Weirdtech_Token": {
-      "name": "Jeton FutureTech"
+      "name": "Jeton FutureTech",
+      "description": "Un jeton de spéléologie"
     },
     "Material_Preorder_Token": {
-      "name": "Jeton Sergent Dusk"
+      "name": "Jeton Sergent Dusk",
+      "description": "Jeton Sergent Dusk"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Jeton Mad Mike Or"
+      "name": "Jeton Mad Mike Or",
+      "description": "Jeton Mad Mike Or"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Jeton Drei Mutants: Le Jeu de Cartes"
+      "name": "Jeton Drei Mutants: Le Jeu de Cartes",
+      "description": "Récompense pour les contributeurs de la campagne de financement participatif de Mutants: The Card Game (2019), échangée contre le mutant « Drei, Corgi Spatial »"
     },
     "Material_Banshee_Veil": {
       "name": "Fragment du Voile",
@@ -2046,80 +2287,104 @@
       "description": "Boule de Neige"
     },
     "Material_Mutenstein_Token": {
-      "name": "Jeton Mutenstein"
+      "name": "Jeton Mutenstein",
+      "description": "Jeton Mutenstein"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Oeuf de Bronze"
+      "name": "Oeuf de Bronze",
+      "description": "Qu'y a-t-il à l'intérieur ?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Oeuf d'Argent"
+      "name": "Oeuf d'Argent",
+      "description": "Qu'y a-t-il à l'intérieur ?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Oeuf Basique"
+      "name": "Oeuf Basique",
+      "description": "Qu'y a-t-il à l'intérieur ?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Oeuf d'Or"
+      "name": "Oeuf d'Or",
+      "description": "Qu'y a-t-il à l'intérieur ?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Oeuf de Platine"
+      "name": "Oeuf de Platine",
+      "description": "Qu'y a-t-il à l'intérieur ?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Une épée légendaire. Sans doute serait-il préférable de la rapporter à son propriétaire légitime."
     },
     "Material_Hexcity_Token": {
-      "name": "Jeton Hexasort"
+      "name": "Jeton Hexasort",
+      "description": "Un jeton de l'événement Hex City"
     },
     "Star_Bronze": {
-      "name": "Étoile de bronze"
+      "name": "Étoile de bronze",
+      "description": "Utilise-la en croisant 2 créatures de niveau 10 pour obtenir un mutant bronze (10% plus fort)."
     },
     "Star_Silver": {
-      "name": "Étoile d'argent"
+      "name": "Étoile d'argent",
+      "description": "Utilise-la en croisant 2 créatures de niveau 15 pour obtenir un mutant argent (30% plus fort)."
     },
     "Star_Gold": {
-      "name": "Étoile d'or"
+      "name": "Étoile d'or",
+      "description": "Utilise-la en croisant 2 créatures de niveau 20 pour obtenir un mutant or (75% plus fort)."
     },
     "Star_Platinum": {
-      "name": "Étoile de platine"
+      "name": "Étoile de platine",
+      "description": "Croise deux mutants or identiques de niveau 30+ avec cette étoile pour obtenir un mutant platine (100% plus fort). Remarque : les mutants de la collection Réacteur ne peuvent pas être utilisés pour la fusion."
     },
     "Material_LP10": {
-      "name": "Petit Médikit"
+      "name": "Petit Médikit",
+      "description": "Restaure 1% de la vie."
     },
     "Material_LP100": {
-      "name": "Médikit"
+      "name": "Médikit",
+      "description": "Restaure 10% de la vie."
     },
     "Material_LP1000": {
-      "name": "Grand Médikit"
+      "name": "Grand Médikit",
+      "description": "Restaure 25% de la vie."
     },
     "Material_Muto1": {
-      "name": "Petite dose de mutostérone"
+      "name": "Petite dose de mutostérone",
+      "description": "La créature gagne 1% de mutostérone."
     },
     "Material_Muto10": {
-      "name": "Dose de mutostérone"
+      "name": "Dose de mutostérone",
+      "description": "La créature gagne 10% de mutostérone."
     },
     "Material_Muto50": {
-      "name": "Grande dose de mutostérone"
+      "name": "Grande dose de mutostérone",
+      "description": "La créature gagne 50% de mutostérone."
     },
     "Material_Energy1": {
-      "name": "Ticket"
+      "name": "Ticket",
+      "description": "1 pass."
     },
     "Material_Energy5": {
-      "name": "Tickets x5"
+      "name": "Tickets x5",
+      "description": "5 pass."
     },
     "Material_Energy25": {
-      "name": "Tickets x25"
+      "name": "Tickets x25",
+      "description": "25 pass."
     },
     "Material_XP10": {
-      "name": "Barre Énergisante"
+      "name": "Barre Énergisante",
+      "description": "La créature gagne 10 points d'expérience."
     },
     "Material_XP250": {
-      "name": "Boisson Énergisante"
+      "name": "Boisson Énergisante",
+      "description": "La créature gagne 250 points d'expérience."
     },
     "Material_XP1000": {
-      "name": "Mélange Énergisant"
+      "name": "Mélange Énergisant",
+      "description": "La créature gagne 1000 points d'expérience."
     },
     "Material_EnergyMax10": {
-      "name": "Max ticket +10"
+      "name": "Max ticket +10",
+      "description": "Augmente définitivement le nombre maximum de pass d'énergie de 10."
     },
     "Charm_Critical_1": {
       "name": "Attaque Critique",
@@ -2820,27 +3085,67 @@
     "orb_basic_xp_06": {
       "name": "XP +300%",
       "description": "Augmente l'expérience gagnée par un mutant pendant un combat (+300%)"
+    },
+    "Building_Forge": {
+      "name": "Forge d'Or"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Haut Fourneau d'Or"
+    },
+    "Building_Med_Lab": {
+      "name": "Labo médical"
+    },
+    "Building_Evo_Center": {
+      "name": "Centre d'évolution"
+    },
+    "Building_Exchange": {
+      "name": "Bureau de change"
+    },
+    "Building_Incubator": {
+      "name": "Incubateur"
+    },
+    "Building_Trial_Hall": {
+      "name": "Challenge Hall"
+    },
+    "Building_Mystery": {
+      "name": "Analyseur de Mystères"
+    },
+    "Building_Breeding_Center": {
+      "name": "Hybridateur"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Jeton Cauchemar",
+      "description": "Un jeton d'Halloween"
+    },
+    "Material_XP10000": {
+      "name": "Bocal d'Alcool",
+      "description": "La créature gagne 10000 points d'expérience. Un objet non ajouté au jeu."
     }
   },
   "de": {
     "Daily_Token": {
-      "name": "Magnetschlüssel"
+      "name": "Magnetschlüssel",
+      "description": "Entferntes Objekt"
     },
     "Material_Jackpot_Token": {
-      "name": "Jackpot-Chip"
+      "name": "Jackpot-Chip",
+      "description": "Nutze diesen Chip in der Mutants-Madness-Maschine und versuche, den Super-Jackpot zu gewinnen!"
     },
     "Material_Gacha_Token": {
-      "name": "Reaktor-Chip"
+      "name": "Reaktor-Chip",
+      "description": "Jeder Chip gibt dir die Chance, einen einzigartigen Mutanten im Mutanten-Generator zu gewinnen."
     },
     "Material_Event_Token": {
-      "name": "Challenge Chip"
+      "name": "Challenge Chip",
+      "description": "Nutze diesen Chip im Challenge-Saal, um einzigartige Preise zu gewinnen!"
     },
     "Material_Halloween_Soul": {
       "name": "Verlorene Seele",
       "description": "Die Seele eines Mutanten. Kann bei einem Seelenhändler getauscht werden."
     },
     "Material_Love_Token": {
-      "name": "Love-Chip"
+      "name": "Love-Chip",
+      "description": "Love-Chip"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Basisschoki",
@@ -2871,112 +3176,148 @@
       "description": "Ein „Geschenk“, das Santagonist hinterlässt, wenn er besiegt wurde."
     },
     "Material_Plague_Token": {
-      "name": "Pest-Chip"
+      "name": "Pest-Chip",
+      "description": "Pest-Chip"
     },
     "Material_Toybox_Token": {
-      "name": "Spielzeugkisten-Chips"
+      "name": "Spielzeugkisten-Chips",
+      "description": "Spielzeugkisten-Chips"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Chip zum 7. Geburtstag"
+      "name": "Chip zum 7. Geburtstag",
+      "description": "Ein Chip zum 7. Jahrestag von Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Oster-Chip (2021)"
+      "name": "Oster-Chip (2021)",
+      "description": "Ein Oster-Chip"
     },
     "Material_Pyramid_Token": {
-      "name": "Pyramiden-Chip"
+      "name": "Pyramiden-Chip",
+      "description": "Pyramiden-Chip"
     },
     "Material_Stygian_Token": {
-      "name": "Styx-Chip"
+      "name": "Styx-Chip",
+      "description": "Styx-Chip"
     },
     "Material_Rime_Token": {
-      "name": "Frostiger Chip"
+      "name": "Frostiger Chip",
+      "description": "Frostiger Chip"
     },
     "Material_Valentines22_Token": {
-      "name": "Herz-Chip"
+      "name": "Herz-Chip",
+      "description": "Ein Valentinstag-Chip"
     },
     "Material_Easter22_Token": {
-      "name": "Kaninchen-Chip"
+      "name": "Kaninchen-Chip",
+      "description": "Ein Oster-Chip"
     },
     "Material_Data_Token": {
-      "name": "Daten-Chip"
+      "name": "Daten-Chip",
+      "description": "Daten-Chip"
     },
     "Material_Grave_Token": {
-      "name": "Friedhofs-Chip"
+      "name": "Friedhofs-Chip",
+      "description": "Friedhofs-Chip"
     },
     "Material_Snowstorm_Token": {
-      "name": "Schneesturm-Chip"
+      "name": "Schneesturm-Chip",
+      "description": "Schneesturm-Chip"
     },
     "Material_Cherub_Token": {
-      "name": "Cherub-Chip"
+      "name": "Cherub-Chip",
+      "description": "Cherub-Chip"
     },
     "Material_Spelunking_Token": {
-      "name": "Höhlenforscher-Chip"
+      "name": "Höhlenforscher-Chip",
+      "description": "Höhlenforscher-Chip"
     },
     "Material_Overlay_Token": {
-      "name": "Überlagerter Chip"
+      "name": "Überlagerter Chip",
+      "description": "Überlagerter Chip"
     },
     "Material_Trick_Token": {
-      "name": "Trick-Token"
+      "name": "Trick-Token",
+      "description": "Trick-Token"
     },
     "Material_Capsule_Token": {
-      "name": "Kapsel-Chips"
+      "name": "Kapsel-Chips",
+      "description": "Kapsel-Chips"
     },
     "Material_Cuteness_Token": {
-      "name": "Niedlichkeit Token"
+      "name": "Niedlichkeit Token",
+      "description": "Niedlichkeit Token"
     },
     "Material_Moai_Token": {
-      "name": "Moai-Chip"
+      "name": "Moai-Chip",
+      "description": "Moai-Chip"
     },
     "Material_Conspiracy_Token": {
-      "name": "Verschwörung-Chips"
+      "name": "Verschwörung-Chips",
+      "description": "Verschwörung-Chips"
     },
     "Material_Crawling_Token": {
-      "name": "Kriechende Token"
+      "name": "Kriechende Token",
+      "description": "Kriechende Token"
     },
     "Material_Xmas24_Token": {
-      "name": "Sonnenuntergangs Chip"
+      "name": "Sonnenuntergangs Chip",
+      "description": "Sonnenuntergangs Chip"
     },
     "Material_Runic_Token": {
-      "name": "Runen-Chip"
+      "name": "Runen-Chip",
+      "description": "Runen-Chip"
     },
     "Material_BUN_Token": {
-      "name": "B.U.N.-Chip"
+      "name": "B.U.N.-Chip",
+      "description": "B.U.N.-Chip"
     },
     "Material_Masks_Token": {
-      "name": "Unruhe-Chip"
+      "name": "Unruhe-Chip",
+      "description": "Unruhe-Chip"
     },
     "Material_Mystery25_Token": {
-      "name": "Mysterium-Chip 2025"
+      "name": "Mysterium-Chip 2025",
+      "description": "Mysterium-Chip 2025"
     },
     "Material_Signal_Token": {
-      "name": "Signal-Chip"
+      "name": "Signal-Chip",
+      "description": "Signal-Chip"
     },
     "Material_Xmas25_Token": {
-      "name": "Konstellationschip"
+      "name": "Konstellationschip",
+      "description": "Konstellationschip"
     },
     "Material_Valentines26_Token": {
-      "name": "Pixel-Herz-Chip"
+      "name": "Pixel-Herz-Chip",
+      "description": "Pixel-Herz-Chip"
     },
     "Material_Easter26_Token": {
-      "name": "Ficha de Chocolate"
+      "name": "Ficha de Chocolate",
+      "description": "Ficha de Chocolate"
     },
     "Material_Mystery26_Token": {
-      "name": "Mysterium-Chip 2026"
+      "name": "Mysterium-Chip 2026",
+      "description": "Mysterium-Chip 2026"
     },
     "Material_Easter_Token": {
-      "name": "Oster-Chip"
+      "name": "Oster-Chip",
+      "description": "Ein Oster-Chip"
     },
     "Material_Weirdtech_Token": {
-      "name": "FutureTech-Chip"
+      "name": "FutureTech-Chip",
+      "description": "Ein Höhlenforschungs-Chip"
     },
     "Material_Preorder_Token": {
-      "name": "Sergeant-Dusk-Chip"
+      "name": "Sergeant-Dusk-Chip",
+      "description": "Sergeant-Dusk-Chip"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Mad Mike Gold Chip"
+      "name": "Mad Mike Gold Chip",
+      "description": "Mad Mike Gold Chip"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Drei Mutants: das Kartenspiel Chip"
+      "name": "Drei Mutants: das Kartenspiel Chip",
+      "description": "Eine Belohnung für Unterstützer der Crowdfunding-Kampagne von Mutants: The Card Game (2019), eingetauscht gegen den Mutanten \"Drei, Weltraum-Corgi\""
     },
     "Material_Banshee_Veil": {
       "name": "Fragment des Schleiers",
@@ -2987,80 +3328,104 @@
       "description": "Schneeball"
     },
     "Material_Mutenstein_Token": {
-      "name": "Mutenstein-Chip"
+      "name": "Mutenstein-Chip",
+      "description": "Mutenstein-Chip"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Bronze-Ei"
+      "name": "Bronze-Ei",
+      "description": "Was ist wohl drin?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Silber-Ei"
+      "name": "Silber-Ei",
+      "description": "Was ist wohl drin?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Einfaches Ei"
+      "name": "Einfaches Ei",
+      "description": "Was ist wohl drin?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Gold-Ei"
+      "name": "Gold-Ei",
+      "description": "Was ist wohl drin?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Platin-Ei"
+      "name": "Platin-Ei",
+      "description": "Was ist wohl drin?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Ein legendäres Schwert. Es wäre wahrscheinlich besser, es an seinen rechtmäßigen Besitzer zurückzugeben.\\n"
     },
     "Material_Hexcity_Token": {
-      "name": "Hexenzauber-Chip"
+      "name": "Hexenzauber-Chip",
+      "description": "Ein Hex-City-Event-Chip"
     },
     "Star_Bronze": {
-      "name": "Bronze-Stern"
+      "name": "Bronze-Stern",
+      "description": "Verwende ihn beim Züchten von 2 Kreaturen der Stufe 10, um einen Bronze-Mutanten zu erhalten (10% stärker)."
     },
     "Star_Silver": {
-      "name": "Silber-Stern"
+      "name": "Silber-Stern",
+      "description": "Verwende ihn beim Züchten von 2 Kreaturen der Stufe 15, um einen Silber-Mutanten zu erhalten (30% stärker)."
     },
     "Star_Gold": {
-      "name": "Gold-Stern"
+      "name": "Gold-Stern",
+      "description": "Verwende ihn beim Züchten von 2 Kreaturen der Stufe 20, um einen Gold-Mutanten zu erhalten (75% stärker)."
     },
     "Star_Platinum": {
-      "name": "Platin-Stern"
+      "name": "Platin-Stern",
+      "description": "Kreuze zwei identische Gold-Mutanten der Stufe 30+ mit diesem Stern, um einen Platin-Mutanten zu erhalten (100% stärker). Hinweis: Mutanten aus der Reaktor-Kollektion können nicht zum Verschmelzen verwendet werden."
     },
     "Material_LP10": {
-      "name": "Kleines Med-Set"
+      "name": "Kleines Med-Set",
+      "description": "Stellt 1% Leben wieder her."
     },
     "Material_LP100": {
-      "name": "Med-Set"
+      "name": "Med-Set",
+      "description": "Stellt 10% Leben wieder her."
     },
     "Material_LP1000": {
-      "name": "Großes Med-Set"
+      "name": "Großes Med-Set",
+      "description": "Stellt 25% Leben wieder her."
     },
     "Material_Muto1": {
-      "name": "Kleine Mutosteron-Dosis"
+      "name": "Kleine Mutosteron-Dosis",
+      "description": "Die Kreatur erhält 1% Mutosteron."
     },
     "Material_Muto10": {
-      "name": "Mutosteron-Dosis"
+      "name": "Mutosteron-Dosis",
+      "description": "Die Kreatur erhält 10% Mutosteron."
     },
     "Material_Muto50": {
-      "name": "Große Mutosteron-Dosis"
+      "name": "Große Mutosteron-Dosis",
+      "description": "Die Kreatur erhält 50% Mutosteron."
     },
     "Material_Energy1": {
-      "name": "Turnierkarte"
+      "name": "Turnierkarte",
+      "description": "1 Pass."
     },
     "Material_Energy5": {
-      "name": "Turnierkarten x5"
+      "name": "Turnierkarten x5",
+      "description": "5 Pässe."
     },
     "Material_Energy25": {
-      "name": "Turnierkarten x25"
+      "name": "Turnierkarten x25",
+      "description": "25 Pässe."
     },
     "Material_XP10": {
-      "name": "Energieriegel"
+      "name": "Energieriegel",
+      "description": "Die Kreatur erhält 10 Erfahrungspunkte."
     },
     "Material_XP250": {
-      "name": "Energiedrink"
+      "name": "Energiedrink",
+      "description": "Die Kreatur erhält 250 Erfahrungspunkte."
     },
     "Material_XP1000": {
-      "name": "Energiemix"
+      "name": "Energiemix",
+      "description": "Die Kreatur erhält 1000 Erfahrungspunkte."
     },
     "Material_EnergyMax10": {
-      "name": "Maxi Karten + 10"
+      "name": "Maxi Karten + 10",
+      "description": "Erhöht die maximale Anzahl an Energie-Pässen dauerhaft um 10."
     },
     "Charm_Critical_1": {
       "name": "Kritische Angriffe",
@@ -3761,27 +4126,67 @@
     "orb_basic_xp_06": {
       "name": "XP +300 %",
       "description": "Erhöht die Erfahrungspunkte, die ein Mutant im Kampf gewonnen hat (+300 %)"
+    },
+    "Building_Forge": {
+      "name": "Goldschmiede"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Gold-Hochofen"
+    },
+    "Building_Med_Lab": {
+      "name": "Medizinlabor"
+    },
+    "Building_Evo_Center": {
+      "name": "Entwicklungszentrum"
+    },
+    "Building_Exchange": {
+      "name": "Wechselstube"
+    },
+    "Building_Incubator": {
+      "name": "Inkubator"
+    },
+    "Building_Trial_Hall": {
+      "name": "Challenge-Saal"
+    },
+    "Building_Mystery": {
+      "name": "Mysterium Analysator"
+    },
+    "Building_Breeding_Center": {
+      "name": "Brutzentrum"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Albtraum-Chip",
+      "description": "Ein Halloween-Chip"
+    },
+    "Material_XP10000": {
+      "name": "Spirituosenglas",
+      "description": "Die Kreatur erhält 10000 Erfahrungspunkte. Ein Gegenstand, der nicht ins Spiel aufgenommen wurde."
     }
   },
   "pt": {
     "Daily_Token": {
-      "name": "Chave magnética"
+      "name": "Chave magnética",
+      "description": "Item removido"
     },
     "Material_Jackpot_Token": {
-      "name": "Token Jackpot"
+      "name": "Token Jackpot",
+      "description": "Use esta ficha na máquina Mutants Madness e tente ganhar o Super Jackpot!"
     },
     "Material_Gacha_Token": {
-      "name": "Token Reator"
+      "name": "Token Reator",
+      "description": "Cada ficha te dá a chance de ganhar um mutante único no Gerador de Mutantes."
     },
     "Material_Event_Token": {
-      "name": "Token Challenge"
+      "name": "Token Challenge",
+      "description": "Use esta ficha no Challenge Hall para ganhar prêmios únicos!"
     },
     "Material_Halloween_Soul": {
       "name": "Alma perdida",
       "description": "Uma alma de mutante. A trocar com o Negociante de Almas."
     },
     "Material_Love_Token": {
-      "name": "Token Coração"
+      "name": "Token Coração",
+      "description": "Token Coração"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -3812,109 +4217,144 @@
       "description": "Um \"presente\" deixado por Santagonista ao ser derrotado."
     },
     "Material_Toybox_Token": {
-      "name": "Ficha Caixa de Brinquedos"
+      "name": "Ficha Caixa de Brinquedos",
+      "description": "Ficha Caixa de Brinquedos"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Ficha do 7º aniversário"
+      "name": "Ficha do 7º aniversário",
+      "description": "Uma ficha em comemoração ao 7º aniversário de Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Ficha de Páscoa (2021)"
+      "name": "Ficha de Páscoa (2021)",
+      "description": "Uma ficha da Páscoa"
     },
     "Material_Pyramid_Token": {
-      "name": "Ficha Piramidal"
+      "name": "Ficha Piramidal",
+      "description": "Ficha Piramidal"
     },
     "Material_Stygian_Token": {
-      "name": "Ficha Estigiana"
+      "name": "Ficha Estigiana",
+      "description": "Ficha Estigiana"
     },
     "Material_Rime_Token": {
-      "name": "Ficha de Geada"
+      "name": "Ficha de Geada",
+      "description": "Ficha de Geada"
     },
     "Material_Valentines22_Token": {
-      "name": "Ficha Coração"
+      "name": "Ficha Coração",
+      "description": "Uma ficha do Dia dos Namorados"
     },
     "Material_Easter22_Token": {
-      "name": "Ficha Coelho"
+      "name": "Ficha Coelho",
+      "description": "Uma ficha da Páscoa"
     },
     "Material_Data_Token": {
-      "name": "Ficha Digital"
+      "name": "Ficha Digital",
+      "description": "Ficha Digital"
     },
     "Material_Grave_Token": {
-      "name": "Ficha Sepulcral"
+      "name": "Ficha Sepulcral",
+      "description": "Ficha Sepulcral"
     },
     "Material_Snowstorm_Token": {
-      "name": "Ficha Tempestade de Neve"
+      "name": "Ficha Tempestade de Neve",
+      "description": "Ficha Tempestade de Neve"
     },
     "Material_Cherub_Token": {
-      "name": "Ficha Querubim"
+      "name": "Ficha Querubim",
+      "description": "Ficha Querubim"
     },
     "Material_Spelunking_Token": {
-      "name": "Ficha do Espeleólogo"
+      "name": "Ficha do Espeleólogo",
+      "description": "Ficha do Espeleólogo"
     },
     "Material_Overlay_Token": {
-      "name": "Ficha Sobreposta"
+      "name": "Ficha Sobreposta",
+      "description": "Ficha Sobreposta"
     },
     "Material_Trick_Token": {
-      "name": "Ficha de truque"
+      "name": "Ficha de truque",
+      "description": "Ficha de truque"
     },
     "Material_Capsule_Token": {
-      "name": "Token Cápsula"
+      "name": "Token Cápsula",
+      "description": "Token Cápsula"
     },
     "Material_Cuteness_Token": {
-      "name": "Ficha Fofura"
+      "name": "Ficha Fofura",
+      "description": "Ficha Fofura"
     },
     "Material_Moai_Token": {
-      "name": "Ficha Moai"
+      "name": "Ficha Moai",
+      "description": "Ficha Moai"
     },
     "Material_Conspiracy_Token": {
-      "name": "Ficha de Conspiração"
+      "name": "Ficha de Conspiração",
+      "description": "Ficha de Conspiração"
     },
     "Material_Crawling_Token": {
-      "name": "Ficha rastejante"
+      "name": "Ficha rastejante",
+      "description": "Ficha rastejante"
     },
     "Material_Xmas24_Token": {
-      "name": "Ficha do Pôr-do-Sol"
+      "name": "Ficha do Pôr-do-Sol",
+      "description": "Ficha do Pôr-do-Sol"
     },
     "Material_Runic_Token": {
-      "name": "Ficha Rúnica"
+      "name": "Ficha Rúnica",
+      "description": "Ficha Rúnica"
     },
     "Material_BUN_Token": {
-      "name": "Ficha B.U.N."
+      "name": "Ficha B.U.N.",
+      "description": "Ficha B.U.N."
     },
     "Material_Masks_Token": {
-      "name": "Fichas da Turbulência"
+      "name": "Fichas da Turbulência",
+      "description": "Fichas da Turbulência"
     },
     "Material_Mystery25_Token": {
-      "name": "Ficha Mistério 2025"
+      "name": "Ficha Mistério 2025",
+      "description": "Ficha Mistério 2025"
     },
     "Material_Signal_Token": {
-      "name": "Token de sinal"
+      "name": "Token de sinal",
+      "description": "Token de sinal"
     },
     "Material_Xmas25_Token": {
-      "name": "Ficha Constelação"
+      "name": "Ficha Constelação",
+      "description": "Ficha Constelação"
     },
     "Material_Valentines26_Token": {
-      "name": "Ficha Coração Pixel"
+      "name": "Ficha Coração Pixel",
+      "description": "Ficha Coração Pixel"
     },
     "Material_Easter26_Token": {
-      "name": "Ficha de Chocolate"
+      "name": "Ficha de Chocolate",
+      "description": "Ficha de Chocolate"
     },
     "Material_Mystery26_Token": {
-      "name": "Ficha Mistério 2026"
+      "name": "Ficha Mistério 2026",
+      "description": "Ficha Mistério 2026"
     },
     "Material_Easter_Token": {
-      "name": "Ficha de Páscoa"
+      "name": "Ficha de Páscoa",
+      "description": "Uma ficha da Páscoa"
     },
     "Material_Weirdtech_Token": {
-      "name": "Ficha FutureTech"
+      "name": "Ficha FutureTech",
+      "description": "Uma ficha de espeleologia"
     },
     "Material_Preorder_Token": {
-      "name": "Símbolo do Sargento Dusk"
+      "name": "Símbolo do Sargento Dusk",
+      "description": "Símbolo do Sargento Dusk"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Ficha dourada de Mad Mike"
+      "name": "Ficha dourada de Mad Mike",
+      "description": "Ficha dourada de Mad Mike"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Ficha Mutantes: O Jogo de Cartas Drei"
+      "name": "Ficha Mutantes: O Jogo de Cartas Drei",
+      "description": "Uma recompensa para apoiadores da campanha de financiamento coletivo de Mutants: The Card Game (2019), trocada pelo mutante \"Drei, Corgi Espacial\""
     },
     "Material_Banshee_Veil": {
       "name": "Pedaço do Véu",
@@ -3925,80 +4365,104 @@
       "description": "Bola de neve"
     },
     "Material_Mutenstein_Token": {
-      "name": "Ficha de Mutenstein"
+      "name": "Ficha de Mutenstein",
+      "description": "Ficha de Mutenstein"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Ovo de Bronze"
+      "name": "Ovo de Bronze",
+      "description": "O que será que tem dentro?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Ovo de Prata"
+      "name": "Ovo de Prata",
+      "description": "O que será que tem dentro?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Ovo Básico"
+      "name": "Ovo Básico",
+      "description": "O que será que tem dentro?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Ovo de Ouro"
+      "name": "Ovo de Ouro",
+      "description": "O que será que tem dentro?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Ovo de Platina"
+      "name": "Ovo de Platina",
+      "description": "O que será que tem dentro?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Uma espada lendária. É recomendável devolvê-la ao seu legítimo dono."
     },
     "Material_Hexcity_Token": {
-      "name": "Ficha de Hexáfeitiço"
+      "name": "Ficha de Hexáfeitiço",
+      "description": "Uma ficha do evento Hex City"
     },
     "Star_Bronze": {
-      "name": "Estrela de Bronze"
+      "name": "Estrela de Bronze",
+      "description": "Use-a ao cruzar 2 criaturas de nível 10 para obter um mutante de bronze (10% mais forte)."
     },
     "Star_Silver": {
-      "name": "Estrela de Prata"
+      "name": "Estrela de Prata",
+      "description": "Use-a ao cruzar 2 criaturas de nível 15 para obter um mutante de prata (30% mais forte)."
     },
     "Star_Gold": {
-      "name": "Estrela de Ouro"
+      "name": "Estrela de Ouro",
+      "description": "Use-a ao cruzar 2 criaturas de nível 20 para obter um mutante de ouro (75% mais forte)."
     },
     "Star_Platinum": {
-      "name": "Estrela de platina"
+      "name": "Estrela de platina",
+      "description": "Cruze dois mutantes de ouro idênticos de nível 30+ usando esta estrela para obter um mutante de platina (100% mais forte). Nota: mutantes da coleção Reator não podem ser usados para fusão."
     },
     "Material_LP10": {
-      "name": "Pequeno Kit Médico"
+      "name": "Pequeno Kit Médico",
+      "description": "Restaura 1% de vida."
     },
     "Material_LP100": {
-      "name": "Kit Médico"
+      "name": "Kit Médico",
+      "description": "Restaura 10% de vida."
     },
     "Material_LP1000": {
-      "name": "Grande Kit Médico"
+      "name": "Grande Kit Médico",
+      "description": "Restaura 25% de vida."
     },
     "Material_Muto1": {
-      "name": "Pequena dose de Mutosterona"
+      "name": "Pequena dose de Mutosterona",
+      "description": "A criatura ganha 1% de mutosterona."
     },
     "Material_Muto10": {
-      "name": "Dose de Mutosterona"
+      "name": "Dose de Mutosterona",
+      "description": "A criatura ganha 10% de mutosterona."
     },
     "Material_Muto50": {
-      "name": "Grande dose de Mutosterona"
+      "name": "Grande dose de Mutosterona",
+      "description": "A criatura ganha 50% de mutosterona."
     },
     "Material_Energy1": {
-      "name": "Tíquete de Campanha"
+      "name": "Tíquete de Campanha",
+      "description": "1 passe."
     },
     "Material_Energy5": {
-      "name": "Tíquetes de Campanha x5"
+      "name": "Tíquetes de Campanha x5",
+      "description": "5 passes."
     },
     "Material_Energy25": {
-      "name": "Tíquetes de Campanha x25"
+      "name": "Tíquetes de Campanha x25",
+      "description": "25 passes."
     },
     "Material_XP10": {
-      "name": "Barra energética"
+      "name": "Barra energética",
+      "description": "A criatura ganha 10 pontos de experiência."
     },
     "Material_XP250": {
-      "name": "Bebida energética"
+      "name": "Bebida energética",
+      "description": "A criatura ganha 250 pontos de experiência."
     },
     "Material_XP1000": {
-      "name": "Mistura energética"
+      "name": "Mistura energética",
+      "description": "A criatura ganha 1000 pontos de experiência."
     },
     "Material_EnergyMax10": {
-      "name": "Máx Tíquetes + 10"
+      "name": "Máx Tíquetes + 10",
+      "description": "Aumenta permanentemente o número máximo de passes de energia em 10."
     },
     "Charm_Critical_1": {
       "name": "Ataque Crítico",
@@ -4699,27 +5163,68 @@
     "orb_basic_xp_06": {
       "name": "XP +300%",
       "description": "Aumenta a experiência adquirida por um mutante durante um combate (+300%)"
+    },
+    "Building_Forge": {
+      "name": "Forja de Ouro"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Fornalha de Ouro"
+    },
+    "Building_Med_Lab": {
+      "name": "Laboratório Médico"
+    },
+    "Building_Evo_Center": {
+      "name": "Centro de Evolução"
+    },
+    "Building_Exchange": {
+      "name": "Agência de câmbio"
+    },
+    "Building_Incubator": {
+      "name": "Incubadora"
+    },
+    "Building_Trial_Hall": {
+      "name": "Challenge Hall"
+    },
+    "Building_Mystery": {
+      "name": "Analisador de Mistérios"
+    },
+    "Building_Breeding_Center": {
+      "name": "Centro de Reprodução"
+    },
+    "Material_Plague_Token": {},
+    "Material_Hallowen_Nightmare": {
+      "name": "Ficha do Pesadelo",
+      "description": "Uma ficha de Halloween"
+    },
+    "Material_XP10000": {
+      "name": "Pote de Álcool",
+      "description": "A criatura ganha 10000 pontos de experiência. Um item não adicionado ao jogo."
     }
   },
   "it": {
     "Daily_Token": {
-      "name": "Chiave magnetica"
+      "name": "Chiave magnetica",
+      "description": "Oggetto rimosso"
     },
     "Material_Jackpot_Token": {
-      "name": "Gettone Jackpot"
+      "name": "Gettone Jackpot",
+      "description": "Usa questo gettone nella slot Mutants Madness e prova a vincere il Super Jackpot!"
     },
     "Material_Gacha_Token": {
-      "name": "Gettone Reattore"
+      "name": "Gettone Reattore",
+      "description": "Ogni gettone ti dà la possibilità di vincere un mutante unico nel Generatore di Mutanti."
     },
     "Material_Event_Token": {
-      "name": "Gettone Sfida"
+      "name": "Gettone Sfida",
+      "description": "Usa questo gettone nell'Atrio delle sfide per vincere premi unici!"
     },
     "Material_Halloween_Soul": {
       "name": "Anima smarrita",
       "description": "Un’anima mutante. Può essere scambiata dal Mercante di anime."
     },
     "Material_Love_Token": {
-      "name": "Gettone Cuore"
+      "name": "Gettone Cuore",
+      "description": "Gettone Cuore"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Cioccobase",
@@ -4750,112 +5255,148 @@
       "description": "Un \"pensierino\" lasciato da Santagonista dopo essere stato sconfitto."
     },
     "Material_Plague_Token": {
-      "name": "Gettone Peste"
+      "name": "Gettone Peste",
+      "description": "Gettone Peste"
     },
     "Material_Toybox_Token": {
-      "name": "Gettone Baule dei Giocattoli"
+      "name": "Gettone Baule dei Giocattoli",
+      "description": "Gettone Baule dei Giocattoli"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Gettone 7o anniversario"
+      "name": "Gettone 7o anniversario",
+      "description": "Un gettone per celebrare il 7° anniversario di Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Gettone di Pasqua (2021)"
+      "name": "Gettone di Pasqua (2021)",
+      "description": "Un gettone di Pasqua"
     },
     "Material_Pyramid_Token": {
-      "name": "Gettone piramidale"
+      "name": "Gettone piramidale",
+      "description": "Gettone piramidale"
     },
     "Material_Stygian_Token": {
-      "name": "Gettone stigeo"
+      "name": "Gettone stigeo",
+      "description": "Gettone stigeo"
     },
     "Material_Rime_Token": {
-      "name": "Gettone di brina"
+      "name": "Gettone di brina",
+      "description": "Gettone di brina"
     },
     "Material_Valentines22_Token": {
-      "name": "Gettone Cuore"
+      "name": "Gettone Cuore",
+      "description": "Un gettone di San Valentino"
     },
     "Material_Easter22_Token": {
-      "name": "Gettone Coniglio"
+      "name": "Gettone Coniglio",
+      "description": "Un gettone di Pasqua"
     },
     "Material_Data_Token": {
-      "name": "Gettone digitale"
+      "name": "Gettone digitale",
+      "description": "Gettone digitale"
     },
     "Material_Grave_Token": {
-      "name": "Gettone tomba"
+      "name": "Gettone tomba",
+      "description": "Gettone tomba"
     },
     "Material_Snowstorm_Token": {
-      "name": "Gettone bufera"
+      "name": "Gettone bufera",
+      "description": "Gettone bufera"
     },
     "Material_Cherub_Token": {
-      "name": "Gettone Cherubino"
+      "name": "Gettone Cherubino",
+      "description": "Gettone Cherubino"
     },
     "Material_Spelunking_Token": {
-      "name": "Gettone speleologia"
+      "name": "Gettone speleologia",
+      "description": "Gettone speleologia"
     },
     "Material_Overlay_Token": {
-      "name": "Gettone sovrapposto"
+      "name": "Gettone sovrapposto",
+      "description": "Gettone sovrapposto"
     },
     "Material_Trick_Token": {
-      "name": "Gettone trucco"
+      "name": "Gettone trucco",
+      "description": "Gettone trucco"
     },
     "Material_Capsule_Token": {
-      "name": "Gettone capsula"
+      "name": "Gettone capsula",
+      "description": "Gettone capsula"
     },
     "Material_Cuteness_Token": {
-      "name": "Gettone carineria"
+      "name": "Gettone carineria",
+      "description": "Gettone carineria"
     },
     "Material_Moai_Token": {
-      "name": "Gettone Moai"
+      "name": "Gettone Moai",
+      "description": "Gettone Moai"
     },
     "Material_Conspiracy_Token": {
-      "name": "Gettone Cospirazione"
+      "name": "Gettone Cospirazione",
+      "description": "Gettone Cospirazione"
     },
     "Material_Crawling_Token": {
-      "name": "Gettone strisciante"
+      "name": "Gettone strisciante",
+      "description": "Gettone strisciante"
     },
     "Material_Xmas24_Token": {
-      "name": "Gettone Tramonto"
+      "name": "Gettone Tramonto",
+      "description": "Gettone Tramonto"
     },
     "Material_Runic_Token": {
-      "name": "Gettone runico"
+      "name": "Gettone runico",
+      "description": "Gettone runico"
     },
     "Material_BUN_Token": {
-      "name": "Gettone B.U.N."
+      "name": "Gettone B.U.N.",
+      "description": "Gettone B.U.N."
     },
     "Material_Masks_Token": {
-      "name": "Gettone Tumulto"
+      "name": "Gettone Tumulto",
+      "description": "Gettone Tumulto"
     },
     "Material_Mystery25_Token": {
-      "name": "Gettone Mistero 2025"
+      "name": "Gettone Mistero 2025",
+      "description": "Gettone Mistero 2025"
     },
     "Material_Signal_Token": {
-      "name": "Segnale Gettone"
+      "name": "Segnale Gettone",
+      "description": "Segnale Gettone"
     },
     "Material_Xmas25_Token": {
-      "name": "Gettone Costellazione"
+      "name": "Gettone Costellazione",
+      "description": "Gettone Costellazione"
     },
     "Material_Valentines26_Token": {
-      "name": "Gettone Cuore Pixel"
+      "name": "Gettone Cuore Pixel",
+      "description": "Gettone Cuore Pixel"
     },
     "Material_Easter26_Token": {
-      "name": "Gettone Cioccolato"
+      "name": "Gettone Cioccolato",
+      "description": "Gettone Cioccolato"
     },
     "Material_Mystery26_Token": {
-      "name": "Gettone Mistero 2026"
+      "name": "Gettone Mistero 2026",
+      "description": "Gettone Mistero 2026"
     },
     "Material_Easter_Token": {
-      "name": "Gettone di Pasqua"
+      "name": "Gettone di Pasqua",
+      "description": "Un gettone di Pasqua"
     },
     "Material_Weirdtech_Token": {
-      "name": "Gettone FutureTech"
+      "name": "Gettone FutureTech",
+      "description": "Un gettone di speleologia"
     },
     "Material_Preorder_Token": {
-      "name": "Gettone Sergente Dusk"
+      "name": "Gettone Sergente Dusk",
+      "description": "Gettone Sergente Dusk"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Gettone Mad Mike Oro"
+      "name": "Gettone Mad Mike Oro",
+      "description": "Gettone Mad Mike Oro"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Gettone Drei Mutants: Le Carte"
+      "name": "Gettone Drei Mutants: Le Carte",
+      "description": "Una ricompensa per i sostenitori della campagna di crowdfunding di Mutants: The Card Game (2019), scambiata con il mutante \"Drei, Corgi Spaziale\""
     },
     "Material_Banshee_Veil": {
       "name": "Frammento del Velo",
@@ -4866,80 +5407,104 @@
       "description": "Palla di neve"
     },
     "Material_Mutenstein_Token": {
-      "name": "Gettone Mutenstein"
+      "name": "Gettone Mutenstein",
+      "description": "Gettone Mutenstein"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Uovo di bronzo"
+      "name": "Uovo di bronzo",
+      "description": "Cosa c'è dentro?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Uovo d'argento"
+      "name": "Uovo d'argento",
+      "description": "Cosa c'è dentro?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Uovo Basico"
+      "name": "Uovo Basico",
+      "description": "Cosa c'è dentro?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Uovo d'oro"
+      "name": "Uovo d'oro",
+      "description": "Cosa c'è dentro?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Uovo di platino"
+      "name": "Uovo di platino",
+      "description": "Cosa c'è dentro?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Una spada leggendaria. Forse sarebbe meglio riportarla al suo legittimo proprietario…"
     },
     "Material_Hexcity_Token": {
-      "name": "Gettone Incantesimo"
+      "name": "Gettone Incantesimo",
+      "description": "Un gettone dell'evento Hex City"
     },
     "Star_Bronze": {
-      "name": "Stella di bronzo"
+      "name": "Stella di bronzo",
+      "description": "Usala incrociando 2 creature di livello 10 per ottenere un mutante di bronzo (10% più forte)."
     },
     "Star_Silver": {
-      "name": "Stella d’argento"
+      "name": "Stella d’argento",
+      "description": "Usala incrociando 2 creature di livello 15 per ottenere un mutante d'argento (30% più forte)."
     },
     "Star_Gold": {
-      "name": "Stella d’oro"
+      "name": "Stella d’oro",
+      "description": "Usala incrociando 2 creature di livello 20 per ottenere un mutante d'oro (75% più forte)."
     },
     "Star_Platinum": {
-      "name": "Stella di platino"
+      "name": "Stella di platino",
+      "description": "Incrocia due mutanti d'oro identici di livello 30+ usando questa stella per ottenere un mutante di platino (100% più forte). Nota: i mutanti della collezione Reattore non possono essere usati per la fusione."
     },
     "Material_LP10": {
-      "name": "Medikit piccolo"
+      "name": "Medikit piccolo",
+      "description": "Ripristina l'1% della vita."
     },
     "Material_LP100": {
-      "name": "Medikit"
+      "name": "Medikit",
+      "description": "Ripristina il 10% della vita."
     },
     "Material_LP1000": {
-      "name": "Medikit Grande"
+      "name": "Medikit Grande",
+      "description": "Ripristina il 25% della vita."
     },
     "Material_Muto1": {
-      "name": "Dose piccola di Mutosterone"
+      "name": "Dose piccola di Mutosterone",
+      "description": "La creatura ottiene l'1% di mutosterone."
     },
     "Material_Muto10": {
-      "name": "Dose di Mutosterone"
+      "name": "Dose di Mutosterone",
+      "description": "La creatura ottiene il 10% di mutosterone."
     },
     "Material_Muto50": {
-      "name": "Dose grande di Mutosterone"
+      "name": "Dose grande di Mutosterone",
+      "description": "La creatura ottiene il 50% di mutosterone."
     },
     "Material_Energy1": {
-      "name": "Biglietto"
+      "name": "Biglietto",
+      "description": "1 pass."
     },
     "Material_Energy5": {
-      "name": "Biglietti x5"
+      "name": "Biglietti x5",
+      "description": "5 pass."
     },
     "Material_Energy25": {
-      "name": "Biglietti x25"
+      "name": "Biglietti x25",
+      "description": "25 pass."
     },
     "Material_XP10": {
-      "name": "Barra Energetica"
+      "name": "Barra Energetica",
+      "description": "La creatura ottiene 10 punti esperienza."
     },
     "Material_XP250": {
-      "name": "Bibita Energetica"
+      "name": "Bibita Energetica",
+      "description": "La creatura ottiene 250 punti esperienza."
     },
     "Material_XP1000": {
-      "name": "Mix Energetico"
+      "name": "Mix Energetico",
+      "description": "La creatura ottiene 1000 punti esperienza."
     },
     "Material_EnergyMax10": {
-      "name": "Max biglietti +10"
+      "name": "Max biglietti +10",
+      "description": "Aumenta permanentemente il numero massimo di pass energia di 10."
     },
     "Charm_Critical_1": {
       "name": "Colpi Critici",
@@ -5640,27 +6205,67 @@
     "orb_basic_xp_06": {
       "name": "XP +300%",
       "description": "Aumenta l'esperienza vinta da un mutante durante un combattimento (+300%)"
+    },
+    "Building_Forge": {
+      "name": "Fucina d’Oro"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Fornace d’Oro"
+    },
+    "Building_Med_Lab": {
+      "name": "Lab. medico"
+    },
+    "Building_Evo_Center": {
+      "name": "Centro Evoluzione"
+    },
+    "Building_Exchange": {
+      "name": "Ufficio cambi"
+    },
+    "Building_Incubator": {
+      "name": "Incubatrice"
+    },
+    "Building_Trial_Hall": {
+      "name": "Atrio delle sfide"
+    },
+    "Building_Mystery": {
+      "name": "Analizzatore di Misteri"
+    },
+    "Building_Breeding_Center": {
+      "name": "Ibridatore"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Gettone Incubo",
+      "description": "Un gettone di Halloween"
+    },
+    "Material_XP10000": {
+      "name": "Barattolo di Alcol",
+      "description": "La creatura ottiene 10000 punti esperienza. Un oggetto non aggiunto al gioco."
     }
   },
   "tr": {
     "Daily_Token": {
-      "name": "Manyetik Anahtar"
+      "name": "Manyetik Anahtar",
+      "description": "Kaldırılan öğe"
     },
     "Material_Jackpot_Token": {
-      "name": "Jackpot Jetonu"
+      "name": "Jackpot Jetonu",
+      "description": "Bu jetonu Mutants Madness makinesinde kullan ve Süper Jackpot'u kazanmayı dene!"
     },
     "Material_Gacha_Token": {
-      "name": "Reaktör Jetonu"
+      "name": "Reaktör Jetonu",
+      "description": "Her jeton, Mutant Üretecinde eşsiz bir mutant kazanma şansı verir."
     },
     "Material_Event_Token": {
-      "name": "Meydan Okuma Jetonu"
+      "name": "Meydan Okuma Jetonu",
+      "description": "Bu jetonu Meydan Okuma Salonu'nda kullanarak eşsiz ödüller kazan!"
     },
     "Material_Halloween_Soul": {
       "name": "Kayıp Ruh",
       "description": "Bir mutant ruhu. Ruh Tüccarı ile ticareti yapılabilir."
     },
     "Material_Love_Token": {
-      "name": "Kalp Jetonu"
+      "name": "Kalp Jetonu",
+      "description": "Kalp Jetonu"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -5691,112 +6296,148 @@
       "description": "Yenilgiye uğrayan Santagonist tarafından bırakılan bir \"hediye\"."
     },
     "Material_Plague_Token": {
-      "name": "Veba Jetonu"
+      "name": "Veba Jetonu",
+      "description": "Veba Jetonu"
     },
     "Material_Toybox_Token": {
-      "name": "Oyuncak Sandığı Jetonu"
+      "name": "Oyuncak Sandığı Jetonu",
+      "description": "Oyuncak Sandığı Jetonu"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "7. yıldönümü jetonu"
+      "name": "7. yıldönümü jetonu",
+      "description": "Mutants: Genetic Gladiators'ın 7. yıldönümünü kutlayan bir jeton"
     },
     "Material_Easter21_Token": {
-      "name": "Paskalya Jetonu (2021)"
+      "name": "Paskalya Jetonu (2021)",
+      "description": "Bir Paskalya jetonu"
     },
     "Material_Pyramid_Token": {
-      "name": "Piramit Jetonu"
+      "name": "Piramit Jetonu",
+      "description": "Piramit Jetonu"
     },
     "Material_Stygian_Token": {
-      "name": "Cehennem nehri jetonu"
+      "name": "Cehennem nehri jetonu",
+      "description": "Cehennem nehri jetonu"
     },
     "Material_Rime_Token": {
-      "name": "Kırağı Jetonu"
+      "name": "Kırağı Jetonu",
+      "description": "Kırağı Jetonu"
     },
     "Material_Valentines22_Token": {
-      "name": "Kalp jetonu"
+      "name": "Kalp jetonu",
+      "description": "Bir Sevgililer Günü jetonu"
     },
     "Material_Easter22_Token": {
-      "name": "Tavşan jetonu"
+      "name": "Tavşan jetonu",
+      "description": "Bir Paskalya jetonu"
     },
     "Material_Data_Token": {
-      "name": "Veri Jetonu"
+      "name": "Veri Jetonu",
+      "description": "Veri Jetonu"
     },
     "Material_Grave_Token": {
-      "name": "Mezarlık Jetonu"
+      "name": "Mezarlık Jetonu",
+      "description": "Mezarlık Jetonu"
     },
     "Material_Snowstorm_Token": {
-      "name": "Kar fırtınası jetonu"
+      "name": "Kar fırtınası jetonu",
+      "description": "Kar fırtınası jetonu"
     },
     "Material_Cherub_Token": {
-      "name": "Aşk Meleği Jetonu"
+      "name": "Aşk Meleği Jetonu",
+      "description": "Aşk Meleği Jetonu"
     },
     "Material_Spelunking_Token": {
-      "name": "Mağaracılık jetonu"
+      "name": "Mağaracılık jetonu",
+      "description": "Mağaracılık jetonu"
     },
     "Material_Overlay_Token": {
-      "name": "Kaplama jeton"
+      "name": "Kaplama jeton",
+      "description": "Kaplama jeton"
     },
     "Material_Trick_Token": {
-      "name": "Sihirbazlık numarası Jetonu"
+      "name": "Sihirbazlık numarası Jetonu",
+      "description": "Sihirbazlık numarası Jetonu"
     },
     "Material_Capsule_Token": {
-      "name": "Kapsül Jetonu"
+      "name": "Kapsül Jetonu",
+      "description": "Kapsül Jetonu"
     },
     "Material_Cuteness_Token": {
-      "name": "Şirinlik Jetonu"
+      "name": "Şirinlik Jetonu",
+      "description": "Şirinlik Jetonu"
     },
     "Material_Moai_Token": {
-      "name": "Moai Jetonu"
+      "name": "Moai Jetonu",
+      "description": "Moai Jetonu"
     },
     "Material_Conspiracy_Token": {
-      "name": "Komplo Jetonu"
+      "name": "Komplo Jetonu",
+      "description": "Komplo Jetonu"
     },
     "Material_Crawling_Token": {
-      "name": "Sürünen Jeton"
+      "name": "Sürünen Jeton",
+      "description": "Sürünen Jeton"
     },
     "Material_Xmas24_Token": {
-      "name": "Günbatımı Jetonu"
+      "name": "Günbatımı Jetonu",
+      "description": "Günbatımı Jetonu"
     },
     "Material_Runic_Token": {
-      "name": "Runik Jeton"
+      "name": "Runik Jeton",
+      "description": "Runik Jeton"
     },
     "Material_BUN_Token": {
-      "name": "B.U.N. Jetonu"
+      "name": "B.U.N. Jetonu",
+      "description": "B.U.N. Jetonu"
     },
     "Material_Masks_Token": {
-      "name": "Kargaşa Jetonu"
+      "name": "Kargaşa Jetonu",
+      "description": "Kargaşa Jetonu"
     },
     "Material_Mystery25_Token": {
-      "name": "Gizemli Jeton 2025"
+      "name": "Gizemli Jeton 2025",
+      "description": "Gizemli Jeton 2025"
     },
     "Material_Signal_Token": {
-      "name": "Sinyal Jetonu"
+      "name": "Sinyal Jetonu",
+      "description": "Sinyal Jetonu"
     },
     "Material_Xmas25_Token": {
-      "name": "Takımyıldızı Jetonu"
+      "name": "Takımyıldızı Jetonu",
+      "description": "Takımyıldızı Jetonu"
     },
     "Material_Valentines26_Token": {
-      "name": "Piksel Kalp Jetonu"
+      "name": "Piksel Kalp Jetonu",
+      "description": "Piksel Kalp Jetonu"
     },
     "Material_Easter26_Token": {
-      "name": "Çikolata Jetonu"
+      "name": "Çikolata Jetonu",
+      "description": "Çikolata Jetonu"
     },
     "Material_Mystery26_Token": {
-      "name": "Gizemli Jeton 2026"
+      "name": "Gizemli Jeton 2026",
+      "description": "Gizemli Jeton 2026"
     },
     "Material_Easter_Token": {
-      "name": "Paskalya Jetonu"
+      "name": "Paskalya Jetonu",
+      "description": "Bir Paskalya jetonu"
     },
     "Material_Weirdtech_Token": {
-      "name": "FutureTech Jetonu"
+      "name": "FutureTech Jetonu",
+      "description": "Bir mağaracılık jetonu"
     },
     "Material_Preorder_Token": {
-      "name": "Şafak Çavuş Jetonu"
+      "name": "Şafak Çavuş Jetonu",
+      "description": "Şafak Çavuş Jetonu"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Altın Deli Mike Jetonu"
+      "name": "Altın Deli Mike Jetonu",
+      "description": "Altın Deli Mike Jetonu"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Mutantlar: Kart oyunu Drei Jetonu"
+      "name": "Mutantlar: Kart oyunu Drei Jetonu",
+      "description": "Mutants: The Card Game (2019) kitle fonlama kampanyasını destekleyenlere verilen, \"Drei, Uzaylı Corgi\" mutantıyla değiştirilen bir ödül"
     },
     "Material_Banshee_Veil": {
       "name": "Tül parçası",
@@ -5807,80 +6448,104 @@
       "description": "Kartopu"
     },
     "Material_Mutenstein_Token": {
-      "name": "Mutenstein Jetonu"
+      "name": "Mutenstein Jetonu",
+      "description": "Mutenstein Jetonu"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Bronz Yumurta"
+      "name": "Bronz Yumurta",
+      "description": "İçinde ne var acaba?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Gümüş Yumurta"
+      "name": "Gümüş Yumurta",
+      "description": "İçinde ne var acaba?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Basit Yumurta"
+      "name": "Basit Yumurta",
+      "description": "İçinde ne var acaba?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Altın Yumurta"
+      "name": "Altın Yumurta",
+      "description": "İçinde ne var acaba?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Platin Yumurta"
+      "name": "Platin Yumurta",
+      "description": "İçinde ne var acaba?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Efsanevi bir kılıç. Onu asıl sahibine geri götürmek kuşkusuz akıllıca olacaktır."
     },
     "Material_Hexcity_Token": {
-      "name": "Altıbüyü Jetonu"
+      "name": "Altıbüyü Jetonu",
+      "description": "Bir Hex City etkinlik jetonu"
     },
     "Star_Bronze": {
-      "name": "Bronz Yıldız"
+      "name": "Bronz Yıldız",
+      "description": "2 tane 10. seviye yaratığı melezlerken kullan ve bronz bir mutant elde et (%10 daha güçlü)."
     },
     "Star_Silver": {
-      "name": "Gümüş Yıldız"
+      "name": "Gümüş Yıldız",
+      "description": "2 tane 15. seviye yaratığı melezlerken kullan ve gümüş bir mutant elde et (%30 daha güçlü)."
     },
     "Star_Gold": {
-      "name": "Altın Yıldız"
+      "name": "Altın Yıldız",
+      "description": "2 tane 20. seviye yaratığı melezlerken kullan ve altın bir mutant elde et (%75 daha güçlü)."
     },
     "Star_Platinum": {
-      "name": "Platin Yıldız"
+      "name": "Platin Yıldız",
+      "description": "Platin bir mutant elde etmek için bu yıldızı kullanarak 30+ seviyesinde iki aynı altın mutantı melezle (%100 daha güçlü). Not: Reaktör koleksiyonundaki mutantlar birleştirme için kullanılamaz."
     },
     "Material_LP10": {
-      "name": "Küçük Sağlık Paketi"
+      "name": "Küçük Sağlık Paketi",
+      "description": "Sağlığın %1'ini geri kazandırır."
     },
     "Material_LP100": {
-      "name": "Sağlık Paketi"
+      "name": "Sağlık Paketi",
+      "description": "Sağlığın %10'unu geri kazandırır."
     },
     "Material_LP1000": {
-      "name": "Büyük Sağlık Paketi"
+      "name": "Büyük Sağlık Paketi",
+      "description": "Sağlığın %25'ini geri kazandırır."
     },
     "Material_Muto1": {
-      "name": "Küçük Mutoöstron ilacı"
+      "name": "Küçük Mutoöstron ilacı",
+      "description": "Yaratık %1 mutosteron kazanır."
     },
     "Material_Muto10": {
-      "name": "Mutoöstron ilacı"
+      "name": "Mutoöstron ilacı",
+      "description": "Yaratık %10 mutosteron kazanır."
     },
     "Material_Muto50": {
-      "name": "Büyük Mutoöstron ilacı"
+      "name": "Büyük Mutoöstron ilacı",
+      "description": "Yaratık %50 mutosteron kazanır."
     },
     "Material_Energy1": {
-      "name": "Mücadele Bileti"
+      "name": "Mücadele Bileti",
+      "description": "1 geçiş."
     },
     "Material_Energy5": {
-      "name": "Mücadele Bileti x5"
+      "name": "Mücadele Bileti x5",
+      "description": "5 geçiş."
     },
     "Material_Energy25": {
-      "name": "Mücadele Bileti x25"
+      "name": "Mücadele Bileti x25",
+      "description": "25 geçiş."
     },
     "Material_XP10": {
-      "name": "Tecrübe Barı"
+      "name": "Tecrübe Barı",
+      "description": "Yaratık 10 deneyim puanı kazanır."
     },
     "Material_XP250": {
-      "name": "Tecrübe İçkisi"
+      "name": "Tecrübe İçkisi",
+      "description": "Yaratık 250 deneyim puanı kazanır."
     },
     "Material_XP1000": {
-      "name": "Tecrübe Kavanozu"
+      "name": "Tecrübe Kavanozu",
+      "description": "Yaratık 1000 deneyim puanı kazanır."
     },
     "Material_EnergyMax10": {
-      "name": "Maks Geçiş +10"
+      "name": "Maks Geçiş +10",
+      "description": "Maksimum enerji geçiş sayısını kalıcı olarak 10 artırır."
     },
     "Charm_Critical_1": {
       "name": "Kritik Saldırılar",
@@ -6581,27 +7246,67 @@
     "orb_basic_xp_06": {
       "name": "XP +%300",
       "description": "Savaşta bir mutanttan edinilen tecrübeyi artırır (+%300)"
+    },
+    "Building_Forge": {
+      "name": "Altın Demirhane"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Altın Ocak"
+    },
+    "Building_Med_Lab": {
+      "name": "Sağlık Laboratuvarı"
+    },
+    "Building_Evo_Center": {
+      "name": "Evrim Merkezi"
+    },
+    "Building_Exchange": {
+      "name": "Döviz bürosu"
+    },
+    "Building_Incubator": {
+      "name": "Kuluçka Makinesi"
+    },
+    "Building_Trial_Hall": {
+      "name": "Meydan Okuma Salonu"
+    },
+    "Building_Mystery": {
+      "name": "Gizem Çözümleyici"
+    },
+    "Building_Breeding_Center": {
+      "name": "Üreme Merkezi"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Kabus Jetonu",
+      "description": "Bir Cadılar Bayramı jetonu"
+    },
+    "Material_XP10000": {
+      "name": "Alkol Kavanozu",
+      "description": "Yaratık 10000 deneyim puanı kazanır. Oyuna eklenmemiş bir öğe."
     }
   },
   "nl": {
     "Daily_Token": {
-      "name": "Magneetsleutel"
+      "name": "Magneetsleutel",
+      "description": "Verwijderd item"
     },
     "Material_Jackpot_Token": {
-      "name": "Jackpotmuntje"
+      "name": "Jackpotmuntje",
+      "description": "Gebruik dit muntje in de Mutants Madness-automaat en probeer de Super Jackpot te winnen!"
     },
     "Material_Gacha_Token": {
-      "name": "Reactormuntje"
+      "name": "Reactormuntje",
+      "description": "Elk muntje geeft je een kans om een unieke mutant te winnen in de Mutantengenerator."
     },
     "Material_Event_Token": {
-      "name": "Challenge Muntje"
+      "name": "Challenge Muntje",
+      "description": "Gebruik dit muntje in de Challenge Hall om unieke prijzen te winnen!"
     },
     "Material_Halloween_Soul": {
       "name": "Verloren ziel",
       "description": "Een mutantenziel. Om in te ruilen bij de Zielenkoopman."
     },
     "Material_Love_Token": {
-      "name": "Liefdemuntje"
+      "name": "Liefdemuntje",
+      "description": "Liefdemuntje"
     },
     "Material_Easter_2019_Chocobase": {
       "name": "Chocobase",
@@ -6632,112 +7337,148 @@
       "description": "Een \"cadeau\" dat door Santagonist wordt achtergelaten zodra hij is overwonnen."
     },
     "Material_Plague_Token": {
-      "name": "Plaagmuntje"
+      "name": "Plaagmuntje",
+      "description": "Plaagmuntje"
     },
     "Material_Toybox_Token": {
-      "name": "Speelgoeddoosmuntje"
+      "name": "Speelgoeddoosmuntje",
+      "description": "Speelgoeddoosmuntje"
     },
     "Material_7th_Anniversary_Token": {
-      "name": "Muntje 7-jarig bestaan"
+      "name": "Muntje 7-jarig bestaan",
+      "description": "Een muntje ter ere van de 7e verjaardag van Mutants: Genetic Gladiators"
     },
     "Material_Easter21_Token": {
-      "name": "Paasmuntje (2021)"
+      "name": "Paasmuntje (2021)",
+      "description": "Een Paas-muntje"
     },
     "Material_Pyramid_Token": {
-      "name": "Pyramide-muntje"
+      "name": "Pyramide-muntje",
+      "description": "Pyramide-muntje"
     },
     "Material_Stygian_Token": {
-      "name": "Muntje van de Styx"
+      "name": "Muntje van de Styx",
+      "description": "Muntje van de Styx"
     },
     "Material_Rime_Token": {
-      "name": "Rijpmuntje"
+      "name": "Rijpmuntje",
+      "description": "Rijpmuntje"
     },
     "Material_Valentines22_Token": {
-      "name": "Hartsmuntje"
+      "name": "Hartsmuntje",
+      "description": "Een Valentijnsdag-muntje"
     },
     "Material_Easter22_Token": {
-      "name": "Konijnenmuntje"
+      "name": "Konijnenmuntje",
+      "description": "Een Paas-muntje"
     },
     "Material_Data_Token": {
-      "name": "Gegevensmuntje"
+      "name": "Gegevensmuntje",
+      "description": "Gegevensmuntje"
     },
     "Material_Grave_Token": {
-      "name": "Begraafplaats Muntje"
+      "name": "Begraafplaats Muntje",
+      "description": "Begraafplaats Muntje"
     },
     "Material_Snowstorm_Token": {
-      "name": "Sneeuwstormmuntje"
+      "name": "Sneeuwstormmuntje",
+      "description": "Sneeuwstormmuntje"
     },
     "Material_Cherub_Token": {
-      "name": "Cherubijn Muntje"
+      "name": "Cherubijn Muntje",
+      "description": "Cherubijn Muntje"
     },
     "Material_Spelunking_Token": {
-      "name": "Speleologie-muntje"
+      "name": "Speleologie-muntje",
+      "description": "Speleologie-muntje"
     },
     "Material_Overlay_Token": {
-      "name": "Gelaagd muntje"
+      "name": "Gelaagd muntje",
+      "description": "Gelaagd muntje"
     },
     "Material_Trick_Token": {
-      "name": "Truc Muntje"
+      "name": "Truc Muntje",
+      "description": "Truc Muntje"
     },
     "Material_Capsule_Token": {
-      "name": "Capsule Muntje"
+      "name": "Capsule Muntje",
+      "description": "Capsule Muntje"
     },
     "Material_Cuteness_Token": {
-      "name": "Liefheidssymbool"
+      "name": "Liefheidssymbool",
+      "description": "Liefheidssymbool"
     },
     "Material_Moai_Token": {
-      "name": "Moai Muntje"
+      "name": "Moai Muntje",
+      "description": "Moai Muntje"
     },
     "Material_Conspiracy_Token": {
-      "name": "Samenzwering Muntjes"
+      "name": "Samenzwering Muntjes",
+      "description": "Samenzwering Muntjes"
     },
     "Material_Crawling_Token": {
-      "name": "Kruipend Muntje"
+      "name": "Kruipend Muntje",
+      "description": "Kruipend Muntje"
     },
     "Material_Xmas24_Token": {
-      "name": "Zonsondergang Muntje"
+      "name": "Zonsondergang Muntje",
+      "description": "Zonsondergang Muntje"
     },
     "Material_Runic_Token": {
-      "name": "Runenmuntje"
+      "name": "Runenmuntje",
+      "description": "Runenmuntje"
     },
     "Material_BUN_Token": {
-      "name": "B.U.N. Muntje"
+      "name": "B.U.N. Muntje",
+      "description": "B.U.N. Muntje"
     },
     "Material_Masks_Token": {
-      "name": "Onrust-token"
+      "name": "Onrust-token",
+      "description": "Onrust-token"
     },
     "Material_Mystery25_Token": {
-      "name": "Mysterie Munt 2025"
+      "name": "Mysterie Munt 2025",
+      "description": "Mysterie Munt 2025"
     },
     "Material_Signal_Token": {
-      "name": "Signaalmuntje"
+      "name": "Signaalmuntje",
+      "description": "Signaalmuntje"
     },
     "Material_Xmas25_Token": {
-      "name": "Sterrenbeeld Token"
+      "name": "Sterrenbeeld Token",
+      "description": "Sterrenbeeld Token"
     },
     "Material_Valentines26_Token": {
-      "name": "Pixel Hart Muntje"
+      "name": "Pixel Hart Muntje",
+      "description": "Pixel Hart Muntje"
     },
     "Material_Easter26_Token": {
-      "name": "Chocolade-muntje"
+      "name": "Chocolade-muntje",
+      "description": "Chocolade-muntje"
     },
     "Material_Mystery26_Token": {
-      "name": "Mysterie Munt 2026"
+      "name": "Mysterie Munt 2026",
+      "description": "Mysterie Munt 2026"
     },
     "Material_Easter_Token": {
-      "name": "Paasmuntje"
+      "name": "Paasmuntje",
+      "description": "Een Paas-muntje"
     },
     "Material_Weirdtech_Token": {
-      "name": "ToekomstTech Muntje"
+      "name": "ToekomstTech Muntje",
+      "description": "Een speleologie-muntje"
     },
     "Material_Preorder_Token": {
-      "name": "Sergeant Dusk Tegoedbon"
+      "name": "Sergeant Dusk Tegoedbon",
+      "description": "Sergeant Dusk Tegoedbon"
     },
     "Preorder_Token_DE_10_gold": {
-      "name": "Gouden Mad Mike Tegoedbon"
+      "name": "Gouden Mad Mike Tegoedbon",
+      "description": "Gouden Mad Mike Tegoedbon"
     },
     "Material_Tcg_Corgi_Token": {
-      "name": "Mutants: Het Kaartspel Drei Tegoedbon"
+      "name": "Mutants: Het Kaartspel Drei Tegoedbon",
+      "description": "Een beloning voor backers van de crowdfundingcampagne van Mutants: The Card Game (2019), ingewisseld voor de mutant \"Drei, Ruimte Corgi\""
     },
     "Material_Banshee_Veil": {
       "name": "Tipje van de Sluier",
@@ -6748,80 +7489,104 @@
       "description": "Sneeuwbal"
     },
     "Material_Mutenstein_Token": {
-      "name": "Mutensteinmuntje"
+      "name": "Mutensteinmuntje",
+      "description": "Mutensteinmuntje"
     },
     "Material_Easter_Egg_Bronze": {
-      "name": "Bronzen ei"
+      "name": "Bronzen ei",
+      "description": "Wat zit erin?"
     },
     "Material_Easter_Egg_Silver": {
-      "name": "Zilveren ei"
+      "name": "Zilveren ei",
+      "description": "Wat zit erin?"
     },
     "Material_Easter_Egg_Basic": {
-      "name": "Basisei"
+      "name": "Basisei",
+      "description": "Wat zit erin?"
     },
     "Material_Easter_Egg_Gold": {
-      "name": "Gouden ei"
+      "name": "Gouden ei",
+      "description": "Wat zit erin?"
     },
     "Material_Easter_Egg_Platinum": {
-      "name": "Platina ei"
+      "name": "Platina ei",
+      "description": "Wat zit erin?"
     },
     "Material_Claiomh_Solais": {
       "name": "Claíomh Solais",
       "description": "Een legendarisch zwaard. Ongetwijfeld geniet het de voorkeur het naar zijn legitieme eigenaar terug te brengen."
     },
     "Material_Hexcity_Token": {
-      "name": "Zeshoektover-muntje"
+      "name": "Zeshoektover-muntje",
+      "description": "Een Hex City-evenementmuntje"
     },
     "Star_Bronze": {
-      "name": "Bronzen ster"
+      "name": "Bronzen ster",
+      "description": "Gebruik hem bij het kweken van 2 niveau 10-wezens om een bronzen mutant te krijgen (10% sterker)."
     },
     "Star_Silver": {
-      "name": "Zilveren ster"
+      "name": "Zilveren ster",
+      "description": "Gebruik hem bij het kweken van 2 niveau 15-wezens om een zilveren mutant te krijgen (30% sterker)."
     },
     "Star_Gold": {
-      "name": "Gouden ster"
+      "name": "Gouden ster",
+      "description": "Gebruik hem bij het kweken van 2 niveau 20-wezens om een gouden mutant te krijgen (75% sterker)."
     },
     "Star_Platinum": {
-      "name": "Platinum ster"
+      "name": "Platinum ster",
+      "description": "Kruis twee identieke gouden mutanten van niveau 30+ met deze ster om een platina mutant te krijgen (100% sterker). Let op: mutanten uit de Reactor-collectie kunnen niet worden gebruikt om samen te voegen."
     },
     "Material_LP10": {
-      "name": "Kleine EHBO-set"
+      "name": "Kleine EHBO-set",
+      "description": "Herstelt 1% gezondheid."
     },
     "Material_LP100": {
-      "name": "EHBO-set"
+      "name": "EHBO-set",
+      "description": "Herstelt 10% gezondheid."
     },
     "Material_LP1000": {
-      "name": "Grote EHBO-set"
+      "name": "Grote EHBO-set",
+      "description": "Herstelt 25% gezondheid."
     },
     "Material_Muto1": {
-      "name": "Kleine dosis mutosterone"
+      "name": "Kleine dosis mutosterone",
+      "description": "Het wezen krijgt 1% mutosteron."
     },
     "Material_Muto10": {
-      "name": "Dosis mutosterone"
+      "name": "Dosis mutosterone",
+      "description": "Het wezen krijgt 10% mutosteron."
     },
     "Material_Muto50": {
-      "name": "Grote dosis mutosterone"
+      "name": "Grote dosis mutosterone",
+      "description": "Het wezen krijgt 50% mutosteron."
     },
     "Material_Energy1": {
-      "name": "Ticket"
+      "name": "Ticket",
+      "description": "1 pas."
     },
     "Material_Energy5": {
-      "name": "Tickets x5"
+      "name": "Tickets x5",
+      "description": "5 passen."
     },
     "Material_Energy25": {
-      "name": "Tickets x25"
+      "name": "Tickets x25",
+      "description": "25 passen."
     },
     "Material_XP10": {
-      "name": "Energyreep"
+      "name": "Energyreep",
+      "description": "Het wezen krijgt 10 ervaringspunten."
     },
     "Material_XP250": {
-      "name": "Energydrankje"
+      "name": "Energydrankje",
+      "description": "Het wezen krijgt 250 ervaringspunten."
     },
     "Material_XP1000": {
-      "name": "Energymix"
+      "name": "Energymix",
+      "description": "Het wezen krijgt 1000 ervaringspunten."
     },
     "Material_EnergyMax10": {
-      "name": "Max ticket +10"
+      "name": "Max ticket +10",
+      "description": "Verhoogt het maximale aantal energiepassen permanent met 10."
     },
     "Charm_Critical_1": {
       "name": "Kritieke Aanval",
@@ -7522,6 +8287,41 @@
     "orb_basic_xp_06": {
       "name": "XP +300%",
       "description": "Verhoogt de ervaring gewonnen door een mutant in een gevecht (+300%)"
+    },
+    "Building_Forge": {
+      "name": "Gouden Smidse"
+    },
+    "Building_Gold_Smelter": {
+      "name": "Gouden Oven"
+    },
+    "Building_Med_Lab": {
+      "name": "Medisch lab"
+    },
+    "Building_Evo_Center": {
+      "name": "Evolutiecentrum"
+    },
+    "Building_Exchange": {
+      "name": "Wisselkantoor"
+    },
+    "Building_Incubator": {
+      "name": "Kweekkamer"
+    },
+    "Building_Trial_Hall": {
+      "name": "Challenge Hall"
+    },
+    "Building_Mystery": {
+      "name": "Mysteries Analysator"
+    },
+    "Building_Breeding_Center": {
+      "name": "Kweekplaats"
+    },
+    "Material_Hallowen_Nightmare": {
+      "name": "Nachtmerrie-muntje",
+      "description": "Een Halloween-muntje"
+    },
+    "Material_XP10000": {
+      "name": "Pot Alcohol",
+      "description": "Het wezen krijgt 10000 ervaringspunten. Een item dat niet aan het spel is toegevoegd."
     }
   }
 }

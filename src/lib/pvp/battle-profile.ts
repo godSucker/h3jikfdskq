@@ -310,8 +310,12 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
   // падает на сырой RU-текст, не на пустую строку.
   const isRu = !opts.locale || opts.locale === 'ru'
   const localizedName = isRu ? mutant.name : opts.names?.[mutantId]?.name || mutant.name
-  const localizedAtk1 = isRu ? mutant.name_attack1 : opts.names?.[mutantId]?.atk1Name || mutant.name_attack1
-  const localizedAtk2 = isRu ? mutant.name_attack2 : opts.names?.[mutantId]?.atk2Name || mutant.name_attack2
+  const localizedAtk1 = isRu
+    ? mutant.name_attack1
+    : opts.names?.[mutantId]?.atk1Name || mutant.name_attack1
+  const localizedAtk2 = isRu
+    ? mutant.name_attack2
+    : opts.names?.[mutantId]?.atk2Name || mutant.name_attack2
   const attack1Fallback = isRu ? 'Атака 1' : t('pvp.attack1Default', opts.locale as Locale)
   const attack2Fallback = isRu ? 'Атака 2' : t('pvp.attack2Default', opts.locale as Locale)
 

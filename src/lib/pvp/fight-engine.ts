@@ -277,7 +277,9 @@ export class BattleSession {
       if (h.crit) parts.push(t('pvp.log.critMultiplier', loc))
       if (h.typeModPct)
         parts.push(
-          t('pvp.log.typeMod', loc).replace('{sign}', h.typeModPct > 0 ? '+' : '').replace('{pct}', String(h.typeModPct)),
+          t('pvp.log.typeMod', loc)
+            .replace('{sign}', h.typeModPct > 0 ? '+' : '')
+            .replace('{pct}', String(h.typeModPct)),
         )
       if (h.buffPct)
         parts.push(
@@ -303,7 +305,8 @@ export class BattleSession {
       if (otherName !== unit.name) return ''
       return unit.side === 'mine' ? t('pvp.log.enemyTag', loc) : t('pvp.log.mineTag', loc)
     }
-    const shieldSuffix = (n: number) => (n ? t('pvp.log.shieldAbsorbed', loc).replace('{n}', String(n)) : '')
+    const shieldSuffix = (n: number) =>
+      n ? t('pvp.log.shieldAbsorbed', loc).replace('{n}', String(n)) : ''
     const diedSuffix = (died: boolean) => (died ? t('pvp.log.died', loc) : '')
 
     const turnLines: string[] = []
