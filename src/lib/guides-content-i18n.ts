@@ -21,6 +21,7 @@ interface ContentI18n {
   locations: Record<string, Partial<Record<Locale, LocationText>>>
   questTitles: Record<string, Partial<Record<Locale, string>>>
   questCaptionTemplates: Record<string, Partial<Record<Locale, string>>>
+  dungeonNames: Record<string, Partial<Record<Locale, string>>>
 }
 
 const data = contentI18n as ContentI18n
@@ -51,6 +52,14 @@ export function getLocationText(
 ): LocationText {
   if (locale === 'ru') return fallback
   return data.locations[mapId]?.[locale] ?? fallback
+}
+
+// dungeonId для special-ladders включает группу-префикс ("experiment/..."
+// / "challenge/..."), чтобы избежать коллизий id между experiment и
+// challenge (ключи в исходных json пересекаются, напр. jungle_bells_1).
+export function getDungeonName(dungeonId: string, locale: Locale, fallback: string): string {
+  if (locale === 'ru') return fallback
+  return data.dungeonNames[dungeonId]?.[locale] ?? fallback
 }
 
 export function getQuestText(

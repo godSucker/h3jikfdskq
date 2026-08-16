@@ -5006,5 +5006,767 @@
       "tr": "Kazan: Uzaylı",
       "nl": "Ontvang Alien"
     }
+  },
+  "dungeonNames": {
+    "architecture": {
+      "en": "Architecture",
+      "es": "Arquitectura",
+      "fr": "Architecture",
+      "de": "Architektur",
+      "pt": "Arquitetura",
+      "it": "Architettura",
+      "tr": "Mimari",
+      "nl": "Architectuur"
+    },
+    "asteroids": {
+      "en": "Asteroids",
+      "es": "Asteroides",
+      "fr": "Astéroïdes",
+      "de": "Asteroiden",
+      "pt": "Asteroides",
+      "it": "Asteroidi",
+      "tr": "Asteroitler",
+      "nl": "Asteroïden"
+    },
+    "abyss": {
+      "en": "Abyss",
+      "es": "Abismo",
+      "fr": "Abysse",
+      "de": "Abgrund",
+      "pt": "Abismo",
+      "it": "Abisso",
+      "tr": "Uçurum",
+      "nl": "Afgrond"
+    },
+    "insanity_2": {
+      "en": "Insanity II",
+      "es": "Locura II",
+      "fr": "Folie II",
+      "de": "Wahnsinn II",
+      "pt": "Insanidade II",
+      "it": "Follia II",
+      "tr": "Delilik II",
+      "nl": "Waanzin II"
+    },
+    "library_2": {
+      "en": "Library II",
+      "es": "Biblioteca II",
+      "fr": "Bibliothèque II",
+      "de": "Bibliothek II",
+      "pt": "Biblioteca II",
+      "it": "Biblioteca II",
+      "tr": "Kütüphane II",
+      "nl": "Bibliotheek II"
+    },
+    "verne_2": {
+      "en": "Verne II",
+      "es": "Verne II",
+      "fr": "Verne II",
+      "de": "Verne II",
+      "pt": "Verne II",
+      "it": "Verne II",
+      "tr": "Verne II",
+      "nl": "Verne II"
+    },
+    "everlastingsands": {
+      "en": "Everlasting Sands",
+      "es": "Arenas Eternas",
+      "fr": "Sables Éternels",
+      "de": "Ewige Sande",
+      "pt": "Areias Eternas",
+      "it": "Sabbie Eterne",
+      "tr": "Sonsuz Kumlar",
+      "nl": "Eeuwige Zanden"
+    },
+    "dumas_2": {
+      "en": "Dumas II",
+      "es": "Dumas II",
+      "fr": "Dumas II",
+      "de": "Dumas II",
+      "pt": "Dumas II",
+      "it": "Dumas II",
+      "tr": "Dumas II",
+      "nl": "Dumas II"
+    },
+    "inferno_2": {
+      "en": "Inferno II",
+      "es": "Inferno II",
+      "fr": "Inferno II",
+      "de": "Inferno II",
+      "pt": "Inferno II",
+      "it": "Inferno II",
+      "tr": "Inferno II",
+      "nl": "Inferno II"
+    },
+    "kalevala_2": {
+      "en": "Kalevala II",
+      "es": "Kalevala II",
+      "fr": "Kalevala II",
+      "de": "Kalevala II",
+      "pt": "Kalevala II",
+      "it": "Kalevala II",
+      "tr": "Kalevala II",
+      "nl": "Kalevala II"
+    },
+    "cryptid_2": {
+      "en": "Cryptid II",
+      "es": "Críptido II",
+      "fr": "Cryptide II",
+      "de": "Kryptid II",
+      "pt": "Críptico II",
+      "it": "Criptide II",
+      "tr": "Kriptid II",
+      "nl": "Cryptide II"
+    },
+    "mafia": {
+      "en": "Mafia",
+      "es": "Mafia",
+      "fr": "Mafia",
+      "de": "Mafia",
+      "pt": "Mafia",
+      "it": "Mafia",
+      "tr": "Mafia",
+      "nl": "Mafia"
+    },
+    "musashi_2": {
+      "en": "Musashi II",
+      "es": "Musashi II",
+      "fr": "Musashi II",
+      "de": "Musashi II",
+      "pt": "Musashi II",
+      "it": "Musashi II",
+      "tr": "Musashi II",
+      "nl": "Musashi II"
+    },
+    "unliving_2": {
+      "en": "Undead II",
+      "es": "No muerto II",
+      "fr": "Mort-vivant II",
+      "de": "Untot II",
+      "pt": "Morto-vivo II",
+      "it": "Non morto II",
+      "tr": "Yaşayan Ölü II",
+      "nl": "Ondode II"
+    },
+    "pirates": {
+      "en": "Pirates",
+      "es": "Piratas",
+      "fr": "Pirates",
+      "de": "Piraten",
+      "pt": "Piratas",
+      "it": "Pirati",
+      "tr": "Korsanlar",
+      "nl": "Piraten"
+    },
+    "factory_2": {
+      "en": "Factory II",
+      "es": "Fábrica II",
+      "fr": "Usine II",
+      "de": "Fabrik II",
+      "pt": "Fábrica II",
+      "it": "Fabbrica II",
+      "tr": "Fabrika II",
+      "nl": "Fabriek II"
+    },
+    "experiment/hellfire_13": {
+      "en": "Hellfire",
+      "es": "Fuego Infernal",
+      "fr": "Feu Infernal",
+      "de": "Höllenfeuer",
+      "pt": "Fogo Infernal",
+      "it": "Fuoco Infernale",
+      "tr": "Cehennem Ateşi",
+      "nl": "Helvuur"
+    },
+    "experiment/hyperborea_13": {
+      "en": "Hyperborea",
+      "es": "Hiperbórea",
+      "fr": "Hyperborée",
+      "de": "Hyperborea",
+      "pt": "Hiperbórea",
+      "it": "Iperborea",
+      "tr": "Hiperborea",
+      "nl": "Hyperborea"
+    },
+    "experiment/celestial_12": {
+      "en": "Celestial Body",
+      "es": "Cuerpo Celeste",
+      "fr": "Corps Céleste",
+      "de": "Himmelskörper",
+      "pt": "Corpo Celeste",
+      "it": "Corpo Celeste",
+      "tr": "Gök Cismi",
+      "nl": "Hemellichaam"
+    },
+    "experiment/neon_14": {
+      "en": "Neon",
+      "es": "Neon",
+      "fr": "Neon",
+      "de": "Neon",
+      "pt": "Neon",
+      "it": "Neon",
+      "tr": "Neon",
+      "nl": "Neon"
+    },
+    "experiment/starter": {
+      "en": "First Experiment",
+      "es": "Primer Experimento",
+      "fr": "Première Expérience",
+      "de": "Erstes Experiment",
+      "pt": "Primeiro Experimento",
+      "it": "Primo Esperimento",
+      "tr": "İlk Deney",
+      "nl": "Eerste Experiment"
+    },
+    "experiment/pit_galactic_11": {
+      "en": "Pit: Galactic",
+      "es": "Foso: Galáctico",
+      "fr": "Fosse: Galactique",
+      "de": "Grube: Galaktisch",
+      "pt": "Fosso: Galáctico",
+      "it": "Fossa: Galattico",
+      "tr": "Çukur: Galaktik",
+      "nl": "Kuil: Galactisch"
+    },
+    "experiment/pit_zoo_12": {
+      "en": "Pit: Beast",
+      "es": "Foso: Bestia",
+      "fr": "Fosse: Bête",
+      "de": "Grube: Bestie",
+      "pt": "Fosso: Fera",
+      "it": "Fossa: Bestia",
+      "tr": "Çukur: Canavar",
+      "nl": "Kuil: Beest"
+    },
+    "experiment/pit_cyber_12": {
+      "en": "Pit: Cyborg",
+      "es": "Foso: Cíborg",
+      "fr": "Fosse: Cyborg",
+      "de": "Grube: Cyborg",
+      "pt": "Fosso: Ciborgue",
+      "it": "Fossa: Cyborg",
+      "tr": "Çukur: Siborg",
+      "nl": "Kuil: Cyborg"
+    },
+    "experiment/pit_mystic_12": {
+      "en": "Pit: Mythic",
+      "es": "Foso: Mítico",
+      "fr": "Fosse: Mythique",
+      "de": "Grube: Mythisch",
+      "pt": "Fosso: Mítico",
+      "it": "Fossa: Mitico",
+      "tr": "Çukur: Mitik",
+      "nl": "Kuil: Mythisch"
+    },
+    "experiment/pit_necro_12": {
+      "en": "Pit: Undead",
+      "es": "Foso: No muerto",
+      "fr": "Fosse: Mort-vivant",
+      "de": "Grube: Untot",
+      "pt": "Fosso: Morto-vivo",
+      "it": "Fossa: Non morto",
+      "tr": "Çukur: Yaşayan Ölü",
+      "nl": "Kuil: Ondode"
+    },
+    "experiment/pit_saber_11": {
+      "en": "Pit: Brawler",
+      "es": "Foso: Luchador",
+      "fr": "Fosse: Bagarreur",
+      "de": "Grube: Schläger",
+      "pt": "Fosso: Brigão",
+      "it": "Fossa: Attaccabrighe",
+      "tr": "Çukur: Kavgacı",
+      "nl": "Kuil: Vechtersbaas"
+    },
+    "experiment/hexcity_1": {
+      "en": "Hex City",
+      "es": "Hex City",
+      "fr": "Hex City",
+      "de": "Hex City",
+      "pt": "Hex City",
+      "it": "Hex City",
+      "tr": "Hex City",
+      "nl": "Hex City"
+    },
+    "experiment/hexcity_2": {
+      "en": "Hex City II",
+      "es": "Hex City II",
+      "fr": "Hex City II",
+      "de": "Hex City II",
+      "pt": "Hex City II",
+      "it": "Hex City II",
+      "tr": "Hex City II",
+      "nl": "Hex City II"
+    },
+    "experiment/valentines": {
+      "en": "Valentine's Day",
+      "es": "Día de San Valentín",
+      "fr": "Saint-Valentin",
+      "de": "Valentinstag",
+      "pt": "Dia de São Valentim",
+      "it": "San Valentino",
+      "tr": "Sevgililer Günü",
+      "nl": "Valentijnsdag"
+    },
+    "experiment/valentines23": {
+      "en": "Valentine's Day 2023",
+      "es": "Día de San Valentín 2023",
+      "fr": "Saint-Valentin 2023",
+      "de": "Valentinstag 2023",
+      "pt": "Dia de São Valentim 2023",
+      "it": "San Valentino 2023",
+      "tr": "Sevgililer Günü 2023",
+      "nl": "Valentijnsdag 2023"
+    },
+    "experiment/valentines24": {
+      "en": "Valentine's Day 2024",
+      "es": "Día de San Valentín 2024",
+      "fr": "Saint-Valentin 2024",
+      "de": "Valentinstag 2024",
+      "pt": "Dia de São Valentim 2024",
+      "it": "San Valentino 2024",
+      "tr": "Sevgililer Günü 2024",
+      "nl": "Valentijnsdag 2024"
+    },
+    "experiment/valentines25": {
+      "en": "Valentine's Day 2025",
+      "es": "Día de San Valentín 2025",
+      "fr": "Saint-Valentin 2025",
+      "de": "Valentinstag 2025",
+      "pt": "Dia de São Valentim 2025",
+      "it": "San Valentino 2025",
+      "tr": "Sevgililer Günü 2025",
+      "nl": "Valentijnsdag 2025"
+    },
+    "experiment/valentines26": {
+      "en": "Valentine's Day 2026",
+      "es": "Día de San Valentín 2026",
+      "fr": "Saint-Valentin 2026",
+      "de": "Valentinstag 2026",
+      "pt": "Dia de São Valentim 2026",
+      "it": "San Valentino 2026",
+      "tr": "Sevgililer Günü 2026",
+      "nl": "Valentijnsdag 2026"
+    },
+    "experiment/god": {
+      "en": "Playing God",
+      "es": "Jugando a ser Dios",
+      "fr": "Jouer à Dieu",
+      "de": "Gott spielen",
+      "pt": "Brincando de Deus",
+      "it": "Giocare a fare Dio",
+      "tr": "Tanrı Oynamak",
+      "nl": "God Spelen"
+    },
+    "experiment/toyz": {
+      "en": "Toys",
+      "es": "Juguetes",
+      "fr": "Jouets",
+      "de": "Spielzeuge",
+      "pt": "Brinquedos",
+      "it": "Giocattoli",
+      "tr": "Oyuncaklar",
+      "nl": "Speelgoed"
+    },
+    "experiment/easter21": {
+      "en": "Easter 2021",
+      "es": "Pascua 2021",
+      "fr": "Pâques 2021",
+      "de": "Ostern 2021",
+      "pt": "Páscoa 2021",
+      "it": "Pasqua 2021",
+      "tr": "Paskalya 2021",
+      "nl": "Pasen 2021"
+    },
+    "experiment/easter22": {
+      "en": "Easter 2022",
+      "es": "Pascua 2022",
+      "fr": "Pâques 2022",
+      "de": "Ostern 2022",
+      "pt": "Páscoa 2022",
+      "it": "Pasqua 2022",
+      "tr": "Paskalya 2022",
+      "nl": "Pasen 2022"
+    },
+    "experiment/easter23": {
+      "en": "Easter 2023",
+      "es": "Pascua 2023",
+      "fr": "Pâques 2023",
+      "de": "Ostern 2023",
+      "pt": "Páscoa 2023",
+      "it": "Pasqua 2023",
+      "tr": "Paskalya 2023",
+      "nl": "Pasen 2023"
+    },
+    "experiment/easter24": {
+      "en": "Easter 2024",
+      "es": "Pascua 2024",
+      "fr": "Pâques 2024",
+      "de": "Ostern 2024",
+      "pt": "Páscoa 2024",
+      "it": "Pasqua 2024",
+      "tr": "Paskalya 2024",
+      "nl": "Pasen 2024"
+    },
+    "experiment/easter25": {
+      "en": "Easter 2025",
+      "es": "Pascua 2025",
+      "fr": "Pâques 2025",
+      "de": "Ostern 2025",
+      "pt": "Páscoa 2025",
+      "it": "Pasqua 2025",
+      "tr": "Paskalya 2025",
+      "nl": "Pasen 2025"
+    },
+    "experiment/easter26": {
+      "en": "Easter 2026",
+      "es": "Pascua 2026",
+      "fr": "Pâques 2026",
+      "de": "Ostern 2026",
+      "pt": "Páscoa 2026",
+      "it": "Pasqua 2026",
+      "tr": "Paskalya 2026",
+      "nl": "Pasen 2026"
+    },
+    "experiment/xmas22_1": {
+      "en": "Christmas 2022 #1",
+      "es": "Navidad 2022 #1",
+      "fr": "Noël 2022 #1",
+      "de": "Weihnachten 2022 #1",
+      "pt": "Natal 2022 #1",
+      "it": "Natale 2022 #1",
+      "tr": "Noel 2022 #1",
+      "nl": "Kerstmis 2022 #1"
+    },
+    "experiment/xmas22_2": {
+      "en": "Christmas 2022 #2",
+      "es": "Navidad 2022 #2",
+      "fr": "Noël 2022 #2",
+      "de": "Weihnachten 2022 #2",
+      "pt": "Natal 2022 #2",
+      "it": "Natale 2022 #2",
+      "tr": "Noel 2022 #2",
+      "nl": "Kerstmis 2022 #2"
+    },
+    "experiment/xmas23_1": {
+      "en": "Christmas 2023 #1",
+      "es": "Navidad 2023 #1",
+      "fr": "Noël 2023 #1",
+      "de": "Weihnachten 2023 #1",
+      "pt": "Natal 2023 #1",
+      "it": "Natale 2023 #1",
+      "tr": "Noel 2023 #1",
+      "nl": "Kerstmis 2023 #1"
+    },
+    "experiment/xmas23_2": {
+      "en": "Christmas 2023 #2",
+      "es": "Navidad 2023 #2",
+      "fr": "Noël 2023 #2",
+      "de": "Weihnachten 2023 #2",
+      "pt": "Natal 2023 #2",
+      "it": "Natale 2023 #2",
+      "tr": "Noel 2023 #2",
+      "nl": "Kerstmis 2023 #2"
+    },
+    "experiment/xmas24_1": {
+      "en": "Christmas 2024 #1",
+      "es": "Navidad 2024 #1",
+      "fr": "Noël 2024 #1",
+      "de": "Weihnachten 2024 #1",
+      "pt": "Natal 2024 #1",
+      "it": "Natale 2024 #1",
+      "tr": "Noel 2024 #1",
+      "nl": "Kerstmis 2024 #1"
+    },
+    "experiment/xmas24_2": {
+      "en": "Christmas 2024 #2",
+      "es": "Navidad 2024 #2",
+      "fr": "Noël 2024 #2",
+      "de": "Weihnachten 2024 #2",
+      "pt": "Natal 2024 #2",
+      "it": "Natale 2024 #2",
+      "tr": "Noel 2024 #2",
+      "nl": "Kerstmis 2024 #2"
+    },
+    "experiment/xmas25_1": {
+      "en": "Christmas 2025 #1",
+      "es": "Navidad 2025 #1",
+      "fr": "Noël 2025 #1",
+      "de": "Weihnachten 2025 #1",
+      "pt": "Natal 2025 #1",
+      "it": "Natale 2025 #1",
+      "tr": "Noel 2025 #1",
+      "nl": "Kerstmis 2025 #1"
+    },
+    "experiment/xmas25_2": {
+      "en": "Christmas 2025 #2",
+      "es": "Navidad 2025 #2",
+      "fr": "Noël 2025 #2",
+      "de": "Weihnachten 2025 #2",
+      "pt": "Natal 2025 #2",
+      "it": "Natale 2025 #2",
+      "tr": "Noel 2025 #2",
+      "nl": "Kerstmis 2025 #2"
+    },
+    "experiment/weirdtech": {
+      "en": "Weird Tech",
+      "es": "Tecnología Extraña",
+      "fr": "Technologie Étrange",
+      "de": "Seltsame Technik",
+      "pt": "Tecnologia Estranha",
+      "it": "Tecnologia Strana",
+      "tr": "Garip Teknoloji",
+      "nl": "Vreemde Technologie"
+    },
+    "experiment/halloween21": {
+      "en": "Halloween 2021",
+      "es": "Halloween 2021",
+      "fr": "Halloween 2021",
+      "de": "Halloween 2021",
+      "pt": "Halloween 2021",
+      "it": "Halloween 2021",
+      "tr": "Halloween 2021",
+      "nl": "Halloween 2021"
+    },
+    "experiment/halloween25": {
+      "en": "Halloween 2025",
+      "es": "Halloween 2025",
+      "fr": "Halloween 2025",
+      "de": "Halloween 2025",
+      "pt": "Halloween 2025",
+      "it": "Halloween 2025",
+      "tr": "Halloween 2025",
+      "nl": "Halloween 2025"
+    },
+    "experiment/anniversary_20_1": {
+      "en": "Anniversary 2020 #1",
+      "es": "Aniversario 2020 #1",
+      "fr": "Anniversaire 2020 #1",
+      "de": "Jubiläum 2020 #1",
+      "pt": "Aniversário 2020 #1",
+      "it": "Anniversario 2020 #1",
+      "tr": "Yıldönümü 2020 #1",
+      "nl": "Jubileum 2020 #1"
+    },
+    "experiment/anniversary_20_2": {
+      "en": "Anniversary 2020 #2",
+      "es": "Aniversario 2020 #2",
+      "fr": "Anniversaire 2020 #2",
+      "de": "Jubiläum 2020 #2",
+      "pt": "Aniversário 2020 #2",
+      "it": "Anniversario 2020 #2",
+      "tr": "Yıldönümü 2020 #2",
+      "nl": "Jubileum 2020 #2"
+    },
+    "experiment/anniversary_21_1": {
+      "en": "Anniversary 2021 #1",
+      "es": "Aniversario 2021 #1",
+      "fr": "Anniversaire 2021 #1",
+      "de": "Jubiläum 2021 #1",
+      "pt": "Aniversário 2021 #1",
+      "it": "Anniversario 2021 #1",
+      "tr": "Yıldönümü 2021 #1",
+      "nl": "Jubileum 2021 #1"
+    },
+    "experiment/anniversary_21_2": {
+      "en": "Anniversary 2021 #2",
+      "es": "Aniversario 2021 #2",
+      "fr": "Anniversaire 2021 #2",
+      "de": "Jubiläum 2021 #2",
+      "pt": "Aniversário 2021 #2",
+      "it": "Anniversario 2021 #2",
+      "tr": "Yıldönümü 2021 #2",
+      "nl": "Jubileum 2021 #2"
+    },
+    "experiment/anniversary_22_1": {
+      "en": "Anniversary 2022 #1",
+      "es": "Aniversario 2022 #1",
+      "fr": "Anniversaire 2022 #1",
+      "de": "Jubiläum 2022 #1",
+      "pt": "Aniversário 2022 #1",
+      "it": "Anniversario 2022 #1",
+      "tr": "Yıldönümü 2022 #1",
+      "nl": "Jubileum 2022 #1"
+    },
+    "experiment/anniversary_22_2": {
+      "en": "Anniversary 2022 #2",
+      "es": "Aniversario 2022 #2",
+      "fr": "Anniversaire 2022 #2",
+      "de": "Jubiläum 2022 #2",
+      "pt": "Aniversário 2022 #2",
+      "it": "Anniversario 2022 #2",
+      "tr": "Yıldönümü 2022 #2",
+      "nl": "Jubileum 2022 #2"
+    },
+    "experiment/anniversary_23_1": {
+      "en": "Anniversary 2023 #1",
+      "es": "Aniversario 2023 #1",
+      "fr": "Anniversaire 2023 #1",
+      "de": "Jubiläum 2023 #1",
+      "pt": "Aniversário 2023 #1",
+      "it": "Anniversario 2023 #1",
+      "tr": "Yıldönümü 2023 #1",
+      "nl": "Jubileum 2023 #1"
+    },
+    "experiment/anniversary_23_2": {
+      "en": "Anniversary 2023 #2",
+      "es": "Aniversario 2023 #2",
+      "fr": "Anniversaire 2023 #2",
+      "de": "Jubiläum 2023 #2",
+      "pt": "Aniversário 2023 #2",
+      "it": "Anniversario 2023 #2",
+      "tr": "Yıldönümü 2023 #2",
+      "nl": "Jubileum 2023 #2"
+    },
+    "experiment/anniversary_23_3": {
+      "en": "Anniversary 2023 #3",
+      "es": "Aniversario 2023 #3",
+      "fr": "Anniversaire 2023 #3",
+      "de": "Jubiläum 2023 #3",
+      "pt": "Aniversário 2023 #3",
+      "it": "Anniversario 2023 #3",
+      "tr": "Yıldönümü 2023 #3",
+      "nl": "Jubileum 2023 #3"
+    },
+    "experiment/anniversary_24_1": {
+      "en": "Anniversary 2024 #1",
+      "es": "Aniversario 2024 #1",
+      "fr": "Anniversaire 2024 #1",
+      "de": "Jubiläum 2024 #1",
+      "pt": "Aniversário 2024 #1",
+      "it": "Anniversario 2024 #1",
+      "tr": "Yıldönümü 2024 #1",
+      "nl": "Jubileum 2024 #1"
+    },
+    "experiment/anniversary_24_2": {
+      "en": "Anniversary 2024 #2",
+      "es": "Aniversario 2024 #2",
+      "fr": "Anniversaire 2024 #2",
+      "de": "Jubiläum 2024 #2",
+      "pt": "Aniversário 2024 #2",
+      "it": "Anniversario 2024 #2",
+      "tr": "Yıldönümü 2024 #2",
+      "nl": "Jubileum 2024 #2"
+    },
+    "experiment/anniversary_25_1": {
+      "en": "Anniversary 2025 #1",
+      "es": "Aniversario 2025 #1",
+      "fr": "Anniversaire 2025 #1",
+      "de": "Jubiläum 2025 #1",
+      "pt": "Aniversário 2025 #1",
+      "it": "Anniversario 2025 #1",
+      "tr": "Yıldönümü 2025 #1",
+      "nl": "Jubileum 2025 #1"
+    },
+    "experiment/anniversary_25_2": {
+      "en": "Anniversary 2025 #2",
+      "es": "Aniversario 2025 #2",
+      "fr": "Anniversaire 2025 #2",
+      "de": "Jubiläum 2025 #2",
+      "pt": "Aniversário 2025 #2",
+      "it": "Anniversario 2025 #2",
+      "tr": "Yıldönümü 2025 #2",
+      "nl": "Jubileum 2025 #2"
+    },
+    "challenge/galacless": {
+      "en": "Without Galactic",
+      "es": "Sin Galáctico",
+      "fr": "Sans Galactique",
+      "de": "Ohne Galaktisch",
+      "pt": "Sem Galáctico",
+      "it": "Senza Galattico",
+      "tr": "Galaktik Olmadan",
+      "nl": "Zonder Galactisch"
+    },
+    "challenge/zooless": {
+      "en": "Without Beast",
+      "es": "Sin Bestia",
+      "fr": "Sans Bête",
+      "de": "Ohne Bestie",
+      "pt": "Sem Fera",
+      "it": "Senza Bestia",
+      "tr": "Canavar Olmadan",
+      "nl": "Zonder Beest"
+    },
+    "challenge/cyberless": {
+      "en": "Without Cyborg",
+      "es": "Sin Cíborg",
+      "fr": "Sans Cyborg",
+      "de": "Ohne Cyborg",
+      "pt": "Sem Ciborgue",
+      "it": "Senza Cyborg",
+      "tr": "Siborg Olmadan",
+      "nl": "Zonder Cyborg"
+    },
+    "challenge/mysticless": {
+      "en": "Without Mythic",
+      "es": "Sin Mítico",
+      "fr": "Sans Mythique",
+      "de": "Ohne Mythisch",
+      "pt": "Sem Mítico",
+      "it": "Senza Mitico",
+      "tr": "Mitik Olmadan",
+      "nl": "Zonder Mythisch"
+    },
+    "challenge/necroless": {
+      "en": "Without Undead",
+      "es": "Sin No muerto",
+      "fr": "Sans Mort-vivant",
+      "de": "Ohne Untot",
+      "pt": "Sem Morto-vivo",
+      "it": "Senza Non morto",
+      "tr": "Yaşayan Ölü Olmadan",
+      "nl": "Zonder Ondode"
+    },
+    "challenge/saberless": {
+      "en": "Without Brawler",
+      "es": "Sin Luchador",
+      "fr": "Sans Bagarreur",
+      "de": "Ohne Schläger",
+      "pt": "Sem Brigão",
+      "it": "Senza Attaccabrighe",
+      "tr": "Kavgacı Olmadan",
+      "nl": "Zonder Vechtersbaas"
+    },
+    "challenge/triangle_abc": {
+      "en": "Triangle A-B-C",
+      "es": "Triángulo A-B-C",
+      "fr": "Triangle A-B-C",
+      "de": "Dreieck A-B-C",
+      "pt": "Triângulo A-B-C",
+      "it": "Triangolo A-B-C",
+      "tr": "Üçgen A-B-C",
+      "nl": "Driehoek A-B-C"
+    },
+    "challenge/triangle_def": {
+      "en": "Triangle D-E-F",
+      "es": "Triángulo D-E-F",
+      "fr": "Triangle D-E-F",
+      "de": "Dreieck D-E-F",
+      "pt": "Triângulo D-E-F",
+      "it": "Triangolo D-E-F",
+      "tr": "Üçgen D-E-F",
+      "nl": "Driehoek D-E-F"
+    },
+    "challenge/halloween2018_1": {
+      "en": "Halloween 2018 (I)",
+      "es": "Halloween 2018 (I)",
+      "fr": "Halloween 2018 (I)",
+      "de": "Halloween 2018 (I)",
+      "pt": "Halloween 2018 (I)",
+      "it": "Halloween 2018 (I)",
+      "tr": "Halloween 2018 (I)",
+      "nl": "Halloween 2018 (I)"
+    },
+    "challenge/halloween2018_2": {
+      "en": "Halloween 2018 (II)",
+      "es": "Halloween 2018 (II)",
+      "fr": "Halloween 2018 (II)",
+      "de": "Halloween 2018 (II)",
+      "pt": "Halloween 2018 (II)",
+      "it": "Halloween 2018 (II)",
+      "tr": "Halloween 2018 (II)",
+      "nl": "Halloween 2018 (II)"
+    }
   }
 }

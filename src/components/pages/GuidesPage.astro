@@ -23,7 +23,7 @@ import { geneLabelL } from '@/lib/mutant-dicts';
 import { calculateFinalStats } from '@/lib/stats/unified-calculator';
 import { t, localeFromAstro, type Locale } from '@/lib/i18n';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
-import { getFarmerText, getLocationText, getQuestText } from '@/lib/guides-content-i18n';
+import { getFarmerText, getLocationText, getQuestText, getDungeonName } from '@/lib/guides-content-i18n';
 import divisionFightsData from '@/data/guides/division-fights.json';
 import GuidesBrowser from '@/components/guides/GuidesBrowser.svelte';
 import dungeonCovers from '@/data/guides/dungeon-covers.json';
@@ -297,7 +297,13 @@ function resolveDungeon(d: DungeonRaw) {
   return resolveDungeonShared(d, rewardCtx);
 }
 
-const raids = (raidsData as DungeonRaw[]).map(resolveDungeon);
+// 16 названий рейдов - авторские (nameAuthored), переведены на 8 языков
+// с явного разрешения пользователя, см. память
+// feedback-guides-llm-names-exception-2026-08-15.
+const raids = (raidsData as DungeonRaw[]).map((d) => {
+  const resolved = resolveDungeon(d);
+  return d.nameAuthored ? { ...resolved, name: getDungeonName(d.id, locale, d.name) } : resolved;
+});
 
 const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
   const mutantIdLower = e.mutantId?.toLowerCase();
@@ -321,9 +327,18 @@ const eventLadders = (eventLaddersData as EventLadderRaw[]).map((e) => {
 });
 
 const specialLaddersRaw = specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] };
+// 60/88 названий (nameAuthored) переведены - та же разрешённая группа 76,
+// что и raids выше. Ключ в dungeonNames - "<group>/<id>", т.к. id
+// не уникален между experiment и challenge (напр. jungle_bells_1).
+function resolveSpecialLadder(group: 'experiment' | 'challenge', d: DungeonRaw) {
+  const resolved = resolveDungeon(d);
+  return d.nameAuthored
+    ? { ...resolved, name: getDungeonName(`${group}/${d.id}`, locale, d.name) }
+    : resolved;
+}
 const specialLadders = {
-  experiment: specialLaddersRaw.experiment.map(resolveDungeon),
-  challenge: specialLaddersRaw.challenge.map(resolveDungeon),
+  experiment: specialLaddersRaw.experiment.map((d) => resolveSpecialLadder('experiment', d)),
+  challenge: specialLaddersRaw.challenge.map((d) => resolveSpecialLadder('challenge', d)),
 };
 
 interface SpecialOfferMutantRaw { id: string; name: string; tier: string | null; skin: string | null }
