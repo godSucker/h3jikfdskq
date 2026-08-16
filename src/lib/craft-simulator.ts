@@ -148,7 +148,7 @@ const ITEM_TRANSLATIONS: Record<string, string> = {
   Building_HC_1: 'Златокузня',
   Building_HC_2: 'Золотоплавильня',
   Building_Hospital_1: 'Медлаборатория',
-  Building_Mystery: 'Мистический Анализатор',
+  Building_Mystery: 'Анализатор тайны',
 
   // Habitats (Zones)
   Habitat_A_3_HC: 'Люкс-зона КИБОРГОВ x4',
