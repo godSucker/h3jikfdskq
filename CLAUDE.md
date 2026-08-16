@@ -105,7 +105,7 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 
 ### Data Layer
 - Game data stored in `src/data/` as JSON, TXT, and XLSX files
-- Localization: `localisation_ru.txt`, `localisation_en.txt`
+- Localization: `localisation_ru.txt` (только RU мирроритcя локально в src/data/ — `localisation_en.txt` в репо НЕТ, но см. Gotchas ниже: сам файл на 8 других языков существует на CDN Kobojo)
 - Тиры мутантов: поле `tier` внутри `mutants.json` (обновляется через `api/telegram-webhook`)
 - Base game data: `base.txt`
 
@@ -219,6 +219,7 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 - **SSR + fs.readFileSync in Vercel**: Pages with `output: "server"` run frontmatter at request time. `src/data/` doesn't exist at runtime — only `dist/`. Must use `export const prerender = true`.
 - **Dynamic routes require prerender=true in SSR**: Pages using `getStaticPaths()` in SSR mode MUST have `export const prerender = true`. Both `[param].astro` and parent need it.
 - **Lazy loading critical for performance**: All grid/list images must use `loading="lazy"`. Never `loading="eager"` on bulk images.
+- **`localisation_{lang}.txt` exists on Kobojo CDN for ALL 9 languages**, not just RU: `https://s-beta.kobojo.com/mutants/gameconfig/localisation_{en,es,fr,de,pt,it,tr,nl}.txt` all return 200 (confirmed 2026-08-16). Only `localisation_ru.txt` is mirrored locally in `src/data/`, which previously led to the false assumption "no official translation source exists" for several i18n gaps (special-offers names, event/ladder names) — they were actually resolvable via `event_name_*`/direct-id keys in these files, no LLM needed. Before declaring any RU-only game text a "curator-authored, needs-permission" gap, check these CDN files first (see `scripts/build-materials-i18n.ts` / `build-special-offers.ts` for the established fetch+lookup pattern).
 
 ## AWS Guidance
 
