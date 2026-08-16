@@ -73,6 +73,17 @@ jobs:
         if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
         run: npx tsx scripts/detect-missing-obtain.ts
 
+      - name: 4.07 Синхронизация имён мутантов (names.{lang}.json)
+        # Перегенерирует names.{en,es,fr,de,pt,it,tr,nl}.json целиком из свежего
+        # mutants.json + официальной localisation_{lang}.txt с CDN Kobojo (без
+        # LLM, 100% покрытие ключей). До 2026-08-16 этот шаг не был подключён к
+        # cron - новые мутанты от парсера (шаг 4) молча не попадали в имена на
+        # 8 языках до следующего РУЧНОГО прогона sync-mutant-names.ts. Идёт
+        # сразу после парсера - нужен только mutants.json, без зависимости от
+        # скинов/текстур ниже.
+        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
+        run: npx tsx scripts/sync-mutant-names.ts
+
       - name: 4.1 Установка Python (рендер full-текстур)
         uses: actions/setup-python@v5
         with:
@@ -109,6 +120,15 @@ jobs:
       - name: 4.5 Перегенерация skins.json (подхват новых head-текстур)
         if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
         run: npx tsx scripts/build-skins.ts
+
+      - name: 4.55 Синхронизация имён скинов (skins-i18n.json)
+        # Тот же приём, что 4.07 выше, но для названий скинов - идёт ПОСЛЕ
+        # финальной перегенерации skins.json (4.5), иначе новый скин от
+        # сегодняшнего прогона не попадёт в словарь. Не все слаги резолвятся
+        # (нет официального ключа даже на RU) - это ожидаемо, скрипт печатает
+        # отчёт и оставляет такие на голом slug (см. комментарий в скрипте).
+        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
+        run: npx tsx scripts/sync-skin-names.ts
 
       - name: 4.6 Пересборка топ-листов (toplists.json)
         # Рейтинги /top-mutants и бейджи рангов в MutantModal должны быть в ногу
