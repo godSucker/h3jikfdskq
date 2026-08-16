@@ -529,7 +529,7 @@
   },
   "specimen_ca_04": {
     "before": "-",
-    "after": "-"
+    "after": "4"
   },
   "specimen_cb_04": {
     "before": "-",
@@ -1005,7 +1005,7 @@
   },
   "specimen_da_07": {
     "before": "3-",
-    "after": "4"
+    "after": "3-"
   },
   "specimen_db_07": {
     "before": "-",
@@ -2001,7 +2001,7 @@
   },
   "specimen_ca_99": {
     "before": "4",
-    "after": "4"
+    "after": "3-"
   },
   "specimen_ce_99": {
     "before": "3",
