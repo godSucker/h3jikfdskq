@@ -2,8 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StatsCalculator from '@/components/StatsCalculator.svelte';
 import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
 
 export const prerender = true;
 ---
@@ -14,7 +16,7 @@ export const prerender = true;
       {t('stats.pageIntro', locale)}
     </p>
   </section>
-  <StatsCalculator client:load locale={locale} />
+  <StatsCalculator client:load locale={locale} names={names} />
 </BaseLayout>
 
 <style>

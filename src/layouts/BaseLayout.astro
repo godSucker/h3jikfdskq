@@ -632,7 +632,7 @@ const structuredData = [
         <a href="/credits">{t('nav.credits', locale)}</a>
         <a href="/top-evo">{t('nav.topEvo', locale)}</a>
       </nav>
-      <SearchBox client:visible />
+      <SearchBox client:visible locale={locale} />
       <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
            ведёт на локализованную главную, а не на 404 несуществующей страницы. -->
       <div class="lang-switcher">

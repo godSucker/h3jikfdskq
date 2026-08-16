@@ -21,7 +21,7 @@
   import { baseMutantId } from '@/lib/utils';
 
   // --- УТИЛИТЫ И КОНСТАНТЫ ---
-  let { renderState, locale = 'ru' as Locale }: { renderState?: string; locale?: Locale } = $props();
+  let { renderState, locale = 'ru' as Locale, names = {} }: { renderState?: string; locale?: Locale; names?: Record<string, { name: string; atk1Name: string; atk2Name: string }> } = $props();
   // BCP47-теги для Intl/toLocaleString (разделители разрядов и т.п.), не UI-словарь.
   const NUM_LOCALE: Record<Locale, string> = {
     ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE',
@@ -96,7 +96,7 @@
       return {
         id: bId,
         baseId: bId,
-        name: m.name,
+        name: (locale !== 'ru' && names[bId]?.name) || m.name,
         type: typeRaw,
         typeKey,
         typeLabel,
@@ -191,7 +191,8 @@
         lvl30?.[`atk${idx}_AOE`],
         lvl1?.[`atk${idx}_AOE`]
       );
-      const nameRaw = firstDefined(
+      const localizedAtkName = locale !== 'ru' ? names[baseMutantId(mutant?.id)]?.[`atk${idx}Name`] : null;
+      const nameRaw = localizedAtkName || firstDefined(
         mutant?.[`name_attack${idx}`],
         base?.[`atk${idx}_name`],
         lvl30?.[`atk${idx}_name`],
@@ -322,7 +323,10 @@
 
   function abilityLabel(code){
     if (!code) return '—';
-    const ru = ABILITY_RU[code] || ABILITY_RU[code.toLowerCase()] || niceLabel(code);
+    // ABILITY_RU[code] был RU-only - abilityLabelL уже используется в
+    // остальных местах компонента, здесь его просто забыли подключить.
+    const resolved = abilityLabelL(code, locale);
+    const ru = resolved !== code ? resolved : niceLabel(code);
     const lower = code.toLowerCase();
     if (lower.endsWith('_plus_plus')) return `${ru} ++`;
     if (lower.endsWith('_plus')) return `${ru} +`;
@@ -1404,7 +1408,7 @@
           pending = (async () => {
             let res: Response | null = null;
             for (let attempt = 0; attempt < 2; attempt++) {
-              res = await fetch(`/api/screenshot?state=${stateStr}`);
+              res = await fetch(`/api/screenshot?state=${stateStr}&locale=${locale}`);
               if (res.ok) break;
               if (attempt === 0) await new Promise(r => setTimeout(r, 1000));
             }

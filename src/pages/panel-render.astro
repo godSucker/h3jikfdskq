@@ -1,11 +1,18 @@
 ---
 import StatsCalculator from '../components/StatsCalculator.svelte';
+import { LOCALES, type Locale } from '@/lib/i18n-locales';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const stateParam = Astro.url.searchParams.get('state') || '{}';
+const localeParam = Astro.url.searchParams.get('locale');
+const locale: Locale = (LOCALES as readonly string[]).includes(localeParam ?? '')
+  ? (localeParam as Locale)
+  : 'ru';
+const { names } = getLocalizedMutantNames(locale);
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
 <head>
   <meta charset="utf-8" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
@@ -18,7 +25,7 @@ const stateParam = Astro.url.searchParams.get('state') || '{}';
 </head>
 <body>
   <div class="wrap">
-    <StatsCalculator client:only="svelte" renderState={stateParam} />
+    <StatsCalculator client:only="svelte" renderState={stateParam} locale={locale} names={names} />
   </div>
 </body>
 </html>

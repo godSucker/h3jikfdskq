@@ -5,8 +5,14 @@
   // на страницу (BaseLayout.astro рендерится на КАЖДОЙ странице сайта, тянуть
   // сюда fuse.js + JSON индекс на клиенте по умолчанию значило бы раздувать
   // JS каждой страницы ради опциональной фичи, которой пользуется меньшинство).
-  // Индекс генерируется build-time скриптом scripts/build-search-index.ts в
-  // public/search-index.json (см. "prebuild" в package.json).
+  // Индекс генерируется build-time скриптом scripts/build-search-index.ts,
+  // один файл на локаль: public/search-index/{locale}.json (см. "prebuild"
+  // в package.json). До 2026-08-17 был один общий RU-only файл - UI-текст
+  // компонента и href результатов утекали RU на всех 8 не-RU языках.
+  import { t, type Locale } from '@/lib/i18n'
+
+  let { locale = 'ru' as Locale }: { locale?: Locale } = $props()
+
   interface SearchEntry {
     title: string
     category: string
@@ -62,8 +68,8 @@
       try {
         const [{ default: Fuse }, res] = await Promise.all([
           import('fuse.js'),
-          fetch('/search-index.json').then((r) => {
-            if (!r.ok) throw new Error(`search-index.json: HTTP ${r.status}`)
+          fetch(`/search-index/${locale}.json`).then((r) => {
+            if (!r.ok) throw new Error(`search-index/${locale}.json: HTTP ${r.status}`)
             return r.json() as Promise<SearchEntry[]>
           }),
         ])
@@ -228,7 +234,7 @@
   <button
     class="search-icon-btn"
     type="button"
-    aria-label={mobileOpen ? 'Закрыть поиск' : 'Открыть поиск'}
+    aria-label={mobileOpen ? t('search.closeAria', locale) : t('search.openAria', locale)}
     onclick={toggleMobile}
   >
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -242,22 +248,22 @@
       bind:this={desktopInputEl}
       type="search"
       class="search-input"
-      placeholder="Поиск по сайту..."
+      placeholder={t('search.placeholder', locale)}
       autocomplete="off"
       bind:value={query}
       onfocus={onFocus}
       oninput={onInput}
       onkeydown={onKeydown}
-      aria-label="Поиск по сайту"
+      aria-label={t('search.placeholder', locale)}
     />
     {#if open && query.trim()}
       <div class="search-dropdown">
         {#if loading}
-          <p class="search-status">Загрузка...</p>
+          <p class="search-status">{t('search.loading', locale)}</p>
         {:else if loadFailed}
-          <p class="search-status">Поиск временно недоступен</p>
+          <p class="search-status">{t('search.unavailable', locale)}</p>
         {:else if flatResults.length === 0}
-          <p class="search-status">Ничего не найдено по запросу «{query.trim()}»</p>
+          <p class="search-status">{t('search.noResults', locale).replace('{q}', query.trim())}</p>
         {:else}
           {#each groupedForRender as group (group.category)}
             <div class="search-group">
@@ -293,22 +299,22 @@
         bind:this={mobileInputEl}
         type="search"
         class="search-input"
-        placeholder="Поиск по сайту..."
+        placeholder={t('search.placeholder', locale)}
         autocomplete="off"
         bind:value={query}
         oninput={onInput}
         onkeydown={onKeydown}
-        aria-label="Поиск по сайту"
+        aria-label={t('search.placeholder', locale)}
       />
-      <button class="close-btn" type="button" aria-label="Закрыть поиск" onclick={toggleMobile}>&times;</button>
+      <button class="close-btn" type="button" aria-label={t('search.closeAria', locale)} onclick={toggleMobile}>&times;</button>
     </div>
     <div class="search-mobile-results">
       {#if loading}
-        <p class="search-status">Загрузка...</p>
+        <p class="search-status">{t('search.loading', locale)}</p>
       {:else if loadFailed}
-        <p class="search-status">Поиск временно недоступен</p>
+        <p class="search-status">{t('search.unavailable', locale)}</p>
       {:else if query.trim() && flatResults.length === 0}
-        <p class="search-status">Ничего не найдено по запросу «{query.trim()}»</p>
+        <p class="search-status">{t('search.noResults', locale).replace('{q}', query.trim())}</p>
       {:else}
         {#each groupedForRender as group (group.category)}
           <div class="search-group">
