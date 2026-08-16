@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 campagnedivisies (Alpha → Giga), elk met 9 kaarten — dezelfde 9 locaties, maar met oplopend vijandniveau en oplopende beloningen. De aanbevelingen voor Evo-niveau en teamsamenstelling zijn onze eigen inschatting; het spel zelf geeft dergelijke hints niet.",
   "guides.intro.ladders.p1": "Hier staan vrijwel alle ladders die ooit in het spel hebben bestaan.",
   "guides.intro.raids.p1": "Raids zijn de moeilijkste \"ladders\" in het spel, maar elke raid geeft een unieke mutant (die best goed speelt). Sommige raids hebben geen eigen naam in het spel — die namen zijn door ons bedacht op basis van het thema van de artwork en staan cursief.",
-  "guides.intro.specialOffers.p1": "Eenmalige aanbiedingen die verschijnen wanneer de speler een bepaald niveau bereikt (niet te verwarren met gewone winkeldozen — deze zijn specifiek gekoppeld aan het niveau en worden maar één keer getoond)."
+  "guides.intro.specialOffers.p1": "Eenmalige aanbiedingen die verschijnen wanneer de speler een bepaald niveau bereikt (niet te verwarren met gewone winkeldozen — deze zijn specifiek gekoppeld aan het niveau en worden maar één keer getoond).",
+  "pvp.log.base": "basis {n}",
+  "pvp.log.critMultiplier": "×2 kritiek",
+  "pvp.log.typeMod": "{sign}{pct}% type",
+  "pvp.log.buffMod": "{sign}{pct}% boost (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (schild absorbeerde {n})",
+  "pvp.log.died": " — gedood",
+  "pvp.log.enemyTag": " (vijand)",
+  "pvp.log.mineTag": " (mijn team)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} slaat terug tegen {attacker}: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: verwonding {n}{died}"
 }

@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 divisões da campanha (Alfa → Giga), cada uma com 9 mapas — os mesmos 9 locais, mas com nível de inimigos e recompensas crescentes. As recomendações de nível de Evo e composição de equipe são nossa própria estimativa; o próprio jogo não oferece esse tipo de dica.",
   "guides.intro.ladders.p1": "Aqui estão listadas praticamente todas as escadas que já existiram no jogo.",
   "guides.intro.raids.p1": "As incursões são as \"escadas\" mais difíceis do jogo, mas cada uma dá um mutante único (que joga bastante bem). Algumas incursões não têm um nome próprio no jogo — esses nomes foram inventados por nós com base no tema da arte e aparecem em itálico.",
-  "guides.intro.specialOffers.p1": "Ofertas únicas que aparecem quando o jogador atinge determinado nível (não confundir com as caixas normais da loja — estas estão vinculadas especificamente ao nível e aparecem apenas uma vez)."
+  "guides.intro.specialOffers.p1": "Ofertas únicas que aparecem quando o jogador atinge determinado nível (não confundir com as caixas normais da loja — estas estão vinculadas especificamente ao nível e aparecem apenas uma vez).",
+  "pvp.log.base": "base {n}",
+  "pvp.log.critMultiplier": "×2 crítico",
+  "pvp.log.typeMod": "{sign}{pct}% tipo",
+  "pvp.log.buffMod": "{sign}{pct}% impulso (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (escudo absorveu {n})",
+  "pvp.log.died": " — morto",
+  "pvp.log.enemyTag": " (inimigo)",
+  "pvp.log.mineTag": " (minha equipe)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} contra-ataca {attacker}: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: ferimento {n}{died}"
 }

@@ -10,6 +10,8 @@
 import orbsRaw from '@/data/materials/orbs.json'
 import { orbingMap, type OrbCell } from '@/lib/orbing-map'
 import { baseMutantId } from '@/lib/utils'
+import { getItemName } from '@/lib/materials-i18n'
+import type { Locale } from '@/lib/i18n'
 import type { AbilityKind } from './battle-profile'
 
 export interface CatalogOrb {
@@ -95,6 +97,66 @@ export const CAT_LABELS: Record<string, string> = {
   weaken: 'Проклятие',
 }
 
+// Терминология сверена с уже существующими materials-i18n-переводами тех же
+// эффектов в наградах /guides (Gegenschlag/Blessur/Booster/Fluch/Leben
+// aussaugen на DE и т.п.) - не изобретена заново.
+const CAT_LABELS_DICT: Partial<Record<Locale, Record<string, string>>> = {
+  ru: CAT_LABELS,
+  en: {
+    attack: 'Attack', health: 'Health', speed: 'Speed', critical: 'Critical', xp: 'XP',
+    shield: 'Shield', regenerate: 'Life Drain', retaliate: 'Retaliate', slash: 'Wound',
+    strengthen: 'Boost', weaken: 'Curse',
+  },
+  es: {
+    attack: 'Ataque', health: 'Salud', speed: 'Velocidad', critical: 'Crítico', xp: 'XP',
+    shield: 'Escudo', regenerate: 'Robo de Vida', retaliate: 'Represalia', slash: 'Herida',
+    strengthen: 'Impulso', weaken: 'Maldición',
+  },
+  fr: {
+    attack: 'Attaque', health: 'Vie', speed: 'Vitesse', critical: 'Critique', xp: 'XP',
+    shield: 'Bouclier', regenerate: 'Vol de Vie', retaliate: 'Contre-attaque', slash: 'Blessure',
+    strengthen: 'Boost', weaken: 'Malédiction',
+  },
+  de: {
+    attack: 'Angriff', health: 'Leben', speed: 'Geschwindigkeit', critical: 'Kritisch', xp: 'XP',
+    shield: 'Schild', regenerate: 'Leben aussaugen', retaliate: 'Gegenschlag', slash: 'Blessur',
+    strengthen: 'Booster', weaken: 'Fluch',
+  },
+  pt: {
+    attack: 'Ataque', health: 'Vida', speed: 'Velocidade', critical: 'Crítico', xp: 'XP',
+    shield: 'Escudo', regenerate: 'Roubo de Vida', retaliate: 'Retaliação', slash: 'Ferimento',
+    strengthen: 'Impulso', weaken: 'Maldição',
+  },
+  it: {
+    attack: 'Attacco', health: 'Vita', speed: 'Velocità', critical: 'Critico', xp: 'XP',
+    shield: 'Scudo', regenerate: 'Furto di Vita', retaliate: 'Rappresaglia', slash: 'Ferita',
+    strengthen: 'Potenziamento', weaken: 'Maledizione',
+  },
+  tr: {
+    attack: 'Saldırı', health: 'Sağlık', speed: 'Hız', critical: 'Kritik', xp: 'XP',
+    shield: 'Kalkan', regenerate: 'Yaşam Emme', retaliate: 'Karşılık', slash: 'Yara',
+    strengthen: 'Güçlendirme', weaken: 'Lanet',
+  },
+  nl: {
+    attack: 'Aanval', health: 'Gezondheid', speed: 'Snelheid', critical: 'Kritiek', xp: 'XP',
+    shield: 'Schild', regenerate: 'Levensroof', retaliate: 'Vergelding', slash: 'Verwonding',
+    strengthen: 'Boost', weaken: 'Vloek',
+  },
+}
+
+export function catLabelL(key: string, locale: Locale): string {
+  const dict = CAT_LABELS_DICT[locale] ?? CAT_LABELS_DICT.en ?? CAT_LABELS
+  return dict[key] ?? CAT_LABELS_DICT.en?.[key] ?? CAT_LABELS[key] ?? key
+}
+
+/** Локализует name у списка сфер через materials-i18n (тот же официальный
+ *  источник, что уже покрывает 145/145 id из orbs.json) - RU остаётся как
+ *  есть (сырой текст), не требует лукапа. */
+export function localizeOrbs(orbs: CatalogOrb[], locale: Locale): CatalogOrb[] {
+  if (locale === 'ru') return orbs
+  return orbs.map((o) => ({ ...o, name: getItemName(o.id, locale, o.name) }))
+}
+
 const CAT_ICONS: Record<string, string> = {
   attack: '/orbs/basic/orb_basic_attack_03.webp',
   health: '/orbs/basic/orb_basic_life_03.webp',
@@ -118,6 +180,7 @@ export interface OrbCategoryGroup {
 export function groupOrbsByCategory(
   list: CatalogOrb[],
   prefix: 'basic' | 'special',
+  locale: Locale = 'ru',
 ): OrbCategoryGroup[] {
   const map = new Map<string, CatalogOrb[]>()
   for (const orb of list) {
@@ -129,7 +192,7 @@ export function groupOrbsByCategory(
     const items = map.get(k)
     if (items && items.length > 0) {
       const fallback = CAT_ICONS[k] ? CAT_ICONS[k].replace('/orbs/basic/', `/orbs/${prefix}/`) : ''
-      result.push({ key: k, label: CAT_LABELS[k] || k, icon: items[0]?.icon || fallback, items })
+      result.push({ key: k, label: catLabelL(k, locale), icon: items[0]?.icon || fallback, items })
     }
   }
   return result

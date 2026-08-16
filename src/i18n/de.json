@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 Kampagnen-Divisionen (Alpha → Giga) mit je 9 Karten — dieselben 9 Orte, aber mit steigendem Gegnerlevel und steigenden Belohnungen. Die Empfehlungen zu Evo-Level und Teamzusammensetzung sind unsere eigene Einschätzung; im Spiel selbst gibt es solche Hinweise nicht.",
   "guides.intro.ladders.p1": "Hier sind praktisch alle Leitern aufgeführt, die es im Spiel jemals gab.",
   "guides.intro.raids.p1": "Raids sind die schwierigsten „Leitern\" im Spiel, aber jeder gibt einen einzigartigen Mutanten (der sich recht gut spielt). Manche Raids haben im Spiel keinen eigenen Namen — solche Namen haben wir uns anhand des Artwork-Themas ausgedacht und kursiv markiert.",
-  "guides.intro.specialOffers.p1": "Einmalige Angebote, die erscheinen, wenn der Spieler ein bestimmtes Level erreicht (nicht zu verwechseln mit normalen Shop-Boxen — diese sind speziell an das Level gebunden und werden nur einmal angezeigt)."
+  "guides.intro.specialOffers.p1": "Einmalige Angebote, die erscheinen, wenn der Spieler ein bestimmtes Level erreicht (nicht zu verwechseln mit normalen Shop-Boxen — diese sind speziell an das Level gebunden und werden nur einmal angezeigt).",
+  "pvp.log.base": "Basis {n}",
+  "pvp.log.critMultiplier": "×2 Krit",
+  "pvp.log.typeMod": "{sign}{pct}% Typ",
+  "pvp.log.buffMod": "{sign}{pct}% Booster (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (Schild absorbierte {n})",
+  "pvp.log.died": " — getötet",
+  "pvp.log.enemyTag": " (Gegner)",
+  "pvp.log.mineTag": " (mein Team)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} kontert {attacker}: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: Blessur {n}{died}"
 }

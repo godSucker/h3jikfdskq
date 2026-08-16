@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 divisioni della campagna (Alfa → Giga), ognuna con 9 mappe — le stesse 9 località, ma con livello dei nemici e ricompense crescenti. I consigli su livello Evo e composizione della squadra sono una nostra stima personale; il gioco stesso non fornisce alcun suggerimento del genere.",
   "guides.intro.ladders.p1": "Qui sono elencate praticamente tutte le scale mai esistite nel gioco.",
   "guides.intro.raids.p1": "I raid sono le \"scale\" più difficili del gioco, ma ognuno dà un mutante unico (che si gioca piuttosto bene). Alcuni raid non hanno un nome proprio nel gioco — questi nomi sono stati inventati da noi in base al tema dell'illustrazione e sono indicati in corsivo.",
-  "guides.intro.specialOffers.p1": "Offerte una tantum che compaiono quando il giocatore raggiunge un certo livello (da non confondere con le normali box del negozio — queste sono legate specificamente al livello e vengono mostrate una sola volta)."
+  "guides.intro.specialOffers.p1": "Offerte una tantum che compaiono quando il giocatore raggiunge un certo livello (da non confondere con le normali box del negozio — queste sono legate specificamente al livello e vengono mostrate una sola volta).",
+  "pvp.log.base": "base {n}",
+  "pvp.log.critMultiplier": "×2 critico",
+  "pvp.log.typeMod": "{sign}{pct}% tipo",
+  "pvp.log.buffMod": "{sign}{pct}% potenziamento (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (scudo ha assorbito {n})",
+  "pvp.log.died": " — ucciso",
+  "pvp.log.enemyTag": " (nemico)",
+  "pvp.log.mineTag": " (la mia squadra)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} contrattacca {attacker}: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: ferita {n}{died}"
 }

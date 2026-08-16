@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 campaign divisions (Alpha → Giga), each with 9 maps — the same 9 locations, but with rising enemy levels and rewards. The Evo-level and team-composition recommendations are our own estimate; the game itself gives no such hints.",
   "guides.intro.ladders.p1": "This lists practically every ladder that has ever existed in the game.",
   "guides.intro.raids.p1": "Raids are the hardest \"ladders\" in the game, but each one gives a unique mutant (that plays pretty well). Some raids don't have a proper in-game name — those names were invented by us based on the art's theme and are marked in italics.",
-  "guides.intro.specialOffers.p1": "One-time offers that pop up when the player reaches a certain level (not to be confused with regular shop boxes — these are tied specifically to your level and shown only once)."
+  "guides.intro.specialOffers.p1": "One-time offers that pop up when the player reaches a certain level (not to be confused with regular shop boxes — these are tied specifically to your level and shown only once).",
+  "pvp.log.base": "base {n}",
+  "pvp.log.critMultiplier": "×2 crit",
+  "pvp.log.typeMod": "{sign}{pct}% type",
+  "pvp.log.buffMod": "{sign}{pct}% buff (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (shield absorbed {n})",
+  "pvp.log.died": " — killed",
+  "pvp.log.enemyTag": " (enemy)",
+  "pvp.log.mineTag": " (my team)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} retaliates against {attacker}: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: wound {n}{died}"
 }

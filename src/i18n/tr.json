@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 kampanya divizyonu (Alfa → Gama), her birinde 9 harita var — aynı 9 konum, ancak artan düşman seviyesi ve ödüllerle. Evo seviyesi ve takım kompozisyonu önerileri bizim kendi tahminimizdir; oyunun kendisi böyle ipuçları vermez.",
   "guides.intro.ladders.p1": "Burada oyunda şimdiye kadar var olmuş neredeyse tüm merdivenler listelenmiştir.",
   "guides.intro.raids.p1": "Baskınlar oyundaki en zor \"merdivenler\"dir, ama her biri benzersiz bir mutant verir (oldukça iyi oynanan). Bazı baskınların oyunda ayrı bir adı yoktur — bu adlar bizim tarafımızdan sanat temasına göre uydurulmuştur ve italik olarak işaretlenmiştir.",
-  "guides.intro.specialOffers.p1": "Oyuncu belirli bir seviyeye ulaştığında ortaya çıkan tek seferlik teklifler (mağazadaki normal kutularla karıştırılmamalı — bunlar özellikle seviyeye bağlıdır ve yalnızca bir kez gösterilir)."
+  "guides.intro.specialOffers.p1": "Oyuncu belirli bir seviyeye ulaştığında ortaya çıkan tek seferlik teklifler (mağazadaki normal kutularla karıştırılmamalı — bunlar özellikle seviyeye bağlıdır ve yalnızca bir kez gösterilir).",
+  "pvp.log.base": "taban {n}",
+  "pvp.log.critMultiplier": "×2 kritik",
+  "pvp.log.typeMod": "{sign}{pct}% tür",
+  "pvp.log.buffMod": "{sign}{pct}% güçlendirme (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (kalkan {n} emdi)",
+  "pvp.log.died": " — öldürüldü",
+  "pvp.log.enemyTag": " (rakip)",
+  "pvp.log.mineTag": " (benim takımım)",
+  "pvp.log.hit": "{attacker} → {target}{tag}: {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag}, {attacker}'a karşılık verir: {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker}: yara {n}{died}"
 }

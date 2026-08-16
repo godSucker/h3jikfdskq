@@ -8,6 +8,7 @@
     basicOrbOptionsForMutant,
     specialOrbOptionsForMutant,
     orbingPresetsFor,
+    localizeOrbs,
     type OrbingPreset,
   } from '@/lib/pvp/orb-catalog'
   import IconSelect from './IconSelect.svelte'
@@ -496,7 +497,7 @@
           {#each Array.from({ length: normalOrbSlots(mutant) }) as _, slotIdx (slotIdx)}
             <OrbPicker
               bind:value={slot.basicOrbIds[slotIdx]}
-              options={mutant ? basicOrbOptionsForMutant(mutant, slot.specialOrbId) : []}
+              options={mutant ? localizeOrbs(basicOrbOptionsForMutant(mutant, slot.specialOrbId), locale) : []}
               slotBg="/orbs/basic/orb_slot.webp"
               label={t('pvp.orb.basicLabel', locale).replace('{n}', String(slotIdx + 1))}
               {locale}
@@ -505,7 +506,7 @@
           {#if hasSpecialOrbSlot(mutant)}
             <OrbPicker
               bind:value={slot.specialOrbId}
-              options={mutant ? specialOrbOptionsForMutant(mutant) : []}
+              options={mutant ? localizeOrbs(specialOrbOptionsForMutant(mutant), locale) : []}
               slotBg="/orbs/special/orb_slot_spe.webp"
               label={t('pvp.orb.specialLabel', locale)}
               {locale}

@@ -873,5 +873,16 @@
   "guides.intro.divisions.p1": "7 divisions de campagne (Alpha → Giga), chacune avec 9 cartes — les 9 mêmes lieux, mais avec des niveaux d'ennemis et des récompenses croissants. Les recommandations de niveau d'Evo et de composition d'équipe sont notre propre estimation ; le jeu ne donne aucune indication de ce genre.",
   "guides.intro.ladders.p1": "Voici pratiquement toutes les échelles qui ont existé dans le jeu.",
   "guides.intro.raids.p1": "Les raids sont les « échelles » les plus difficiles du jeu, mais chacun donne un mutant unique (qui se joue plutôt bien). Certains raids n'ont pas de nom propre dans le jeu — ces noms ont été inventés par nos soins selon le thème du visuel et sont indiqués en italique.",
-  "guides.intro.specialOffers.p1": "Offres ponctuelles qui apparaissent lorsque le joueur atteint un certain niveau (à ne pas confondre avec les coffres classiques de la boutique — celles-ci sont liées spécifiquement au niveau et ne s'affichent qu'une seule fois)."
+  "guides.intro.specialOffers.p1": "Offres ponctuelles qui apparaissent lorsque le joueur atteint un certain niveau (à ne pas confondre avec les coffres classiques de la boutique — celles-ci sont liées spécifiquement au niveau et ne s'affichent qu'une seule fois).",
+  "pvp.log.base": "base {n}",
+  "pvp.log.critMultiplier": "×2 critique",
+  "pvp.log.typeMod": "{sign}{pct}% type",
+  "pvp.log.buffMod": "{sign}{pct}% boost (+{dmg})",
+  "pvp.log.shieldAbsorbed": " (bouclier a absorbé {n})",
+  "pvp.log.died": " — tué",
+  "pvp.log.enemyTag": " (ennemi)",
+  "pvp.log.mineTag": " (mon équipe)",
+  "pvp.log.hit": "{attacker} → {target}{tag} : {damage}{breakdown}{shield}{died}",
+  "pvp.log.retaliate": "{target}{tag} contre-attaque {attacker} : {damage}{shield}{died}",
+  "pvp.log.slashTick": "{attacker} : blessure {n}{died}"
 }

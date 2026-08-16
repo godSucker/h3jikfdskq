@@ -20,7 +20,7 @@
   let open = $state(false)
   let selected = $derived(options.find((o) => o.id === value) ?? null)
   let isSpecial = $derived(slotBg.includes('special'))
-  let groups = $derived(groupOrbsByCategory(options, isSpecial ? 'special' : 'basic'))
+  let groups = $derived(groupOrbsByCategory(options, isSpecial ? 'special' : 'basic', locale))
   // Рамка спец-слота (orb_slot_spe.webp) толще и золотая - "окошко" под сферу заметно
   // меньше, чем у обычного слота (orb_slot.webp), хотя оба png одного размера. Одинаковый
   // размер иконки для обеих даёт на спец-слоте сферу внахлёст на золотую рамку - криво.

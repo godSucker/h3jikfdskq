@@ -137,7 +137,7 @@
   function startFight() {
     const mine = buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm)
     const enemy = buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true)
-    session = createBattleSession(mine, enemy, myMode, enemyMode)
+    session = createBattleSession(mine, enemy, myMode, enemyMode, Math.random, locale)
     tick += 1
   }
 
