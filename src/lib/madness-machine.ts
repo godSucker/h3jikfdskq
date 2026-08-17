@@ -99,6 +99,7 @@ export interface MadnessSimulationOptions {
   batchSize?: number
   onProgress?: (completed: number, total: number) => void
   signal?: AbortSignal
+  locale?: Locale
 }
 
 interface WeightedReward {
@@ -124,6 +125,7 @@ interface MadnessSimulationContext {
   baseTimestamp: number
   jackpotCount: number
   totalSpins: number
+  locale: Locale
 }
 
 // research 9/10 намеренно отсутствуют: в игре они выключены (все их награды
@@ -330,6 +332,7 @@ function buildSimulationContext(
     baseTimestamp: Date.now(),
     jackpotCount: 0,
     totalSpins: tokenSpins + goldSpins,
+    locale: options.locale ?? 'ru',
   }
 }
 
@@ -403,7 +406,7 @@ function ensureResearchAggregate(
     const totalWeight = ctx.entityTotalWeight
     aggregate = {
       key,
-      label: getResearchLabel(key),
+      label: getResearchLabel(key, ctx.locale),
       chance: totalWeight > 0 ? totalOdds / totalWeight : 0,
       count: 0,
       totalAmount: 0,

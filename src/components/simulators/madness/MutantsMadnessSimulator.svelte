@@ -299,6 +299,7 @@
           historySize: 30,
           batchSize: 2000,
           signal: controller.signal,
+          locale,
           onProgress(completed, total) {
             completedSpins = completed;
             progress = total > 0 ? Math.min(completed / total, 1) : 0;
