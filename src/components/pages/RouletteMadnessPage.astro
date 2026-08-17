@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import MutantsMadnessSimulator from '@/components/simulators/madness/MutantsMadnessSimulator.svelte';
 import { madnessMachine, getResearchChanceBreakdown } from '@/lib/madness-machine';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
 
@@ -12,6 +13,19 @@ const machine = madnessMachine;
 const maxLevel = 200;
 const researchChances = getResearchChanceBreakdown(maxLevel, machine);
 const jackpotChance = researchChances.find((entry) => entry.key === 'jackpot')?.chance ?? 0;
+
+// Слайс {specimenId: имя} только для мутантов из machine.json, без
+// lore/atk-текстов - см. комментарий в MutantsMadnessSimulator.svelte,
+// это build-time расчёт (не попадает в клиентский бандл).
+const { names: allMutantNames } = getLocalizedMutantNames(locale);
+const rewardNames: Record<string, string> = {};
+for (const reward of machine.rewards) {
+  if (reward.id) {
+    const key = reward.id.toLowerCase();
+    const name = allMutantNames[key]?.name;
+    if (name) rewardNames[key] = name;
+  }
+}
 ---
 <BaseLayout
   title={t('roulette.madness.pageTitle', locale)}
@@ -53,7 +67,7 @@ const jackpotChance = researchChances.find((entry) => entry.key === 'jackpot')?.
     </div>
   </section>
 
-  <MutantsMadnessSimulator client:load machine={machine} locale={locale} />
+  <MutantsMadnessSimulator client:load machine={machine} locale={locale} names={rewardNames} />
 </BaseLayout>
 
 <style>

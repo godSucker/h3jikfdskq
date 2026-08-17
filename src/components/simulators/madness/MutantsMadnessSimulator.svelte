@@ -14,11 +14,14 @@
     simulateMadnessAsync,
   } from '@/lib/madness-machine';
   import { t, type Locale } from '@/lib/i18n';
-  import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
-  let { machine = madnessMachine, locale }: { machine?: MadnessMachineDefinition; locale: Locale } = $props();
-
-  const { names: mutantNames } = getLocalizedMutantNames(locale);
+  // names - слайд {specimenId (lowercase): локализованное имя} только для
+  // мутантов, реально встречающихся в machine.json, посчитанный на билде в
+  // RouletteMadnessPage.astro. Раньше компонент сам импортировал
+  // mutant-names-i18n.ts (все 8 языков x lore/atk-тексты) - клиентский чанк
+  // раздулся до 2.2MB вместо ~70-170KB у соседних симуляторов (пойман сразу
+  // после фикса, живой build + du -h dist/client/_astro/*.js).
+  let { machine = madnessMachine, locale, names: mutantNames = {} }: { machine?: MadnessMachineDefinition; locale: Locale; names?: Record<string, string> } = $props();
 
   const discountOptions = [0, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 

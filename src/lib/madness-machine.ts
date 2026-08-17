@@ -1,7 +1,6 @@
 import rawMachine from '@/data/simulators/mutants_madness/machine.json'
 import { t, type Locale } from '@/lib/i18n'
 import { starLabelL } from '@/lib/mutant-dicts'
-import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
 export type MadnessRewardType = 'entity'
 
@@ -102,7 +101,7 @@ export interface MadnessSimulationOptions {
   onProgress?: (completed: number, total: number) => void
   signal?: AbortSignal
   locale?: Locale
-  names?: Record<string, MutantNameEntry>
+  names?: Record<string, string>
 }
 
 interface WeightedReward {
@@ -129,7 +128,7 @@ interface MadnessSimulationContext {
   jackpotCount: number
   totalSpins: number
   locale: Locale
-  names?: Record<string, MutantNameEntry>
+  names?: Record<string, string>
 }
 
 // research 9/10 намеренно отсутствуют: в игре они выключены (все их награды
@@ -196,13 +195,13 @@ const STAR_LABEL_RU_TO_KEY: Record<string, string> = {
 export function getRewardLabel(
   reward: MadnessReward,
   locale: Locale = 'ru',
-  names?: Record<string, MutantNameEntry>,
+  names?: Record<string, string>,
 ): string {
   let name: string
   if (reward.isSuperJackpot) {
     name = t('roulette.madness.researchJackpot', locale)
   } else if (reward.id) {
-    name = names?.[reward.id.toLowerCase()]?.name ?? reward.name
+    name = names?.[reward.id.toLowerCase()] ?? reward.name
   } else {
     name = reward.name
   }
@@ -251,7 +250,7 @@ export function getRewardChances(
   level: number,
   machine: MadnessMachineDefinition = madnessMachine,
   locale: Locale = 'ru',
-  names?: Record<string, MutantNameEntry>,
+  names?: Record<string, string>,
 ): MadnessRewardChance[] {
   const rewards = getAvailableRewards(level, machine).filter((reward) => reward.type === 'entity')
   const total = rewards.reduce((sum, reward) => sum + reward.odds, 0)
@@ -268,7 +267,7 @@ export function getResearchChanceBreakdown(
   level: number,
   machine: MadnessMachineDefinition = madnessMachine,
   locale: Locale = 'ru',
-  names?: Record<string, MutantNameEntry>,
+  names?: Record<string, string>,
 ): MadnessResearchChance[] {
   const rewards = getRewardChances(level, machine, locale, names)
   const groups = new Map<MadnessResearchKey, MadnessResearchChance>()
