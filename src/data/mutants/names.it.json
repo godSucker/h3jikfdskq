@@ -211,7 +211,7 @@
   },
   "specimen_f_01": {
     "name": "Demonia",
-    "lore": "Before having become an expert of the aviation, Looping the loop was one of boarders of the zoo of the city. He(it) had escaped by hanging on(by colliding) together tens da balls(balloons) that he(it) had flown from the visitors. \\nFrom now on free, he(it) is allowed carry(wear) by the wind and this is when he(it) overflew(skimmed through) the arena(bullring) on which he(it) decided to enter it.",
+    "lore": "Before having become an expert of the aviation, Looping the loop was one of boarders of the zoo of the city. He(it) had escaped by hanging on(by colliding) together tens da balls(balloons) that he(it) had flown from the visitors. \nFrom now on free, he(it) is allowed carry(wear) by the wind and this is when he(it) overflew(skimmed through) the arena(bullring) on which he(it) decided to enter it.",
     "atk1Name": "Attrazione bollente",
     "atk2Name": "Carezza acida"
   },
@@ -631,7 +631,7 @@
   },
   "specimen_ed_03": {
     "name": "Wampara",
-    "lore": "I rappresentanti della razza Wampara visitano la Terra da migliaia di anni a caccia di esseri umani. Probabilmente sono proprio loro a essere all’origine di molte creature leggendarie avvistate, di tanto in tanto, nel corso della storia, come il Bigfoot, lo Yeti e Alf.\\n\\nGrazie ai suoi costumi tribali basati sul combattimento, il Wampara sarà un nuovo elemento tremendamente efficace per la tua squadra!\\n",
+    "lore": "I rappresentanti della razza Wampara visitano la Terra da migliaia di anni a caccia di esseri umani. Probabilmente sono proprio loro a essere all’origine di molte creature leggendarie avvistate, di tanto in tanto, nel corso della storia, come il Bigfoot, lo Yeti e Alf.\n\nGrazie ai suoi costumi tribali basati sul combattimento, il Wampara sarà un nuovo elemento tremendamente efficace per la tua squadra!\n",
     "atk1Name": "Attacco Hoth",
     "atk2Name": "Stacca la testa!"
   },
@@ -757,7 +757,7 @@
   },
   "specimen_ba_04": {
     "name": "L’Esperimento",
-    "lore": "Riportato in vita dal regno dei morti grazie a un miscuglio di pezzi di animali, di uomini e di robot, The Experiment non è mai tornato a essere abbastanza umano per meritarsi un nome vero. \\nCapace solo di distruggere tutto quello che gli si para innanzi, il misterioso scienziato pazzo che lo ha creato aveva evidentemente un solo obiettivo: entrare nell’arena e spazzare via tutti gli avversari, e farlo versando più sangue possibile!\\n",
+    "lore": "Riportato in vita dal regno dei morti grazie a un miscuglio di pezzi di animali, di uomini e di robot, The Experiment non è mai tornato a essere abbastanza umano per meritarsi un nome vero. \nCapace solo di distruggere tutto quello che gli si para innanzi, il misterioso scienziato pazzo che lo ha creato aveva evidentemente un solo obiettivo: entrare nell’arena e spazzare via tutti gli avversari, e farlo versando più sangue possibile!\n",
     "atk1Name": "Riciclaggio",
     "atk2Name": "Dono di Prometeo"
   },
@@ -853,7 +853,7 @@
   },
   "specimen_de_04": {
     "name": "Genshiryoku",
-    "lore": "Disturbato dai continui rumori di combattimenti ed esplosioni, Genshiryoku si è risvegliato ed è di cattivissimo umore.\\nA partire da ora, la sua sola missione sarà quella di ridurre al silenzio tutti gli altri combattenti dell’arena. Non ti sognare nemmeno di provare a sottometterlo, l’unica cosa di cui si preoccupa sono i suoi bisogni e ti distruggerà non appena ne avrà l'occasione!\\n",
+    "lore": "Disturbato dai continui rumori di combattimenti ed esplosioni, Genshiryoku si è risvegliato ed è di cattivissimo umore.\nA partire da ora, la sua sola missione sarà quella di ridurre al silenzio tutti gli altri combattenti dell’arena. Non ti sognare nemmeno di provare a sottometterlo, l’unica cosa di cui si preoccupa sono i suoi bisogni e ti distruggerà non appena ne avrà l'occasione!\n",
     "atk1Name": "Ululato",
     "atk2Name": "Sputo radioattivo"
   },
@@ -919,7 +919,7 @@
   },
   "specimen_fd_04": {
     "name": "Buranka",
-    "lore": "L’addestramento estremo nella giungla subito da Buranka lo ha reso diverso dagli altri mutanti. Dopo essere stato spinto al limite in una foresta pluviale dell’Amazzonia, stava per lasciar perdere e tornarsene dalla mamma, quando un tuono devastante lo colpì, mutandone il corpo e la mente. Da allora possiede due multi-attacchi devastanti. Li userà nell’arena per diventare un campione senza pari. Guardati da tutti gli Psy-Captain che sottovalutano la sua Elettrocuzione e le sue Lance Volanti, si ritroveranno da soli chiedendosi cosa sia successo alla loro squadra!\\n",
+    "lore": "L’addestramento estremo nella giungla subito da Buranka lo ha reso diverso dagli altri mutanti. Dopo essere stato spinto al limite in una foresta pluviale dell’Amazzonia, stava per lasciar perdere e tornarsene dalla mamma, quando un tuono devastante lo colpì, mutandone il corpo e la mente. Da allora possiede due multi-attacchi devastanti. Li userà nell’arena per diventare un campione senza pari. Guardati da tutti gli Psy-Captain che sottovalutano la sua Elettrocuzione e le sue Lance Volanti, si ritroveranno da soli chiedendosi cosa sia successo alla loro squadra!\n",
     "atk1Name": "Elettrocuzione",
     "atk2Name": "Lance volanti"
   },
@@ -1081,7 +1081,7 @@
   },
   "specimen_de_05": {
     "name": "Exo Cookie",
-    "lore": "Che ci crediate o no, Exo Cookie è all’origine di tutto nella vita di Darwin. A 7 anni, l’idea che il suo hamster favorito non avrebbe vissuto più di 3 o 4 anni gli era insopportabile. Decise quindi di prolungarne la vita. \\nE che sorpresa quando scoprì che il suo primo esperimento aveva trasformato il piccolo Cookie in un hamster degno di Hulk! Veloce come la luce e capace di distruggere tutto al suo passaggio, Darwin lo ribattezzò e gli costruì un equipaggiamento all’altezza. Grazie a questo successo si aprì per Darwin la strada che lo ha portato a diventare quello che è oggi. \\nOra, Exo Cookie è entrato nell’arena, e anche se può sembrare un esserino innocuo, ti assicuro che non avrà nessuna pietà per i suoi avversari!\\n",
+    "lore": "Che ci crediate o no, Exo Cookie è all’origine di tutto nella vita di Darwin. A 7 anni, l’idea che il suo hamster favorito non avrebbe vissuto più di 3 o 4 anni gli era insopportabile. Decise quindi di prolungarne la vita. \nE che sorpresa quando scoprì che il suo primo esperimento aveva trasformato il piccolo Cookie in un hamster degno di Hulk! Veloce come la luce e capace di distruggere tutto al suo passaggio, Darwin lo ribattezzò e gli costruì un equipaggiamento all’altezza. Grazie a questo successo si aprì per Darwin la strada che lo ha portato a diventare quello che è oggi. \nOra, Exo Cookie è entrato nell’arena, e anche se può sembrare un esserino innocuo, ti assicuro che non avrà nessuna pietà per i suoi avversari!\n",
     "atk1Name": "Ruota del Destino",
     "atk2Name": "Alta velocità"
   },
@@ -1159,7 +1159,7 @@
   },
   "specimen_ff_05": {
     "name": "Glubber",
-    "lore": "Mentre uno scienziato cercava di trovare una nuova fonte di energia, qualcosa andò storto nell’esperimento e il laboratorio esplose. Glubber era lì, e aleggiava sopra la cenere. Per evitare che la prossima volta sia molto di più di un laboratorio ad esplodere, deve trovare un modo per dare sfogo a tutta questa energia.\\nGli attacchi di Glubber non sono modificati dai geni dei suoi bersagli. \\n",
+    "lore": "Mentre uno scienziato cercava di trovare una nuova fonte di energia, qualcosa andò storto nell’esperimento e il laboratorio esplose. Glubber era lì, e aleggiava sopra la cenere. Per evitare che la prossima volta sia molto di più di un laboratorio ad esplodere, deve trovare un modo per dare sfogo a tutta questa energia.\nGli attacchi di Glubber non sono modificati dai geni dei suoi bersagli. \n",
     "atk1Name": "Morfopugno",
     "atk2Name": "Morfomagia"
   },
@@ -1171,7 +1171,7 @@
   },
   "specimen_b_05": {
     "name": "Drudge Zombie",
-    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \\n\\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
+    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \n\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
     "atk1Name": "Minecart",
     "atk2Name": "Work Accident"
   },
@@ -1237,7 +1237,7 @@
   },
   "specimen_bd_06": {
     "name": "Mur'Ghoul",
-    "lore": "È lo scagnozzo di una creatura immensa, addormentata da lungo tempo nelle profondità dell’Oceano. Il suo arrivo annuncia un risveglio imminente e la distruzione dei mondi.\\nFino a quel momento, approfitta del suo potere per annientare i tuoi avversari.\\n",
+    "lore": "È lo scagnozzo di una creatura immensa, addormentata da lungo tempo nelle profondità dell’Oceano. Il suo arrivo annuncia un risveglio imminente e la distruzione dei mondi.\nFino a quel momento, approfitta del suo potere per annientare i tuoi avversari.\n",
     "atk1Name": "Nagl fhtagn",
     "atk2Name": "Ph'nglui mglw"
   },
@@ -1255,7 +1255,7 @@
   },
   "specimen_ca_06": {
     "name": "SRA-DIK-Bot",
-    "lore": "Da quando ha fatto la sua comparsa, ci sono voci che sostengono che è arrivato dal futuro, con una missione molto particolare: sradicare quanti più mutanti possibile per un robot e preparare una guerra nucleare per il futuro.\\n\\nSRA-DIK-Bot rappresenta l’avanguardia del guerriero dell’arena: 50% Mutante, 50% arma di distruzione di massa, 100% FA-TA-LE!\\n",
+    "lore": "Da quando ha fatto la sua comparsa, ci sono voci che sostengono che è arrivato dal futuro, con una missione molto particolare: sradicare quanti più mutanti possibile per un robot e preparare una guerra nucleare per il futuro.\n\nSRA-DIK-Bot rappresenta l’avanguardia del guerriero dell’arena: 50% Mutante, 50% arma di distruzione di massa, 100% FA-TA-LE!\n",
     "atk1Name": "PO-TE-RE",
     "atk2Name": "NU-KLE-AR"
   },
@@ -1309,7 +1309,7 @@
   },
   "specimen_dd_06": {
     "name": "Cangu’Mama",
-    "lore": "Sembra una tipa tranquilla, non è vero? Non lasciarti ingannare. \\nQualcuno, un giorno, le ha detto che qualsiasi mutante lasciato in vita sarebbe stato una minaccia per il suo piccolo. Quel “qualcuno” potrà mangiare solo brodino per il resto della sua vita.\\n",
+    "lore": "Sembra una tipa tranquilla, non è vero? Non lasciarti ingannare. \nQualcuno, un giorno, le ha detto che qualsiasi mutante lasciato in vita sarebbe stato una minaccia per il suo piccolo. Quel “qualcuno” potrà mangiare solo brodino per il resto della sua vita.\n",
     "atk1Name": "CanguBoxe",
     "atk2Name": "Boomerang guerriero"
   },
@@ -1459,7 +1459,7 @@
   },
   "specimen_be_07": {
     "name": "Nezarim",
-    "lore": "Arrivato da un pianeta lontano, questo maestro delle arti occulte è qui per depredare l’anima dei combattenti dell’arena. Darwin è riuscito a convincerlo ad entrare nelle nostre fila promettendogli che avrebbe potuto raccogliere quella di tutti i nemici che sarebbe riuscito a sconfiggere. \\nSperiamo che gli basti. Cosa potrebbe succedere se decidesse di tradirci?",
+    "lore": "Arrivato da un pianeta lontano, questo maestro delle arti occulte è qui per depredare l’anima dei combattenti dell’arena. Darwin è riuscito a convincerlo ad entrare nelle nostre fila promettendogli che avrebbe potuto raccogliere quella di tutti i nemici che sarebbe riuscito a sconfiggere. \nSperiamo che gli basti. Cosa potrebbe succedere se decidesse di tradirci?",
     "atk1Name": "Falce d’energia",
     "atk2Name": "Laser Necro"
   },
@@ -1525,7 +1525,7 @@
   },
   "specimen_dd_07": {
     "name": "Palloncino",
-    "lore": "Prima di diventare un asso dell’aviazione, Palloncino era uno degli animali dello zoo cittadino. È scappato legando insieme tutti i palloncini che è riuscito a rubare ai visitatori.  \\nOra che è libero, si lascia trasportare dal vento e passando sopra l’arena ha deciso di farne parte.",
+    "lore": "Prima di diventare un asso dell’aviazione, Palloncino era uno degli animali dello zoo cittadino. È scappato legando insieme tutti i palloncini che è riuscito a rubare ai visitatori.  \nOra che è libero, si lascia trasportare dal vento e passando sopra l’arena ha deciso di farne parte.",
     "atk1Name": "Graffio",
     "atk2Name": "Colpo d’aria"
   },
@@ -1675,7 +1675,7 @@
   },
   "specimen_be_08": {
     "name": "Dug Dario",
-    "lore": "Dug Dario, nato molto tempo fa in una lontana galassia, è alla continua ricerca di nuovi schiavi da vendere sul suo pianeta di origine.\\nNon voltargli mai le spalle: sarebbe capace di rubarti le larve senza che nemmeno tu te ne accorga.",
+    "lore": "Dug Dario, nato molto tempo fa in una lontana galassia, è alla continua ricerca di nuovi schiavi da vendere sul suo pianeta di origine.\nNon voltargli mai le spalle: sarebbe capace di rubarti le larve senza che nemmeno tu te ne accorga.",
     "atk1Name": "Traffico di spiriti",
     "atk2Name": "Fucile Nascosto"
   },
@@ -1711,7 +1711,7 @@
   },
   "specimen_ce_08": {
     "name": "Il re senza nome",
-    "lore": "Perdendo l'umanità, questo re del tempo che fu perse anche il suo nome.\\nTemuto dal suo popolo, dava egli stesso la caccia ai draghi che ne minacciavano il regno, fino a quando non decise di passare dall'altro lato della barricata.",
+    "lore": "Perdendo l'umanità, questo re del tempo che fu perse anche il suo nome.\nTemuto dal suo popolo, dava egli stesso la caccia ai draghi che ne minacciavano il regno, fino a quando non decise di passare dall'altro lato della barricata.",
     "atk1Name": "Ammazzadraghi",
     "atk2Name": "Spiraglio celeste"
   },
@@ -1885,7 +1885,7 @@
   },
   "specimen_bd_09": {
     "name": "Fauci infernali",
-    "lore": "Questo mostro venuto dalle viscere della Terra si nutre divorando le ultime anime erranti delle nostre lande.\\nAttenzione alla sua smisurata mascella: è in grado di strappare braccia come fossero erbacce…",
+    "lore": "Questo mostro venuto dalle viscere della Terra si nutre divorando le ultime anime erranti delle nostre lande.\nAttenzione alla sua smisurata mascella: è in grado di strappare braccia come fossero erbacce…",
     "atk1Name": "Ululato mortale",
     "atk2Name": "Maglio"
   },
@@ -1963,7 +1963,7 @@
   },
   "specimen_de_09": {
     "name": "Zigmo",
-    "lore": "Darwin: \"Le odio, queste palle di pelo!\\nDivorano tutto e si moltiplicano a una velocità incontrollabile! Rimpiango di averne riportata una dal mio viaggio su Praetoria.\"",
+    "lore": "Darwin: \"Le odio, queste palle di pelo!\nDivorano tutto e si moltiplicano a una velocità incontrollabile! Rimpiango di averne riportata una dal mio viaggio su Praetoria.\"",
     "atk1Name": "Bipolarità",
     "atk2Name": "Raggio ottico"
   },
@@ -2245,7 +2245,7 @@
   },
   "specimen_fd_10": {
     "name": "Master Paw",
-    "lore": "Ideato dai giocatori - a immaginare, creare e scegliere il nome di questo mutante è stata la community MGG.\\nMaster Paw sfoggia sempre un placido sorriso, ma, grazie al suo potente tamburo da guerra, è temuto dagli avversari di tutte le arene.",
+    "lore": "Ideato dai giocatori - a immaginare, creare e scegliere il nome di questo mutante è stata la community MGG.\nMaster Paw sfoggia sempre un placido sorriso, ma, grazie al suo potente tamburo da guerra, è temuto dagli avversari di tutte le arene.",
     "atk1Name": "Pioggia di tamburi",
     "atk2Name": "Rullo di tamburi"
   },
@@ -2287,7 +2287,7 @@
   },
   "specimen_ae_11": {
     "name": "Mix0-Logo",
-    "lore": "Alzi la mano chi non ha mai sognato di avere in casa un barman robot per preparare ottimi cocktail. Mix-0 era il modello di robot ufficiale utilizzato nel lounge di tutte le arene del campionato fino a quando, una sera di capodanno, un malaugurato rovesciamento di liquido nello spazioporto non gli bruciò il circuito dell’autocontrollo e del servizio.\\nFu così che Mix-0 iniziò a combattere nelle arene e che tutti gli altri esemplari in circolazione furono sostituiti con un modello che garantiva una maggiore resistenza ai liquidi: il Mix-1. Riuscirai a resistere alla potenza devastante di mojito e blue lagoon?",
+    "lore": "Alzi la mano chi non ha mai sognato di avere in casa un barman robot per preparare ottimi cocktail. Mix-0 era il modello di robot ufficiale utilizzato nel lounge di tutte le arene del campionato fino a quando, una sera di capodanno, un malaugurato rovesciamento di liquido nello spazioporto non gli bruciò il circuito dell’autocontrollo e del servizio.\nFu così che Mix-0 iniziò a combattere nelle arene e che tutti gli altri esemplari in circolazione furono sostituiti con un modello che garantiva una maggiore resistenza ai liquidi: il Mix-1. Riuscirai a resistere alla potenza devastante di mojito e blue lagoon?",
     "atk1Name": "Cocktail Esplosivo",
     "atk2Name": "Shake it!!"
   },
@@ -2329,7 +2329,7 @@
   },
   "specimen_bf_11": {
     "name": "Acheronte",
-    "lore": "L’Esattore di anime è un autentico mistero. È un essere fatto di energia e vestito di bende, sbucato fuori dal nulla durante gli eventi di Halloween. Sembra appassionarsi alla raccolta delle anime dei mutanti, che rinchiude in urne geometriche. Ma perché? Quali sono le sue vere intenzioni? \\n- Darwin",
+    "lore": "L’Esattore di anime è un autentico mistero. È un essere fatto di energia e vestito di bende, sbucato fuori dal nulla durante gli eventi di Halloween. Sembra appassionarsi alla raccolta delle anime dei mutanti, che rinchiude in urne geometriche. Ma perché? Quali sono le sue vere intenzioni? \n- Darwin",
     "atk1Name": "Cattura anima",
     "atk2Name": "Onda elettrica"
   },
@@ -2377,7 +2377,7 @@
   },
   "specimen_db_11": {
     "name": "Piwisher",
-    "lore": "Piwisher, originario di un’altra dimensione, è stato riportato in vita nello Psy-Lab. I piwi erano considerati animali inoffensivi e preziosi, in virtù della caratteristica pietra incastonata nel torace, ma Piwisher è diverso dagli altri: è infatti pieno di rancore perché la sua famiglia e i suoi amici sono stati massacrati da avventurieri senza scrupoli. Il suo unico scopo, ora, è quello di diventare il più forte possibile nell’arena, per poi scappare per andare a scovare e punire i responsabili dello sterminio della sua specie.\\n\\n- Mutante ottenuto gratuitamente raggiungendo le Miniere di Astyrith in Celsius Heroes -",
+    "lore": "Piwisher, originario di un’altra dimensione, è stato riportato in vita nello Psy-Lab. I piwi erano considerati animali inoffensivi e preziosi, in virtù della caratteristica pietra incastonata nel torace, ma Piwisher è diverso dagli altri: è infatti pieno di rancore perché la sua famiglia e i suoi amici sono stati massacrati da avventurieri senza scrupoli. Il suo unico scopo, ora, è quello di diventare il più forte possibile nell’arena, per poi scappare per andare a scovare e punire i responsabili dello sterminio della sua specie.\n\n- Mutante ottenuto gratuitamente raggiungendo le Miniere di Astyrith in Celsius Heroes -",
     "atk1Name": "Pugno vendicatore",
     "atk2Name": "Uovo di rancore"
   },
@@ -2395,13 +2395,13 @@
   },
   "specimen_de_11": {
     "name": "Drei, Corgi Spaziale",
-    "lore": "Che cosa c’è di più tenero di un dolcissimo corgi in tuta spaziale?\\nNon fidarti delle apparenze, però, perché Drei è una cavia che ha sviluppato una superintelligenza in seguito a un esperimento, e non ci penserà due volte prima di usare il suo razzo e il suo lanciacrocchette per sbarazzarsi degli intrusi che orbitano attorno alla sua stazione spaziale...",
+    "lore": "Che cosa c’è di più tenero di un dolcissimo corgi in tuta spaziale?\nNon fidarti delle apparenze, però, perché Drei è una cavia che ha sviluppato una superintelligenza in seguito a un esperimento, e non ci penserà due volte prima di usare il suo razzo e il suo lanciacrocchette per sbarazzarsi degli intrusi che orbitano attorno alla sua stazione spaziale...",
     "atk1Name": "Orbiter Canino",
     "atk2Name": "Lanciacrocchette"
   },
   "specimen_df_11": {
     "name": "Cioccolem",
-    "lore": "Che cosa succede quando si mischia dell’ottimo cioccolato ricco di sostanze nutritive con vari fluidi mutageni per fare uno snack per mutanti? Darwin ha risposto a questa domanda preparando suo malgrado un enorme coniglietto di cioccolato!\\n\\nQuesto aberrante mostro di cioccolato ha costantemente fame e vuole ingurgitare sempre più cioccolato per crescere e aumentare la sua forza. È così affamato che spesso mangia parti del suo stesso corpo, lasciando intravedere il suo cuore scioglievole...",
+    "lore": "Che cosa succede quando si mischia dell’ottimo cioccolato ricco di sostanze nutritive con vari fluidi mutageni per fare uno snack per mutanti? Darwin ha risposto a questa domanda preparando suo malgrado un enorme coniglietto di cioccolato!\n\nQuesto aberrante mostro di cioccolato ha costantemente fame e vuole ingurgitare sempre più cioccolato per crescere e aumentare la sua forza. È così affamato che spesso mangia parti del suo stesso corpo, lasciando intravedere il suo cuore scioglievole...",
     "atk1Name": "Forte cioc",
     "atk2Name": "Cioccospruzzo"
   },
@@ -2461,7 +2461,7 @@
   },
   "specimen_fd_11": {
     "name": "Diolupo di pietra",
-    "lore": "Diolupo di pietra è una grande divinità che fu condannata dagli altri dei a restare rinchiusa in una statua di pietra fino a quando il mondo non fosse stato in grave pericolo. A quanto pare le distruzioni avvenute a Shanghai sono state ritenute sufficienti per liberarlo, ma la sua divina energia si è ormai fusa completamente con l’antica statua che lo ospita...\\n",
+    "lore": "Diolupo di pietra è una grande divinità che fu condannata dagli altri dei a restare rinchiusa in una statua di pietra fino a quando il mondo non fosse stato in grave pericolo. A quanto pare le distruzioni avvenute a Shanghai sono state ritenute sufficienti per liberarlo, ma la sua divina energia si è ormai fusa completamente con l’antica statua che lo ospita...\n",
     "atk1Name": "Sprazzi di divinità",
     "atk2Name": "Artigli di pietra"
   },
@@ -2473,7 +2473,7 @@
   },
   "specimen_ff_11": {
     "name": "Gerard Steelgarden",
-    "lore": "Gerard Steelgarden è un illusionista di professione che, dopo aver condotto una serie di strani esperimenti sui mutanti mitici, ha acquisito la capacità di fare vere e proprie magie. \\n\\nI suoi numeri sono ormai di gran lunga superiori a quelli di qualunque altro mago, perché sono in grado di oltrepassare i limiti tra illusione e autentica magia.\\n\\nTra un combattimento e l’altro nell’Arena, Gerard Steelgarden presenta i suoi numeri in tutto il mondo, dando vita a grandissimi spettacoli.",
+    "lore": "Gerard Steelgarden è un illusionista di professione che, dopo aver condotto una serie di strani esperimenti sui mutanti mitici, ha acquisito la capacità di fare vere e proprie magie. \n\nI suoi numeri sono ormai di gran lunga superiori a quelli di qualunque altro mago, perché sono in grado di oltrepassare i limiti tra illusione e autentica magia.\n\nTra un combattimento e l’altro nell’Arena, Gerard Steelgarden presenta i suoi numeri in tutto il mondo, dando vita a grandissimi spettacoli.",
     "atk1Name": "Cassa della morte",
     "atk2Name": "Pirotecnica"
   },
@@ -2665,7 +2665,7 @@
   },
   "specimen_fb_12": {
     "name": "Signora del Crepuscolo",
-    "lore": "Questa creatura, formata da un’anima di luce pura intrappolata in un corpo fatto di tenebre, regna sull’immenso territorio in cui è stata imprigionata nel profondo degli inferi. \\nVolente o nolente attira tutti coloro che attraversano il suo regno infernale, riducendoli allo stato di cadaveri servili.  \\nNessuno è in grado di determinare quale delle due entità da cui è formata la controlli per davvero e talvolta sembra lottare con se stessa. \\nIl suo ritorno in superficie potrebbe preannunciare tempi bui…",
+    "lore": "Questa creatura, formata da un’anima di luce pura intrappolata in un corpo fatto di tenebre, regna sull’immenso territorio in cui è stata imprigionata nel profondo degli inferi. \nVolente o nolente attira tutti coloro che attraversano il suo regno infernale, riducendoli allo stato di cadaveri servili.  \nNessuno è in grado di determinare quale delle due entità da cui è formata la controlli per davvero e talvolta sembra lottare con se stessa. \nIl suo ritorno in superficie potrebbe preannunciare tempi bui…",
     "atk1Name": "Luce pura",
     "atk2Name": "Anime perse"
   },
@@ -2953,7 +2953,7 @@
   },
   "specimen_d_13": {
     "name": "Sasquatch",
-    "lore": "Il primo mutante di sempre? Forse no, ma questo criptide scoperto nelle foreste del Nordamerica lascia pensare che potrebbero esistere numerosi mutanti di origine naturale sulla terra… a patto di cercarli! /n/n Diario delle ricerche di [Nome cancellato]",
+    "lore": "Il primo mutante di sempre? Forse no, ma questo criptide scoperto nelle foreste del Nordamerica lascia pensare che potrebbero esistere numerosi mutanti di origine naturale sulla terra… a patto di cercarli! \n\n Diario delle ricerche di [Nome cancellato]",
     "atk1Name": "Imboscata scimmiesca",
     "atk2Name": "Combo primate"
   },
@@ -3019,7 +3019,7 @@
   },
   "specimen_df_99": {
     "name": "Genimale",
-    "lore": "Genimale, devi ucciderli tutti\\nSiamo io e te, è il destino sì\\nGenimale, siamo forti e coraggiosi\\nIn un mondo in cui saremo eroi!",
+    "lore": "Genimale, devi ucciderli tutti\nSiamo io e te, è il destino sì\nGenimale, siamo forti e coraggiosi\nIn un mondo in cui saremo eroi!",
     "atk1Name": "Pipistrelli",
     "atk2Name": "Cristallo di potenza"
   },
@@ -3049,7 +3049,7 @@
   },
   "specimen_ef_99": {
     "name": "Singularity Wizard",
-    "lore": "“Pr. ... - Diario degli esperimenti\\n\\n15 gennaio - ... acceleratore di particelle ... primi test ... evoluzione ... mutanti.\\n\\n12 marzo - ... inconveniente. ... DNA Galattico. ... combinare ...\\n\\n2 giugno - ... reazioni ... promettono bene. ... evoluzione ... umanità ...\\n\\n7 agosto - ... felice ... ... perso ... Singularity Wizard ... Riprendiamo gli esperimenti...”",
+    "lore": "“Pr. ... - Diario degli esperimenti\n\n15 gennaio - ... acceleratore di particelle ... primi test ... evoluzione ... mutanti.\n\n12 marzo - ... inconveniente. ... DNA Galattico. ... combinare ...\n\n2 giugno - ... reazioni ... promettono bene. ... evoluzione ... umanità ...\n\n7 agosto - ... felice ... ... perso ... Singularity Wizard ... Riprendiamo gli esperimenti...”",
     "atk1Name": "Buco Nero Supermassivo",
     "atk2Name": "Sfera di Gravità"
   },
@@ -3061,7 +3061,7 @@
   },
   "specimen_fc_99": {
     "name": "Nimrod",
-    "lore": "Nimrod è un potente mutante fuggito da un’altra dimensione che un tempo fu re e fondatore di un vasto impero. Per Nimrod la morte non ha alcun significato e niente potrà ostacolarlo durante il cammino che lo condurrà a cercare di ripristinare i fasti del suo impero.\\n\\n- Mutante ottenuto gratuitamente sconfiggendo Nimrod in Celsius Heroes -",
+    "lore": "Nimrod è un potente mutante fuggito da un’altra dimensione che un tempo fu re e fondatore di un vasto impero. Per Nimrod la morte non ha alcun significato e niente potrà ostacolarlo durante il cammino che lo condurrà a cercare di ripristinare i fasti del suo impero.\n\n- Mutante ottenuto gratuitamente sconfiggendo Nimrod in Celsius Heroes -",
     "atk1Name": "Re dei re",
     "atk2Name": "Martello distruttore"
   },
@@ -3127,7 +3127,7 @@
   },
   "specimen_ca_14": {
     "name": "Breakmaster",
-    "lore": "Step up to the beat. /nNever take a hit. /nDance along with it. /nProve you’re an athlete. /n/nQuesto è stato il motto del team scientifico che ha cercato di creare il primo mutante danzante e combattente della storia. Le rime hanno permeato il loro lavoro così profondamente da portarli a un mutante ballerino, che usa le sue capacità per combattere in modi invisibili nell'Arena.",
+    "lore": "Step up to the beat. \nNever take a hit. \nDance along with it. \nProve you’re an athlete. \n\nQuesto è stato il motto del team scientifico che ha cercato di creare il primo mutante danzante e combattente della storia. Le rime hanno permeato il loro lavoro così profondamente da portarli a un mutante ballerino, che usa le sue capacità per combattere in modi invisibili nell'Arena.",
     "atk1Name": "Freeze Kick",
     "atk2Name": "Flare Spin"
   },

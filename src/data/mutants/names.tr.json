@@ -523,7 +523,7 @@
   },
   "specimen_bd_03": {
     "name": "Korkak Ayı",
-    "lore": "Yakındaki azami güvenlikli bir hapishane yenilerin taleplerini karşılamaya yardımı olması için mahkumları kullanmayı önerdiğinde, Carey Bearys'yi sunmak şirket için ideal bir çözüm gibi göründü. Ne yazık ki Baron Urban bu harika fırsatı kaos yaratmak için harika bir fırsat gibi gördü bu yüzden mahkumları yüksek teknoloji ürünü çiplerle destekledi. Sonuç olarak psikozlu davranış ve robotik etkinliğin karışımı olan bu Korkak Ayı ortaya çıktı\\n",
+    "lore": "Yakındaki azami güvenlikli bir hapishane yenilerin taleplerini karşılamaya yardımı olması için mahkumları kullanmayı önerdiğinde, Carey Bearys'yi sunmak şirket için ideal bir çözüm gibi göründü. Ne yazık ki Baron Urban bu harika fırsatı kaos yaratmak için harika bir fırsat gibi gördü bu yüzden mahkumları yüksek teknoloji ürünü çiplerle destekledi. Sonuç olarak psikozlu davranış ve robotik etkinliğin karışımı olan bu Korkak Ayı ortaya çıktı\n",
     "atk1Name": "Fena yağmur",
     "atk2Name": "Yıkım"
   },
@@ -631,7 +631,7 @@
   },
   "specimen_ed_03": {
     "name": "Wampara",
-    "lore": "Wampara yarışı bin yılı aşkın bir süredir spor olarak insanları avlamak için Dünya'yı ziyaret ediyor. Tarihimizde Koca Ayak, Yeti ve Alf gibi birçok efsanevi yaratık görüldüğüne dair kaynak var.\\n\\nSavaştaki kabilesel kültürüne bağlı olarak Wampara takımına inanılmaz bir katkı sağlayacak!",
+    "lore": "Wampara yarışı bin yılı aşkın bir süredir spor olarak insanları avlamak için Dünya'yı ziyaret ediyor. Tarihimizde Koca Ayak, Yeti ve Alf gibi birçok efsanevi yaratık görüldüğüne dair kaynak var.\n\nSavaştaki kabilesel kültürüne bağlı olarak Wampara takımına inanılmaz bir katkı sağlayacak!",
     "atk1Name": "Çok Sıcakk",
     "atk2Name": "Kafasını kopar!"
   },
@@ -649,7 +649,7 @@
   },
   "specimen_fa_03": {
     "name": "Bazzinger",
-    "lore": "Dünya sıkıntıda olduğunda ve çözüm bulunamadığında, efsanevi Bazzinger yaratılabilir. Bu mitik orman bekçisi, evrenin koruma sigortası olarak görevlendirilmiştir. Arenadaki sıra dışı hareket raporlarını takip eden birim, arenaya bunu araştırmak üzere katıldı.\\n",
+    "lore": "Dünya sıkıntıda olduğunda ve çözüm bulunamadığında, efsanevi Bazzinger yaratılabilir. Bu mitik orman bekçisi, evrenin koruma sigortası olarak görevlendirilmiştir. Arenadaki sıra dışı hareket raporlarını takip eden birim, arenaya bunu araştırmak üzere katıldı.\n",
     "atk1Name": "Adalet Süvarisi",
     "atk2Name": "Mega Bot, saldırısı!"
   },
@@ -673,7 +673,7 @@
   },
   "specimen_fe_03": {
     "name": "Astro Sihirbaz",
-    "lore": "Zaman ve mekanda uzman kontrollere sahip Astro Sihirbaz güçlü büyüleri ve sihri yönetiyor. Galaktik konsül tarafından kendi boyutundan sürgün edilen Sihirbaz, mutlak intikamını alabilecek kadar gücünü artırma yolları bulmak için artık boyutlar arasında seyahat ediyor.\\n",
+    "lore": "Zaman ve mekanda uzman kontrollere sahip Astro Sihirbaz güçlü büyüleri ve sihri yönetiyor. Galaktik konsül tarafından kendi boyutundan sürgün edilen Sihirbaz, mutlak intikamını alabilecek kadar gücünü artırma yolları bulmak için artık boyutlar arasında seyahat ediyor.\n",
     "atk1Name": "Entrikacıların Gücü",
     "atk2Name": "Çekimsel girdap"
   },
@@ -757,7 +757,7 @@
   },
   "specimen_ba_04": {
     "name": "Deney",
-    "lore": "Hayvan, insan ve robot parçalarının karışımıyla ölüden dirilen, Deney, hiçbir zaman gerçek bir ad alacak kadar insan olmamıştır.\\nYalnızca yoluna çıkan her şeyi patlatma yeteneği olan gizemli deli bilim insanının yalnızca açık tek bir amacı vardı: arenaya girmek ve korku filmi tarzında dövüşü süpürmek!",
+    "lore": "Hayvan, insan ve robot parçalarının karışımıyla ölüden dirilen, Deney, hiçbir zaman gerçek bir ad alacak kadar insan olmamıştır.\nYalnızca yoluna çıkan her şeyi patlatma yeteneği olan gizemli deli bilim insanının yalnızca açık tek bir amacı vardı: arenaya girmek ve korku filmi tarzında dövüşü süpürmek!",
     "atk1Name": "Geri dönüşüm",
     "atk2Name": "Prometheus hediyesi"
   },
@@ -835,7 +835,7 @@
   },
   "specimen_db_04": {
     "name": "Louis XVI",
-    "lore": "Bir Kralı öldürmek için bir Devrimden fazlasına ihtiyacın var ve Louis XVI bunu kanıtlamak için burada. 1793 yılının kışında giyotinin karşısında dururken krallığına dönmeye söz verdi. 600 yıl sonra unvanlarının iadesini istemek ve Fransızların korkak olmadığını göstermek için ölülerin dünyasından döndü.\\n",
+    "lore": "Bir Kralı öldürmek için bir Devrimden fazlasına ihtiyacın var ve Louis XVI bunu kanıtlamak için burada. 1793 yılının kışında giyotinin karşısında dururken krallığına dönmeye söz verdi. 600 yıl sonra unvanlarının iadesini istemek ve Fransızların korkak olmadığını göstermek için ölülerin dünyasından döndü.\n",
     "atk1Name": "Varennes",
     "atk2Name": "Giyotin"
   },
@@ -853,7 +853,7 @@
   },
   "specimen_de_04": {
     "name": "Genshiryoku",
-    "lore": "Dövüşlerin ve patlamaların devam eden seslerinden rahatsız olan Genshiryoku uyandı ve gerçekten çok kötü bir ruh halinde.\\nArtık tek amacı arenadaki her dövüşçüyü susturmak. Onu evcilleştirebileceğini düşünme; o, yalnızca kişisel ihtiyaçlarından dolayı orada ve şansı olduğunda seni de mahvedecek!\\n",
+    "lore": "Dövüşlerin ve patlamaların devam eden seslerinden rahatsız olan Genshiryoku uyandı ve gerçekten çok kötü bir ruh halinde.\nArtık tek amacı arenadaki her dövüşçüyü susturmak. Onu evcilleştirebileceğini düşünme; o, yalnızca kişisel ihtiyaçlarından dolayı orada ve şansı olduğunda seni de mahvedecek!\n",
     "atk1Name": "Uğultu",
     "atk2Name": "Radyoaktif Tükürük"
   },
@@ -913,13 +913,13 @@
   },
   "specimen_fc_04": {
     "name": "Mēxihcatl",
-    "lore": "Bu evrensel tufanda Tanrı Quetzalcoatl'ın dünyaya\\ncanavar lejyonlarını ve ateş iblislerini gönderdiği söylenir. Efsanevi\\nkahramanlar bu uzun süreli savaşlarda bu sürelere karşı koymuştur. Meksikalı\\nbir savaşçının reankarnasyonu olabilir mi?",
+    "lore": "Bu evrensel tufanda Tanrı Quetzalcoatl'ın dünyaya\ncanavar lejyonlarını ve ateş iblislerini gönderdiği söylenir. Efsanevi\nkahramanlar bu uzun süreli savaşlarda bu sürelere karşı koymuştur. Meksikalı\nbir savaşçının reankarnasyonu olabilir mi?",
     "atk1Name": "Tenochtitlan Güneşi",
     "atk2Name": "Macuahuitl \\n"
   },
   "specimen_fd_04": {
     "name": "Buranka",
-    "lore": "Zorlu orman eğitimi, Buranka adlı numuneyi yarıştığın diğer mutantlardan farklı yaptı. Amazon yağmur ormanı acemi birliğinde limitlerini zorladı, vazgeçmek ve evine annesine gitmek üzereyken ona güçlü bir yıldırım çarptı ve vücudunu ve zihnini başkalaştırdı. Ona iki yıkıcı çoklu saldırı sağladı. Artık eşi benzeri olmayan bir şampiyon olmak için bu benzersiz avantajını arenada kullanmaya geliyor. \\n Elektrokırkayak ve Uçan çivilerini hafife alan tüm Psiko-Liderlerin dikkat etmesi lazım aksi halde takımlarına ne olduğunu bile anlamadan terk etmiş olurlar!\\n",
+    "lore": "Zorlu orman eğitimi, Buranka adlı numuneyi yarıştığın diğer mutantlardan farklı yaptı. Amazon yağmur ormanı acemi birliğinde limitlerini zorladı, vazgeçmek ve evine annesine gitmek üzereyken ona güçlü bir yıldırım çarptı ve vücudunu ve zihnini başkalaştırdı. Ona iki yıkıcı çoklu saldırı sağladı. Artık eşi benzeri olmayan bir şampiyon olmak için bu benzersiz avantajını arenada kullanmaya geliyor. \n Elektrokırkayak ve Uçan çivilerini hafife alan tüm Psiko-Liderlerin dikkat etmesi lazım aksi halde takımlarına ne olduğunu bile anlamadan terk etmiş olurlar!\n",
     "atk1Name": "Elektrokırkayak",
     "atk2Name": "Uçan çiviler"
   },
@@ -1081,7 +1081,7 @@
   },
   "specimen_de_05": {
     "name": "Exo Kurabiye",
-    "lore": "İster inanın ister inanmayın Exo Kurabiye Darvinin hayatındaki her şeyin kaynağıdır. 7 yaşındayken en sevdiği hamsterın yalnızca 3 ila 4 yıl yaşayacağı fikrini kabullenememişti. Darvin tüm gücüyle hamsterın ömrünü uzatmak için her şeyi yaptı.\\nİlk deneyinde küçük Kurabiyesinin Hulk benzeri bir hamstera dönüştüğünü görünce tam anlamıyla donmuştu! Işık hızında seyahat eden, yolundaki her şeyi yok eden bu canlıya Darvin yeni bir isim vermeli ve ona uygun bir parça kıyafet yapmalıydı. Diyebiliriz ki bu başarı Darvinin şu anki halinin yolunu açtı.\\nExo Kurabiye artık arenada, tatlı görünebilir ancak tam anlamıyla rakiplerine karşı acımasızdır!\\n",
+    "lore": "İster inanın ister inanmayın Exo Kurabiye Darvinin hayatındaki her şeyin kaynağıdır. 7 yaşındayken en sevdiği hamsterın yalnızca 3 ila 4 yıl yaşayacağı fikrini kabullenememişti. Darvin tüm gücüyle hamsterın ömrünü uzatmak için her şeyi yaptı.\nİlk deneyinde küçük Kurabiyesinin Hulk benzeri bir hamstera dönüştüğünü görünce tam anlamıyla donmuştu! Işık hızında seyahat eden, yolundaki her şeyi yok eden bu canlıya Darvin yeni bir isim vermeli ve ona uygun bir parça kıyafet yapmalıydı. Diyebiliriz ki bu başarı Darvinin şu anki halinin yolunu açtı.\nExo Kurabiye artık arenada, tatlı görünebilir ancak tam anlamıyla rakiplerine karşı acımasızdır!\n",
     "atk1Name": "Kader Çarkı",
     "atk2Name": "Yüksek hız"
   },
@@ -1159,7 +1159,7 @@
   },
   "specimen_ff_05": {
     "name": "Glubber",
-    "lore": "Bir bilim insanı yeni bir güç kaynağı bulmaya çalışırken deneyde sorun oldu ve laboratuvar patladı. Glubber orada küllerin üzerinde yüzüyordu. Sonraki seferde patlayanın bir laboratuvardan fazlası olmasını engellemek için tüm enerjisini salacak başka bir yer bulmalı.\\n Glubber'in saldırıları hedefinin genlerinden etkilenmez.",
+    "lore": "Bir bilim insanı yeni bir güç kaynağı bulmaya çalışırken deneyde sorun oldu ve laboratuvar patladı. Glubber orada küllerin üzerinde yüzüyordu. Sonraki seferde patlayanın bir laboratuvardan fazlası olmasını engellemek için tüm enerjisini salacak başka bir yer bulmalı.\n Glubber'in saldırıları hedefinin genlerinden etkilenmez.",
     "atk1Name": "Morfoyumruk",
     "atk2Name": "Morfosihir"
   },
@@ -1171,7 +1171,7 @@
   },
   "specimen_b_05": {
     "name": "Drudge Zombie",
-    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \\n\\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
+    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \n\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
     "atk1Name": "Minecart",
     "atk2Name": "Work Accident"
   },
@@ -1237,7 +1237,7 @@
   },
   "specimen_bd_06": {
     "name": "Mur'Ghoul",
-    "lore": "O, Okyanusun derinlerinde uzun zamandır uykuda olan muazzam bir yaratığın küçük halidir. Kıyamet Habercisi'nin varışına ve dünyaların yıkılmasına hazır olun.\\n O günden sonra gücünü rakiplerinizi ezmek için kullanın",
+    "lore": "O, Okyanusun derinlerinde uzun zamandır uykuda olan muazzam bir yaratığın küçük halidir. Kıyamet Habercisi'nin varışına ve dünyaların yıkılmasına hazır olun.\n O günden sonra gücünü rakiplerinizi ezmek için kullanın",
     "atk1Name": "Nagl fhtagn",
     "atk2Name": "Ph'nglui mglw"
   },
@@ -1255,7 +1255,7 @@
   },
   "specimen_ca_06": {
     "name": "Yok-Et-Bot",
-    "lore": "Ortaya çıktığından beri onun gelecekten özel bir görev için geldiği dedikodusu dolaşıyor: robotik olarak mümkün olduğunda çok mutantı yok ederek gelecekteki nükleer savaşa hazırlanmak.\\n \\n Yok-Et-Bot, Anera Savaşçısı'nın son teknolojisi: %50 Mutant, %50 Kitle İmha, %100 ÖLÜM-CÜL!",
+    "lore": "Ortaya çıktığından beri onun gelecekten özel bir görev için geldiği dedikodusu dolaşıyor: robotik olarak mümkün olduğunda çok mutantı yok ederek gelecekteki nükleer savaşa hazırlanmak.\n \n Yok-Et-Bot, Anera Savaşçısı'nın son teknolojisi: %50 Mutant, %50 Kitle İmha, %100 ÖLÜM-CÜL!",
     "atk1Name": "PO-WER",
     "atk2Name": "NU-KLR"
   },
@@ -1309,7 +1309,7 @@
   },
   "specimen_dd_06": {
     "name": "Kangabu",
-    "lore": "Barışçıl görünüyor öyle değil mi? Aldanmayın. \\n Birisi, bir gün ona canlı her mutantın çocukları için bir tehdit olduğunu söylemişti. O 'Birisi' hayatının geri kalanında çorba içecek.",
+    "lore": "Barışçıl görünüyor öyle değil mi? Aldanmayın. \n Birisi, bir gün ona canlı her mutantın çocukları için bir tehdit olduğunu söylemişti. O 'Birisi' hayatının geri kalanında çorba içecek.",
     "atk1Name": "KangaBoks",
     "atk2Name": "Silaherang"
   },
@@ -1459,7 +1459,7 @@
   },
   "specimen_be_07": {
     "name": "Nezarim",
-    "lore": "Uzak bir gezegenden gelen bu karanlık sanatlar ustası, arena savaşçılarının ruhlarını çalmak için burada. Darvin, üstesinden geldiği her düşmanı hasat edebileceği sözünü vererek onu bizim saflarımıza katılmaya ikna etti. \\n Bunun yeterli olacağını umalım. Bize ihanet etmeye karar verirse ne olacak?",
+    "lore": "Uzak bir gezegenden gelen bu karanlık sanatlar ustası, arena savaşçılarının ruhlarını çalmak için burada. Darvin, üstesinden geldiği her düşmanı hasat edebileceği sözünü vererek onu bizim saflarımıza katılmaya ikna etti. \n Bunun yeterli olacağını umalım. Bize ihanet etmeye karar verirse ne olacak?",
     "atk1Name": "Enerji tırpanı",
     "atk2Name": "Nekro Lazeri"
   },
@@ -1525,7 +1525,7 @@
   },
   "specimen_dd_07": {
     "name": "Balooniler",
-    "lore": "Bir havacılık uzmanı olmadan önce Balooniler şehir hayvanat bahçesinde bir hayvandı. Ziyaretçilerden çaldığı balonları birbirine bağlayarak kaçtı. \\n Artık özgür, rüzgârı takip ediyordu ve katılmaya karar verdiği arenaya uçtu.",
+    "lore": "Bir havacılık uzmanı olmadan önce Balooniler şehir hayvanat bahçesinde bir hayvandı. Ziyaretçilerden çaldığı balonları birbirine bağlayarak kaçtı. \n Artık özgür, rüzgârı takip ediyordu ve katılmaya karar verdiği arenaya uçtu.",
     "atk1Name": "Çizik",
     "atk2Name": "Hava saldırısı"
   },
@@ -1951,7 +1951,7 @@
   },
   "specimen_dc_09": {
     "name": "Shinzo Usta",
-    "lore": "Shinzo Usta hayatını daha ruhani eylemlere adayarak yıllardır bir silah bile tutmadı.\\n Ancak en genç çırağı kaçırılınca arenaya katılmaya ve intikam almadan önce eski savaş sanatını denemeye karar verdi.",
+    "lore": "Shinzo Usta hayatını daha ruhani eylemlere adayarak yıllardır bir silah bile tutmadı.\n Ancak en genç çırağı kaçırılınca arenaya katılmaya ve intikam almadan önce eski savaş sanatını denemeye karar verdi.",
     "atk1Name": "Basınç Noktası",
     "atk2Name": "Dans Eden Süvariler"
   },
@@ -2065,7 +2065,7 @@
   },
   "specimen_ad_10": {
     "name": "Hipopotank",
-    "lore": "Bu hayvan, onu mahkum olarak tuttukları hayvanat bahçesinde maruz bıraktıkları hastalık tedavisinin kuvveti inanılmaz sinirli oldu. Hayvanat bahçesinin sahibi ötenazi yerine bu öldürücü delilikten arena dövüşlerinde yararlanmayı tercih ediyor... Küçük bir bonus ekipman ile Hipopotank, heybetli bir rakip oldu!\\n",
+    "lore": "Bu hayvan, onu mahkum olarak tuttukları hayvanat bahçesinde maruz bıraktıkları hastalık tedavisinin kuvveti inanılmaz sinirli oldu. Hayvanat bahçesinin sahibi ötenazi yerine bu öldürücü delilikten arena dövüşlerinde yararlanmayı tercih ediyor... Küçük bir bonus ekipman ile Hipopotank, heybetli bir rakip oldu!\n",
     "atk1Name": "Hipo Silahı",
     "atk2Name": "Hipo Saldırı"
   },
@@ -2107,7 +2107,7 @@
   },
   "specimen_be_10": {
     "name": "Overkill",
-    "lore": "\\n\"Silah! Daha çok silah!\" Overkill'in karşılaştığı HERHANGİ bir sorun için olağan çözümü bu... Başarılı bir galaktik ödül avcısı, sonrasında arenada başarılı bir dövüşçü olmasa, onun bu huyu utanç verici olabilirdi.",
+    "lore": "\n\"Silah! Daha çok silah!\" Overkill'in karşılaştığı HERHANGİ bir sorun için olağan çözümü bu... Başarılı bir galaktik ödül avcısı, sonrasında arenada başarılı bir dövüşçü olmasa, onun bu huyu utanç verici olabilirdi.",
     "atk1Name": "İnfilak Modu",
     "atk2Name": "Uzay Topu"
   },
@@ -2329,7 +2329,7 @@
   },
   "specimen_bf_11": {
     "name": "Acheron",
-    "lore": "Ruh Toplayıcı tam bir sır perdesi. Dışı sargılarla sarmalanmış pür enerjiden oluşan bu varlık, Cadılar Bayramı etkinliklerinde aniden ortaya çıkıverdi ve mutant ruhlarını toplamaya meraklı görünüyor. Topladığı ruhları geometrik şekilli çömleklere kapatıyor. Peki amacı ne? Gerçek niyeti ne?\\n- Darvin",
+    "lore": "Ruh Toplayıcı tam bir sır perdesi. Dışı sargılarla sarmalanmış pür enerjiden oluşan bu varlık, Cadılar Bayramı etkinliklerinde aniden ortaya çıkıverdi ve mutant ruhlarını toplamaya meraklı görünüyor. Topladığı ruhları geometrik şekilli çömleklere kapatıyor. Peki amacı ne? Gerçek niyeti ne?\n- Darvin",
     "atk1Name": "Ruh yakalama",
     "atk2Name": "Elektrik dalgası"
   },
@@ -2353,13 +2353,13 @@
   },
   "specimen_cd_11": {
     "name": "Sör Bannong",
-    "lore": "\\nDarwin, bir Arthur Şövalyesinin ve evcil tavşanının DNA'larını karıştırarak, aynı zamanda hem heybetli hem de sevimli, antromorfik bir hayvan yaratmak istedi. Sonuç umduğu gibi olmadı; zira güçlü yumruklarını ve zincirli topuzunu kullanarak dünyayı altüst etmeye kararlı, kana susamış bir vahşi yaratmıştı.",
+    "lore": "\nDarwin, bir Arthur Şövalyesinin ve evcil tavşanının DNA'larını karıştırarak, aynı zamanda hem heybetli hem de sevimli, antromorfik bir hayvan yaratmak istedi. Sonuç umduğu gibi olmadı; zira güçlü yumruklarını ve zincirli topuzunu kullanarak dünyayı altüst etmeye kararlı, kana susamış bir vahşi yaratmıştı.",
     "atk1Name": "Zincirli topuz",
     "atk2Name": "Yıkıcı kombo vuruş"
   },
   "specimen_ce_11": {
     "name": "Chun-Lei",
-    "lore": "Chun-Lei, babasının öldürülmesinden sonra gezegeninden kaçmak zorunda kalmış başka bir galaksiden prenses. Bu dövüş sanatları uzmanı, gezegenine geri dönmeye ve katilin maskesini düşürmeye kararlı. Psy-Lab'da geliştirildikten sonra kendine has stilini iyileştirmek için arenada. O kadar canlı ki, hareketlerini çıplak gözle takip etmek zor ve onun örgüsünden bir darbe bile bir rakibi ortadan kaldırmak için yeterli olabilir!\\n",
+    "lore": "Chun-Lei, babasının öldürülmesinden sonra gezegeninden kaçmak zorunda kalmış başka bir galaksiden prenses. Bu dövüş sanatları uzmanı, gezegenine geri dönmeye ve katilin maskesini düşürmeye kararlı. Psy-Lab'da geliştirildikten sonra kendine has stilini iyileştirmek için arenada. O kadar canlı ki, hareketlerini çıplak gözle takip etmek zor ve onun örgüsünden bir darbe bile bir rakibi ortadan kaldırmak için yeterli olabilir!\n",
     "atk1Name": "Vincin dansı",
     "atk2Name": "Tornado"
   },
@@ -2377,7 +2377,7 @@
   },
   "specimen_db_11": {
     "name": "Piwisher",
-    "lore": "Başka bir boyuttan gelen Piwisher, Fizik Laboratuvarında ölüden canlandırıldı. Piwi'ler, gövdelerine yerleştirilmiş mermer nedeniyle zararsız, ancak değerli hayvanlardır. Ancak Piwisher onlardan farklıdır. Bütün arkadaşları ve ailesi açgözlü maceracılar tarafından katledildiğinden, Piwisher nefretle dolu ve soyunu katledenleri bulup, cezalandırmak için kaçmadan önce arenada mümkün olduğunca güç kazanmak istiyor.\\n\\n- Celsius Heroes'da Astyrith Madenlerine ulaşılarak, ücretsiz olarak elde edilen mutant -",
+    "lore": "Başka bir boyuttan gelen Piwisher, Fizik Laboratuvarında ölüden canlandırıldı. Piwi'ler, gövdelerine yerleştirilmiş mermer nedeniyle zararsız, ancak değerli hayvanlardır. Ancak Piwisher onlardan farklıdır. Bütün arkadaşları ve ailesi açgözlü maceracılar tarafından katledildiğinden, Piwisher nefretle dolu ve soyunu katledenleri bulup, cezalandırmak için kaçmadan önce arenada mümkün olduğunca güç kazanmak istiyor.\n\n- Celsius Heroes'da Astyrith Madenlerine ulaşılarak, ücretsiz olarak elde edilen mutant -",
     "atk1Name": "İntikam yumruğu",
     "atk2Name": "Kindar yumurta"
   },
@@ -2473,7 +2473,7 @@
   },
   "specimen_ff_11": {
     "name": "Gerard Steelgarden",
-    "lore": "Mitik mutantlar üzerinde bir dizi tuhaf deneyler ile, gerçek bir sihir yetisi kazanan bir illüzyonist.\\n\\nOnun sihirbazlıkları, artık diğer tüm sihirbazların yaptıklarının çok ötesinde; zira gerçek büyü ile sihir arasındaki çizgiyi aşıyorlar.\\n\\nDünya çapında düzenlenen devasa gösterilerde, arenadaki iki maç arasında, maharetini ortaya koyuyor.",
+    "lore": "Mitik mutantlar üzerinde bir dizi tuhaf deneyler ile, gerçek bir sihir yetisi kazanan bir illüzyonist.\n\nOnun sihirbazlıkları, artık diğer tüm sihirbazların yaptıklarının çok ötesinde; zira gerçek büyü ile sihir arasındaki çizgiyi aşıyorlar.\n\nDünya çapında düzenlenen devasa gösterilerde, arenadaki iki maç arasında, maharetini ortaya koyuyor.",
     "atk1Name": "Ölümcül Kutu",
     "atk2Name": "Piroteknik"
   },
@@ -2953,7 +2953,7 @@
   },
   "specimen_d_13": {
     "name": "Koca Ayak",
-    "lore": "İlk mutant mı? Bu pek kesin değil. Ancak Kuzey Amerika ormanlarında keşfedilen bu kriptid, yeryüzünde doğal kökenli birçok mutantın var olabileceğini düşündürüyor... Tabii bulmak için iyi aramak gerek. /n/n [İsim silindi] araştırma günlüğü",
+    "lore": "İlk mutant mı? Bu pek kesin değil. Ancak Kuzey Amerika ormanlarında keşfedilen bu kriptid, yeryüzünde doğal kökenli birçok mutantın var olabileceğini düşündürüyor... Tabii bulmak için iyi aramak gerek. \n\n [İsim silindi] araştırma günlüğü",
     "atk1Name": "Maymun pususu",
     "atk2Name": "Primat Kombosu"
   },
@@ -3019,7 +3019,7 @@
   },
   "specimen_df_99": {
     "name": "Genimal",
-    "lore": "Gennimal hepsini öldürmelidir\\nsiz ve ben, biliyorum ki bu benim kaderim\\nGenimal, sen yenmemiz gereken dünyadaki\\nen iyi ziyafetimsin!",
+    "lore": "Gennimal hepsini öldürmelidir\nsiz ve ben, biliyorum ki bu benim kaderim\nGenimal, sen yenmemiz gereken dünyadaki\nen iyi ziyafetimsin!",
     "atk1Name": "Yarasalar",
     "atk2Name": "Kuvvet kristali"
   },
@@ -3049,7 +3049,7 @@
   },
   "specimen_ef_99": {
     "name": "Tekillik Sihirbazı",
-    "lore": "\"Prof. ... - Deney defteri\\n\\n15 Ocak- ... parçacık hızlandırıcı... ilk testler... Mutant ... evrim ...\\n\\n12 Mart - ... gerileme. ... Galaktik DNA'sı ... birleştir ...\\n\\n2 Haziran - ... reaksiyonlar ... umut verici... insanlığın ... evrimi ...\\n\\n7 Ağustos- ...  mutlu ... Tekillik Sihirbazı ... kontrolümden çıktı ... Deneyler üzerinde çalışmaya geri dönelim.\"",
+    "lore": "\"Prof. ... - Deney defteri\n\n15 Ocak- ... parçacık hızlandırıcı... ilk testler... Mutant ... evrim ...\n\n12 Mart - ... gerileme. ... Galaktik DNA'sı ... birleştir ...\n\n2 Haziran - ... reaksiyonlar ... umut verici... insanlığın ... evrimi ...\n\n7 Ağustos- ...  mutlu ... Tekillik Sihirbazı ... kontrolümden çıktı ... Deneyler üzerinde çalışmaya geri dönelim.\"",
     "atk1Name": "Süper karadelik",
     "atk2Name": "Yerçekimi küresi"
   },
@@ -3061,7 +3061,7 @@
   },
   "specimen_fc_99": {
     "name": "Nimrod",
-    "lore": "\\nBaşka bir boyuttan kaçan Nimrod, bir zamanlar kral ve güçlü bir imparatorluğun kurucusu olan güçlü bir mutanttır. Ölüm, Nimrod için hiçbir şey ifade etmez ve hiçbir şey, onun eski imparatorluğunu yeniden inşa etme arayışının önüne geçemez.\\n\\n- Celsius Heroes'da Nimrod'u yenerek, ücretsiz olarak elde edilen mutant -",
+    "lore": "\nBaşka bir boyuttan kaçan Nimrod, bir zamanlar kral ve güçlü bir imparatorluğun kurucusu olan güçlü bir mutanttır. Ölüm, Nimrod için hiçbir şey ifade etmez ve hiçbir şey, onun eski imparatorluğunu yeniden inşa etme arayışının önüne geçemez.\n\n- Celsius Heroes'da Nimrod'u yenerek, ücretsiz olarak elde edilen mutant -",
     "atk1Name": "Kralların Kralı",
     "atk2Name": "Yıkım çekici"
   },
@@ -3127,7 +3127,7 @@
   },
   "specimen_ca_14": {
     "name": "Breakmaster",
-    "lore": "Step up to the beat. /nNever take a hit. /nDance along with it. /nProve you’re an athlete. /n/nBu, şimdiye kadarki ilk dans eden ve savaşan mutantı yapmaya çalışan bilimsel ekibin sloganıydı. Kafiyeler çalışmalarına o kadar derinlemesine nüfuz etti ki, onları Arena'da görünmeyen şekillerde savaşmak için yeteneklerini kullanan bir breakdans mutantına götürdü.",
+    "lore": "Step up to the beat. \nNever take a hit. \nDance along with it. \nProve you’re an athlete. \n\nBu, şimdiye kadarki ilk dans eden ve savaşan mutantı yapmaya çalışan bilimsel ekibin sloganıydı. Kafiyeler çalışmalarına o kadar derinlemesine nüfuz etti ki, onları Arena'da görünmeyen şekillerde savaşmak için yeteneklerini kullanan bir breakdans mutantına götürdü.",
     "atk1Name": "Freeze Kick",
     "atk2Name": "Flare Spin"
   },

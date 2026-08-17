@@ -493,7 +493,7 @@
   },
   "specimen_ae_03": {
     "name": "Invadron",
-    "lore": "When most people have a computer virus, a quick scan and repair will fix the problem. Unfortunately in Darwin's lab nothing is ever that simple. Whilst visiting some unapproved sites on the Lab computer a virus managed to infect the linked systems and before it could be stopped the Incubator released a deadly real world representation of the virus, known as Invadron. \\n",
+    "lore": "When most people have a computer virus, a quick scan and repair will fix the problem. Unfortunately in Darwin's lab nothing is ever that simple. Whilst visiting some unapproved sites on the Lab computer a virus managed to infect the linked systems and before it could be stopped the Incubator released a deadly real world representation of the virus, known as Invadron. \n",
     "atk1Name": "Shock Wave",
     "atk2Name": "It's a laser"
   },
@@ -523,7 +523,7 @@
   },
   "specimen_bd_03": {
     "name": "Scare Bear",
-    "lore": "When a nearby maximum security prison offered to use prisoners to help meet the demand for the new must have present Carey Bearys, it seemed like an ideal solution for the company. Unfortunately Baron Urban saw this as a great opportunity to cause some chaos so he supplied the prisoners with some hi-tech cyborg chips, the result is this creepy Scare Bear, a blend of psychotic behavior and robotic efficiency. \\n",
+    "lore": "When a nearby maximum security prison offered to use prisoners to help meet the demand for the new must have present Carey Bearys, it seemed like an ideal solution for the company. Unfortunately Baron Urban saw this as a great opportunity to cause some chaos so he supplied the prisoners with some hi-tech cyborg chips, the result is this creepy Scare Bear, a blend of psychotic behavior and robotic efficiency. \n",
     "atk1Name": "Rainbad",
     "atk2Name": "Topples"
   },
@@ -553,7 +553,7 @@
   },
   "specimen_cc_03": {
     "name": "Zena",
-    "lore": "The Nordic Knightmare getting more and more popular, the marketing department of the Ultra League got the idea of introducing a sister in arms just for him. So was created Zena, as sexy as she is dangerous. Some say her sword was forged from Ascalon, the mighty weapon which floored a thousand dragons.\\n",
+    "lore": "The Nordic Knightmare getting more and more popular, the marketing department of the Ultra League got the idea of introducing a sister in arms just for him. So was created Zena, as sexy as she is dangerous. Some say her sword was forged from Ascalon, the mighty weapon which floored a thousand dragons.\n",
     "atk1Name": "Asleep Excalibur",
     "atk2Name": "Durendal"
   },
@@ -631,7 +631,7 @@
   },
   "specimen_ed_03": {
     "name": "Wampara",
-    "lore": "The Wampara race has been visiting Earth to hunt humans for sport for over a millenia. It is likely they are the source of many legendary creature sightings from our history, like Bigfoot, Yeti and Alf.\\n\\nWith a tribalistic culture based around combat the Wampara will be an exciting addition to your team!",
+    "lore": "The Wampara race has been visiting Earth to hunt humans for sport for over a millenia. It is likely they are the source of many legendary creature sightings from our history, like Bigfoot, Yeti and Alf.\n\nWith a tribalistic culture based around combat the Wampara will be an exciting addition to your team!",
     "atk1Name": "So Hoth",
     "atk2Name": "Rip the head off!"
   },
@@ -673,7 +673,7 @@
   },
   "specimen_fe_03": {
     "name": "Astro Magician",
-    "lore": "With an expert control over time and space, the Astro Magician commands powerful spells and magic. Banished from his own dimension by the galactic council he now travels across dimensions looking for ways to increase his power until he is able to return home to exact revenge.\\n",
+    "lore": "With an expert control over time and space, the Astro Magician commands powerful spells and magic. Banished from his own dimension by the galactic council he now travels across dimensions looking for ways to increase his power until he is able to return home to exact revenge.\n",
     "atk1Name": "Power of the Cabals",
     "atk2Name": "Gravitational vortice"
   },
@@ -757,7 +757,7 @@
   },
   "specimen_ba_04": {
     "name": "The Experiment",
-    "lore": "Revived from the dead thanks to a mix of animal, human and robot parts, The Experiment has never been human enough again to get a real name.\\nOnly able to smash anything that crosses his path, the mysterious mad scientist who created him had only one clear objective: entering the arena and wiping out the competition, horror movie style!",
+    "lore": "Revived from the dead thanks to a mix of animal, human and robot parts, The Experiment has never been human enough again to get a real name.\nOnly able to smash anything that crosses his path, the mysterious mad scientist who created him had only one clear objective: entering the arena and wiping out the competition, horror movie style!",
     "atk1Name": "Recycle",
     "atk2Name": "Prometheus gift"
   },
@@ -781,7 +781,7 @@
   },
   "specimen_be_04": {
     "name": "Commodore Le Shark",
-    "lore": "Commodore Le Shark is the bloodthirsty leader of a space fleet; most of the crew members he recruits are people his pirates killed the day before. Eager for gold, he understood that fighting in the arena was more profitable than plundering rusty wrecks.\\n",
+    "lore": "Commodore Le Shark is the bloodthirsty leader of a space fleet; most of the crew members he recruits are people his pirates killed the day before. Eager for gold, he understood that fighting in the arena was more profitable than plundering rusty wrecks.\n",
     "atk1Name": "Spectral assault",
     "atk2Name": "Bow salvo"
   },
@@ -799,7 +799,7 @@
   },
   "specimen_cb_04": {
     "name": "Leonidas",
-    "lore": "Commander of the Spartan Army, Leonidas led thousands of battles. Men, Demons, Gods, they've all been crushed under his swords and fury. There is a myth telling Urban invoked the Legendary demigod of War from hell to rule over the tournament, promising him to bring his wife back from the dead as well as immortality.\\n",
+    "lore": "Commander of the Spartan Army, Leonidas led thousands of battles. Men, Demons, Gods, they've all been crushed under his swords and fury. There is a myth telling Urban invoked the Legendary demigod of War from hell to rule over the tournament, promising him to bring his wife back from the dead as well as immortality.\n",
     "atk1Name": "Blades of Chaos",
     "atk2Name": "Ghosts of Sparta"
   },
@@ -835,7 +835,7 @@
   },
   "specimen_db_04": {
     "name": "Louis XVI",
-    "lore": "You will need more than one Revolution to kill a King and Louis XVI is here to prove it. Facing the guillotine during the winter of 1793, he made the promise to come back for his kingdom. 600 years later, revived from the world of the dead he is back to reclaim his titles and show the French are no cowards.\\n",
+    "lore": "You will need more than one Revolution to kill a King and Louis XVI is here to prove it. Facing the guillotine during the winter of 1793, he made the promise to come back for his kingdom. 600 years later, revived from the world of the dead he is back to reclaim his titles and show the French are no cowards.\n",
     "atk1Name": "Varennes",
     "atk2Name": "Guillotine"
   },
@@ -853,7 +853,7 @@
   },
   "specimen_de_04": {
     "name": "Genshiryoku",
-    "lore": "Disturbed by the ongoing sounds of fights and explosions, Genshiryoku has woken up and is in a really bad mood.\\nFrom now on his only dedication will be to silence every single fighter in the arena. Don't think you'll tame him, he's only there for his personal needs and will crush you too if he ever has a chance!\\n",
+    "lore": "Disturbed by the ongoing sounds of fights and explosions, Genshiryoku has woken up and is in a really bad mood.\nFrom now on his only dedication will be to silence every single fighter in the arena. Don't think you'll tame him, he's only there for his personal needs and will crush you too if he ever has a chance!\n",
     "atk1Name": "Howl",
     "atk2Name": "Radioactive spit"
   },
@@ -919,7 +919,7 @@
   },
   "specimen_fd_04": {
     "name": "Buranka",
-    "lore": "Extreme jungle training Buranka went through makes this specimen unlike any other mutant currently competing. He was pushed to the limits in an Amazonia rain forest boot camp and was about to give up and go home to his mother, when a powerful thunder struck him, altering his body and mind. It gave him two devastating multi attacks. Now he’s going to utilize this unique advantage in the arena to become an unparalleled champion. \\nBeware any Psy Captain who underestimate his Electrocution and Flying Spikes, as they will be left wondering what happened to their team!\\n",
+    "lore": "Extreme jungle training Buranka went through makes this specimen unlike any other mutant currently competing. He was pushed to the limits in an Amazonia rain forest boot camp and was about to give up and go home to his mother, when a powerful thunder struck him, altering his body and mind. It gave him two devastating multi attacks. Now he’s going to utilize this unique advantage in the arena to become an unparalleled champion. \nBeware any Psy Captain who underestimate his Electrocution and Flying Spikes, as they will be left wondering what happened to their team!\n",
     "atk1Name": "Electrocution",
     "atk2Name": "Flying spikes"
   },
@@ -1027,7 +1027,7 @@
   },
   "specimen_cb_05": {
     "name": "Cupid",
-    "lore": "They say no one has died of a broken heart. But that is not true for the victims of Cupid. Straight out of the horrors of lovers' nightmares, He is a mutant that spreads the joys of love in the arena: Love shaped like an arrow, aimed at your chest. Let his opponents beware - Love is in the air.\\n\\nSpecial thanks to the author of this description: Swiyth Glamhouste",
+    "lore": "They say no one has died of a broken heart. But that is not true for the victims of Cupid. Straight out of the horrors of lovers' nightmares, He is a mutant that spreads the joys of love in the arena: Love shaped like an arrow, aimed at your chest. Let his opponents beware - Love is in the air.\n\nSpecial thanks to the author of this description: Swiyth Glamhouste",
     "atk1Name": "Love me tender",
     "atk2Name": "Love and kisses"
   },
@@ -1081,7 +1081,7 @@
   },
   "specimen_de_05": {
     "name": "Exo Cookie",
-    "lore": "Exo Cookie is at the origin of everything in Darwin's life, believe it or not. When he was only 7 years old, he could not bear the idea that his favorite hamster would only live 3 to 4 years tops. Darwin therefore did everything that was in his power to extend its lifespan.\\nHe was surely stunned when he discovered that his first experiment turned his little Cookie into a Hulk-like hamster! Travelling at the speed of light and destroying everything in its way; Darwin had to give him a new name and to build him a suitable piece of equipment. Let’s just say that this success opened the way to what Darwin has become.\\nExo Cookie has now entered the arena, he may seem cute but be sure he will be pitiless towards his opponents!",
+    "lore": "Exo Cookie is at the origin of everything in Darwin's life, believe it or not. When he was only 7 years old, he could not bear the idea that his favorite hamster would only live 3 to 4 years tops. Darwin therefore did everything that was in his power to extend its lifespan.\nHe was surely stunned when he discovered that his first experiment turned his little Cookie into a Hulk-like hamster! Travelling at the speed of light and destroying everything in its way; Darwin had to give him a new name and to build him a suitable piece of equipment. Let’s just say that this success opened the way to what Darwin has become.\nExo Cookie has now entered the arena, he may seem cute but be sure he will be pitiless towards his opponents!",
     "atk1Name": "Wheel of Destiny",
     "atk2Name": "High velocity"
   },
@@ -1159,7 +1159,7 @@
   },
   "specimen_ff_05": {
     "name": "Glubber",
-    "lore": "While a scientist tried to find a new power source, the experiment went wrong and the lab exploded. Glubber was there floating above the ashes. To avoid that it is more than a labo whom explode the next time, it has to find a way to release all this energy.\\nGlubber's attacks are unaffected by his target's genes.",
+    "lore": "While a scientist tried to find a new power source, the experiment went wrong and the lab exploded. Glubber was there floating above the ashes. To avoid that it is more than a labo whom explode the next time, it has to find a way to release all this energy.\nGlubber's attacks are unaffected by his target's genes.",
     "atk1Name": "Morphopunch",
     "atk2Name": "Morphomagic"
   },
@@ -1171,7 +1171,7 @@
   },
   "specimen_b_05": {
     "name": "Drudge Zombie",
-    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \\n\\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
+    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \n\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
     "atk1Name": "Minecart",
     "atk2Name": "Work Accident"
   },
@@ -1237,7 +1237,7 @@
   },
   "specimen_bd_06": {
     "name": "Mur'Ghoul",
-    "lore": "He is the minion of an immense creature, long asleep deep down the Ocean. Behold the arrival of a Herald of Doom, and the destruction of worlds.\\nUntil then, use his power to overwhelm your opponents",
+    "lore": "He is the minion of an immense creature, long asleep deep down the Ocean. Behold the arrival of a Herald of Doom, and the destruction of worlds.\nUntil then, use his power to overwhelm your opponents",
     "atk1Name": "Nagl fhtagn",
     "atk2Name": "Ph'nglui mglw"
   },
@@ -1255,7 +1255,7 @@
   },
   "specimen_ca_06": {
     "name": "RA-DK-Bot",
-    "lore": "Since it appeared, rumor has it it comes from the future, with a specific mission: erradicate as many mutants as robotically possible, preparing for a future nuclear war.\\n\\nRA-DK-Bot is the state-of-the-art of the Arena Warrior : 50% Mutant, 50% WMD, 100% DEA-DLY !",
+    "lore": "Since it appeared, rumor has it it comes from the future, with a specific mission: erradicate as many mutants as robotically possible, preparing for a future nuclear war.\n\nRA-DK-Bot is the state-of-the-art of the Arena Warrior : 50% Mutant, 50% WMD, 100% DEA-DLY !",
     "atk1Name": "PO-WER",
     "atk2Name": "NU-KLR"
   },
@@ -1309,7 +1309,7 @@
   },
   "specimen_dd_06": {
     "name": "Kangaboo",
-    "lore": "She seems peaceful, doesn't she? Don't be fooled. \\nSomeone, someday, told her that any mutant left alive was a threat to her young. That 'Someone' will eat soup for the rest of their life.",
+    "lore": "She seems peaceful, doesn't she? Don't be fooled. \nSomeone, someday, told her that any mutant left alive was a threat to her young. That 'Someone' will eat soup for the rest of their life.",
     "atk1Name": "KangaBoxing",
     "atk2Name": "Weaponerang"
   },
@@ -1459,7 +1459,7 @@
   },
   "specimen_be_07": {
     "name": "Nezarim",
-    "lore": "Coming from a distant planet, this master of the dark arts is here to steal the souls of the arena fighters. Darwin succeeded in convincing him to join our rows ranks by promising him that he could harvest that of every enemy whom he will overcome.\\nLet's hope that it is enough. What will happen if he decides to betray us?",
+    "lore": "Coming from a distant planet, this master of the dark arts is here to steal the souls of the arena fighters. Darwin succeeded in convincing him to join our rows ranks by promising him that he could harvest that of every enemy whom he will overcome.\nLet's hope that it is enough. What will happen if he decides to betray us?",
     "atk1Name": "Energy scythe",
     "atk2Name": "Necro Laser"
   },
@@ -1525,7 +1525,7 @@
   },
   "specimen_dd_07": {
     "name": "Baloonies",
-    "lore": "Before he became an aviation expert, Baloonies was an animal of the city zoo. He escaped by tying together the baloons that he stole from the visitors. \\nNow that he's free, he follows the wind and that is when he went above the arena that he decided to join in.",
+    "lore": "Before he became an aviation expert, Baloonies was an animal of the city zoo. He escaped by tying together the baloons that he stole from the visitors. \nNow that he's free, he follows the wind and that is when he went above the arena that he decided to join in.",
     "atk1Name": "Scratch",
     "atk2Name": "Air strike"
   },
@@ -1951,7 +1951,7 @@
   },
   "specimen_dc_09": {
     "name": "Master Shinzo",
-    "lore": "Master Shinzo did not hold a weapon since many years, dedicating its life to more spiritual activities.\\nBut when its youngest protégé was abducted, he decided to join the arena and practice ancient art of war before taking revenge.",
+    "lore": "Master Shinzo did not hold a weapon since many years, dedicating its life to more spiritual activities.\nBut when its youngest protégé was abducted, he decided to join the arena and practice ancient art of war before taking revenge.",
     "atk1Name": "Pressure Point",
     "atk2Name": "Dancing Sabers"
   },
@@ -2245,7 +2245,7 @@
   },
   "specimen_fd_10": {
     "name": "Master Paw",
-    "lore": "Designed by the Players - this Mutant was envisioned, created and named by the Community. \\nMaster Paw always wear a peaceful smile. But he is feared in all arenas thanks to his powerful war drum.",
+    "lore": "Designed by the Players - this Mutant was envisioned, created and named by the Community. \nMaster Paw always wear a peaceful smile. But he is feared in all arenas thanks to his powerful war drum.",
     "atk1Name": "Drum Fall",
     "atk2Name": "Watch me Rollin'"
   },
@@ -2329,7 +2329,7 @@
   },
   "specimen_bf_11": {
     "name": "Acheron",
-    "lore": "The Soul Collector is a total mystery. He has appeared out of nowhere during the Halloween event, looks like a being of pure energy wrapped in bandages and seems to have a passion for collecting the souls of mutants. He keeps the souls he collects in geometrical urns but why? What are his intentions?\\n- Darwin",
+    "lore": "The Soul Collector is a total mystery. He has appeared out of nowhere during the Halloween event, looks like a being of pure energy wrapped in bandages and seems to have a passion for collecting the souls of mutants. He keeps the souls he collects in geometrical urns but why? What are his intentions?\n- Darwin",
     "atk1Name": "Capture Soul",
     "atk2Name": "Lightning Wave"
   },
@@ -2377,7 +2377,7 @@
   },
   "specimen_db_11": {
     "name": "Piwisher",
-    "lore": "Coming from another dimension, Piwisher has been revived from the dead in the Psy-Lab. Piwis are harmless but precious animals because of the marble encrusted in their torso, but Piwisher is different. As all of his friends and family have been slaughtered by greedy adventurers, Piwisher is full of hate and wants to become as strong as possible in the arena before escaping to find those who slaughtered his race and punish them.\\n\\n\\n- Free mutant obtained by reaching the Asyrith Mines in Celsius Heroes -",
+    "lore": "Coming from another dimension, Piwisher has been revived from the dead in the Psy-Lab. Piwis are harmless but precious animals because of the marble encrusted in their torso, but Piwisher is different. As all of his friends and family have been slaughtered by greedy adventurers, Piwisher is full of hate and wants to become as strong as possible in the arena before escaping to find those who slaughtered his race and punish them.\n\n\n- Free mutant obtained by reaching the Asyrith Mines in Celsius Heroes -",
     "atk1Name": "Vengeful Punch",
     "atk2Name": "Spiteful Egg"
   },
@@ -2395,13 +2395,13 @@
   },
   "specimen_de_11": {
     "name": "Drei, Space Corgi",
-    "lore": "What's cuter than a nice little corgi in a space suit?\\n\\nDo not judge a book by its cover, as Drei is a guinea-pig with an overdeveloped intelligence. He won't hesitate to use his rocket and his kibble launcher to get rid of any unwelcome intruder in his space station!",
+    "lore": "What's cuter than a nice little corgi in a space suit?\n\nDo not judge a book by its cover, as Drei is a guinea-pig with an overdeveloped intelligence. He won't hesitate to use his rocket and his kibble launcher to get rid of any unwelcome intruder in his space station!",
     "atk1Name": "Canine orbiter",
     "atk2Name": "Kibble Launcher"
   },
   "specimen_df_11": {
     "name": "Chocolem",
-    "lore": "What happens when you mix good chocolate, full of healthy nutrients, with multiple mutagenic fluids, in order to create sweets for mutants? Darwin answered that question, by unvoluntarily making a huge chocolate rabbit. \\n\\nThis chocolate aberration is driven by hunger, and aims to keep devouring chocolate, to increase both its size and power. It's so ravenous that it often eats parts of its own body, revealing its liquid core.",
+    "lore": "What happens when you mix good chocolate, full of healthy nutrients, with multiple mutagenic fluids, in order to create sweets for mutants? Darwin answered that question, by unvoluntarily making a huge chocolate rabbit. \n\nThis chocolate aberration is driven by hunger, and aims to keep devouring chocolate, to increase both its size and power. It's so ravenous that it often eats parts of its own body, revealing its liquid core.",
     "atk1Name": "Violent Shock",
     "atk2Name": "Choco-spray"
   },
@@ -2473,7 +2473,7 @@
   },
   "specimen_ff_11": {
     "name": "Gerard Steelgarden",
-    "lore": "A professional illusionist, who managed to acquire real magic through a weird series of experiments on mythic mutants. \\n\\nHis magic tricks are now far superior to any of his fellow magicians, as they cross the boundaries between illusion and real magic. \\n\\nBetween Arena matches, he uses these tricks in gigantic shows all around the world.",
+    "lore": "A professional illusionist, who managed to acquire real magic through a weird series of experiments on mythic mutants. \n\nHis magic tricks are now far superior to any of his fellow magicians, as they cross the boundaries between illusion and real magic. \n\nBetween Arena matches, he uses these tricks in gigantic shows all around the world.",
     "atk1Name": "Box of Death",
     "atk2Name": "Pyrotechnics"
   },
@@ -2665,7 +2665,7 @@
   },
   "specimen_fb_12": {
     "name": "Maiden of Twilight",
-    "lore": "Made from a soul of pure light captured by a powerful scion of darkness, this damned creature rules over a massive domain in the depths of Hell where she has been imprisoned.\\nBy or despite her will, she lures anyone foolish enough to stray into her infernal domain. Beware! For she can enthrall you into an obedient corpse.\\nNo one can ascertain which of both entities is really in control, and the Maiden of Twilight sometimes seems to struggle against herself.\\nHer return to the surface might be a sign of impending doom...",
+    "lore": "Made from a soul of pure light captured by a powerful scion of darkness, this damned creature rules over a massive domain in the depths of Hell where she has been imprisoned.\nBy or despite her will, she lures anyone foolish enough to stray into her infernal domain. Beware! For she can enthrall you into an obedient corpse.\nNo one can ascertain which of both entities is really in control, and the Maiden of Twilight sometimes seems to struggle against herself.\nHer return to the surface might be a sign of impending doom...",
     "atk1Name": "Pure Light",
     "atk2Name": "Lost Souls"
   },
@@ -2953,7 +2953,7 @@
   },
   "specimen_d_13": {
     "name": "Sasquatch",
-    "lore": "The first mutant ever? Highly unprobable, but this forestbound cryptid, discovered in North American forests implies there might existe numerous natural mutants on Earth... If we search thouroughly. /n/n [Redacted]'s research diary.",
+    "lore": "The first mutant ever? Highly unprobable, but this forestbound cryptid, discovered in North American forests implies there might existe numerous natural mutants on Earth... If we search thouroughly. \n\n [Redacted]'s research diary.",
     "atk1Name": "Simian Ambush",
     "atk2Name": "Primate Combo"
   },
@@ -3019,7 +3019,7 @@
   },
   "specimen_df_99": {
     "name": "Genimal",
-    "lore": "Genimal, gotta kill them all\\nIts you and me, I know it’s my destiny\\nGenimal, oh, you're my best treat\\nIn a world we must defeat!",
+    "lore": "Genimal, gotta kill them all\nIts you and me, I know it’s my destiny\nGenimal, oh, you're my best treat\nIn a world we must defeat!",
     "atk1Name": "Bats",
     "atk2Name": "Crystal of might"
   },
@@ -3043,13 +3043,13 @@
   },
   "specimen_ee_99": {
     "name": "Irreality Animus",
-    "lore": "When you combine Antimatter with normal matter, do you know what it makes? Nothing! Absolutely nothing! Both are disintegrated into nothingness… And that’s what makes this mutant so dangerous. \\nIt comes from a region of the universe, where reality started to reverse itself: good people becoming evil, darkness becoming light… But someone thought it was a good idea to harness that reality-reversing effect, and turn it into a weapon to attack Earth. Will you manage to save the planet, or will you be consumed by the Antimatter?",
+    "lore": "When you combine Antimatter with normal matter, do you know what it makes? Nothing! Absolutely nothing! Both are disintegrated into nothingness… And that’s what makes this mutant so dangerous. \nIt comes from a region of the universe, where reality started to reverse itself: good people becoming evil, darkness becoming light… But someone thought it was a good idea to harness that reality-reversing effect, and turn it into a weapon to attack Earth. Will you manage to save the planet, or will you be consumed by the Antimatter?",
     "atk1Name": "Antishards",
     "atk2Name": "Reality Shatter"
   },
   "specimen_ef_99": {
     "name": "Singularity Wizard",
-    "lore": "Prof. ... - Experiment Log\\n\\nJanuary 15 - ... particle accelerator ... first tests ... evolution ... Mutant ...\\n\\nMarch 12 - ... setback. ... Galactic DNA ... combine ...\\n\\nJune 2 - ... reactions ... evolution ... humanity ...\\n\\nAugust 7 - ...  happy ... Singularity Wizard ... out of my control ... Let's go back to work on the experiments.",
+    "lore": "Prof. ... - Experiment Log\n\nJanuary 15 - ... particle accelerator ... first tests ... evolution ... Mutant ...\n\nMarch 12 - ... setback. ... Galactic DNA ... combine ...\n\nJune 2 - ... reactions ... evolution ... humanity ...\n\nAugust 7 - ...  happy ... Singularity Wizard ... out of my control ... Let's go back to work on the experiments.",
     "atk1Name": "Supermassive Black Hole",
     "atk2Name": "Gravity Sphere"
   },
@@ -3061,7 +3061,7 @@
   },
   "specimen_fc_99": {
     "name": "Nimrod",
-    "lore": "Escaped from another dimension, Nimrod is a powerful mutant which was once a king and the builder of a powerful empire. Death means nothing for Nimrod and nothing will stop him in his quest to restore his former empire.\\n \\n- Free mutant obtained by defeating Nimrod in Celsius Heroes -",
+    "lore": "Escaped from another dimension, Nimrod is a powerful mutant which was once a king and the builder of a powerful empire. Death means nothing for Nimrod and nothing will stop him in his quest to restore his former empire.\n \n- Free mutant obtained by defeating Nimrod in Celsius Heroes -",
     "atk1Name": "King of Kings",
     "atk2Name": "Hammer of Destruction"
   },
@@ -3127,7 +3127,7 @@
   },
   "specimen_ca_14": {
     "name": "Breakmaster",
-    "lore": "Step up to the beat. /nNever take a hit. /nDance along with it. /nProve you’re an athlete. /n/nThis was the motto of the scientific team who tried to make the first dancing and battling mutant ever. The rhymes permeated their work so deeply that it led them to a breakdancing mutant, using its capabilities to fight in unseen ways in the Arena.",
+    "lore": "Step up to the beat. \nNever take a hit. \nDance along with it. \nProve you’re an athlete. \n\nThis was the motto of the scientific team who tried to make the first dancing and battling mutant ever. The rhymes permeated their work so deeply that it led them to a breakdancing mutant, using its capabilities to fight in unseen ways in the Arena.",
     "atk1Name": "Freeze Kick",
     "atk2Name": "Flare Spin"
   },

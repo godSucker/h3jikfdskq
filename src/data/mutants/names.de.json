@@ -1171,7 +1171,7 @@
   },
   "specimen_b_05": {
     "name": "Drudge Zombie",
-    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \\n\\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
+    "lore": "Most zombies were created through failed experiments, aiming to turn soldiers into super-soldiers. Some of these zombies were locked in old and abandoned mining tunnels. \n\nYears later, people found workers who had started to turn into zombies. Which is the main reason explaining the current quarantine zone around Chicago.",
     "atk1Name": "Minecart",
     "atk2Name": "Work Accident"
   },
@@ -1255,7 +1255,7 @@
   },
   "specimen_ca_06": {
     "name": "RA-DK-Bot",
-    "lore": "Seit seinem Erscheinen geht das Gerücht um, dass er aus der Zukunft kommt, mit einer ganz spezifischen Mission: so viele Mutanten zu vernichten, wie robotertechnisch möglich ist, um einen Atomkrieg vorzubereiten.\\n\\nRA-DK-Bot ist die Zukunft der Gen-Arena: 50 % Mutant, 50 % Kriegswaffe, 100 % KIL-LER!",
+    "lore": "Seit seinem Erscheinen geht das Gerücht um, dass er aus der Zukunft kommt, mit einer ganz spezifischen Mission: so viele Mutanten zu vernichten, wie robotertechnisch möglich ist, um einen Atomkrieg vorzubereiten.\n\nRA-DK-Bot ist die Zukunft der Gen-Arena: 50 % Mutant, 50 % Kriegswaffe, 100 % KIL-LER!",
     "atk1Name": "PO-WER",
     "atk2Name": "NU-KLR"
   },
@@ -2287,7 +2287,7 @@
   },
   "specimen_ae_11": {
     "name": "Mix0-Loge",
-    "lore": "Wer hat noch nicht davon geträumt, einen Barkeeper-Roboter sein Eigen zu nennen, der zuhause die köstlichsten Cocktails mixt? Das Modell Mix-0 war das offizielle Robotermodell, das im Relax-Bereich aller Arenen der Meisterschaften eingesetzt wurde … bis ein unglücklicher Spritzer im Raumhafen am Abend des Neujahrsfestes jenen Stromkreislauf röstete, der für die Selbstkontrolle und den Kundenservice verantwortlich war.\\nSo ist er zu einem Kämpfer in den Arenen geworden und alle verbleibenden Exemplare wurden durch ein sehr viel wasserdichteres Modell ersetzt: den Mix-1. Schaffst du es, gegen die Kraft der Mojitos und Blue Lagoons anzukommen?\\n",
+    "lore": "Wer hat noch nicht davon geträumt, einen Barkeeper-Roboter sein Eigen zu nennen, der zuhause die köstlichsten Cocktails mixt? Das Modell Mix-0 war das offizielle Robotermodell, das im Relax-Bereich aller Arenen der Meisterschaften eingesetzt wurde … bis ein unglücklicher Spritzer im Raumhafen am Abend des Neujahrsfestes jenen Stromkreislauf röstete, der für die Selbstkontrolle und den Kundenservice verantwortlich war.\nSo ist er zu einem Kämpfer in den Arenen geworden und alle verbleibenden Exemplare wurden durch ein sehr viel wasserdichteres Modell ersetzt: den Mix-1. Schaffst du es, gegen die Kraft der Mojitos und Blue Lagoons anzukommen?\n",
     "atk1Name": "Explosiver Cocktail",
     "atk2Name": "Shake it!!"
   },
@@ -2329,7 +2329,7 @@
   },
   "specimen_bf_11": {
     "name": "Acheron",
-    "lore": "Der Seelensammler ist ein echtes Rätsel. Er ist zu Halloween aus dem Nichts aufgetaucht und sieht aus wie ein Wesen, das aus reiner Energie besteht und in Verbände eingewickelt ist. Er scheint eine Leidenschaft für das Sammeln von Mutanten-Seelen zu haben. Er bewahrt die gesammelten Seelen in geometrischen Urnen auf, aber warum? Was sind seine wahren Absichten?\\n- Darwin\\n",
+    "lore": "Der Seelensammler ist ein echtes Rätsel. Er ist zu Halloween aus dem Nichts aufgetaucht und sieht aus wie ein Wesen, das aus reiner Energie besteht und in Verbände eingewickelt ist. Er scheint eine Leidenschaft für das Sammeln von Mutanten-Seelen zu haben. Er bewahrt die gesammelten Seelen in geometrischen Urnen auf, aber warum? Was sind seine wahren Absichten?\n- Darwin\n",
     "atk1Name": "Seelenfang",
     "atk2Name": "Elektrowelle"
   },
@@ -2377,7 +2377,7 @@
   },
   "specimen_db_11": {
     "name": "Piwisher",
-    "lore": "Piwisher stammt aus einer anderen Dimension und wurde im Psy-Lab von den Toten wiedererweckt. Piwis sind harmlose, aber wertvolle Tiere, denn in ihrer Brust befindet sich getrockneter Marmor. Aber Piwisher ist anders. Alle seine Freunde und Familie wurden von gierigen Abenteurern ermordet und Piwisher ist deswegen voller Hass. In der Arena möchte er so stark wie möglich werden, bevor er flüchtet, um sich an seinen Peinigern zu rächen.\\n\\n- Kostenloser Mutant, nachdem die Astyrith-Minen in Celsius Heroes erreicht wurden -",
+    "lore": "Piwisher stammt aus einer anderen Dimension und wurde im Psy-Lab von den Toten wiedererweckt. Piwis sind harmlose, aber wertvolle Tiere, denn in ihrer Brust befindet sich getrockneter Marmor. Aber Piwisher ist anders. Alle seine Freunde und Familie wurden von gierigen Abenteurern ermordet und Piwisher ist deswegen voller Hass. In der Arena möchte er so stark wie möglich werden, bevor er flüchtet, um sich an seinen Peinigern zu rächen.\n\n- Kostenloser Mutant, nachdem die Astyrith-Minen in Celsius Heroes erreicht wurden -",
     "atk1Name": "Schlag der Rache",
     "atk2Name": "Gehässiges Ei"
   },
@@ -2395,13 +2395,13 @@
   },
   "specimen_de_11": {
     "name": "Drei, Weltraum-Corgi",
-    "lore": "Was könnte niedlicher sein als ein süßer kleiner Corgi im Raumanzug?\\n\\nMan sollte sich jedoch nicht von seinem Aussehen täuschen lassen: Drei ist das Ergebnis eines Experiments, bei dem er zu viel Intelligenz abbekommen hat. Er wird keine Sekunde zögern und seine Rakete oder seinen Hundekuchenwerfer benutzen, um Eindringlinge aus seiner Raumstation zu verjagen!\\n\\n",
+    "lore": "Was könnte niedlicher sein als ein süßer kleiner Corgi im Raumanzug?\n\nMan sollte sich jedoch nicht von seinem Aussehen täuschen lassen: Drei ist das Ergebnis eines Experiments, bei dem er zu viel Intelligenz abbekommen hat. Er wird keine Sekunde zögern und seine Rakete oder seinen Hundekuchenwerfer benutzen, um Eindringlinge aus seiner Raumstation zu verjagen!\n\n",
     "atk1Name": "Hundeorbiter",
     "atk2Name": "Futterwerfer"
   },
   "specimen_df_11": {
     "name": "Schokolem",
-    "lore": "Was geschieht, wenn man gute Schokolade, voller gesunder Nährstoffe, mit mehreren mutagenen Flüssigkeiten mischt, um Süßigkeiten für Mutanten herzustellen? Darwin beantwortete diese Frage, indem er unfreiwillig ein riesiges Schokoladenkaninchen schuf. \\n\\nDiese Schokoladenanomalie hat immer Hunger und will stets mehr Schokolade verschlingen, um noch größer und stärker zu werden. Sie ist so gierig, dass sie regelmäßig Teile ihres eigenen Körpers isst und ihr flüssiges Herz offenbart.\\n",
+    "lore": "Was geschieht, wenn man gute Schokolade, voller gesunder Nährstoffe, mit mehreren mutagenen Flüssigkeiten mischt, um Süßigkeiten für Mutanten herzustellen? Darwin beantwortete diese Frage, indem er unfreiwillig ein riesiges Schokoladenkaninchen schuf. \n\nDiese Schokoladenanomalie hat immer Hunger und will stets mehr Schokolade verschlingen, um noch größer und stärker zu werden. Sie ist so gierig, dass sie regelmäßig Teile ihres eigenen Körpers isst und ihr flüssiges Herz offenbart.\n",
     "atk1Name": "Heftiger Schokoschock",
     "atk2Name": "Schokoschauer"
   },
@@ -2443,7 +2443,7 @@
   },
   "specimen_fa_11": {
     "name": "Orion",
-    "lore": "Obwohl die Legende besagt, dass dieser einstmals große Jäger von den Göttern geehrt wurde, indem sie ihm einen Platz bei den Sternen gaben, wurde er in Wirklichkeit von den Göttern dorthin verbannt. Mithilfe des Psy-Labs konnte Orion sich eine fast körperlose Form verleihen und sich so aus seinem Gefängnis befreien. Er tritt nun bereitwillig in die Arena, um seine Kraft und Intelligenz gegenüber der größten Beute der Galaxis unter Beweis zu stellen. Passt auf, wenn ihr keinen Pfeil in das Knie kriegen wollt!\\n\\n",
+    "lore": "Obwohl die Legende besagt, dass dieser einstmals große Jäger von den Göttern geehrt wurde, indem sie ihm einen Platz bei den Sternen gaben, wurde er in Wirklichkeit von den Göttern dorthin verbannt. Mithilfe des Psy-Labs konnte Orion sich eine fast körperlose Form verleihen und sich so aus seinem Gefängnis befreien. Er tritt nun bereitwillig in die Arena, um seine Kraft und Intelligenz gegenüber der größten Beute der Galaxis unter Beweis zu stellen. Passt auf, wenn ihr keinen Pfeil in das Knie kriegen wollt!\n\n",
     "atk1Name": "Eisiger Atem",
     "atk2Name": "Absoluter Nullpunkt"
   },
@@ -2473,7 +2473,7 @@
   },
   "specimen_ff_11": {
     "name": "Gerard Steelgarden",
-    "lore": "Ein professioneller Zauberer, der durch eine Reihe von seltsamen Experimenten mit mythischen Mutanten Zugang zu wahrer Magie erhalten hat.\\n\\nSeine Zaubertricks übertreffen heute bei weitem diejenigen anderer Magier, denn sie überschreiten die Grenze zwischen Illusion und echter Magie.\\n\\nZwischen den Kämpfen in der Arena führt er diese Tricks in großen Shows auf aller Welt vor.\\n\\n",
+    "lore": "Ein professioneller Zauberer, der durch eine Reihe von seltsamen Experimenten mit mythischen Mutanten Zugang zu wahrer Magie erhalten hat.\n\nSeine Zaubertricks übertreffen heute bei weitem diejenigen anderer Magier, denn sie überschreiten die Grenze zwischen Illusion und echter Magie.\n\nZwischen den Kämpfen in der Arena führt er diese Tricks in großen Shows auf aller Welt vor.\n\n",
     "atk1Name": "Tödliche Kiste",
     "atk2Name": "Pyrotechnik"
   },
@@ -2665,7 +2665,7 @@
   },
   "specimen_fb_12": {
     "name": "Jungfer des Zwielichts",
-    "lore": "Diese verfluchte Kreatur war eine Seele aus reinem Licht, bis sie in die Gewalt einer mächtigen Brut der Finsternis geriet. Nun herrscht sie in den tiefsten Tiefen der Hölle, wo sie gefangen gehalten wird, über ein riesiges Reich.\\nAbsichtlich oder unfreiwillig lockt sie all jene zu sich, die ihr infernalisches Reich betreten, und macht lebende Leichen aus ihnen, die ihr ergeben dienen.\\nNiemand vermag zu sagen, welche der beiden Wesenheiten die Kontrolle ausübt, und manchmal scheint die Jungfer des Zwielichts mit sich selbst zu kämpfen.\\nIhre Rückkehr an die Oberfläche könnte ein Omen sein, das drohendes Unheil ankündigt ...",
+    "lore": "Diese verfluchte Kreatur war eine Seele aus reinem Licht, bis sie in die Gewalt einer mächtigen Brut der Finsternis geriet. Nun herrscht sie in den tiefsten Tiefen der Hölle, wo sie gefangen gehalten wird, über ein riesiges Reich.\nAbsichtlich oder unfreiwillig lockt sie all jene zu sich, die ihr infernalisches Reich betreten, und macht lebende Leichen aus ihnen, die ihr ergeben dienen.\nNiemand vermag zu sagen, welche der beiden Wesenheiten die Kontrolle ausübt, und manchmal scheint die Jungfer des Zwielichts mit sich selbst zu kämpfen.\nIhre Rückkehr an die Oberfläche könnte ein Omen sein, das drohendes Unheil ankündigt ...",
     "atk1Name": "Reines Licht",
     "atk2Name": "Verlorene Seelen"
   },
@@ -2953,7 +2953,7 @@
   },
   "specimen_d_13": {
     "name": "Sasquatch",
-    "lore": "Der erste Mutant überhaupt? Höchst unwahrscheinlich, aber dieses in den nordamerikanischen Wäldern entdeckte Wesen deutet darauf hin, dass es auf der Erde viele natürlich entstandene Mutanten geben könnte - wenn man nur richtig sucht. /n/n Forschungstagebuch von [Name wurde gelöscht].",
+    "lore": "Der erste Mutant überhaupt? Höchst unwahrscheinlich, aber dieses in den nordamerikanischen Wäldern entdeckte Wesen deutet darauf hin, dass es auf der Erde viele natürlich entstandene Mutanten geben könnte - wenn man nur richtig sucht. \n\n Forschungstagebuch von [Name wurde gelöscht].",
     "atk1Name": "Affiger Hinterhalt",
     "atk2Name": "Primaten-Kombo"
   },
@@ -2989,7 +2989,7 @@
   },
   "specimen_af_99": {
     "name": "A027441",
-    "lore": "A027441 ist keine menschliche Schöpfung. Es handelt sich um eine künstliche Intelligenz, die in der realen Welt leben wollte. Nach komplexen Berechnungen zur Optimierung des Raumes und der notwendigen Energie erzeugte sie diesen Avatar, indem sie die Kontrolle über eine Produktionskette übernahm... über die niemand jemals wieder etwas gehört hat...\\n",
+    "lore": "A027441 ist keine menschliche Schöpfung. Es handelt sich um eine künstliche Intelligenz, die in der realen Welt leben wollte. Nach komplexen Berechnungen zur Optimierung des Raumes und der notwendigen Energie erzeugte sie diesen Avatar, indem sie die Kontrolle über eine Produktionskette übernahm... über die niemand jemals wieder etwas gehört hat...\n",
     "atk1Name": "Replikation",
     "atk2Name": "Sphärischer Schlag"
   },
@@ -3019,7 +3019,7 @@
   },
   "specimen_df_99": {
     "name": "Genie-Tier",
-    "lore": "Genie-Tier, befriedige deine Tötungs-Gier\\nWie es scheint, sind wir beide durch das Schicksal vereint\\nGenie-Tier, du bist mein höchster Genuss\\nIn einer Welt des Todesfluss!",
+    "lore": "Genie-Tier, befriedige deine Tötungs-Gier\nWie es scheint, sind wir beide durch das Schicksal vereint\nGenie-Tier, du bist mein höchster Genuss\nIn einer Welt des Todesfluss!",
     "atk1Name": "Fledermäuse",
     "atk2Name": "Machtkristall"
   },
@@ -3049,7 +3049,7 @@
   },
   "specimen_ef_99": {
     "name": "Singularitätshexer",
-    "lore": "„Pr ... - Versuchsprotokoll\\n\\n15. Januar - ... Teilchenbeschleuniger ... erste Tests ... Evolution ... Mutanten.\\n\\n12. März - ... Rückschlag ... Galaktische DNA ... kombinieren ...\\n\\n2. Juni - ... Reaktionen ... vielversprechend ... Evolution .... Menschheit ...\\n\\n7. August - ... glücklich ... Singularitätshexer ... entzogen ... Lasst uns die Experimente fortsetzen ...“",
+    "lore": "„Pr ... - Versuchsprotokoll\n\n15. Januar - ... Teilchenbeschleuniger ... erste Tests ... Evolution ... Mutanten.\n\n12. März - ... Rückschlag ... Galaktische DNA ... kombinieren ...\n\n2. Juni - ... Reaktionen ... vielversprechend ... Evolution .... Menschheit ...\n\n7. August - ... glücklich ... Singularitätshexer ... entzogen ... Lasst uns die Experimente fortsetzen ...“",
     "atk1Name": "Massives schwarzes Loch",
     "atk2Name": "Gravitationsbereich\\n"
   },
@@ -3061,7 +3061,7 @@
   },
   "specimen_fc_99": {
     "name": "Nimrod",
-    "lore": "Nimrod ist einer anderen Dimension entflohen und ist ein mächtiger Mutant, einst Errichter und Könige eines großen Imperiums. Nimrod fürchtet den Tod nicht und nichts kann ihn davon abhalten, sein ehemaliges Reich wiederaufzubauen.\\n\\n- Kostenloser Mutant, nachdem Nimrod in Celsius Heroes besiegt wurde -\\n",
+    "lore": "Nimrod ist einer anderen Dimension entflohen und ist ein mächtiger Mutant, einst Errichter und Könige eines großen Imperiums. Nimrod fürchtet den Tod nicht und nichts kann ihn davon abhalten, sein ehemaliges Reich wiederaufzubauen.\n\n- Kostenloser Mutant, nachdem Nimrod in Celsius Heroes besiegt wurde -\n",
     "atk1Name": "König der Könige",
     "atk2Name": "Hammer der Zerstörung"
   },
@@ -3127,7 +3127,7 @@
   },
   "specimen_ca_14": {
     "name": "Breakmaster",
-    "lore": "Step up to the beat. /nNever take a hit. /nDance along with it. /nProve you’re an athlete. /n/nDies war das Motto des wissenschaftlichen Teams, das versuchte, den ersten tanzenden und kämpfenden Mutanten überhaupt zu erschaffen. Die Reime durchdrangen ihre Arbeit so sehr, dass sie zu einem Breakdance-Mutanten führten, der seine Fähigkeiten nutzte, um auf unsichtbare Weise in der Arena zu kämpfen.",
+    "lore": "Step up to the beat. \nNever take a hit. \nDance along with it. \nProve you’re an athlete. \n\nDies war das Motto des wissenschaftlichen Teams, das versuchte, den ersten tanzenden und kämpfenden Mutanten überhaupt zu erschaffen. Die Reime durchdrangen ihre Arbeit so sehr, dass sie zu einem Breakdance-Mutanten führten, der seine Fähigkeiten nutzte, um auf unsichtbare Weise in der Arena zu kämpfen.",
     "atk1Name": "Freeze Kick",
     "atk2Name": "Flare Spin"
   },

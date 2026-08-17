@@ -835,7 +835,7 @@
       <!-- Description -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
         <div class="text-xs text-slate-300 mb-1">{t('modal.description', locale)}</div>
-        <div class="text-sm text-slate-300 leading-relaxed break-words">
+        <div class="text-sm text-slate-300 leading-relaxed break-words whitespace-pre-line">
           { displayLore(mutant).trim() || '—' }
         </div>
       </div>

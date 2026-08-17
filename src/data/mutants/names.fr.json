@@ -607,7 +607,7 @@
   },
   "specimen_df_03": {
     "name": "Absolem",
-    "lore": "\"Quel air étrange !\" C'est la première phrase qu'Absolem adressera à son ennemi. Hautain, fourbe et sûr de lui, il expédie ses ennemis au tapis le plus vite possible pour retourner fumer son hooka. Tu souhaites l'affronter ?  \\n\"Renonce-y !\".",
+    "lore": "\"Quel air étrange !\" C'est la première phrase qu'Absolem adressera à son ennemi. Hautain, fourbe et sûr de lui, il expédie ses ennemis au tapis le plus vite possible pour retourner fumer son hooka. Tu souhaites l'affronter ?  \n\"Renonce-y !\".",
     "atk1Name": "Nuée de papillons",
     "atk2Name": "Fumer son adversaire"
   },
@@ -817,7 +817,7 @@
   },
   "specimen_ce_04": {
     "name": "Apex",
-    "lore": "Apex est le combattant parfait. Urban l'a créé à partir des cellules des plus puissants gladiateurs dans l'histoire de l'Arèn-ADN. A chacune de ses transformations, il change \\nd'apparence pour se rapprocher du guerrier ultime. Dénoué de scrupules, impitoyable et jamais rassasié de sang, il est indispensable à l'équipe de tout Psy-Captain qui se respecte !",
+    "lore": "Apex est le combattant parfait. Urban l'a créé à partir des cellules des plus puissants gladiateurs dans l'histoire de l'Arèn-ADN. A chacune de ses transformations, il change \nd'apparence pour se rapprocher du guerrier ultime. Dénoué de scrupules, impitoyable et jamais rassasié de sang, il est indispensable à l'équipe de tout Psy-Captain qui se respecte !",
     "atk1Name": "Sans les mains",
     "atk2Name": "Disque mortel"
   },
@@ -949,13 +949,13 @@
   },
   "specimen_aa_05": {
     "name": "Panzeroïd",
-    "lore": "\\n\\nPanzeroïd est le leader d'un groupe de robots rebelles qui luttent pour leur survie. Malheureusement, ils sont totalement paranoïaques et pensent que tous les Mutants Cyber sont des Usurpicons, une autre race de robots géants qui a asservi leur planète. Depuis, ils écument les arènes en quête de vengeance.",
+    "lore": "\n\nPanzeroïd est le leader d'un groupe de robots rebelles qui luttent pour leur survie. Malheureusement, ils sont totalement paranoïaques et pensent que tous les Mutants Cyber sont des Usurpicons, une autre race de robots géants qui a asservi leur planète. Depuis, ils écument les arènes en quête de vengeance.",
     "atk1Name": "Auto-Robot",
     "atk2Name": "DCA"
   },
   "specimen_ab_05": {
     "name": "Néo-Urban XIII",
-    "lore": "La relation entre Eva et Urban a toujours été un mélange d'attraction et de haine. Cette créature en est l'illustration. Depuis des années, le Baron Urban se livre à des expériences d'auto-clonage pour se créer un corps parfait. Les premiers clones sont morts rapidement, détruisant une partie du labo d'Urban dans leur fureur. Le XIIIème fut aussi un échec, mais survécut. Sa seule motivation est de retrouver Eva pour l'absorber. En attendant, il détruit sans distinction tous les Mutants sur son passage. \\n",
+    "lore": "La relation entre Eva et Urban a toujours été un mélange d'attraction et de haine. Cette créature en est l'illustration. Depuis des années, le Baron Urban se livre à des expériences d'auto-clonage pour se créer un corps parfait. Les premiers clones sont morts rapidement, détruisant une partie du labo d'Urban dans leur fureur. Le XIIIème fut aussi un échec, mais survécut. Sa seule motivation est de retrouver Eva pour l'absorber. En attendant, il détruit sans distinction tous les Mutants sur son passage. \n",
     "atk1Name": "Muto-gun",
     "atk2Name": "EV...V-VA !"
   },
@@ -1027,7 +1027,7 @@
   },
   "specimen_cb_05": {
     "name": "Cupidon",
-    "lore": "Débordant d'amour pour ses farouches ennemis,\\nIl décoche pléiades de flèches en leurs coeurs meurtris,\\nCar au milieu des cris de victoires flamboyantes,\\nOu des râles perdus des guerriers agonisants,\\nAu sein de ce champ d'horreur nommé A-D-haine\\nNul ne rivalise tant par amour ou par haine.\\n\\nRemerciement spécial à Saccho pour cette description.",
+    "lore": "Débordant d'amour pour ses farouches ennemis,\nIl décoche pléiades de flèches en leurs coeurs meurtris,\nCar au milieu des cris de victoires flamboyantes,\nOu des râles perdus des guerriers agonisants,\nAu sein de ce champ d'horreur nommé A-D-haine\nNul ne rivalise tant par amour ou par haine.\n\nRemerciement spécial à Saccho pour cette description.",
     "atk1Name": "Love me tender",
     "atk2Name": "Tendres baisers"
   },
@@ -1057,7 +1057,7 @@
   },
   "specimen_da_05": {
     "name": "Fennec Plus Ultra",
-    "lore": "Que se passe-t-il lorsque des Touaregs hybrident une mignonne boule de poils avec toute l'artillerie qu'ils ont accumulé depuis 150 ans ? \\nLe résultat s'appelle Fennec Plus Ultra, et il est capable de détruire la moitié du Néo-Sahara sur un coup de tête.",
+    "lore": "Que se passe-t-il lorsque des Touaregs hybrident une mignonne boule de poils avec toute l'artillerie qu'ils ont accumulé depuis 150 ans ? \nLe résultat s'appelle Fennec Plus Ultra, et il est capable de détruire la moitié du Néo-Sahara sur un coup de tête.",
     "atk1Name": "Giga morsure",
     "atk2Name": "Canon canin"
   },
@@ -1081,7 +1081,7 @@
   },
   "specimen_de_05": {
     "name": "Exo Cookie",
-    "lore": "Exo Cookie est à l’origine de tout pour Darwin, croyez-le ou non. Agé de seulement 7 ans et ne supportant pas l’idée que son hamster préféré ne puisse vivre que 3 ou 4 ans, il a tout mis en œuvre afin de rallonger sa durée de vie. Quelle ne fut pas sa surprise quand sa toute première expérience transforma son petit Cookie en un hamster survitaminé !\\nFilant à la vitesse de la lumière et détruisant tout sur son passage, Darwin fut contraint de lui donner un nouveau nom ainsi que de lui fabriquer un équipement à sa juste valeur, autant dire que cette réussite traça l’avenir que tu lui connais actuellement.\\nExo Cookie prend maintenant place dans l’arène mais il a beau être mignon, il n’aura pas de pitié pour ses adversaires !\\n",
+    "lore": "Exo Cookie est à l’origine de tout pour Darwin, croyez-le ou non. Agé de seulement 7 ans et ne supportant pas l’idée que son hamster préféré ne puisse vivre que 3 ou 4 ans, il a tout mis en œuvre afin de rallonger sa durée de vie. Quelle ne fut pas sa surprise quand sa toute première expérience transforma son petit Cookie en un hamster survitaminé !\nFilant à la vitesse de la lumière et détruisant tout sur son passage, Darwin fut contraint de lui donner un nouveau nom ainsi que de lui fabriquer un équipement à sa juste valeur, autant dire que cette réussite traça l’avenir que tu lui connais actuellement.\nExo Cookie prend maintenant place dans l’arène mais il a beau être mignon, il n’aura pas de pitié pour ses adversaires !\n",
     "atk1Name": "Roue du Destin",
     "atk2Name": "Haute vélocité"
   },
@@ -1159,7 +1159,7 @@
   },
   "specimen_ff_05": {
     "name": "Glubber",
-    "lore": "Alors qu'un scientifique tentait de trouver une nouvelle source d'énergie, l'expérience prit une mauvaise tournure et le labo explosa. Glubber se trouvait là, flottant au-dessus des cendres. Pour éviter que ce ne soit plus qu'un labo qui explose la prochaine fois, il doit vite trouver un moyen de relâcher toute cette énergie.\\nLes attaques de Glubber ne sont pas modifiées par les gènes de ses cibles.",
+    "lore": "Alors qu'un scientifique tentait de trouver une nouvelle source d'énergie, l'expérience prit une mauvaise tournure et le labo explosa. Glubber se trouvait là, flottant au-dessus des cendres. Pour éviter que ce ne soit plus qu'un labo qui explose la prochaine fois, il doit vite trouver un moyen de relâcher toute cette énergie.\nLes attaques de Glubber ne sont pas modifiées par les gènes de ses cibles.",
     "atk1Name": "Morphopoing",
     "atk2Name": "Morphomagie"
   },
@@ -1171,7 +1171,7 @@
   },
   "specimen_b_05": {
     "name": "Zombie Tâcheron",
-    "lore": "La plupart des zombies sont issus d'expériences ayant pour but de créer des super-soldats, mais qui ont échoué. Une partie de ces zombies a été emprisonnée dans diverses galeries de mines. \\n\\nDes années plus tard, on a commencé à retrouver des travailleurs qui avaient commencé à se transformer en zombies. C'est la raison principale pour laquelle une grande partie de la région de Chicago a été mise en quarantaine.",
+    "lore": "La plupart des zombies sont issus d'expériences ayant pour but de créer des super-soldats, mais qui ont échoué. Une partie de ces zombies a été emprisonnée dans diverses galeries de mines. \n\nDes années plus tard, on a commencé à retrouver des travailleurs qui avaient commencé à se transformer en zombies. C'est la raison principale pour laquelle une grande partie de la région de Chicago a été mise en quarantaine.",
     "atk1Name": "Wagonnet",
     "atk2Name": "Accident du travail"
   },
@@ -1225,7 +1225,7 @@
   },
   "specimen_bb_06": {
     "name": "Le Glouton",
-    "lore": "Discussion entre deux scientifiques :\\nD. -Je te dis qu'il est raté !\\nE. -Mais non ! Pourquoi dis-tu ça ?\\nD. -J’étais pas bien réveillé, j'ai un peu inversé des parties ... et du coup j'ai oublié de mettre un cerveau ...\\nE. -Un cerveau ? Dans l'arène ? Pour quoi faire ?\\nD. -...\\nE. -Tu vois : il est génial je te dis !\\nD. -Ah ben oui en fait : il est pas mal du tout !",
+    "lore": "Discussion entre deux scientifiques :\nD. -Je te dis qu'il est raté !\nE. -Mais non ! Pourquoi dis-tu ça ?\nD. -J’étais pas bien réveillé, j'ai un peu inversé des parties ... et du coup j'ai oublié de mettre un cerveau ...\nE. -Un cerveau ? Dans l'arène ? Pour quoi faire ?\nD. -...\nE. -Tu vois : il est génial je te dis !\nD. -Ah ben oui en fait : il est pas mal du tout !",
     "atk1Name": "Acide Gastrique",
     "atk2Name": "Bouches des Enfers"
   },
@@ -1237,7 +1237,7 @@
   },
   "specimen_bd_06": {
     "name": "Ankorail",
-    "lore": "Il est le servant d'une créature immense, depuis longtemps endormie au fond des Océans. Son arrivée annonce un reveil imminent et la destruction des mondes. \\nD'ici là, profitez de son pouvoir pour engloutir vos adversaires",
+    "lore": "Il est le servant d'une créature immense, depuis longtemps endormie au fond des Océans. Son arrivée annonce un reveil imminent et la destruction des mondes. \nD'ici là, profitez de son pouvoir pour engloutir vos adversaires",
     "atk1Name": "Nagl fhtagn",
     "atk2Name": "Ph'nglui mglw"
   },
@@ -1255,7 +1255,7 @@
   },
   "specimen_ca_06": {
     "name": "RA-DK-Bot",
-    "lore": "Depuis qu'il est apparu, des rumeurs rapportent qu'il viendrait du futur, avec pour mission d'éradiquer un maximum de mutants en préparation d'une guerre nucléaire à venir. \\n\\nRA-DK-Bot est le futur de l'AD-Haine : 50% Mutant, 50% Arme de Guerre, 100% BRU-TAL !",
+    "lore": "Depuis qu'il est apparu, des rumeurs rapportent qu'il viendrait du futur, avec pour mission d'éradiquer un maximum de mutants en préparation d'une guerre nucléaire à venir. \n\nRA-DK-Bot est le futur de l'AD-Haine : 50% Mutant, 50% Arme de Guerre, 100% BRU-TAL !",
     "atk1Name": "PO-WER",
     "atk2Name": "NU-KLR"
   },
@@ -1459,7 +1459,7 @@
   },
   "specimen_be_07": {
     "name": "Nezarim",
-    "lore": "Venu d'une lointaine planète, ce maître des arts sombres est ici pour voler l'âme des combattants de l'arène.\\nDarwin est parvenu à le convaincre de joindre nos rangs en lui promettant qu'il pourrait récolter celle de chaque ennemi qu'il vaincra.\\nEspérons que cela soit suffisant. Qu'arrivera-t-il s'il décide de se retourner contre nous ?",
+    "lore": "Venu d'une lointaine planète, ce maître des arts sombres est ici pour voler l'âme des combattants de l'arène.\nDarwin est parvenu à le convaincre de joindre nos rangs en lui promettant qu'il pourrait récolter celle de chaque ennemi qu'il vaincra.\nEspérons que cela soit suffisant. Qu'arrivera-t-il s'il décide de se retourner contre nous ?",
     "atk1Name": "Faux d'énergie",
     "atk2Name": "Laser Nécrotique"
   },
@@ -1489,7 +1489,7 @@
   },
   "specimen_cd_07": {
     "name": "Jean Neige",
-    "lore": "Loup solitaire, place tes pas dans les miens,\\nQue nos esprits se mêlent ainsi que nos destins.\\nTa chaleur et ton aide délivrées sans compter,\\nLoup, mon cher frère, confident et allié.\\nDe sombres ennemis jalonneront nos chemins,\\nAu fil de l'épée et du croc, tous tomberont enfin.\\n",
+    "lore": "Loup solitaire, place tes pas dans les miens,\nQue nos esprits se mêlent ainsi que nos destins.\nTa chaleur et ton aide délivrées sans compter,\nLoup, mon cher frère, confident et allié.\nDe sombres ennemis jalonneront nos chemins,\nAu fil de l'épée et du croc, tous tomberont enfin.\n",
     "atk1Name": "Frappe du nord",
     "atk2Name": "Dévorer"
   },
@@ -1525,7 +1525,7 @@
   },
   "specimen_dd_07": {
     "name": "Looping",
-    "lore": "Avant d'être devenu expert de la navigation aérienne, Looping était un des pensionnaires du zoo de la ville. Il s'était échappé en accrochant ensemble des dizaines de ballons qu'il avait volé aux visiteurs. \\nDésormais libre, il se laisse porter par le vent et c'est alors qu'il survolait l'arène qu'il décida d'y entrer.",
+    "lore": "Avant d'être devenu expert de la navigation aérienne, Looping était un des pensionnaires du zoo de la ville. Il s'était échappé en accrochant ensemble des dizaines de ballons qu'il avait volé aux visiteurs. \nDésormais libre, il se laisse porter par le vent et c'est alors qu'il survolait l'arène qu'il décida d'y entrer.",
     "atk1Name": "Coup de griffe",
     "atk2Name": "Frappe aérienne"
   },
@@ -1753,7 +1753,7 @@
   },
   "specimen_df_08": {
     "name": "Chantecler",
-    "lore": "Né en incubateur et élevé au grain génétiquement modifié, Chantecler devint rapidement la terreur de la basse-cour. Maintenant devenu le plus grand coq jamais vu, il se bat pour prouver que c'est lui le plus fier combattant de l'arène !\\n",
+    "lore": "Né en incubateur et élevé au grain génétiquement modifié, Chantecler devint rapidement la terreur de la basse-cour. Maintenant devenu le plus grand coq jamais vu, il se bat pour prouver que c'est lui le plus fier combattant de l'arène !\n",
     "atk1Name": "Cocorico Punch",
     "atk2Name": "Plumes Enflamées"
   },
@@ -2245,7 +2245,7 @@
   },
   "specimen_fd_10": {
     "name": "Master Paw",
-    "lore": "Conçu par les joueurs - ce mutant a été imaginé, créé et nommé par la communauté. \\nMaster Paw arbore toujours un sourire très paisible. Mais il est craint par ses adversaires dans toutes les arênes grâce à son puissant tambour de guerre.",
+    "lore": "Conçu par les joueurs - ce mutant a été imaginé, créé et nommé par la communauté. \nMaster Paw arbore toujours un sourire très paisible. Mais il est craint par ses adversaires dans toutes les arênes grâce à son puissant tambour de guerre.",
     "atk1Name": "Chute de tambours",
     "atk2Name": "Roulement de Tambour"
   },
@@ -2287,7 +2287,7 @@
   },
   "specimen_ae_11": {
     "name": "Mix0-Logue",
-    "lore": "Qui n’a jamais rêvé d’avoir un robot barman à la maison, pour lui préparer de délicieux cocktails ?  Le modèle Mix-0 était en effet le modèle officiel de robot utilisé dans l’espace détente de toutes les arènes du championnat … jusqu’à ce qu’une aspersion malencontreuse dans le spatioport, le soir du nouvel an, grille son circuit dédié à la retenue et au service.\\nIl est alors devenu un combattant dans les arènes, et tous les autres exemplaires ont été remplacés par un modèle bien plus étanche, le Mix-1. Serez-vous capables de faire face à la puissance des mojitos et des blue lagoons ?\\n",
+    "lore": "Qui n’a jamais rêvé d’avoir un robot barman à la maison, pour lui préparer de délicieux cocktails ?  Le modèle Mix-0 était en effet le modèle officiel de robot utilisé dans l’espace détente de toutes les arènes du championnat … jusqu’à ce qu’une aspersion malencontreuse dans le spatioport, le soir du nouvel an, grille son circuit dédié à la retenue et au service.\nIl est alors devenu un combattant dans les arènes, et tous les autres exemplaires ont été remplacés par un modèle bien plus étanche, le Mix-1. Serez-vous capables de faire face à la puissance des mojitos et des blue lagoons ?\n",
     "atk1Name": "Cocktail explosif",
     "atk2Name": "Shake it!!"
   },
@@ -2329,7 +2329,7 @@
   },
   "specimen_bf_11": {
     "name": "Achéron",
-    "lore": "Le Collecteur d'Âmes est un véritable mystère. Apparu de nulle part lors des événements d'Halloween, cet être constitué d'énergie et vêtu de multiples bandelettes semble se passionner pour la collecte des âmes de mutants. Il enferme les âmes collectées dans des urnes de forme géométrique, mais dans quel but ? Quelles sont ses véritables intentions ? \\n- Darwin",
+    "lore": "Le Collecteur d'Âmes est un véritable mystère. Apparu de nulle part lors des événements d'Halloween, cet être constitué d'énergie et vêtu de multiples bandelettes semble se passionner pour la collecte des âmes de mutants. Il enferme les âmes collectées dans des urnes de forme géométrique, mais dans quel but ? Quelles sont ses véritables intentions ? \n- Darwin",
     "atk1Name": "Capture d'âme",
     "atk2Name": "Onde électrique"
   },
@@ -2377,7 +2377,7 @@
   },
   "specimen_db_11": {
     "name": "Piwisher",
-    "lore": "Venu d'une autre dimension, Piwisher a été ramené d'entre les morts dans le Psy-Lab. Les piwis sont des animaux inoffensifs et précieux pour la bille incrustée dans leur thorax, mais Piwisher est différent. Comme toute sa famille et ses amis ont été massacrés par des aventuriers sans scrupule, Piwisher est plein de haine et souhaite devenir aussi fort que possible dans l'arène avant de s'échapper pour retrouver les coupables du massacre de sa race et les châtier.\\n\\n- Mutant obtenu gratuitement en atteignant les Mines Astyrith dans Celsius Heroes -",
+    "lore": "Venu d'une autre dimension, Piwisher a été ramené d'entre les morts dans le Psy-Lab. Les piwis sont des animaux inoffensifs et précieux pour la bille incrustée dans leur thorax, mais Piwisher est différent. Comme toute sa famille et ses amis ont été massacrés par des aventuriers sans scrupule, Piwisher est plein de haine et souhaite devenir aussi fort que possible dans l'arène avant de s'échapper pour retrouver les coupables du massacre de sa race et les châtier.\n\n- Mutant obtenu gratuitement en atteignant les Mines Astyrith dans Celsius Heroes -",
     "atk1Name": "Coup de poing vengeur",
     "atk2Name": "Oeuf de rancoeur"
   },
@@ -2395,13 +2395,13 @@
   },
   "specimen_de_11": {
     "name": "Drei, Corgi Spatial",
-    "lore": "Qu'y a-t-il de plus mignon qu'un gentil petit corgi dans une combinaison de spationaute ?\\n\\nNe vous fiez pourtant pas à son apparence, Drei est un sujet d'expérimentations à l'intelligence surdéveloppée. Il n'hésitera pas une seconde à utiliser sa fusée et son Lance-Croquettes pour se débarrasser des intrus autour de sa station spatiale !",
+    "lore": "Qu'y a-t-il de plus mignon qu'un gentil petit corgi dans une combinaison de spationaute ?\n\nNe vous fiez pourtant pas à son apparence, Drei est un sujet d'expérimentations à l'intelligence surdéveloppée. Il n'hésitera pas une seconde à utiliser sa fusée et son Lance-Croquettes pour se débarrasser des intrus autour de sa station spatiale !",
     "atk1Name": "Orbiteur Canin",
     "atk2Name": "Lance-Croquette"
   },
   "specimen_df_11": {
     "name": "Chocolem",
-    "lore": "Que se passe-t-il quand vous mélangez du bon chocolat, plein de nutriments, avec différents fluides mutagènes dans le but d'en faire une friandise pour mutants ? Darwin a répondu à cette question, en fabriquant malgré lui un énorme lapin en chocolat ! \\n\\nCette aberration chocolatée est sans cesse affamée, et veut toujours dévorer plus de chocolat, pour accroître sa taille et sa puissance. Elle est si affamée qu'elle mange régulièrement des parties de son corps, laissant apparaître son coeur liquide.",
+    "lore": "Que se passe-t-il quand vous mélangez du bon chocolat, plein de nutriments, avec différents fluides mutagènes dans le but d'en faire une friandise pour mutants ? Darwin a répondu à cette question, en fabriquant malgré lui un énorme lapin en chocolat ! \n\nCette aberration chocolatée est sans cesse affamée, et veut toujours dévorer plus de chocolat, pour accroître sa taille et sa puissance. Elle est si affamée qu'elle mange régulièrement des parties de son corps, laissant apparaître son coeur liquide.",
     "atk1Name": "Choc Violent",
     "atk2Name": "Choco-jection"
   },
@@ -2473,7 +2473,7 @@
   },
   "specimen_ff_11": {
     "name": "Gérard Steelgarden",
-    "lore": "Un professionnel de l'illusion, qui a pu acquérir un accès à de la magie véritable au travers d'une série d'étranges expériences sur les mutants mythiques. \\n\\nSes tours de magie dépassent désormais largement ceux de n'importe quel autre magicien, car ils franchissent les limites entre les domaines de l'illusion de spectacle et de la magie réelle. \\n\\nEntre deux matches dans l'Arène, il présente ses tours dans de gigantesques spectacles autour du monde.",
+    "lore": "Un professionnel de l'illusion, qui a pu acquérir un accès à de la magie véritable au travers d'une série d'étranges expériences sur les mutants mythiques. \n\nSes tours de magie dépassent désormais largement ceux de n'importe quel autre magicien, car ils franchissent les limites entre les domaines de l'illusion de spectacle et de la magie réelle. \n\nEntre deux matches dans l'Arène, il présente ses tours dans de gigantesques spectacles autour du monde.",
     "atk1Name": "Boîte Mortelle",
     "atk2Name": "Pyrotechnie"
   },
@@ -2665,7 +2665,7 @@
   },
   "specimen_fb_12": {
     "name": "Damoiselle du Crépuscule",
-    "lore": "Issue d'une âme de pure lumière capturée par une puissante engeance ténébreuse, cette créature damnée règne sur un immense domaine au plus profond des enfers où elle a été emprisonnée. \\nDe sa propre volonté ou malgré elle, elle attire tous ceux qui parcourent son domaine infernal, et les réduit à l'état de cadavres serviles.  \\nPersonne ne peut déterminer laquelle des deux entités contrôle réellement l'ensemble, et elle semble parfois lutter contre elle-même. \\nSon retour à la surface pourrait être annonciateur de temps troublés...",
+    "lore": "Issue d'une âme de pure lumière capturée par une puissante engeance ténébreuse, cette créature damnée règne sur un immense domaine au plus profond des enfers où elle a été emprisonnée. \nDe sa propre volonté ou malgré elle, elle attire tous ceux qui parcourent son domaine infernal, et les réduit à l'état de cadavres serviles.  \nPersonne ne peut déterminer laquelle des deux entités contrôle réellement l'ensemble, et elle semble parfois lutter contre elle-même. \nSon retour à la surface pourrait être annonciateur de temps troublés...",
     "atk1Name": "Lumière Pure",
     "atk2Name": "Âmes Perdues"
   },
@@ -2953,7 +2953,7 @@
   },
   "specimen_d_13": {
     "name": "Sasquatch",
-    "lore": "Le premier mutant ? Pas certain, mais ce cryptide découvert dans les forêts nord-américaines laisse entendre qu'il pourrait exister de nombreux mutants d'origine naturelle sur terre... à condition de bien chercher. /n/n Journal de recherches de [Le nom a été effacé]",
+    "lore": "Le premier mutant ? Pas certain, mais ce cryptide découvert dans les forêts nord-américaines laisse entendre qu'il pourrait exister de nombreux mutants d'origine naturelle sur terre... à condition de bien chercher. \n\n Journal de recherches de [Le nom a été effacé]",
     "atk1Name": "Embuscade Simiesque",
     "atk2Name": "Combo Primate"
   },
@@ -3019,7 +3019,7 @@
   },
   "specimen_df_99": {
     "name": "Génimal",
-    "lore": "Moitié mage, moitié chauve-souris,\\nLe plus valeureux des Génies,\\nGénimal, Génimal\\nHéros de l'Univers !",
+    "lore": "Moitié mage, moitié chauve-souris,\nLe plus valeureux des Génies,\nGénimal, Génimal\nHéros de l'Univers !",
     "atk1Name": "Chauves-souris",
     "atk2Name": "Cristal de puissance"
   },
@@ -3049,7 +3049,7 @@
   },
   "specimen_ef_99": {
     "name": "Mage de Singularité",
-    "lore": "Pr. ... - Journal d'expérimentations\\n\\n15 janvier - ... accélérateur de particules ... premiers tests ... évolution ... mutants.\\n\\n12 mars - ... revers. ... ADN Galactique. ... combiner ...\\n\\n2 juin - ... réactions ... prometteuses. ... évolution ... humanité ...\\n\\n7 août - ... heureux ... Sorcier de Singularité ... échappé ... Reprenons les expériences…",
+    "lore": "Pr. ... - Journal d'expérimentations\n\n15 janvier - ... accélérateur de particules ... premiers tests ... évolution ... mutants.\n\n12 mars - ... revers. ... ADN Galactique. ... combiner ...\n\n2 juin - ... réactions ... prometteuses. ... évolution ... humanité ...\n\n7 août - ... heureux ... Sorcier de Singularité ... échappé ... Reprenons les expériences…",
     "atk1Name": "Trou Noir supermassif",
     "atk2Name": "Sphère de gravité"
   },
@@ -3061,7 +3061,7 @@
   },
   "specimen_fc_99": {
     "name": "Nimrod",
-    "lore": "Echappé d'une autre dimension, Nimrod est un puissant mutant qui fût autrefois un roi et le bâtisseur d'un vaste empire. La mort ne signifie rien pour Nimrod et rien ne l'arrêtera dans sa quête pour reconstruire la grandeur passée de son empire.\\n\\n- Mutant obtenu gratuitement en battant Nimrod dans Celsius Heroes -",
+    "lore": "Echappé d'une autre dimension, Nimrod est un puissant mutant qui fût autrefois un roi et le bâtisseur d'un vaste empire. La mort ne signifie rien pour Nimrod et rien ne l'arrêtera dans sa quête pour reconstruire la grandeur passée de son empire.\n\n- Mutant obtenu gratuitement en battant Nimrod dans Celsius Heroes -",
     "atk1Name": "Roi des rois",
     "atk2Name": "Marteau de destruction"
   },
@@ -3127,7 +3127,7 @@
   },
   "specimen_ca_14": {
     "name": "Breakmaster",
-    "lore": "Step up to the beat. /nNever take a hit. /nDance along with it. /nProve you’re an athlete. /n/nTelle était la devise de l'équipe scientifique qui a tenté de créer le premier mutant dansant et combattant de l'histoire. Les rimes ont imprégné leur travail si profondément qu'elles les ont conduits à un mutant dansant le breakdance, utilisant ses capacités pour se battre de manière invisible dans l'arène.",
+    "lore": "Step up to the beat. \nNever take a hit. \nDance along with it. \nProve you’re an athlete. \n\nTelle était la devise de l'équipe scientifique qui a tenté de créer le premier mutant dansant et combattant de l'histoire. Les rimes ont imprégné leur travail si profondément qu'elles les ont conduits à un mutant dansant le breakdance, utilisant ses capacités pour se battre de manière invisible dans l'arène.",
     "atk1Name": "Freeze Kick",
     "atk2Name": "Flare Spin"
   },

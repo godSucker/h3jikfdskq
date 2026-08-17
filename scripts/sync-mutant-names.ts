@@ -28,7 +28,11 @@ async function loadLocMap(locale: string): Promise<Map<string, string>> {
     .forEach((line) => {
       const parts = line.split(';')
       if (parts.length >= 2) {
-        locMap.set(parts[0].trim().toLowerCase(), parts.slice(1).join(';').trim())
+        // см. тот же анескейп в scripts/sync-mutants.ts loadLocalFiles() -
+        // литеральные "\n"/"/n" в исходнике Kobojo иначе попадают в lore
+        // как видимый текст вместо настоящего переноса строки.
+        const value = parts.slice(1).join(';').trim().replace(/\\n/g, '\n').replace(/\/n/g, '\n')
+        locMap.set(parts[0].trim().toLowerCase(), value)
       }
     })
   return locMap
