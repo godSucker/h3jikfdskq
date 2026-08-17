@@ -10,7 +10,7 @@ import buildingsData from '@/data/materials/buildings.json';
 import zonesData from '@/data/materials/zones.json';
 import sourcesMap from '@/data/materials/sources.json';
 import bingosData from '@/data/bingos.json';
-import { bingoLabel } from '@/lib/mutant-dicts';
+import { bingoLabelL } from '@/lib/mutant-dicts';
 import { getItemTexture } from '@/lib/craft-simulator';
 import { textureUrl } from '@/lib/texture-cdn';
 import { t, localeFromAstro } from '@/lib/i18n';
@@ -54,7 +54,12 @@ const normRow = (item: RawItem) => {
   const percent = item?.percent ?? item?.pct ?? null;
   const value = item?.value ?? null;
   const rarity = item?.rarity ?? null;
-  const group = item?.group ?? undefined;
+  // group в charms.json - RU-литерал ("Ивентовые"), совпадающий с
+  // materials.group.events; тот же приём, что sortByEventChronology
+  // использует для material.json, чтобы не плодить второй i18n-ключ под то
+  // же значение.
+  const group =
+    item?.group === 'Ивентовые' ? t('materials.group.events', locale) : (item?.group ?? undefined);
   const eventDate = item?.eventDate ?? undefined;
 
   // Явный item.texture (курируемая замена конкретно под этот ID) должен
@@ -160,9 +165,9 @@ function sortByEventChronology<T extends { id: string; name: string; eventDate?:
 }
 
 function formatBingoTitle(title: string, id: string) {
-  const labelById = bingoLabel(id);
+  const labelById = bingoLabelL(id, locale);
   if (labelById && labelById !== id) return labelById;
-  const labelByTitle = bingoLabel(title);
+  const labelByTitle = bingoLabelL(title, locale);
   if (labelByTitle && labelByTitle !== title) return labelByTitle;
   return title
     .replace(/^--------/, '')
@@ -211,9 +216,10 @@ Object.keys(buildingSources).forEach(id => {
 });
 
 // "where" - сайт-авторские лейблы источника (не игровой контент), резолвятся
-// через getSourceWhere(); bingo-заголовки (formatBingoTitle) не входят в
-// словарь и остаются RU (как и остальной динамический контент без офиц.
-// источника на сайте).
+// через getSourceWhere(); bingo-заголовки резолвятся отдельно через
+// bingoLabelL() внутри formatBingoTitle() (был RU-only bingoLabel() до
+// 2026-08-17 - настоящий словарь на 9 языков уже существовал и
+// использовался на /bingo, здесь просто не был переиспользован).
 const sourcesMapLocalized: Record<string, SourceEntry[]> = {};
 for (const [id, entries] of Object.entries(sourcesMapMerged)) {
   sourcesMapLocalized[id] = entries.map((s) => ({ ...s, where: getSourceWhere(s.where, locale) }));
@@ -241,7 +247,7 @@ const buildingsRows = (Array.isArray(buildingsData) ? buildingsData : []).map((b
   description: getItemDescription(String(b?.id || '').trim(), locale, b?.description || ''),
   texture: b?.texture || `/buildings/${b?.id}.webp`,
   levels: b?.levels,
-  badge: b?.badge
+  badge: b?.badge === 'Предварительно' ? t('materials.badge.preliminary', locale) : b?.badge
 }));
 
 // ---------- зоны: поддержка строк/объектов из zones.json ----------
