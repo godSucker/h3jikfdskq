@@ -673,19 +673,19 @@ const structuredData = [
       </div>
       <nav>
         <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
-        <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
+        <a href={navHref('/evolution/evotech-calculator')}>{t('nav.evoCalculator', locale)}</a>
         <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
-        <a href="/materials">{t('nav.materials', locale)}</a>
+        <a href={navHref('/materials')}>{t('nav.materials', locale)}</a>
         <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
         <a href={navHref('/simulators/breeding')}>{t('nav.breeding', locale)}</a>
-        <a href="/bingo">{t('nav.bingo', locale)}</a>
-        <a href="/boxes">{t('nav.boxes', locale)}</a>
-        <a href="/tier-list">{t('nav.tierList', locale)}</a>
-        <a href="/rebalance">{t('nav.rebalance', locale)}</a>
-        <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
-        <a href="/guides">{t('nav.guides', locale)}</a>
-        <a href="/credits">{t('nav.credits', locale)}</a>
-        <a href="/top-evo">{t('nav.topEvo', locale)}</a>
+        <a href={navHref('/bingo')}>{t('nav.bingo', locale)}</a>
+        <a href={navHref('/boxes')}>{t('nav.boxes', locale)}</a>
+        <a href={navHref('/tier-list')}>{t('nav.tierList', locale)}</a>
+        <a href={navHref('/rebalance')}>{t('nav.rebalance', locale)}</a>
+        <a href={navHref('/top-mutants')}>{t('nav.topMutants', locale)}</a>
+        <a href={navHref('/guides')}>{t('nav.guides', locale)}</a>
+        <a href={navHref('/credits')}>{t('nav.credits', locale)}</a>
+        <a href={navHref('/top-evo')}>{t('nav.topEvo', locale)}</a>
       </nav>
       <SearchBox client:visible locale={locale} />
       <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
@@ -733,18 +733,18 @@ const structuredData = [
       <a href={navHref('/')}>{t('nav.home', locale)}</a>
       <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
       <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
-      <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
-      <a href="/materials">{t('nav.materials', locale)}</a>
+      <a href={navHref('/evolution/evotech-calculator')}>{t('nav.evoCalculator', locale)}</a>
+      <a href={navHref('/materials')}>{t('nav.materials', locale)}</a>
       <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
       <a href={navHref('/simulators/breeding')}>{t('nav.breeding', locale)}</a>
-      <a href="/bingo">{t('nav.bingo', locale)}</a>
-      <a href="/boxes">{t('nav.boxes', locale)}</a>
-      <a href="/rebalance">{t('nav.rebalance', locale)}</a>
-      <a href="/tier-list">{t('nav.tierList', locale)}</a>
-      <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
-      <a href="/guides">{t('nav.guides', locale)}</a>
-      <a href="/credits">{t('nav.credits', locale)}</a>
-      <a href="/top-evo">{t('nav.topEvo', locale)}</a>
+      <a href={navHref('/bingo')}>{t('nav.bingo', locale)}</a>
+      <a href={navHref('/boxes')}>{t('nav.boxes', locale)}</a>
+      <a href={navHref('/rebalance')}>{t('nav.rebalance', locale)}</a>
+      <a href={navHref('/tier-list')}>{t('nav.tierList', locale)}</a>
+      <a href={navHref('/top-mutants')}>{t('nav.topMutants', locale)}</a>
+      <a href={navHref('/guides')}>{t('nav.guides', locale)}</a>
+      <a href={navHref('/credits')}>{t('nav.credits', locale)}</a>
+      <a href={navHref('/top-evo')}>{t('nav.topEvo', locale)}</a>
     </nav>
 
     <main class={fullWidth ? 'wide' : ''}>
