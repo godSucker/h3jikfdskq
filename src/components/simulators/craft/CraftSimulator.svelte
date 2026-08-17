@@ -257,7 +257,7 @@
     if (!recipe) return;
 
     const crafts = Math.min(Math.max(Math.floor(state.craftCount), 1), MAX_SIMULATIONS);
-    const result = simulateRecipe(recipe, crafts, activeIncentive);
+    const result = simulateRecipe(recipe, crafts, activeIncentive, Math.random, locale);
 
     facilityStates = {
       ...facilityStates,

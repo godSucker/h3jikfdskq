@@ -14,7 +14,7 @@ import incentiveRaw from '@/data/simulators/CRAFT/incentreward.txt?raw'
 import mutantNamesData from '@/data/mutant_names.json'
 import craftI18nRaw from '@/data/simulators/craft-i18n.json'
 import { textureUrl } from '@/lib/texture-cdn'
-import type { Locale } from '@/lib/i18n'
+import { t, type Locale } from '@/lib/i18n'
 
 type CraftI18nDict = Partial<Record<string, Partial<Record<Locale, string>>>>
 const craftI18n = craftI18nRaw as {
@@ -723,6 +723,7 @@ export function simulateRecipe(
   crafts: number,
   incentive: IncentiveReward | null,
   rng: () => number = Math.random,
+  locale: Locale = 'ru',
 ): DetailedSimulationResult {
   const totalOdds = recipe.rewards.reduce((sum, reward) => sum + reward.odds, 0)
   const mainRewards: Record<string, number> = {}
@@ -792,50 +793,73 @@ export function simulateRecipe(
     }))
     .sort((a, b) => b.amount - a.amount)
 
-  log.push(`🎯 Результаты ${crafts} крафтов`)
-  const recipeName = recipe.rewards.length ? translateItemId(recipe.rewards[0].id) : recipe.id
-  log.push(`📋 Рецепт: ${recipeName}`)
+  // Раньше был захардкожен на RU без параметра locale вообще (найдено
+  // систематическим i18n-аудитом 2026-08-17) - "Текстовый лог" в результатах
+  // симуляции показывал русский текст на всех 9 языках. Дублирует уже
+  // локализованные структурные карточки выше, поэтому переиспользует те же
+  // ключи (craft.results.title/mainRewardsTitle/noMainRewards/...) плюс
+  // несколько новых craft.results.log*-ключей под сам текстовый формат лога.
+  log.push(`🎯 ${t('craft.results.title', locale).replace('{n}', String(crafts))}`)
+  const recipeName = recipe.rewards.length
+    ? getCraftItemLabel(recipe.rewards[0].id, locale)
+    : recipe.id
+  log.push(`📋 ${t('craft.results.logRecipeLine', locale).replace('{name}', recipeName)}`)
 
   if (expectedIncentiveChance > 0 && incentive) {
-    log.push(`🎲 Шанс доп. награды: ${(expectedIncentiveChance * 100).toFixed(2)}%`)
+    log.push(
+      `🎲 ${t('craft.recipeCard.incentiveChance', locale).replace('{pct}', `${(expectedIncentiveChance * 100).toFixed(2)}%`)}`,
+    )
   }
 
-  log.push('🏆 Основные награды:')
+  log.push(`🏆 ${t('craft.results.mainRewardsTitle', locale)}:`)
   if (rewardDetails.length === 0) {
-    log.push('  - Нет наград')
+    log.push(`  - ${t('craft.results.noMainRewards', locale)}`)
   } else {
     for (const detail of rewardDetails) {
-      const chancePerCraft = detail.perCraft * 100
-      const sharePercent = detail.share * 100
+      const chancePerCraft = (detail.perCraft * 100).toFixed(1)
+      const sharePercent = (detail.share * 100).toFixed(1)
       log.push(
-        `  - ${translateItemId(detail.id)}: ${detail.amount} шт. (${chancePerCraft.toFixed(1)}% за крафт, ${sharePercent.toFixed(
-          1,
-        )}% от всех наград)`,
+        `  - ${t('craft.results.logRewardLine', locale)
+          .replace('{name}', getCraftItemLabel(detail.id, locale))
+          .replace('{amount}', String(detail.amount))
+          .replace('{perCraft}', chancePerCraft)
+          .replace('{share}', sharePercent)}`,
       )
     }
   }
 
   if (incentive) {
+    const incentiveName = getCraftItemLabel(incentive.id, locale)
     if (incentiveDetails.length > 0) {
-      log.push(`✨ Дополнительные награды (${translateItemId(incentive.id)}):`)
+      log.push(
+        `✨ ${t('craft.results.logIncentiveHeader', locale).replace('{name}', incentiveName)}`,
+      )
       for (const detail of incentiveDetails) {
-        const actualChance = detail.perCraft * 100
-        const expectedPercent = expectedIncentiveChance * 100
+        const actualChance = (detail.perCraft * 100).toFixed(1)
+        const expectedPercent = (expectedIncentiveChance * 100).toFixed(1)
         log.push(
-          `  - ${translateItemId(detail.id)}: ${detail.amount} шт. (ожидалось: ${expectedPercent.toFixed(1)}%, получено: ${actualChance.toFixed(
-            1,
-          )}%)`,
+          `  - ${t('craft.results.logIncentiveLine', locale)
+            .replace('{name}', incentiveName)
+            .replace('{amount}', String(detail.amount))
+            .replace('{expected}', expectedPercent)
+            .replace('{actual}', actualChance)}`,
         )
       }
     } else {
-      log.push(`✨ Дополнительные награды (${translateItemId(incentive.id)}) не выпали.`)
+      log.push(
+        `✨ ${t('craft.results.logIncentiveNotDropped', locale).replace('{name}', incentiveName)}`,
+      )
     }
   }
 
-  log.push('📊 Статистика:')
-  log.push(`  - Всего основных наград: ${totalMain}`)
-  log.push(`  - Всего дополнительных наград: ${totalIncentive}`)
-  log.push(`  - Общее количество наград: ${totalMain + totalIncentive}`)
+  log.push(`📊 ${t('craft.results.logStatsHeader', locale)}`)
+  log.push(`  - ${t('craft.results.logTotalMain', locale).replace('{n}', String(totalMain))}`)
+  log.push(
+    `  - ${t('craft.results.logTotalIncentive', locale).replace('{n}', String(totalIncentive))}`,
+  )
+  log.push(
+    `  - ${t('craft.results.logTotalAll', locale).replace('{n}', String(totalMain + totalIncentive))}`,
+  )
 
   return {
     crafts,
