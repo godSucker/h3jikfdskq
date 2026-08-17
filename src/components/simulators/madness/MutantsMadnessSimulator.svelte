@@ -14,8 +14,11 @@
     simulateMadnessAsync,
   } from '@/lib/madness-machine';
   import { t, type Locale } from '@/lib/i18n';
+  import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
   let { machine = madnessMachine, locale }: { machine?: MadnessMachineDefinition; locale: Locale } = $props();
+
+  const { names: mutantNames } = getLocalizedMutantNames(locale);
 
   const discountOptions = [0, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 
@@ -229,7 +232,7 @@
   let tokenCostPerSpin = $derived(Math.ceil(machine.tokenCost * multiplier));
 
   let maxResearch = $derived(getMaxResearchForLevel(level));
-  let researchChances = $derived(getResearchChanceBreakdown(level, machine, locale));
+  let researchChances = $derived(getResearchChanceBreakdown(level, machine, locale, mutantNames));
 
   let tokenSpins = $derived(tokenCostPerSpin > 0 ? Math.floor(tokens / tokenCostPerSpin) : 0);
   let goldSpins = $derived(goldCostPerSpin > 0 ? Math.floor(gold / goldCostPerSpin) : 0);
@@ -300,6 +303,7 @@
           batchSize: 2000,
           signal: controller.signal,
           locale,
+          names: mutantNames,
           onProgress(completed, total) {
             completedSpins = completed;
             progress = total > 0 ? Math.min(completed / total, 1) : 0;

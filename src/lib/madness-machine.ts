@@ -1,5 +1,7 @@
 import rawMachine from '@/data/simulators/mutants_madness/machine.json'
 import { t, type Locale } from '@/lib/i18n'
+import { starLabelL } from '@/lib/mutant-dicts'
+import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
 export type MadnessRewardType = 'entity'
 
@@ -100,6 +102,7 @@ export interface MadnessSimulationOptions {
   onProgress?: (completed: number, total: number) => void
   signal?: AbortSignal
   locale?: Locale
+  names?: Record<string, MutantNameEntry>
 }
 
 interface WeightedReward {
@@ -126,6 +129,7 @@ interface MadnessSimulationContext {
   jackpotCount: number
   totalSpins: number
   locale: Locale
+  names?: Record<string, MutantNameEntry>
 }
 
 // research 9/10 намеренно отсутствуют: в игре они выключены (все их награды
@@ -178,8 +182,36 @@ export function getResearchLabel(key: MadnessResearchKey, locale: Locale = 'ru')
   return t('roulette.madness.researchTier', locale).replace('{n}', String(key))
 }
 
-export function getRewardLabel(reward: MadnessReward): string {
-  return reward.starLabel ? `${reward.name} (${reward.starLabel})` : reward.name
+// machine.json хранит reward.name/starLabel только на RU (см. reward.id -
+// специмен-id, привязка к mutants.json). Раньше getRewardLabel возвращал
+// reward.name напрямую без locale - утечка RU на все не-RU языки в
+// rewardBreakdown/history/theoretical odds (пойман систематическим grep
+// 2026-08-17, тот же класс бага, что в ensureResearchAggregate).
+const STAR_LABEL_RU_TO_KEY: Record<string, string> = {
+  Бронзовая: 'bronze',
+  Серебряная: 'silver',
+  Золотая: 'gold',
+}
+
+export function getRewardLabel(
+  reward: MadnessReward,
+  locale: Locale = 'ru',
+  names?: Record<string, MutantNameEntry>,
+): string {
+  let name: string
+  if (reward.isSuperJackpot) {
+    name = t('roulette.madness.researchJackpot', locale)
+  } else if (reward.id) {
+    name = names?.[reward.id.toLowerCase()]?.name ?? reward.name
+  } else {
+    name = reward.name
+  }
+
+  if (!reward.starLabel) return name
+
+  const starKey = STAR_LABEL_RU_TO_KEY[reward.starLabel]
+  const starLabel = starKey ? starLabelL(starKey, locale) : reward.starLabel
+  return `${name} (${starLabel})`
 }
 
 export function getAvailableRewards(
@@ -218,6 +250,8 @@ export function getRewardChanceForLevel(
 export function getRewardChances(
   level: number,
   machine: MadnessMachineDefinition = madnessMachine,
+  locale: Locale = 'ru',
+  names?: Record<string, MutantNameEntry>,
 ): MadnessRewardChance[] {
   const rewards = getAvailableRewards(level, machine).filter((reward) => reward.type === 'entity')
   const total = rewards.reduce((sum, reward) => sum + reward.odds, 0)
@@ -225,7 +259,7 @@ export function getRewardChances(
     .map((reward) => ({
       ...reward,
       chance: total > 0 ? reward.odds / total : 0,
-      label: getRewardLabel(reward),
+      label: getRewardLabel(reward, locale, names),
     }))
     .sort((a, b) => b.chance - a.chance)
 }
@@ -234,8 +268,9 @@ export function getResearchChanceBreakdown(
   level: number,
   machine: MadnessMachineDefinition = madnessMachine,
   locale: Locale = 'ru',
+  names?: Record<string, MutantNameEntry>,
 ): MadnessResearchChance[] {
-  const rewards = getRewardChances(level, machine)
+  const rewards = getRewardChances(level, machine, locale, names)
   const groups = new Map<MadnessResearchKey, MadnessResearchChance>()
   let totalOdds = 0
 
@@ -333,6 +368,7 @@ function buildSimulationContext(
     jackpotCount: 0,
     totalSpins: tokenSpins + goldSpins,
     locale: options.locale ?? 'ru',
+    names: options.names,
   }
 }
 
@@ -358,7 +394,7 @@ function recordHistory(
   if (ctx.historySize <= 0) return
   const summary: MadnessSpinSummary = {
     reward,
-    label: getRewardLabel(reward),
+    label: getRewardLabel(reward, ctx.locale, ctx.names),
     icon: reward.icon,
     researchKey: getResearchKey(reward),
     currency,
@@ -381,7 +417,7 @@ function ensureRewardAggregate(
   if (!aggregate) {
     aggregate = {
       reward,
-      label: getRewardLabel(reward),
+      label: getRewardLabel(reward, ctx.locale, ctx.names),
       icon: reward.icon,
       chance: ctx.chanceMap.get(reward.rewardId) ?? 0,
       count: 0,
