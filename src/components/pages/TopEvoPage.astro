@@ -1,0 +1,103 @@
+---
+// /top-evo - единственная prerender=false страница в i18n-эпике (SSR,
+// подгружает лидерборд из Google Sheets на каждый запрос, кэш 5 мин
+// в src/lib/google-sheets-loader.ts). Локаль определяется так же, как на
+// prerender=true страницах - через Astro.currentLocale, никак не зависит
+// от prerender-флага.
+export const prerender = false;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EvoLeaderboard from '@/components/EvoLeaderboard.svelte';
+import { loadEvoTop } from '@/lib/google-sheets-loader';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+// Импортируем базу мутантов
+import mutantsRaw from '@/data/mutants/mutants.json';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
+
+const players = await loadEvoTop();
+
+// EvoLeaderboard читает у мутанта только id/name/stars/base_stats (поиск
+// текстуры + скорость для лидерборда, id - для лукапа локализованного имени
+// в names) - полный mutants.json тащит ещё abilities/bingo/genes/name_lore и
+// т.д. на каждый SSR-запрос этой prerender=false страницы. Слим-проекция
+// режет пейлоад, который иначе дублируется дважды (SSR-рендер + сериализация
+// в HTML для гидрации).
+const mutantsSlim = mutantsRaw.map((m) => ({
+  id: m.id,
+  name: m.name,
+  stars: m.stars,
+  base_stats: m.base_stats,
+}));
+---
+
+<BaseLayout
+  title={t('topEvo.pageTitle', locale)}
+  description={t('topEvo.pageDescription', locale)}
+  fullWidth
+  viewport="width=device-width, initial-scale=1"
+>
+  <div class="top-page">
+    <div class="header-section">
+      <a class="back-link" href={translatedHref('/', locale)}>← {t('topEvo.backToHome', locale)}</a>
+      <h1>{t('topEvo.heading', locale)}</h1>
+      <p>{t('topEvo.subtitle', locale)}</p>
+    </div>
+
+    <!-- Передаем игроков И базу мутантов -->
+    <EvoLeaderboard client:load players={players} mutantsDb={mutantsSlim} locale={locale} names={names} />
+  </div>
+</BaseLayout>
+
+<style>
+  .top-page {
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .header-section {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #e2e8f0;
+    margin: 0.5rem 0;
+  }
+
+  p {
+    color: #cbd5f5;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: "TT Supermolot Neue", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans";
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+  }
+  .back-link:hover {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: rgba(59, 130, 246, 0.6);
+    transform: translateX(-3px);
+  }
+</style>

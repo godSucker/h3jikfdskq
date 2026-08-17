@@ -2,6 +2,9 @@
   import { textureUrl } from '@/lib/texture-cdn'
   import { getGeneIcon } from '@/lib/mutant-icons'
   import tabsData from '@/data/guides/tabs.json'
+  import { t, pluralizeCount, type Locale } from '@/lib/i18n'
+  import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
+  import { geneLabelL } from '@/lib/mutant-dicts'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -74,6 +77,7 @@
   }
 
   let {
+    locale = 'ru' as Locale,
     legendaries = [],
     zodiac = [],
     farmers = [],
@@ -87,6 +91,7 @@
     dungeonCovers = {},
     divisionArenas = {},
   }: {
+    locale?: Locale
     legendaries: MutantLite[]
     zodiac: ZodiacEntry[]
     farmers: FarmerRow[]
@@ -135,12 +140,14 @@
   // scripts/build-search-index.ts для генерации ссылок сайтового поиска на
   // конкретные вкладки гайдов, один источник правды вместо двух копий списка.
   // 'pvp-seasons' временно скрыт из списка - обсуждается отдельно, вернуть
-  // после решения, не удалять оттуда.
+  // после решения, не удалять оттуда. label из JSON (RU) больше не
+  // используется для отображения - см. tabLabel() ниже, ключи гайдов
+  // переведены на 9 языков через guides.tab.<key>.
   const TABS = tabsData as { key: string; label: string; ready: boolean }[]
-
-  const GENE_LABEL: Record<string, string> = {
-    A: 'Киборг', B: 'Нежить', C: 'Рубака', D: 'Зверь', E: 'Галактик', F: 'Мифик',
+  function tabLabel(key: string): string {
+    return t(`guides.tab.${key}`, locale)
   }
+
   // Таблица преимуществ типов (StrengthsAndWeaknesses::getDamageModifier) -
   // строка = атакующий, столбец = защищающийся, значение = модификатор урона в %.
   const TYPE_TABLE: Record<string, Record<string, number>> = {
@@ -199,19 +206,22 @@
   }
 
   function breedableLabel(b: 'yes' | 'no'): string {
-    return b === 'yes' ? 'Выводится' : 'Не выводится'
+    return b === 'yes' ? t('guides.breedable.yes', locale) : t('guides.breedable.no', locale)
   }
 
   function fmtSilver(n: number): string {
-    return n.toLocaleString('ru-RU')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
   }
 
+  // toLocaleString с maximumFractionDigits/minimumFractionDigits сам берёт
+  // верный десятичный разделитель по локали (запятая для ru/es/fr/de/pt/it/tr/nl,
+  // точка для en) - раньше было захардкожено ru-стилем через .replace('.', ',').
   function fmtSpeed(n: number): string {
-    return n.toFixed(2).replace('.', ',')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
   function fmtPct(n: number): string {
-    return n.toFixed(1).replace('.', ',')
+    return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
   }
 
   let activeLadderSection = $state<'event' | 'experiment' | 'challenge'>('event')
@@ -227,8 +237,8 @@
 
   function fmtCost(o: SpecialOffer): string {
     if (o.cost) {
-      const label = o.cost.type === 'hardcurrency' ? 'золота' : 'серебра'
-      return `${o.cost.amount.toLocaleString('ru-RU')} ${label}`
+      const label = o.cost.type === 'hardcurrency' ? (GOLD_WORD[locale] ?? GOLD_WORD.ru) : (SILVER_WORD[locale] ?? SILVER_WORD.ru)
+      return `${o.cost.amount.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')} ${label}`
     }
     if (o.realPriceUsd != null) return `$${o.realPriceUsd}`
     return '—'
@@ -247,9 +257,9 @@
 </script>
 
 <div class="tab-bar" role="tablist">
-  {#each TABS as t (t.key)}
-    <button class="tab-btn" class:active={activeTab === t.key} class:soon={!t.ready} onclick={() => (activeTab = t.key)}>
-      {t.label}{#if !t.ready}<span class="soon-badge">скоро</span>{/if}
+  {#each TABS as tab (tab.key)}
+    <button class="tab-btn" class:active={activeTab === tab.key} class:soon={!tab.ready} onclick={() => (activeTab = tab.key)}>
+      {tabLabel(tab.key)}{#if !tab.ready}<span class="soon-badge">{t('guides.soon', locale)}</span>{/if}
     </button>
   {/each}
 </div>
@@ -273,7 +283,7 @@
           class="activity-hero"
           style={cover ? `background-image: linear-gradient(180deg, rgba(10,14,22,0.15), rgba(10,14,22,0.75)), url(${cover})` : ''}
           onclick={() => openMutant(mutant.id)}
-          title={`Открыть ${mutant.name}`}
+          title={t('guides.activity.openMutant', locale).replace('{name}', mutant.name)}
         >
           <img class="activity-hero-art" src={textureUrl(mutant.fullArt)} alt={mutant.name} loading="lazy" decoding="async" />
         </button>
@@ -290,7 +300,7 @@
         {#if mutant}
           <button class="activity-mutant-name" onclick={() => openMutant(mutant.id)}>{mutant.name}</button>
         {:else}
-          <div class="activity-mutant-name muted">без уникального мутанта</div>
+          <div class="activity-mutant-name muted">{t('guides.activity.noUniqueMutant', locale)}</div>
         {/if}
         <div class="activity-secondary">{secondaryLine}</div>
         {#if currency.length}
@@ -317,18 +327,18 @@
     </div>
   {/snippet}
   {#if activeTab === 'legendaries'}
+    {@const featuredName = locale === 'ru' ? 'Бак Моррис' : (legendaries.find((m) => m.id === FEATURED_LEGENDARY)?.name ?? 'Buck Maurice')}
+    {@const p2Filled = t('guides.intro.legendaries.p2', locale)
+      .replace('{starTrooper}', legendaries.find((m) => m.id === 'specimen_ec_03')?.name ?? 'Star Trooper')
+      .replace('{dezinger}', legendaries.find((m) => m.id === 'specimen_ac_03')?.name ?? 'Dezinger')}
+    {@const nameIdx = p2Filled.indexOf('{name}')}
     <div class="text-block">
-      <p>
-        Эти мутанты могут получиться у вас в результате скрещивания вообще любых мутантов с подходящими генами
-        (например, Воин + Воин = Бак Моррис). Чем выше уровень вашего центра разведений, тем выше шанс на выпадение
-        легендарного мутанта со скрещивания.
-      </p>
-      <p>
-        Среди этих мутантов стоит внимания в основном только <strong>Бак Моррис</strong>, его определённо стоит
-        выводить. Но в случае нехватки сильных мутантов на старте, можно вывести Звёздного Десантника и Дезингера,
-        либо же любого моногена из списка, ибо у них слегка завышены статы. Но в целом, чаще всего найдутся варианты
-        получше даже среди секретных.
-      </p>
+      <p>{t('guides.intro.legendaries.p1', locale)}</p>
+      {#if nameIdx === -1}
+        <p>{p2Filled}</p>
+      {:else}
+        <p>{p2Filled.slice(0, nameIdx)}<strong>{featuredName}</strong>{p2Filled.slice(nameIdx + 6)}</p>
+      {/if}
     </div>
     <div class="mutant-grid">
       {#each legendaries as m (m.id)}
@@ -347,14 +357,11 @@
     </div>
   {:else if activeTab === 'zodiac'}
     <div class="text-block">
-      <p>
-        Все мутанты распределены относительно знаков зодиака и появляются в точно те же даты, что и их аналоги из
-        реального мира. Брать их рекомендуем преимущественно ради коллекции и бинго.
-      </p>
+      <p>{t('guides.intro.zodiac.p1', locale)}</p>
     </div>
     <div class="zodiac-star-switcher">
-      <button class="division-btn" class:active={zodiacStar === 'normal'} onclick={() => (zodiacStar = 'normal')}>Обычная версия</button>
-      <button class="division-btn" class:active={zodiacStar === 'silver'} onclick={() => (zodiacStar = 'silver')}>Серебряная версия</button>
+      <button class="division-btn" class:active={zodiacStar === 'normal'} onclick={() => (zodiacStar = 'normal')}>{t('guides.zodiac.normalVersion', locale)}</button>
+      <button class="division-btn" class:active={zodiacStar === 'silver'} onclick={() => (zodiacStar = 'silver')}>{t('guides.zodiac.silverVersion', locale)}</button>
     </div>
     <div class="zodiac-grid">
       {#each zodiac as z (z.id)}
@@ -380,93 +387,44 @@
     </div>
   {:else if activeTab === 'tandem'}
     <div class="text-block guide-prose">
-      <h2>Как работает тандем?</h2>
-      <p>
-        В тандем становится последний помещённый в инкубатор мутант, прокаченный на максимум опыта. Иначе говоря,
-        существует 2 приоритета, по которым мутант становится в тандем.
-      </p>
+      <h2>{t('guides.tandem.title', locale)}</h2>
+      <p>{t('guides.tandem.p1', locale)}</p>
       <ol>
         <li>
-          <strong>Уровень мутанта</strong> — в тандеме всегда будет один из ваших мутантов с наивысшим уровнем Эво, а
-          в случае максимального уровня нужно добирать полоску опыта до конца.
+          <strong>{t('guides.tandem.li1Term', locale)}</strong> {t('guides.tandem.li1Rest', locale)}
         </li>
         <li>
-          <strong>Порядок выведения</strong> — если мутант А был помещён в инкубатор раньше мутанта Б, то на
-          максимальном уровне обоих в тандем станет именно мутант Б.
+          <strong>{t('guides.tandem.li2Term', locale)}</strong> {t('guides.tandem.li2Rest', locale)}
         </li>
       </ol>
-      <p>
-        Причём дальнейший порядок прокачки мутантов никак на это не влияет. Даже если вы сразу заморозите мутанта А
-        на 1 уровне и захотите его потом докачать и поставить в тандем, в случае прокачки мутанта Б на максимум,
-        мутант А туда уже никак не станет. Тут поможет только прокачка Эво и оставление мутанта Б на уровне пониже.
-        Но с такими заморочками лучше просто вывести в тандем нового мутанта.
-      </p>
-      <div class="note">
-        Важно: тандем выбирать нельзя. Как и просто прокачать любого другого на максимум — только через помещение
-        мутанта в инкубатор.
-      </div>
+      <p>{t('guides.tandem.p2', locale)}</p>
+      <div class="note">{t('guides.tandem.note', locale)}</div>
     </div>
   {:else if activeTab === 'pvp-bug'}
     <div class="text-block guide-prose">
-      <h2>Гайд на баг (или фичу) в PvP</h2>
-      <p>
-        Можете не переживать — бан за это точно не дают. Вы не используете никакой сторонний софт, а всего лишь
-        небольшую игровую махинацию, которая существует уже много лет.
-      </p>
-      <h3>О самом баге</h3>
-      <p>
-        К самому концу сезона нужно набрать минимум 50 атак (столько требуется по условию попадания в 1%. Можно
-        набрать и 30 для 3%, но скорее всего всё равно получится больше) и как можно лучше % в PvP — минимум 10–11%
-        (на практике, возможно, и 11–15%, но есть сомнения). Вы должны запомнить, сколько % у вас было в конце
-        сезона перед началом нового. Лучше всего проверять свой окончательный % утром перед стартом нового PvP или
-        хотя бы ночью в последний день сезона, так как именно на этот показатель вам придётся ориентироваться.
-      </p>
-      <p>
-        Допустим, вы набрали 10%. Как только начнётся новый сезон, вам просто нужно не заходить в PvP-режим (вообще
-        не открывать сам раздел при выборе режима боя, то есть даже не собирать награду за прошлое PvP). Не заходить
-        нужно столько дней (предположительно), сколько процентов вы набрали в прошлом PvP. Тогда вы получите все
-        награды. Пример: у вас было 10%. После старта нового сезона не заходите в PvP 10 дней, после этого туда можно
-        зайти и вам выдадут все награды, включая мутанта.
-      </p>
-      <h3>Как это работает?</h3>
-      <p>
-        Точный механизм неизвестен, но есть предположение, что со стартом нового PvP игроки, которые забирают
-        награды за прошлый сезон, пропадают из рейтинга старого PvP, а люди, которые награды не забрали, — там
-        остаются. Так и получается, что по чуть-чуть рейтинг опустевает: большинство игроков с верхушки топа забирает
-        награды в первые дни, и люди с низов начинают в этом рейтинге подниматься и оказываться всё ближе к 1%.
-        Поэтому точные цифры тут, увы, никак не выявить. Но примерная закономерность есть — каждый день с результата
-        прошлого сезона у вас снимается по ≈1%, пока он не достигнет 1% — тогда вы сможете забрать награды.
-      </p>
-      <h3>Примерный процесс</h3>
+      <h2>{t('guides.pvpBug.title', locale)}</h2>
+      <p>{t('guides.pvpBug.intro', locale)}</p>
+      <h3>{t('guides.pvpBug.aboutTitle', locale)}</h3>
+      <p>{t('guides.pvpBug.aboutP1', locale)}</p>
+      <p>{t('guides.pvpBug.aboutP2', locale)}</p>
+      <h3>{t('guides.pvpBug.howTitle', locale)}</h3>
+      <p>{t('guides.pvpBug.howP1', locale)}</p>
+      <h3>{t('guides.pvpBug.processTitle', locale)}</h3>
       <ul>
-        <li>Вы набрали 10% в прошлом сезоне.</li>
-        <li>Начался новый сезон — ваш прошлый результат всё ещё учитывается как 10%.</li>
-        <li>Уже где-то через пару часов достаточно людей с вершины топа начнёт PvP и заберёт награды за старый сезон — теперь результат учитывается уже как ≈9% (а то и меньше).</li>
-        <li>Во вторник — ≈8%, в среду — ≈7%, и так далее.</li>
-        <li>Наступает следующий вторник — ваш результат прошлого сезона теперь ≈1%, и вы можете зайти в режим и забрать награды.</li>
+        <li>{t('guides.pvpBug.processLi1', locale)}</li>
+        <li>{t('guides.pvpBug.processLi2', locale)}</li>
+        <li>{t('guides.pvpBug.processLi3', locale)}</li>
+        <li>{t('guides.pvpBug.processLi4', locale)}</li>
+        <li>{t('guides.pvpBug.processLi5', locale)}</li>
       </ul>
-      <div class="note">
-        Небольшая рекомендация — лучше подождать с запасом 1–2 дня, чтобы точно забрать награды. Если мутант вам не
-        нужен, можно ждать до 3% — в этом случае можно сократить ожидание на пару дней. Также можно набирать не
-        только 10%, но и 9%, 8% и даже меньше — баг всё равно будет работать, просто время ожидания сократится.
-      </div>
-      <p>Тут конечно могут быть неточности, но на данный момент игроки ориентируются на указанную выше схему.</p>
+      <div class="note">{t('guides.pvpBug.note', locale)}</div>
+      <p>{t('guides.pvpBug.disclaimer', locale)}</p>
     </div>
   {:else if activeTab === 'farmers'}
     <div class="text-block">
-      <p>
-        Таблица мутантов с нестандартным доходом серебра. Большинство из них — ивентовые мутанты, которых можно
-        назвать около мусором в плане фарма, но решили добавить сюда вообще всех.
-      </p>
-      <p>
-        Из достойных новых мутантов можно отметить Даба и Загама, хоть второй и стоит слишком дорого. Оценки
-        субъективные, но приближены к реальности — учитывались доход/час, возможность выведения (и комфорт
-        выведения), возможность фарма вне люкс-зон и лёгкость получения.
-      </p>
-      <p>
-        Мидасов, Охотников и ДАБов не обязательно выводить в звёзды для фарма — в любой звезде они принесут
-        одинаковое количество серебра.
-      </p>
+      <p>{t('guides.intro.farmers.p1', locale)}</p>
+      <p>{t('guides.intro.farmers.p2', locale)}</p>
+      <p>{t('guides.intro.farmers.p3', locale)}</p>
     </div>
     <div class="farmers-grid">
       {#each farmers as row, i (i)}
@@ -485,8 +443,8 @@
             </span>
           </div>
           <div class="farmer-card-stats">
-            <span class="farmer-stat"><strong>{fmtSilver(row.silverPerHour)}</strong> серебра/час</span>
-            <span class="farmer-stat farmer-stat-muted">×{row.relative} к обычным</span>
+            <span class="farmer-stat"><strong>{fmtSilver(row.silverPerHour)}</strong> {t('guides.farmer.silverPerHour', locale)}</span>
+            <span class="farmer-stat farmer-stat-muted">×{row.relative} {t('guides.farmer.relativeToNormal', locale)}</span>
             <span class="farmer-badge" class:breedable-yes={row.breedable === 'yes'} class:breedable-no={row.breedable === 'no'}>
               {breedableLabel(row.breedable)}
             </span>
@@ -498,26 +456,17 @@
     </div>
   {:else if activeTab === 'speed-orbs'}
     <div class="text-block">
-      <p>
-        Таблица точного прироста от сфер скорости 3–5 уровня. Когда даёшь мутанту ту или иную сферу скорости, %
-        прироста не всегда соответствует указанным на самой сфере 15%, 18% и 20% — в скобках указан реальный прирост
-        для каждой конкретной базовой скорости.
-      </p>
-      <p>
-        Как можно заметить, почти везде прирост от сферы выше номинала, особенно на больших скоростях, где может
-        набегать по 1–2 лишних процента. Похоже, что каждая прибавка со сферы прописывалась разработчиками вручную, а
-        не считалась по единой формуле — скорость с той или иной сферой у части мутантов совпадает с чужой стоковой
-        скоростью или скоростью с другим уровнем сферы.
-      </p>
+      <p>{t('guides.intro.speedOrbs.p1', locale)}</p>
+      <p>{t('guides.intro.speedOrbs.p2', locale)}</p>
     </div>
     <div class="speed-table-wrap">
       <table class="speed-table">
         <thead>
           <tr>
-            <th>Скорость</th>
-            <th>Сфера 3 (+15%)</th>
-            <th>Сфера 4 (+18%)</th>
-            <th>Сфера 5 (+20%)</th>
+            <th>{t('guides.speedOrbs.colBase', locale)}</th>
+            <th>{t('guides.speedOrbs.colL3', locale)}</th>
+            <th>{t('guides.speedOrbs.colL4', locale)}</th>
+            <th>{t('guides.speedOrbs.colL5', locale)}</th>
           </tr>
         </thead>
         <tbody>
@@ -534,13 +483,9 @@
     </div>
   {:else if activeTab === 'quests'}
     <div class="text-block">
-      <p>
-        Основные (не ивентовые) квесты игры с наградой — ачивки, сюжетные квесты и системные задания. Игра хранит
-        5300+ миссий, но у большинства из них нет ни названия, ни отдельной награды — сюда попали только те, что
-        реально выглядят как квест: название → условие → награда.
-      </p>
+      <p>{t('guides.intro.quests.p1', locale)}</p>
     </div>
-    <input class="quest-search" type="search" placeholder="Поиск по названию или условию…" bind:value={questSearch} />
+    <input class="quest-search" type="search" placeholder={t('guides.quests.searchPlaceholder', locale)} bind:value={questSearch} />
     <div class="quest-list">
       {#each filteredQuests as q (q.id)}
         <div class="quest-row">
@@ -566,15 +511,12 @@
         </div>
       {/each}
       {#if !filteredQuests.length}
-        <p class="soon-block">Ничего не найдено.</p>
+        <p class="soon-block">{t('guides.emptyState', locale)}</p>
       {/if}
     </div>
   {:else if activeTab === 'divisions'}
     <div class="text-block">
-      <p>
-        7 дивизионов кампании (Альфа → Гига), в каждом по 9 карт — одни и те же 9 локаций, но с растущим уровнем
-        противников и наградами. Рекомендации по эво-уровню и составу команды — наша оценка, в игре таких подсказок нет.
-      </p>
+      <p>{t('guides.intro.divisions.p1', locale)}</p>
     </div>
     <div class="division-switcher">
       {#each divisions as d, i (d.id)}
@@ -584,7 +526,7 @@
     {#if divisions[activeDivision]}
       <div class="division-rec">
         <img class="division-rec-badge" src={divisionBadge(divisions[activeDivision].id)} alt="" loading="lazy" decoding="async" />
-        Рекомендуемый эво для прохождение: «{divisions[activeDivision].recommendedLevel}»
+        {t('guides.division.recommendedLevel', locale).replace('{level}', String(divisions[activeDivision].recommendedLevel))}
       </div>
       <div class="division-maps">
         {#each divisions[activeDivision].maps as m, i (m.mapId)}
@@ -594,15 +536,15 @@
             style={arena ? `background-image: linear-gradient(180deg, rgba(15,23,42,0.75), rgba(15,23,42,0.92)), url(${arena}); background-size: cover; background-position: center;` : ''}
           >
             <div class="division-map-head">
-              <span class="division-map-num">Карта {i + 1}</span>
+              <span class="division-map-num">{t('guides.division.mapNumber', locale).replace('{n}', String(i + 1))}</span>
               <span class="division-map-title">{m.locationName}</span>
             </div>
             <div class="division-map-meta">
-              <span>Боёв: <strong>{m.fightCount}</strong></span>
-              <span>Уровни врагов: <strong>{m.levelRange[0]}–{m.levelRange[1]}</strong></span>
+              <span>{t('guides.division.fightsCount', locale)} <strong>{m.fightCount}</strong></span>
+              <span>{t('guides.division.enemyLevelsLabel', locale)} <strong>{m.levelRange[0]}–{m.levelRange[1]}</strong></span>
             </div>
             <div class="division-map-reward">
-              <span class="division-map-reward-label">Награда за прохождение:</span>
+              <span class="division-map-reward-label">{t('guides.division.completionReward', locale)}</span>
               {#if m.reward.mutant}
                 <button class="farmer-chip" onclick={() => openMutant(m.reward.mutant.id)}>
                   {#if m.reward.mutant.icon}<img src={textureUrl(m.reward.mutant.icon)} alt="" loading="lazy" decoding="async" />{/if}
@@ -615,62 +557,55 @@
                 </span>
               {/if}
             </div>
-            <button class="division-map-toggle" onclick={() => openFights(m)}>Посмотреть все бои</button>
+            <button class="division-map-toggle" onclick={() => openFights(m)}>{t('guides.division.viewAllFights', locale)}</button>
           </div>
         {/each}
       </div>
     {/if}
   {:else if activeTab === 'ladders'}
     <div class="text-block">
-      <p>Здесь представлены практически все когда-либо существовавшие «лесенки» в игре.</p>
+      <p>{t('guides.intro.ladders.p1', locale)}</p>
     </div>
     <div class="division-switcher">
       <button class="division-btn" class:active={activeLadderSection === 'event'} onclick={() => (activeLadderSection = 'event')}>
-        Ивенты ({eventLadders.length})
+        {t('guides.ladders.events', locale).replace('{n}', String(eventLadders.length))}
       </button>
       <button class="division-btn" class:active={activeLadderSection === 'experiment'} onclick={() => (activeLadderSection = 'experiment')}>
-        Эксперименты ({specialLadders.experiment.length})
+        {t('guides.ladders.experiments', locale).replace('{n}', String(specialLadders.experiment.length))}
       </button>
       <button class="division-btn" class:active={activeLadderSection === 'challenge'} onclick={() => (activeLadderSection = 'challenge')}>
-        Испытания ({specialLadders.challenge.length})
+        {t('guides.ladders.challenges', locale).replace('{n}', String(specialLadders.challenge.length))}
       </button>
     </div>
     {#if activeLadderSection === 'event'}
       <div class="activity-grid">
         {#each eventLadders as e (e.id)}
-          {@render activityCard(e.id, 'event', e.name, e.nameAuthored, e.mutant, `${e.mapCount} этапов`, [], e.items)}
+          {@render activityCard(e.id, 'event', e.name, e.nameAuthored, e.mutant, `${e.mapCount} ${pluralizeCount(e.mapCount, locale, 'guides.count.stage')}`, [], e.items)}
         {/each}
       </div>
     {:else}
       <div class="activity-grid">
         {#each specialLadders[activeLadderSection] as d (d.id)}
-          {@render activityCard(d.id, activeLadderSection, d.name, d.nameAuthored, d.mutant, `${d.fightCount} этапов`, d.currency, d.items)}
+          {@render activityCard(d.id, activeLadderSection, d.name, d.nameAuthored, d.mutant, `${d.fightCount} ${pluralizeCount(d.fightCount, locale, 'guides.count.stage')}`, d.currency, d.items)}
         {/each}
       </div>
     {/if}
   {:else if activeTab === 'raids'}
     <div class="text-block">
-      <p>
-        Рейды — самые сложные «лесенки» в игре, но зато каждый даёт уникального мутанта (который неплохо
-        играется). У части рейдов в игре нет отдельного текстового названия — такие названия придуманы нами по
-        тематике арта и помечены курсивом.
-      </p>
+      <p>{t('guides.intro.raids.p1', locale)}</p>
     </div>
     <div class="activity-grid">
       {#each raids as r (r.id)}
-        {@render activityCard(r.id, 'raid', r.name, r.nameAuthored, r.mutant, `${r.fightCount} этапов`, r.currency, r.items)}
+        {@render activityCard(r.id, 'raid', r.name, r.nameAuthored, r.mutant, `${r.fightCount} ${pluralizeCount(r.fightCount, locale, 'guides.count.stage')}`, r.currency, r.items)}
       {/each}
     </div>
   {:else if activeTab === 'special-offers'}
     <div class="text-block">
-      <p>
-        Разовые предложения, которые всплывают при достижении определённого уровня игрока (не путать с
-        обычными боксами из магазина — эти привязаны именно к уровню и показываются один раз).
-      </p>
+      <p>{t('guides.intro.specialOffers.p1', locale)}</p>
     </div>
     {#each offersByLevel as [level, offers] (level)}
       <div class="offer-level">
-        <div class="offer-level-title">Уровень {level}</div>
+        <div class="offer-level-title">{t('guides.offers.levelHeader', locale).replace('{n}', String(level))}</div>
         <div class="offer-grid">
           {#each offers as o (o.id)}
             <button class="offer-card" onclick={() => (offersModalOffer = o)}>
@@ -681,7 +616,7 @@
                   <div class="offer-card-cost">{fmtCost(o)}</div>
                 </div>
               </div>
-              <div class="offer-card-outcomes-hint">Нажмите, чтобы открыть</div>
+              <div class="offer-card-outcomes-hint">{t('guides.offers.clickToOpen', locale)}</div>
             </button>
           {/each}
         </div>
@@ -690,95 +625,81 @@
   {:else if activeTab === 'numbers'}
     <div class="text-block guide-prose numbers-tab">
       <div class="note">
-        Раздел основан на реверс-инжиниринге игрового бинарника — не догадки и не подсчёты по наблюдениям.
+        {t('guides.numbers.note', locale)}
       </div>
 
-      <h2>Рост HP с уровнем мутанта</h2>
+      <h2>{t('guides.numbers.hp.title', locale)}</h2>
       <p>
-        При повышении уровня мутант получает +10% HP от базового HP (HP мутанта на первом уровне).
+        {t('guides.numbers.hp.p1', locale)}
       </p>
       <div class="formula-box">
-        Итоговое HP = HP на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.hp.formula', locale)}
       </div>
 
-      <h2>Рост урона с уровнем мутанта</h2>
+      <h2>{t('guides.numbers.damage.title', locale)}</h2>
       <p>
-        Каждый уровень добавляет +10% от атаки мутанта на первом уровне (не от текущей атаки, а именно от
-        «базового» значения).
+        {t('guides.numbers.damage.p1', locale)}
       </p>
       <p>
-        В файлах игры у каждого мутанта изначально прописаны два варианта базовых характеристик:
-        <strong>atk1</strong> и <strong>atk2</strong> — стандартная база, <strong>atk1p</strong> и
-        <strong>atk2p</strong> — усиленная база (начинает использоваться с 10 и 15 уровня соответственно).
+        {t('guides.numbers.damage.p2Intro', locale)}
+        <strong>atk1</strong> {t('guides.numbers.damage.p2Mid', locale)} <strong>atk1p</strong>
+        {t('guides.numbers.damage.p2End', locale)}
       </p>
       <p>
-        На 10 уровне игра не просто накидывает бонус к текущему урону — она полностью подменяет переменную
-        в формуле расчёта: старая база atk1 заменяется на усиленную atk1p. После этого все накопленные
-        бонусы за уровни пересчитываются так, будто мутант с самого 1-го уровня имел эту новую, более
-        высокую атаку. Так же это работает и для второй атаки (atk2), но на 15 уровне.
+        {t('guides.numbers.damage.p3', locale)}
       </p>
       <div class="formula-box">
-        Итоговый урон (до 10/15 уровня) = урон на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.damage.formula1', locale)}
       </div>
       <div class="formula-box">
-        Итоговый урон (после 10/15 уровня) = усиленный урон на первом уровне × (уровень / 10 + 0.9)
+        {t('guides.numbers.damage.formula2', locale)}
       </div>
       <p>
-        Пример: на 1 уровне (atk1) у мутанта 200 атаки — игра прибавляет по 10% (20 атаки) за уровень, на 9
-        уровне атака становится 360. Без замены базы на 10 уровне атака стала бы 380, но вместо этого atk1
-        (200) меняется на atk1p (300), и все накопленные бонусы (+90% за уровни) применяются уже к новой
-        базе: 300 + 90% = <strong>570</strong>. Каждый следующий уровень прибавляет по 10% уже от atk1p
-        (300).
+        {t('guides.numbers.damage.example', locale)}
       </p>
 
-      <h2>Прибавка звёзд к характеристикам мутантов</h2>
+      <h2>{t('guides.numbers.stars.title', locale)}</h2>
       <p>
-        При получении любой звезды характеристики (урон и HP) мутанта увеличиваются на то значение,
-        которое звезда даёт: бронза ×1.1, серебро ×1.3, золото ×1.75, платина ×2.0.
+        {t('guides.numbers.stars.p1', locale)}
       </p>
 
-      <h2>Рост доходов серебра мутантов с уровнем</h2>
+      <h2>{t('guides.numbers.silver.title', locale)}</h2>
       <p>
-        Базовый доход мутанта равен 42 единицам серебра в час (с/ч). На следующих уровнях базовое значение
-        умножается на уровень мутанта. У некоторых мутантов базовое значение доходов отличается.
+        {t('guides.numbers.silver.p1', locale)}
       </p>
       <div class="formula-box">
-        Итоговый доход = 42 с/ч × уровень мутанта
+        {t('guides.numbers.silver.formula', locale)}
       </div>
 
-      <h2>Крит-шанс</h2>
+      <h2>{t('guides.numbers.crit.title', locale)}</h2>
       <p>
-        Базовый шанс крита — <strong>5%</strong>.
+        {t('guides.numbers.crit.p1', locale)}
       </p>
       <p>
-        К нему добавляются все бонусы крит-шанса (бустеры + сферы), и вся сумма умножается на эти 5%,
-        а не складывается напрямую:
+        {t('guides.numbers.crit.p2', locale)}
       </p>
       <div class="formula-box crit-formula">
-        шанс крита = 5% × (100 + бустеры<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" /></sub> + бустеры<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" /></sub> + сферы<sub>крит</sub>) / 100
+        {t('guides.numbers.crit.formulaLabel', locale)} = 5% × (100 + {t('guides.numbers.crit.formulaBoosters', locale)}<sub><img src={textureUrl('/boosters/charm_critical_7.webp')} alt={t('guides.numbers.crit.altBooster', locale)} class="formula-icon" loading="lazy" decoding="async" /></sub> + {t('guides.numbers.crit.formulaBoosters', locale)}<sub><img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt={t('guides.numbers.crit.altAntiBooster', locale)} class="formula-icon" loading="lazy" decoding="async" /></sub> + {t('guides.numbers.crit.formulaOrbs', locale)}<sub>{t('guides.numbers.crit.formulaCritSub', locale)}</sub>) / 100
       </div>
       <p>
-        Сферы крит шанса бустят именно <strong>шанс</strong> крита, а не урон от него — в ру локализации
-        написано иначе, и это опечатка локализаторов.
+        {t('guides.numbers.crit.p3', locale)}
       </p>
       <p class="crit-booster-line">
-        Бустер крита даёт +50% получаемого шанса. Антикрит-бустер — −75% получаемого шанса.
+        {t('guides.numbers.crit.boosterLine', locale)}
       </p>
       <p class="formula-example">
-        Пример (сфера +2%, ваш бустер крита<img src={textureUrl('/boosters/charm_critical_7.webp')} alt="бустер крита" class="formula-icon" loading="lazy" decoding="async" />, антикрит-бустер противника<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt="антикрит-бустер" class="formula-icon" loading="lazy" decoding="async" />):
-        5% × (100 + 50 − 75 + 2) / 100 =
-        <strong>3.85%</strong>.
+        {t('guides.numbers.crit.exampleBefore', locale)}<img src={textureUrl('/boosters/charm_critical_7.webp')} alt={t('guides.numbers.crit.altBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleMid', locale)}<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt={t('guides.numbers.crit.altAntiBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleAfter', locale)}
       </p>
 
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
             <tr>
-              <th class="corner">Ур. сферы</th>
-              <th>Бонус от сферы крита</th>
-              <th>Крит шанс с 1 сферой</th>
-              <th>Крит шанс с 2 сферами</th>
-              <th>Крит шанс с 2 сферами и бустерами</th>
+              <th class="corner">{t('guides.numbers.crit.tableSphereLevel', locale)}</th>
+              <th>{t('guides.numbers.crit.tableSphereBonus', locale)}</th>
+              <th>{t('guides.numbers.crit.table1Sphere', locale)}</th>
+              <th>{t('guides.numbers.crit.table2Spheres', locale)}</th>
+              <th>{t('guides.numbers.crit.table2SpheresBoosted', locale)}</th>
             </tr>
           </thead>
           <tbody>
@@ -798,42 +719,37 @@
         </table>
       </div>
 
-      <h2>Формула урона</h2>
+      <h2>{t('guides.numbers.damageFormula.title', locale)}</h2>
       <p>
-        Базовый урон и активный бафф/дебафф атаки считаются <strong>раздельными ветками</strong> — каждый
-        проходит крит и модификатор типа сам по себе, а не «бафф плоско сверху готового числа»:
+        {t('guides.numbers.damageFormula.p1', locale)}
       </p>
       <div class="formula-box formula-steps">
-        <div><span class="step-num">1</span> базовый урон → крит (если сработал, ×2) → тип (±25% / ±50% из таблицы ниже)</div>
-        <div><span class="step-num">2</span> отдельно: база баффа → тот же крит → тот же тип → берётся % баффа от результата</div>
-        <div><span class="step-num">3</span> итог = результат шага 1 + результат шага 2</div>
+        <div><span class="step-num">1</span> {t('guides.numbers.damageFormula.step1', locale)}</div>
+        <div><span class="step-num">2</span> {t('guides.numbers.damageFormula.step2', locale)}</div>
+        <div><span class="step-num">3</span> {t('guides.numbers.damageFormula.step3', locale)}</div>
       </div>
       <p>
-        Пример: атака 10 000, крит сработал (×2), тип +25%, бафф атаки +40%. Основная ветка: 10 000 →
-        20 000 → 25 000. Ветка баффа: 10 000 → 20 000 → 25 000 → 40% = 10 000. Итог —
-        <strong>35 000</strong>, а не 29 000 (плоское сложение 25000+40%) и не наивные 35000 по совпадению —
-        механизм именно раздельный.
+        {t('guides.numbers.damageFormula.example', locale)}
       </p>
 
-      <h2>Таблица пониж/повыш урона</h2>
+      <h2>{t('guides.numbers.typeTable.title', locale)}</h2>
       <p>
-        Таблица показывает, сколько процентов урона атакующий добавляет или теряет против типа
-        защищающегося.
+        {t('guides.numbers.typeTable.p1', locale)}
       </p>
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
             <tr>
-              <th class="corner">атк ↓ / защ →</th>
+              <th class="corner">{t('guides.numbers.typeTable.cornerHeader', locale)}</th>
               {#each GENE_LETTERS as g (g)}
-                <th>{GENE_LABEL[g]}</th>
+                <th>{geneLabelL(g, locale)}</th>
               {/each}
             </tr>
           </thead>
           <tbody>
             {#each GENE_LETTERS as row (row)}
               <tr>
-                <th>{GENE_LABEL[row]}</th>
+                <th>{geneLabelL(row, locale)}</th>
                 {#each GENE_LETTERS as col (col)}
                   {@const v = TYPE_TABLE[row][col]}
                   <td class:pos={v > 0} class:neg={v < 0} class:neutral={v === 0}>
@@ -846,74 +762,66 @@
         </table>
       </div>
 
-      <h2>Скрытые лимиты чисел</h2>
+      <h2>{t('guides.numbers.limits.title', locale)}</h2>
       <p>
-        Игра считает часть значений в 32-битных числах, и при определённых пределах это ломается.
+        {t('guides.numbers.limits.p1', locale)}
       </p>
       <div class="numbers-grid">
         <div class="number-card bad">
-          <div class="number-card-title">HP мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.hpTitle', locale)}</div>
           <div class="number-card-value">≈21 474 836</div>
           <p>
-            При базовом HP выше этого порога (без HP-сфер) значение переполняется и уходит в минус.
-            HP-сферы опускают порог ещё ниже — чем больше % бонуса, тем раньше ловит баг.
+            {t('guides.numbers.limits.hpP', locale)}
           </p>
         </div>
         <div class="number-card bad">
-          <div class="number-card-title">Скорость мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.speedTitle', locale)}</div>
           <div class="number-card-value">&gt; 21 474 836</div>
-          <p>Тот же класс бага, что и с HP. Порог тут не зависит от сфер скорости.</p>
+          <p>{t('guides.numbers.limits.speedP', locale)}</p>
         </div>
         <div class="number-card bad">
-          <div class="number-card-title">Золото (баланс игрока)</div>
+          <div class="number-card-title">{t('guides.numbers.limits.goldTitle', locale)}</div>
           <div class="number-card-value">2 147 483 647</div>
           <p>
-            При переходе через это значение весь баланс золота <strong>обнуляется до 0</strong> (не уходит
-            в минус — просто сгорает).
+            {t('guides.numbers.limits.goldP', locale)}
           </p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Атака мутанта</div>
+          <div class="number-card-title">{t('guides.numbers.limits.atkTitle', locale)}</div>
           <div class="number-card-value">≈214 748 364</div>
-          <p>Это просто потолок значения — при его достижении атака перестаёт расти дальше, но не ломается и не уходит в минус.</p>
+          <p>{t('guides.numbers.limits.atkP', locale)}</p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Серебро (баланс игрока)</div>
+          <div class="number-card-title">{t('guides.numbers.limits.silverTitle', locale)}</div>
           <div class="number-card-value">9 223 372 036 854 775 807</div>
-          <p>Считается в 64-битном числе — реалистично упереться в этот предел невозможно.</p>
+          <p>{t('guides.numbers.limits.silverP', locale)}</p>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Уровень эво / мутанта / игрока</div>
-          <div class="number-card-value">без лимита</div>
-          <p>Обычное сохранённое значение без вычислений на клиенте — переполняться нечему.</p>
+          <div class="number-card-title">{t('guides.numbers.limits.levelTitle', locale)}</div>
+          <div class="number-card-value">{t('guides.numbers.limits.noLimit', locale)}</div>
+          <p>{t('guides.numbers.limits.levelP', locale)}</p>
         </div>
       </div>
 
-      <h2>Как думают боты (PvE и защита в PvP)</h2>
+      <h2>{t('guides.numbers.bots.title', locale)}</h2>
       <p>
-        У ПвЕ-противников и защиты в PvP <strong>один и тот же ИИ</strong> — отдельного «защитного»
-        алгоритма не существует. У каждого бота есть скрытый параметр «сообразительности» (IQ), и на
-        каждый ход это решается заново:
+        {t('guides.numbers.bots.p1', locale)}
       </p>
       <div class="formula-box formula-steps">
-        <div><span class="step-num">1</span> бросается случайное число от 0 до 99</div>
-        <div><span class="step-num">2</span> число ≥ IQ — случайный ход: случайная атака по случайной живой цели, вообще без расчётов</div>
-        <div><span class="step-num">3</span> число &lt; IQ — «умный» ход: бот честно симулирует урон для каждой пары атака×цель и берёт связку с лучшим итогом боя (если атака AOE — дальше цели не перебираются)</div>
+        <div><span class="step-num">1</span> {t('guides.numbers.bots.step1', locale)}</div>
+        <div><span class="step-num">2</span> {t('guides.numbers.bots.step2', locale)}</div>
+        <div><span class="step-num">3</span> {t('guides.numbers.bots.step3', locale)}</div>
       </div>
       <p>
-        Важный нюанс: во время этого перебора крит математически невозможен — бот сравнивает варианты
-        по гарантированному не-крит урону. Настоящий бросок крита происходит один раз, уже в момент
-        реального удара уже выбранным ходом — тем же кодом, что обрабатывает ваш собственный тап по
-        экрану.
+        {t('guides.numbers.bots.p2', locale)}
       </p>
       <p>
-        Значение IQ у боя в кампании не считается — это ручной хардкод разработчиков на каждый конкретный
-        бой, растёт вместе с прогрессией мира:
+        {t('guides.numbers.bots.p3', locale)}
       </p>
       <div class="type-table-wrap">
         <table class="type-table">
           <thead>
-            <tr><th class="corner">мир</th><th>IQ ранних боёв главы</th></tr>
+            <tr><th class="corner">{t('guides.numbers.bots.tableWorld', locale)}</th><th>{t('guides.numbers.bots.tableIq', locale)}</th></tr>
           </thead>
           <tbody>
             <tr><th>Detroit 01→03</th><td>5 → 40 → 45</td></tr>
@@ -922,61 +830,57 @@
             <tr><th>New Delhi 01→03</th><td>60 → 60 → 65</td></tr>
             <tr><th>Shanghai 01→03</th><td>65 → 65/70 → 70</td></tr>
             <tr><th>Tokyo 01→03</th><td>75/80 → 80/85 → 90</td></tr>
-            <tr><th>Atlantis / Paris / Cairo</th><td>100 (везде, без исключений)</td></tr>
+            <tr><th>Atlantis / Paris / Cairo</th><td>100 ({t('guides.numbers.bots.everywhereNoExceptions', locale)})</td></tr>
           </tbody>
         </table>
       </div>
       <p>
-        Внутри одной главы IQ у первых ~6 «сюжетных» боёв переменный (см. таблицу), а у всех остальных
-        боёв этой же главы (повторное прохождение/фарм) — всегда 100.
+        {t('guides.numbers.bots.p4', locale)}
       </p>
 
-      <h2>Хил неиспользованного тандема</h2>
+      <h2>{t('guides.numbers.tandemHeal.title', locale)}</h2>
       <p>
-        Тандем, который вы не задействовали в бою, всё равно лечит вашего мутанта — да, тандемы умеют
-        хилить.
+        {t('guides.numbers.tandemHeal.p1', locale)}
       </p>
       <div class="formula-box">
-        хил = уровень славы тандема × 100 ÷ 3 &nbsp;(или, что то же самое, уровень славы ÷ 0,03)
+        {t('guides.numbers.tandemHeal.formula', locale)}
       </div>
       <div class="numbers-grid">
         <div class="number-card ok">
-          <div class="number-card-title">Слава 100</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '100')}</div>
           <div class="number-card-value">3 333 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 200</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '200')}</div>
           <div class="number-card-value">6 666 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 300</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '300')}</div>
           <div class="number-card-value">10 000 HP</div>
         </div>
         <div class="number-card ok">
-          <div class="number-card-title">Слава 400</div>
+          <div class="number-card-title">{t('guides.numbers.tandemHeal.gloryLabel', locale).replace('{n}', '400')}</div>
           <div class="number-card-value">13 333 HP</div>
         </div>
       </div>
       <p>
-        При поражении в PvP тандем не лечит — этот хил срабатывает только при победе.
+        {t('guides.numbers.tandemHeal.p2', locale)}
       </p>
 
-      <h2>Цена скипа противника в PvP</h2>
+      <h2>{t('guides.numbers.skipCost.title', locale)}</h2>
       <p>
-        Скип оппонента в PvP-турнире стоит серебра, и цена зависит не от вашей славы, а от
-        <strong>уровня оппонента</strong>, которого вы скипаете:
+        {t('guides.numbers.skipCost.p1', locale)}
       </p>
       <div class="formula-box">
-        цена скипа = уровень оппонента × 250
+        {t('guides.numbers.skipCost.formula', locale)}
       </div>
       <p>
-        250 серебра за уровень — константа из игровых настроек (<code>PvpTournamentSkipping</code>).
-        Чем выше уровень показанного оппонента, тем дороже его пропустить.
+        {t('guides.numbers.skipCost.p2Before', locale)}<code>PvpTournamentSkipping</code>{t('guides.numbers.skipCost.p2After', locale)}
       </p>
     </div>
   {:else}
     <div class="soon-block">
-      <p>Этот раздел ещё в разработке — данные вытаскиваются из игры.</p>
+      <p>{t('guides.tabInProgress', locale)}</p>
     </div>
   {/if}
 </div>
@@ -994,28 +898,28 @@
           <div class="fights-modal-title">{fightsModalMap.locationName}</div>
           {#if fightsModalMap.lore}<p class="fights-modal-lore">{fightsModalMap.lore}</p>{/if}
         </div>
-        <button class="close-btn" onclick={closeFights} aria-label="Закрыть">&times;</button>
+        <button class="close-btn" onclick={closeFights} aria-label={t('guides.close', locale)}>&times;</button>
       </div>
       <div class="fights-modal-body">
         {#each fightsModalMap.fights as fight, i (fight.fightId)}
           <div class="fight-row">
-            <div class="fight-row-num">Бой {i + 1}</div>
+            <div class="fight-row-num">{t('guides.fight.roundLabel', locale).replace('{n}', String(i + 1))}</div>
             <div class="fight-row-waves">
               {#each fight.waves as wave (wave.number)}
                 <div class="fight-wave">
-                  {#if fight.waves.length > 1}<span class="fight-wave-label">Волна {wave.number}</span>{/if}
+                  {#if fight.waves.length > 1}<span class="fight-wave-label">{t('guides.fight.wave', locale).replace('{n}', String(wave.number))}</span>{/if}
                   <div class="fight-wave-fighters">
                     {#each wave.fighters as f, j (j)}
                       <button class="fighter-card" class:boss={f.boss} onclick={() => openMutant(f.id)}>
                         {#if f.icon}<img src={textureUrl(f.icon)} alt="" loading="lazy" decoding="async" />{/if}
                         <div class="fighter-card-body">
-                          <span class="fighter-card-name">{f.name}{#if f.boss} <span class="fighter-boss-badge">БОСС</span>{/if}</span>
-                          <span class="fighter-card-level">Ур. {f.level}</span>
+                          <span class="fighter-card-name">{f.name}{#if f.boss} <span class="fighter-boss-badge">{t('guides.fight.bossBadge', locale)}</span>{/if}</span>
+                          <span class="fighter-card-level">{t('guides.fight.levelShort', locale).replace('{n}', String(f.level))}</span>
                           <div class="fighter-card-stats">
-                            <span class="stat-chip stat-hp">HP {f.stats.hp.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-atk">АТК1 {f.stats.atk1.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-atk">АТК2 {f.stats.atk2.toLocaleString('ru-RU')}</span>
-                            <span class="stat-chip stat-speed">СКР {f.stats.speed}</span>
+                            <span class="stat-chip stat-hp">HP {f.stats.hp.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-atk">{t('guides.stat.atk1', locale)} {f.stats.atk1.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-atk">{t('guides.stat.atk2', locale)} {f.stats.atk2.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                            <span class="stat-chip stat-speed">{t('guides.stat.speed', locale)} {f.stats.speed}</span>
                           </div>
                         </div>
                       </button>
@@ -1043,9 +947,9 @@
         {#if offersModalOffer.icon}<img class="offer-modal-icon" src={textureUrl(offersModalOffer.icon)} alt="" loading="lazy" decoding="async" />{/if}
         <div class="fights-modal-head-body">
           <div class="fights-modal-title">{offersModalOffer.name}</div>
-          <p class="fights-modal-lore">{fmtCost(offersModalOffer)} · уровень {offersModalOffer.level}</p>
+          <p class="fights-modal-lore">{fmtCost(offersModalOffer)} · {t('guides.offers.levelInline', locale).replace('{n}', String(offersModalOffer.level))}</p>
         </div>
-        <button class="close-btn" onclick={() => (offersModalOffer = null)} aria-label="Закрыть">&times;</button>
+        <button class="close-btn" onclick={() => (offersModalOffer = null)} aria-label={t('guides.close', locale)}>&times;</button>
       </div>
       <div class="fights-modal-body">
         {#each offersModalOffer.groups as g, i (i)}
@@ -1062,7 +966,7 @@
                 {r.label}
               </span>
             {/each}
-            <span class="offer-outcome-chance">{g.chance != null ? `${g.chance.toFixed(1)}%` : 'гарантировано'}</span>
+            <span class="offer-outcome-chance">{g.chance != null ? `${g.chance.toFixed(1)}%` : t('guides.offers.guaranteed', locale)}</span>
           </div>
         {/each}
       </div>

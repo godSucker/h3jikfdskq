@@ -1,31 +1,31 @@
 [
   {
     "id": "Building_Forge",
-    "name": "Кузня",
+    "name": "Златокузня",
     "description": "Приносит 5 золота раз в 12 часов",
     "texture": "/buildings/forge_hc1.png"
   },
   {
     "id": "Building_Gold_Smelter",
-    "name": "Плавильня",
+    "name": "Золотоплавильня",
     "description": "Приносит 50 золота раз в 2 суток",
     "texture": "/buildings/gold_furnace_hc2.png"
   },
   {
     "id": "Building_Med_Lab",
-    "name": "Мед. Лаборатория",
+    "name": "Медлаборатория",
     "description": "Здание для крафта аптечек",
     "texture": "/buildings/hospital.png"
   },
   {
     "id": "Building_Evo_Center",
-    "name": "Эво. Центр",
+    "name": "Эволюционный центр",
     "description": "Здания для повышения уровня ЭВО",
     "texture": "/buildings/techcenter.png"
   },
   {
     "id": "Building_Exchange",
-    "name": "Обменник",
+    "name": "Обменный пункт",
     "description": "Здание в котором можно обменивать жетоны джекпота",
     "texture": "/buildings/jackpot_sink_global.png"
   },
@@ -34,32 +34,56 @@
     "name": "Инкубатор",
     "description": "Здание в котором выводятся мутанты",
     "levels": [
-      { "level": 1, "texture": "/buildings/incubator_1.png", "description": "Здание для выращивания мутантов. 1 слот для вывода. Апгрейд до 2 уровня — 200 золота." },
-      { "level": 2, "texture": "/buildings/incubator_2.png", "description": "Здание для выращивания мутантов. 2 слота одновременно. Апгрейд до 3 уровня — 500 золота." },
-      { "level": 3, "texture": "/buildings/incubator_3.png", "description": "Здание для выращивания мутантов. 3 слота одновременно (максимальный уровень)." }
+      {
+        "level": 1,
+        "texture": "/buildings/incubator_1.png",
+        "description": "Здание для выращивания мутантов. 1 слот для вывода. Апгрейд до 2 уровня — 200 золота."
+      },
+      {
+        "level": 2,
+        "texture": "/buildings/incubator_2.png",
+        "description": "Здание для выращивания мутантов. 2 слота одновременно. Апгрейд до 3 уровня — 500 золота."
+      },
+      {
+        "level": 3,
+        "texture": "/buildings/incubator_3.png",
+        "description": "Здание для выращивания мутантов. 3 слота одновременно (максимальный уровень)."
+      }
     ]
   },
   {
     "id": "Building_Trial_Hall",
-    "name": "Зал Испытаний",
+    "name": "Зал испытаний",
     "description": "Здание в котором можно обменивать жетоны испытаний",
     "texture": "/buildings/item_maker.png"
   },
   {
     "id": "Building_Mystery",
-    "name": "Мистический Анализатор",
+    "name": "Анализатор тайны",
     "badge": "Предварительно",
     "description": "За мистические жетоны (10) открывает контракт на 24 часа, по завершении даёт скин (3) прошедшего ивента.",
     "texture": "/buildings/building_mystery.png"
   },
   {
     "id": "Building_Breeding_Center",
-    "name": "Центр Скрещивания",
+    "name": "Центр разведения",
     "description": "Здание в котором можно скрещивать мутантов",
     "levels": [
-      { "level": 1, "texture": "/buildings/breeding_center_1.png", "description": "Здание для скрещивания мутантов. Базовая скорость скрещивания. Чем выше уровень здания, тем выше шанс на выведение редких мутантов. Апгрейд до 2 уровня — 250 золота." },
-      { "level": 2, "texture": "/buildings/breeding_center_2.png", "description": "Здание для скрещивания мутантов. Скрещивание в 1.5 раза быстрее. Чем выше уровень здания, тем выше шанс на выведение редких мутантов. Апгрейд до 3 уровня — 500 золота." },
-      { "level": 3, "texture": "/buildings/breeding_center_3.png", "description": "Здание для скрещивания мутантов. Скрещивание в 3 раза быстрее (максимальный уровень). Чем выше уровень здания, тем выше шанс на выведение редких мутантов." }
+      {
+        "level": 1,
+        "texture": "/buildings/breeding_center_1.png",
+        "description": "Здание для скрещивания мутантов. Базовая скорость скрещивания. Чем выше уровень здания, тем выше шанс на выведение редких мутантов. Апгрейд до 2 уровня — 250 золота."
+      },
+      {
+        "level": 2,
+        "texture": "/buildings/breeding_center_2.png",
+        "description": "Здание для скрещивания мутантов. Скрещивание в 1.5 раза быстрее. Чем выше уровень здания, тем выше шанс на выведение редких мутантов. Апгрейд до 3 уровня — 500 золота."
+      },
+      {
+        "level": 3,
+        "texture": "/buildings/breeding_center_3.png",
+        "description": "Здание для скрещивания мутантов. Скрещивание в 3 раза быстрее (максимальный уровень). Чем выше уровень здания, тем выше шанс на выведение редких мутантов."
+      }
     ]
   }
 ]

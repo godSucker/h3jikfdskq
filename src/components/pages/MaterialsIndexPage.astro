@@ -1,0 +1,515 @@
+---
+/* eslint-disable astro/no-unused-css-selector -- .tab-btn.active вешается из JS (showTab) */
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import MaterialsTable from '@/components/materials/MaterialsTable.astro';
+import materialData from '@/data/materials/material.json';
+import charmsData from '@/data/materials/charms.json';
+import orbsDataRaw from '@/data/materials/orbs.json';
+import buildingsData from '@/data/materials/buildings.json';
+import zonesData from '@/data/materials/zones.json';
+import sourcesMap from '@/data/materials/sources.json';
+import bingosData from '@/data/bingos.json';
+import { bingoLabelL } from '@/lib/mutant-dicts';
+import { getItemTexture } from '@/lib/craft-simulator';
+import { textureUrl } from '@/lib/texture-cdn';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getItemName, getItemDescription, getSourceWhere, getZoneName, getZoneDescription } from '@/lib/materials-i18n';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+// Страница prerender-ится в build-time, когда public/ реально лежит на диске -
+// поэтому вместо жёстко зашитого .webp можно проверить, какой файл
+// действительно существует (новые текстуры кладём как .png, старые - .webp).
+const PUBLIC_MATERIALS_DIR = path.resolve('public/materials');
+function guessMaterialTexture(id: string): string {
+  if (fs.existsSync(path.join(PUBLIC_MATERIALS_DIR, `${id}.png`))) return `/materials/${id}.png`;
+  return `/materials/${id}.webp`;
+}
+
+const NO_ZOOM_VIEWPORT = "width=device-width, initial-scale=1";
+
+// ---------- нормализация материалов/бустеров/сфер ----------
+interface RawItem {
+  id?: string;
+  name?: string;
+  description?: string;
+  percent?: number | string | null;
+  pct?: number | string | null;
+  value?: number | string | null;
+  rarity?: string | null;
+  texture?: string | null;
+  group?: string | null;
+  eventDate?: string | null;
+}
+
+const normRow = (item: RawItem) => {
+  const id = String(item?.id || '').trim();
+  const rawName = item?.name || id;
+  const rawDescription = item?.description || '';
+  const name = getItemName(id, locale, rawName);
+  const description = getItemDescription(id, locale, rawDescription);
+  const percent = item?.percent ?? item?.pct ?? null;
+  const value = item?.value ?? null;
+  const rarity = item?.rarity ?? null;
+  // group в charms.json - RU-литерал ("Ивентовые"), совпадающий с
+  // materials.group.events; тот же приём, что sortByEventChronology
+  // использует для material.json, чтобы не плодить второй i18n-ключ под то
+  // же значение.
+  const group =
+    item?.group === 'Ивентовые' ? t('materials.group.events', locale) : (item?.group ?? undefined);
+  const eventDate = item?.eventDate ?? undefined;
+
+  // Явный item.texture (курируемая замена конкретно под этот ID) должен
+  // побеждать getItemTexture() - иначе точечные оверрайды в ITEM_TEXTURES
+  // (craft-simulator.ts, напр. старые мелкие /tokens/*.webp для Mystery25/26)
+  // тихо перекрывают свежую загруженную текстуру, и на странице остаётся
+  // старая картинка без единой ошибки в консоли.
+  let texture = item?.texture || getItemTexture?.(id);
+
+  // точечные подмены по названию (сверяем по исходному RU-имени, т.к. это
+  // фиксированные внутренние алиасы конкретных RU-строк, не завязаны на локаль)
+  const lname = String(rawName).trim().toLowerCase();
+  if (!texture) {
+    if (lname === 'баночка опыта') texture = '/materials/normal_xp.webp';
+    if (lname === 'банка спирта')  texture = '/materials/bigbig_med.webp';
+  }
+
+  if (!texture) texture = guessMaterialTexture(id);
+
+  return { id, name, description, percent, value, rarity, texture, group, eventDate };
+};
+
+// Жетоны событий (Хэллоуин/Пасха/Валентин/Рождество/годовщина и т.п.)
+// сортируются по реальной дате ивента (eventDate в material.json, формат
+// YYYY, YYYY-MM или YYYY-MM-DD - строковое сравнение работает благодаря
+// ISO-порядку). Дата не придумана: год+сезон разобраны из sources.json,
+// куда они попали из <Filter> в shopitems.xml (см. коммит 0f91215b1), а не
+// проставлены на глаз, как было раньше (см. b395b6c55 - ручная
+// перестановка массива, ломавшаяся при каждом новом авто-найденном жетоне,
+// т.к. detect-tokens.ts просто пушит новые в конец без даты).
+// "Базовые" жетоны (ключ/джекпот/генератор/испытания) - не событийные,
+// всегда были в игре - остаются первыми без сортировки. Жетоны без
+// eventDate (старые promo без источника) уходят в конец, по алфавиту -
+// честно показываем что дата неизвестна, а не гадаем.
+const EVERGREEN_TOKEN_IDS = new Set([
+  'Daily_Token',
+  'Material_Jackpot_Token',
+  'Material_Gacha_Token',
+  'Material_Event_Token',
+]);
+// Раньше в хронологический порядок сортировались только "жетоны" (по id/
+// названию), а обычные ивентовые материалы (яйца, души, осколки и т.п.)
+// вообще не трогались и просто лежали в исходном порядке material.json -
+// отсюда жалоба "Хэллоуин 2018 -> Пасха 2019 -> ДР игры -> Рождество ->
+// Хэллоуин 2019 вперемешку". Плюс часть реально событийных жетонов
+// (преордеры, Хэллоуин 2018) никогда не имела eventDate и падала в один
+// хвост с жетонами, которые к ивентам вообще не относятся (кроссовер TCG,
+// рейды, жетон без источника). Источник правды по событийности -
+// sources.json (type: "event"), а не наличие даты в material.json.
+// Преордер-жетоны формально помечены type:"event" в sources.json (см.
+// комментарий выше), но это бонус за предзаказ конкретного мутанта, а не
+// сезонный календарный ивент - юзер явно попросил (2026-08-11) держать их
+// вне "Ивентовых", вместе с жетоном корги (кроссовер TCG) и Мутенштейн
+// жетоном (награда рейдов).
+const FORCE_NON_EVENT_IDS = new Set([
+  'Material_Preorder_Token', // Жетон Сержанта Сумерки
+  'Preorder_Token_DE_10_gold', // Жетон «Золотой Безумный Майк»
+]);
+// Эти 4 не-событийных жетона юзер попросил держать вместе сразу под
+// эвергрин-блоком (после "Жетон испытаний"), перед "Ивентовые" - не внутри
+// группы "Материалы" внизу (2026-08-11).
+const PINNED_TOP_NON_EVENT_IDS = [
+  'Material_Mutenstein_Token', // Мутенштейн жетон
+  'Preorder_Token_DE_10_gold', // Жетон «Золотой Безумный Майк»
+  'Material_Preorder_Token', // Жетон Сержанта Сумерки
+  'Material_Tcg_Corgi_Token', // Жетон корги
+];
+
+function sortByEventChronology<T extends { id: string; name: string; eventDate?: string }>(
+  rows: T[],
+  sourcesMapForSort: Record<string, SourceEntry[]>,
+): (T & { group?: string })[] {
+  const isEventSourced = (id: string) =>
+    !FORCE_NON_EVENT_IDS.has(id) && (sourcesMapForSort[id] || []).some((s) => s.type === 'event');
+
+  const evergreen = rows.filter((r) => EVERGREEN_TOKEN_IDS.has(r.id));
+  const eventRows = rows.filter(
+    (r) => !EVERGREEN_TOKEN_IDS.has(r.id) && (r.eventDate || isEventSourced(r.id)),
+  );
+  const rest = rows.filter(
+    (r) => !EVERGREEN_TOKEN_IDS.has(r.id) && !r.eventDate && !isEventSourced(r.id),
+  );
+
+  const eventDated = eventRows.filter((r) => r.eventDate);
+  const eventUndated = eventRows.filter((r) => !r.eventDate);
+  eventDated.sort((a, b) => (b.eventDate as string).localeCompare(a.eventDate as string)); // новые сверху
+  eventUndated.sort((a, b) => a.name.localeCompare(b.name, 'ru')); // дата неизвестна - честно алфавитом
+
+  const eventGroup = [...eventDated, ...eventUndated].map((r) => ({ ...r, group: t('materials.group.events', locale) }));
+
+  // Без group-лейбла - визуально продолжают эвергрин-блок сверху (без
+  // заголовка), а не отдельная секция и не часть "Материалы" внизу.
+  const pinned = PINNED_TOP_NON_EVENT_IDS.map((id) => rest.find((r) => r.id === id)).filter(
+    (r): r is T => Boolean(r),
+  );
+  const restRemainder = rest.filter((r) => !PINNED_TOP_NON_EVENT_IDS.includes(r.id));
+  // rest обязан получить свой group-лейбл, иначе молча "утечёт" под заголовок
+  // eventGroup - у group-header в MaterialsTable нет закрывающего маркера,
+  // он рисуется только когда встречается НОВОЕ truthy-значение group.
+  const restGroup = restRemainder.map((r) => ({ ...r, group: t('materials.group.materials', locale) }));
+
+  return [...evergreen, ...pinned, ...eventGroup, ...restGroup];
+}
+
+function formatBingoTitle(title: string, id: string) {
+  const labelById = bingoLabelL(id, locale);
+  if (labelById && labelById !== id) return labelById;
+  const labelByTitle = bingoLabelL(title, locale);
+  if (labelByTitle && labelByTitle !== title) return labelByTitle;
+  return title
+    .replace(/^--------/, '')
+    .replace(/_/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
+// Map internal bingo reward names to building IDs
+const REWARD_TO_BUILDING: Record<string, string> = {
+  'Building_HC_1': 'Building_Forge',
+  'Building_HC_2': 'Building_Gold_Smelter'
+};
+
+type SourceEntry = { type: string; where: string; link?: string };
+const buildingSources: Record<string, SourceEntry[]> = {};
+
+(bingosData || []).forEach(bingo => {
+  if (!bingo.rewards) return;
+  bingo.rewards.forEach(reward => {
+    const targetId = REWARD_TO_BUILDING[reward.name];
+    if (targetId) {
+      if (!buildingSources[targetId]) buildingSources[targetId] = [];
+
+      const title = formatBingoTitle(bingo.title, bingo.id);
+
+      // Avoid duplicates
+      if (!buildingSources[targetId].some(s => s.link === `/bingo?board=${bingo.id}`)) {
+        buildingSources[targetId].push({
+          type: 'bingo',
+          where: title,
+          link: `/bingo?board=${bingo.id}`
+        });
+      }
+    }
+  });
+});
+
+// Merge into sourcesMap (clone to avoid mutating imported module)
+const sourcesMapMerged = Object.assign({}, sourcesMap) as Record<string, SourceEntry[]>;
+Object.keys(buildingSources).forEach(id => {
+  const existing = (sourcesMapMerged[id] || []).filter(s => s.type !== 'bingo');
+  sourcesMapMerged[id] = [...existing, ...buildingSources[id]];
+});
+
+// "where" - сайт-авторские лейблы источника (не игровой контент), резолвятся
+// через getSourceWhere(); bingo-заголовки резолвятся отдельно через
+// bingoLabelL() внутри formatBingoTitle() (был RU-only bingoLabel() до
+// 2026-08-17 - настоящий словарь на 9 языков уже существовал и
+// использовался на /bingo, здесь просто не был переиспользован).
+const sourcesMapLocalized: Record<string, SourceEntry[]> = {};
+for (const [id, entries] of Object.entries(sourcesMapMerged)) {
+  sourcesMapLocalized[id] = entries.map((s) => ({ ...s, where: getSourceWhere(s.where, locale) }));
+}
+
+const orbsData = (Array.isArray(orbsDataRaw) ? orbsDataRaw : []).filter((o) => {
+  const id = String(o?.id || '').toLowerCase();
+  return id && !id.includes('ephemeral');
+});
+
+const materialsRows = sortByEventChronology(
+  (Array.isArray(materialData) ? materialData : []).map(normRow),
+  sourcesMapMerged,
+);
+const charmsRows    = (Array.isArray(charmsData) ? charmsData : []).map(normRow);
+const orbsRows      = (Array.isArray(orbsData) ? orbsData : []).map(normRow);
+interface BuildingLevel {
+  level: number;
+  texture: string;
+  description?: string;
+}
+const buildingsRows = (Array.isArray(buildingsData) ? buildingsData : []).map((b: RawItem & { texture?: string; levels?: BuildingLevel[]; badge?: string }) => ({
+  id: String(b?.id || '').trim(),
+  name: getItemName(String(b?.id || '').trim(), locale, b?.name || (b?.id || '')),
+  description: getItemDescription(String(b?.id || '').trim(), locale, b?.description || ''),
+  texture: b?.texture || `/buildings/${b?.id}.webp`,
+  levels: b?.levels,
+  badge: b?.badge === 'Предварительно' ? t('materials.badge.preliminary', locale) : b?.badge
+}));
+
+// ---------- зоны: поддержка строк/объектов из zones.json ----------
+const geneMap: Record<string, string> = { a:'Киборг', b:'Нежить', c:'Рубака', d:'Зооморф', e:'Галактик', f:'Мифик', abcdef:'Любые гены' };
+const capMap: Record<number, number> = { 1: 2, 2: 3, 3: 4 };
+
+function parseStem(stem: string) {
+  // stem уже без расширения, например 'habitat_f_3_hc'
+  const lux = /_hc$/i.test(stem);
+  const m = /^habitat_([a-f]+|abcdef)_(\d)(?:_hc)?$/i.exec(stem);
+  if (!m) return { geneKey: '', level: null, isLuxe: lux };
+  return {
+    geneKey: String(m[1] || '').toLowerCase(),
+    level: Number(m[2]),
+    isLuxe: lux
+  };
+}
+
+function metaFromStem(stem: string) {
+  const { geneKey, level, isLuxe } = parseStem(stem);
+  const cap = (level != null ? capMap[level] : undefined) ?? '?';
+  const geneName = geneMap[geneKey] ?? (geneKey ? geneKey.toUpperCase() : '—');
+  const title = geneKey === 'abcdef' ? `Общая зона · вместимость ${cap}` : `Зона ${geneName} · вместимость ${cap}`;
+  const desc  = geneKey
+    ? `Ген: ${geneKey === 'abcdef' ? 'Любые гены' : geneName} • Вместимость: ${cap}`
+    : '';
+  return { title, desc, geneKey, isLuxe, level };
+}
+
+// Вместимость серебра (Tag key="bank" в gamedefinitions.xml, EntityDescriptor Habitat_*),
+// тир-зависимая - сверено 2026-08-02 напрямую с живым XML CDN. Обычные зоны: A/B/C и
+// D/E/F различаются, T1=T2, T3 - апгрейд. Люкс: одинаково для всех генов A-F, отдельно
+// для универсальной ABCDEF; люкс-тиры начинаются с 2 (нет T1).
+const STORAGE_NORMAL: Record<string, [number, number, number]> = {
+  a: [500, 500, 9000],
+  b: [500, 500, 9000],
+  c: [500, 500, 9000],
+  d: [5000, 5000, 30000],
+  e: [12000, 12000, 80000],
+  f: [25000, 25000, 160000],
+};
+const STORAGE_LUXE: Record<'gene' | 'abcdef', [number, number]> = {
+  gene: [200000, 320000],
+  abcdef: [320000, 400000],
+};
+
+function calcStorage(geneKey: string, isLuxe: boolean, level: number | null) {
+  if (level == null) return null;
+  if (isLuxe) {
+    const arr = geneKey === 'abcdef' ? STORAGE_LUXE.abcdef : STORAGE_LUXE.gene;
+    return arr[level - 2] ?? null; // люкс: тир 2 -> индекс 0, тир 3 -> индекс 1
+  }
+  return STORAGE_NORMAL[geneKey]?.[level - 1] ?? null;
+}
+
+const numberFormatLocale = ({ ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL' } as Record<string, string>)[locale] ?? 'en-US';
+const fmt = (n?: number | null) => new Intl.NumberFormat(numberFormatLocale).format(n ?? 0);
+
+type ZoneItem = string | { file?: string; name?: string; description?: string };
+function normalizeZone(list: ZoneItem[], base: string) {
+  const rows = [];
+  for (const it of (list || [])) {
+    const file = typeof it === 'string' ? it : it?.file;
+    if (!file) continue;
+    const stem = file.replace(/\.[^.]+$/, '');
+    const meta = metaFromStem(stem);
+    const store = calcStorage(meta.geneKey, meta.isLuxe, meta.level);
+    const rawName = (typeof it === 'object' && it.name) ? it.name : meta.title;
+    const rawDesc = (typeof it === 'object' && it.description) ? it.description : meta.desc;
+    rows.push({
+      id: stem,
+      name: getZoneName(file, locale, rawName),
+      description: getZoneDescription(file, locale, rawDesc),
+      storage: store,
+      texture: `${base}/${file}`
+    });
+  }
+  const map = new Map(rows.map(r => [r.id, r]));
+  return Array.from(map.values());
+}
+
+const zonesCfg = (zonesData && typeof zonesData === 'object') ? zonesData : { normal: [], luxe: [] };
+const zonesNormal = normalizeZone(zonesCfg.normal || [], '/zones/normal');
+const zonesLuxe   = normalizeZone(zonesCfg.luxe   || [], '/zones/luxe');
+
+const TABS = [
+  { key: 'orbs',      label: t('materials.tab.orbs', locale) },
+  { key: 'charms',    label: t('materials.tab.charms', locale) },
+  { key: 'materials', label: t('materials.tab.materials', locale) },
+  { key: 'buildings', label: t('materials.tab.buildings', locale) },
+  { key: 'zones',     label: t('materials.tab.zones', locale) },
+];
+---
+
+<BaseLayout
+  title={t('materials.pageTitle', locale)}
+  description={t('materials.pageDescription', locale)}
+  viewport={NO_ZOOM_VIEWPORT}
+>
+  <section class="intro">
+    <h1>{t('materials.pageTitle', locale)}</h1>
+    <p>{t('materials.intro', locale)}</p>
+  </section>
+
+  <nav class="tabs" aria-label={t('materials.tabsLabel', locale)}>
+    {TABS.map((tab) => (
+      <button class="tab-btn" type="button" data-tab={tab.key} aria-controls={`section-${tab.key}`}>{tab.label}</button>
+    ))}
+  </nav>
+
+  <section id="section-orbs" class="tab-section" data-tab="orbs" hidden>
+    <MaterialsTable rows={orbsRows} sourcesMap={sourcesMapLocalized} title={t('materials.tab.orbs', locale)} sectionKey="orbs" locale={locale} />
+  </section>
+
+  <section id="section-charms" class="tab-section" data-tab="charms" hidden>
+    <MaterialsTable rows={charmsRows} sourcesMap={sourcesMapLocalized} title={t('materials.tab.charms', locale)} sectionKey="charms" locale={locale} />
+  </section>
+
+  <section id="section-materials" class="tab-section" data-tab="materials" hidden>
+    <MaterialsTable rows={materialsRows} sourcesMap={sourcesMapLocalized} title={t('materials.tab.materials', locale)} sectionKey="materials" locale={locale} />
+  </section>
+
+  <section id="section-buildings" class="tab-section" data-tab="buildings" hidden>
+    <MaterialsTable rows={buildingsRows} sourcesMap={sourcesMapLocalized} title={t('materials.tab.buildings', locale)} sectionKey="buildings" texturePrefix="/buildings/" textureExt=".webp" locale={locale} />
+  </section>
+
+  <section id="section-zones" class="tab-section" data-tab="zones" hidden>
+    <div class="zone-toggle" role="tablist" aria-label={t('materials.zones.kindLabel', locale)}>
+      <button type="button" class="zbtn active" data-kind="normal" role="tab" aria-selected="true">{t('materials.zones.normal', locale)}</button>
+      <button type="button" class="zbtn" data-kind="luxe" role="tab" aria-selected="false">{t('materials.zones.luxe', locale)}</button>
+    </div>
+
+    <div id="zones-normal" class="zones-grid" data-kind="normal">
+      {zonesNormal.map((z) => (
+        <div class="zone-card" aria-label={z.name} title={z.name}>
+          <div class="zone-cover"><img src={textureUrl(z.texture)} alt={z.name} loading="lazy" draggable="false" oncontextmenu="return false" /></div>
+          <div class="zone-title">{z.name}</div>
+          {z.description && <div class="zone-desc">{z.description}</div>}
+          {z.storage != null && <div class="zone-cap"><span>{t('materials.zones.storesUpTo', locale)}</span> <strong>{fmt(z.storage)}</strong> {t('materials.zones.silver', locale)}</div>}
+        </div>
+      ))}
+      {zonesNormal.length === 0 && <div class="zone-empty">{t('materials.zones.emptyNormal', locale)}</div>}
+    </div>
+
+    <div id="zones-luxe" class="zones-grid" data-kind="luxe" hidden>
+      {zonesLuxe.map((z) => (
+        <div class="zone-card" aria-label={z.name} title={z.name}>
+          <div class="zone-cover"><img src={textureUrl(z.texture)} alt={z.name} loading="lazy" draggable="false" oncontextmenu="return false" /></div>
+          <div class="zone-title">{z.name}</div>
+          {z.description && <div class="zone-desc">{z.description}</div>}
+          {z.storage != null && <div class="zone-cap"><span>{t('materials.zones.storesUpTo', locale)}</span> <strong>{fmt(z.storage)}</strong> {t('materials.zones.silver', locale)}</div>}
+        </div>
+      ))}
+      {zonesLuxe.length === 0 && <div class="zone-empty">{t('materials.zones.emptyLuxe', locale)}</div>}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  (function(){
+    const qsa = (s: string, d: Document | Element = document) => Array.from(d.querySelectorAll<HTMLElement>(s));
+
+    // --- tabs ---
+    const tabs = qsa('.tab-btn');
+    const sections = qsa('.tab-section');
+    function showTab(key: string){
+      for(const b of tabs){ const on = b.dataset.tab===key; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); }
+      for(const s of sections){ const on = s.dataset.tab===key; s.hidden = !on; }
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', key);
+      history.replaceState(null, '', url.toString());
+    }
+    tabs.forEach((b)=>b.addEventListener('click', ()=>showTab(b.dataset.tab ?? '')));
+    showTab(new URL(window.location.href).searchParams.get('tab') || 'materials');
+
+    // --- zones toggle ---
+    const zbtns = qsa('.zbtn');
+    const grids = qsa('.zones-grid');
+    function showZones(kind: string){
+      for(const b of zbtns){
+        const on = b.dataset.kind===kind;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', String(on));
+      }
+      for(const g of grids){ g.hidden = g.dataset.kind!==kind; }
+    }
+    zbtns.forEach((b)=>b.addEventListener('click', ()=>showZones(b.dataset.kind ?? '')));
+    showZones('normal');
+  })();
+</script>
+
+<style>
+  .intro { margin-bottom: 1rem; }
+  .intro h1 { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2.2rem); color: #f8fafc; }
+  .intro p { margin: 0; color: #e5e7eb; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .tab-btn { appearance: none; border: 1px solid rgba(96, 165, 250, 0.28); background: rgba(15, 23, 42, 0.92); color: #e2e8f0; border-radius: 999px; padding: 0.45rem 0.75rem; font-size: 0.88rem; letter-spacing: 0.03em; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; white-space: nowrap; }
+  .tab-btn:hover { transform: translateY(-2px); border-color: rgba(96, 165, 250, 0.6); box-shadow: 0 10px 18px rgba(37, 99, 235, 0.22); }
+  .tab-btn.active { background: linear-gradient(180deg, rgba(30, 58, 138, 0.3), rgba(15, 23, 42, 0.92)); border-color: rgba(96, 165, 250, 0.65); box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22); }
+
+  @media (max-width: 480px) {
+    .tabs { gap: 0.3rem; }
+    .tab-btn { padding: 0.35rem 0.6rem; font-size: 0.82rem; }
+    .intro h1 { font-size: 1.3rem; }
+    .intro p { font-size: 0.85rem; }
+  }
+  .tab-section { margin-top: 0.5rem; }
+
+  /* переключатель Обычные/Люкс */
+  .zone-toggle{ display:inline-flex; gap:0.5rem; margin-bottom:0.8rem; }
+  .zbtn{ appearance:none; border:1px solid rgba(96,165,250,.28); background:rgba(15,23,42,.92); color:#e2e8f0; border-radius:999px; padding:.35rem .8rem; font-size:.92rem; font-weight:700; letter-spacing:.02em; cursor:pointer; line-height:1; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+  .zbtn:hover{ transform:translateY(-1px); border-color:rgba(96,165,250,.6); box-shadow:0 10px 18px rgba(37,99,235,.22); }
+  .zbtn.active{ background:linear-gradient(180deg, rgba(30,58,138,.3), rgba(15,23,42,.92)); border-color:rgba(96,165,250,.65); }
+  .zbtn:focus-visible{ outline:2px solid rgba(96,165,250,.8); outline-offset:2px; border-color:rgba(96,165,250,.8); }
+
+  /* ЗОНЫ */
+  .zones-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .zone-card {
+    display: grid; gap: 0.4rem;
+    border: 1px solid rgba(96, 165, 250, 0.28);
+    border-radius: 16px; padding: 0.75rem;
+    background: rgba(15, 23, 42, 0.92);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .zone-card:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.6); box-shadow: 0 12px 24px rgba(37,99,235,.22); }
+
+  /* витрина изображения — фикс. высота, картинка целиком; без клиппинга */
+  .zone-cover {
+    height: clamp(180px, 20vw, 360px);
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(2,6,23,0.6);
+    display: grid; place-items: center;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+  .zone-cover img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain; object-position: center; display: block;
+  }
+
+  .zone-title { color: #e2e8f0; font-size: 0.95rem; font-weight: 700; }
+  .zone-desc  { color: #94a3b8; font-size: 0.85rem; line-height: 1.25; }
+  .zone-cap   { color: #a7f3d0; font-size: 0.86rem; line-height: 1.25; }
+
+  @media (max-width: 800px) {
+    .zones-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
+    .zone-cover { height: 180px; padding: 8px; }
+    .zone-card { padding: 0.6rem; border-radius: 12px; }
+    .zone-title { font-size: 0.88rem; }
+    .zone-desc { font-size: 0.78rem; }
+    .zone-cap { font-size: 0.8rem; }
+  }
+
+  @media (max-width: 480px) {
+    .zones-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.5rem; }
+    .zone-cover { height: 150px; padding: 6px; }
+    .zone-card { padding: 0.5rem; }
+    .zone-title { font-size: 0.82rem; }
+    .zone-desc { font-size: 0.72rem; }
+    .zone-cap { font-size: 0.75rem; }
+  }
+</style>

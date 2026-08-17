@@ -13,6 +13,19 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   prefetch: true,
+  // i18n (Батч 11): RU остаётся канонической версией без префикса в URL,
+  // остальные 8 локалей Kobojo живут под /en /es /fr /de /pt /it /tr /nl.
+  // Язык первого визита определяет middleware.ts (Accept-Language), дальше —
+  // переключатель в шапке. Список путей, реально переведённых на каждую
+  // локаль (сейчас Главная + /mutants), — единый источник в src/lib/i18n.ts
+  // (TRANSLATED_PATHS), читается и middleware, и BaseLayout, и переключателем.
+  i18n: {
+    defaultLocale: 'ru',
+    locales: ['ru', 'en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   // Старые тир-адреса каталога мутантов: страницы удалены, фильтрация по звёздам
   // живёт внутри /mutants. Редиректы сохраняют внешние ссылки/закладки.
   redirects: {
@@ -31,7 +44,23 @@ export default defineConfig({
   integrations: [
     svelte(),
     // Карта сайта из всех prerender-страниц; служебные не включаем
-    sitemap({ filter: (page) => !page.includes('/panel-render') }),
+    sitemap({
+      filter: (page) => !page.includes('/panel-render'),
+      i18n: {
+        defaultLocale: 'ru',
+        locales: {
+          ru: 'ru',
+          en: 'en',
+          es: 'es',
+          fr: 'fr',
+          de: 'de',
+          pt: 'pt',
+          it: 'it',
+          tr: 'tr',
+          nl: 'nl',
+        },
+      },
+    }),
   ],
 
   vite: {

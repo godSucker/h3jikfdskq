@@ -1,0 +1,39 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { textureUrl } from '@/lib/texture-cdn';
+import TopMutantsBrowser from '@/components/toplists/TopMutantsBrowser.svelte';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
+---
+
+<BaseLayout
+  title={t('topMutants.pageTitle', locale)}
+  description={t('topMutants.pageDescription', locale)}
+  canonical="https://archivist-library.com/top-mutants"
+>
+  <section class="intro">
+    <div class="intro-header">
+      <img class="intro-icon" src={textureUrl('/etc/icon_atk.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <h1>{t('topMutants.pageTitle', locale)}</h1>
+    </div>
+    <p>
+      {t('topMutants.subtitle', locale)}
+    </p>
+  </section>
+
+  <TopMutantsBrowser client:load locale={locale} names={names} />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
+</BaseLayout>
+
+<style>
+  .intro { margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .intro-header { display: flex; align-items: center; gap: 0.75rem; }
+  .intro-icon { width: 40px; height: 40px; filter: drop-shadow(0 4px 16px rgba(96, 165, 250, 0.4)); }
+  .intro h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; text-shadow: 0 3px 10px rgba(96, 165, 250, 0.4); }
+  .intro p { margin: 0.35rem 0 0; color: #94a3b8; font-size: 0.9rem; max-width: 640px; }
+</style>

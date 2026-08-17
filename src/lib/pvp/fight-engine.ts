@@ -11,6 +11,7 @@ import { computeTurnQueue } from './turn-order'
 import { chooseBestAttack } from './ai'
 import { applyAttack } from './resolve-attack'
 import { tickSlash } from './abilities'
+import { t, type Locale } from '@/lib/i18n'
 
 export type FighterMode = 'manual' | 'ai'
 
@@ -74,6 +75,7 @@ export class BattleSession {
   private myMode: FighterMode
   private enemyMode: FighterMode
   private rng: () => number
+  private locale: Locale
   private queue: CombatUnit[] = []
   private queuePos = 0
   private turnNumber = 0
@@ -85,11 +87,13 @@ export class BattleSession {
     myMode: FighterMode,
     enemyMode: FighterMode,
     rng: () => number = Math.random,
+    locale: Locale = 'ru',
   ) {
     this.units = [...myTeam, ...enemyTeam]
     this.myMode = myMode
     this.enemyMode = enemyMode
     this.rng = rng
+    this.locale = locale
   }
 
   private modeFor(unit: CombatUnit): FighterMode {
@@ -267,11 +271,23 @@ export class BattleSession {
 
     // Разбивка вида "база 10000 × крит2 × тип+25% + бафф+40%" - только реально
     // сработавшие множители (не захламляем строку "×1"/"+0%" когда они нейтральны).
+    const loc = this.locale
     function breakdown(h: BattleStepHit): string {
-      const parts: string[] = [`база ${h.baseDamage}`]
-      if (h.crit) parts.push('×2 крит')
-      if (h.typeModPct) parts.push(`${h.typeModPct > 0 ? '+' : ''}${h.typeModPct}% тип`)
-      if (h.buffPct) parts.push(`${h.buffPct > 0 ? '+' : ''}${h.buffPct}% бафф (+${h.buffDamage})`)
+      const parts: string[] = [t('pvp.log.base', loc).replace('{n}', String(h.baseDamage))]
+      if (h.crit) parts.push(t('pvp.log.critMultiplier', loc))
+      if (h.typeModPct)
+        parts.push(
+          t('pvp.log.typeMod', loc)
+            .replace('{sign}', h.typeModPct > 0 ? '+' : '')
+            .replace('{pct}', String(h.typeModPct)),
+        )
+      if (h.buffPct)
+        parts.push(
+          t('pvp.log.buffMod', loc)
+            .replace('{sign}', h.buffPct > 0 ? '+' : '')
+            .replace('{pct}', String(h.buffPct))
+            .replace('{dmg}', String(h.buffDamage)),
+        )
       return parts.length > 1 ? ` [${parts.join(', ')}]` : ''
     }
 
@@ -287,22 +303,43 @@ export class BattleSession {
     // "(союзник)" - у unit'а тут в принципе нет союзников, слово вводило в заблуждение.
     function sideTag(otherName: string): string {
       if (otherName !== unit.name) return ''
-      return unit.side === 'mine' ? ' (враг)' : ' (моя команда)'
+      return unit.side === 'mine' ? t('pvp.log.enemyTag', loc) : t('pvp.log.mineTag', loc)
     }
+    const shieldSuffix = (n: number) =>
+      n ? t('pvp.log.shieldAbsorbed', loc).replace('{n}', String(n)) : ''
+    const diedSuffix = (died: boolean) => (died ? t('pvp.log.died', loc) : '')
 
     const turnLines: string[] = []
     for (const h of hits) {
       turnLines.push(
-        `${unit.name} → ${h.targetName}${sideTag(h.targetName)}: ${h.damage}${breakdown(h)}${h.shieldAbsorbed ? ` (щит поглотил ${h.shieldAbsorbed})` : ''}${h.died ? ' — убит' : ''}`,
+        t('pvp.log.hit', loc)
+          .replace('{attacker}', unit.name)
+          .replace('{target}', h.targetName)
+          .replace('{tag}', sideTag(h.targetName))
+          .replace('{damage}', String(h.damage))
+          .replace('{breakdown}', breakdown(h))
+          .replace('{shield}', shieldSuffix(h.shieldAbsorbed))
+          .replace('{died}', diedSuffix(h.died)),
       )
     }
     for (const r of retaliateHits) {
       turnLines.push(
-        `${r.targetName}${sideTag(r.targetName)} контратакует ${unit.name}: ${r.damage}${r.shieldAbsorbed ? ` (щит поглотил ${r.shieldAbsorbed})` : ''}${r.died ? ' — убит' : ''}`,
+        t('pvp.log.retaliate', loc)
+          .replace('{target}', r.targetName)
+          .replace('{tag}', sideTag(r.targetName))
+          .replace('{attacker}', unit.name)
+          .replace('{damage}', String(r.damage))
+          .replace('{shield}', shieldSuffix(r.shieldAbsorbed))
+          .replace('{died}', diedSuffix(r.died)),
       )
     }
     if (slashTick > 0) {
-      turnLines.push(`${unit.name}: разрез ${slashTick}${slashTickDied ? ' — убит' : ''}`)
+      turnLines.push(
+        t('pvp.log.slashTick', loc)
+          .replace('{attacker}', unit.name)
+          .replace('{n}', String(slashTick))
+          .replace('{died}', diedSuffix(slashTickDied)),
+      )
     }
     this.turnLog.push({
       turnNumber: this.turnNumber,
@@ -332,6 +369,7 @@ export function createBattleSession(
   myMode: FighterMode,
   enemyMode: FighterMode,
   rng: () => number = Math.random,
+  locale: Locale = 'ru',
 ): BattleSession {
-  return new BattleSession(myTeam, enemyTeam, myMode, enemyMode, rng)
+  return new BattleSession(myTeam, enemyTeam, myMode, enemyMode, rng, locale)
 }

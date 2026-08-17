@@ -72,3 +72,8 @@ settings.json
 
 # Playwright MCP test artifacts
 .playwright-mcp/
+.vercel
+.env*
+
+# scripts/i18n-sweep.mjs output (regenerated per run, not source data)
+scripts/i18n-sweep-report.json

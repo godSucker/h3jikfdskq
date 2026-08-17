@@ -9,6 +9,13 @@
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { textureUrl } from '@/lib/texture-cdn';
   import { getGeneIcon as getGeneIconPath, getTypeIcon as getTypeIconPath } from '@/lib/mutant-icons';
+  import { t, type Locale } from '@/lib/i18n';
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n';
+
+  let {
+    locale = 'ru' as Locale,
+    names = {},
+  }: { locale?: Locale; names?: Record<string, MutantNameEntry> } = $props();
 
   // --- DATA ---
   const allMutants: Mutant[] = (mutantsAll as any[]).map((m: any) => ({
@@ -26,7 +33,7 @@
   const secretNames = new Set(secretCombos.map(s => normalize(s.childName)));
 
   // --- HELPERS ---
-  const getName = (m: Mutant) => m.name || m.id;
+  const getName = (m: Mutant) => names[m.id]?.name || m.name || m.id;
 
   function getImageSrc(m: Mutant): string {
     const img = m.image;
@@ -49,23 +56,28 @@
 
   function formatTime(seconds: number): string {
     if (!seconds || seconds <= 0) return '-';
+    const hUnit = t('breeding.unit.hour', locale);
+    const mUnit = t('breeding.unit.minute', locale);
+    const sUnit = t('breeding.unit.second', locale);
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
     const parts: string[] = [];
-    if (h > 0) parts.push(`${h}ч`);
-    if (m > 0) parts.push(`${m}м`);
-    if (s > 0 && h === 0) parts.push(`${s}с`);
+    if (h > 0) parts.push(`${h}${hUnit}`);
+    if (m > 0) parts.push(`${m}${mUnit}`);
+    if (s > 0 && h === 0) parts.push(`${s}${sUnit}`);
     return parts.join(' ') || '-';
   }
 
   function formatMinutes(minutes: number): string {
     if (!minutes || minutes <= 0) return '-';
+    const hUnit = t('breeding.unit.hour', locale);
+    const mUnit = t('breeding.unit.minute', locale);
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
-    if (h > 0 && m > 0) return `${h}ч ${m}м`;
-    if (h > 0) return `${h}ч`;
-    return `${m}м`;
+    if (h > 0 && m > 0) return `${h}${hUnit} ${m}${mUnit}`;
+    if (h > 0) return `${h}${hUnit}`;
+    return `${m}${mUnit}`;
   }
 
   // Star timer multiplier: same as in breeding.ts
@@ -81,6 +93,15 @@
   function getGeneCode(mutant: Mutant): string {
     const g = Array.isArray(mutant.genes) ? mutant.genes.join('') : (mutant.genes || '');
     return g.toUpperCase();
+  }
+
+  // getBreedingTag()/платиновый фьюжн (breeding.ts, LOCKED-секция) отдают
+  // тег как RU-литерал ('КОПИЯ'/'ПЛАТИНА') - переводим только на слое
+  // отображения, саму логику не трогаем.
+  function breedingTagLabel(tag: string): string {
+    if (tag === 'КОПИЯ') return t('breeding.results.copyTag', locale);
+    if (tag === 'ПЛАТИНА') return t('breeding.results.platinumTag', locale);
+    return tag;
   }
 
   function formatProb(prob: number): string {
@@ -106,22 +127,23 @@
   let resultStar: StarLevel = $state(0);
   let showStarDropdown = $state(false);
 
-  const starNames: Record<StarLevel, string> = {
-    0: 'Без звезды',
-    1: 'Бронзовая',
-    2: 'Серебряная',
-    3: 'Золотая',
-    4: 'Платиновая',
-  };
+  const starNames: Record<StarLevel, string> = $derived({
+    0: t('breeding.star.none', locale),
+    1: t('breeding.star.bronze', locale),
+    2: t('breeding.star.silver', locale),
+    3: t('breeding.star.gold', locale),
+    4: t('breeding.star.platinum', locale),
+  });
 
-  // Declined forms for error messages
-  const starNamesAcc: Record<StarLevel, string> = {
+  // Declined forms for error messages (RU needs the accusative case; other
+  // locales reuse the nominative form since they don't decline nouns here).
+  const starNamesAcc: Record<StarLevel, string> = $derived({
     0: '',
-    1: 'бронзовую',
-    2: 'серебряную',
-    3: 'золотую',
-    4: 'платиновую',
-  };
+    1: t('breeding.star.acc.bronze', locale),
+    2: t('breeding.star.acc.silver', locale),
+    3: t('breeding.star.acc.gold', locale),
+    4: t('breeding.star.acc.platinum', locale),
+  });
 
   const starIcons: Record<StarLevel, string> = {
     0: '/stars/no_stars.webp',
@@ -152,24 +174,24 @@
         return;
       }
       if (p1.id !== p2.id) {
-        notify('Платиновая звезда доступна только при скрещивании двух одинаковых мутантов');
+        notify(t('breeding.notify.platinumSameOnly', locale));
         showStarDropdown = false;
         return;
       }
       if (!hasStarUpgrades(p1)) {
-        notify(`Скрещивание в платиновую звезду невозможно: ${getName(p1)} не имеет звёзд`);
+        notify(t('breeding.notify.platinumNoStars', locale).replace('{name}', getName(p1)));
         showStarDropdown = false;
         return;
       }
     } else if (star > 1) {
       // Silver / Gold: parents must have star upgrades
       if (p1 && !hasStarUpgrades(p1)) {
-        notify(`Скрещивание в ${starNamesAcc[star]} звезду невозможно: ${getName(p1)} не имеет звёзд`);
+        notify(t('breeding.notify.starNoStars', locale).replace('{star}', starNamesAcc[star]).replace('{name}', getName(p1)));
         showStarDropdown = false;
         return;
       }
       if (p2 && !hasStarUpgrades(p2)) {
-        notify(`Скрещивание в ${starNamesAcc[star]} звезду невозможно: ${getName(p2)} не имеет звёзд`);
+        notify(t('breeding.notify.starNoStars', locale).replace('{star}', starNamesAcc[star]).replace('{name}', getName(p2)));
         showStarDropdown = false;
         return;
       }
@@ -423,10 +445,10 @@
 
       <div class="mode-switch-desktop">
          <button class="mode-btn {mode==='calc' ? 'active' : ''}" onclick={() => {mode='calc'; target=null}}>
-             Центр скрещиваний
+             {t('breeding.mode.calc', locale)}
          </button>
          <button class="mode-btn {mode==='reverse' ? 'active' : ''}" onclick={() => {mode='reverse'; p1=null; p2=null}}>
-             Справочник
+             {t('breeding.mode.reference', locale)}
          </button>
       </div>
 
@@ -439,7 +461,7 @@
               p1 = null; p2 = null;
           }
       }}>
-          {mode === 'calc' ? 'Справочник' : 'Центр скрещиваний ➜'}
+          {mode === 'calc' ? t('breeding.mode.reference', locale) : t('breeding.mode.switchToCalc', locale)}
       </button>
     </div>
 
@@ -448,7 +470,7 @@
             <div class="calc-container" in:fly={{y:20, duration:400}}>
                 <!-- BUILDING LEVEL SELECTOR -->
                 <div class="building-level-bar">
-                    <span class="building-label">Уровень центра скрещиваний:</span>
+                    <span class="building-label">{t('breeding.buildingLevel.label', locale)}</span>
                     <div class="building-level-btns">
                         {#each [1, 2, 3] as lvl}
                             <button
@@ -471,7 +493,7 @@
                                 <div class="remove-icon">✕</div>
                             {:else}
                                  <div class="plus">+</div>
-                                 <span class="label">Нажмите для выбора</span>
+                                 <span class="label">{t('breeding.slot.selectPrompt', locale)}</span>
                             {/if}
                         </button>
                         {#if p1}
@@ -486,7 +508,7 @@
                     <!-- STAR SELECTOR BETWEEN MUTANTS -->
                     <div class="cross-area">
                         <div class="star-dropdown-wrapper">
-                            <button class="star-dropdown-trigger" onclick={(e) => { e.stopPropagation(); toggleStarDropdown(); }} title="Выберите итоговую звезду">
+                            <button class="star-dropdown-trigger" onclick={(e) => { e.stopPropagation(); toggleStarDropdown(); }} title={t('breeding.star.selectTitle', locale)}>
                                 <img src={textureUrl(starIcons[resultStar])} alt={starNames[resultStar]} class="star-between-icon" />
                             </button>
                             {#if showStarDropdown}
@@ -500,7 +522,7 @@
                                             <img src={textureUrl(starIcons[star])} alt={starNames[star]} class="star-option-icon" />
                                             <span class="star-option-name">{starNames[star]}</span>
                                             {#if minLvl > 0}
-                                                <span class="star-option-level">ур.{minLvl}</span>
+                                                <span class="star-option-level">{t('breeding.star.level', locale).replace('{n}', String(minLvl))}</span>
                                             {/if}
                                         </button>
                                     {/each}
@@ -518,7 +540,7 @@
                                 <div class="remove-icon">✕</div>
                             {:else}
                                  <div class="plus">+</div>
-                                 <span class="label">Нажмите для выбора</span>
+                                 <span class="label">{t('breeding.slot.selectPrompt', locale)}</span>
                             {/if}
                         </button>
                         {#if p2}
@@ -534,7 +556,7 @@
                 <!-- BREEDING TIME (below parents) -->
                 {#if p1 && p2}
                     <div class="breeding-time-summary" in:fade>
-                        <span class="time-label">Время скрещивания:</span>
+                        <span class="time-label">{t('breeding.time.label', locale)}</span>
                         <span class="time-icon">⏱</span>
                         <span class="time-value">{formatTime(calculateDuration(p1, p2, buildingLevel, resultStar, resultStar))}</span>
                     </div>
@@ -545,7 +567,7 @@
                     <div class="results-area" in:slide>
                         {#if calcResults.length > 0}
                             <div class="results-header">
-                                <span>Возможные варианты разведения: <strong class="text-lime-400">{calcResults.length}</strong></span>
+                                <span>{t('breeding.results.count', locale)} <strong class="text-lime-400">{calcResults.length}</strong></span>
                             </div>
 
                             <div class="results-list">
@@ -553,7 +575,7 @@
                                     <div class="result-card" style="animation-delay: {i * 50}ms">
                                         <div class="card-left">
                                             <div class="mutant-thumb">
-                                                <img src={textureUrl(getImageSrc(res.child))} alt="Результат скрещивания"/>
+                                                <img src={textureUrl(getImageSrc(res.child))} alt={t('breeding.results.childAlt', locale)}/>
                                             </div>
                                         </div>
                                         <div class="card-info">
@@ -569,10 +591,10 @@
                                                 <span class="prob-badge">{formatProb(res.probability)}</span>
                                                 <span class="time">⏱ {formatMinutes(getIncubTime(res.child, resultStar))}</span>
                                                 {#if res.isSecret || secretNames.has(normalize(getName(res.child)))}
-                                                    <span class="secret-tag">★ Секрет</span>
+                                                    <span class="secret-tag">{t('breeding.results.secretTag', locale)}</span>
                                                 {/if}
                                                 {#if res.tag && res.tag !== 'ВОЗМОЖНО' && res.tag !== 'РЕЦЕПТ'}
-                                                    <span class="info-tag">{res.tag}</span>
+                                                    <span class="info-tag">{breedingTagLabel(res.tag)}</span>
                                                 {/if}
                                             </div>
                                         </div>
@@ -581,14 +603,14 @@
                             </div>
                         {:else}
                             <div class="empty-state">
-                                Нет известных комбинаций для этих родителей.
+                                {t('breeding.results.empty', locale)}
                             </div>
                         {/if}
                     </div>
                 {:else}
                     <div class="instruction">
                         <div class="icon">👆</div>
-                        <p>Нажмите на слот выше, чтобы выбрать мутанта из Базы ДНК (справа на ПК / снизу на моб.)</p>
+                        <p>{t('breeding.instruction.calc', locale)}</p>
                     </div>
                 {/if}
             </div>
@@ -611,7 +633,7 @@
                                  </div>
                                  <h2>{getName(target)}</h2>
                                   <button class="reset-btn" onclick={() => { target = null; guideResults = []; }}>
-                                     ✕ Сбросить
+                                     {t('breeding.reverse.resetBtn', locale)}
                                  </button>
                              </div>
                          </div>
@@ -620,7 +642,7 @@
                      <!-- BUILDING LEVEL + STAR SELECTORS -->
                      <div class="reverse-settings">
                          <div class="building-level-bar">
-                             <span class="building-label">Уровень центра:</span>
+                             <span class="building-label">{t('breeding.buildingLevel.labelShort', locale)}</span>
                              <div class="building-level-btns">
                                  {#each [1, 2, 3] as lvl}
                                      <button
@@ -633,7 +655,7 @@
                              </div>
                          </div>
                          <div class="reverse-star-bar">
-                             <span class="building-label">Звезда мутанта:</span>
+                             <span class="building-label">{t('breeding.reverse.starLabel', locale)}</span>
                              <div class="building-level-btns">
                                  {#each [0, 1, 2, 3, 4] as star}
                                      <button
@@ -651,25 +673,25 @@
                      {#if isSearching}
                          <div class="loading">
                              <div class="spinner"></div>
-                             Поиск пар...
+                             {t('breeding.reverse.loading', locale)}
                          </div>
                       {:else if guideResults.length > 0}
                           <div class="results-area">
                               <div class="results-header">
-                                  <span>{allSecrets ? 'Существующие рецепты' : 'Найденные пары'}: <strong class="text-lime-400">{tabCount()}</strong></span>
+                                  <span>{allSecrets ? t('breeding.reverse.existingRecipes', locale) : t('breeding.reverse.foundPairs', locale)}: <strong class="text-lime-400">{tabCount()}</strong></span>
                                   {#if !allSecrets}
                                   <div class="sort-controls">
                                       <button class="sort-btn rec-btn {sortField === 'recommended' ? 'active' : ''}" onclick={() => toggleSort('recommended')}>
-                                          Рекомендуемое
+                                          {t('breeding.sort.recommended', locale)}
                                       </button>
                                       <button class="sort-btn easy-btn {easyMode ? 'active' : ''}" onclick={toggleEasyMode}>
-                                          Доступные мутанты
+                                          {t('breeding.sort.easyMode', locale)}
                                       </button>
                                       <button class="sort-btn {sortField === 'duration' ? 'active' : ''}" onclick={() => toggleSort('duration')}>
-                                          Время {sortField === 'duration' ? (sortAsc ? '↑' : '↓') : ''}
+                                          {t('breeding.sort.time', locale)} {sortField === 'duration' ? (sortAsc ? '↑' : '↓') : ''}
                                       </button>
                                       <button class="sort-btn {sortField === 'probability' ? 'active' : ''}" onclick={() => toggleSort('probability')}>
-                                          Шанс {sortField === 'probability' ? (sortAsc ? '↑' : '↓') : ''}
+                                          {t('breeding.sort.probability', locale)} {sortField === 'probability' ? (sortAsc ? '↑' : '↓') : ''}
                                       </button>
                                   </div>
                                   {/if}
@@ -722,24 +744,24 @@
                               </div>
                               {#if !allSecrets && tabCount() > TOP_N && !showAll}
                                   <button class="show-all-btn" onclick={() => showAll = true}>
-                                      Показать больше ({tabCount()})
+                                      {t('breeding.showMore', locale).replace('{n}', String(tabCount()))}
                                   </button>
                               {/if}
                          </div>
                      {:else}
                          <div class="empty-search">
                              <div class="icon">🔍</div>
-                             <p>Пары не найдены</p>
+                             <p>{t('breeding.reverse.emptySearch', locale)}</p>
                          </div>
                      {/if}
                  {:else}
                      <!-- INSTRUCTIONS -->
                      <div class="instruction">
                          <button class="mobile-select-btn" onclick={() => { mobileTab = 'list'; }}>
-                             📋 Выбрать мутанта из списка
+                             {t('breeding.reverse.mobileSelectBtn', locale)}
                          </button>
                          <div class="icon">🔬</div>
-                         <p>Выберите мутанта из списка, чтобы найти все пары родителей, которые его дают</p>
+                         <p>{t('breeding.reverse.instruction', locale)}</p>
                      </div>
                  {/if}
              </div>
@@ -751,14 +773,14 @@
   <div class="panel list-panel {mobileTab === 'list' ? 'active' : ''}">
       <div class="list-header">
           <div class="search-box">
-              <input id="breeding-search" name="breeding-search" type="text" bind:value={search} placeholder="Поиск мутанта..." />
+              <input id="breeding-search" name="breeding-search" type="text" bind:value={search} placeholder={t('breeding.search.placeholder', locale)} />
               <span class="icon">🔍</span>
           </div>
 
           <div class="filters">
               <div class="gene-line">
                   <button class="filter-chip {filterGene==='all' ? 'active' : ''}" onclick={() => filterGene='all'}>
-                      <span>Ген 1: ВСЕ</span>
+                      <span>{t('breeding.gene1.all', locale)}</span>
                   </button>
                   {#each ['A','B','C','D','E','F'] as g}
                       <button class="filter-chip gene-chip {filterGene===g ? 'active' : ''}" onclick={() => filterGene=g}>
@@ -768,10 +790,10 @@
               </div>
               <div class="gene-line" class:disabled={filterGene==='all'}>
                   <button class="filter-chip {filterGene2==='all' ? 'active' : ''}" disabled={filterGene==='all'} onclick={() => filterGene2='all'}>
-                      <span>Ген 2: ВСЕ</span>
+                      <span>{t('breeding.gene2.all', locale)}</span>
                   </button>
                   <button class="filter-chip gene-chip {filterGene2==='neutral' ? 'active' : ''}" disabled={filterGene==='all'} onclick={() => filterGene2='neutral'}>
-                      <img src={textureUrl("/genes/gene_all.webp")} alt="Нейтральный"/>
+                      <img src={textureUrl("/genes/gene_all.webp")} alt={t('breeding.gene.neutralAlt', locale)}/>
                   </button>
                   {#each ['A','B','C','D','E','F'] as g}
                       <button class="filter-chip gene-chip {filterGene2===g ? 'active' : ''}" disabled={filterGene==='all'} onclick={() => filterGene2=g}>
@@ -782,7 +804,7 @@
 
                <button class="filter-chip secret-chip {filterGene==='recipe' ? 'active' : ''}" onclick={() => filterGene='recipe'}>
                    <span class="star">★</span>
-                   <span>Секреты</span>
+                   <span>{t('breeding.filter.secrets', locale)}</span>
                </button>
           </div>
       </div>
@@ -791,7 +813,7 @@
            {#each filteredList as m (m.id + m.name)}
                 <button class="grid-item" onclick={() => handleCardClick(m)} title={getName(m)}>
                     <div class="card-badges">
-                        <img src={textureUrl(getTypeIcon(m))} alt="Значок типа мутанта" class="type-icon" />
+                        <img src={textureUrl(getTypeIcon(m))} alt={t('breeding.typeIconAlt', locale)} class="type-icon" />
                         <div class="gene-icons">
                             {#each (Array.isArray(m.genes) ? m.genes : [m.genes]) as g}
                                 <img src={textureUrl(getGeneIcon(g))} alt={g} class="gene-icon" />
@@ -799,7 +821,7 @@
                         </div>
                     </div>
                     <div class="img-wrapper">
-                        <img class="mutant-texture" loading="lazy" src={getImageSrc(m)} alt="Текстура мутанта" onerror={(e) => (e.currentTarget as HTMLImageElement).src = textureUrl('/preview.jpg')}/>
+                        <img class="mutant-texture" loading="lazy" src={getImageSrc(m)} alt={t('breeding.textureAlt', locale)} onerror={(e) => (e.currentTarget as HTMLImageElement).src = textureUrl('/preview.jpg')}/>
                     </div>
                     <div class="item-info-row">
                         <div class="item-name">{getName(m)}</div>
@@ -814,12 +836,12 @@
   <nav class="mobile-nav">
        <button class="nav-item {mobileTab==='lab' ? 'active' : ''}" onclick={() => mobileTab = 'lab'}>
            <span class="icon">{mode==='calc' ? '🧬' : '🔬'}</span>
-           <span class="label">Лаборатория</span>
+           <span class="label">{t('breeding.nav.lab', locale)}</span>
        </button>
        <div class="divider"></div>
        <button class="nav-item {mobileTab==='list' ? 'active' : ''}" onclick={() => mobileTab = 'list'}>
            <span class="icon">📋</span>
-           <span class="label">База ДНК</span>
+           <span class="label">{t('breeding.nav.dnaBase', locale)}</span>
        </button>
   </nav>
 
@@ -836,13 +858,11 @@
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div class="easy-modal-overlay" onclick={(e) => { if (e.target === e.currentTarget) easyModalOpen = false; }} in:fade={{duration: 150}} out:fade={{duration: 150}}>
-    <div class="easy-modal-panel" role="dialog" aria-modal="true" aria-label="Доступные мутанты">
+    <div class="easy-modal-panel" role="dialog" aria-modal="true" aria-label={t('breeding.sort.easyMode', locale)}>
       <p>
-        Этот фильтр отображает варианты только с легкодоступными мутантами (начальные + выводимые
-        легендарки). Данный фильтр подойдет только для игроков на ранней прогрессии и может содержать
-        не самые оптимальные варианты для скрещивания.
+        {t('breeding.easyMode.description', locale)}
       </p>
-      <button class="easy-modal-ok" onclick={() => easyModalOpen = false}>Понятно</button>
+      <button class="easy-modal-ok" onclick={() => easyModalOpen = false}>{t('breeding.easyMode.ok', locale)}</button>
     </div>
   </div>
 {/if}

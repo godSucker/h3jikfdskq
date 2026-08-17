@@ -1,8 +1,92 @@
 <script lang="ts">
   import { textureUrl } from '@/lib/texture-cdn';
+  import { t, type Locale } from '@/lib/i18n';
 
-  const teamMembers = [
+  let { locale = 'ru' as Locale }: { locale?: Locale } = $props();
+
+  // Личные био команды - авторский неигровой контент (без официального
+  // источника). По решению пользователя (2026-08-15) переведён через LLM,
+  // с сохранением тона по возможности - в отличие от игровых данных, где
+  // LLM-перевод/имена запрещены правилом проекта (см. память
+  // feedback-no-llm-authored-names). Имена/ники людей НЕ переводятся ни в
+  // одном языке.
+  interface TeamI18nEntry {
+    role: string;
+    desc: string;
+  }
+  const TEAM_I18N: Record<string, Partial<Record<Locale, TeamI18nEntry>>> = {
+    garan: {
+      en: { role: 'Founder & Lead Developer', desc: "Every bug on the site is on his conscience (he has none). For bug reports, suggestions and wishes, reach out on Telegram." },
+      es: { role: 'Fundador y desarrollador principal', desc: 'Cada bug del sitio pesa sobre su conciencia (no tiene). Para bugs encontrados, sugerencias y deseos, escribe por Telegram.' },
+      fr: { role: 'Fondateur et développeur principal', desc: "Chaque bug du site pèse sur sa conscience (il n'en a pas). Pour les bugs trouvés, suggestions et souhaits, contactez-le sur Telegram." },
+      de: { role: 'Gründer & Lead-Entwickler', desc: 'Jeder Bug auf der Seite liegt auf seinem Gewissen (das er nicht hat). Bei gefundenen Bugs, Vorschlägen und Wünschen bitte über Telegram melden.' },
+      pt: { role: 'Fundador e desenvolvedor principal', desc: 'Cada bug do site pesa na consciência dele (que ele não tem). Para bugs encontrados, sugestões e pedidos, fale no Telegram.' },
+      it: { role: 'Fondatore e sviluppatore principale', desc: 'Ogni bug del sito pesa sulla sua coscienza (che non ha). Per bug trovati, suggerimenti e richieste, scrivi su Telegram.' },
+      tr: { role: 'Kurucu ve Baş Geliştirici', desc: "Sitedeki her hata onun vicdanında (ki yoktur). Bulduğunuz hatalar, öneriler ve istekler için Telegram'dan ulaşın." },
+      nl: { role: 'Oprichter & Lead Developer', desc: 'Elke bug op de site drukt op zijn geweten (dat hij niet heeft). Voor gevonden bugs, suggesties en wensen, neem contact op via Telegram.' },
+    },
+    donutsafe: {
+      en: { role: 'Sponsor & Keeper of the Project', desc: 'A true archivist of information and a generator of ideas, helped at every stage of development, and also funds in-game purchases in games (MGG, Genshin, etc.)' },
+      es: { role: 'Patrocinador y guardián del proyecto', desc: 'Un verdadero archivista de la información y generador de ideas, ayudó en cada etapa del desarrollo y también invierte en compras dentro de los juegos (MGG, Genshin, etc.)' },
+      fr: { role: 'Sponsor et gardien du projet', desc: "Un véritable archiviste de l'information et générateur d'idées, il a aidé à chaque étape du développement et finance aussi des achats in-game (MGG, Genshin, etc.)" },
+      de: { role: 'Sponsor & Hüter des Projekts', desc: 'Ein echter Archivar des Wissens und Ideengeber, half in jeder Entwicklungsphase und finanziert außerdem In-Game-Käufe in Spielen (MGG, Genshin usw.)' },
+      pt: { role: 'Patrocinador e guardião do projeto', desc: 'Um verdadeiro arquivista de informações e gerador de ideias, ajudou em cada etapa do desenvolvimento e também investe em compras dentro de jogos (MGG, Genshin etc.)' },
+      it: { role: 'Sponsor e custode del progetto', desc: "Un vero archivista dell'informazione e generatore di idee, ha aiutato in ogni fase dello sviluppo e finanzia anche acquisti in-game (MGG, Genshin, ecc.)" },
+      tr: { role: 'Sponsor ve Projenin Bekçisi', desc: 'Gerçek bir bilgi arşivcisi ve fikir üreticisi, gelişimin her aşamasında yardımcı oldu, ayrıca oyunlarda (MGG, Genshin vb.) harcama yapıyor.' },
+      nl: { role: 'Sponsor & Hoeder van het project', desc: 'Een ware archivaris van informatie en ideeëngenerator, hielp bij elke fase van de ontwikkeling en steekt ook geld in in-game aankopen (MGG, Genshin, etc.)' },
+    },
+    imashio: {
+      en: { role: 'Developer of the Base Simulator Versions', desc: 'Helped develop every simulator on this site and an incredible hard worker.' },
+      es: { role: 'Desarrollador de las versiones base de los simuladores', desc: 'Ayudó a desarrollar cada simulador de este sitio y es un trabajador increíble.' },
+      fr: { role: 'Développeur des versions de base des simulateurs', desc: "A aidé à développer chaque simulateur de ce site et c'est un travailleur incroyable." },
+      de: { role: 'Entwickler der Basisversionen der Simulatoren', desc: 'Half bei der Entwicklung jedes Simulators auf dieser Seite und ist ein unglaublicher Arbeiter.' },
+      pt: { role: 'Desenvolvedor das versões base dos simuladores', desc: 'Ajudou a desenvolver cada simulador deste site e é um trabalhador incrível.' },
+      it: { role: 'Sviluppatore delle versioni base dei simulatori', desc: 'Ha aiutato a sviluppare ogni simulatore di questo sito ed è un lavoratore incredibile.' },
+      tr: { role: 'Simülatörlerin Temel Sürümlerinin Geliştiricisi', desc: 'Bu sitedeki her simülatörün geliştirilmesine yardımcı oldu ve inanılmaz bir çalışkan.' },
+      nl: { role: 'Ontwikkelaar van de basisversies van de simulators', desc: 'Hielp bij de ontwikkeling van elke simulator op deze site en is een ongelooflijke harde werker.' },
+    },
+    meegee: {
+      en: { role: 'Contributor', desc: 'An incredible motivator and just a good person.' },
+      es: { role: 'Colaborador', desc: 'Un motivador increíble y simplemente una buena persona.' },
+      fr: { role: 'Contributeur', desc: "Un motivateur incroyable et tout simplement quelqu'un de bien." },
+      de: { role: 'Mitwirkender', desc: 'Ein unglaublicher Motivator und einfach ein guter Mensch.' },
+      pt: { role: 'Contribuidor', desc: 'Um motivador incrível e simplesmente uma boa pessoa.' },
+      it: { role: 'Collaboratore', desc: 'Un motivatore incredibile e semplicemente una brava persona.' },
+      tr: { role: 'Katkıda Bulunan', desc: 'İnanılmaz bir motivatör ve sadece iyi bir insan.' },
+      nl: { role: 'Bijdrager', desc: 'Een ongelooflijke motivator en gewoon een goed mens.' },
+    },
+    ctrlcv: {
+      en: { role: 'Contributor', desc: 'Hammered the keyboard into every crack between the keys just to get the site running as soon as possible.' },
+      es: { role: 'Colaborador', desc: 'Le dio tan duro al teclado que se metió hasta en las rendijas entre las teclas, todo para que el sitio arrancara lo antes posible.' },
+      fr: { role: 'Contributeur', desc: "A tapé sur le clavier si fort que ça s'est infiltré dans chaque interstice entre les touches, tout ça pour que le site démarre au plus vite." },
+      de: { role: 'Mitwirkender', desc: 'Hat so hart auf die Tastatur eingedroschen, dass es in jede Ritze zwischen den Tasten kam - alles, damit die Seite so schnell wie möglich an den Start ging.' },
+      pt: { role: 'Contribuidor', desc: 'Bateu tanto no teclado que entrou em cada frestinha entre as teclas, tudo para o site entrar no ar o quanto antes.' },
+      it: { role: 'Collaboratore', desc: 'Ha martellato la tastiera fino a farla entrare in ogni fessura tra i tasti, tutto pur di far partire il sito il prima possibile.' },
+      tr: { role: 'Katkıda Bulunan', desc: 'Site bir an önce çalışsın diye klavyeyi tuşların arasındaki her boşluğa girecek kadar dövdü.' },
+      nl: { role: 'Bijdrager', desc: 'Beukte zo hard op het toetsenbord dat het in elke kier tussen de toetsen kroop, allemaal om de site zo snel mogelijk aan de praat te krijgen.' },
+    },
+    egor: {
+      en: { role: 'One of the Lead Beta Testers', desc: 'Thoroughly tested the site inside and out, and just a great helper.' },
+      es: { role: 'Uno de los principales beta testers', desc: 'La persona que probó el sitio a fondo y, simplemente, un gran ayudante.' },
+      fr: { role: 'L’un des principaux bêta-testeurs', desc: 'La personne qui a testé le site de fond en comble, tout simplement un excellent assistant.' },
+      de: { role: 'Einer der führenden Beta-Tester', desc: 'Hat die Seite bis ins letzte Detail getestet und ist einfach ein großartiger Helfer.' },
+      pt: { role: 'Um dos principais beta testers', desc: 'A pessoa que testou o site minuciosamente e simplesmente um ótimo ajudante.' },
+      it: { role: 'Uno dei principali beta tester', desc: 'La persona che ha testato il sito a fondo e semplicemente un grande aiuto.' },
+      tr: { role: 'Başlıca Beta Test Uzmanlarından Biri', desc: 'Siteyi baştan sona titizlikle test eden ve sadece harika bir yardımcı.' },
+      nl: { role: 'Een van de belangrijkste bètatesters', desc: 'De persoon die de site grondig heeft getest en gewoon een geweldige hulp.' },
+    },
+  };
+
+  function localizeMember<T extends { id: string; role: string; desc: string }>(m: T): T {
+    if (locale === 'ru') return m;
+    const tr = TEAM_I18N[m.id]?.[locale];
+    if (!tr) return m;
+    return { ...m, role: tr.role, desc: tr.desc };
+  }
+
+  const teamMembersRaw = [
     {
+      id: "garan",
       name: "がらんの画眉丸",
       role: "Основатель & Главный разработчик",
       desc: "Каждый баг на сайте лежит на его совести(ее нет). По поводу найденных багов, предложений и пожеланий обращаться в телеграмм",
@@ -13,6 +97,7 @@
       ]
     },
     {
+      id: "donutsafe",
       name: "Евгений aka DonutSafe",
       role: "Спонсор и хранитель проекта",
       desc: "Настоящий архивариус информации и генератор идей, помогал на каждой стадии разработки, так же занимается донатом в игры(MGG, Genshin etc)",
@@ -24,6 +109,7 @@
       ]
     },
     {
+      id: "imashio",
       name: "imashio",
       role: "Разработчик базовых версий симуляторов",
       desc: "Помогал в разработке каждого симулятора на этом сайте и невероятный трудяга",
@@ -34,6 +120,7 @@
       ]
     },
     {
+      id: "meegee",
       name: "ミーギー",
       role: "Контрибьютор",
       desc: "Невероятный мотиватор и просто хороший человек",
@@ -44,6 +131,7 @@
       ]
     },
     {
+      id: "ctrlcv",
       name: "Ctrl+C Ctrl + V Master",
       role: "Контрибьютор",
       desc: "Оттарабанил клавиатуру во все щелочки между клавишами, чтобы работа сайта началась как можно скорее",
@@ -53,6 +141,7 @@
       ]
     },
     {
+      id: "egor",
       name: "Егор",
       role: "Один из ведущих бета-тестеров",
       desc: "Человек который досконально проверял сайт и просто хороший помощник ",
@@ -63,6 +152,11 @@
       ]
     },
   ];
+
+  const teamMembers = teamMembersRaw.map(localizeMember).map((m) => ({
+    ...m,
+    socials: m.socials.map((s) => (s.name === 'ВК' && locale !== 'ru' ? { ...s, name: 'VK' } : s)),
+  }));
 
   // Цвета для рангов (как в игре)
   const colors = {
@@ -86,9 +180,9 @@
 
 <div class="dev-container">
   <header class="hero">
-    <span class="badge">Команда проекта</span>
-    <h1>Архивариусы</h1>
-    <p>Люди, благодаря которым существует библиотека архивариуса.</p>
+    <span class="badge">{t('credits.badge', locale)}</span>
+    <h1>{t('credits.heading', locale)}</h1>
+    <p>{t('credits.subtitle', locale)}</p>
   </header>
 
   <div class="grid">

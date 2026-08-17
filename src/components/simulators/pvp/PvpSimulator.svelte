@@ -7,6 +7,11 @@
   import { createBattleSession, BattleSession, type FighterMode, type TurnChoice } from '@/lib/pvp/fight-engine'
   import { simulateBatch, type BatchResult } from '@/lib/pvp/simulate-batch'
   import { textureUrl } from '@/lib/texture-cdn'
+  import { t, type Locale } from '@/lib/i18n'
+  import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
+
+  let { locale = 'ru' as Locale, names = {} }: { locale?: Locale; names?: Record<string, MutantNameEntry> } =
+    $props()
 
   const FIRST_MUTANT_ID = (mutantsRaw as any[])[0]?.id ?? ''
 
@@ -122,6 +127,8 @@
         critCharmActive,
         anticritCharmActive,
         instanceId: `${side}-${i}`,
+        locale,
+        names,
       })
     )
     return disambiguateNames(units)
@@ -130,7 +137,7 @@
   function startFight() {
     const mine = buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm)
     const enemy = buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true)
-    session = createBattleSession(mine, enemy, myMode, enemyMode)
+    session = createBattleSession(mine, enemy, myMode, enemyMode, Math.random, locale)
     tick += 1
   }
 
@@ -187,48 +194,48 @@
 </script>
 
 <div class="max-w-6xl mx-auto p-4">
-  <h1 class="text-2xl md:text-3xl font-bold text-sky-100">Симулятор PvP-боя</h1>
+  <h1 class="text-2xl md:text-3xl font-bold text-sky-100">{t('simulatorsIndex.card.pvp.title', locale)}</h1>
   <p class="text-sky-200/80 mt-1">
-    Собери свою команду и команду оппонента (3×3), выбери кто ходит вручную, а кто — под ИИ, и прогони бой.
+    {t('pvp.intro', locale)}
   </p>
 
   {#if !session}
     <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class="space-y-3">
-        <TeamBuilder title="Моя команда" bind:slots={myTeam} />
+        <TeamBuilder title={t("pvp.team.mine", locale)} bind:slots={myTeam} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
-            Режим моей команды:
+            {t('pvp.mode.mine', locale)}
             <select bind:value={myMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1">
-              <option value="manual">Ручной</option>
-              <option value="ai">ИИ</option>
+              <option value="manual">{t('pvp.mode.manual', locale)}</option>
+              <option value="ai">{t('pvp.mode.ai', locale)}</option>
             </select>
           </label>
           <div class="flex gap-4">
             <DarkCheckbox
               bind:checked={myCritCharm}
               icon={textureUrl('/boosters/charm_critical_1.webp')}
-              label="Крит-бустер на аккаунте"
+              label={t('pvp.charm.crit', locale)}
             />
             <DarkCheckbox
               bind:checked={myAnticritCharm}
               icon={textureUrl('/boosters/charm_anticritical_1.webp')}
-              label="Антикрит-бустер на аккаунте"
+              label={t('pvp.charm.anticrit', locale)}
             />
           </div>
         </div>
       </div>
       <div class="space-y-3">
-        <TeamBuilder title="Команда оппонента" bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} />
+        <TeamBuilder title={t("pvp.team.opponent", locale)} bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <DarkCheckbox
             bind:checked={enemyLevelRange.enabled}
-            label="Случайный уровень в диапазоне (для всей команды оппонента)"
+            label={t('pvp.enemyLevel.random', locale)}
           />
           {#if enemyLevelRange.enabled}
             <div class="flex items-center gap-2 text-sm text-sky-200/80">
               <label class="flex items-center gap-1">
-                от
+                {t('pvp.enemyLevel.from', locale)}
                 <input
                   type="number"
                   min="1"
@@ -237,7 +244,7 @@
                 />
               </label>
               <label class="flex items-center gap-1">
-                до
+                {t('pvp.enemyLevel.to', locale)}
                 <input
                   type="number"
                   min="1"
@@ -246,27 +253,27 @@
                 />
               </label>
               <span class="text-sky-300/60 text-xs">
-                рандомится заново на каждый бой/прогон симуляции, отдельно на каждого мутанта
+                {t('pvp.enemyLevel.hint', locale)}
               </span>
             </div>
           {/if}
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
-            Режим оппонента:
+            {t('pvp.mode.opponent', locale)}
             <select bind:value={enemyMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1">
-              <option value="manual">Ручной</option>
-              <option value="ai">ИИ</option>
+              <option value="manual">{t('pvp.mode.manual', locale)}</option>
+              <option value="ai">{t('pvp.mode.ai', locale)}</option>
             </select>
           </label>
           <div class="flex gap-4">
             <DarkCheckbox
               bind:checked={enemyCritCharm}
               icon={textureUrl('/boosters/charm_critical_1.webp')}
-              label="Крит-бустер на аккаунте"
+              label={t('pvp.charm.crit', locale)}
             />
             <DarkCheckbox
               bind:checked={enemyAnticritCharm}
               icon={textureUrl('/boosters/charm_anticritical_1.webp')}
-              label="Антикрит-бустер на аккаунте"
+              label={t('pvp.charm.anticrit', locale)}
             />
           </div>
         </div>
@@ -279,7 +286,7 @@
         onclick={startFight}
         class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
       >
-        Начать бой
+        {t('pvp.startFight', locale)}
       </button>
       <button
         type="button"
@@ -287,10 +294,10 @@
         disabled={batchRunning}
         class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white ring-1 ring-white/10"
       >
-        {batchRunning ? 'Считаю...' : `Оценить шансы (${clampedBatchRuns} симуляций)`}
+        {batchRunning ? t('pvp.estimateOdds.running', locale) : t('pvp.estimateOdds.button', locale).replace('{n}', String(clampedBatchRuns))}
       </button>
       <label class="flex items-center gap-1.5 text-xs text-sky-300/70">
-        Прогонов:
+        {t('pvp.estimateOdds.runsLabel', locale)}
         <input
           type="number"
           min="10"
@@ -305,35 +312,38 @@
     {#if batchResult}
       <div class="mt-3 rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-3 max-w-md">
         <div class="text-indigo-200 font-semibold text-sm mb-2">
-          Победа моей команды: {batchResult.mineWinRatePct}% ({batchResult.mineWins} из {batchResult.runs})
+          {t('pvp.estimateOdds.result', locale)
+            .replace('{pct}', String(batchResult.mineWinRatePct))
+            .replace('{wins}', String(batchResult.mineWins))
+            .replace('{runs}', String(batchResult.runs))}
         </div>
         <div class="h-2 rounded bg-slate-800 overflow-hidden mb-2">
           <div class="h-full bg-indigo-500" style={`width:${batchResult.mineWinRatePct}%`}></div>
         </div>
         <div class="text-indigo-200/70 text-xs space-y-0.5">
-          <div>Средняя длительность боя: {batchResult.avgTurns} ходов</div>
-          <div>При победе моей команды остаётся ~{batchResult.avgMineHpPctOnWin}% HP</div>
-          <div>При победе оппонента у него остаётся ~{batchResult.avgEnemyHpPctOnWin}% HP</div>
+          <div>{t('pvp.estimateOdds.avgTurns', locale).replace('{n}', String(batchResult.avgTurns))}</div>
+          <div>{t('pvp.estimateOdds.avgHpMine', locale).replace('{pct}', String(batchResult.avgMineHpPctOnWin))}</div>
+          <div>{t('pvp.estimateOdds.avgHpEnemy', locale).replace('{pct}', String(batchResult.avgEnemyHpPctOnWin))}</div>
         </div>
       </div>
     {/if}
   {:else}
     <div class="mt-6">
-      <BattleView {units} {turnLog} {currentTurn} {winner} {turnQueue} onResolve={resolveTurn} onAutoPlay={autoPlay} />
+      <BattleView {units} {turnLog} {currentTurn} {winner} {turnQueue} onResolve={resolveTurn} onAutoPlay={autoPlay} {locale} />
       <div class="mt-3 flex flex-wrap gap-3">
         <button
           type="button"
           onclick={startFight}
           class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
         >
-          Начать бой заново
+          {t('pvp.startFightAgain', locale)}
         </button>
         <button
           type="button"
           onclick={reset}
           class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
         >
-          Собрать команды заново
+          {t('pvp.resetTeams', locale)}
         </button>
       </div>
     </div>

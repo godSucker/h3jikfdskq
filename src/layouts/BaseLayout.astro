@@ -4,6 +4,7 @@ import "@/styles/global.css";
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro"
 import SearchBox from '@/components/search/SearchBox.svelte';
+import { TRANSLATED_UI_LOCALES, isTranslatedPath, localeFromAstro, localePrefix, translatedHref, t, type Locale } from '@/lib/i18n';
 // Simple base layout for the site.
 // It provides a consistent header, footer and sets a dark theme background.
 const {
@@ -14,12 +15,44 @@ const {
   viewport = "width=device-width, initial-scale=1",
 } = Astro.props;
 
+const locale = localeFromAstro(Astro.currentLocale);
+const OG_LOCALE_MAP: Partial<Record<Locale, string>> = {
+  ru: 'ru_RU',
+  en: 'en_US',
+  es: 'es_ES',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  pt: 'pt_BR',
+  it: 'it_IT',
+  tr: 'tr_TR',
+  nl: 'nl_NL',
+};
+
+// hreflang только для реально переведённых страниц и локалей с авторским
+// UI-словарём (Батч 11 (2), TRANSLATED_PATHS/TRANSLATED_UI_LOCALES в i18n.ts) -
+// de/pt/it/tr/nl страницы существуют (EN-фолбэк), но пока не рекламируются
+// поисковикам/переключателем как отдельный язык.
+// Astro.url.pathname приходит с завершающим "/" для директорийных страниц
+// ("/simulators/", не "/simulators") - без replace(/\/$/, '') сравнение с
+// TRANSLATED_PATHS всегда проваливалось для любого пути кроме "/" самого,
+// поэтому hreflang молча не рендерился даже для /mutants (найдено при
+// добавлении /simulators, баг был и раньше, не только для нового пути).
+const pathWithoutLocale =
+  Astro.url.pathname.replace(new RegExp(`^${localePrefix(locale)}`), '').replace(/\/$/, '') || '/';
+const isPilotPage = isTranslatedPath(pathWithoutLocale);
+
+// translatedHref(path, locale) вынесен в i18n.ts - переиспользуется и здесь
+// (nav), и в других местах, строящих ссылки на переведённые пути сайта
+// (напр. карточки на /simulators).
+function navHref(path: string): string {
+  return translatedHref(path, locale);
+}
+
 // SEO: ключевые слова MGG / Mutants Genetic Gladiators присутствуют в
 // дефолтном заголовке и описании каждой страницы.
-const SITE_NAME = 'Archivist-Library — база знаний MGG (Mutants Genetic Gladiators)';
+const SITE_NAME = t('site.name', locale);
 const pageTitle = title ? `${title} | Archivist-Library (MGG)` : SITE_NAME;
-const pageDescription = description ??
-  'База знаний по игре Mutants Genetic Gladiators (MGG): вики мутантов, симуляторы скрещивания, реактора и рулеток, калькуляторы статов и эво.';
+const pageDescription = description ?? t('site.description', locale);
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, 'https://archivist-library.com').href;
 const isHome = Astro.url.pathname === "/";
 
@@ -35,9 +68,8 @@ const structuredData = [
     name: 'Archivist-Library',
     alternateName: 'MGG Hub',
     url: 'https://archivist-library.com/',
-    description:
-      'База знаний по игре Mutants Genetic Gladiators (MGG): вики мутантов, симуляторы скрещивания, реактора и рулеток, калькуляторы статов и эво.',
-    inLanguage: 'ru',
+    description: t('site.description', locale),
+    inLanguage: locale,
   },
   {
     '@context': 'https://schema.org',
@@ -50,7 +82,7 @@ const structuredData = [
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content={viewport} />
@@ -64,13 +96,23 @@ const structuredData = [
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content="https://archivist-library.com/preview.jpg" />
-    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale" content={OG_LOCALE_MAP[locale]} />
+    {isPilotPage && TRANSLATED_UI_LOCALES.filter((l) => l !== locale).map((l) => (
+      <meta property="og:locale:alternate" content={OG_LOCALE_MAP[l]} />
+    ))}
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin>
     <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css">
     <!-- Каноническая ссылка (говорит ботам, что это главная версия страницы) -->
     <link rel="canonical" href={canonicalUrl} />
+    <!-- hreflang: только на реально переведённых страницах пилота (Батч 11) -->
+    {isPilotPage && TRANSLATED_UI_LOCALES.map((l) => (
+      <link rel="alternate" hreflang={l} href={`https://archivist-library.com${localePrefix(l)}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+    ))}
+    {isPilotPage && (
+      <link rel="alternate" hreflang="x-default" href={`https://archivist-library.com${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`} />
+    )}
     <!-- Иконка вкладки браузера -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     <!-- Structured data (schema.org): помогает поисковикам распознать бренд/сайт -->
@@ -174,6 +216,88 @@ const structuredData = [
         transform: translateX(-2px);
       }
       
+      /* Языковой дропдаун (i18n-пилот Батч 11, кастомный дропдаун 2026-08-17 -
+         раньше 9 плоских ссылок съедали слишком много места в шапке). */
+      .lang-dropdown {
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .lang-trigger {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: #8b949e;
+        background: rgba(88, 166, 255, 0.08);
+        border: 1px solid rgba(48, 54, 61, 0.6);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 0.35rem 0.55rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .lang-trigger:hover,
+      .lang-dropdown.open .lang-trigger {
+        background-color: rgba(88, 166, 255, 0.15);
+        color: #79c0ff;
+        border-color: rgba(88, 166, 255, 0.35);
+      }
+
+      .lang-current {
+        color: #58a6ff;
+      }
+
+      .lang-arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+      }
+
+      .lang-dropdown.open .lang-arrow {
+        transform: rotate(180deg);
+      }
+
+      .lang-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        min-width: 4.5rem;
+        background-color: #161b22;
+        border: 1px solid rgba(48, 54, 61, 0.8);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: 0 8px 24px rgba(1, 4, 9, 0.6);
+        z-index: 110;
+      }
+
+      .lang-dropdown.open .lang-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .lang-menu a {
+        color: #8b949e;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.4rem 0.6rem;
+        border-radius: 6px;
+        transition: all 0.15s;
+      }
+
+      .lang-menu a:hover {
+        background-color: rgba(88, 166, 255, 0.1);
+        color: #79c0ff;
+      }
+
+      .lang-menu a.active {
+        color: #58a6ff;
+        background-color: rgba(88, 166, 255, 0.15);
+      }
+
       /* Hamburger menu button */
       .menu-toggle {
         display: none;
@@ -541,71 +665,99 @@ const structuredData = [
     <header>
       <div class="logo">
         {!isHome && (
-          <button onclick="history.back()" class="global-back-button" type="button" title="Назад">
+          <button onclick="history.back()" class="global-back-button" type="button" title={t('header.back', locale)}>
             <span style="font-size: 1.2rem; line-height: 1;">←</span>
           </button>
         )}
-        <a href="/">Archivist-Library</a>
+        <a href={navHref('/')}>Archivist-Library</a>
       </div>
       <nav>
-        <a href="/mutants">Мутанты</a>
-        <a href="/evolution/evotech-calculator">Калькулятор эво</a>
-        <a href="/simulators/stats">Калькулятор статов</a>
-        <a href="/materials">Материалы</a>
-        <a href="/simulators">Симуляторы</a>
-        <a href="/simulators/breeding">Скрещивания</a>
-        <a href="/bingo">Бинго</a>
-        <a href="/boxes">Боксы</a>
-        <a href="/tier-list">Тир-лист</a>
+        <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
+        <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
+        <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
+        <a href="/materials">{t('nav.materials', locale)}</a>
+        <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
+        <a href={navHref('/simulators/breeding')}>{t('nav.breeding', locale)}</a>
+        <a href="/bingo">{t('nav.bingo', locale)}</a>
+        <a href="/boxes">{t('nav.boxes', locale)}</a>
+        <a href="/tier-list">{t('nav.tierList', locale)}</a>
         <a href="/tier-table">Таблица мутантов</a>
         <a href="/sferovki">Сферовки</a>
-        <a href="/rebalance">Ребаланс</a>
+        <a href="/rebalance">{t('nav.rebalance', locale)}</a>
         <a href="/announcements">Анонсы</a>
-        <a href="/top-mutants">Топ мутантов</a>
-        <a href="/guides">Полезности</a>
-        <a href="/credits">Разработчики</a>
-        <a href="/top-evo">Топ по эво</a>
+        <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
+        <a href="/guides">{t('nav.guides', locale)}</a>
+        <a href="/credits">{t('nav.credits', locale)}</a>
+        <a href="/top-evo">{t('nav.topEvo', locale)}</a>
       </nav>
-      <SearchBox client:visible />
-      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+      <SearchBox client:visible locale={locale} />
+      <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
+           ведёт на локализованную главную, а не на 404 несуществующей страницы.
+           Кастомный дропдаун (2026-08-17) - раньше 9 плоских RU/EN/ES/... ссылок
+           занимали слишком много места в шапке, юзер явно попросил спрятать в
+           выпадающий список. -->
+      <div class="lang-dropdown" id="langDropdown">
+        <button
+          type="button"
+          class="lang-trigger"
+          id="langTrigger"
+          aria-haspopup="true"
+          aria-expanded="false"
+          title={t('header.language', locale)}
+        >
+          <span class="lang-current">{locale.toUpperCase()}</span>
+          <span class="lang-arrow">▾</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          {TRANSLATED_UI_LOCALES.map((l) => (
+            <a
+              href={`${localePrefix(l)}${isPilotPage ? (pathWithoutLocale === '/' ? '' : pathWithoutLocale) : '/'}` || '/'}
+              class={l === locale ? 'active' : ''}
+              aria-current={l === locale ? 'true' : undefined}
+              role="menuitem"
+            >{l.toUpperCase()}</a>
+          ))}
+        </div>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label={t('header.openMenu', locale)}>
         <span></span>
         <span></span>
         <span></span>
       </button>
     </header>
-    
+
     <!-- Mobile Navigation -->
     <div class="overlay" id="overlay"></div>
     <nav class="mobile-nav" id="mobileNav">
       <div class="mobile-nav-header">
-        <h2>Меню</h2>
-        <button class="close-btn" id="closeBtn" aria-label="Закрыть меню">&times;</button>
+        <h2>{t('mobileNav.title', locale)}</h2>
+        <button class="close-btn" id="closeBtn" aria-label={t('header.closeMenu', locale)}>&times;</button>
       </div>
-      <a href="/">Главная</a>
-      <a href="/mutants">Мутанты</a>
-      <a href="/simulators/stats">Калькулятор статов</a>
-      <a href="/evolution/evotech-calculator">Калькулятор эво</a>
-      <a href="/materials">Материалы</a>
-      <a href="/simulators">Симуляторы</a>
-      <a href="/simulators/breeding">Скрещивания</a>
-      <a href="/bingo">Бинго</a>
-      <a href="/boxes">Боксы</a>
-      <a href="/rebalance">Ребаланс</a>
-      <a href="/tier-list">Тир-лист</a>
+      <a href={navHref('/')}>{t('nav.home', locale)}</a>
+      <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
+      <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
+      <a href="/evolution/evotech-calculator">{t('nav.evoCalculator', locale)}</a>
+      <a href="/materials">{t('nav.materials', locale)}</a>
+      <a href={navHref('/simulators')}>{t('nav.simulators', locale)}</a>
+      <a href={navHref('/simulators/breeding')}>{t('nav.breeding', locale)}</a>
+      <a href="/bingo">{t('nav.bingo', locale)}</a>
+      <a href="/boxes">{t('nav.boxes', locale)}</a>
+      <a href="/rebalance">{t('nav.rebalance', locale)}</a>
+      <a href="/tier-list">{t('nav.tierList', locale)}</a>
       <a href="/tier-table">Таблица мутантов</a>
       <a href="/sferovki">Сферовки</a>
       <a href="/announcements">Анонсы</a>
-      <a href="/top-mutants">Топ мутантов</a>
-      <a href="/guides">Полезности</a>
-      <a href="/credits">Разработчики</a>
-      <a href="/top-evo">Топ по эво</a>
+      <a href="/top-mutants">{t('nav.topMutants', locale)}</a>
+      <a href="/guides">{t('nav.guides', locale)}</a>
+      <a href="/credits">{t('nav.credits', locale)}</a>
+      <a href="/top-evo">{t('nav.topEvo', locale)}</a>
     </nav>
-    
+
     <main class={fullWidth ? 'wide' : ''}>
       <slot />
     </main>
     <footer>
-      <p>&copy; {new Date().getFullYear()} Archivist-Library — база знаний по игре и симуляторы с реальными шансами.</p>
+      <p>{t('footer.copyright', locale).replace('{year}', String(new Date().getFullYear()))}</p>
     </footer>
     
     <script>
@@ -639,6 +791,28 @@ const structuredData = [
       
       closeBtn?.addEventListener('click', closeMenu);
       overlay?.addEventListener('click', closeMenu);
+
+      // Language dropdown (кастомный, заменил плоский список RU/EN/ES/... -
+      // 2026-08-17, юзер попросил спрятать переключатель языка компактнее).
+      const langDropdown = document.getElementById('langDropdown');
+      const langTrigger = document.getElementById('langTrigger');
+      langTrigger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = langDropdown?.classList.toggle('open');
+        langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => {
+        if (langDropdown?.classList.contains('open') && !langDropdown.contains(e.target as Node)) {
+          langDropdown.classList.remove('open');
+          langTrigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && langDropdown?.classList.contains('open')) {
+          langDropdown.classList.remove('open');
+          langTrigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
       
       // Close menu when clicking on a link
       const mobileNavLinks = mobileNav?.querySelectorAll('a');

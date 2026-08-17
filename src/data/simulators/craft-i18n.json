@@ -1,0 +1,2108 @@
+{
+  "items": {
+    "orb_rankup_basic_attack": {
+      "en": "Attack Orb",
+      "es": "Esfera de Ataque",
+      "fr": "Sphère D'attaque",
+      "de": "Angriff-Kugel",
+      "pt": "Esfera de Ataque",
+      "it": "Sfera di Attacco",
+      "tr": "Saldırı Küre",
+      "nl": "Aanval-Bol"
+    },
+    "orb_rankup_basic_critical": {
+      "en": "Critical Orb",
+      "es": "Esfera de Crítico",
+      "fr": "Sphère de Critique",
+      "de": "Kritisch-Kugel",
+      "pt": "Esfera de Crítico",
+      "it": "Sfera di Critico",
+      "tr": "Kritik Küre",
+      "nl": "Kritiek-Bol"
+    },
+    "orb_rankup_basic_life": {
+      "en": "HP Orb",
+      "es": "Esfera de HP",
+      "fr": "Sphère D'hP",
+      "de": "HP-Kugel",
+      "pt": "Esfera de HP",
+      "it": "Sfera di HP",
+      "tr": "HP Küre",
+      "nl": "HP-Bol"
+    },
+    "orb_rankup_basic_regenerate": {
+      "en": "Regeneration Orb",
+      "es": "Esfera de Regeneración",
+      "fr": "Sphère de Régénération",
+      "de": "Regenerierung-Kugel",
+      "pt": "Esfera de Regeneração",
+      "it": "Sfera di Rigenerazione",
+      "tr": "Rejenerasyon Küre",
+      "nl": "Regeneratie-Bol"
+    },
+    "orb_rankup_basic_retaliate": {
+      "en": "Retaliation Orb",
+      "es": "Esfera de Respuesta",
+      "fr": "Sphère de Riposte",
+      "de": "Gegenschlag-Kugel",
+      "pt": "Esfera de Riposta",
+      "it": "Sfera di Contrattacco",
+      "tr": "Misilleme Küre",
+      "nl": "Terugslag-Bol"
+    },
+    "orb_rankup_basic_shield": {
+      "en": "Shield Orb",
+      "es": "Esfera de Escudo",
+      "fr": "Sphère de Bouclier",
+      "de": "Schild-Kugel",
+      "pt": "Esfera de Escudo",
+      "it": "Sfera di Scudo",
+      "tr": "Kalkan Küre",
+      "nl": "Schild-Bol"
+    },
+    "orb_rankup_basic_slash": {
+      "en": "Wound Orb",
+      "es": "Esfera de Herida",
+      "fr": "Sphère de Blessure",
+      "de": "Blessur-Kugel",
+      "pt": "Esfera de Ferimento",
+      "it": "Sfera di Ferita",
+      "tr": "Yara Küre",
+      "nl": "Verwonding-Bol"
+    },
+    "orb_rankup_basic_strengthen": {
+      "en": "Boost Orb",
+      "es": "Esfera de Fortalecimiento",
+      "fr": "Sphère de Boost",
+      "de": "Booster-Kugel",
+      "pt": "Esfera de Boost",
+      "it": "Sfera di Miglioramento",
+      "tr": "Artırma Küre",
+      "nl": "Boost-Bol"
+    },
+    "orb_rankup_basic_weaken": {
+      "en": "Curse Orb",
+      "es": "Esfera de Debilitamiento",
+      "fr": "Sphère de Faiblesse",
+      "de": "Fluch-Kugel",
+      "pt": "Esfera de Fraqueza",
+      "it": "Sfera di Maledizione",
+      "tr": "Lanet Küre",
+      "nl": "Vloek-Bol"
+    },
+    "orb_rankup_basic_xp": {
+      "en": "XP Orb",
+      "es": "Esfera de XP",
+      "fr": "Sphère de XP",
+      "de": "XP-Kugel",
+      "pt": "Esfera de XP",
+      "it": "Sfera di XP",
+      "tr": "XP Küre",
+      "nl": "XP-Bol"
+    },
+    "orb_rankup_special_addregenerate": {
+      "en": "Special Regeneration Orb",
+      "es": "Esfera Especial de Regeneración",
+      "fr": "Sphère Spéciale de Régénération",
+      "de": "Spezial-Regenerierung-Kugel",
+      "pt": "Esfera Especial de Regeneração",
+      "it": "Sfera Speciale di Rigenerazione",
+      "tr": "Özel Rejenerasyon Küre",
+      "nl": "Speciale Regeneratie-Bol"
+    },
+    "orb_rankup_special_addretaliate": {
+      "en": "Special Retaliation Orb",
+      "es": "Esfera Especial de Respuesta",
+      "fr": "Sphère Spéciale de Riposte",
+      "de": "Spezial-Gegenschlag-Kugel",
+      "pt": "Esfera Especial de Riposta",
+      "it": "Sfera Speciale di Contrattacco",
+      "tr": "Özel Misilleme Küre",
+      "nl": "Speciale Terugslag-Bol"
+    },
+    "orb_rankup_special_addshield": {
+      "en": "Special Shield Orb",
+      "es": "Esfera Especial de Escudo",
+      "fr": "Sphère Spéciale de Bouclier",
+      "de": "Spezial-Schild-Kugel",
+      "pt": "Esfera Especial de Escudo",
+      "it": "Sfera Speciale di Scudo",
+      "tr": "Özel Kalkan Küre",
+      "nl": "Speciale Schild-Bol"
+    },
+    "orb_rankup_special_addslash": {
+      "en": "Special Wound Orb",
+      "es": "Esfera Especial de Herida",
+      "fr": "Sphère Spéciale de Blessure",
+      "de": "Spezial-Blessur-Kugel",
+      "pt": "Esfera Especial de Ferimento",
+      "it": "Sfera Speciale di Ferita",
+      "tr": "Özel Yara Küre",
+      "nl": "Speciale Verwonding-Bol"
+    },
+    "orb_rankup_special_addstrengthen": {
+      "en": "Special Boost Orb",
+      "es": "Esfera Especial de Fortalecimiento",
+      "fr": "Sphère Spéciale de Boost",
+      "de": "Spezial-Booster-Kugel",
+      "pt": "Esfera Especial de Boost",
+      "it": "Sfera Speciale di Miglioramento",
+      "tr": "Özel Artırma Küre",
+      "nl": "Speciale Boost-Bol"
+    },
+    "orb_rankup_special_addweaken": {
+      "en": "Special Curse Orb",
+      "es": "Esfera Especial de Debilitamiento",
+      "fr": "Sphère Spéciale de Faiblesse",
+      "de": "Spezial-Fluch-Kugel",
+      "pt": "Esfera Especial de Fraqueza",
+      "it": "Sfera Speciale di Maledizione",
+      "tr": "Özel Lanet Küre",
+      "nl": "Speciale Vloek-Bol"
+    },
+    "orb_rankup_special_speed": {
+      "en": "Special Speed Orb",
+      "es": "Esfera Especial de Rapidez",
+      "fr": "Sphère Spéciale de Vitesse",
+      "de": "Spezial-Geschwindigkeit-Kugel",
+      "pt": "Esfera Especial de Velocidade",
+      "it": "Sfera Speciale di Velocità",
+      "tr": "Özel Hız Küre",
+      "nl": "Speciale Snelheid-Bol"
+    },
+    "orb_basic_1": {
+      "en": "Random Orb Lv.1",
+      "es": "Esfera Aleatoria Nv.1",
+      "fr": "Sphère Aléatoire Niv.1",
+      "de": "Zufällige Kugel Stufe 1",
+      "pt": "Esfera Aleatória Nv.1",
+      "it": "Sfera Casuale Liv.1",
+      "tr": "Rastgele Küre Sv.1",
+      "nl": "Willekeurige Bol Niv.1"
+    },
+    "orb_basic_2": {
+      "en": "Random Orb Lv.2",
+      "es": "Esfera Aleatoria Nv.2",
+      "fr": "Sphère Aléatoire Niv.2",
+      "de": "Zufällige Kugel Stufe 2",
+      "pt": "Esfera Aleatória Nv.2",
+      "it": "Sfera Casuale Liv.2",
+      "tr": "Rastgele Küre Sv.2",
+      "nl": "Willekeurige Bol Niv.2"
+    },
+    "orb_basic_3": {
+      "en": "Random Orb Lv.3",
+      "es": "Esfera Aleatoria Nv.3",
+      "fr": "Sphère Aléatoire Niv.3",
+      "de": "Zufällige Kugel Stufe 3",
+      "pt": "Esfera Aleatória Nv.3",
+      "it": "Sfera Casuale Liv.3",
+      "tr": "Rastgele Küre Sv.3",
+      "nl": "Willekeurige Bol Niv.3"
+    },
+    "orb_basic_4": {
+      "en": "Random Orb Lv.4",
+      "es": "Esfera Aleatoria Nv.4",
+      "fr": "Sphère Aléatoire Niv.4",
+      "de": "Zufällige Kugel Stufe 4",
+      "pt": "Esfera Aleatória Nv.4",
+      "it": "Sfera Casuale Liv.4",
+      "tr": "Rastgele Küre Sv.4",
+      "nl": "Willekeurige Bol Niv.4"
+    },
+    "orb_reroll_basic_1": {
+      "en": "Reroll: Orb Lv.1",
+      "es": "Recambio: Esfera Nv.1",
+      "fr": "Remplacement : Sphère Niv.1",
+      "de": "Neuwurf: Kugel Stufe 1",
+      "pt": "Substituição: Esfera Nv.1",
+      "it": "Sostituzione: Sfera Liv.1",
+      "tr": "Yeniden Çevirme: Küre Sv.1",
+      "nl": "Vervanging: Bol Niv.1"
+    },
+    "orb_reroll_special_1": {
+      "en": "Reroll: Special Orb Lv.1",
+      "es": "Recambio: Esfera Especial Nv.1",
+      "fr": "Remplacement : Sphère Spéciale Niv.1",
+      "de": "Neuwurf: Spezialkugel Stufe 1",
+      "pt": "Substituição: Esfera Especial Nv.1",
+      "it": "Sostituzione: Sfera Speciale Liv.1",
+      "tr": "Yeniden Çevirme: Özel Küre Sv.1",
+      "nl": "Vervanging: Speciale Bol Niv.1"
+    },
+    "orb_special_1": {
+      "en": "Random Special Orb Lv.1",
+      "es": "Esfera Especial Aleatoria Nv.1",
+      "fr": "Sphère Spéciale Aléatoire Niv.1",
+      "de": "Zufällige Spezialkugel Stufe 1",
+      "pt": "Esfera Especial Aleatória Nv.1",
+      "it": "Sfera Speciale Casuale Liv.1",
+      "tr": "Rastgele Özel Küre Sv.1",
+      "nl": "Willekeurige Speciale Bol Niv.1"
+    },
+    "orb_reroll_basic_2": {
+      "en": "Reroll: Orb Lv.2",
+      "es": "Recambio: Esfera Nv.2",
+      "fr": "Remplacement : Sphère Niv.2",
+      "de": "Neuwurf: Kugel Stufe 2",
+      "pt": "Substituição: Esfera Nv.2",
+      "it": "Sostituzione: Sfera Liv.2",
+      "tr": "Yeniden Çevirme: Küre Sv.2",
+      "nl": "Vervanging: Bol Niv.2"
+    },
+    "orb_reroll_special_2": {
+      "en": "Reroll: Special Orb Lv.2",
+      "es": "Recambio: Esfera Especial Nv.2",
+      "fr": "Remplacement : Sphère Spéciale Niv.2",
+      "de": "Neuwurf: Spezialkugel Stufe 2",
+      "pt": "Substituição: Esfera Especial Nv.2",
+      "it": "Sostituzione: Sfera Speciale Liv.2",
+      "tr": "Yeniden Çevirme: Özel Küre Sv.2",
+      "nl": "Vervanging: Speciale Bol Niv.2"
+    },
+    "orb_special_2": {
+      "en": "Random Special Orb Lv.2",
+      "es": "Esfera Especial Aleatoria Nv.2",
+      "fr": "Sphère Spéciale Aléatoire Niv.2",
+      "de": "Zufällige Spezialkugel Stufe 2",
+      "pt": "Esfera Especial Aleatória Nv.2",
+      "it": "Sfera Speciale Casuale Liv.2",
+      "tr": "Rastgele Özel Küre Sv.2",
+      "nl": "Willekeurige Speciale Bol Niv.2"
+    },
+    "orb_reroll_basic_3": {
+      "en": "Reroll: Orb Lv.3",
+      "es": "Recambio: Esfera Nv.3",
+      "fr": "Remplacement : Sphère Niv.3",
+      "de": "Neuwurf: Kugel Stufe 3",
+      "pt": "Substituição: Esfera Nv.3",
+      "it": "Sostituzione: Sfera Liv.3",
+      "tr": "Yeniden Çevirme: Küre Sv.3",
+      "nl": "Vervanging: Bol Niv.3"
+    },
+    "orb_reroll_special_3": {
+      "en": "Reroll: Special Orb Lv.3",
+      "es": "Recambio: Esfera Especial Nv.3",
+      "fr": "Remplacement : Sphère Spéciale Niv.3",
+      "de": "Neuwurf: Spezialkugel Stufe 3",
+      "pt": "Substituição: Esfera Especial Nv.3",
+      "it": "Sostituzione: Sfera Speciale Liv.3",
+      "tr": "Yeniden Çevirme: Özel Küre Sv.3",
+      "nl": "Vervanging: Speciale Bol Niv.3"
+    },
+    "orb_special_3": {
+      "en": "Random Special Orb Lv.3",
+      "es": "Esfera Especial Aleatoria Nv.3",
+      "fr": "Sphère Spéciale Aléatoire Niv.3",
+      "de": "Zufällige Spezialkugel Stufe 3",
+      "pt": "Esfera Especial Aleatória Nv.3",
+      "it": "Sfera Speciale Casuale Liv.3",
+      "tr": "Rastgele Özel Küre Sv.3",
+      "nl": "Willekeurige Speciale Bol Niv.3"
+    },
+    "big_rewards_01": {
+      "en": "Craft For Stars And Challenge Tokens",
+      "es": "Crafteo de Estrellas y Fichas de Desafío",
+      "fr": "Craft D’étoiles et de Jetons de Défi",
+      "de": "Sterne-Und Herausforderungs-Chip-Crafting",
+      "pt": "Criação de Estrelas e Fichas de Desafio",
+      "it": "Crafting di Stelle e Gettoni Sfida",
+      "tr": "Yıldız ve Meydan Okuma Jetonu Craftleme",
+      "nl": "Sterren en Uitdagingsmuntjes Craften"
+    },
+    "big_rewards_02": {
+      "en": "Chance To Craft a Generator Token (not Recommended)",
+      "es": "Posibilidad de Craftear Una Ficha de Generador (no Recomendado)",
+      "fr": "Chance de Crafter un Jeton Générateur (non Recommandé)",
+      "de": "Chance, Einen Generator-Chip Zu Craften (nicht Empfohlen)",
+      "pt": "Chance de Criar Uma Ficha de Gerador (não Recomendado)",
+      "it": "Possibilità di Craftare un Gettone Generatore (non Consigliato)",
+      "tr": "Jeneratör Jetonu Craftleme Şansı (önerilmez)",
+      "nl": "Kans Om Een Generatormuntje Te Craften (niet Aanbevolen)"
+    },
+    "little_rewards_01": {
+      "en": "Craft From 2 Items",
+      "es": "Crafteo de 2 Objetos",
+      "fr": "Craft à Partir de 2 Objets",
+      "de": "Crafting Aus 2 Gegenständen",
+      "pt": "Criação a Partir de 2 Itens",
+      "it": "Crafting Da 2 Oggetti",
+      "tr": "2 Eşyadan Craft",
+      "nl": "Craft Van 2 Items"
+    },
+    "medpack_1": {
+      "en": "Small Med Pack",
+      "es": "Medikit Pequeño",
+      "fr": "Petit Médikit",
+      "de": "Kleines Med-Set",
+      "pt": "Kit Médico Pequeno",
+      "it": "Medikit Piccolo",
+      "tr": "Küçük Sağlık Paketi",
+      "nl": "Klein EHBO-Set"
+    },
+    "muto_1": {
+      "en": "Small Dose of Mutosterone",
+      "es": "Dosis Pequeña de Mutosterona",
+      "fr": "Petite Dose de Mutostérone",
+      "de": "Kleine Dosis Mutosteron",
+      "pt": "Dose Pequena de Mutosterona",
+      "it": "Piccola Dose di Mutosterone",
+      "tr": "Küçük Mutoöstron Dozu",
+      "nl": "Kleine Dosis Mutosterone"
+    },
+    "muto_10": {
+      "en": "Dose of Mutosterone",
+      "es": "Dosis de Mutosterona",
+      "fr": "Dose de Mutostérone",
+      "de": "Dosis Mutosteron",
+      "pt": "Dose de Mutosterona",
+      "it": "Dose di Mutosterone",
+      "tr": "Mutoöstron Dozu",
+      "nl": "Dosis Mutosterone"
+    },
+    "xp_10": {
+      "en": "XP Bar",
+      "es": "Barra de XP",
+      "fr": "Barre de XP",
+      "de": "XP-Riegel",
+      "pt": "Barra de XP",
+      "it": "Barretta di XP",
+      "tr": "XP Çubuğu",
+      "nl": "XP-Reep"
+    },
+    "xp_250": {
+      "en": "Small XP Jar",
+      "es": "Bote Pequeño de XP",
+      "fr": "Petit Pot de XP",
+      "de": "Kleines XP-Glas",
+      "pt": "Pote Pequeno de XP",
+      "it": "Piccolo Vasetto di XP",
+      "tr": "Küçük XP Kavanozu",
+      "nl": "Kleine XP-Pot"
+    },
+    "pot_pourri_03": {
+      "en": "3 Med Packs",
+      "es": "3 Medikits",
+      "fr": "3 Médikits",
+      "de": "3 Med-Sets",
+      "pt": "3 Kits Médicos",
+      "it": "3 Medikit",
+      "tr": "3 Sağlık Paketleri",
+      "nl": "3 EHBO-Sets"
+    },
+    "pot_pourri_04": {
+      "en": "4 Med Packs",
+      "es": "4 Medikits",
+      "fr": "4 Médikits",
+      "de": "4 Med-Sets",
+      "pt": "4 Kits Médicos",
+      "it": "4 Medikit",
+      "tr": "4 Sağlık Paketleri",
+      "nl": "4 EHBO-Sets"
+    },
+    "pot_pourri_05": {
+      "en": "5 Med Packs",
+      "es": "5 Medikits",
+      "fr": "5 Médikits",
+      "de": "5 Med-Sets",
+      "pt": "5 Kits Médicos",
+      "it": "5 Medikit",
+      "tr": "5 Sağlık Paketleri",
+      "nl": "5 EHBO-Sets"
+    },
+    "pot_pourri_06": {
+      "en": "6 Med Packs",
+      "es": "6 Medikits",
+      "fr": "6 Médikits",
+      "de": "6 Med-Sets",
+      "pt": "6 Kits Médicos",
+      "it": "6 Medikit",
+      "tr": "6 Sağlık Paketleri",
+      "nl": "6 EHBO-Sets"
+    },
+    "pot_pourri_07": {
+      "en": "7 Med Packs",
+      "es": "7 Medikits",
+      "fr": "7 Médikits",
+      "de": "7 Med-Sets",
+      "pt": "7 Kits Médicos",
+      "it": "7 Medikit",
+      "tr": "7 Sağlık Paketleri",
+      "nl": "7 EHBO-Sets"
+    },
+    "token_sink_01": {
+      "en": "Platinum Star",
+      "es": "Estrella de Platino",
+      "fr": "Étoile de Platine",
+      "de": "Platin-Stern",
+      "pt": "Estrela de Platina",
+      "it": "Stella di Platino",
+      "tr": "Platin Yıldız",
+      "nl": "Platina Ster"
+    },
+    "token_sink_02": {
+      "en": "Gold Star",
+      "es": "Estrella de Oro",
+      "fr": "Étoile D'or",
+      "de": "Gold-Stern",
+      "pt": "Estrela de Ouro",
+      "it": "Stella D'oro",
+      "tr": "Altın Yıldız",
+      "nl": "Gouden Ster"
+    },
+    "token_sink_03": {
+      "en": "Silver Star",
+      "es": "Estrella de Plata",
+      "fr": "Étoile D'argent",
+      "de": "Silber-Stern",
+      "pt": "Estrela de Prata",
+      "it": "Stella D'argento",
+      "tr": "Gümüş Yıldız",
+      "nl": "Zilveren Ster"
+    },
+    "token_sink_04": {
+      "en": "Bronze Star",
+      "es": "Estrella de Bronce",
+      "fr": "Étoile de Bronze",
+      "de": "Bronze-Stern",
+      "pt": "Estrela de Bronze",
+      "it": "Stella di Bronzo",
+      "tr": "Bronz Yıldız",
+      "nl": "Bronzen Ster"
+    },
+    "token_sink_05": {
+      "en": "Gold Star",
+      "es": "Estrella de Oro",
+      "fr": "Étoile D'or",
+      "de": "Gold-Stern",
+      "pt": "Estrela de Ouro",
+      "it": "Stella D'oro",
+      "tr": "Altın Yıldız",
+      "nl": "Gouden Ster"
+    },
+    "token_sink_06": {
+      "en": "Silver Star",
+      "es": "Estrella de Plata",
+      "fr": "Étoile D'argent",
+      "de": "Silber-Stern",
+      "pt": "Estrela de Prata",
+      "it": "Stella D'argento",
+      "tr": "Gümüş Yıldız",
+      "nl": "Zilveren Ster"
+    },
+    "star_bronze": {
+      "en": "Bronze Star",
+      "es": "Estrella de Bronce",
+      "fr": "Étoile de Bronze",
+      "de": "Bronze-Stern",
+      "pt": "Estrela de Bronze",
+      "it": "Stella di Bronzo",
+      "tr": "Bronz Yıldız",
+      "nl": "Bronzen Ster"
+    },
+    "star_gold": {
+      "en": "Gold Star",
+      "es": "Estrella de Oro",
+      "fr": "Étoile D'or",
+      "de": "Gold-Stern",
+      "pt": "Estrela de Ouro",
+      "it": "Stella D'oro",
+      "tr": "Altın Yıldız",
+      "nl": "Gouden Ster"
+    },
+    "star_silver": {
+      "en": "Silver Star",
+      "es": "Estrella de Plata",
+      "fr": "Étoile D'argent",
+      "de": "Silber-Stern",
+      "pt": "Estrela de Prata",
+      "it": "Stella D'argento",
+      "tr": "Gümüş Yıldız",
+      "nl": "Zilveren Ster"
+    },
+    "chronoshifted_addregen": {
+      "en": "Chrono-Regeneration Orb",
+      "es": "Crono Esfera de Regeneración",
+      "fr": "Chrono Sphère de Régénération",
+      "de": "Chrono-Regenerierung-Kugel",
+      "pt": "Crono Esfera de Regeneração",
+      "it": "Crono Sfera di Rigenerazione",
+      "tr": "Krono-Rejenerasyon Küre",
+      "nl": "Chrono-Regeneratie-Bol"
+    },
+    "chronoshifted_addshield": {
+      "en": "Chrono-Shield Orb",
+      "es": "Crono Esfera de Escudo",
+      "fr": "Chrono Sphère de Bouclier",
+      "de": "Chrono-Schild-Kugel",
+      "pt": "Crono Esfera de Escudo",
+      "it": "Crono Sfera di Scudo",
+      "tr": "Krono-Kalkan Küre",
+      "nl": "Chrono-Schild-Bol"
+    },
+    "chronoshifted_addslash": {
+      "en": "Chrono-Wound Orb",
+      "es": "Crono Esfera de Herida",
+      "fr": "Chrono Sphère de Blessure",
+      "de": "Chrono-Blessur-Kugel",
+      "pt": "Crono Esfera de Ferimento",
+      "it": "Crono Sfera di Ferita",
+      "tr": "Krono-Yara Küre",
+      "nl": "Chrono-Verwonding-Bol"
+    },
+    "chronoshifted_addstrengthen": {
+      "en": "Chrono-Boost Orb",
+      "es": "Crono Esfera de Fortalecimiento",
+      "fr": "Chrono Sphère de Boost",
+      "de": "Chrono-Booster-Kugel",
+      "pt": "Crono Esfera de Boost",
+      "it": "Crono Sfera di Miglioramento",
+      "tr": "Krono-Artırma Küre",
+      "nl": "Chrono-Boost-Bol"
+    },
+    "chronoshifted_addweaken": {
+      "en": "Chrono-Curse Orb",
+      "es": "Crono Esfera de Debilitamiento",
+      "fr": "Chrono Sphère de Faiblesse",
+      "de": "Chrono-Fluch-Kugel",
+      "pt": "Crono Esfera de Fraqueza",
+      "it": "Crono Sfera di Maledizione",
+      "tr": "Krono-Lanet Küre",
+      "nl": "Chrono-Vloek-Bol"
+    },
+    "chronoshifted_retaliate": {
+      "en": "Chrono-Retaliation Orb",
+      "es": "Crono Esfera de Respuesta",
+      "fr": "Chrono Sphère de Riposte",
+      "de": "Chrono-Gegenschlag-Kugel",
+      "pt": "Crono Esfera de Riposta",
+      "it": "Crono Sfera di Contrattacco",
+      "tr": "Krono-Misilleme Küre",
+      "nl": "Chrono-Terugslag-Bol"
+    },
+    "orb_basic_xp": {
+      "en": "XP +10%",
+      "es": "Experiencia +10 %",
+      "fr": "XP +10%",
+      "de": "XP +10 %",
+      "pt": "XP +10%",
+      "it": "XP +10%",
+      "tr": "XP +%10",
+      "nl": "XP +10%"
+    },
+    "orb_basic_shield_03": {
+      "en": "Shield +19%",
+      "es": "Escudo +19%",
+      "fr": "Bouclier +19%",
+      "de": "Schild +19%",
+      "pt": "Escudo +19%",
+      "it": "Scudo +19%",
+      "tr": "Kalkan (%+19)",
+      "nl": "Schild +19%"
+    },
+    "Charm_Critical_7": {
+      "en": "Critical Strikes",
+      "es": "Ataques Críticos",
+      "fr": "Attaque Critique",
+      "de": "Kritische Angriffe",
+      "pt": "Ataque Crítico",
+      "it": "Colpi Critici",
+      "tr": "Kritik Saldırılar",
+      "nl": "Kritieke Aanval"
+    },
+    "orb_basic_weaken_01": {
+      "en": "Curse +7%",
+      "es": "Debilitamiento +7%",
+      "fr": "Faiblesse +7%",
+      "de": "Fluch +7%",
+      "pt": "Fraqueza +7%",
+      "it": "Maledizione +7%",
+      "tr": "Lanet (%+7)",
+      "nl": "Vloek +7%"
+    },
+    "orb_basic_retaliate_01": {
+      "en": "Retaliate +7%",
+      "es": "Respuesta +7%",
+      "fr": "Riposte +7%",
+      "de": "Gegenschlag +7%",
+      "pt": "Riposta +7%",
+      "it": "Contrattacca +7%",
+      "tr": "Misilleme (%+7)",
+      "nl": "Terugslaan +7%"
+    },
+    "orb_special_addstrengthen": {
+      "en": "Boost (2%)",
+      "es": "Fortalecimiento (2%)",
+      "fr": "Boost (2%)",
+      "de": "Boost (2%)",
+      "pt": "Boost (2%)",
+      "it": "Miglioramento (2%)",
+      "tr": "Artır (%2)",
+      "nl": "Boost (2%)"
+    },
+    "Charm_Regenx2_3": {
+      "en": "Double Regeneration",
+      "es": "Doble Regeneración",
+      "fr": "Double Regénération",
+      "de": "Doppelte Regenerierung",
+      "pt": "Regeneração Dupla",
+      "it": "Rigenerazione Doppia",
+      "tr": "Çift Rejenerasyon",
+      "nl": "Dubbele Regeneratie"
+    },
+    "Material_Energy25": {
+      "en": "Campaign Passes x25",
+      "es": "Tickets x25",
+      "fr": "Tickets x25",
+      "de": "Turnierkarten x25",
+      "pt": "Tíquetes de Campanha x25",
+      "it": "Biglietti x25",
+      "tr": "Mücadele Bileti x25",
+      "nl": "Tickets x25"
+    },
+    "orb_special_addretaliate_01": {
+      "en": "Retaliate (2%)",
+      "es": "Respuesta (2%)",
+      "fr": "Riposte (2%)",
+      "de": "Gegenschlag (2%)",
+      "pt": "Riposta (2%)",
+      "it": "Contrattacca (2%)",
+      "tr": "Misilleme (%2)",
+      "nl": "Terugslaan (2%)"
+    },
+    "orb_special_addslash_01": {
+      "en": "Wound (5%)",
+      "es": "Herida (5%)",
+      "fr": "Blessure (5%)",
+      "de": "Blessur (5%)",
+      "pt": "Ferida (5%)",
+      "it": "Ferita (5%)",
+      "tr": "Yara (%5)",
+      "nl": "Wond (5%)"
+    },
+    "orb_basic_shield_01": {
+      "en": "Shield +7%",
+      "es": "Escudo +7%",
+      "fr": "Bouclier +7%",
+      "de": "Schild +7%",
+      "pt": "Escudo +7%",
+      "it": "Scudo +7%",
+      "tr": "Kalkan (%+7)",
+      "nl": "Schild +7%"
+    },
+    "Material_Event_Token": {
+      "en": "Challenge Token",
+      "es": "Ficha Reto",
+      "fr": "Jeton Challenge",
+      "de": "Challenge Chip",
+      "pt": "Token Challenge",
+      "it": "Gettone Sfida",
+      "tr": "Meydan Okuma Jetonu",
+      "nl": "Challenge Muntje"
+    },
+    "orb_basic_attack_02": {
+      "en": "Attack +10%",
+      "es": "Ataque +10%",
+      "fr": "Attaque +10%",
+      "de": "Angriff +10%",
+      "pt": "Ataque +10%",
+      "it": "Attacco +10%",
+      "tr": "Saldırı (%+10)",
+      "nl": "Aanval +10%"
+    },
+    "Charm_Anticritical_1": {
+      "en": "Anti-Critical Shield",
+      "es": "Escudo Anticrítico",
+      "fr": "Anti-Critiques",
+      "de": "Anti-kritische-Angriffe",
+      "pt": "Escudo Anti Ataque Crítico",
+      "it": "Scudo Anti-Critici",
+      "tr": "Anti-Kritik Kalkan",
+      "nl": "Gevaarwerend Schild"
+    },
+    "Material_XP10": {
+      "en": "Experience Bar",
+      "es": "Barra de Experiencia",
+      "fr": "Barre Énergisante",
+      "de": "Energieriegel",
+      "pt": "Barra energética",
+      "it": "Barra Energetica",
+      "tr": "Tecrübe Barı",
+      "nl": "Energyreep"
+    },
+    "orb_special_addretaliate_04": {
+      "en": "Retaliate (20%)",
+      "es": "Respuesta (20%)",
+      "fr": "Riposte (20%)",
+      "de": "Gegenschlag (20%)",
+      "pt": "Riposta (20%)",
+      "it": "Contrattacca (20%)",
+      "tr": "Misilleme (%20)",
+      "nl": "Terugslaan (20%)"
+    },
+    "Charm_Regenx4_7": {
+      "en": "Quadruple Regeneration",
+      "es": "Cuádruple Regeneración",
+      "fr": "Quadruple Regénération",
+      "de": "4-fache Regenerierung",
+      "pt": "Regeneração Quádrupla",
+      "it": "Rigeneraz. Quadrupla",
+      "tr": "Dört Rejenerasyon",
+      "nl": "Quadrupel Regeneratie"
+    },
+    "Charm_Xpx2_1": {
+      "en": "Double XP",
+      "es": "Doble Experiencia",
+      "fr": "Double XP",
+      "de": "Doppelte XP",
+      "pt": "XP Dupla",
+      "it": "Doppia XP",
+      "tr": "Çift Kat Tecrübe",
+      "nl": "Dubbele XP"
+    },
+    "orb_basic_xp_02": {
+      "en": "XP +80%",
+      "es": "Experiencia +80 %",
+      "fr": "XP +80%",
+      "de": "XP +80 %",
+      "pt": "XP +80%",
+      "it": "XP +80%",
+      "tr": "XP +%80",
+      "nl": "XP +80%"
+    },
+    "orb_basic_strengthen_02": {
+      "en": "Boost +15%",
+      "es": "Fortalecimiento +15%",
+      "fr": "Boost +15%",
+      "de": "Booster +15%",
+      "pt": "Boost +15%",
+      "it": "Miglioramento +15%",
+      "tr": "Artırma (%+15)",
+      "nl": "Boost +15%"
+    },
+    "Charm_Regenx4_1": {
+      "en": "Quadruple Regeneration",
+      "es": "Cuádruple Regeneración",
+      "fr": "Quadruple Regénération",
+      "de": "4-fache Regenerierung",
+      "pt": "Regeneração Quádrupla",
+      "it": "Rigeneraz. Quadrupla",
+      "tr": "Dört Rejenerasyon",
+      "nl": "Quadrupel Regeneratie"
+    },
+    "orb_special_addstrengthen_04": {
+      "en": "Boost (26%)",
+      "es": "Fortalecimiento (26%)",
+      "fr": "Boost (26%)",
+      "de": "Boost (26%)",
+      "pt": "Boost (26%)",
+      "it": "Miglioramento (26%)",
+      "tr": "Artır (%26)",
+      "nl": "Boost (26%)"
+    },
+    "orb_basic_life_03": {
+      "en": "Life +20%",
+      "es": "Vida +20%",
+      "fr": "Vie +20%",
+      "de": "Leben +20%",
+      "pt": "Vida +20%",
+      "it": "Vita +20%",
+      "tr": "Can (%+20)",
+      "nl": "Leven +20%"
+    },
+    "orb_basic_xp_01": {
+      "en": "XP +40%",
+      "es": "Experiencia +40 %",
+      "fr": "XP +40%",
+      "de": "XP +40 %",
+      "pt": "XP +40%",
+      "it": "XP +40%",
+      "tr": "XP +%40",
+      "nl": "XP +40%"
+    },
+    "orb_special_addretaliate_03": {
+      "en": "Retaliate (13%)",
+      "es": "Respuesta (13%)",
+      "fr": "Riposte (13%)",
+      "de": "Gegenschlag (13%)",
+      "pt": "Riposta (13%)",
+      "it": "Contrattacca (13%)",
+      "tr": "Misilleme (%13)",
+      "nl": "Terugslaan (13%)"
+    },
+    "Material_LP10": {
+      "en": "Small Med Pack",
+      "es": "Medikit pequeño",
+      "fr": "Petit Médikit",
+      "de": "Kleines Med-Set",
+      "pt": "Pequeno Kit Médico",
+      "it": "Medikit piccolo",
+      "tr": "Küçük Sağlık Paketi",
+      "nl": "Kleine EHBO-set"
+    },
+    "Charm_Xpx3_7": {
+      "en": "Triple XP",
+      "es": "Triple Experiencia",
+      "fr": "Triple XP",
+      "de": "3-fache XP",
+      "pt": "XP Tripla",
+      "it": "Tripla XP",
+      "tr": "Üç Kat Tecrübe",
+      "nl": "Drievoudige XP"
+    },
+    "Material_XP250": {
+      "en": "Experience Drink",
+      "es": "Bebida de Experiencia",
+      "fr": "Boisson Énergisante",
+      "de": "Energiedrink",
+      "pt": "Bebida energética",
+      "it": "Bibita Energetica",
+      "tr": "Tecrübe İçkisi",
+      "nl": "Energydrankje"
+    },
+    "orb_special_addweaken_04": {
+      "en": "Curse (26%)",
+      "es": "Debilitamiento (26%)",
+      "fr": "Faiblesse (26%)",
+      "de": "Fluch (26%)",
+      "pt": "Fraqueza (26%)",
+      "it": "Maledizione (26%)",
+      "tr": "Lanetle (%26)",
+      "nl": "Vloek (26%)"
+    },
+    "Material_Energy5": {
+      "en": "Campaign Passes x5",
+      "es": "Tickets x5",
+      "fr": "Tickets x5",
+      "de": "Turnierkarten x5",
+      "pt": "Tíquetes de Campanha x5",
+      "it": "Biglietti x5",
+      "tr": "Mücadele Bileti x5",
+      "nl": "Tickets x5"
+    },
+    "orb_basic_attack_04": {
+      "en": "Attack +14%",
+      "es": "Ataque +14%",
+      "fr": "Attaque +14%",
+      "de": "Angriff +14%",
+      "pt": "Ataque +14%",
+      "it": "Attacco +14%",
+      "tr": "Saldırı (%+14)",
+      "nl": "Aanval +14%"
+    },
+    "orb_special_speed_02": {
+      "en": "Speed +10%",
+      "es": "Rapidez +10%",
+      "fr": "Vitesse +10%",
+      "de": "Geschwindigkeit +10%",
+      "pt": "Velocidade +10%",
+      "it": "Velocità +10%",
+      "tr": "Hız (%+10)",
+      "nl": "Snelheid +10%"
+    },
+    "orb_basic_weaken_02": {
+      "en": "Curse +15%",
+      "es": "Debilitamiento +15%",
+      "fr": "Faiblesse +15%",
+      "de": "Fluch +15%",
+      "pt": "Fraqueza +15%",
+      "it": "Maledizione +15%",
+      "tr": "Lanet (%+15)",
+      "nl": "Vloek +15%"
+    },
+    "orb_basic_life_01": {
+      "en": "Life +10%",
+      "es": "Vida +10%",
+      "fr": "Vie +10%",
+      "de": "Leben +10%",
+      "pt": "Vida +10%",
+      "it": "Vita +10%",
+      "tr": "Can (%+10)",
+      "nl": "Leven +10%"
+    },
+    "orb_basic_critical_02": {
+      "en": "Critical +11%",
+      "es": "Críticos +11%",
+      "fr": "Critique +11%",
+      "de": "Kritische Schläge +11%",
+      "pt": "Crítico +11%",
+      "it": "Critico +11%",
+      "tr": "Kritik (%+11)",
+      "nl": "Kritieke slag +11%"
+    },
+    "orb_basic_retaliate_02": {
+      "en": "Retaliate +15%",
+      "es": "Respuesta +15%",
+      "fr": "Riposte +15%",
+      "de": "Gegenschlag +15%",
+      "pt": "Riposta +15%",
+      "it": "Contrattacca +15%",
+      "tr": "Misilleme (%+15)",
+      "nl": "Terugslaan +15%"
+    },
+    "Charm_Xpx3_1": {
+      "en": "Triple XP",
+      "es": "Triple Experiencia",
+      "fr": "Triple XP",
+      "de": "3-fache XP",
+      "pt": "XP Tripla",
+      "it": "Tripla XP",
+      "tr": "Üç Kat Tecrübe",
+      "nl": "Drievoudige XP"
+    },
+    "Star_Gold": {
+      "en": "Gold Star",
+      "es": "Estrella Oro",
+      "fr": "Étoile d'or",
+      "de": "Gold-Stern",
+      "pt": "Estrela de Ouro",
+      "it": "Stella d’oro",
+      "tr": "Altın Yıldız",
+      "nl": "Gouden ster"
+    },
+    "orb_special_addregenerate_03": {
+      "en": "Drain life (22%)",
+      "es": "Absorción de vida (22%)",
+      "fr": "Drain de vie (22%)",
+      "de": "Leben aussaugen (22%)",
+      "pt": "Drenagem de vida (22%)",
+      "it": "Risucchia vita (22%)",
+      "tr": "Canı azalt (%22)",
+      "nl": "Drainleven (22%)"
+    },
+    "orb_basic_regenerate": {
+      "en": "Drain life +3%",
+      "es": "Absorción de Vida +3%",
+      "fr": "Drain de vie +3%",
+      "de": "Leben aussaugen +3%",
+      "pt": "Drenagem de vida +3%",
+      "it": "Risucchia vita +3%",
+      "tr": "Can azaltma (%+3)",
+      "nl": "Drainleven +3%"
+    },
+    "orb_basic_life_04": {
+      "en": "Life +25%",
+      "es": "Vida +25%",
+      "fr": "Vie +25%",
+      "de": "Leben +25%",
+      "pt": "Vida +25%",
+      "it": "Vita +25%",
+      "tr": "Can (%+25)",
+      "nl": "Leven +25%"
+    },
+    "Star_Bronze": {
+      "en": "Bronze Star",
+      "es": "Estrella Bronce",
+      "fr": "Étoile de bronze",
+      "de": "Bronze-Stern",
+      "pt": "Estrela de Bronze",
+      "it": "Stella di bronzo",
+      "tr": "Bronz Yıldız",
+      "nl": "Bronzen ster"
+    },
+    "orb_basic_retaliate_04": {
+      "en": "Retaliate +18%",
+      "es": "Respuesta +18%",
+      "fr": "Riposte +18%",
+      "de": "Gegenschlag +18%",
+      "pt": "Riposta +18%",
+      "it": "Contrattacca +18%",
+      "tr": "Misilleme (%+18)",
+      "nl": "Terugslaan +18%"
+    },
+    "orb_basic_attack_03": {
+      "en": "Attack +12%",
+      "es": "Ataque +12%",
+      "fr": "Attaque +12%",
+      "de": "Angriff +12%",
+      "pt": "Ataque +12%",
+      "it": "Attacco +12%",
+      "tr": "Saldırı (%+12)",
+      "nl": "Aanval +12%"
+    },
+    "orb_special_addweaken_01": {
+      "en": "Curse (5%)",
+      "es": "Debilitamiento (5%)",
+      "fr": "Faiblesse (5%)",
+      "de": "Fluch (5%)",
+      "pt": "Fraqueza (5%)",
+      "it": "Maledizione (5%)",
+      "tr": "Lanetle (%5)",
+      "nl": "Vloek (5%)"
+    },
+    "orb_special_addregenerate_02": {
+      "en": "Drain life (14%)",
+      "es": "Absorción de vida (14%)",
+      "fr": "Drain de vie (14%)",
+      "de": "Leben aussaugen (14%)",
+      "pt": "Drenagem de vida (14%)",
+      "it": "Risucchia vita (14%)",
+      "tr": "Canı azalt (%14)",
+      "nl": "Drainleven (14%)"
+    },
+    "orb_basic_attack": {
+      "en": "Attack +2%",
+      "es": "Ataque +2%",
+      "fr": "Attaque +2%",
+      "de": "Angriff +2%",
+      "pt": "Ataque +2%",
+      "it": "Attacco +2%",
+      "tr": "Saldırı (%+2)",
+      "nl": "Aanval +2%"
+    },
+    "orb_special_addshield_04": {
+      "en": "Shield (26%)",
+      "es": "Escudo (26%)",
+      "fr": "Bouclier (26%)",
+      "de": "Schild (26%)",
+      "pt": "Escudo (26%)",
+      "it": "Scudo (26%)",
+      "tr": "Kalkan (%26)",
+      "nl": "Schild (26%)"
+    },
+    "orb_special_addshield_01": {
+      "en": "Shield (5%)",
+      "es": "Escudo (5%)",
+      "fr": "Bouclier (5%)",
+      "de": "Schild (5%)",
+      "pt": "Escudo (5%)",
+      "it": "Scudo (5%)",
+      "tr": "Kalkan (%5)",
+      "nl": "Schild (5%)"
+    },
+    "orb_basic_regenerate_01": {
+      "en": "Drain life +7%",
+      "es": "Absorción de Vida +7%",
+      "fr": "Drain de vie +7%",
+      "de": "Leben aussaugen +7%",
+      "pt": "Drenagem de vida +7%",
+      "it": "Risucchia vita +7%",
+      "tr": "Can azaltma (%+7)",
+      "nl": "Drainleven +7%"
+    },
+    "Star_Silver": {
+      "en": "Silver Star",
+      "es": "Estrella Plata",
+      "fr": "Étoile d'argent",
+      "de": "Silber-Stern",
+      "pt": "Estrela de Prata",
+      "it": "Stella d’argento",
+      "tr": "Gümüş Yıldız",
+      "nl": "Zilveren ster"
+    },
+    "orb_special_speed": {
+      "en": "Speed +2%",
+      "es": "Rapidez +2%",
+      "fr": "Vitesse +2%",
+      "de": "Geschwindigkeit +2%",
+      "pt": "Velocidade +2%",
+      "it": "Velocità +2%",
+      "tr": "Hız (%+2)",
+      "nl": "Snelheid +2%"
+    },
+    "orb_special_addslash": {
+      "en": "Wound (2%)",
+      "es": "Herida (2%)",
+      "fr": "Blessure (2%)",
+      "de": "Blessur (2%)",
+      "pt": "Ferida (2%)",
+      "it": "Ferita (2%)",
+      "tr": "Yara (%2)",
+      "nl": "Wond (2%)"
+    },
+    "orb_basic_xp_03": {
+      "en": "XP +120%",
+      "es": "Experiencia +120 %",
+      "fr": "XP +120%",
+      "de": "XP +120 %",
+      "pt": "XP +120%",
+      "it": "XP +120%",
+      "tr": "XP +%120",
+      "nl": "XP +120%"
+    },
+    "Material_LP100": {
+      "en": "Med Pack",
+      "es": "Medikit",
+      "fr": "Médikit",
+      "de": "Med-Set",
+      "pt": "Kit Médico",
+      "it": "Medikit",
+      "tr": "Sağlık Paketi",
+      "nl": "EHBO-set"
+    },
+    "orb_basic_regenerate_03": {
+      "en": "Drain life +20%",
+      "es": "Absorción de Vida +20%",
+      "fr": "Drain de vie +20%",
+      "de": "Leben aussaugen +20%",
+      "pt": "Drenagem de vida +20%",
+      "it": "Risucchia vita +20%",
+      "tr": "Can azaltma (%+20)",
+      "nl": "Drainleven +20%"
+    },
+    "orb_basic_slash_02": {
+      "en": "Wound +15%",
+      "es": "Herida +15%",
+      "fr": "Blessure +15%",
+      "de": "Blessur +15%",
+      "pt": "Ferida +15%",
+      "it": "Ferita +15%",
+      "tr": "Yara (%+15)",
+      "nl": "Wond +15%"
+    },
+    "orb_special_addweaken_03": {
+      "en": "Curse (20%)",
+      "es": "Debilitamiento (20%)",
+      "fr": "Faiblesse (20%)",
+      "de": "Fluch (20%)",
+      "pt": "Fraqueza (20%)",
+      "it": "Maledizione (20%)",
+      "tr": "Lanetle (%20)",
+      "nl": "Vloek (20%)"
+    },
+    "orb_special_addretaliate_02": {
+      "en": "Retaliate (5%)",
+      "es": "Respuesta (5%)",
+      "fr": "Riposte (5%)",
+      "de": "Gegenschlag (5%)",
+      "pt": "Riposta (5%)",
+      "it": "Contrattacca (5%)",
+      "tr": "Misilleme (%5)",
+      "nl": "Terugslaan (5%)"
+    },
+    "orb_special_addslash_02": {
+      "en": "Wound (13%)",
+      "es": "Herida (13%)",
+      "fr": "Blessure (13%)",
+      "de": "Blessur (13%)",
+      "pt": "Ferida (13%)",
+      "it": "Ferita (13%)",
+      "tr": "Yara (%13)",
+      "nl": "Wond (13%)"
+    },
+    "orb_basic_critical": {
+      "en": "Critical +2%",
+      "es": "Críticos +2%",
+      "fr": "Critique +2%",
+      "de": "Kritische Schläge +2%",
+      "pt": "Crítico +2%",
+      "it": "Critico +2%",
+      "tr": "Kritik (%+2)",
+      "nl": "Kritieke slag +2%"
+    },
+    "Charm_Regenx4_3": {
+      "en": "Quadruple Regeneration",
+      "es": "Cuádruple Regeneración",
+      "fr": "Quadruple Regénération",
+      "de": "4-fache Regenerierung",
+      "pt": "Regeneração Quádrupla",
+      "it": "Rigeneraz. Quadrupla",
+      "tr": "Dört Rejenerasyon",
+      "nl": "Quadrupel Regeneratie"
+    },
+    "orb_basic_strengthen_01": {
+      "en": "Boost +7%",
+      "es": "Fortalecimiento +7%",
+      "fr": "Boost +7%",
+      "de": "Booster +7%",
+      "pt": "Boost +7%",
+      "it": "Miglioramento +7%",
+      "tr": "Artırma (%+7)",
+      "nl": "Boost +7%"
+    },
+    "orb_special_addstrengthen_02": {
+      "en": "Boost (13%)",
+      "es": "Fortalecimiento (13%)",
+      "fr": "Boost (13%)",
+      "de": "Boost (13%)",
+      "pt": "Boost (13%)",
+      "it": "Miglioramento (13%)",
+      "tr": "Artır (%13)",
+      "nl": "Boost (13%)"
+    },
+    "orb_basic_shield_04": {
+      "en": "Shield +22%",
+      "es": "Escudo +22%",
+      "fr": "Bouclier +22%",
+      "de": "Schild +22%",
+      "pt": "Escudo +22%",
+      "it": "Scudo +22%",
+      "tr": "Kalkan (%+22)",
+      "nl": "Schild +22%"
+    },
+    "orb_basic_strengthen": {
+      "en": "Boost +3%",
+      "es": "Fortalecimiento +3%",
+      "fr": "Boost +3%",
+      "de": "Booster +3%",
+      "pt": "Boost +3%",
+      "it": "Miglioramento +3%",
+      "tr": "Artırma (%+3)",
+      "nl": "Boost +3%"
+    },
+    "Charm_Anticritical_3": {
+      "en": "Anti-Critical Shield",
+      "es": "Escudo Anticrítico",
+      "fr": "Anti-Critiques",
+      "de": "Anti-kritische-Angriffe",
+      "pt": "Escudo Anti Ataque Crítico",
+      "it": "Scudo Anti-Critici",
+      "tr": "Anti-Kritik Kalkan",
+      "nl": "Gevaarwerend Schild"
+    },
+    "Star_Platinum": {
+      "en": "Platinum Star",
+      "es": "Estrella Platino",
+      "fr": "Étoile de platine",
+      "de": "Platin-Stern",
+      "pt": "Estrela de platina",
+      "it": "Stella di platino",
+      "tr": "Platin Yıldız",
+      "nl": "Platinum ster"
+    },
+    "orb_basic_critical_04": {
+      "en": "Critical +15%",
+      "es": "Críticos +15%",
+      "fr": "Critique +15%",
+      "de": "Kritische Schläge +15%",
+      "pt": "Crítico +15%",
+      "it": "Critico +15%",
+      "tr": "Kritik (%+15)",
+      "nl": "Kritieke slag +15%"
+    },
+    "Charm_Anticritical_7": {
+      "en": "Anti-Critical Shield",
+      "es": "Escudo Anticrítico",
+      "fr": "Anti-Critiques",
+      "de": "Anti-kritische-Angriffe",
+      "pt": "Escudo Anti Ataque Crítico",
+      "it": "Scudo Anti-Critici",
+      "tr": "Anti-Kritik Kalkan",
+      "nl": "Gevaarwerend Schild"
+    },
+    "orb_basic_weaken": {
+      "en": "Curse +3%",
+      "es": "Debilitamiento +3%",
+      "fr": "Faiblesse +3%",
+      "de": "Fluch +3%",
+      "pt": "Fraqueza +3%",
+      "it": "Maledizione +3%",
+      "tr": "Lanet (%+3)",
+      "nl": "Vloek +3%"
+    },
+    "orb_special_speed_01": {
+      "en": "Speed +5%",
+      "es": "Rapidez +5%",
+      "fr": "Vitesse +5%",
+      "de": "Geschwindigkeit +5%",
+      "pt": "Velocidade +5%",
+      "it": "Velocità +5%",
+      "tr": "Hız (%+5)",
+      "nl": "Snelheid +5%"
+    },
+    "orb_basic_strengthen_03": {
+      "en": "Boost +19%",
+      "es": "Fortalecimiento +19%",
+      "fr": "Boost +19%",
+      "de": "Booster +19%",
+      "pt": "Boost +19%",
+      "it": "Miglioramento +19%",
+      "tr": "Artırma (%+19)",
+      "nl": "Boost +19%"
+    },
+    "orb_basic_retaliate": {
+      "en": "Retaliate +3%",
+      "es": "Respuesta +3%",
+      "fr": "Riposte +3%",
+      "de": "Gegenschlag +3%",
+      "pt": "Riposta +3%",
+      "it": "Contrattacca +3%",
+      "tr": "Misilleme (%+3)",
+      "nl": "Terugslaan +3%"
+    },
+    "Charm_Xpx3_3": {
+      "en": "Triple XP",
+      "es": "Triple Experiencia",
+      "fr": "Triple XP",
+      "de": "3-fache XP",
+      "pt": "XP Tripla",
+      "it": "Tripla XP",
+      "tr": "Üç Kat Tecrübe",
+      "nl": "Drievoudige XP"
+    },
+    "orb_basic_attack_01": {
+      "en": "Attack +5%",
+      "es": "Ataque +5%",
+      "fr": "Attaque +5%",
+      "de": "Angriff +5%",
+      "pt": "Ataque +5%",
+      "it": "Attacco +5%",
+      "tr": "Saldırı (%+5)",
+      "nl": "Aanval +5%"
+    },
+    "orb_basic_xp_04": {
+      "en": "XP +150%",
+      "es": "Experiencia +150 %",
+      "fr": "XP +150%",
+      "de": "XP +150 %",
+      "pt": "XP +150%",
+      "it": "XP +150%",
+      "tr": "XP +%150",
+      "nl": "XP +150%"
+    },
+    "Material_Muto10": {
+      "en": "Shot of Mutosterone",
+      "es": "Dosis de Mutosterona",
+      "fr": "Dose de mutostérone",
+      "de": "Mutosteron-Dosis",
+      "pt": "Dose de Mutosterona",
+      "it": "Dose di Mutosterone",
+      "tr": "Mutoöstron ilacı",
+      "nl": "Dosis mutosterone"
+    },
+    "orb_special_addstrengthen_01": {
+      "en": "Boost (5%)",
+      "es": "Fortalecimiento (5%)",
+      "fr": "Boost (5%)",
+      "de": "Boost (5%)",
+      "pt": "Boost (5%)",
+      "it": "Miglioramento (5%)",
+      "tr": "Artır (%5)",
+      "nl": "Boost (5%)"
+    },
+    "orb_basic_life": {
+      "en": "Life +5%",
+      "es": "Vida +5%",
+      "fr": "Vie +5%",
+      "de": "Leben +5%",
+      "pt": "Vida +5%",
+      "it": "Vita +5%",
+      "tr": "Can (%+5)",
+      "nl": "Leven +5%"
+    },
+    "orb_special_addweaken_02": {
+      "en": "Curse (13%)",
+      "es": "Debilitamiento (13%)",
+      "fr": "Faiblesse (13%)",
+      "de": "Fluch (13%)",
+      "pt": "Fraqueza (13%)",
+      "it": "Maledizione (13%)",
+      "tr": "Lanetle (%13)",
+      "nl": "Vloek (13%)"
+    },
+    "orb_special_addregenerate_01": {
+      "en": "Drain life (5%)",
+      "es": "Absorción de vida (5%)",
+      "fr": "Drain de vie (5%)",
+      "de": "Leben aussaugen (5%)",
+      "pt": "Drenagem de vida (5%)",
+      "it": "Risucchia vita (5%)",
+      "tr": "Canı azalt (%5)",
+      "nl": "Drainleven (5%)"
+    },
+    "orb_basic_regenerate_02": {
+      "en": "Drain life +15%",
+      "es": "Absorción de Vida +15%",
+      "fr": "Drain de vie +15%",
+      "de": "Leben aussaugen +15%",
+      "pt": "Drenagem de vida +15%",
+      "it": "Risucchia vita +15%",
+      "tr": "Can azaltma (%+15)",
+      "nl": "Drainleven +15%"
+    },
+    "orb_basic_regenerate_04": {
+      "en": "Drain life +25%",
+      "es": "Absorción de Vida +25%",
+      "fr": "Drain de vie +25%",
+      "de": "Leben aussaugen +25%",
+      "pt": "Drenagem de vida +25%",
+      "it": "Risucchia vita +25%",
+      "tr": "Can azaltma (%+25)",
+      "nl": "Drainleven +25%"
+    },
+    "orb_basic_slash_03": {
+      "en": "Wound +19%",
+      "es": "Herida +19%",
+      "fr": "Blessure +19%",
+      "de": "Blessur +19%",
+      "pt": "Ferida +19%",
+      "it": "Ferita +19%",
+      "tr": "Yara (%+19)",
+      "nl": "Wond +19%"
+    },
+    "orb_basic_critical_03": {
+      "en": "Critical +13%",
+      "es": "Críticos +13%",
+      "fr": "Critique +13%",
+      "de": "Kritische Schläge +13%",
+      "pt": "Crítico +13%",
+      "it": "Critico +13%",
+      "tr": "Kritik (%+13)",
+      "nl": "Kritieke slag +13%"
+    },
+    "orb_basic_strengthen_04": {
+      "en": "Boost +22%",
+      "es": "Fortalecimiento +22%",
+      "fr": "Boost +22%",
+      "de": "Booster +22%",
+      "pt": "Boost +22%",
+      "it": "Miglioramento +22%",
+      "tr": "Artırma (%+22)",
+      "nl": "Boost +22%"
+    },
+    "orb_special_addshield": {
+      "en": "Shield (2%)",
+      "es": "Escudo (2%)",
+      "fr": "Bouclier (2%)",
+      "de": "Schild (2%)",
+      "pt": "Escudo (2%)",
+      "it": "Scudo (2%)",
+      "tr": "Kalkan (%2)",
+      "nl": "Schild (2%)"
+    },
+    "Material_Jackpot_Token": {
+      "en": "Jackpot Token",
+      "es": "Ficha Jackpot",
+      "fr": "Jeton Jackpot",
+      "de": "Jackpot-Chip",
+      "pt": "Token Jackpot",
+      "it": "Gettone Jackpot",
+      "tr": "Jackpot Jetonu",
+      "nl": "Jackpotmuntje"
+    },
+    "Material_LP1000": {
+      "en": "Big Med Pack",
+      "es": "Medikit grande",
+      "fr": "Grand Médikit",
+      "de": "Großes Med-Set",
+      "pt": "Grande Kit Médico",
+      "it": "Medikit Grande",
+      "tr": "Büyük Sağlık Paketi",
+      "nl": "Grote EHBO-set"
+    },
+    "Material_XP1000": {
+      "en": "Experience Jar",
+      "es": "Tarro de Experiencia",
+      "fr": "Mélange Énergisant",
+      "de": "Energiemix",
+      "pt": "Mistura energética",
+      "it": "Mix Energetico",
+      "tr": "Tecrübe Kavanozu",
+      "nl": "Energymix"
+    },
+    "orb_basic_shield": {
+      "en": "Shield +3%",
+      "es": "Escudo +3%",
+      "fr": "Bouclier +3%",
+      "de": "Schild +3%",
+      "pt": "Escudo +3%",
+      "it": "Scudo +3%",
+      "tr": "Kalkan (%+3)",
+      "nl": "Schild +3%"
+    },
+    "orb_special_addslash_04": {
+      "en": "Wound (26%)",
+      "es": "Herida (26%)",
+      "fr": "Blessure (26%)",
+      "de": "Blessur (26%)",
+      "pt": "Ferida (26%)",
+      "it": "Ferita (26%)",
+      "tr": "Yara (%26)",
+      "nl": "Wond (26%)"
+    },
+    "orb_basic_weaken_04": {
+      "en": "Curse +22%",
+      "es": "Debilitamiento +22%",
+      "fr": "Faiblesse +22%",
+      "de": "Fluch +22%",
+      "pt": "Fraqueza +22%",
+      "it": "Maledizione +22%",
+      "tr": "Lanet (%+22)",
+      "nl": "Vloek +22%"
+    },
+    "Charm_Critical_3": {
+      "en": "Critical Strikes",
+      "es": "Ataques Críticos",
+      "fr": "Attaque Critique",
+      "de": "Kritische Angriffe",
+      "pt": "Ataque Crítico",
+      "it": "Colpi Critici",
+      "tr": "Kritik Saldırılar",
+      "nl": "Kritieke Aanval"
+    },
+    "Material_Gacha_Token": {
+      "en": "Reactor Token",
+      "es": "Ficha Reactor",
+      "fr": "Jeton Réacteur",
+      "de": "Reaktor-Chip",
+      "pt": "Token Reator",
+      "it": "Gettone Reattore",
+      "tr": "Reaktör Jetonu",
+      "nl": "Reactormuntje"
+    },
+    "orb_basic_slash": {
+      "en": "Wound +3%",
+      "es": "Herida +3%",
+      "fr": "Blessure +3%",
+      "de": "Blessur +3%",
+      "pt": "Ferida +3%",
+      "it": "Ferita +3%",
+      "tr": "Yara (%+3)",
+      "nl": "Wond +3%"
+    },
+    "orb_special_addslash_03": {
+      "en": "Wound (20%)",
+      "es": "Herida (20%)",
+      "fr": "Blessure (20%)",
+      "de": "Blessur (20%)",
+      "pt": "Ferida (20%)",
+      "it": "Ferita (20%)",
+      "tr": "Yara (%20)",
+      "nl": "Wond (20%)"
+    },
+    "Charm_Xpx2_3": {
+      "en": "Double XP",
+      "es": "Doble Experiencia",
+      "fr": "Double XP",
+      "de": "Doppelte XP",
+      "pt": "XP Dupla",
+      "it": "Doppia XP",
+      "tr": "Çift Kat Tecrübe",
+      "nl": "Dubbele XP"
+    },
+    "Material_Muto50": {
+      "en": "Big shot of Mutosterone",
+      "es": "Dosis de Mutosterona grande",
+      "fr": "Grande dose de mutostérone",
+      "de": "Große Mutosteron-Dosis",
+      "pt": "Grande dose de Mutosterona",
+      "it": "Dose grande di Mutosterone",
+      "tr": "Büyük Mutoöstron ilacı",
+      "nl": "Grote dosis mutosterone"
+    },
+    "orb_basic_weaken_03": {
+      "en": "Curse +19%",
+      "es": "Debilitamiento +19%",
+      "fr": "Faiblesse +19%",
+      "de": "Fluch +19%",
+      "pt": "Fraqueza +19%",
+      "it": "Maledizione +19%",
+      "tr": "Lanet (%+19)",
+      "nl": "Vloek +19%"
+    },
+    "orb_basic_retaliate_03": {
+      "en": "Retaliate +17%",
+      "es": "Respuesta +17%",
+      "fr": "Riposte +17%",
+      "de": "Gegenschlag +17%",
+      "pt": "Riposta +17%",
+      "it": "Contrattacca +17%",
+      "tr": "Misilleme (%+17)",
+      "nl": "Terugslaan +17%"
+    },
+    "Charm_Xpx2_7": {
+      "en": "Double XP",
+      "es": "Doble Experiencia",
+      "fr": "Double XP",
+      "de": "Doppelte XP",
+      "pt": "XP Dupla",
+      "it": "Doppia XP",
+      "tr": "Çift Kat Tecrübe",
+      "nl": "Dubbele XP"
+    },
+    "Charm_Regenx2_1": {
+      "en": "Double Regeneration",
+      "es": "Doble Regeneración",
+      "fr": "Double Regénération",
+      "de": "Doppelte Regenerierung",
+      "pt": "Regeneração Dupla",
+      "it": "Rigenerazione Doppia",
+      "tr": "Çift Rejenerasyon",
+      "nl": "Dubbele Regeneratie"
+    },
+    "orb_basic_slash_01": {
+      "en": "Wound +7%",
+      "es": "Herida +7%",
+      "fr": "Blessure +7%",
+      "de": "Blessur +7%",
+      "pt": "Ferida +7%",
+      "it": "Ferita +7%",
+      "tr": "Yara (%+7)",
+      "nl": "Wond +7%"
+    },
+    "Charm_Regenx2_7": {
+      "en": "Double Regeneration",
+      "es": "Doble Regeneración",
+      "fr": "Double Regénération",
+      "de": "Doppelte Regenerierung",
+      "pt": "Regeneração Dupla",
+      "it": "Rigenerazione Doppia",
+      "tr": "Çift Rejenerasyon",
+      "nl": "Dubbele Regeneratie"
+    },
+    "orb_special_speed_03": {
+      "en": "Speed +15%",
+      "es": "Rapidez +15%",
+      "fr": "Vitesse +15%",
+      "de": "Geschwindigkeit +15%",
+      "pt": "Velocidade +15%",
+      "it": "Velocità +15%",
+      "tr": "Hız (%+15)",
+      "nl": "Snelheid +15%"
+    },
+    "orb_special_addweaken": {
+      "en": "Curse (2%)",
+      "es": "Debilitamiento (2%)",
+      "fr": "Faiblesse (2%)",
+      "de": "Fluch (2%)",
+      "pt": "Fraqueza (2%)",
+      "it": "Maledizione (2%)",
+      "tr": "Lanetle (%2)",
+      "nl": "Vloek (2%)"
+    },
+    "orb_special_addregenerate": {
+      "en": "Drain life (2%)",
+      "es": "Absorción de vida (2%)",
+      "fr": "Drain de vie (2%)",
+      "de": "Leben aussaugen (2%)",
+      "pt": "Drenagem de vida (2%)",
+      "it": "Risucchia vita (2%)",
+      "tr": "Canı azalt (%2)",
+      "nl": "Drainleven (2%)"
+    },
+    "orb_basic_slash_04": {
+      "en": "Wound +22%",
+      "es": "Herida +22%",
+      "fr": "Blessure +22%",
+      "de": "Blessur +22%",
+      "pt": "Ferida +22%",
+      "it": "Ferita +22%",
+      "tr": "Yara (%+22)",
+      "nl": "Wond +22%"
+    },
+    "orb_special_addregenerate_04": {
+      "en": "Drain life (29%)",
+      "es": "Absorción de vida (29%)",
+      "fr": "Drain de vie (29%)",
+      "de": "Leben aussaugen (29%)",
+      "pt": "Drenagem de vida (29%)",
+      "it": "Risucchia vita (29%)",
+      "tr": "Canı azalt (%29)",
+      "nl": "Drainleven (29%)"
+    },
+    "Charm_Critical_1": {
+      "en": "Critical Strikes",
+      "es": "Ataques Críticos",
+      "fr": "Attaque Critique",
+      "de": "Kritische Angriffe",
+      "pt": "Ataque Crítico",
+      "it": "Colpi Critici",
+      "tr": "Kritik Saldırılar",
+      "nl": "Kritieke Aanval"
+    },
+    "orb_basic_life_02": {
+      "en": "Life +15%",
+      "es": "Vida +15%",
+      "fr": "Vie +15%",
+      "de": "Leben +15%",
+      "pt": "Vida +15%",
+      "it": "Vita +15%",
+      "tr": "Can (%+15)",
+      "nl": "Leven +15%"
+    },
+    "Material_Muto1": {
+      "en": "Small shot of Mutosterone",
+      "es": "Dosis de Mutosterona pequeña",
+      "fr": "Petite dose de mutostérone",
+      "de": "Kleine Mutosteron-Dosis",
+      "pt": "Pequena dose de Mutosterona",
+      "it": "Dose piccola di Mutosterone",
+      "tr": "Küçük Mutoöstron ilacı",
+      "nl": "Kleine dosis mutosterone"
+    },
+    "orb_special_addretaliate": {
+      "en": "Retaliate (1%)",
+      "es": "Respuesta (1%)",
+      "fr": "Riposte (1%)",
+      "de": "Gegenschlag (1%)",
+      "pt": "Riposta (1%)",
+      "it": "Contrattacca (1%)",
+      "tr": "Misilleme (%1)",
+      "nl": "Terugslaan (1%)"
+    },
+    "orb_special_addshield_02": {
+      "en": "Shield (13%)",
+      "es": "Escudo (13%)",
+      "fr": "Bouclier (13%)",
+      "de": "Schild (13%)",
+      "pt": "Escudo (13%)",
+      "it": "Scudo (13%)",
+      "tr": "Kalkan (%13)",
+      "nl": "Schild (13%)"
+    },
+    "orb_special_addstrengthen_03": {
+      "en": "Boost (20%)",
+      "es": "Fortalecimiento (20%)",
+      "fr": "Boost (20%)",
+      "de": "Boost (20%)",
+      "pt": "Boost (20%)",
+      "it": "Miglioramento (20%)",
+      "tr": "Artır (%20)",
+      "nl": "Boost (20%)"
+    },
+    "orb_special_addshield_03": {
+      "en": "Shield (20%)",
+      "es": "Escudo (20%)",
+      "fr": "Bouclier (20%)",
+      "de": "Schild (20%)",
+      "pt": "Escudo (20%)",
+      "it": "Scudo (20%)",
+      "tr": "Kalkan (%20)",
+      "nl": "Schild (20%)"
+    },
+    "orb_basic_critical_01": {
+      "en": "Critical +5%",
+      "es": "Críticos +5%",
+      "fr": "Critique +5%",
+      "de": "Kritische Schläge +5%",
+      "pt": "Crítico +5%",
+      "it": "Critico +5%",
+      "tr": "Kritik (%+5)",
+      "nl": "Kritieke slag +5%"
+    },
+    "orb_basic_shield_02": {
+      "en": "Shield +15%",
+      "es": "Escudo +15%",
+      "fr": "Bouclier +15%",
+      "de": "Schild +15%",
+      "pt": "Escudo +15%",
+      "it": "Scudo +15%",
+      "tr": "Kalkan (%+15)",
+      "nl": "Schild +15%"
+    }
+  },
+  "headers": {
+    "big_rewards_01": {
+      "en": "Craft for stars, challenge tokens and level-3 special orbs",
+      "es": "Crafteo para estrellas, fichas de desafío y esferas especiales de nivel 3",
+      "fr": "Craft pour étoiles, jetons de défi et sphères spéciales de niveau 3",
+      "de": "Crafting für Sterne, Herausforderungs-Chips und Level-3-Spezialkugeln",
+      "pt": "Criação de estrelas, fichas de desafio e esferas especiais de nível 3",
+      "it": "Crafting per stelle, gettoni sfida e sfere speciali di livello 3",
+      "tr": "Yıldızlar, meydan okuma jetonları ve seviye 3 özel küreler için craft",
+      "nl": "Craft voor sterren, uitdagingsmuntjes en level-3 speciale bollen"
+    },
+    "pot_pourri_03": {
+      "en": "Craft 3 med packs",
+      "es": "Craftea 3 medikits",
+      "fr": "Craftez 3 médikits",
+      "de": "Crafte 3 Med-Sets",
+      "pt": "Crie 3 kits médicos",
+      "it": "Crafta 3 medikit",
+      "tr": "Craftle 3 sağlık paketleri",
+      "nl": "Craft 3 EHBO-sets"
+    },
+    "pot_pourri_04": {
+      "en": "Craft 4 med packs",
+      "es": "Craftea 4 medikits",
+      "fr": "Craftez 4 médikits",
+      "de": "Crafte 4 Med-Sets",
+      "pt": "Crie 4 kits médicos",
+      "it": "Crafta 4 medikit",
+      "tr": "Craftle 4 sağlık paketleri",
+      "nl": "Craft 4 EHBO-sets"
+    },
+    "pot_pourri_05": {
+      "en": "Craft 5 med packs",
+      "es": "Craftea 5 medikits",
+      "fr": "Craftez 5 médikits",
+      "de": "Crafte 5 Med-Sets",
+      "pt": "Crie 5 kits médicos",
+      "it": "Crafta 5 medikit",
+      "tr": "Craftle 5 sağlık paketleri",
+      "nl": "Craft 5 EHBO-sets"
+    },
+    "pot_pourri_06": {
+      "en": "Craft 6 med packs",
+      "es": "Craftea 6 medikits",
+      "fr": "Craftez 6 médikits",
+      "de": "Crafte 6 Med-Sets",
+      "pt": "Crie 6 kits médicos",
+      "it": "Crafta 6 medikit",
+      "tr": "Craftle 6 sağlık paketleri",
+      "nl": "Craft 6 EHBO-sets"
+    },
+    "pot_pourri_07": {
+      "en": "Craft 7 med packs",
+      "es": "Craftea 7 medikits",
+      "fr": "Craftez 7 médikits",
+      "de": "Crafte 7 Med-Sets",
+      "pt": "Crie 7 kits médicos",
+      "it": "Crafta 7 medikit",
+      "tr": "Craftle 7 sağlık paketleri",
+      "nl": "Craft 7 EHBO-sets"
+    },
+    "little_rewards_01": {
+      "en": "Craft 2 quest items",
+      "es": "Craftea 2 objetos de misión",
+      "fr": "Craftez 2 objets de quête",
+      "de": "Crafte 2 Quest-Gegenstände",
+      "pt": "Crie 2 itens de missão",
+      "it": "Crafta 2 oggetti missione",
+      "tr": "Craftle 2 görev eşyası",
+      "nl": "Craft 2 questitems"
+    },
+    "big_rewards_02": {
+      "en": "Chance to craft a generator token (not recommended)",
+      "es": "Posibilidad de craftear una ficha de generador (no recomendado)",
+      "fr": "Chance de crafter un jeton générateur (non recommandé)",
+      "de": "Chance, einen Generator-Chip zu craften (nicht empfohlen)",
+      "pt": "Chance de criar uma ficha de gerador (não recomendado)",
+      "it": "Possibilità di craftare un gettone generatore (non consigliato)",
+      "tr": "Jeneratör jetonu craftleme şansı (önerilmez)",
+      "nl": "Kans om een generatormuntje te craften (niet aanbevolen)"
+    },
+    "token_sink_01": {
+      "en": "Craft a platinum star",
+      "es": "Craftea una estrella de platino",
+      "fr": "Craftez une étoile de platine",
+      "de": "Crafte einen Platin-Stern",
+      "pt": "Crie uma estrela de platina",
+      "it": "Crafta una stella di platino",
+      "tr": "Craftle bir platin yıldız",
+      "nl": "Craft een platina ster"
+    },
+    "token_sink_02": {
+      "en": "Craft a gold star",
+      "es": "Craftea una estrella de oro",
+      "fr": "Craftez une étoile d’or",
+      "de": "Crafte einen Gold-Stern",
+      "pt": "Crie uma estrela de ouro",
+      "it": "Crafta una stella d’oro",
+      "tr": "Craftle bir altın yıldız",
+      "nl": "Craft een gouden ster"
+    },
+    "token_sink_03": {
+      "en": "Craft a silver star",
+      "es": "Craftea una estrella de plata",
+      "fr": "Craftez une étoile d’argent",
+      "de": "Crafte einen Silber-Stern",
+      "pt": "Crie uma estrela de prata",
+      "it": "Crafta una stella d’argento",
+      "tr": "Craftle bir gümüş yıldız",
+      "nl": "Craft een zilveren ster"
+    },
+    "token_sink_04": {
+      "en": "Craft a bronze star",
+      "es": "Craftea una estrella de bronce",
+      "fr": "Craftez une étoile de bronze",
+      "de": "Crafte einen Bronze-Stern",
+      "pt": "Crie uma estrela de bronze",
+      "it": "Crafta una stella di bronzo",
+      "tr": "Craftle bir bronz yıldız",
+      "nl": "Craft een bronzen ster"
+    },
+    "token_sink_05": {
+      "en": "Craft a gold star",
+      "es": "Craftea una estrella de oro",
+      "fr": "Craftez une étoile d’or",
+      "de": "Crafte einen Gold-Stern",
+      "pt": "Crie uma estrela de ouro",
+      "it": "Crafta una stella d’oro",
+      "tr": "Craftle bir altın yıldız",
+      "nl": "Craft een gouden ster"
+    },
+    "token_sink_06": {
+      "en": "Craft 3× a silver star",
+      "es": "Craftea 3× una estrella de plata",
+      "fr": "Craftez 3× une étoile d’argent",
+      "de": "Crafte 3× einen Silber-Stern",
+      "pt": "Crie 3× uma estrela de prata",
+      "it": "Crafta 3× una stella d’argento",
+      "tr": "Craftle 3× bir gümüş yıldız",
+      "nl": "Craft 3× een zilveren ster"
+    },
+    "chronoshifted_addshield": {
+      "en": "Craft a level-4 special shield orb",
+      "es": "Craftea una esfera especial de escudo de nivel 4",
+      "fr": "Craftez une sphère spéciale de bouclier de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Schild",
+      "pt": "Crie uma esfera especial de escudo de nível 4",
+      "it": "Crafta una sfera speciale di scudo di livello 4",
+      "tr": "Craftle seviye 4 özel kalkan küresi",
+      "nl": "Craft een level-4 speciale schild-bol"
+    },
+    "chronoshifted_addslash": {
+      "en": "Craft a level-4 special wound orb",
+      "es": "Craftea una esfera especial de herida de nivel 4",
+      "fr": "Craftez une sphère spéciale de blessure de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Blessur",
+      "pt": "Crie uma esfera especial de ferimento de nível 4",
+      "it": "Crafta una sfera speciale di ferita di livello 4",
+      "tr": "Craftle seviye 4 özel yara küresi",
+      "nl": "Craft een level-4 speciale verwonding-bol"
+    },
+    "chronoshifted_addregen": {
+      "en": "Craft a level-4 special regeneration orb",
+      "es": "Craftea una esfera especial de regeneración de nivel 4",
+      "fr": "Craftez une sphère spéciale de régénération de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Regenerierung",
+      "pt": "Crie uma esfera especial de regeneração de nível 4",
+      "it": "Crafta una sfera speciale di rigenerazione di livello 4",
+      "tr": "Craftle seviye 4 özel rejenerasyon küresi",
+      "nl": "Craft een level-4 speciale regeneratie-bol"
+    },
+    "chronoshifted_addweaken": {
+      "en": "Craft a level-4 special curse orb",
+      "es": "Craftea una esfera especial de debilitamiento de nivel 4",
+      "fr": "Craftez une sphère spéciale de faiblesse de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Fluch",
+      "pt": "Crie uma esfera especial de fraqueza de nível 4",
+      "it": "Crafta una sfera speciale di maledizione di livello 4",
+      "tr": "Craftle seviye 4 özel lanet küresi",
+      "nl": "Craft een level-4 speciale vloek-bol"
+    },
+    "chronoshifted_addstrengthen": {
+      "en": "Craft a level-4 special boost orb",
+      "es": "Craftea una esfera especial de fortalecimiento de nivel 4",
+      "fr": "Craftez une sphère spéciale de boost de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Booster",
+      "pt": "Crie uma esfera especial de boost de nível 4",
+      "it": "Crafta una sfera speciale di miglioramento di livello 4",
+      "tr": "Craftle seviye 4 özel artırma küresi",
+      "nl": "Craft een level-4 speciale boost-bol"
+    },
+    "chronoshifted_retaliate": {
+      "en": "Craft a level-4 special retaliation orb",
+      "es": "Craftea una esfera especial de respuesta de nivel 4",
+      "fr": "Craftez une sphère spéciale de riposte de niveau 4",
+      "de": "Crafte eine Level-4-Spezialkugel für Gegenschlag",
+      "pt": "Crie uma esfera especial de riposta de nível 4",
+      "it": "Crafta una sfera speciale di contrattacco di livello 4",
+      "tr": "Craftle seviye 4 özel misilleme küresi",
+      "nl": "Craft een level-4 speciale terugslag-bol"
+    }
+  },
+  "regex": {
+    "orb_(basic|special)_[abcdefghijklmnopqrstuvwxyz]+": {
+      "en": "Any orb (basic or special) of any type",
+      "es": "Cualquier esfera (básica o especial) de cualquier tipo",
+      "fr": "N’importe quelle sphère (de base ou spéciale) de tout type",
+      "de": "Beliebige Kugel (Basis oder Spezial) jeder Art",
+      "pt": "Qualquer esfera (básica ou especial) de qualquer tipo",
+      "it": "Qualsiasi sfera (di base o speciale) di qualsiasi tipo",
+      "tr": "Herhangi bir küre (temel veya özel), herhangi bir tür",
+      "nl": "Elke bol (basis of speciaal) van elk type"
+    },
+    "orb_(special|basic)_[abcdefghijklmnopqrstuvwxyz]+_.*|Star_Bronze|Material_Jackpot_Token|(Material_XP|Material_Muto).*|Material_LP100|Material_LP1000": {
+      "en": "Any 3 items from the list: orbs of any level, bronze stars, jackpot tokens, XP or mutosterone, med packs (medium/large)",
+      "es": "Cualquiera de estos 3 objetos: esferas de cualquier nivel, estrellas de bronce, fichas de jackpot, XP o mutosterona, medikits (mediano/grande)",
+      "fr": "N’importe quels 3 objets de la liste : sphères de tout niveau, étoiles de bronze, jetons jackpot, XP ou mutostérone, médikits (moyen/grand)",
+      "de": "Beliebige 3 Gegenstände aus der Liste: Kugeln jeder Stufe, Bronze-Sterne, Jackpot-Chips, XP oder Mutosteron, Med-Sets (mittel/groß)",
+      "pt": "Quaisquer 3 itens da lista: esferas de qualquer nível, estrelas de bronze, fichas de jackpot, XP ou mutosterona, kits médicos (médio/grande)",
+      "it": "Qualsiasi 3 oggetti dalla lista: sfere di qualsiasi livello, stelle di bronzo, gettoni jackpot, XP o mutosterone, medikit (medi/grandi)",
+      "tr": "Listeden herhangi 3 eşya: herhangi seviyede küre, bronz yıldız, jackpot jetonu, XP veya mutoöstron, sağlık paketleri (orta/büyük)",
+      "nl": "Elke 3 items uit de lijst: bollen van elk niveau, bronzen sterren, jackpotmuntjes, XP of mutosterone, EHBO-sets (middel/groot)"
+    },
+    "orb_(special|basic)_[abcdefghijklmnopqrstuvwxyz]+_.*|Star_Bronze|Star_Silver|Material_Jackpot_Token|(Material_XP|Material_Muto).*|Material_LP100|Material_LP1000": {
+      "en": "Any 4 items from the list: orbs of any level, bronze or silver stars, jackpot tokens, XP or mutosterone, med packs (medium/large)",
+      "es": "Cualquiera de estos 4 objetos: esferas de cualquier nivel, estrellas de bronce o plata, fichas de jackpot, XP o mutosterona, medikits (mediano/grande)",
+      "fr": "N’importe quels 4 objets de la liste : sphères de tout niveau, étoiles de bronze ou d’argent, jetons jackpot, XP ou mutostérone, médikits (moyen/grand)",
+      "de": "Beliebige 4 Gegenstände aus der Liste: Kugeln jeder Stufe, Bronze- oder Silber-Sterne, Jackpot-Chips, XP oder Mutosteron, Med-Sets (mittel/groß)",
+      "pt": "Quaisquer 4 itens da lista: esferas de qualquer nível, estrelas de bronze ou prata, fichas de jackpot, XP ou mutosterona, kits médicos (médio/grande)",
+      "it": "Qualsiasi 4 oggetti dalla lista: sfere di qualsiasi livello, stelle di bronzo o d’argento, gettoni jackpot, XP o mutosterone, medikit (medi/grandi)",
+      "tr": "Listeden herhangi 4 eşya: herhangi seviyede küre, bronz veya gümüş yıldız, jackpot jetonu, XP veya mutoöstron, sağlık paketleri (orta/büyük)",
+      "nl": "Elke 4 items uit de lijst: bollen van elk niveau, bronzen of zilveren sterren, jackpotmuntjes, XP of mutosterone, EHBO-sets (middel/groot)"
+    },
+    "Material_Muto50|Material_XP1000": {
+      "en": "Any large dose of mutosterone or XP jar",
+      "es": "Cualquier dosis grande de mutosterona o bote de XP",
+      "fr": "N’importe quelle grande dose de mutostérone ou pot de XP",
+      "de": "Beliebige große Dosis Mutosteron oder XP-Glas",
+      "pt": "Qualquer dose grande de mutosterona ou pote de XP",
+      "it": "Qualsiasi dose grande di mutosterone o vasetto di XP",
+      "tr": "Herhangi büyük mutoöstron dozu veya XP kavanozu",
+      "nl": "Elke grote dosis mutosterone of XP-pot"
+    },
+    "orb_basic_[abcdefghijklmnopqrstuvwxyz]+": {
+      "en": "Any basic orb",
+      "es": "Cualquier esfera básica",
+      "fr": "N’importe quelle sphère de base",
+      "de": "Beliebige Basiskugel",
+      "pt": "Qualquer esfera básica",
+      "it": "Qualsiasi sfera di base",
+      "tr": "Herhangi bir temel küre",
+      "nl": "Elke basisbol"
+    },
+    "orb_basic_[abcdefghijklmnopqrstuvwxyz]+_01": {
+      "en": "Any basic orb lvl.1",
+      "es": "Cualquier esfera básica nv.1",
+      "fr": "N’importe quelle sphère de base niv.1",
+      "de": "Beliebige Basiskugel Stufe 1",
+      "pt": "Qualquer esfera básica nív.1",
+      "it": "Qualsiasi sfera di base liv.1",
+      "tr": "Herhangi bir temel küre sv.1",
+      "nl": "Elke basisbol niv.1"
+    },
+    "orb_basic_[abcdefghijklmnopqrstuvwxyz]+_02": {
+      "en": "Any basic orb lvl.2",
+      "es": "Cualquier esfera básica nv.2",
+      "fr": "N’importe quelle sphère de base niv.2",
+      "de": "Beliebige Basiskugel Stufe 2",
+      "pt": "Qualquer esfera básica nív.2",
+      "it": "Qualsiasi sfera di base liv.2",
+      "tr": "Herhangi bir temel küre sv.2",
+      "nl": "Elke basisbol niv.2"
+    },
+    "orb_basic_[abcdefghijklmnopqrstuvwxyz]+_03": {
+      "en": "Any basic orb lvl.3",
+      "es": "Cualquier esfera básica nv.3",
+      "fr": "N’importe quelle sphère de base niv.3",
+      "de": "Beliebige Basiskugel Stufe 3",
+      "pt": "Qualquer esfera básica nív.3",
+      "it": "Qualsiasi sfera di base liv.3",
+      "tr": "Herhangi bir temel küre sv.3",
+      "nl": "Elke basisbol niv.3"
+    },
+    "orb_special_[abcdefghijklmnopqrstuvwxyz]+": {
+      "en": "Any special orb",
+      "es": "Cualquier esfera especial",
+      "fr": "N’importe quelle sphère spéciale",
+      "de": "Beliebige Spezialkugel",
+      "pt": "Qualquer esfera especial",
+      "it": "Qualsiasi sfera speciale",
+      "tr": "Herhangi bir özel küre",
+      "nl": "Elke speciale bol"
+    },
+    "orb_special_[abcdefghijklmnopqrstuvwxyz]+_01": {
+      "en": "Any special orb lvl.1",
+      "es": "Cualquier esfera especial nv.1",
+      "fr": "N’importe quelle sphère spéciale niv.1",
+      "de": "Beliebige Spezialkugel Stufe 1",
+      "pt": "Qualquer esfera especial nív.1",
+      "it": "Qualsiasi sfera speciale liv.1",
+      "tr": "Herhangi bir özel küre sv.1",
+      "nl": "Elke speciale bol niv.1"
+    },
+    "orb_special_[abcdefghijklmnopqrstuvwxyz]+_02": {
+      "en": "Any special orb lvl.2",
+      "es": "Cualquier esfera especial nv.2",
+      "fr": "N’importe quelle sphère spéciale niv.2",
+      "de": "Beliebige Spezialkugel Stufe 2",
+      "pt": "Qualquer esfera especial nív.2",
+      "it": "Qualsiasi sfera speciale liv.2",
+      "tr": "Herhangi bir özel küre sv.2",
+      "nl": "Elke speciale bol niv.2"
+    },
+    "orb_special_[abcdefghijklmnopqrstuvwxyz]+_03": {
+      "en": "Any special orb lvl.3",
+      "es": "Cualquier esfera especial nv.3",
+      "fr": "N’importe quelle sphère spéciale niv.3",
+      "de": "Beliebige Spezialkugel Stufe 3",
+      "pt": "Qualquer esfera especial nív.3",
+      "it": "Qualsiasi sfera speciale liv.3",
+      "tr": "Herhangi bir özel küre sv.3",
+      "nl": "Elke speciale bol niv.3"
+    }
+  }
+}

@@ -1,0 +1,668 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import StatBox from '@/components/rebalance/StatBox.astro';
+import history from '@/data/mutants/rebalance-history.json';
+import mutants from '@/data/mutants/mutants.json';
+import { textureUrl } from '@/lib/texture-cdn';
+import { abilityLabelL } from '@/lib/mutant-dicts';
+import { getGeneIcon, STAR_KEYS, STAR_MULTIPLIERS } from '@/lib/mutant-icons';
+import { sortMutantsByGene } from '@/lib/mutant-sort';
+import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
+const INTL_LOCALE: Record<string, string> = { ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL' };
+
+type AbilityField = 'pct' | 'atk1' | 'atk2';
+interface StatChange {
+  stat: 'hp' | 'atk1' | 'atk2' | 'speed' | 'abilities';
+  level: 1 | 30 | null;
+  old: number | null;
+  new: number | null;
+  ability?: string;
+  field?: AbilityField;
+}
+interface RebalanceEntry {
+  id: string;
+  name: string;
+  changes: StatChange[];
+}
+interface RebalanceRun {
+  date: string;
+  entries: RebalanceEntry[];
+}
+
+const runs = (history as RebalanceRun[]) ?? [];
+
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Тир (1 - лучший ... 4 - худший, +/- внутри тира) -> цвет бейджа, тот же принцип, что в TierList.svelte
+const TIER_COLOR: Record<string, string> = { '1': '#f87171', '2': '#fb923c', '3': '#facc15', '4': '#4ade80' };
+const tierColor = (tier: string) => TIER_COLOR[tier[0]] ?? '#94a3b8';
+
+interface MutantMeta {
+  head: string | null;
+  genes: string[];
+  tier: string;
+  hp: number | null;
+  atk1: number | null;
+  atk2: number | null;
+  abilityPct: number | null;
+  abilityAtk1: number | null;
+  abilityAtk2: number | null;
+  abilityName: string | null;
+  speed: number | null;
+  atk1Aoe: boolean;
+  atk2Aoe: boolean;
+  // Все статы в mutants.json посчитаны при множителе 1.0 (raw) - см.
+  // scripts/sync-mutants.ts calculateFinalStats(..., 1.0). Страница ребаланса
+  // должна показывать мутанта в его МАКСИМАЛЬНОЙ доступной звезде (герои/легенды -
+  // платина, зодиаки - серебро, особые - обычная), поэтому здесь считаем множитель
+  // звезды один раз и масштабируем им все hp/atk1/atk2/ability-atk значения ниже.
+  // Формула линейна (finalStat = base * multiplier * levelScale), так что
+  // домножение уже готового числа эквивалентно пересчёту с нуля - speed/pct
+  // от звезды не зависят и не масштабируются.
+  starMultiplier: number;
+}
+// Множитель самой высокой доступной звезды - та же логика, что и в
+// MutantModal.svelte (availableStars/currentMultiplier): доступность звезды
+// определяется НАЛИЧИЕМ ключа в stars (а не наличием поля multiplier внутри
+// него), а сам множитель - explicit multiplier если он есть, иначе фолбэк на
+// канонический STAR_MULTIPLIERS по имени ключа. Раньше здесь проверялось
+// truthy у star.multiplier - при отсутствующем поле звезда молча считалась
+// недоступной (max=1), хотя модалка её бы показала.
+const maxStarMultiplier = (stars?: Record<string, { multiplier?: number }>): number => {
+  if (!stars) return 1;
+  let max = 1;
+  for (const key of STAR_KEYS) {
+    if (!stars[key]) continue;
+    const m = stars[key].multiplier ?? STAR_MULTIPLIERS[key] ?? 1;
+    if (m > max) max = m;
+  }
+  return max;
+};
+const mutantMetaCache = new Map<string, MutantMeta>();
+const mutantMeta = (id: string): MutantMeta => {
+  if (mutantMetaCache.has(id)) return mutantMetaCache.get(id)!;
+  const m = (
+    mutants as {
+      id: string;
+      genes?: string[];
+      tier?: string;
+      stars?: Record<string, { images?: string[]; multiplier?: number }>;
+      base_stats?: {
+        lvl1?: { hp?: number; atk1_AOE?: boolean; atk2_AOE?: boolean };
+        lvl30?: { hp?: number; atk1?: number; atk2?: number; speed?: number; ability?: number; atk1_AOE?: boolean; atk2_AOE?: boolean };
+        atk1p_base?: number;
+        atk2p_base?: number;
+        abilityPct2?: number;
+      };
+      abilities?: { name: string; pct: number; value_atk1_lvl30?: number; value_atk2_lvl30?: number }[];
+    }[]
+  ).find((x) => x.id === id);
+  let head: string | null = null;
+  if (m?.stars) {
+    for (const star of Object.values(m.stars)) {
+      const specimen = star.images?.find((p) => p.includes('specimen'));
+      if (specimen) {
+        head = specimen.startsWith('/') ? specimen : `/${specimen}`;
+        break;
+      }
+    }
+  }
+  const lvl1 = m?.base_stats?.lvl1;
+  const lvl30 = m?.base_stats?.lvl30;
+  // Только "_plus"-вариант способности показывается на сайте (см. компаратор
+  // в sync-mutants.ts) - база всегда идёт первой в abilities[], поэтому
+  // "первый элемент" был неверным по умолчанию для ЛЮБОГО мутанта.
+  const ab = m?.abilities?.find((a) => a.name.endsWith('_plus'));
+  const meta: MutantMeta = {
+    head,
+    genes: m?.genes ?? [],
+    tier: String(m?.tier ?? '').trim(),
+    // HP - реальный левел-скейлинг (lvl1 vs lvl30 - разные игровые цифры),
+    // страница показывает статы 1 уровня, как в игре у только что заведённого
+    // мутанта. Атака же lvl1/lvl30 в base_stats - НЕ уровень, а переключатель
+    // atk*_base/atk*p_base ("обычная"/"усиленная") - см. компаратор в
+    // sync-mutants.ts, поэтому атаку продолжаем брать из lvl30 (усиленная).
+    hp: lvl1?.hp ?? null,
+    atk1: m?.base_stats?.atk1p_base ?? null,
+    atk2: m?.base_stats?.atk2p_base ?? null,
+    abilityPct: m?.base_stats?.abilityPct2 ?? ab?.pct ?? null,
+    abilityAtk1: ab?.value_atk1_lvl30 ?? null,
+    abilityAtk2: ab?.value_atk2_lvl30 ?? null,
+    abilityName: ab?.name ?? null,
+    speed: lvl30?.speed ?? null,
+    atk1Aoe: lvl30?.atk1_AOE ?? lvl1?.atk1_AOE ?? false,
+    atk2Aoe: lvl30?.atk2_AOE ?? lvl1?.atk2_AOE ?? false,
+    starMultiplier: maxStarMultiplier(m?.stars),
+  };
+  mutantMetaCache.set(id, meta);
+  return meta;
+};
+
+type Pair = { old: number | null; new: number | null };
+interface AbilityRow {
+  label: string;
+  pct: Pair | null;
+  atk1: Pair | null;
+  atk2: Pair | null;
+}
+interface MutantRow {
+  id: string;
+  name: string;
+  head: string | null;
+  genes: string[];
+  tier: string;
+  hp: Pair;
+  atk1: Pair;
+  atk2: Pair;
+  atk1Aoe: boolean;
+  atk2Aoe: boolean;
+  abilities: AbilityRow[];
+  speed: Pair;
+}
+
+// Плоский список changes из парсера -> одна строка на мутанта, сгруппированная
+// по стату - под макет "1 мутант = 1 строка/карточка" вместо старого
+// rowspan-табличного вида, где на каждый change была отдельная строка.
+function buildRow(entry: RebalanceEntry): MutantRow {
+  const meta = mutantMeta(entry.id);
+  const find = (stat: StatChange['stat'], level: 1 | 30 | null) =>
+    entry.changes.find((c) => c.stat === stat && c.level === level);
+
+  // Все числа (и текущие из meta, и исторические old/new из rebalance-history.json)
+  // посчитаны в данных при множителе 1.0 (normal-звезда) - домножаем на множитель
+  // максимальной доступной звезды мутанта, чтобы показать "усиленные" (боевые)
+  // значения так, как они реально выглядят в игре на макс. звезде.
+  const scaled = (v: number | null): number | null =>
+    v == null ? null : Math.round(v * meta.starMultiplier);
+
+  // HP: lvl1 — если нет изменения, показываем текущее значение
+  const hp1 = find('hp', 1);
+  const hp: Pair = hp1
+    ? { old: scaled(hp1.old), new: scaled(hp1.new) }
+    : { old: scaled(meta.hp), new: scaled(meta.hp) };
+
+  // Атака 1/2: "усиленная" версия (level: null)
+  const atk1Change = find('atk1', 1);
+  const atk1: Pair = atk1Change
+    ? { old: scaled(atk1Change.old), new: scaled(atk1Change.new) }
+    : { old: scaled(meta.atk1), new: scaled(meta.atk1) };
+  const atk2Change = find('atk2', 1);
+  const atk2: Pair = atk2Change
+    ? { old: scaled(atk2Change.old), new: scaled(atk2Change.new) }
+    : { old: scaled(meta.atk2), new: scaled(meta.atk2) };
+
+  // Способности: группируем field-diffs по названию способности
+  const abilityChanges = entry.changes.filter((c) => c.stat === 'abilities');
+  const abilityNames = [...new Set(abilityChanges.map((c) => c.ability).filter(Boolean))] as string[];
+  // Если есть изменения способностей — используем их, иначе — текущую способность из базы
+  const namesToRender = abilityNames.length > 0 ? abilityNames : (meta.abilityName ? [meta.abilityName] : []);
+  const abilities: AbilityRow[] = namesToRender.map((name) => {
+    const forField = (field: AbilityField) =>
+      abilityChanges.find((c) => c.ability === name && c.field === field);
+    const pctC = forField('pct');
+    const atk1C = forField('atk1');
+    const atk2C = forField('atk2');
+    return {
+      label: abilityLabelL(name, locale),
+      // pct - это проценты от атаки, а не сам стат, звезда на них не влияет
+      pct: pctC
+        ? { old: pctC.old, new: pctC.new }
+        : { old: meta.abilityPct, new: meta.abilityPct },
+      atk1: atk1C
+        ? { old: scaled(atk1C.old), new: scaled(atk1C.new) }
+        : { old: scaled(meta.abilityAtk1), new: scaled(meta.abilityAtk1) },
+      atk2: atk2C
+        ? { old: scaled(atk2C.old), new: scaled(atk2C.new) }
+        : { old: scaled(meta.abilityAtk2), new: scaled(meta.abilityAtk2) },
+    };
+  });
+
+  const speedChange = find('speed', null);
+  const speed: Pair = speedChange
+    ? { old: speedChange.old, new: speedChange.new }
+    : { old: meta.speed, new: meta.speed };
+
+  return {
+    id: entry.id,
+    name: names[entry.id]?.name || entry.name,
+    head: meta.head,
+    genes: meta.genes,
+    tier: meta.tier,
+    hp,
+    atk1,
+    atk2,
+    atk1Aoe: meta.atk1Aoe,
+    atk2Aoe: meta.atk2Aoe,
+    abilities,
+    speed,
+  };
+}
+
+// Цвет для инлайн-% способности (рядом с названием), тот же принцип, что StatBox
+const pctDeltaCls = (pct: Pair | null): string => {
+  if (!pct || pct.old == null || pct.new == null || pct.old === 0) return '';
+  const diff = ((pct.new - pct.old) / pct.old) * 100;
+  if (Math.abs(diff) < 0.5) return '';
+  return diff > 0 ? 'up' : 'down';
+};
+---
+
+<BaseLayout
+  title={t('rebalance.pageTitle', locale)}
+  description={t('rebalance.pageDescription', locale)}
+>
+  <section class="rebalance-page">
+    <h1>{t('rebalance.pageTitle', locale)}</h1>
+    <p class="intro">
+      {t('rebalance.introLine1', locale)}<br />{t('rebalance.introLine2', locale)}
+    </p>
+
+    {runs.length > 0 && (
+      <div class="export-bar">
+        <select id="rebalanceDateSelect" class="date-select">
+          <option value="all">{t('rebalance.allDates', locale)}</option>
+          {runs.map((run) => (
+            <option value={run.date}>{fmtDate(run.date)}</option>
+          ))}
+        </select>
+        <button id="downloadRebalanceBtn" class="download-btn" type="button" data-label-loading={t('rebalance.downloadBtnLoading', locale)} data-label-error={t('rebalance.screenshotError', locale)}>
+          📷 {t('rebalance.downloadBtn', locale)}
+        </button>
+      </div>
+    )}
+
+    {runs.length === 0 && (
+      <div class="empty">
+        {t('rebalance.emptyState', locale)}
+      </div>
+    )}
+
+    {runs.map((run) => {
+      const rows = run.entries.map(buildRow).sort(sortMutantsByGene);
+      return (
+        <details class="run" data-date={run.date} open={run === runs[0]}>
+          <summary>
+            <span class="run-date">{fmtDate(run.date)}</span>
+            <span class="run-count">{run.entries.length} {pluralizeCount(run.entries.length, locale, 'rebalance.count.mutant')}</span>
+          </summary>
+
+          <div class="rb-table" role="table">
+            <div class="rb-row rb-head" role="row">
+              <div class="rb-cell rb-mut" role="columnheader">{t('rebalance.col.mutant', locale)}</div>
+              <div class="rb-cell" role="columnheader">HP</div>
+              <div class="rb-cell" role="columnheader">{t('rebalance.col.atk1', locale)}</div>
+              <div class="rb-cell" role="columnheader">{t('rebalance.col.atk2', locale)}</div>
+              <div class="rb-cell" role="columnheader">{t('rebalance.col.ability', locale)}</div>
+              <div class="rb-cell" role="columnheader">{t('rebalance.col.speed', locale)}</div>
+            </div>
+
+            {rows.map((row, i) => (
+              <div class="rb-row" role="row">
+                <div class="rb-cell rb-mut" role="cell">
+                  <span class="row-num">{i + 1}</span>
+                  {row.head && <img class="mut-img" src={textureUrl(row.head)} alt="" loading="lazy" decoding="async" />}
+                  <div class="mut-meta">
+                    <span class="mut-name">{row.name}</span>
+                    <div class="mut-badges">
+                      {row.genes.map((g) => {
+                        const icon = getGeneIcon(g);
+                        return icon && <img class="gene-icon" src={textureUrl(icon)} alt={g} title={g} />;
+                      })}
+                      {row.tier && (
+                        <span class="tier-badge" style={`color:${tierColor(row.tier)};border-color:${tierColor(row.tier)}`}>
+                          {t('rebalance.tierLabel', locale)}: {row.tier}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rb-cell rb-stat" role="cell" data-label="HP">
+                  <StatBox oldVal={row.hp.old} newVal={row.hp.new} />
+                </div>
+
+                <div class="rb-cell rb-stat" role="cell" data-label={t('rebalance.col.atk1', locale)}>
+                  <StatBox oldVal={row.atk1.old} newVal={row.atk1.new} aoe={row.atk1Aoe} />
+                </div>
+
+                <div class="rb-cell rb-stat" role="cell" data-label={t('rebalance.col.atk2', locale)}>
+                  <StatBox oldVal={row.atk2.old} newVal={row.atk2.new} aoe={row.atk2Aoe} />
+                </div>
+
+                <div class="rb-cell rb-stat" role="cell" data-label={t('rebalance.col.ability', locale)}>
+                  {row.abilities.map((ab) => {
+                    const pctCls = pctDeltaCls(ab.pct);
+                    return (
+                      <div class="atk-block">
+                        <div class="ability-header">
+                          <span class="ability-label">{ab.label}</span>
+                          {ab.pct && (
+                            <span class={`ability-pct ${pctCls}`}>
+                              {ab.pct.old ?? '—'}%<span class="arrow">→</span>{ab.pct.new ?? '—'}%
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div class="rb-cell" role="cell" data-label={t('rebalance.col.speed', locale)}>
+                  <StatBox oldVal={row.speed.old} newVal={row.speed.new} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
+      );
+    })}
+  </section>
+</BaseLayout>
+
+<script>
+  const btn = document.getElementById('downloadRebalanceBtn') as HTMLButtonElement | null;
+  const dateSelect = document.getElementById('rebalanceDateSelect') as HTMLSelectElement | null;
+
+  btn?.addEventListener('click', async () => {
+    const original = btn.textContent;
+    const loadingLabel = btn.dataset.labelLoading ?? '⏳...';
+    btn.disabled = true;
+    btn.textContent = `⏳ ${loadingLabel}`;
+    try {
+      const dateValue = dateSelect?.value || 'all';
+      const qs = dateValue !== 'all' ? `?date=${encodeURIComponent(dateValue)}` : '';
+      const res = await fetch(`/api/screenshot-rebalance${qs}`);
+      if (!res.ok) throw new Error(await res.text());
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(blob);
+      a.href = objectUrl;
+      const fileSlug = dateValue !== 'all' ? dateValue.slice(0, 10) : 'all';
+      a.download = `rebalance-${fileSlug}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (err) {
+      console.error('[Rebalance screenshot]', err);
+      alert(btn.dataset.labelError ?? 'Failed to generate image. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
+  });
+</script>
+
+<style>
+  .rebalance-page {
+    /* rem, не px: 2K/4K апскейл масштабирует шрифт через html{font-size}
+       (см. global.css) - если контейнер зафиксирован в px, текст (в rem)
+       растёт быстрее ширины колонок и вылезает за разделители (AOE-бейдж). */
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .intro {
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+  }
+  .export-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .date-select {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    background: rgba(96, 165, 250, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .download-btn:hover:not(:disabled) {
+    background: rgba(96, 165, 250, 0.22);
+  }
+  .download-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .empty {
+    padding: 2rem;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+  }
+  .run {
+    margin-bottom: 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .run summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: #e2e8f0;
+    list-style: none;
+  }
+  .run summary::-webkit-details-marker {
+    display: none;
+  }
+  .run-count {
+    font-size: 0.85rem;
+    color: #60a5fa;
+  }
+
+  /* --- "Table" built from divs so it can reflow into cards on mobile --- */
+  .rb-table {
+    display: flex;
+    flex-direction: column;
+  }
+  .rb-row {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.4fr) 0.85fr 0.8fr 0.8fr 1.1fr 0.7fr;
+    gap: 0;
+    padding: 0.4rem 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .rb-row.rb-head {
+    border-top: none;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rb-row.rb-head .rb-mut {
+    padding-left: 30px;
+  }
+  .rb-cell {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0 0.75rem;
+  }
+  .rb-cell:first-child {
+    padding-left: 0;
+  }
+  .rb-cell:last-child {
+    padding-right: 0;
+  }
+  .rb-cell:not(:first-child) {
+    border-left: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .rb-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .rb-mut {
+    gap: 0.5rem;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .row-num {
+    flex-shrink: 0;
+    min-width: 1.4rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #64748b;
+    text-align: right;
+  }
+  .rb-mut img.gene-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .rb-mut img.mut-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .mut-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .mut-name {
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    font-size: 0.9em;
+  }
+  .mut-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .tier-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid;
+    border-radius: 5px;
+  }
+  .plus-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.16);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    border-radius: 50%;
+    cursor: help;
+    vertical-align: middle;
+  }
+  .atk-block + .atk-block {
+    margin-top: 0.25rem;
+  }
+  .dash {
+    color: #475569;
+  }
+  .ability-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .ability-pct {
+    flex-basis: 100%;
+    margin-top: -0.05em;
+  }
+  .ability-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #c4b5fd;
+  }
+  .ability-pct {
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    color: #94a3b8;
+  }
+  .ability-pct .arrow {
+    margin: 0 0.15rem;
+    color: #64748b;
+  }
+  .ability-pct.up {
+    color: #4ade80;
+  }
+  .ability-pct.down {
+    color: #f87171;
+  }
+  /* --- Mobile: rows become cards, header hides, cells get their own label --- */
+  @media (max-width: 700px) {
+    .rb-row.rb-head {
+      display: none;
+    }
+    .rb-row {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+      padding: 0.9rem 1rem;
+    }
+    .rb-cell:not(.rb-mut) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .rb-cell:not(:first-child) {
+      border-left: none;
+      padding-left: 0;
+    }
+    .rb-cell[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+    .rb-mut {
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .rb-mut img.mut-img {
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>

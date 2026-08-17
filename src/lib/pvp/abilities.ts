@@ -14,9 +14,21 @@
  *     "repeated until the end of the fight" - дословно из комментария игры).
  *   stackMax - потолок забаненных зарядов (strengthen=2), НЕ длительность.
  *
- * Магнитуда всех шести берётся из valueFrom="damageGiven"/"damageTaken" -
- * ФАКТИЧЕСКИЙ урон конкретного сработавшего удара (post-крит/тип/бафф), а не
- * плоская константа atk1×pct - это тоже из декодированного конфига, не предположение.
+ * Магнитуда shield/regen/slash/strengthen/weaken берётся из valueFrom="damageGiven"/
+ * "damageTaken" - ФАКТИЧЕСКИЙ урон конкретного сработавшего удара (post-крит/тип/бафф),
+ * не плоская константа atk1×pct - это из декодированного конфига, не предположение.
+ *
+ * retaliate - ИСКЛЮЧЕНИЕ, перепроверено живым Frida-захватом 2026-08-18 (PvE,
+ * см. память retaliate-formula-confirmed-2026-08-18): магнитуда НЕ зависит от урона
+ * входящего удара - при неизменной цели и способности она осталась той же (6333)
+ * даже когда атакующий поднял уровень посреди сессии и его наносимый урон вырос.
+ * Совпадает с def.atk1×pct (та же формула, что unified-calculator.ts использует для
+ * generic "ability"-значения - см. схему value_atk1_lvlXX в mutants.json, отражение
+ * из неё не исключение, shield/regen под неё тоже точно ложатся). decoded-XML
+ * valueFrom="damageGiven" для retaliate, видимо, означает "как будто владелец только
+ * что ударил своей атакой", а не "переиспользовать число уже случившегося удара" -
+ * shield/regen/slash/strengthen/weaken НЕ перепроверялись живыми данными, оставлены
+ * как есть.
  *
  * property="damage" (strengthen/weaken) - результат работает как % модификатор
  * СЛЕДУЮЩЕЙ атаки владельца заряда (через buffPct в damage.ts, формула которого не
@@ -110,11 +122,11 @@ export function grantSlashOnHit(
   }
 }
 
-/** Retaliate (trigger="defend", valueFrom="damageGiven" атакующего) - % от урона,
- *  который атакующий только что нанёс этим ударом. */
-export function retaliateDamage(defender: CombatUnit, incomingHitDamage: number): number {
+/** Retaliate (trigger="defend") - % от СОБСТВЕННОЙ атаки (atk1) юнита с отражением,
+ *  не от урона входящего удара - см. разбор в шапке файла. */
+export function retaliateDamage(defender: CombatUnit): number {
   const retaliate = findAbility(defender, 'retaliate')
-  return retaliate ? Math.floor((incomingHitDamage * Math.abs(retaliate.pct)) / 100) : 0
+  return retaliate ? Math.floor((defender.atk1 * Math.abs(retaliate.pct)) / 100) : 0
 }
 
 /** Поглощение входящего урона персистентным пулом щита - истощается (не сбрасывается

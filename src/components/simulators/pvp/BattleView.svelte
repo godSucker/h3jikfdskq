@@ -2,8 +2,9 @@
   import type { CombatUnit } from '@/lib/pvp/battle-profile'
   import type { CurrentTurnInfo, TurnChoice, TurnLogGroup } from '@/lib/pvp/fight-engine'
   import { textureUrl } from '@/lib/texture-cdn'
-  import { GENE_RU } from '@/lib/mutant-dicts'
+  import { geneLabelL } from '@/lib/mutant-dicts'
   import { GENE_BUTTON_BASE_CLASS, geneButtonStyle } from '@/lib/pvp/gene-colors'
+  import { t, type Locale } from '@/lib/i18n'
 
   let {
     units,
@@ -13,6 +14,7 @@
     turnQueue,
     onResolve,
     onAutoPlay,
+    locale = 'ru' as Locale,
   }: {
     units: CombatUnit[]
     turnLog: TurnLogGroup[]
@@ -21,6 +23,7 @@
     turnQueue: CombatUnit[]
     onResolve: (choice?: TurnChoice) => void
     onAutoPlay: () => void
+    locale?: Locale
   } = $props()
 
   function orbIcon(id: string | null, kind: 'basic' | 'special'): string | null {
@@ -74,16 +77,16 @@
 </script>
 
 <div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur space-y-4">
-  <h2 class="text-sky-100 font-bold">Бой</h2>
+  <h2 class="text-sky-100 font-bold">{t('pvp.battle.title', locale)}</h2>
 
   {#if !winner && turnQueue.length > 0}
     <div class="rounded-lg border border-slate-700/50 bg-slate-950/40 p-2">
-      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1.5">Очередь ходов</div>
+      <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-1.5">{t('pvp.battle.turnQueue', locale)}</div>
       <div class="flex items-end gap-2.5 overflow-x-auto px-1.5 pb-0.5">
         {#each turnQueue as u, i (u.instanceId + '-' + i)}
           <div class="flex flex-col items-center gap-1 shrink-0">
             {#if i === 0}
-              <span class="text-[9px] font-bold text-amber-300 leading-none">СЕЙЧАС</span>
+              <span class="text-[9px] font-bold text-amber-300 leading-none">{t('pvp.battle.now', locale)}</span>
             {/if}
             <div
               class={`rounded-lg overflow-hidden ring-2 ${i === 0 ? 'w-12 h-12 ring-amber-400' : 'w-8 h-8 ring-transparent opacity-80'} ${
@@ -93,7 +96,7 @@
               <img
                 src={textureUrl(u.portraitUrl)}
                 alt={u.name}
-                title={`${u.name} (${u.side === 'mine' ? 'моя команда' : 'оппонент'})`}
+                title={`${u.name} (${u.side === 'mine' ? t('pvp.battle.mineLower', locale) : t('pvp.battle.opponentLower', locale)})`}
                 loading="lazy"
                 class="w-full h-full object-cover"
               />
@@ -103,8 +106,8 @@
         {/each}
       </div>
       <div class="flex items-center gap-3 mt-1.5 text-[10px] text-slate-400">
-        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-sky-500"></span>моя команда</span>
-        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-rose-500"></span>оппонент</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-sky-500"></span>{t('pvp.battle.mineLower', locale)}</span>
+        <span class="flex items-center gap-1"><span class="w-2.5 h-1.5 rounded-full bg-rose-500"></span>{t('pvp.battle.opponentLower', locale)}</span>
       </div>
     </div>
   {/if}
@@ -112,7 +115,7 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     {#each ['mine', 'enemy'] as side (side)}
       <div class="space-y-1.5">
-        <div class="text-xs text-sky-300/70">{side === 'mine' ? 'Моя команда' : 'Оппонент'}</div>
+        <div class="text-xs text-sky-300/70">{side === 'mine' ? t('pvp.team.mine', locale) : t('pvp.battle.opponentCap', locale)}</div>
         {#each units.filter((u) => u.side === side) as u (u.instanceId)}
           <div
             class="rounded-lg border px-2 py-1.5 text-xs flex gap-2"
@@ -135,14 +138,14 @@
                   {#if u.gene !== 'neutro'}
                     <img
                       src={textureUrl(`/genes/icon_gene_${u.gene.toLowerCase()}.webp`)}
-                      alt={GENE_RU[u.gene.toUpperCase()] || ''}
+                      alt={geneLabelL(u.gene.toUpperCase(), locale) || ''}
                       class="w-3.5 h-3.5 shrink-0"
                     />
                   {/if}
                   {#if u.gene2}
                     <img
                       src={textureUrl(`/genes/icon_gene_${u.gene2.toLowerCase()}.webp`)}
-                      alt={GENE_RU[u.gene2.toUpperCase()] || ''}
+                      alt={geneLabelL(u.gene2.toUpperCase(), locale) || ''}
                       class="w-3.5 h-3.5 shrink-0"
                     />
                   {/if}
@@ -172,7 +175,7 @@
                     <span class="rounded bg-amber-900/60 text-amber-300 px-1 py-0.5">↓ -{u.weakenPct}%</span>
                   {/if}
                   {#if u.slashDot > 0}
-                    <span class="rounded bg-rose-900/60 text-rose-300 px-1 py-0.5">🩸 {u.slashDot}/ход</span>
+                    <span class="rounded bg-rose-900/60 text-rose-300 px-1 py-0.5">🩸 {u.slashDot}{t('pvp.battle.perTurn', locale)}</span>
                   {/if}
                 </div>
               {/if}
@@ -182,7 +185,7 @@
                   onclick={() => pickTarget(u.instanceId)}
                   class="mt-1 w-full rounded bg-rose-600/80 hover:bg-rose-500 text-white text-[11px] py-0.5"
                 >
-                  Атаковать
+                  {t('pvp.battle.attackButton', locale)}
                 </button>
               {/if}
             </div>
@@ -194,7 +197,7 @@
 
   {#if winner}
     <div class="text-center text-sky-100 font-bold py-2">
-      {winner === 'mine' ? 'Победа!' : 'Поражение.'}
+      {winner === 'mine' ? t('pvp.battle.win', locale) : t('pvp.battle.lose', locale)}
     </div>
   {:else if currentTurn}
     <div class="rounded-lg border border-slate-700/50 bg-slate-950/40 p-3">
@@ -206,17 +209,17 @@
             class="w-6 h-6 rounded object-cover border border-slate-700/60"
           />
         {/if}
-        Ход: {currentTurn.unit.name}
+        {t('pvp.battle.turnOf', locale).replace('{name}', currentTurn.unit.name)}
       </div>
       {#if currentTurn.needsInput}
         {#if pendingAttack}
-          <div class="text-xs text-sky-300/70 mb-2">Выберите цель выше ↑</div>
+          <div class="text-xs text-sky-300/70 mb-2">{t('pvp.battle.pickTarget', locale)}</div>
           <button
             type="button"
             onclick={() => (pendingAttack = null)}
             class="text-xs text-sky-400 underline"
           >
-            отменить
+            {t('pvp.battle.cancel', locale)}
           </button>
         {:else}
           <div class="flex gap-2">
@@ -231,7 +234,7 @@
                 {#if gene !== 'neutro'}
                   <img src={textureUrl(`/genes/icon_gene_${gene.toLowerCase()}.webp`)} alt="" class="w-3.5 h-3.5" />
                 {/if}
-                {attackLabel(currentTurn.unit, action.attack)}{action.isAOE ? ' (по всем)' : ''}
+                {attackLabel(currentTurn.unit, action.attack)}{action.isAOE ? t('pvp.battle.aoeSuffix', locale) : ''}
                 <span class="text-white/70 font-normal">({attackValue(currentTurn.unit, action.attack)})</span>
               </button>
             {/each}
@@ -243,7 +246,7 @@
           onclick={() => onResolve()}
           class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-sm"
         >
-          Далее (ИИ ходит сам)
+          {t('pvp.battle.aiTurnButton', locale)}
         </button>
       {/if}
     </div>
@@ -252,7 +255,7 @@
       onclick={onAutoPlay}
       class="w-full px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm ring-1 ring-white/10 shadow-lg shadow-amber-900/30 transition-colors"
     >
-      ⏩ Прогнать бой до конца
+      {t('pvp.battle.autoPlayButton', locale)}
     </button>
   {/if}
 
@@ -262,7 +265,7 @@
         class={`rounded-md border-l-2 pl-2 pr-1.5 py-1 ${group.attackerSide === 'mine' ? 'border-sky-500' : 'border-rose-500'} ${i % 2 === 0 ? 'bg-slate-900/50' : ''}`}
       >
         <div class="text-[10px] uppercase tracking-wide text-slate-500 mb-0.5">
-          Ход {group.turnNumber} · {group.attackerName}
+          {t('pvp.battle.turnLogLabel', locale).replace('{n}', String(group.turnNumber)).replace('{name}', group.attackerName)}
         </div>
         {#each group.lines as line, j (j)}
           <div class="text-xs text-sky-200/70 leading-snug">{line}</div>

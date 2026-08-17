@@ -13,6 +13,7 @@
     simulateMachineAsync,
   } from '@/lib/cash-machine';
   import { tick } from 'svelte';
+  import { t, type Locale } from '@/lib/i18n';
 
   interface SimulationResult {
     spins: number;
@@ -23,12 +24,12 @@
     netGold: number;
   }
 
-  let { machine }: { machine: CashMachineDefinition } = $props();
+  let { machine, locale }: { machine: CashMachineDefinition; locale: Locale } = $props();
 
   const costPerSpin = machine.cost;
   const rewardChances: RewardChance[] = machine.rewards
     .filter((reward) => reward.odds > 0)
-    .map((reward) => getRewardWithChance(reward, machine))
+    .map((reward) => getRewardWithChance(reward, machine, locale))
     .sort((a, b) => b.chance - a.chance);
 
   let budget = $state(1000);
@@ -39,14 +40,14 @@
   const silverIcon = getCurrencyIcon('softcurrency');
 
   function getRewardUnit(type: string): string {
-    if (type === 'hardcurrency') return 'золота';
-    if (type === 'softcurrency') return 'серебра';
+    if (type === 'hardcurrency') return t('roulette.cash.unitGold', locale);
+    if (type === 'softcurrency') return t('roulette.cash.unitSilver', locale);
     return '';
   }
 
   function formatAmountWithUnit(amount: number, type: string): string {
     const unit = getRewardUnit(type);
-    return unit ? `${formatNumber(amount)} ${unit}` : formatNumber(amount);
+    return unit ? `${formatNumber(amount, locale)} ${unit}` : formatNumber(amount, locale);
   }
 
   let showOdds = $state(false);
@@ -90,12 +91,12 @@
     const spins = Math.floor(budget / costPerSpin);
 
     if (!Number.isFinite(budget) || budget <= 0) {
-      error = 'Введите положительное количество золота.';
+      error = t('roulette.cash.errorPositive', locale);
       return;
     }
 
     if (spins <= 0) {
-      error = `Недостаточно золота. Нужен минимум ${costPerSpin} золота.`;
+      error = t('roulette.cash.errorInsufficient', locale).replace('{n}', String(costPerSpin));
       return;
     }
 
@@ -115,6 +116,7 @@
         historySize: 12,
         batchSize: 2000,
         signal: controller.signal,
+        locale,
         onProgress(completed) {
           completedSpins = completed;
           progress = completed / spins;
@@ -136,9 +138,9 @@
       showResultsModal = true;
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
-        error = 'Симуляция остановлена.';
+        error = t('roulette.cash.errorAborted', locale);
       } else {
-        error = 'Не удалось выполнить симуляцию. Попробуйте снова.';
+        error = t('roulette.cash.errorGeneric', locale);
       }
     } finally {
       controller = null;
@@ -159,14 +161,14 @@
 <div class="machine-shell">
   <div class="machine-body">
     <div class="machine-header">
-      <span class="machine-tag">Золотая рулетка</span>
+      <span class="machine-tag">{t('roulette.cash.machineTag', locale)}</span>
       <h2>{machine.title}</h2>
-      <p>Стоимость прокрута — {costPerSpin} золота. Выберите бюджет и посмотрите, какие призы можно собрать.</p>
+      <p>{t('roulette.cash.headerDescription', locale).replace('{n}', String(costPerSpin))}</p>
     </div>
 
     <form class="control-panel" onsubmit={handleSimulate} style="order: -1;">
       <label class="input-group">
-        <span>Бюджет золота</span>
+        <span>{t('roulette.cash.budgetLabel', locale)}</span>
         <div class="input-wrapper">
           <input
             id="cash-budget"
@@ -176,21 +178,21 @@
             bind:value={budget}
             aria-describedby="budget-hint"
           />
-          <span class="suffix">золота</span>
+          <span class="suffix">{t('roulette.cash.unitGold', locale)}</span>
         </div>
-        <small id="budget-hint">Минимум {costPerSpin} — стоимость одного прокрута.</small>
+        <small id="budget-hint">{t('roulette.cash.budgetHint', locale).replace('{n}', String(costPerSpin))}</small>
       </label>
 
       <div class="actions">
         <button type="submit" class="primary" disabled={isSimulating}>
-          {isSimulating ? 'Считаем…' : 'Запустить симуляцию'}
+          {isSimulating ? t('roulette.cash.btnSimulating', locale) : t('roulette.cash.btnRun', locale)}
         </button>
         <button
           type="button"
           class={`ghost ${isSimulating ? 'danger' : ''}`}
           onclick={isSimulating ? stopSimulation : resetSimulation}
         >
-          {isSimulating ? 'Остановить' : 'Очистить'}
+          {isSimulating ? t('roulette.cash.btnStop', locale) : t('roulette.cash.btnClear', locale)}
         </button>
       </div>
       {#if isSimulating}
@@ -199,8 +201,10 @@
             <div class="progress-fill" style={`width: ${Math.min(progress * 100, 100)}%`}></div>
           </div>
           <div class="progress-label">
-            Выполнено {Math.min(Math.floor(progress * 100), 100)}% — {formatNumber(completedSpins)} из
-            {formatNumber(totalSpins)} прокрутов
+            {t('roulette.cash.progressLabel', locale)
+              .replace('{pct}', String(Math.min(Math.floor(progress * 100), 100)))
+              .replace('{done}', formatNumber(completedSpins, locale))
+              .replace('{total}', formatNumber(totalSpins, locale))}
           </div>
         </div>
       {/if}
@@ -210,7 +214,7 @@
     </form>
 
     {#if result && !showResultsModal}
-      <button class="primary show-results-btn" onclick={() => showResultsModal = true}>Показать результаты</button>
+      <button class="primary show-results-btn" onclick={() => showResultsModal = true}>{t('roulette.cash.showResults', locale)}</button>
     {/if}
   </div>
 
@@ -218,7 +222,7 @@
     <div class="modal-overlay" onclick={(e) => { if (e.target === e.currentTarget) closeResultsModal(); }} onkeydown={(e) => e.key === 'Escape' && closeResultsModal()} role="dialog" tabindex="-1">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Результаты симуляции</h3>
+          <h3>{t('roulette.cash.modalTitle', locale)}</h3>
           <button class="modal-close" onclick={closeResultsModal}>✕</button>
         </div>
 
@@ -228,48 +232,48 @@
               <img src={textureUrl("/etc/icon_timer.webp")} alt="" loading="lazy" />
             </div>
             <div class="metric-body">
-              <span class="label">Прокрутов</span>
-              <strong>{formatNumber(result.spins)}</strong>
+              <span class="label">{t('roulette.cash.statSpins', locale)}</span>
+              <strong>{formatNumber(result.spins, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
-            <img class="stat-icon" src={textureUrl(goldIcon)} alt="Иконка золота" loading="lazy" />
+            <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
-              <span class="label">Потрачено золота</span>
-              <strong>{formatNumber(result.goldSpent)}</strong>
+              <span class="label">{t('roulette.cash.statGoldSpent', locale)}</span>
+              <strong>{formatNumber(result.goldSpent, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
-            <img class="stat-icon" src={textureUrl(goldIcon)} alt="Иконка золота" loading="lazy" />
+            <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
-              <span class="label">Выиграно золота</span>
-              <strong>{formatNumber(result.goldWon)}</strong>
+              <span class="label">{t('roulette.cash.statGoldWon', locale)}</span>
+              <strong>{formatNumber(result.goldWon, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
-            <img class="stat-icon" src={textureUrl(silverIcon)} alt="Иконка серебра" loading="lazy" />
+            <img class="stat-icon" src={textureUrl(silverIcon)} alt={t('roulette.cash.silverIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
-              <span class="label">Выиграно серебра</span>
-              <strong>{formatNumber(result.silverWon)}</strong>
+              <span class="label">{t('roulette.cash.statSilverWon', locale)}</span>
+              <strong>{formatNumber(result.silverWon, locale)}</strong>
             </div>
           </div>
           <div class={`stat-card currency net ${result.netGold >= 0 ? 'positive' : 'negative'}`}>
-            <img class="stat-icon" src={textureUrl(goldIcon)} alt="Иконка золота" loading="lazy" />
+            <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
-              <span class="label">Чистый результат</span>
-              <strong>{result.netGold >= 0 ? '+' : ''}{formatNumber(result.netGold)}</strong>
+              <span class="label">{t('roulette.cash.statNetResult', locale)}</span>
+              <strong>{result.netGold >= 0 ? '+' : ''}{formatNumber(result.netGold, locale)}</strong>
             </div>
           </div>
         </section>
 
         <section class="results-grid">
           <div class="panel">
-            <h3>Статистика призов</h3>
+            <h3>{t('roulette.cash.panelRewardStats', locale)}</h3>
             <div class="table">
               <div class="table-row head">
-                <span>Награда</span>
-                <span>Выпало</span>
-                <span>Всего ресурсов</span>
+                <span>{t('roulette.cash.tableHeadReward', locale)}</span>
+                <span>{t('roulette.cash.tableHeadCount', locale)}</span>
+                <span>{t('roulette.cash.tableHeadTotal', locale)}</span>
               </div>
               {#each breakdown as entry}
                 <div class="table-row">
@@ -277,16 +281,16 @@
                     <img class="reward-icon" src={textureUrl(entry.icon)} alt={entry.label} loading="lazy" />
                     <span>{entry.label}</span>
                   </span>
-                  <span>x{formatNumber(entry.count)}</span>
+                  <span>x{formatNumber(entry.count, locale)}</span>
                   <span>{formatAmountWithUnit(entry.totalAmount, entry.reward.type)}</span>
                 </div>
               {/each}
             </div>
           </div>
           <div class="panel">
-            <h3>Последние выигрыши</h3>
+            <h3>{t('roulette.cash.panelRecentWins', locale)}</h3>
             {#if history.length === 0}
-              <p class="empty">Запустите симуляцию, чтобы увидеть историю.</p>
+              <p class="empty">{t('roulette.cash.emptyHistory', locale)}</p>
             {:else}
               <ul class="history">
                 {#each history as spin (spin.timestamp)}
@@ -302,7 +306,7 @@
           </div>
         </section>
 
-        <button class="primary modal-close-bottom" onclick={closeResultsModal}>Закрыть</button>
+        <button class="primary modal-close-bottom" onclick={closeResultsModal}>{t('roulette.cash.closeBtn', locale)}</button>
       </div>
     </div>
   {/if}
@@ -310,14 +314,14 @@
   <aside class="odds-panel" class:collapsed={!showOdds}>
     <button class="odds-toggle" onclick={() => showOdds = !showOdds}>
       <div class="odds-toggle__title">
-        <h3>Теоретические шансы</h3>
-        <span class="badge badge--small">{(rewardChances.length)} призов</span>
+        <h3>{t('roulette.cash.theoreticalChances', locale)}</h3>
+        <span class="badge badge--small">{t('roulette.cash.prizeCountBadge', locale).replace('{n}', String(rewardChances.length))}</span>
       </div>
       <span class="chevron">{showOdds ? '▼' : '▲'}</span>
     </button>
 
     {#if showOdds}
-      <p class="odds-caption">Вероятность выпадения каждого приза на один прокрут.</p>
+      <p class="odds-caption">{t('roulette.cash.oddsCaption', locale)}</p>
       <ul class="odds-list">
         {#each rewardChances as reward}
           <li>

@@ -1,6 +1,7 @@
 ---
-/* eslint-disable astro/no-unused-css-selector -- .thumb.noimg/.level-btn.active добавляются из JS */
 import { textureUrl } from '@/lib/texture-cdn';
+import { t } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n-locales';
 
 export interface SourceInfo {
   type: string;
@@ -32,16 +33,20 @@ interface Props {
   rows: MaterialRow[];
   sourcesMap?: Record<string, SourceInfo[]>;
   title?: string;
+  sectionKey?: string;
   texturePrefix?: string;
   textureExt?: string;
+  locale?: Locale;
 }
 
 const {
   rows,
   sourcesMap = {},
   title = 'Материалы',
+  sectionKey = 'materials',
   texturePrefix = '/materials/',
-  textureExt = '.webp'
+  textureExt = '.webp',
+  locale = 'ru'
 } = Astro.props;
 
 const resolveTexture = (row: MaterialRow) => {
@@ -85,21 +90,21 @@ const withGroupHeaders = rows.flatMap((row) => {
 });
 ---
 
-<section class="materials" data-title={title}>
+<section class="materials" data-title={title} data-key={sectionKey} data-no-description={t('materials.table.noDescription', locale)}>
   <div class="header">
     <h2>{title}</h2>
     <div class="controls">
-      <input class="mat-search" type="search" placeholder="Поиск по названию/описанию…" />
+      <input class="mat-search" type="search" placeholder={t('materials.table.search', locale)} />
     </div>
   </div>
 
   <div class="table" role="table" aria-label={title}>
     <div class="thead" role="rowgroup">
       <div class="tr" role="row">
-        <div class="th image" role="columnheader">Текстура</div>
-        <div class="th name" role="columnheader">Название</div>
-        <div class="th desc" role="columnheader">Описание</div>
-        <div class="th srcs" role="columnheader">Где добыть</div>
+        <div class="th image" role="columnheader">{t('materials.table.texture', locale)}</div>
+        <div class="th name" role="columnheader">{t('materials.table.name', locale)}</div>
+        <div class="th desc" role="columnheader">{t('materials.table.description', locale)}</div>
+        <div class="th srcs" role="columnheader">{t('materials.table.source', locale)}</div>
       </div>
     </div>
 
@@ -119,7 +124,7 @@ const withGroupHeaders = rows.flatMap((row) => {
             <div class="td image" role="cell">
               {row.levels && row.levels.length > 0 ? (
                 <div class="level-widget">
-                  <div class="level-switch" role="tablist" aria-label={`Уровень — ${row.name || row.id}`}>
+                  <div class="level-switch" role="tablist" aria-label={`${t('materials.table.level', locale)} — ${row.name || row.id}`}>
                     {row.levels.map((lvl, i) => (
                       <button
                         type="button"
@@ -134,7 +139,7 @@ const withGroupHeaders = rows.flatMap((row) => {
                   <div class="thumb">
                     <img
                       src={textureUrl(row.levels[0].texture)}
-                      alt={`${row.name || row.id} — уровень ${row.levels[0].level}`}
+                      alt={`${row.name || row.id} — ${t('materials.table.level', locale).toLowerCase()} ${row.levels[0].level}`}
                       loading="lazy"
                       draggable="false"
                       oncontextmenu="return false"
@@ -168,12 +173,12 @@ const withGroupHeaders = rows.flatMap((row) => {
             <div class="td desc" role="cell">
               {row.levels && row.levels.length > 0 ? (
                 <span class={`level-desc ${row.levels[0].description ? '' : 'muted'}`}>
-                  {row.levels[0].description || 'Описание пока не добавлено'}
+                  {row.levels[0].description || t('materials.table.noDescription', locale)}
                 </span>
               ) : (
                 <>
                   {row.badge && <strong class="desc-badge">{row.badge}</strong>}
-                  {row.description ? row.description : <span class="muted">Описание пока не добавлено</span>}
+                  {row.description ? row.description : <span class="muted">{t('materials.table.noDescription', locale)}</span>}
                 </>
               )}
             </div>
@@ -182,7 +187,7 @@ const withGroupHeaders = rows.flatMap((row) => {
                 <div class="chips">
                   {srcs.map((s) => (
                     s.link ? (
-                      <a href={s.link} class="chip linkable" title="Нажмите, чтобы перейти">{toChip(s)}</a>
+                      <a href={s.link} class="chip linkable" title={t('materials.table.clickToOpen', locale)}>{toChip(s)}</a>
                     ) : (
                       <span class="chip">{toChip(s)}</span>
                     )
@@ -238,6 +243,7 @@ const withGroupHeaders = rows.flatMap((row) => {
         const tr = sw.closest('.tr');
         const img = tr && tr.querySelector('.thumb img');
         const descEl = tr && tr.querySelector('.level-desc');
+        const noDescLabel = root.dataset.noDescription || 'Описание пока не добавлено';
         const btns = Array.from(sw.querySelectorAll('.level-btn'));
         for (const btn of btns) {
           btn.addEventListener('click', () => {
@@ -251,7 +257,7 @@ const withGroupHeaders = rows.flatMap((row) => {
             }
             if (descEl) {
               const d = btn.dataset.desc || '';
-              descEl.textContent = d || 'Описание пока не добавлено';
+              descEl.textContent = d || noDescLabel;
               descEl.classList.toggle('muted', !d);
             }
           });
@@ -307,8 +313,8 @@ const withGroupHeaders = rows.flatMap((row) => {
      Центр Скрещивания (единственный landscape-рендер ~1.3:1 среди зданий,
      остальные портретные) -- одна общая ширина колонки на ВСЕ строки,
      чтобы не ломать выравнивание между ними. */
-  .materials[data-title="Здания"] .thead .tr,
-  .materials[data-title="Здания"] .tbody .tr {
+  .materials[data-key="buildings"] .thead .tr,
+  .materials[data-key="buildings"] .tbody .tr {
     grid-template-columns: 240px minmax(200px, 1fr) minmax(260px, 2fr) minmax(220px, 1.4fr);
   }
 
@@ -367,7 +373,7 @@ const withGroupHeaders = rows.flatMap((row) => {
   }
 
   /* Larger thumbs for Buildings (no crop, fully visible) */
-  .materials[data-title="Здания"] .thumb {
+  .materials[data-key="buildings"] .thumb {
     width: 220px;
     height: auto;
     padding: 12px;
@@ -387,7 +393,7 @@ const withGroupHeaders = rows.flatMap((row) => {
     transform: translateZ(0);
   }
 
-  .materials[data-title="Здания"] .thumb img {
+  .materials[data-key="buildings"] .thumb img {
     max-height: 200px;
   }
 
@@ -432,16 +438,16 @@ const withGroupHeaders = rows.flatMap((row) => {
      к единому квадратному холсту 256x256 с автообрезкой пустоты.
      Это гарантирует 100% одинаковый размер всех элементов. */
 
-  .materials[data-title="Сферы"] .thumb,
-  .materials[data-title="Бустеры"] .thumb {
+  .materials[data-key="orbs"] .thumb,
+  .materials[data-key="charms"] .thumb {
     width: var(--orb-size-container-large);
     height: var(--orb-size-container-large);
     padding: 8px;
     flex-shrink: 0;
   }
 
-  .materials[data-title="Сферы"] .thumb img,
-  .materials[data-title="Бустеры"] .thumb img {
+  .materials[data-key="orbs"] .thumb img,
+  .materials[data-key="charms"] .thumb img {
     width: var(--orb-size-img-large);
     height: var(--orb-size-img-large);
     object-fit: contain;
@@ -450,8 +456,8 @@ const withGroupHeaders = rows.flatMap((row) => {
 
   @media (max-width: 980px) {
     .thead .tr, .tbody .tr { grid-template-columns: 92px minmax(160px, 1fr) minmax(200px, 2fr) minmax(160px, 1.2fr); }
-    .materials[data-title="Здания"] .thead .tr,
-    .materials[data-title="Здания"] .tbody .tr { grid-template-columns: 220px minmax(160px, 1fr) minmax(200px, 2fr) minmax(160px, 1.2fr); }
+    .materials[data-key="buildings"] .thead .tr,
+    .materials[data-key="buildings"] .tbody .tr { grid-template-columns: 220px minmax(160px, 1fr) minmax(200px, 2fr) minmax(160px, 1.2fr); }
     .th, .td { padding: 0.75rem 0.8rem; }
   }
   @media (max-width: 720px) {
@@ -469,7 +475,7 @@ const withGroupHeaders = rows.flatMap((row) => {
       grid-auto-rows: auto; gap: 0.25rem 0.6rem;
       padding: 0.5rem 0.15rem; border-bottom: 1px solid rgba(96, 165, 250, 0.12);
     }
-    .materials[data-title="Здания"] .tbody .tr {
+    .materials[data-key="buildings"] .tbody .tr {
       grid-template-columns: 150px 1fr;
     }
     .td.name { grid-column: 2 / -1; }
@@ -481,17 +487,17 @@ const withGroupHeaders = rows.flatMap((row) => {
       padding: 6px;
     }
     .thumb img { max-height: 120px; }
-    .materials[data-title="Здания"] .thumb { width: 138px; padding: 8px; }
-    .materials[data-title="Здания"] .thumb img { max-height: 140px; }
+    .materials[data-key="buildings"] .thumb { width: 138px; padding: 8px; }
+    .materials[data-key="buildings"] .thumb img { max-height: 140px; }
 
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb {
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb {
       width: 64px;
       height: 64px;
       padding: 6px;
     }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img {
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img {
       width: 48px;
       height: 48px;
     }
@@ -507,16 +513,16 @@ const withGroupHeaders = rows.flatMap((row) => {
       gap: 0.2rem 0.4rem;
       padding: 0.4rem 0.1rem;
     }
-    .materials[data-title="Здания"] .tbody .tr {
+    .materials[data-key="buildings"] .tbody .tr {
       grid-template-columns: 120px 1fr;
     }
     .thumb { width: 52px; padding: 4px; }
     .thumb img { max-height: 100px; }
-    .materials[data-title="Здания"] .thumb { width: 112px; }
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb { width: 52px; height: 52px; padding: 4px; }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img { width: 40px; height: 40px; }
+    .materials[data-key="buildings"] .thumb { width: 112px; }
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb { width: 52px; height: 52px; padding: 4px; }
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img { width: 40px; height: 40px; }
     .name .title { font-size: 0.88rem; }
     .td.desc { font-size: 0.78rem; }
   }
@@ -525,18 +531,18 @@ const withGroupHeaders = rows.flatMap((row) => {
   @media (min-width: 1921px) {
     .thumb { width: 105px; padding: 12px; }
     .thumb img { max-height: 225px; }
-    .materials[data-title="Здания"] .thead .tr,
-    .materials[data-title="Здания"] .tbody .tr { grid-template-columns: 300px minmax(200px, 1fr) minmax(260px, 2fr) minmax(220px, 1.4fr); }
-    .materials[data-title="Здания"] .thumb { width: 280px; padding: 15px; }
-    .materials[data-title="Здания"] .thumb img { max-height: 250px; }
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb {
+    .materials[data-key="buildings"] .thead .tr,
+    .materials[data-key="buildings"] .tbody .tr { grid-template-columns: 300px minmax(200px, 1fr) minmax(260px, 2fr) minmax(220px, 1.4fr); }
+    .materials[data-key="buildings"] .thumb { width: 280px; padding: 15px; }
+    .materials[data-key="buildings"] .thumb img { max-height: 250px; }
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb {
       width: calc(var(--orb-size-container-large) * 1.25);
       height: calc(var(--orb-size-container-large) * 1.25);
       padding: 10px;
     }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img {
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img {
       width: calc(var(--orb-size-img-large) * 1.25);
       height: calc(var(--orb-size-img-large) * 1.25);
     }

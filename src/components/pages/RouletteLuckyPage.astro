@@ -1,0 +1,216 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LuckyMachineSimulator from '@/components/simulators/lucky/LuckyMachineSimulator.svelte';
+import { luckyMachine, getRewardWithChance, formatNumber } from '@/lib/lucky-machine';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { getItemName } from '@/lib/materials-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+
+export const prerender = true;
+
+const jackpotReward = luckyMachine.rewards.find((reward) => reward.isSuperJackpot) ?? null;
+const freeSpinReward = luckyMachine.rewards.find((reward) => reward.isFreeTry) ?? null;
+const jackpotChance = jackpotReward ? getRewardWithChance(jackpotReward, luckyMachine).chance : 0;
+const freeSpinChance = freeSpinReward ? getRewardWithChance(freeSpinReward, luckyMachine).chance : 0;
+
+// reward.name/CATEGORY_INFO в lucky-machine.ts - RU-only (machine.json не
+// хранит перевод). Резолвим label на билде (не в клиентском компоненте -
+// см. регрессию 2.2MB в madness, d0390955b) через тот же слой словарей,
+// что /guides/materials-i18n, и передаём готовую Record<rewardId,label>
+// пропом - lib и компонент только подставляют её вместо reward.name.
+const { names: mutantNamesFull } = getLocalizedMutantNames(locale);
+function resolveLuckyLabel(reward: (typeof luckyMachine.rewards)[number]): string {
+  if (reward.isSuperJackpot) return t('roulette.madness.researchJackpot', locale);
+  if (reward.isFreeTry) return t('roulette.lucky.freeSpinReward', locale);
+  if (reward.type === 'hardcurrency') {
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.lucky.currencyGold', locale)}`;
+  }
+  if (reward.type === 'softcurrency') {
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.lucky.currencySilver', locale)}`;
+  }
+  if (reward.id?.startsWith('Specimen_')) {
+    return mutantNamesFull[reward.id.toLowerCase()]?.name ?? reward.name;
+  }
+  if (reward.id) {
+    return getItemName(reward.id, locale, reward.name);
+  }
+  return reward.name;
+}
+const rewardLabels: Record<number, string> = {};
+for (const reward of luckyMachine.rewards) {
+  rewardLabels[reward.rewardId] = resolveLuckyLabel(reward);
+}
+---
+<BaseLayout
+  title={t('roulette.lucky.pageTitle', locale)}
+  description={t('roulette.lucky.pageDescription', locale)}
+  fullWidth={true}
+>
+  <div class="back-nav">
+    <a href={translatedHref('/simulators/roulette', locale)} class="back-button">
+      <span class="icon">←</span>
+      <span class="text">{t('roulette.backToRoulettes', locale)}</span>
+    </a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="badge">{t('roulette.lucky.badge', locale)}</span>
+      <h1>Lucky Slots</h1>
+      <p>
+        {t('roulette.lucky.intro', locale)}
+      </p>
+      <dl class="quick-stats" aria-label={t('roulette.quickStatsAriaLabel', locale)}>
+        <div>
+          <dt>{t('roulette.lucky.statCostPerSpin', locale)}</dt>
+          <dd>{t('roulette.lucky.statCostPerSpinValue', locale)}</dd>
+        </div>
+        <div>
+          <dt>{t('roulette.lucky.statRewardCount', locale)}</dt>
+          <dd>{luckyMachine.rewards.length}</dd>
+        </div>
+        <div>
+          <dt>{t('roulette.lucky.statFreeSpinChance', locale)}</dt>
+          <dd>{(freeSpinChance * 100).toFixed(2)}%</dd>
+        </div>
+        <div>
+          <dt>{t('roulette.lucky.statJackpotChance', locale)}</dt>
+          <dd>{(jackpotChance * 100).toFixed(4)}%</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <LuckyMachineSimulator client:load machine={luckyMachine} locale={locale} labels={rewardLabels} />
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 2.75rem;
+  }
+
+  .hero-card {
+    position: relative;
+    padding: 2.9rem;
+    border-radius: 42px;
+    background: radial-gradient(circle at 18% 20%, rgba(124, 77, 255, 0.32), rgba(15, 23, 42, 0.92));
+    border: 1px solid rgba(129, 140, 248, 0.35);
+    box-shadow: 0 28px 46px rgba(99, 102, 241, 0.22);
+    overflow: hidden;
+  }
+
+  .hero-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 85% 10%, rgba(236, 233, 254, 0.16), transparent 55%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.48rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(124, 77, 255, 0.25);
+    color: #d0c2ff;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 1.1rem 0 0.75rem;
+    font-size: 3.1rem;
+    color: #e0e7ff;
+  }
+
+  p {
+    margin: 0;
+    max-width: 680px;
+    color: rgba(226, 232, 240, 0.78);
+    font-size: 1.08rem;
+    line-height: 1.85;
+  }
+
+  .quick-stats {
+    margin: 2.3rem 0 0;
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  dt {
+    margin: 0 0 0.45rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e5e7eb;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.45rem;
+    color: #f4f4ff;
+    font-weight: 600;
+  }
+
+  .back-nav {
+    margin-bottom: 1.5rem;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #f8fafc;
+    transform: translateX(-4px);
+  }
+
+  .back-button .icon {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 720px) {
+    .hero-card {
+      padding: 1.5rem;
+      border-radius: 24px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+
+    .quick-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .back-button {
+       width: 100%;
+       justify-content: center;
+    }
+  }
+</style>

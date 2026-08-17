@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PvpSimulator from '@/components/simulators/pvp/PvpSimulator.svelte';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names } = getLocalizedMutantNames(locale);
+
+export const prerender = true;
+---
+<BaseLayout
+  title={t('simulatorsIndex.card.pvp.title', locale)}
+  description={t('pvp.pageDescription', locale)}
+  fullWidth={true}
+  viewport="width=device-width, initial-scale=1">
+  <PvpSimulator client:load locale={locale} names={names} />
+</BaseLayout>

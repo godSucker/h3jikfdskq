@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CardGrid from '@/components/CardGrid.astro';
+import { t, localeFromAstro, localePrefix } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const p = localePrefix(locale);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <h1>{t('home.title', locale)}</h1>
+    <p class="tagline">{t('home.tagline', locale)}</p>
+    <div class="hero-buttons">
+      <a href={`${p}/mutants`} class="btn">{t('home.cta.mutants', locale)}</a>
+      <a href={`${p}/simulators`} class="btn btn-secondary">{t('home.cta.simulators', locale)}</a>
+    </div>
+  </section>
+
+  <CardGrid
+    heading={t('home.sections.heading', locale)}
+    cards={[
+      {
+        title: t('home.card.mutants.title', locale),
+        desc: t('home.card.mutants.desc', locale),
+        href: `${p}/mutants`,
+      },
+      {
+        title: t('home.card.stats.title', locale),
+        desc: t('home.card.stats.desc', locale),
+        href: `${p}/simulators/stats`,
+      },
+      {
+        title: t('home.card.evo.title', locale),
+        desc: t('home.card.evo.desc', locale),
+        href: `${p}/evolution/evotech-calculator`,
+      },
+      {
+        title: t('home.card.materials.title', locale),
+        desc: t('home.card.materials.desc', locale),
+        href: `${p}/materials`,
+      },
+      {
+        title: t('home.card.simulators.title', locale),
+        desc: t('home.card.simulators.desc', locale),
+        href: `${p}/simulators`,
+      },
+      {
+        title: t('home.card.bingo.title', locale),
+        desc: t('home.card.bingo.desc', locale),
+        href: `${p}/bingo`,
+      },
+      {
+        title: t('home.card.telegram.title', locale),
+        desc: t('home.card.telegram.desc', locale),
+        href: 'https://t.me/+Sf8-1UfYRm5kYmEy',
+      },
+    ]}
+  />
+
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    color: #8b949e;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+  }
+
+  .btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 280px;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #238636;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+  }
+
+  .btn:hover {
+    background-color: #2ea043;
+  }
+
+  .btn-secondary {
+    background-color: #0969da;
+  }
+
+  .btn-secondary:hover {
+    background-color: #218bff;
+  }
+
+  /* Tablet styles */
+  @media (min-width: 768px) {
+    .hero {
+      margin-bottom: 2rem;
+      padding: 1.5rem 0;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .tagline {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      width: auto;
+      max-width: none;
+      padding: 0.875rem 1.75rem;
+    }
+  }
+
+  /* Desktop styles */
+  @media (min-width: 1024px) {
+    .hero {
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+    }
+  }
+</style>

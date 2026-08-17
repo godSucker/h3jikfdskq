@@ -1,4 +1,6 @@
 ---
+import { t, localeFromAstro } from '@/lib/i18n';
+
 interface Props {
   oldVal: number | null;
   newVal: number | null;
@@ -6,7 +8,9 @@ interface Props {
 }
 const { oldVal, newVal, aoe = false } = Astro.props;
 
-const fmtNum = (n: number | null) => (n == null ? '—' : n.toLocaleString('ru-RU'));
+const locale = localeFromAstro(Astro.currentLocale);
+const INTL_LOCALE: Record<string, string> = { ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL' };
+const fmtNum = (n: number | null) => (n == null ? '—' : n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'));
 
 // Только цвет направления (зелёный/красный), без числового % изменения -
 // автор сайта решил, что процент ребаланса только мешает восприятию.
@@ -21,7 +25,7 @@ const cls = directionCls();
 ---
 
 <div class="statbox">
-  {aoe && <span class="aoe-badge" title="AOE-атака">AOE</span>}
+  {aoe && <span class="aoe-badge" title={t('rebalance.aoeTitle', locale)}>AOE</span>}
   <span class="vals">
     <span class="old-val">{fmtNum(oldVal)}</span>
     <span class="arrow">→</span>

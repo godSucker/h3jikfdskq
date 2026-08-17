@@ -1,7 +1,25 @@
-const numberFormatter = new Intl.NumberFormat('ru-RU')
+import type { Locale } from './i18n-locales'
 
-export function formatNumber(value: number): string {
-  return numberFormatter.format(Math.floor(value))
+// Тот же приём, что INTL_LOCALE в GuidesPage.astro/EvotechCalculator.svelte/
+// MutantModal.svelte (дублировался по файлам) - единый источник тут, раз
+// formatNumber() теперь locale-aware и используется в нескольких симуляторах.
+export const INTL_LOCALE: Record<Locale, string> = {
+  ru: 'ru-RU',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  it: 'it-IT',
+  tr: 'tr-TR',
+  nl: 'nl-NL',
+}
+
+// Раньше был захардкожен на 'ru-RU' независимо от локали (найдено
+// систематическим i18n-аудитом 2026-08-17) - числа в Cash/Lucky/Madness
+// рулетках рендерились с русской группировкой разрядов на всех 9 языках.
+export function formatNumber(value: number, locale: Locale = 'ru'): string {
+  return Math.floor(value).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
 }
 
 export function pluralize(n: number, one: string, few: string, many: string): string {

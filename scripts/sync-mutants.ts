@@ -185,7 +185,12 @@ async function loadLocalFiles() {
   txtContent.split(/\r?\n/).forEach((line) => {
     const parts = line.split(';')
     if (parts.length >= 2) {
-      locMap.set(parts[0].trim().toLowerCase(), parts.slice(1).join(';').trim())
+      // Исходник Kobojo кодирует переносы строк внутри значения как литеральные
+      // "\n" (иногда испорченный вариант "/n") - без анескейпа они попадали в
+      // JSON как видимый пользователю текст "\n" вместо настоящего переноса
+      // строки (баг найден в name_lore 2026-08-17, 26 записей).
+      const value = parts.slice(1).join(';').trim().replace(/\\n/g, '\n').replace(/\/n/g, '\n')
+      locMap.set(parts[0].trim().toLowerCase(), value)
     }
   })
 

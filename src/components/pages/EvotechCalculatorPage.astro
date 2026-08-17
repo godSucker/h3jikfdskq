@@ -1,0 +1,15 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EvotechCalculator from '@/components/EvotechCalculator.svelte';
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+---
+<BaseLayout
+  title={t('evotech.pageTitle', locale)}
+  description={t('evotech.pageDescription', locale)}
+>
+  <!-- Загрузка Svelte-компонента на клиенте -->
+  <EvotechCalculator client:load locale={locale} />
+</BaseLayout>

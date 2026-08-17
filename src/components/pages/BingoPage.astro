@@ -1,0 +1,985 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import bingosData from '@/data/bingos.json';
+import mutantNamesData from '@/data/mutant_names.json';
+import { getMutantTexturePath, getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures';
+import { bingoLabelL } from '@/lib/mutant-dicts';
+import { textureUrl } from '@/lib/texture-cdn';
+import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { baseMutantId } from '@/lib/utils';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
+
+interface BingoMutant {
+  specimenId: string;
+  skin: string;
+}
+
+interface BingoReward {
+  name: string;
+  amount: number;
+  type: 'entity' | 'hardcurrency' | 'softcurrency';
+  skin?: string;
+}
+
+interface Bingo {
+  title: string;
+  id: string;
+  mutants: BingoMutant[];
+  rewards: BingoReward[];
+  columns?: number;
+  archived?: boolean;
+}
+
+const bingos: Bingo[] = bingosData as Bingo[];
+// Архивные (снятые из игры) бинго уходят в хвост списка вкладок, но порядок
+// среди активных/среди архивных не меняется (стабильная сортировка).
+const sortedBingos: Bingo[] = [...bingos].sort((a, b) => Number(!!a.archived) - Number(!!b.archived));
+const firstArchivedIndex = sortedBingos.findIndex((b) => b.archived);
+
+const GENE_ICONS = {
+  A: '/genes/icon_gene_a.webp',
+  B: '/genes/icon_gene_b.webp',
+  C: '/genes/icon_gene_c.webp',
+  D: '/genes/icon_gene_d.webp',
+  E: '/genes/icon_gene_e.webp',
+  F: '/genes/icon_gene_f.webp',
+};
+
+
+function formatBingoTitle(title: string, id: string): string {
+  const labelById = bingoLabelL(id, locale);
+  if (labelById && labelById !== id) return labelById;
+  const labelByTitle = bingoLabelL(title, locale);
+  if (labelByTitle && labelByTitle !== title) return labelByTitle;
+
+  return title
+    .replace(/^--------/, "")
+    .replace(/_/g, " ")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+// mutant_names.json - RU-канон, ключи в точном регистре игры (incl. суффиксы
+// звёзд типа _Platinum). Для остальных 8 языков используем names.{lang}.json
+// (тот же словарь, что TierListPage.astro) по базовому id - звёздные варианты
+// визуально один и тот же мутант, имя не меняется от звезды.
+function getMutantName(specimenId: string): string {
+  const mutantNames = mutantNamesData as Record<string, string>;
+  if (locale === 'ru') return mutantNames[specimenId] || specimenId;
+  return names[baseMutantId(specimenId)]?.name || mutantNames[specimenId] || specimenId;
+}
+
+function getBingoLayout(bingo: Bingo) {
+  const count = bingo.mutants.length;
+  let cols = bingo.columns || Math.ceil(Math.sqrt(count));
+  if (count === 12 && !bingo.columns) cols = 4;
+  const rows = Math.ceil(count / cols);
+
+  const hasHeaders = [
+    'Starter', '2025_skins', '2025_mutants', '2025_events',
+    '2026_events', '2026_skins', '2026_mutants',
+    'anniversary_25', 'cross_mutation',
+    'research_1', 'research_2', 'research_3', 'research_4', 'research_5',
+    'research_6', 'research_7', 'research_8', 'research_9', 'research_10', 'research_11',
+    'reactor', 'legend', 'bingo_bronze', 'bingo_silver', 'bingo_gold', 'bingo_plat',
+    'zodiac', 'zodiac_silver', 'events', 'amazons', 'rumble', 'starter_plat',
+    'heroic', 'event_2019', 'event_2020', 'event_2021', 'event_2022', 'event_2023', 'event_2024',
+    'event_xmas2016', 'event_xmas2017', 'event_xmas2018', 'event_xmas2019', 'event_xmas2020',
+    'event_xmas2021', 'event_xmas2022', 'event_xmas2023', 'event_xmas2024', 'event_xmas2025',
+    'anniversary_21', 'anniversary_24', 'anniversary_26', '10years'
+  ].includes(bingo.id);
+  const topHeaders: string[] = Array(cols).fill('');
+  const sideHeaders: string[] = Array(rows).fill('');
+
+  if (bingo.id === 'Starter') {
+    topHeaders[1] = GENE_ICONS.A;
+    topHeaders[2] = GENE_ICONS.B;
+    topHeaders[3] = GENE_ICONS.C;
+  } else if ([
+    '2025_skins', '2025_mutants', '2025_events', '2026_skins', '2026_mutants', '2026_events',
+    'event_xmas2025', 'anniversary_26',
+  ].includes(bingo.id)) {
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/up_${i + 1}.webp`;
+  } else if (bingo.id === 'anniversary_25') {
+    // Используем первые 4 иконки от "Скины 2025"
+    for (let i = 0; i < cols && i < 4; i++) topHeaders[i] = `/bingo/up_${i + 1}.webp`;
+    for (let i = 0; i < rows && i < 4; i++) sideHeaders[i] = `/bingo/up_${i + 1}.webp`;
+  } else if (['zodiac', 'zodiac_silver'].includes(bingo.id)) {
+    // Зодиак и Серебряные Зодиаки - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/bingo_zodiac_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/bingo_zodiac_${i + 1}.webp`;
+  } else if (bingo.id === 'events') {
+    // Праздники - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/events_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/bingo_events_${i + 1}.webp`;
+  } else if (bingo.id === 'amazons') {
+    // Серебряные амазонки - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/multi_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/bingo_amazons_${i + 1}.webp`;
+  } else if (bingo.id === 'rumble') {
+    // Грохот - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/multi_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/events_left_${i + 1}.webp`;
+  } else if (bingo.id === 'starter_plat') {
+    // Платиновое бинго - как Базовое (Starter)
+    topHeaders[1] = GENE_ICONS.A;
+    topHeaders[2] = GENE_ICONS.B;
+    topHeaders[3] = GENE_ICONS.C;
+  } else if (bingo.id === 'heroic') {
+    // Герои - по аналогии с Грохот
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/multi_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/events_left_${i + 1}.webp`;
+  } else if (bingo.id === 'event_2019') {
+    // Ивенты 2019 - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/events_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/bingo_events_${i + 1}.webp`;
+  } else if (bingo.id === 'event_2020') {
+    // Ивенты 2020 - фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/events_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/events_left_${i + 1}.webp`;
+  } else if ([
+    'event_2021', 'event_2022', 'event_2023', 'event_2024',
+    'event_xmas2016', 'event_xmas2017', 'event_xmas2018', 'event_xmas2019', 'event_xmas2020',
+    'event_xmas2021', 'event_xmas2022', 'event_xmas2023', 'event_xmas2024',
+    'anniversary_21', 'anniversary_24', '10years',
+  ].includes(bingo.id)) {
+    // Ёлки/годовщины/ивенты одного визуального семейства - одинаковые фоновые иконки
+    for (let i = 0; i < cols; i++) topHeaders[i] = `/bingo/multi_up_${i + 1}.webp`;
+    for (let i = 0; i < rows; i++) sideHeaders[i] = `/bingo/events_left_${i + 1}.webp`;
+  } else if (['cross_mutation', 'research_1', 'research_2', 'research_3', 'research_4', 'research_5',
+              'research_6', 'research_7', 'research_8', 'research_9', 'research_10', 'research_11',
+              'reactor', 'legend', 'bingo_bronze', 'bingo_silver', 'bingo_gold', 'bingo_plat'].includes(bingo.id)) {
+    const genes = [GENE_ICONS.A, GENE_ICONS.B, GENE_ICONS.C, GENE_ICONS.D, GENE_ICONS.E, GENE_ICONS.F];
+    for (let i = 0; i < cols; i++) topHeaders[i] = genes[i] || '';
+    for (let i = 0; i < rows; i++) sideHeaders[i] = genes[i] || '';
+  }
+
+  const expectedWithCompletion = rows + cols + 1;
+  const expectedNoCompletion = rows + cols;
+  const hasCompletion = bingo.rewards.length === expectedWithCompletion;
+  const hasLineRewards = hasCompletion || bingo.rewards.length === expectedNoCompletion;
+
+  let rowRewards: BingoReward[] = [];
+  let colRewards: BingoReward[] = [];
+  let completionReward: BingoReward | null = null;
+  let otherRewards: BingoReward[] = [];
+
+  if (hasLineRewards) {
+    rowRewards = bingo.rewards.slice(0, rows);
+    colRewards = bingo.rewards.slice(rows, rows + cols);
+    if (hasCompletion) {
+      completionReward = bingo.rewards[bingo.rewards.length - 1];
+    }
+  } else {
+    otherRewards = bingo.rewards;
+  }
+
+  return { rows, cols, hasLineRewards, rowRewards, colRewards, completionReward, otherRewards, hasHeaders, topHeaders, sideHeaders };
+}
+
+function getSubBingos(bingo: Bingo): Bingo[] {
+  if (bingo.mutants.length === 32 && bingo.rewards.length === 18) {
+    return [
+      {
+        ...bingo,
+        id: `${bingo.id}_part1`,
+        title: `${bingo.title} 1`,
+        mutants: bingo.mutants.slice(0, 16),
+        rewards: bingo.rewards.slice(0, 9)
+      },
+      {
+        ...bingo,
+        id: `${bingo.id}_part2`,
+        title: `${bingo.title} 2`,
+        mutants: bingo.mutants.slice(16, 32),
+        rewards: bingo.rewards.slice(9, 18)
+      }
+    ];
+  }
+  return [bingo];
+}
+
+const i18nShareCopied = t('bingo.share.copied', locale);
+const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
+---
+
+<BaseLayout title={t('bingo.pageTitle', locale)} description={t('bingo.pageDescription', locale)}>
+  <section class="intro">
+    <div class="intro-header">
+      <img src="https://cdn.archivist-library.com/etc/icon_bingo.webp" alt={t('bingo.pageTitle', locale)} class="bingo-icon" />
+      <div>
+        <h1>{t('bingo.pageTitle', locale)}</h1>
+        <p>{t('bingo.subtitle', locale)}</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bingo-tabs">
+    {sortedBingos.map((bingo, idx) => (
+      <>
+        {idx === firstArchivedIndex && idx > 0 && <span class="bingo-tabs-separator" aria-hidden="true">|</span>}
+        <button
+          class="bingo-tab"
+          type="button"
+          data-bingo-index={idx}
+          data-bingo-id={bingo.id}
+          aria-selected={idx === 0}
+        >
+          <span class={`bingo-icon-span icon-${bingo.id}`}></span>
+          <span class="bingo-tab-label">
+            {formatBingoTitle(bingo.title, bingo.id)}
+            {bingo.archived && <span class="bingo-archived-tag">{t('bingo.archived', locale)}</span>}
+          </span>
+        </button>
+      </>
+    ))}
+  </div>
+
+  <div class="bingo-content">
+    {sortedBingos.map((originalBingo, bingoIdx) => {
+      const subBingos = getSubBingos(originalBingo);
+
+      return (
+        <div
+          class="bingo-panel"
+          data-bingo-index={bingoIdx}
+          data-bingo-id={originalBingo.id}
+          hidden={bingoIdx !== 0}
+        >
+          <div class="bingo-card">
+            <div class="bingo-card-header">
+              <div class="bingo-card-title-wrapper">
+                <span class={`bingo-header-icon icon-${originalBingo.id}`}></span>
+                <h2 class="bingo-card-title">{formatBingoTitle(originalBingo.title, originalBingo.id)}</h2>
+                {originalBingo.archived && <span class="bingo-archived-tag card">{t('bingo.archived', locale)}</span>}
+              </div>
+              <button type="button" class="bingo-share-btn" data-share-bingo-id={originalBingo.id} title={t('bingo.shareTitle', locale)}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span class="bingo-share-label">{t('bingo.share', locale)}</span>
+              </button>
+            </div>
+
+            <div class="bingo-sub-grids">
+              {subBingos.map((bingo, subIdx) => {
+                const layout = getBingoLayout(bingo);
+                const {
+                  rows, cols, hasLineRewards, rowRewards, colRewards,
+                  completionReward, otherRewards, hasHeaders, topHeaders, sideHeaders
+                } = layout;
+
+                const headerOffset = hasHeaders ? 1 : 0;
+                const rewardOffset = hasLineRewards ? 1 : 0;
+
+                const totalCols = cols + headerOffset + rewardOffset;
+
+                return (
+                  <div class={`bingo-sub-grid-wrapper ${subBingos.length > 1 ? "has-separator" : ""}`}>
+                    {subBingos.length > 1 && (
+                       <h3 class="sub-bingo-title">{t('bingo.part', locale)} {subIdx + 1}</h3>
+                    )}
+
+                    <div class="bingo-board-wrapper">
+                      <div
+                        class="bingo-grid"
+                        style={`
+                          grid-template-columns: repeat(${totalCols}, 1fr);
+                          --total-cols: ${totalCols};
+                        `}
+                      >
+                        {hasHeaders && (
+                          <>
+                            <div class="grid-cell empty"></div>
+                            {topHeaders.map((icon) => (
+                              <div class="grid-cell header-cell top">
+                                {icon && <img src={textureUrl(icon)} alt="" class="header-icon-img" />}
+                              </div>
+                            ))}
+                            {hasLineRewards && <div class="grid-cell empty"></div>}
+                          </>
+                        )}
+
+                        {Array.from({ length: rows }).map((_, r) => (
+                          <>
+                            {hasHeaders && (
+                              <div class="grid-cell header-cell side">
+                                {sideHeaders[r] && <img src={textureUrl(sideHeaders[r])} alt="" class="header-icon-img" />}
+                              </div>
+                            )}
+
+                            {Array.from({ length: cols }).map((_, c) => {
+                              const idx = r * cols + c;
+                              const mutant = bingo.mutants[idx];
+                              if (!mutant) return <div class="grid-cell empty"></div>;
+
+                              const isMissing = mutant.specimenId === 'Specimen_FF_98';
+                              const texturePath = isMissing ? '/bingo/not_now.png' : getMutantTexturePath(mutant.specimenId, mutant.skin);
+                              const hasSkin = !isMissing && mutant.skin && mutant.skin !== '_any' && mutant.skin.trim() !== '';
+
+                              return (
+                                <div class="grid-cell mutant-cell" class:missing-mutant={isMissing} title={getMutantName(mutant.specimenId)} data-specimen-id={!isMissing ? mutant.specimenId : undefined}>
+                                  <div class="mutant-content">
+                                    <img src={textureUrl(texturePath)} alt="" loading="lazy" class="mutant-img" />
+                                    {hasSkin && <span class="skin-badge">✦</span>}
+                                    <span class="cell-index">{idx + 1}</span>
+                                    <div class="cell-check">✓</div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+
+                            {hasLineRewards && (
+                              <div class="grid-cell reward-cell row-reward" title={getRewardLabel(rowRewards[r], locale, names)}>
+                                <div class="reward-content">
+                                  <img src={textureUrl(getRewardTexturePath(rowRewards[r]))} alt="" class="reward-img" />
+                                  <span class="reward-val">x{rowRewards[r].amount}</span>
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        ))}
+
+                        {hasLineRewards && (
+                          <>
+                            {hasHeaders && <div class="grid-cell empty"></div>}
+                            {colRewards.map((reward) => (
+                              <div class="grid-cell reward-cell col-reward" title={getRewardLabel(reward, locale, names)}>
+                                <div class="reward-content">
+                                  <img src={textureUrl(getRewardTexturePath(reward))} alt="" class="reward-img" />
+                                  <span class="reward-val">x{reward.amount}</span>
+                                </div>
+                              </div>
+                            ))}
+                            {completionReward && (
+                              <div class="grid-cell reward-cell completion-cell" title={getRewardLabel(completionReward, locale, names)}>
+                                <div class="reward-content">
+                                  <img src={textureUrl(getRewardTexturePath(completionReward))} alt="" class="reward-img" />
+                                  <span class="reward-val main">x{completionReward.amount}</span>
+                                  <span class="completion-star">★</span>
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    {(!hasLineRewards || (otherRewards && otherRewards.length > 0)) && (
+                       <div class="rewards-fallback">
+                         <h3>{t('bingo.rewards', locale)}</h3>
+                         <div class="rewards-grid-list">
+                           {(hasLineRewards ? otherRewards : bingo.rewards).map((reward) => (
+                              <div class="reward-card-simple">
+                                 <img src={textureUrl(getRewardTexturePath(reward))} alt="" />
+                                 <span>{getRewardLabel(reward, locale, names)}</span>
+                              </div>
+                           ))}
+                         </div>
+                       </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
+</BaseLayout>
+
+<script define:vars={{ i18nShareCopied, i18nSharePromptLabel }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll(".bingo-tab");
+    const selectByIndex = (idx, btn) => {
+      document.querySelectorAll(".bingo-panel").forEach(p => p.hidden = true);
+      const panel = document.querySelector(`.bingo-panel[data-bingo-index="${idx}"]`);
+      if (panel) panel.hidden = false;
+      tabs.forEach(t => t.setAttribute("aria-selected", "false"));
+      if (btn) btn.setAttribute("aria-selected", "true");
+    };
+    // Держим URL (?board=<id>) в синхроне с открытой вкладкой, чтобы текущий
+    // адрес всегда был готовой ссылкой на конкретное бинго (без лишнего
+    // клика "поделиться" - обычный copy-paste адресной строки тоже работает).
+    const setBoardParam = (id) => {
+      const url = new URL(location.href);
+      url.searchParams.set("board", id);
+      history.replaceState(null, "", url);
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", (e) => {
+        const btn = e.currentTarget;
+        selectByIndex(btn.dataset.bingoIndex, btn);
+        setBoardParam(btn.dataset.bingoId);
+        btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      });
+    });
+
+    // ?board=<id> - открыть конкретную доску напрямую (используется скриншот-
+    // эндпоинтом api/screenshot-bingo.ts для кросс-поста в Telegram, и теперь
+    // и обычными пользовательскими ссылками "поделиться").
+    const boardId = new URLSearchParams(location.search).get("board");
+    if (boardId) {
+      const btn = document.querySelector(`.bingo-tab[data-bingo-id="${boardId}"]`);
+      if (btn) selectByIndex(btn.dataset.bingoIndex, btn);
+    }
+
+    document.querySelectorAll(".bingo-share-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.shareBingoId;
+        const url = new URL(location.href);
+        url.searchParams.set("board", id);
+        try {
+          await navigator.clipboard.writeText(url.toString());
+        } catch {
+          window.prompt(i18nSharePromptLabel, url.toString());
+          return;
+        }
+        const label = btn.querySelector(".bingo-share-label");
+        if (label) {
+          const original = label.textContent;
+          label.textContent = i18nShareCopied;
+          setTimeout(() => { label.textContent = original; }, 1500);
+        }
+      });
+    });
+
+    // Клик по мутанту в сетке бинго - открыть его модалку (тот же паттерн,
+    // что и на странице тир-листа: MutantModal, смонтированная отдельным
+    // Svelte-островом, слушает это событие).
+    document.querySelectorAll(".mutant-cell[data-specimen-id]").forEach((cell) => {
+      cell.addEventListener("click", () => {
+        window.dispatchEvent(
+          new CustomEvent("archivist:open-mutant", {
+            detail: { specimenId: cell.dataset.specimenId },
+          }),
+        );
+      });
+    });
+  });
+</script>
+
+<style>
+  .intro { margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); display: flex; flex-direction: column; align-items: center; }
+  .intro-header { display: flex; align-items: center; gap: 0.75rem; }
+  .bingo-icon { width: 40px; height: 40px; filter: drop-shadow(0 4px 16px rgba(96, 165, 250, 0.4)); }
+  .intro h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; text-shadow: 0 3px 10px rgba(96, 165, 250, 0.4); }
+  .intro p { margin: 0; color: #e5e7eb; font-size: 0.9rem; }
+
+  .bingo-tabs { display: flex; overflow-x: auto; gap: 0.25rem; margin-bottom: 1rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); scrollbar-width: thin; justify-content: flex-start; }
+  .bingo-tabs::-webkit-scrollbar { height: 4px; }
+  .bingo-tabs::-webkit-scrollbar-track { background: transparent; }
+  .bingo-tabs::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.2); border-radius: 10px; }
+  .bingo-tabs::-webkit-scrollbar-thumb:hover { background: rgba(96, 165, 250, 0.4); }
+
+  /* Firefox */
+  .bingo-tabs { scrollbar-width: thin; scrollbar-color: rgba(96, 165, 250, 0.2) transparent; }
+  .bingo-tab { appearance: none; border: 1px solid rgba(48, 54, 61, 0.5); background: rgba(22, 27, 34, 0.95); color: #94a3b8; border-radius: 8px 8px 0 0; padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; white-space: nowrap; }
+  .bingo-tab:hover { background: rgba(30, 58, 138, 0.2); color: #fff; }
+  .bingo-tab[aria-selected="true"] { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border-bottom-color: transparent; }
+  .bingo-icon-span { width: 28px; height: 28px; background-size: contain; background-repeat: no-repeat; margin-right: 10px; flex-shrink: 0; }
+  .bingo-tab-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+  .bingo-tabs-separator { align-self: center; color: rgba(96, 165, 250, 0.35); font-size: 1.4rem; font-weight: 300; padding: 0 0.35rem; user-select: none; }
+  .bingo-archived-tag { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #f59e0b; }
+  .bingo-archived-tag.card { margin-left: 0.6rem; padding: 0.15rem 0.5rem; border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 6px; background: rgba(245, 158, 11, 0.1); }
+
+  .bingo-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .bingo-panel {
+    width: 100%;
+  }
+
+  .bingo-card { background: rgba(15, 23, 42, 0.7); border-radius: 24px; border: 1px solid rgba(96, 165, 250, 0.15); padding: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.3); margin: 0 auto; width: 100%; box-sizing: border-box; }
+  .bingo-card-header { position: relative; display: flex; justify-content: center; }
+  .bingo-card-title-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .bingo-card-title { margin: 0; font-size: 1.8rem; color: #f8fafc; font-weight: 800; }
+  .bingo-header-icon { width: 40px; height: 40px; background-size: contain; background-repeat: no-repeat; filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.3)); }
+  .bingo-share-btn {
+    position: absolute; right: 0; top: 0;
+    display: flex; align-items: center; gap: 6px;
+    appearance: none; border: 1px solid rgba(96, 165, 250, 0.3); background: rgba(30, 58, 138, 0.15);
+    color: #93c5fd; border-radius: 999px; padding: 0.4rem 0.8rem; font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+  .bingo-share-btn:hover { background: rgba(30, 58, 138, 0.35); color: #fff; }
+  @media (max-width: 640px) {
+    .bingo-share-btn { position: static; margin: 0 auto 0.75rem; }
+    .bingo-card-header { flex-direction: column; }
+  }
+
+  /* --- GRID STRUCTURE --- */
+  .bingo-board-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+    transform: translateX(-15px);
+  }
+
+  .bingo-panel:not([data-bingo-id="Starter"]) .bingo-board-wrapper {
+    transform: translateX(-30px);
+  }
+
+  .bingo-panel[data-bingo-id="Starter"] .bingo-board-wrapper {
+    transform: translateX(-50px);
+  }
+
+  .bingo-grid {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    margin: 0 auto;
+    user-select: none;
+  }
+
+  /* --- GRID CELLS --- */
+  .grid-cell {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+
+  .grid-cell.empty {
+    background: transparent;
+    border: none;
+  }
+
+  /* --- HEADER CELLS --- */
+  .header-cell {
+    background: transparent;
+    border: none;
+  }
+
+  .header-cell .header-icon-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.3));
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 50%;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* --- MUTANT CELLS --- */
+  .mutant-cell {
+    cursor: pointer;
+  }
+
+  .mutant-cell:hover {
+    transform: scale(1.05);
+    border-color: rgba(96, 165, 250, 0.6);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+    z-index: 10;
+  }
+
+  .mutant-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+  }
+
+  .mutant-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  }
+
+  .missing-mutant {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+  }
+
+  .skin-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: #fbbf24;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(251, 191, 36, 0.5);
+    z-index: 2;
+  }
+
+  .cell-index {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: monospace;
+    font-weight: 600;
+  }
+
+  .cell-check {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    display: none;
+    color: #10b981;
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+
+  /* --- REWARD CELLS --- */
+  .reward-cell {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+    cursor: help;
+  }
+
+  .reward-cell:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+  }
+
+  .reward-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .reward-img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+  }
+
+  .reward-val {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6ee7b7;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .reward-val.main {
+    font-size: 0.9rem;
+    color: #fbbf24;
+  }
+
+  /* --- COMPLETION REWARD --- */
+  .completion-cell {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(180, 83, 9, 0.2));
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+  }
+
+  .completion-cell:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+    z-index: 5;
+  }
+
+  .completion-star {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: #fbbf24;
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.6));
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.85; }
+  }
+
+  /* --- SUB GRIDS --- */
+  .bingo-sub-grids {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .bingo-sub-grid-wrapper.has-separator {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+  }
+
+  .bingo-sub-grid-wrapper.has-separator:last-child {
+    border-bottom: none;
+  }
+
+  .sub-bingo-title {
+    color: #94a3b8;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  /* --- FALLBACK REWARDS --- */
+  .rewards-fallback {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(96, 165, 250, 0.1);
+  }
+
+  .rewards-fallback h3 {
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .rewards-grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .reward-card-simple {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .reward-card-simple:hover {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(96, 165, 250, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .reward-card-simple img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .reward-card-simple span {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  /* --- ICON BACKGROUNDS --- */
+  .icon-2025_skins { background-image: url('https://cdn.archivist-library.com/bingo/bingo_2025_skins.webp'); }
+  .icon-2025_mutants { background-image: url('https://cdn.archivist-library.com/bingo/bingo_mutants_2025.webp'); }
+  .icon-anniversary_25 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_anniversery.webp'); }
+  .icon-cross_mutation { background-image: url('https://cdn.archivist-library.com/bingo/bingo_cross_mutation.webp'); }
+  .icon-research_1 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_1.webp'); }
+  .icon-research_2 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_2.webp'); }
+  .icon-research_3 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_3.webp'); }
+  .icon-research_4 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_4.webp'); }
+  .icon-research_5 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_5.webp'); }
+  .icon-research_6 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_6.webp'); }
+  .icon-research_7 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_7.webp'); }
+  .icon-research_8 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_8.webp'); }
+  .icon-research_9 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_9.webp'); }
+  .icon-research_10 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_10.webp'); }
+  .icon-research_11 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_11.webp'); }
+  .icon-reactor { background-image: url('https://cdn.archivist-library.com/bingo/bingo_reactor.webp'); }
+  .icon-legend { background-image: url('https://cdn.archivist-library.com/bingo/bingo_legendary.webp'); }
+  .icon-rumble { background-image: url('https://cdn.archivist-library.com/bingo/bingo_rumble.webp'); }
+  .icon-heroic { background-image: url('https://cdn.archivist-library.com/bingo/bingo_heroic.webp'); }
+  .icon-event_2019 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-event_2020 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-event_2021 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-event_2022 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-event_2024 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-2025_events { background-image: url('https://cdn.archivist-library.com/bingo/bingo_2025_events.webp'); }
+  .icon-2026_events { background-image: url('https://cdn.archivist-library.com/bingo/bingo_2025_events.webp'); }
+  .icon-2026_skins { background-image: url('https://cdn.archivist-library.com/bingo/bingo_2025_skins.webp'); }
+  .icon-2026_mutants { background-image: url('https://cdn.archivist-library.com/bingo/bingo_mutants_2025.webp'); }
+  .icon-events { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-zodiac { background-image: url('https://cdn.archivist-library.com/bingo/bingo_zodiac.webp'); }
+  .icon-zodiac_silver { background-image: url('https://cdn.archivist-library.com/bingo/bingo_silver_zodiac.webp'); }
+  .icon-amazons { background-image: url('https://cdn.archivist-library.com/bingo/bingo_amazons.webp'); }
+  .icon-bingo_bronze { background-image: url('https://cdn.archivist-library.com/bingo/bingo_bronze.webp'); }
+  .icon-bingo_silver { background-image: url('https://cdn.archivist-library.com/bingo/bingo_silver.webp'); }
+  .icon-bingo_gold { background-image: url('https://cdn.archivist-library.com/bingo/bingo_gold.webp'); }
+  .icon-bingo_plat { background-image: url('https://cdn.archivist-library.com/bingo/bingo_platinum.webp'); }
+  .icon-starter_plat { background-image: url('https://cdn.archivist-library.com/bingo/bingo_starter_platinum.webp'); }
+  .icon-Starter { background-image: url('https://cdn.archivist-library.com/bingo/bingo_starter.webp'); }
+  .icon-event_2023 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-event_xmas2016,
+  .icon-event_xmas2017,
+  .icon-event_xmas2018,
+  .icon-event_xmas2019,
+  .icon-event_xmas2020,
+  .icon-event_xmas2021,
+  .icon-event_xmas2022,
+  .icon-event_xmas2023,
+  .icon-event_xmas2024,
+  .icon-event_xmas2025,
+  .icon-10years { background-image: url('https://cdn.archivist-library.com/bingo/bingo_special.webp'); }
+  .icon-anniversary_21,
+  .icon-anniversary_24,
+  .icon-anniversary_26 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_anniversery.webp'); }
+
+  /* --- MOBILE RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .bingo-board-wrapper {
+      max-width: 100%;
+      transform: none;
+    }
+
+    .bingo-panel[data-bingo-id="Starter"] .bingo-board-wrapper {
+      transform: translateX(-25px);
+    }
+
+    .bingo-panel:not([data-bingo-id="Starter"]) .bingo-board-wrapper {
+      transform: none;
+    }
+
+    .bingo-grid {
+      gap: 6px;
+    }
+
+    .grid-cell {
+      border-radius: 8px;
+    }
+
+    .header-cell .header-icon-img {
+      width: 28px;
+      height: 28px;
+      padding: 5px;
+    }
+
+    .mutant-content {
+      padding: 0.15rem;
+    }
+
+    .skin-badge {
+      font-size: 0.8rem;
+      top: 2px;
+      right: 2px;
+    }
+
+    .cell-index {
+      font-size: 0.6rem;
+      bottom: 2px;
+      left: 2px;
+    }
+
+    .reward-img {
+      max-width: 50%;
+      max-height: 50%;
+    }
+
+    .reward-val {
+      font-size: 0.6rem;
+    }
+
+    .reward-val.main {
+      font-size: 0.7rem;
+    }
+
+    .completion-star {
+      font-size: 0.8rem;
+    }
+
+    .sub-bingo-title {
+      font-size: 1rem;
+    }
+
+    .rewards-grid-list {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .reward-card-simple {
+      padding: 0.75rem;
+    }
+
+    .reward-card-simple img {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bingo-grid {
+      gap: 4px;
+    }
+
+    .grid-cell {
+      border-radius: 6px;
+    }
+
+    .header-cell .header-icon-img {
+      width: 22px;
+      height: 22px;
+      padding: 4px;
+    }
+
+    .skin-badge {
+      font-size: 0.7rem;
+    }
+
+    .cell-index {
+      font-size: 0.55rem;
+    }
+
+    .reward-img {
+      max-width: 40%;
+      max-height: 40%;
+    }
+
+    .reward-val {
+      font-size: 0.5rem;
+    }
+
+    .reward-val.main {
+      font-size: 0.6rem;
+    }
+
+    .completion-star {
+      font-size: 0.6rem;
+    }
+
+    .rewards-grid-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* QHD upscaling */
+  @media (min-width: 1921px) {
+    .bingo-grid { gap: 10px; }
+    .header-cell .header-icon-img { width: 60px; height: 60px; padding: 10px; }
+    .bingo-icon { width: 50px; height: 50px; }
+    .bingo-header-icon { width: 50px; height: 50px; }
+    .reward-card-simple img { width: 60px; height: 60px; }
+    .bingo-icon-span { width: 35px; height: 35px; }
+  }
+</style>

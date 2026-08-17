@@ -1,0 +1,50 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Developers from '@/components/Developers.svelte';
+import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+---
+
+<BaseLayout
+  title={t('credits.pageTitle', locale)}
+  description={t('credits.pageDescription', locale)}
+  fullWidth
+  viewport="width=device-width, initial-scale=1"
+>
+  <div class="credits-page">
+    <!-- Кнопка назад -->
+    <a class="back-link" href={translatedHref('/', locale)}>
+      <span class="arrow">←</span> {t('credits.backToHome', locale)}
+    </a>
+
+    <Developers client:load locale={locale} />
+  </div>
+</BaseLayout>
+
+<style>
+  .credits-page {
+    min-height: 100vh;
+    padding: 1rem;
+    /* Красивый фон на всю страницу */
+    background: radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.3), transparent 70%);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #fff;
+  }
+</style>

@@ -1,4 +1,5 @@
 import rawMachine from '@/data/simulators/cash/machine.json'
+import { t, type Locale } from '@/lib/i18n'
 
 export type CashRewardType = 'entity' | 'hardcurrency' | 'softcurrency'
 
@@ -40,17 +41,17 @@ export function getTotalWeight(machine: CashMachineDefinition = cashMachine): nu
 import { formatNumber } from '@/lib/utils'
 export { formatNumber }
 
-export function getRewardLabel(reward: CashReward): string {
+export function getRewardLabel(reward: CashReward, locale: Locale = 'ru'): string {
   if (reward.type === 'hardcurrency') {
-    return `${formatNumber(reward.amount)} золота`
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.cash.unitGold', locale)}`
   }
   if (reward.type === 'softcurrency') {
-    return `${formatNumber(reward.amount)} серебра`
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.cash.unitSilver', locale)}`
   }
   if (reward.picture && reward.picture.includes('jackpot')) {
-    return 'Джекпот'
+    return t('roulette.madness.researchJackpot', locale)
   }
-  return 'Неизвестная награда'
+  return t('roulette.cash.unknownReward', locale)
 }
 
 const GOLD_REWARD_AMOUNTS = new Set([30, 40, 50, 80, 100, 200, 500, 1000, 2000, 5000])
@@ -109,10 +110,11 @@ export function getRewardChance(
 export function getRewardWithChance(
   reward: CashReward,
   machine: CashMachineDefinition = cashMachine,
+  locale: Locale = 'ru',
 ): RewardChance {
   return {
     ...reward,
-    label: getRewardLabel(reward),
+    label: getRewardLabel(reward, locale),
     chance: getRewardChance(reward, machine),
     icon: getRewardIcon(reward),
   }
@@ -147,6 +149,7 @@ export interface SimulationOptions {
   batchSize?: number
   onProgress?: (completed: number, total: number) => void
   signal?: AbortSignal
+  locale?: Locale
 }
 
 interface SimulationContext {
@@ -160,6 +163,7 @@ interface SimulationContext {
   historyCount: number
   lastHistoryIndex: number
   baseTimestamp: number
+  locale: Locale
 }
 
 function createSimulationContext(
@@ -193,6 +197,7 @@ function createSimulationContext(
     historyCount: 0,
     lastHistoryIndex: -1,
     baseTimestamp: Date.now(),
+    locale: options.locale ?? 'ru',
   }
 }
 
@@ -214,7 +219,7 @@ function recordSpin(
   }
 
   const reward = selected ?? weightedRewards[weightedRewards.length - 1].reward
-  const label = getRewardLabel(reward)
+  const label = getRewardLabel(reward, ctx.locale)
   const icon = getRewardIcon(reward)
   let entry = ctx.rewardMap.get(reward.rewardId)
 

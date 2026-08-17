@@ -7,10 +7,19 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing state param', { status: 400 })
   }
 
+  // Locale - для скриншота на языке, на котором пользователь реально сидел
+  // на сайте (раньше игнорировался, /panel-render всегда рендерил RU
+  // независимо от locale - см. память i18n-final-audit-2026-08-16). Whitelist
+  // валидация, не просто passthrough - это попадает прямо в URL, который наш
+  // headless Chromium открывает.
+  const LOCALES = ['ru', 'en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl']
+  const localeParam = url.searchParams.get('locale')
+  const locale = LOCALES.includes(localeParam ?? '') ? localeParam : 'ru'
+
   // Хардкод, не url.origin: origin из запроса управляется заголовком Host,
   // подмена которого заставила бы наш же headless Chromium уйти по
   // произвольному URL (SSRF через собственный скриншот-эндпоинт).
-  const renderUrl = `https://archivist-library.com/panel-render?state=${encodeURIComponent(stateParam)}`
+  const renderUrl = `https://archivist-library.com/panel-render?state=${encodeURIComponent(stateParam)}&locale=${locale}`
 
   for (let attempt = 0; attempt < 2; attempt++) {
     let page

@@ -82,7 +82,7 @@ export function applyAttack(
   let totalDamageGiven = 0
   // Копится отдельно от events - фаза 3 ниже проходит по целям ЕЩЁ РАЗ (для отражения),
   // после того как у атакующего уже мог встать щит (фаза 2).
-  const pendingRetaliates: { target: CombatUnit; rawDamage: number; died: boolean }[] = []
+  const pendingRetaliates: { target: CombatUnit; died: boolean }[] = []
 
   // Фаза 1: урон по всем целям (в игре порядок именно такой - см. заголовок файла).
   for (const target of targets) {
@@ -118,7 +118,7 @@ export function applyAttack(
       buffPct: hit.buffPct,
     })
 
-    pendingRetaliates.push({ target, rawDamage, died })
+    pendingRetaliates.push({ target, died })
 
     if (!died) {
       grantStrengthenOnDefend(target)
@@ -137,9 +137,10 @@ export function applyAttack(
 
   // Фаза 3: отражение целей - теперь идёт ЧЕРЕЗ щит атакующего (absorbWithShield), не
   // напрямую в hp, раз щит из фазы 2 уже мог встать.
-  for (const { target, rawDamage, died } of pendingRetaliates) {
-    // retaliate (valueFrom="damageGiven" атакующего - на СЫРОЙ урон, не зависит от щита цели)
-    const retaliate = retaliateDamage(target, rawDamage)
+  for (const { target, died } of pendingRetaliates) {
+    // retaliate - % от собственной атаки цели (target.atk1), не от урона входящего удара
+    // (см. abilities.ts::retaliateDamage) - независимо от щита/атаки атакующего.
+    const retaliate = retaliateDamage(target)
     if (retaliate > 0 && !died) {
       const absorbed = absorbWithShield(attacker, retaliate)
       const finalRetaliate = Math.max(0, retaliate - absorbed)
@@ -153,7 +154,7 @@ export function applyAttack(
         crit: false,
         shieldAbsorbed: absorbed,
         died: attackerDied,
-        // retaliate - плоский % от rawDamage входящего удара, не проходит крит/тип/бафф.
+        // retaliate - плоский % от собственной атаки цели, не проходит крит/тип/бафф.
         baseDamage: retaliate,
         typeModPct: 0,
         buffDamage: 0,

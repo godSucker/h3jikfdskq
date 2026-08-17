@@ -1,6 +1,9 @@
 import { getItemTexture, translateItemId } from './craft-simulator'
 import { getMutantTexture, getSkinTexture } from './mutant-textures'
 import { normalizeSearch } from '@/lib/search-normalize'
+import { getItemName } from '@/lib/materials-i18n'
+import { t, type Locale } from '@/lib/i18n'
+import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
 import { normalizeMutantId } from '@/lib/utils'
 
@@ -251,21 +254,95 @@ export function getRewardTexturePath(reward: {
 /**
  * Получает название награды для отображения
  */
-export function getRewardLabel(reward: {
-  name: string
-  type: 'entity' | 'hardcurrency' | 'softcurrency'
-  amount?: number
-}): string {
-  if (reward.type === 'hardcurrency') {
-    return `${reward.amount?.toLocaleString('ru-RU') || 0} золота`
+// Слова "золота"/"серебра" переведены на все 9 языков - сами имена предметов
+// (translateItemId, ITEM_TRANSLATIONS в craft-simulator.ts) остаются RU, это
+// общий для всего сайта пробел (см. память i18n-known-coverage-gaps).
+export const GOLD_WORD: Record<Locale, string> = {
+  ru: 'золота',
+  en: 'gold',
+  es: 'oro',
+  fr: "d'or",
+  de: 'Gold',
+  pt: 'ouro',
+  it: 'oro',
+  tr: 'altın',
+  nl: 'goud',
+}
+export const SILVER_WORD: Record<Locale, string> = {
+  ru: 'серебра',
+  en: 'silver',
+  es: 'plata',
+  fr: "d'argent",
+  de: 'Silber',
+  pt: 'prata',
+  it: 'argento',
+  tr: 'gümüş',
+  nl: 'zilver',
+}
+export const INTL_LOCALE: Record<Locale, string> = {
+  ru: 'ru-RU',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  it: 'it-IT',
+  tr: 'tr-TR',
+  nl: 'nl-NL',
+}
+
+// Общий форматтер "N золота/серебра" - переиспользуется getRewardLabel() ниже
+// и BoxModal.svelte (цена бокса - та же валютная фраза, другой контекст).
+export function formatCurrencyAmount(
+  amount: number,
+  type: 'hardcurrency' | 'softcurrency',
+  locale: Locale = 'ru',
+): string {
+  const n = amount.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')
+  const word =
+    type === 'hardcurrency'
+      ? (GOLD_WORD[locale] ?? GOLD_WORD.ru)
+      : (SILVER_WORD[locale] ?? SILVER_WORD.ru)
+  return `${n} ${word}`
+}
+
+export function getRewardLabel(
+  reward: {
+    name: string
+    type: 'entity' | 'hardcurrency' | 'softcurrency'
+    amount?: number
+  },
+  locale: Locale = 'ru',
+  names?: Record<string, MutantNameEntry>,
+): string {
+  if (reward.type === 'hardcurrency' || reward.type === 'softcurrency') {
+    return formatCurrencyAmount(reward.amount ?? 0, reward.type, locale)
   }
 
-  if (reward.type === 'softcurrency') {
-    return `${reward.amount?.toLocaleString('ru-RU') || 0} серебра`
+  // Для entity используем перевод из craft-simulator (RU-only), прогнанный
+  // через materials-i18n для не-RU локалей - тот же баг и фикс, что был
+  // в /guides (translateItemId игнорировал locale), см. память
+  // i18n-known-coverage-gaps.md раздел /bingo. Specimen_* id - отдельный
+  // случай: materials-i18n не покрывает мутантов вообще, поэтому падал
+  // молча на RU-имя (найдено live-прогоном "тесты везде" 2026-08-17,
+  // completion-reward мутант на /bingo был русским на всех не-RU языках).
+  const ru = translateItemId(reward.name)
+  let translated = ru
+  if (locale !== 'ru') {
+    if (reward.name.startsWith('Specimen_')) {
+      translated = names?.[reward.name.toLowerCase()]?.name ?? ru
+    } else if (reward.name.startsWith('Habitat_') || reward.name.startsWith('Building_')) {
+      // Habitat_*_HC/Building_*_HC (люкс-зоны) не покрыты materials-i18n -
+      // тот же паттерн, что уже решён в guides-resolve.ts: размер зоны
+      // важнее гена-специфичного названия, generic-фолбэк лучше RU-утечки.
+      const match = reward.name.match(/_(\d+)_HC$/)
+      translated = match
+        ? t('guides.reward.luxZone', locale).replace('{n}', String(Number(match[1]) + 1))
+        : getItemName(reward.name, locale, ru)
+    } else {
+      translated = getItemName(reward.name, locale, ru)
+    }
   }
-
-  // Для entity используем перевод из craft-simulator
-  const translated = translateItemId(reward.name)
   if (reward.amount && reward.amount > 1) {
     return `${translated} ×${reward.amount}`
   }

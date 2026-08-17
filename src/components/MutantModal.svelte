@@ -1,15 +1,16 @@
 <script lang="ts">
   import { onMount, onDestroy, tick } from 'svelte';
   import {
-    STAR_LABEL,
     STAR_COLOR,
-    TYPE_RU,
-    geneLabel,
-    bingoLabel,
-    ABILITY_RU
+    ABILITY_RU,
+    geneLabelL,
+    bingoLabelL,
+    typeLabelL,
+    abilityLabelL,
+    starLabelL,
   } from '@/lib/mutant-dicts';
   import { orbingMap } from '@/lib/orbing-map';
-  import { getSkinNameRu } from '@/lib/localisation';
+  import { getSkinName } from '@/lib/localisation';
   import { calculateFinalStats } from '@/lib/stats/unified-calculator';
   import { textureUrl } from '@/lib/texture-cdn';
   import {
@@ -21,35 +22,40 @@
     getGeneIcon,
   } from '@/lib/mutant-icons';
   import { baseMutantId as baseId } from '@/lib/utils';
+  import { renderObtainWhere } from '@/lib/obtain-render';
   import obtainData from '@/data/mutants/obtain.json';
   import toplistsData from '@/data/mutants/toplists.json';
   import skinIconsData from '@/data/mutants/skin-icons.json';
+  import { t, type Locale } from '@/lib/i18n';
 
   // Топ/анти-топ бейджи - берём только "текущий" (последний) снапшот toplists.json,
   // который пересобирается build-toplists.ts при каждом обновлении mutants.json,
   // поэтому теги всегда актуальны без отдельной ручной синхронизации.
-  const RANK_CATEGORIES: { key: string; label: string; abilities?: boolean }[] = [
-    { key: 'atk1', label: 'атаке' },
-    { key: 'atk2', label: 'масс. атаке' },
-    { key: 'hp', label: 'ХП' },
-    { key: 'speed', label: 'скорости' },
-    { key: 'silver', label: 'серебру' },
-    { key: 'ability_shield_plus', label: ABILITY_RU.ability_shield_plus, abilities: true },
-    { key: 'ability_regen_plus', label: ABILITY_RU.ability_regen_plus, abilities: true },
-    { key: 'ability_retaliate_plus', label: ABILITY_RU.ability_retaliate_plus, abilities: true },
-    { key: 'ability_slash_plus', label: ABILITY_RU.ability_slash_plus, abilities: true },
-    { key: 'ability_strengthen_plus', label: ABILITY_RU.ability_strengthen_plus, abilities: true },
-    { key: 'ability_weaken_plus', label: ABILITY_RU.ability_weaken_plus, abilities: true },
-  ];
+  // i18n-пилот (Батч 11): метки локале-осознанные, поэтому функция, не const.
+  function rankCategories(locale: Locale): { key: string; label: string; abilities?: boolean }[] {
+    return [
+      { key: 'atk1', label: t('modal.statLabel.attack', locale) },
+      { key: 'atk2', label: t('modal.statLabel.aoeAttack', locale) },
+      { key: 'hp', label: t('modal.statLabel.hp', locale) },
+      { key: 'speed', label: t('modal.statLabel.speed', locale) },
+      { key: 'silver', label: t('modal.statLabel.silver', locale) },
+      { key: 'ability_shield_plus', label: abilityLabelL('ability_shield_plus', locale), abilities: true },
+      { key: 'ability_regen_plus', label: abilityLabelL('ability_regen_plus', locale), abilities: true },
+      { key: 'ability_retaliate_plus', label: abilityLabelL('ability_retaliate_plus', locale), abilities: true },
+      { key: 'ability_slash_plus', label: abilityLabelL('ability_slash_plus', locale), abilities: true },
+      { key: 'ability_strengthen_plus', label: abilityLabelL('ability_strengthen_plus', locale), abilities: true },
+      { key: 'ability_weaken_plus', label: abilityLabelL('ability_weaken_plus', locale), abilities: true },
+    ];
+  }
   const RANK_BADGE_THRESHOLD = 10;
 
-  function computeRankBadges(mutantId: string | undefined): { label: string; rank: number; total: number; worst: boolean }[] {
+  function computeRankBadges(mutantId: string | undefined, locale: Locale): { label: string; rank: number; total: number; worst: boolean }[] {
     if (!mutantId) return [];
     const current = (toplistsData as any[]).find((s) => s.id === 'current');
     if (!current) return [];
     const bucket = current.levels['30'];
     const badges: { label: string; rank: number; total: number; worst: boolean }[] = [];
-    for (const cat of RANK_CATEGORIES) {
+    for (const cat of rankCategories(locale)) {
       const list = cat.abilities ? bucket.abilities[cat.key] : bucket[cat.key];
       if (!list?.length) continue;
       const idx = list.findIndex((e: any) => e.id === mutantId);
@@ -85,17 +91,45 @@
     unavailable: '/etc/icon_timer.webp',
   };
 
-  let { open = false, mutant = null, star = 'normal', skins = [], onclose = undefined }: {
+  let { open = false, mutant = null, star = 'normal', skins = [], onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
     open?: boolean;
     mutant?: any;
     star?: string;
     skins?: any[];
     onclose?: () => void;
+    locale?: Locale;
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>;
+    obtainNames?: Record<string, string>;
   } = $props();
+
+  // Батч 11 (3): пересборка "where" (не голая подмена - теряла префикс
+  // "Набор:"/"Лаки-бокс:" и суффикс-модификатор цены/тира/скина, см.
+  // src/lib/obtain-render.ts). obtainNames - obtain-names.{lang}.json,
+  // фолбэк target->en уже свёрнут в MutantsPage.astro.
+  function displayObtainWhere(o: { type: string; where: string; itemId?: string }): string {
+    return renderObtainWhere(o, locale, obtainNames, names);
+  }
 
   const close = () => onclose?.();
 
-  const rankBadges = $derived(computeRankBadges(mutant?.id));
+  // i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
+  // сиблинг-перевод, ключи - id из mutants.json (всегда lowercase). skins.json
+  // хранит id в другом регистре (напр. "Specimen_A_01" vs "specimen_a_01") -
+  // без нормализации лукап молча промахивается для любого выбранного скина
+  // (найдено 2026-08-14 живым тестом: атаки откатывались на RU только при
+  // переключении скина, не звезды - там id всегда из mutants.json). RU-фолбэк,
+  // если для конкретного id перевода нет.
+  function namesFor(id: unknown): { name: string; lore: string; atk1Name: string; atk2Name: string } | undefined {
+    return names[String(id ?? '').toLowerCase()];
+  }
+  function displayName(it: any): string {
+    return namesFor(it?.id)?.name || it?.name || '';
+  }
+  function displayLore(it: any): string {
+    return namesFor(it?.id)?.lore || it?.name_lore || '';
+  }
+
+  const rankBadges = $derived(computeRankBadges(mutant?.id, locale));
 
   // ===== Star switching =====
   const STAR_SWITCHER_BLOCKED = new Set(['specimen_bf_11', 'specimen_ce_10']);
@@ -220,16 +254,19 @@
     return a ? (ABILITY_ICONS[a] ?? null) : null;
   };
 
-  // Names
+  // Names (i18n-пилот, Батч 11: names.{lang}.json -> m?.name_attackN -> "Атака N")
   const attackName = (m: any, which: 1 | 2): string => {
+    const nm = namesFor(m?.id);
+    const translated = nm ? (which === 1 ? nm.atk1Name : nm.atk2Name) : '';
+    if (translated) return translated;
     const local = which === 1 ? m?.name_attack1 : m?.name_attack2;
     if (local) return String(local);
-    return which === 1 ? 'Атака 1' : 'Атака 2';
+    return t(`modal.attack${which}`, locale);
   };
-  const abilityLabel = (name?: string) => {
-    const raw = String(name ?? '');
-    return ABILITY_RU?.[raw] ?? raw.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-  };
+  const abilityLabel = (name?: string) => abilityLabelL(String(name ?? ''), locale);
+  const rankBadgeText = (b: { rank: number; label: string; worst: boolean }) =>
+    t(b.worst ? 'modal.rankBadge.worst' : 'modal.rankBadge.top', locale)
+      .replace('{rank}', String(b.rank)).replace('{label}', b.label);
 
   // Base fields — reactive to skin selection
   let baseStats = $derived(displayMutant?.base_stats ?? {});
@@ -338,15 +375,22 @@
     return out;
   };
 
-  // formatting
+  // formatting - тот же приём, что INTL_LOCALE в GuidesPage.astro/EvotechCalculator.svelte
+  // (не общий модуль). Раньше fmt()/fmtNoSign() были хардкожены на 'ru-RU' на ВСЕХ
+  // локалях (найдено систематическим i18n-аудитом 2026-08-17) - числа на стат-панели
+  // рендерились с русской группировкой разрядов независимо от языка страницы.
+  const INTL_LOCALE: Record<Locale, string> = {
+    ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR',
+    de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+  };
   function fmt(n: any): string {
     if (n === undefined || n === null || n === '' || Number.isNaN(Number(n))) return '—';
-    return Number(n).toLocaleString('ru-RU');
+    return Number(n).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
   }
   function fmtNoSign(v: any): string {
     if (v === undefined || v === null || v === '' || Number.isNaN(Number(v))) return '—';
     const num = Number(v);
-    if (Number.isFinite(num)) return Math.abs(num).toLocaleString('ru-RU');
+    if (Number.isFinite(num)) return Math.abs(num).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
     return String(v).replace(/^-+/, '');
   }
 
@@ -558,7 +602,7 @@
     <button
       class="mobile-close-btn"
       onclick={close}
-      aria-label="Закрыть"
+      aria-label={t('modal.close', locale)}
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
@@ -574,7 +618,7 @@
               <button
                 class="star-switch-btn {selectedStar === s && !selectedSkin ? 'active' : ''}"
                 onclick={() => { selectedStar = s; selectedSkin = null; }}
-                title={STAR_LABEL[s] ?? s}
+                title={starLabelL(s, locale)}
               >
                 <img src={textureUrl(STAR_ICONS[s] ?? '/stars/no_stars.webp')} alt={s} class="w-9 h-9 object-contain" />
               </button>
@@ -584,7 +628,7 @@
             <button
               class="skin-switch-btn {selectedSkin === s ? 'active' : ''}"
               onclick={() => { selectedSkin = (selectedSkin === s ? null : s); }}
-              title={getSkinNameRu(s.skin) ?? s.skin}
+              title={getSkinName(s.skin, locale) ?? s.skin}
             >
               <!-- Иконка гачи; если её нет на CDN — откатываемся на текстуру самого скина. -->
               <img
@@ -626,26 +670,26 @@
       <!-- Header -->
       <div class="flex items-start justify-between gap-2">
         <div class="min-w-0">
-          <h2 id="mutant-title" class="text-lg md:text-xl font-bold tracking-wide break-words">{mutant?.name}{selectedSkin ? ` — ${getSkinNameRu(selectedSkin.skin) ?? selectedSkin.skin}` : ''}</h2>
+          <h2 id="mutant-title" class="text-lg md:text-xl font-bold tracking-wide break-words">{displayName(mutant)}{selectedSkin ? ` — ${getSkinName(selectedSkin.skin, locale) ?? selectedSkin.skin}` : ''}</h2>
           <div class="mt-0.5 text-xs md:text-sm text-slate-300 flex items-center gap-2 flex-wrap">
             {#if typeIcon(displayType)}
               <span class="inline-flex items-center gap-1 break-words">
                 <img class="type-icon opacity-90" src={textureUrl(typeIcon(displayType))} alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                {TYPE_RU[displayType] ?? displayType}
+                {typeLabelL(displayType, locale)}
               </span>
             {:else}
-              <span class="break-words">{TYPE_RU[displayType] ?? displayType}</span>
+              <span class="break-words">{typeLabelL(displayType, locale)}</span>
             {/if}
             {#if genes}
-              <span class="opacity-70">•</span>{geneLabel(genes)}
+              <span class="opacity-70">•</span>{geneLabelL(genes, locale)}
             {/if}
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
           {#if mutant?.tier}
-            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">Тир {mutant.tier}</span>
+            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">{t('modal.tierBadge', locale).replace('{n}', String(mutant.tier))}</span>
           {/if}
-          <span class={`px-2 py-1 rounded-full text-[10px] ring-1 ${STAR_COLOR[shownStar]}`}>{STAR_LABEL[shownStar] ?? shownStar}</span>
+          <span class={`px-2 py-1 rounded-full text-[10px] ring-1 ${STAR_COLOR[shownStar]}`}>{starLabelL(shownStar, locale)}</span>
         </div>
       </div>
 
@@ -653,7 +697,7 @@
         <div class="flex flex-wrap gap-1.5">
           {#each rankBadges as b}
             <span class={`px-2 py-0.5 rounded-full text-[10px] font-semibold ring-1 ${b.worst ? 'bg-red-500/15 text-red-200 ring-red-500/40' : 'bg-amber-400/15 text-amber-200 ring-amber-400/40'}`}>
-              {b.worst ? '⚠️' : '🏆'} #{b.rank} {b.worst ? 'снизу' : ''} по {b.label} (30 ур.)
+              {b.worst ? '⚠️' : '🏆'} {rankBadgeText(b)}
             </span>
           {/each}
         </div>
@@ -661,10 +705,10 @@
 
       <!-- Lvl 1 -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 px-2 py-1.5 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-1.5">Статы на 1 уровне</div>
+        <div class="text-xs text-slate-300 mb-1.5">{t('modal.statsLvl1', locale)}</div>
         <dl class="grid grid-cols-2 gap-y-[2px] text-sm mb-1">
-          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_hp.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />HP</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(statsLvl1.hp)}</dd>
-          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_speed.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />Скорость</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(speedDisplay)}</dd>
+          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_hp.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.hp', locale)}</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(statsLvl1.hp)}</dd>
+          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_speed.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.speed', locale)}</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(speedDisplay)}</dd>
         </dl>
 
         <div class="mt-1 grid grid-cols-[26px_minmax(0,1fr)_auto_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-[2px] text-sm min-w-0">
@@ -701,10 +745,10 @@
 
       <!-- Lvl 30 -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 px-2 py-1.5 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-1.5">Статы на 30 уровне</div>
+        <div class="text-xs text-slate-300 mb-1.5">{t('modal.statsLvl30', locale)}</div>
         <dl class="grid grid-cols-2 gap-y-[2px] text-sm mb-1">
-          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_hp.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />HP</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(statsLvl30.hp)}</dd>
-          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_speed.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />Скорость</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(speedDisplay)}</dd>
+          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_hp.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.hp', locale)}</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(statsLvl30.hp)}</dd>
+          <dt class="mut-dt"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_speed.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.speed', locale)}</span></dt><dd class="mut-dd whitespace-nowrap pl-1">{fmt(speedDisplay)}</dd>
         </dl>
 
         <div class="mt-1 grid grid-cols-[26px_minmax(0,1fr)_auto_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-[2px] text-sm min-w-0">
@@ -741,11 +785,11 @@
 
       <!-- Bingo -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-1"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_bingo.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />Бинго</span></div>
+        <div class="text-xs text-slate-300 mb-1"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_bingo.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.bingo', locale)}</span></div>
         {#if displayBingo.length}
           <div class="flex flex-wrap gap-2">
               {#each displayBingo as b}
-              <span class="text-[11px] px-2 py-1 rounded-full bg-indigo-500/15 ring-1 ring-indigo-500/40 text-indigo-100 break-words">{bingoLabel(b)}</span>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-indigo-500/15 ring-1 ring-indigo-500/40 text-indigo-100 break-words">{bingoLabelL(b, locale)}</span>
             {/each}
           </div>
         {:else}
@@ -757,7 +801,7 @@
       {#if mutant?.id && obtainData[mutant.id]?.length}
         <details class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
           <summary class="text-xs text-slate-300 cursor-pointer select-none list-none flex items-center justify-between">
-            <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />Как получить ({obtainData[mutant.id].length})</span>
+            <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.howToObtain', locale)} ({obtainData[mutant.id].length})</span>
             <span class="details-chevron text-slate-400">▾</span>
           </summary>
           <div class="flex flex-col gap-1.5 mt-2">
@@ -766,7 +810,7 @@
                 <span class="w-11 h-11 shrink-0 flex items-center justify-center">
                   <img class={`${o.type === 'box' || o.type === 'breeding' || o.type === 'breeding_duplicate' ? 'w-11 h-11' : 'w-7 h-7'} object-contain rounded`} src={textureUrl(o.icon ?? OBTAIN_ICON[o.type] ?? '/etc/icon_bingo.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />
                 </span>
-                <span class="break-words">{o.where}</span>
+                <span class="break-words">{displayObtainWhere(o)}</span>
               </div>
             {/each}
           </div>
@@ -775,30 +819,30 @@
 
       <!-- Misc -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-1">Прочее</div>
+        <div class="text-xs text-slate-300 mb-1">{t('modal.other', locale)}</div>
         <div class="text-sm text-slate-200 space-y-1">
           <div class="flex items-center gap-2 leading-tight">
-            <span class="row-icon"><img class="stat-icon" src={textureUrl("/cash/softcurrency.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />Серебро (лвл 1):</span>
+            <span class="row-icon"><img class="stat-icon" src={textureUrl("/cash/softcurrency.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.silverLvl1', locale)}</span>
             <span class="text-white">{fmt(bankLvl1)}</span>
           </div>
           <div class="flex items-center gap-2 leading-tight">
-            <span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_timer.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />Инкубация:</span>
-            <span class="text-white">{incubTime ?? '—'}</span>{#if incubTime != null}<span class="opacity-80"> мин.</span>{/if}
+            <span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_timer.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.incubation', locale)}</span>
+            <span class="text-white">{incubTime ?? '—'}</span>{#if incubTime != null}<span class="opacity-80">{t('modal.minutesShort', locale)}</span>{/if}
           </div>
         </div>
       </div>
 
       <!-- Description -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-1">Описание</div>
-        <div class="text-sm text-slate-300 leading-relaxed break-words">
-          { (mutant?.name_lore ?? '').trim() || '—' }
+        <div class="text-xs text-slate-300 mb-1">{t('modal.description', locale)}</div>
+        <div class="text-sm text-slate-300 leading-relaxed break-words whitespace-pre-line">
+          { displayLore(mutant).trim() || '—' }
         </div>
       </div>
 
       <!-- Spheres -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
-        <div class="text-xs text-slate-300 mb-2">Сферовка</div>
+        <div class="text-xs text-slate-300 mb-2">{t('modal.orbing', locale)}</div>
         {#if orbingImages && orbingImages.rows}
           <div class="flex flex-col items-center gap-3 py-2">
             {#each orbingImages.rows as row}
@@ -846,7 +890,7 @@
         {:else}
           <div class="text-sm text-slate-300 italic flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-amber-500/50 animate-pulse"></span>
-            Сферовки скоро появятся...
+            {t('modal.orbingSoon', locale)}
           </div>
         {/if}
       </div>
@@ -858,7 +902,7 @@
           class="inline-flex items-center justify-center px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 ring-1 ring-indigo-400/50"
           onclick={close}
         >
-          Закрыть
+          {t('modal.close', locale)}
         </button>
       </div>
     </div>

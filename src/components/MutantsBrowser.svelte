@@ -1,16 +1,26 @@
 <script lang="ts">
   import MutantModal from './MutantModal.svelte';
-  import { TYPE_RU, geneLabel, bingoLabel } from '@/lib/mutant-dicts';
+  import { geneLabelL, bingoLabelL, typeLabelL } from '@/lib/mutant-dicts';
   import { normalizeSearch } from '@/lib/search-normalize';
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { textureUrl } from '@/lib/texture-cdn';
-  import { pluralize, baseMutantId as baseId } from '@/lib/utils';
+  import { baseMutantId as baseId } from '@/lib/utils';
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
+  import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
   const normalizeForSearch = normalizeSearch;
 
-  let { items = [], skins = [], bingos = [], title = '', bingoIndex = [] } = $props();
+  let { items = [], skins = [], bingos = [], title = '', bingoIndex = [], locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> } = $props();
+
+  // i18n-пилот (Батч 11): mutants.json остаётся RU-каноном, names.{lang}.json -
+  // сиблинг-словарь переводов имени/лора/атак по id. RU-фолбэк если перевода нет.
+  function displayName(it: any): string {
+    return names[it?.id]?.name || it?.name || '';
+  }
+  const geneLabel = (code: string) => geneLabelL(code, locale);
+  const bingoLabel = (key: string) => bingoLabelL(key, locale);
+  const TYPE_RU = new Proxy({}, { get: (_t, key: string) => typeLabelL(key, locale) }) as Record<string, string>;
 
   let showScrollTop = $state(false);
   $effect(() => {
@@ -181,7 +191,7 @@
   })());
 
   const geneList = [
-    { key: '',  label: 'Ген 1: ВСЕ',             icon: '/genes/gene_all.webp' },
+    { key: '',  label: t('mutants.gene1.all', locale), icon: '/genes/gene_all.webp' },
     { key: 'A', label: geneLabel?.('A') ?? 'A', icon: '/genes/gene_a.webp' },
     { key: 'B', label: geneLabel?.('B') ?? 'B', icon: '/genes/gene_b.webp' },
     { key: 'C', label: geneLabel?.('C') ?? 'C', icon: '/genes/gene_c.webp' },
@@ -190,8 +200,8 @@
     { key: 'F', label: geneLabel?.('F') ?? 'F', icon: '/genes/gene_f.webp' },
   ];
   const geneList2 = [
-    { key: '', label:  'Ген 2: ВСЕ',             icon: '/genes/gene_all.webp' },
-    { key: 'neutral', label: 'Нейтральный',      icon: '/genes/gene_all.webp' },
+    { key: '', label: t('mutants.gene2.all', locale), icon: '/genes/gene_all.webp' },
+    { key: 'neutral', label: t('mutants.gene.neutral', locale), icon: '/genes/gene_all.webp' },
     { key: 'A', label: geneLabel?.('A') ?? 'A', icon: '/genes/gene_a.webp' },
     { key: 'B', label: geneLabel?.('B') ?? 'B', icon: '/genes/gene_b.webp' },
     { key: 'C', label: geneLabel?.('C') ?? 'C', icon: '/genes/gene_c.webp' },
@@ -220,7 +230,9 @@
   }
 
   function enrichItem(it: any) {
-    const searchName = normalizeForSearch(String(it?.name ?? ''));
+    // Ищем и по RU-имени, и по переведённому (names.{lang}.json) - так поиск
+    // работает независимо от того, на каком языке юзер вводит запрос.
+    const searchName = normalizeForSearch(`${String(it?.name ?? '')} ${displayName(it)}`);
     const rawCode = readGeneCode(it);
     const code = normalizeGene(rawCode);
 
@@ -425,8 +437,26 @@
   };
 
   let openItem:any = $state(null);
-  const openModal  = (it:any) => { openItem = it; };
-  const closeModal = () => { openItem = null; };
+  // Клик по карточке мутанта тоже пишет ?mutant=<id> в адресную строку (не
+  // только диплинк из поиска) - модалку можно скопировать ссылкой/открыть
+  // назад через историю браузера. pushState на открытие (новая запись в
+  // истории - "назад" закрывает модалку), replaceState на закрытие (не
+  // плодим лишнюю запись "закрыто").
+  const openModal = (it: any) => {
+    openItem = it;
+    if (typeof window === 'undefined' || !it?.id) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set('mutant', it.id);
+    window.history.pushState({ mutant: it.id }, '', url);
+  };
+  const closeModal = () => {
+    openItem = null;
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has('mutant')) return;
+    url.searchParams.delete('mutant');
+    window.history.replaceState({}, '', url);
+  };
 
   // Диплинк из сайтового поиска (SearchBox.svelte -> /mutants?mutant=<id>):
   // открываем модалку сразу при заходе на страницу, минуя текущие фильтры,
@@ -436,15 +466,24 @@
   // жизнь страницы, без флага случайное повторное срабатывание молча
   // переоткрыло бы модалку, которую пользователь уже закрыл сам.
   let deepLinkHandled = false;
+  function tryOpenFromUrl() {
+    const id = new URLSearchParams(window.location.search).get('mutant');
+    if (!id) { openItem = null; return; }
+    const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
+    if (match) openItem = enrichItem(match);
+  }
   $effect(() => {
     if (typeof window === 'undefined' || deepLinkHandled) return;
-    const id = new URLSearchParams(window.location.search).get('mutant');
-    if (!id) return;
-    const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
-    if (match) {
-      deepLinkHandled = true;
-      openModal(enrichItem(match));
-    }
+    deepLinkHandled = true;
+    tryOpenFromUrl();
+  });
+  // Кнопка "назад" в браузере после клика по мутанту закрывает модалку
+  // (симметрично pushState в openModal), а не уводит со страницы целиком.
+  $effect(() => {
+    if (typeof window === 'undefined') return;
+    const onPopState = () => tryOpenFromUrl();
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   });
 </script>
 
@@ -453,7 +492,7 @@
   {#if title}
     <h1 class="text-2xl md:text-3xl font-bold text-slate-100 mb-4">
       {title}
-      <span class="text-base md:text-lg font-normal text-slate-200 ml-2">({filteredMutants.length} {pluralize(filteredMutants.length, 'мутант', 'мутанта', 'мутантов')})</span>
+      <span class="text-base md:text-lg font-normal text-slate-200 ml-2">({filteredMutants.length} {pluralizeCount(filteredMutants.length, locale)})</span>
     </h1>
   {/if}
 
@@ -465,7 +504,7 @@
       id="mutant-search"
       name="mutant-search"
       class="w-full px-4 py-3 rounded-lg ring-1 transition outline-none bg-slate-900 text-slate-100 placeholder-slate-400 ring-white/10 focus:ring-2 focus:ring-cyan-400"
-      placeholder="Введите имя мутанта…"
+      placeholder={t('mutants.search.placeholder', locale)}
       bind:value={query}
     />
   </div>
@@ -539,7 +578,7 @@
   <!-- Тип/Бинго (кастомные дропдауны с иконками) -->
   <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl">
     <div class="icon-select-wrap">
-      <span id="mutant-type-filter-label" class="text-xs text-slate-300">Тип</span>
+      <span id="mutant-type-filter-label" class="text-xs text-slate-300">{t('mutants.filter.type', locale)}</span>
       <button
         type="button"
         id="mutant-type-filter"
@@ -550,18 +589,18 @@
         onclick={(e) => { e.stopPropagation(); bingoDropdownOpen = false; typeDropdownOpen = !typeDropdownOpen; }}
       >
         {#if typeSel}<img src={textureUrl(getTypeIcon(typeSel))} alt="" class="icon-select-icon" />{/if}
-        <span class="icon-select-label">{typeSel ? (TYPE_RU?.[typeSel] ?? typeSel) : 'Любой'}</span>
+        <span class="icon-select-label">{typeSel ? (TYPE_RU?.[typeSel] ?? typeSel) : t('mutants.filter.type.any', locale)}</span>
         <span class="icon-select-caret">▾</span>
       </button>
       {#if typeDropdownOpen}
         <div class="icon-select-panel" role="listbox">
           <button type="button" class="icon-select-option {!typeSel ? 'active' : ''}" role="option" aria-selected={!typeSel} onclick={() => { typeSel = ''; typeDropdownOpen = false; }}>
-            <span class="icon-select-label">Любой</span>
+            <span class="icon-select-label">{t('mutants.filter.type.any', locale)}</span>
           </button>
-          {#each typeOptions as t}
-            <button type="button" class="icon-select-option {typeSel === t ? 'active' : ''}" role="option" aria-selected={typeSel === t} onclick={() => { typeSel = t; typeDropdownOpen = false; }}>
-              <img src={textureUrl(getTypeIcon(t))} alt="" class="icon-select-icon" />
-              <span class="icon-select-label">{TYPE_RU?.[t] ?? t}</span>
+          {#each typeOptions as typeOpt}
+            <button type="button" class="icon-select-option {typeSel === typeOpt ? 'active' : ''}" role="option" aria-selected={typeSel === typeOpt} onclick={() => { typeSel = typeOpt; typeDropdownOpen = false; }}>
+              <img src={textureUrl(getTypeIcon(typeOpt))} alt="" class="icon-select-icon" />
+              <span class="icon-select-label">{TYPE_RU?.[typeOpt] ?? typeOpt}</span>
             </button>
           {/each}
         </div>
@@ -569,7 +608,7 @@
     </div>
 
     <div class="icon-select-wrap">
-      <span id="mutant-bingo-filter-label" class="text-xs text-slate-300">Бинго</span>
+      <span id="mutant-bingo-filter-label" class="text-xs text-slate-300">{t('mutants.filter.bingo', locale)}</span>
       <button
         type="button"
         id="mutant-bingo-filter"
@@ -580,13 +619,13 @@
         onclick={(e) => { e.stopPropagation(); typeDropdownOpen = false; bingoDropdownOpen = !bingoDropdownOpen; }}
       >
         {#if bingoSel}<img src={textureUrl(bingoIconUrl(bingoSel))} alt="" class="icon-select-icon" />{/if}
-        <span class="icon-select-label">{bingoSel ? (bingoLabel?.(bingoSel) ?? bingoSel) : 'Любое'}</span>
+        <span class="icon-select-label">{bingoSel ? (bingoLabel?.(bingoSel) ?? bingoSel) : t('mutants.filter.bingo.any', locale)}</span>
         <span class="icon-select-caret">▾</span>
       </button>
       {#if bingoDropdownOpen}
         <div class="icon-select-panel" role="listbox">
           <button type="button" class="icon-select-option {!bingoSel ? 'active' : ''}" role="option" aria-selected={!bingoSel} onclick={() => { bingoSel = ''; bingoDropdownOpen = false; }}>
-            <span class="icon-select-label">Любое</span>
+            <span class="icon-select-label">{t('mutants.filter.bingo.any', locale)}</span>
           </button>
           {#each bingoOptions as b}
             <button type="button" class="icon-select-option {bingoSel === b ? 'active' : ''}" role="option" aria-selected={bingoSel === b} onclick={() => { bingoSel = b; bingoDropdownOpen = false; }}>
@@ -601,7 +640,7 @@
 
   <!-- Переключатель вида: полные текстуры / головы -->
   <div class="mb-3 flex items-center gap-2">
-    <span class="text-xs text-slate-300">Вид</span>
+    <span class="text-xs text-slate-300">{t('mutants.viewMode.label', locale)}</span>
     <div class="inline-flex overflow-hidden rounded-lg ring-1 ring-white/10">
       <button
         type="button"
@@ -610,7 +649,7 @@
           : 'bg-slate-900 text-slate-300 hover:bg-slate-800')}
         aria-pressed={viewMode === 'full'}
         onclick={() => (viewMode = 'full')}
-      >Полные</button>
+      >{t('mutants.viewMode.full', locale)}</button>
       <button
         type="button"
         class={'px-3 py-1.5 text-sm transition ' + (viewMode === 'heads'
@@ -618,7 +657,7 @@
           : 'bg-slate-900 text-slate-300 hover:bg-slate-800')}
         aria-pressed={viewMode === 'heads'}
         onclick={() => (viewMode = 'heads')}
-      >Головы</button>
+      >{t('mutants.viewMode.heads', locale)}</button>
     </div>
   </div>
 
@@ -632,8 +671,8 @@
       <div role="button" tabindex="0" class="cursor-pointer" onclick={() => openModal(it)} onkeydown={(e) => e.key === 'Enter' && openModal(it)}>
         {#if viewMode === 'heads'}
           <div class="heads-card">
-            <img class="heads-img specimen" src={textureUrl(pickTexture(it))} alt={it.name} loading="lazy" decoding="async" width="128" height="128" oncontextmenu={(e) => e.preventDefault()} draggable="false" />
-            <div class="heads-name">{it.name}</div>
+            <img class="heads-img specimen" src={textureUrl(pickTexture(it))} alt={displayName(it)} loading="lazy" decoding="async" width="128" height="128" oncontextmenu={(e) => e.preventDefault()} draggable="false" />
+            <div class="heads-name">{displayName(it)}</div>
           </div>
         {:else}
           <div class="relative rounded-xl overflow-hidden bg-slate-800 ring-1 ring-white/10">
@@ -649,10 +688,10 @@
                   t.src = t.dataset.fallbackSrc;
                 }
               }}
-              alt={it.name} loading="lazy" decoding="async" width="512" height="512"
+              alt={displayName(it)} loading="lazy" decoding="async" width="512" height="512"
               oncontextmenu={(e) => e.preventDefault()} draggable="false" />
             <div class="px-3 pt-2 pb-3">
-              <div class="text-slate-100 font-semibold text-sm truncate">{it.name}</div>
+              <div class="text-slate-100 font-semibold text-sm truncate">{displayName(it)}</div>
             </div>
           </div>
         {/if}
@@ -665,17 +704,17 @@
     <div class="mt-3 flex justify-center">
       <button class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 ring-1 ring-white/10 text-white"
               onclick={() => { currentPage = currentPage + 1; }}>
-        Показать ещё
+        {t('mutants.loadMore', locale)}
       </button>
     </div>
   {/if}
 
   {#if openItem}
-    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} onclose={closeModal} />
+    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} onclose={closeModal} locale={locale} names={names} obtainNames={obtainNames} />
   {/if}
 
   {#if showScrollTop}
-    <button class="scroll-top-btn" onclick={scrollToTop} aria-label="Наверх" title="Наверх">
+    <button class="scroll-top-btn" onclick={scrollToTop} aria-label={t('mutants.scrollTop', locale)} title={t('mutants.scrollTop', locale)}>
       ↑
     </button>
   {/if}

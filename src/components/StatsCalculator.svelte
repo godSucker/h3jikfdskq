@@ -3,12 +3,13 @@
   import mutantsRaw from '@/data/mutants/mutants.json';
   import orbsRaw from '@/data/materials/orbs.json';
   import { orbingMap } from '@/lib/orbing-map';
-  import { ABILITY_RU, TYPE_RU } from '@/lib/mutant-dicts';
+  import { ABILITY_RU, TYPE_RU, abilityLabelL, typeLabelL, geneLabelL, starLabelL } from '@/lib/mutant-dicts';
   import { normalizeSearch } from '@/lib/search-normalize';
   import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator';
   import { sortMutantsByGene } from '@/lib/mutant-sort';
   import { applySpeedSphere } from '@/lib/stats/speed-sphere-table';
   import { textureUrl } from '@/lib/texture-cdn';
+  import { t, type Locale } from '@/lib/i18n';
   import {
     GENE_NAMES,
     GENE_ICONS,
@@ -20,7 +21,13 @@
   import { baseMutantId } from '@/lib/utils';
 
   // --- УТИЛИТЫ И КОНСТАНТЫ ---
-  let { renderState }: { renderState?: string } = $props();
+  let { renderState, locale = 'ru' as Locale, names = {} }: { renderState?: string; locale?: Locale; names?: Record<string, { name: string; atk1Name: string; atk2Name: string }> } = $props();
+  // BCP47-теги для Intl/toLocaleString (разделители разрядов и т.п.), не UI-словарь.
+  const NUM_LOCALE: Record<Locale, string> = {
+    ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR', de: 'de-DE',
+    pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+  };
+  const numLocale = NUM_LOCALE[locale] ?? 'en-US';
   const renderParams = renderState ? JSON.parse(decodeURIComponent(renderState)) : null;
   // Словари иконок — единый источник: src/lib/mutant-icons.ts
   const GENE_NAME = GENE_NAMES;
@@ -89,7 +96,7 @@
       return {
         id: bId,
         baseId: bId,
-        name: m.name,
+        name: (locale !== 'ru' && names[bId]?.name) || m.name,
         type: typeRaw,
         typeKey,
         typeLabel,
@@ -131,7 +138,7 @@
   function readableType(raw){
     const val = String(raw || '').trim();
     if (!val) return '—';
-    return TYPE_RU[val] || niceLabel(val);
+    return TYPE_RU[val] ? typeLabelL(val, locale) : niceLabel(val);
   }
   function readableTier(raw){
     const val = String(raw || '').trim();
@@ -184,7 +191,8 @@
         lvl30?.[`atk${idx}_AOE`],
         lvl1?.[`atk${idx}_AOE`]
       );
-      const nameRaw = firstDefined(
+      const localizedAtkName = locale !== 'ru' ? names[baseMutantId(mutant?.id)]?.[`atk${idx}Name`] : null;
+      const nameRaw = localizedAtkName || firstDefined(
         mutant?.[`name_attack${idx}`],
         base?.[`atk${idx}_name`],
         lvl30?.[`atk${idx}_name`],
@@ -227,7 +235,7 @@
   function niceAttackLabel(index, rawName){
     const label = String(rawName ?? '').trim();
     if (label) return label;
-    return `Атака ${index}`;
+    return t('stats.attackFallback', locale).replace('{n}', String(index));
   }
 
   function toBoolean(value){
@@ -315,7 +323,10 @@
 
   function abilityLabel(code){
     if (!code) return '—';
-    const ru = ABILITY_RU[code] || ABILITY_RU[code.toLowerCase()] || niceLabel(code);
+    // ABILITY_RU[code] был RU-only - abilityLabelL уже используется в
+    // остальных местах компонента, здесь его просто забыли подключить.
+    const resolved = abilityLabelL(code, locale);
+    const ru = resolved !== code ? resolved : niceLabel(code);
     const lower = code.toLowerCase();
     if (lower.endsWith('_plus_plus')) return `${ru} ++`;
     if (lower.endsWith('_plus')) return `${ru} +`;
@@ -948,7 +959,7 @@
       }
       const geneIcon = meta.geneIcon || '';
       const isAoe = Boolean(meta.isAoe);
-      const label = meta.label || `Атака ${idx}`;
+      const label = meta.label || t('stats.attackFallback', locale).replace('{n}', String(idx));
       const gene = meta.gene || '';
       return {
         attack: idx,
@@ -1013,7 +1024,7 @@
         values.push({
           attack: 1,
           value,
-          label: meta.label ?? `Атака 1`,
+          label: meta.label ?? t('stats.attackFallback', locale).replace('{n}', '1'),
           geneIcon: meta.geneIcon || '',
           isAoe: Boolean(meta.isAoe),
           attackPower: Math.floor(Math.abs(atkValues[1] || 0)),
@@ -1026,7 +1037,7 @@
           values.push({
             attack: 2,
             value,
-            label: meta.label ?? `Атака 2`,
+            label: meta.label ?? t('stats.attackFallback', locale).replace('{n}', '2'),
             geneIcon: meta.geneIcon || '',
             isAoe: Boolean(meta.isAoe),
             attackPower: Math.floor(Math.abs(atkValues[2] || 0)),
@@ -1092,19 +1103,28 @@
 
   const CAT_ORDER = ['attack', 'health', 'speed', 'critical', 'xp', 'shield', 'regenerate', 'retaliate', 'slash', 'strengthen', 'weaken', 'other'];
 
-  const CAT_LABELS: Record<string, string> = {
-    attack: 'Атака',
-    health: 'Здоровье',
-    speed: 'Скорость',
-    critical: 'Крит',
-    xp: 'Опыт',
-    shield: 'Щит',
-    regenerate: 'Вытягивание жизни',
-    retaliate: 'Отражение',
-    slash: 'Рана',
-    strengthen: 'Усиление',
-    weaken: 'Проклятие',
+  // Ключи shield/regenerate/retaliate/slash/strengthen/weaken переиспользуют
+  // ABILITY_DICT через abilityLabelL (те же названия способностей, единый
+  // источник перевода на всех языках).
+  const CAT_ABILITY_CODE: Record<string, string> = {
+    shield: 'ability_shield',
+    regenerate: 'ability_regen',
+    retaliate: 'ability_retaliate',
+    slash: 'ability_slash',
+    strengthen: 'ability_strengthen',
+    weaken: 'ability_weaken',
   };
+  function catLabel(key: string): string {
+    const abilityCode = CAT_ABILITY_CODE[key];
+    if (abilityCode) return abilityLabelL(abilityCode, locale);
+    return t(`stats.category.${key}`, locale);
+  }
+
+  const STAR_KEY_BY_INDEX: Record<number, string> = { 1: 'bronze', 2: 'silver', 3: 'gold', 4: 'platinum' };
+  function starTitle(s: number): string {
+    if (s === 0) return t('pvp.star.none', locale);
+    return starLabelL(STAR_KEY_BY_INDEX[s], locale);
+  }
 
   const CAT_ICONS: Record<string, string> = {
     attack: '/orbs/basic/orb_basic_attack_03.webp',
@@ -1149,7 +1169,7 @@
       if (items && items.length > 0) {
         const fallback = CAT_ICONS[k] ? CAT_ICONS[k].replace('/orbs/basic/', `/orbs/${prefix}/`) : '';
         const icon = items[0]?.icon || fallback;
-        result.push({ key: k, label: CAT_LABELS[k] || k, icon, items });
+        result.push({ key: k, label: catLabel(k), icon, items });
       }
     }
     return result;
@@ -1181,7 +1201,7 @@
     if (!Number.isFinite(value)) return '—';
     const abs = Math.abs(value);
     const hasFraction = Math.round(abs * 100) !== Math.round(abs) * 100;
-    return Number(value).toLocaleString('ru-RU', {
+    return Number(value).toLocaleString(numLocale, {
       minimumFractionDigits: hasFraction ? 2 : 0,
       maximumFractionDigits: 2,
     });
@@ -1388,7 +1408,7 @@
           pending = (async () => {
             let res: Response | null = null;
             for (let attempt = 0; attempt < 2; attempt++) {
-              res = await fetch(`/api/screenshot?state=${stateStr}`);
+              res = await fetch(`/api/screenshot?state=${stateStr}&locale=${locale}`);
               if (res.ok) break;
               if (attempt === 0) await new Promise(r => setTimeout(r, 1000));
             }
@@ -1402,7 +1422,7 @@
       if (navigator.clipboard?.write && typeof ClipboardItem !== 'undefined') {
         try {
           await navigator.clipboard.write([new ClipboardItem({ 'image/png': fetchBlob() })]);
-          showNotification('Скриншот сохранён в буфер обмена!');
+          showNotification(t('stats.screenshotCopied', locale));
           return;
         } catch (err) {
           // Если упал сам запрос — пробрасываем ошибку в общий catch, а не скачиваем битый файл.
@@ -1411,10 +1431,10 @@
         }
       }
       downloadBlob(await fetchBlob(), filename);
-      showNotification('Скриншот скачан!');
+      showNotification(t('stats.screenshotDownloaded', locale));
     } catch (error) {
       console.error('[Screenshot]', error);
-      showNotification('Ошибка создания скриншота');
+      showNotification(t('stats.screenshotError', locale));
     } finally {
       isCopying = false;
     }
@@ -1435,14 +1455,14 @@
         <button
           class="filter-chip {geneFilter === '' && gene2Filter === '' ? 'active' : ''}"
           onclick={() => toggleGene('all')}>
-          <span>Ген 1: ВСЕ</span>
+          <span>{t('mutants.gene1.all', locale)}</span>
         </button>
         {#each ['A','B','C','D','E','F'] as g}
           <button
             class="gene-chip"
             class:active={geneFilter===g}
             onclick={() => toggleGene(g)}
-            title={GENE_NAME[g]}>
+            title={geneLabelL(g, locale)}>
             <img src={textureUrl(GENE_ICON[g] || GENE_ICON[''])} alt={g} />
           </button>
         {/each}
@@ -1454,15 +1474,15 @@
           class="filter-chip {gene2Filter === '' && geneFilter ? 'active' : ''}"
           disabled={!geneFilter}
           onclick={() => toggleGene2('all')}>
-          <span>Ген 2: ВСЕ</span>
+          <span>{t('mutants.gene2.all', locale)}</span>
         </button>
         <button
           class="gene-chip"
           class:active={gene2Filter==='neutral'}
           disabled={!geneFilter}
           onclick={() => toggleGene2('neutral')}
-          title="Нейтральный">
-          <img src={textureUrl("/genes/gene_all.webp")} alt="Нейтральный" />
+          title={t('mutants.gene.neutral', locale)}>
+          <img src={textureUrl("/genes/gene_all.webp")} alt={t('mutants.gene.neutral', locale)} />
         </button>
         {#each ['A','B','C','D','E','F'] as g}
           <button
@@ -1470,7 +1490,7 @@
             class:active={gene2Filter===g}
             disabled={!geneFilter}
             onclick={() => toggleGene2(g)}
-            title={GENE_NAME[g]}>
+            title={geneLabelL(g, locale)}>
             <img src={textureUrl(GENE_ICON[g] || GENE_ICON[''])} alt={g} />
           </button>
         {/each}
@@ -1481,7 +1501,7 @@
         name="stats-search"
         class="search"
         type="text"
-        placeholder="Введите имя мутанта"
+        placeholder={t('mutants.search.placeholder', locale)}
         bind:value={query}
       />
 
@@ -1493,7 +1513,7 @@
               <div class="name">{m.name}</div>
               <div class="genes">
                 {#each m.genes as g}
-                  <img src={textureUrl(GENE_ICON[g] || GENE_ICON[''])} alt={g} title={GENE_NAME[g]} />
+                  <img src={textureUrl(GENE_ICON[g] || GENE_ICON[''])} alt={g} title={geneLabelL(g, locale)} />
                 {/each}
               </div>
             </div>
@@ -1512,7 +1532,7 @@
          <!-- Кнопка показа/скрытия каталога (только вне сравнения) -->
          <div class="header-left">
             {#if !compareMode}
-            <button class="tool-btn" onclick={toggleCatalog} title={showCatalog ? "Скрыть поиск" : "Показать поиск"}>
+            <button class="tool-btn" onclick={toggleCatalog} title={showCatalog ? t('stats.hideSearch', locale) : t('stats.showSearch', locale)}>
                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   {#if showCatalog}
                      <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -1535,13 +1555,13 @@
                name="stats-compare-search-1"
                class="compare-search-input"
                type="text"
-               placeholder="Поиск мутанта..."
+               placeholder={t('stats.compareSearchPlaceholder', locale)}
                bind:value={query}
                onfocus={() => showSearch1 = true}
                oninput={() => showSearch1 = true}
              />
              {#if query}
-               <button class="compare-search-clear" onclick={() => { query = ''; showSearch1 = true; }} title="Очистить">×</button>
+               <button class="compare-search-clear" onclick={() => { query = ''; showSearch1 = true; }} title={t('stats.clear', locale)}>×</button>
              {/if}
              {#if showSearch1 && filtered1.length > 0}
                <div class="compare-search-dropdown">
@@ -1572,15 +1592,15 @@
 
       <!-- Кнопки инструментов (скриншот / сравнение) -->
       <div class="header-tools-row">
-        <button class="tool-btn share-btn" onclick={shareScreenshot} disabled={isCopying} title="Сохранить как картинку">
+        <button class="tool-btn share-btn" onclick={shareScreenshot} disabled={isCopying} title={t('stats.saveAsImage', locale)}>
            {#if isCopying}
-             <span>Сохраняем...</span>
+             <span>{t('stats.saving', locale)}</span>
            {:else}
-             <span>Сделать скриншот</span>
+             <span>{t('stats.makeScreenshot', locale)}</span>
            {/if}
         </button>
-        <button class="tool-btn compare-btn" class:active={compareMode} onclick={() => { compareMode = !compareMode; if (compareMode && !selected2) selected2 = ALL_MUTANTS[1]; }}>
-          <span>{compareMode ? 'Выход' : 'Сравнить'}</span>
+        <button class="tool-btn compare-btn" class:active={compareMode} onclick={() => { compareMode = !compareMode; if (compareMode && !selected2) { selected2 = ALL_MUTANTS[1]; level2 = 30; } }}>
+          <span>{compareMode ? t('stats.compareExit', locale) : t('stats.compare', locale)}</span>
         </button>
       </div>
 
@@ -1597,10 +1617,10 @@
         <div class="hero-controls" bind:this={dropdownHost}>
           {#if orbingPresets.length > 0}
             <div class="orbing-presets">
-              <span class="orbing-presets-label">Сферовка из вики:</span>
+              <span class="orbing-presets-label">{t('pvp.orbingPreset.wiki', locale)}</span>
               {#each orbingPresets as preset, i}
-                <button class="orbing-preset-btn" onclick={() => applyOrbingPreset(preset)} title="Заполнить слоты этим набором">
-                  Пресет {i + 1}
+                <button class="orbing-preset-btn" onclick={() => applyOrbingPreset(preset)} title={t('pvp.orbingPreset.applyTitle', locale)}>
+                  {t('pvp.orbingPreset.label', locale).replace('{n}', String(i + 1))}
                 </button>
               {/each}
             </div>
@@ -1619,7 +1639,7 @@
                   {#if orb}<img class="orb" src={textureUrl(orb.icon)} alt={orb.id} />{/if}
                 </button>
                 {#if orb}
-                  <button class="x" title="убрать" onclick={() => clearSlot('basic', i)}>×</button>
+                  <button class="x" title={t('pvp.orb.remove', locale)} onclick={() => clearSlot('basic', i)}>×</button>
                 {/if}
                 {#if openDropdown === `basic-${i}`}
                   <div class="dropdown">
@@ -1656,7 +1676,7 @@
                 {#if specialSlot}<img class="orb" src={textureUrl(specialSlot.icon)} alt={specialSlot.id} />{/if}
               </button>
               {#if specialSlot}
-                <button class="x" title="убрать" onclick={() => clearSlot('special')}>×</button>
+                <button class="x" title={t('pvp.orb.remove', locale)} onclick={() => clearSlot('special')}>×</button>
               {/if}
               {#if openDropdown === 'special'}
                 <div class="dropdown">
@@ -1683,7 +1703,7 @@
 
           <div class="controls">
               <div class="control">
-              <span class="control-label">Уровень (макс. {maxLevel}):</span>
+              <span class="control-label">{t('pvp.level.label', locale).replace('{n}', String(maxLevel))}</span>
               <input
                 class="lvl"
                 type="number"
@@ -1695,7 +1715,7 @@
               />
             </div>
             <div class="control">
-              <span class="control-label">Звёздность:</span>
+              <span class="control-label">{t('stats.starRating', locale)}</span>
               <div class="stars">
                 {#each [0,1,2,3,4] as s}
                   <button
@@ -1704,7 +1724,7 @@
                     disabled={!selected.availableStars.has(s)}
                     onclick={() => stars = s}
                     aria-pressed={stars === s}
-                    title={s===0?'Без звёзд': s===1?'Бронза': s===2?'Серебро': s===3?'Золото':'Платина'}>
+                    title={starTitle(s)}>
                     <img src={textureUrl(STAR_ICON[s])} alt="*" />
                   </button>
                 {/each}
@@ -1717,19 +1737,19 @@
           <div class="row">
             <span class="label">
               {#if typeIconCurrent}
-                <img class="label-icon type-icon" src={textureUrl(typeIconCurrent)} alt="Тип" />
+                <img class="label-icon type-icon" src={textureUrl(typeIconCurrent)} alt={t('mutants.filter.type', locale)} />
               {/if}
-              Тип
+              {t('mutants.filter.type', locale)}
             </span>
             <b>{selected.typeLabel || selected.type || '—'}</b>
           </div>
-          <div class="row"><span class="label">Тир</span><b>{selected.tierLabel || selected.tier || '—'}</b></div>
+          <div class="row"><span class="label">{t('stats.tier', locale)}</span><b>{selected.tierLabel || selected.tier || '—'}</b></div>
           <div class="row">
             <span class="label">
               <img class="label-icon" src={textureUrl(STAT_ICON.hp)} alt="HP" />
               HP
             </span>
-            <b>{stats.hp.toLocaleString('ru-RU')}</b>
+            <b>{stats.hp.toLocaleString(numLocale)}</b>
           </div>
 
           {#each attackRows as attack (attack.attack)}
@@ -1744,7 +1764,7 @@
                     class:m-beige={delta === -0.25}
                     class:m-orange={delta === 0.25}
                     class:m-red={delta === 0.5}
-                    title={delta === 0 ? 'Без изменений' : `${delta > 0 ? '+' : ''}${delta * 100}%`}
+                    title={delta === 0 ? t('stats.noChanges', locale) : `${delta > 0 ? '+' : ''}${delta * 100}%`}
                     onclick={() => atkMultipliers[attack.attack] = active ? 1 : 1 + delta}
                   >{delta === 0 ? '0' : `${delta > 0 ? '+' : ''}${delta * 100}%`}</button>
                 {/each}
@@ -1756,7 +1776,7 @@
                     <img class="gene-icon" src={textureUrl(attack.geneIcon)} alt="" aria-hidden="true" />
                   {/if}
                   {#if attack.isAoe}
-                    <img class="attack-aoe" src={textureUrl("/genes/atk_multiple.webp")} alt="АОЕ" />
+                    <img class="attack-aoe" src={textureUrl("/genes/atk_multiple.webp")} alt={t('stats.aoeAlt', locale)} />
                   {/if}
                 </span>
                 <div class="attack-info">
@@ -1767,7 +1787,7 @@
                       class:m-beige={(atkMultipliers[attack.attack] ?? 1) === 0.75}
                       class:m-orange={(atkMultipliers[attack.attack] ?? 1) === 1.25}
                       class:m-red={(atkMultipliers[attack.attack] ?? 1) === 1.5}
-                    >{attack.damage ? Math.round(attack.damage * (atkMultipliers[attack.attack] ?? 1)).toLocaleString('ru-RU') : '—'}</span>
+                    >{attack.damage ? Math.round(attack.damage * (atkMultipliers[attack.attack] ?? 1)).toLocaleString(numLocale) : '—'}</span>
                     {#if attack.gene !== 'neutro'}
                     <div class="atk-mult-btns">
                       {#each [-0.5, -0.25, 0, 0.25, 0.5] as delta}
@@ -1778,7 +1798,7 @@
                           class:m-beige={delta === -0.25}
                           class:m-orange={delta === 0.25}
                           class:m-red={delta === 0.5}
-                          title={delta === 0 ? 'Без изменений' : `${delta > 0 ? '+' : ''}${delta * 100}%`}
+                          title={delta === 0 ? t('stats.noChanges', locale) : `${delta > 0 ? '+' : ''}${delta * 100}%`}
                           onclick={() => atkMultipliers[attack.attack] = active ? 1 : 1 + delta}
                         >{delta === 0 ? '0' : `${delta > 0 ? '+' : ''}${delta * 100}%`}</button>
                       {/each}
@@ -1798,10 +1818,10 @@
                       <span class="effect-name">
                         {effect.label}
                         {#if effect.percent != null}
-                          <span class="effect-percent">{effect.percent.toLocaleString('ru-RU')}%</span>
+                          <span class="effect-percent">{effect.percent.toLocaleString(numLocale)}%</span>
                         {/if}
                       </span>
-                      <span class="effect-value">{Math.round(effect.value * (atkMultipliers[attack.attack] ?? 1)).toLocaleString('ru-RU')}</span>
+                      <span class="effect-value">{Math.round(effect.value * (atkMultipliers[attack.attack] ?? 1)).toLocaleString(numLocale)}</span>
                     </div>
                   {/each}
                 {:else}
@@ -1813,17 +1833,17 @@
 
           <div class="row">
             <span class="label">
-              <img class="label-icon" src={textureUrl(STAT_ICON.speed)} alt="Скорость" />
-              Скорость
+              <img class="label-icon" src={textureUrl(STAT_ICON.speed)} alt={catLabel('speed')} />
+              {catLabel('speed')}
             </span>
             <b>{formatSpeed(stats.speed)}</b>
           </div>
           <div class="row">
             <span class="label">
-              <img class="label-icon" src={textureUrl("/cash/softcurrency.webp")} alt="Серебро" />
-              Серебро
+              <img class="label-icon" src={textureUrl("/cash/softcurrency.webp")} alt={t('stats.silverLabel', locale)} />
+              {t('stats.silverLabel', locale)}
             </span>
-            <b>{stats.bank.toLocaleString('ru-RU')}</b>
+            <b>{stats.bank.toLocaleString(numLocale)}</b>
           </div>
         </div>
       </div>
@@ -1837,7 +1857,7 @@
     {#if selected2}
       <div class="panel-header">
          <div class="header-left">
-            <button class="tool-btn" onclick={() => { compareMode = false; }} title="Закрыть сравнение">
+            <button class="tool-btn" onclick={() => { compareMode = false; }} title={t('stats.closeCompare', locale)}>
                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -1851,13 +1871,13 @@
               name="stats-compare-search-2"
               class="compare-search-input"
               type="text"
-              placeholder="Поиск мутанта..."
+              placeholder={t('stats.compareSearchPlaceholder', locale)}
               bind:value={query2}
               onfocus={() => showSearch2 = true}
               oninput={() => showSearch2 = true}
             />
             {#if query2}
-              <button class="compare-search-clear" onclick={() => { query2 = ''; showSearch2 = true; }} title="Очистить">×</button>
+              <button class="compare-search-clear" onclick={() => { query2 = ''; showSearch2 = true; }} title={t('stats.clear', locale)}>×</button>
             {/if}
             {#if showSearch2 && filtered2.length > 0}
              <div class="compare-search-dropdown">
@@ -1886,8 +1906,8 @@
       <!-- Невидимый клон кнопок первой панели: высота строки инструментов совпадает
            всегда, независимо от размеров шрифта/паддингов -> панели симметричны. -->
       <div class="header-tools-row" style="visibility:hidden" aria-hidden="true">
-        <button class="tool-btn share-btn" tabindex="-1"><span>Сделать скриншот</span></button>
-        <button class="tool-btn compare-btn" tabindex="-1"><span>Сравнить</span></button>
+        <button class="tool-btn share-btn" tabindex="-1"><span>{t('stats.makeScreenshot', locale)}</span></button>
+        <button class="tool-btn compare-btn" tabindex="-1"><span>{t('stats.compare', locale)}</span></button>
       </div>
 
       <div class="hero-section">
@@ -1903,10 +1923,10 @@
         <div class="hero-controls" bind:this={dropdownHost2}>
           {#if orbingPresets2.length > 0}
             <div class="orbing-presets">
-              <span class="orbing-presets-label">Сферовка из вики:</span>
+              <span class="orbing-presets-label">{t('pvp.orbingPreset.wiki', locale)}</span>
               {#each orbingPresets2 as preset, i}
-                <button class="orbing-preset-btn" onclick={() => applyOrbingPreset2(preset)} title="Заполнить слоты этим набором">
-                  Пресет {i + 1}
+                <button class="orbing-preset-btn" onclick={() => applyOrbingPreset2(preset)} title={t('pvp.orbingPreset.applyTitle', locale)}>
+                  {t('pvp.orbingPreset.label', locale).replace('{n}', String(i + 1))}
                 </button>
               {/each}
             </div>
@@ -1924,7 +1944,7 @@
                   {#if orb}<img class="orb" src={textureUrl(orb.icon)} alt={orb.id} />{/if}
                 </button>
                 {#if orb}
-                  <button class="x" title="убрать" onclick={() => { basicSlots2 = basicSlots2.map((v,idx)=> idx===i ? null : v); }}>×</button>
+                  <button class="x" title={t('pvp.orb.remove', locale)} onclick={() => { basicSlots2 = basicSlots2.map((v,idx)=> idx===i ? null : v); }}>×</button>
                 {/if}
                 {#if openDropdown2 === `basic2-${i}`}
                   <div class="dropdown">
@@ -1960,7 +1980,7 @@
                 {#if specialSlot2}<img class="orb" src={textureUrl(specialSlot2.icon)} alt={specialSlot2.id} />{/if}
               </button>
               {#if specialSlot2}
-                <button class="x" title="убрать" onclick={() => { specialSlot2 = null; }}>×</button>
+                <button class="x" title={t('pvp.orb.remove', locale)} onclick={() => { specialSlot2 = null; }}>×</button>
               {/if}
               {#if openDropdown2 === 'special2'}
                 <div class="dropdown">
@@ -1987,7 +2007,7 @@
 
           <div class="controls">
               <div class="control">
-              <span class="control-label">Уровень (макс. {maxLevel2}):</span>
+              <span class="control-label">{t('pvp.level.label', locale).replace('{n}', String(maxLevel2))}</span>
               <input
                 class="lvl"
                 type="number"
@@ -1999,7 +2019,7 @@
               />
             </div>
             <div class="control">
-              <span class="control-label">Звёздность:</span>
+              <span class="control-label">{t('stats.starRating', locale)}</span>
               <div class="stars">
                 {#each [0,1,2,3,4] as s}
                   <button
@@ -2008,7 +2028,7 @@
                     disabled={!selected2.availableStars.has(s)}
                     onclick={() => stars2 = s}
                     aria-pressed={stars2 === s}
-                    title={s===0?'Без звёзд': s===1?'Бронза': s===2?'Серебро': s===3?'Золото':'Платина'}>
+                    title={starTitle(s)}>
                     <img src={textureUrl(STAR_ICON[s])} alt="*" />
                   </button>
                 {/each}
@@ -2022,19 +2042,19 @@
           <div class="row">
             <span class="label">
               {#if typeIconCurrent2}
-                <img class="label-icon type-icon" src={textureUrl(typeIconCurrent2)} alt="Тип" />
+                <img class="label-icon type-icon" src={textureUrl(typeIconCurrent2)} alt={t('mutants.filter.type', locale)} />
               {/if}
-              Тип
+              {t('mutants.filter.type', locale)}
             </span>
             <b>{selected2.typeLabel || selected2.type || '—'}</b>
           </div>
-          <div class="row"><span class="label">Тир</span><b>{selected2.tierLabel || selected2.tier || '—'}</b></div>
+          <div class="row"><span class="label">{t('stats.tier', locale)}</span><b>{selected2.tierLabel || selected2.tier || '—'}</b></div>
           <div class="row">
             <span class="label">
               <img class="label-icon" src={textureUrl(STAT_ICON.hp)} alt="HP" />
               HP
             </span>
-            <b>{stats2.hp.toLocaleString('ru-RU')}</b>
+            <b>{stats2.hp.toLocaleString(numLocale)}</b>
           </div>
 
           {#each attackRows2 as attack (attack.attack)}
@@ -2049,7 +2069,7 @@
                     class:m-beige={delta === -0.25}
                     class:m-orange={delta === 0.25}
                     class:m-red={delta === 0.5}
-                    title={delta === 0 ? 'Без изменений' : `${delta > 0 ? '+' : ''}${delta * 100}%`}
+                    title={delta === 0 ? t('stats.noChanges', locale) : `${delta > 0 ? '+' : ''}${delta * 100}%`}
                     onclick={() => atkMultipliers2[attack.attack] = active ? 1 : 1 + delta}
                   >{delta === 0 ? '0' : `${delta > 0 ? '+' : ''}${delta * 100}%`}</button>
                 {/each}
@@ -2061,7 +2081,7 @@
                     <img class="gene-icon" src={textureUrl(attack.geneIcon)} alt="" aria-hidden="true" />
                   {/if}
                   {#if attack.isAoe}
-                    <img class="attack-aoe" src={textureUrl("/genes/atk_multiple.webp")} alt="АОЕ" />
+                    <img class="attack-aoe" src={textureUrl("/genes/atk_multiple.webp")} alt={t('stats.aoeAlt', locale)} />
                   {/if}
                 </span>
                 <div class="attack-info">
@@ -2072,7 +2092,7 @@
                       class:m-beige={(atkMultipliers2[attack.attack] ?? 1) === 0.75}
                       class:m-orange={(atkMultipliers2[attack.attack] ?? 1) === 1.25}
                       class:m-red={(atkMultipliers2[attack.attack] ?? 1) === 1.5}
-                    >{attack.damage ? Math.round(attack.damage * (atkMultipliers2[attack.attack] ?? 1)).toLocaleString('ru-RU') : '—'}</span>
+                    >{attack.damage ? Math.round(attack.damage * (atkMultipliers2[attack.attack] ?? 1)).toLocaleString(numLocale) : '—'}</span>
                     {#if attack.gene !== 'neutro'}
                     <div class="atk-mult-btns">
                       {#each [-0.5, -0.25, 0, 0.25, 0.5] as delta}
@@ -2083,7 +2103,7 @@
                           class:m-beige={delta === -0.25}
                           class:m-orange={delta === 0.25}
                           class:m-red={delta === 0.5}
-                          title={delta === 0 ? 'Без изменений' : `${delta > 0 ? '+' : ''}${delta * 100}%`}
+                          title={delta === 0 ? t('stats.noChanges', locale) : `${delta > 0 ? '+' : ''}${delta * 100}%`}
                           onclick={() => atkMultipliers2[attack.attack] = active ? 1 : 1 + delta}
                         >{delta === 0 ? '0' : `${delta > 0 ? '+' : ''}${delta * 100}%`}</button>
                       {/each}
@@ -2103,10 +2123,10 @@
                       <span class="effect-name">
                         {effect.label}
                         {#if effect.percent != null}
-                          <span class="effect-percent">{effect.percent.toLocaleString('ru-RU')}%</span>
+                          <span class="effect-percent">{effect.percent.toLocaleString(numLocale)}%</span>
                         {/if}
                       </span>
-                      <span class="effect-value">{Math.round(effect.value * (atkMultipliers2[attack.attack] ?? 1)).toLocaleString('ru-RU')}</span>
+                      <span class="effect-value">{Math.round(effect.value * (atkMultipliers2[attack.attack] ?? 1)).toLocaleString(numLocale)}</span>
                     </div>
                   {/each}
                 {:else}
@@ -2118,17 +2138,17 @@
 
           <div class="row">
             <span class="label">
-              <img class="label-icon" src={textureUrl(STAT_ICON.speed)} alt="Скорость" />
-              Скорость
+              <img class="label-icon" src={textureUrl(STAT_ICON.speed)} alt={catLabel('speed')} />
+              {catLabel('speed')}
             </span>
             <b>{formatSpeed(stats2.speed)}</b>
           </div>
           <div class="row">
             <span class="label">
-              <img class="label-icon" src={textureUrl("/cash/softcurrency.webp")} alt="Серебро" />
-              Серебро
+              <img class="label-icon" src={textureUrl("/cash/softcurrency.webp")} alt={t('stats.silverLabel', locale)} />
+              {t('stats.silverLabel', locale)}
             </span>
-            <b>{stats2.bank.toLocaleString('ru-RU')}</b>
+            <b>{stats2.bank.toLocaleString(numLocale)}</b>
           </div>
         </div>
 

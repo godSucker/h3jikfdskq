@@ -12,7 +12,28 @@ import orbRaw from '@/data/simulators/CRAFT/orb.txt?raw'
 import starRaw from '@/data/simulators/CRAFT/star.txt?raw'
 import incentiveRaw from '@/data/simulators/CRAFT/incentreward.txt?raw'
 import mutantNamesData from '@/data/mutant_names.json'
+import craftI18nRaw from '@/data/simulators/craft-i18n.json'
 import { textureUrl } from '@/lib/texture-cdn'
+import { t, type Locale } from '@/lib/i18n'
+
+type CraftI18nDict = Partial<Record<string, Partial<Record<Locale, string>>>>
+const craftI18n = craftI18nRaw as {
+  items: CraftI18nDict
+  headers: CraftI18nDict
+  regex: CraftI18nDict
+}
+
+const CRAFT_LEVEL_WORD: Record<Locale, string> = {
+  ru: 'ур.',
+  en: 'Lv.',
+  es: 'Nv.',
+  fr: 'Niv.',
+  de: 'Stufe ',
+  pt: 'Nv.',
+  it: 'Liv.',
+  tr: 'Sv.',
+  nl: 'Niv.',
+}
 
 export type CraftCategory = 'blackhole' | 'lab' | 'orb' | 'star'
 
@@ -147,7 +168,7 @@ const ITEM_TRANSLATIONS: Record<string, string> = {
   Building_HC_1: 'Златокузня',
   Building_HC_2: 'Золотоплавильня',
   Building_Hospital_1: 'Медлаборатория',
-  Building_Mystery: 'Мистический Анализатор',
+  Building_Mystery: 'Анализатор тайны',
 
   // Habitats (Zones)
   Habitat_A_3_HC: 'Люкс-зона КИБОРГОВ x4',
@@ -524,6 +545,50 @@ export function translateItemId(itemId: string): string {
   return readable.charAt(0).toUpperCase() + readable.slice(1)
 }
 
+// translateItemId() выше - RU-only (ITEM_TRANSLATIONS + mutantNamesData),
+// без единого параметра locale - craft-simulator рендерил русские названия
+// на всех 9 языках (найдено систематическим аудитом 2026-08-17, тот же класс
+// бага, что в cash-machine.ts/madness-machine.ts/lucky-machine.ts).
+// craft-i18n.json (src/data/simulators/craft-i18n.json) покрывает все
+// 222 id, используемых в orb.txt/lab.txt/star.txt/blackhole.txt/
+// incentreward.txt - 120 скопированы из materials-i18n.json (реальные
+// предметы), 58 craft-специфичных (recipe/token_sink id, orb_rankup_*
+// базовые названия без суффикса уровня - суффикс "ур.N"/"Lv.N"
+// добавляется здесь же, как и в translateItemId) переведены вручную.
+// materials-i18n.ts НЕ импортируется отсюда напрямую: CraftSimulator.svelte
+// - client:load, а materials-i18n.ts тянет 255KB словарь в клиентский бандл
+// (тот же класс регрессии, что 2.2MB в madness, см. d0390955b) - craft-i18n.json
+// самодостаточен именно поэтому.
+export function getCraftItemLabel(itemId: string, locale: Locale = 'ru'): string {
+  const ru = translateItemId(itemId)
+  if (locale === 'ru') return ru
+
+  const items = craftI18n.items
+  const direct = items[itemId]?.[locale]
+  if (direct) return direct
+
+  for (const baseId of Object.keys(items)) {
+    if (itemId.startsWith(`${baseId}_`)) {
+      const suffix = itemId.slice(baseId.length + 1)
+      const base = items[baseId]?.[locale]
+      if (base && /^\d+$/.test(suffix)) {
+        return `${base} ${CRAFT_LEVEL_WORD[locale]}${Number(suffix)}`
+      }
+    }
+  }
+
+  return ru
+}
+
+export function getRecipeHeaderTitle(recipeId: string, locale: Locale = 'ru'): string {
+  const ru = RECIPE_HEADER_TITLES[recipeId]
+  if (ru) {
+    if (locale === 'ru') return ru
+    return craftI18n.headers[recipeId]?.[locale] ?? ru
+  }
+  return getCraftItemLabel(recipeId, locale)
+}
+
 export function getItemTexture(itemId: string): string | null {
   const raw = getRawTexture(itemId)
   return raw ? textureUrl(raw) : null
@@ -600,9 +665,23 @@ function getRawTexture(itemId: string): string | null {
   return null
 }
 
-export function describeIngredientRegex(regex: string): string {
-  if (COMPLEX_REGEX_DESCRIPTIONS[regex]) {
-    return COMPLEX_REGEX_DESCRIPTIONS[regex]
+const CRAFT_OR_WORD: Record<Locale, string> = {
+  ru: 'или',
+  en: 'or',
+  es: 'o',
+  fr: 'ou',
+  de: 'oder',
+  pt: 'ou',
+  it: 'o',
+  tr: 'veya',
+  nl: 'of',
+}
+
+export function describeIngredientRegex(regex: string, locale: Locale = 'ru'): string {
+  const complexRu = COMPLEX_REGEX_DESCRIPTIONS[regex]
+  if (complexRu) {
+    if (locale === 'ru') return complexRu
+    return craftI18n.regex[regex]?.[locale] ?? complexRu
   }
 
   if (
@@ -611,7 +690,7 @@ export function describeIngredientRegex(regex: string): string {
     !regex.includes('(') &&
     !regex.includes('.')
   ) {
-    return translateItemId(regex)
+    return getCraftItemLabel(regex, locale)
   }
 
   const parts = regex
@@ -621,8 +700,8 @@ export function describeIngredientRegex(regex: string): string {
 
   if (parts.length > 1) {
     const unique = Array.from(new Set(parts))
-    const translated = unique.map((part) => translateItemId(part))
-    return translated.join(' или ')
+    const translated = unique.map((part) => getCraftItemLabel(part, locale))
+    return translated.join(` ${CRAFT_OR_WORD[locale]} `)
   }
 
   return regex
@@ -644,6 +723,7 @@ export function simulateRecipe(
   crafts: number,
   incentive: IncentiveReward | null,
   rng: () => number = Math.random,
+  locale: Locale = 'ru',
 ): DetailedSimulationResult {
   const totalOdds = recipe.rewards.reduce((sum, reward) => sum + reward.odds, 0)
   const mainRewards: Record<string, number> = {}
@@ -713,50 +793,73 @@ export function simulateRecipe(
     }))
     .sort((a, b) => b.amount - a.amount)
 
-  log.push(`🎯 Результаты ${crafts} крафтов`)
-  const recipeName = recipe.rewards.length ? translateItemId(recipe.rewards[0].id) : recipe.id
-  log.push(`📋 Рецепт: ${recipeName}`)
+  // Раньше был захардкожен на RU без параметра locale вообще (найдено
+  // систематическим i18n-аудитом 2026-08-17) - "Текстовый лог" в результатах
+  // симуляции показывал русский текст на всех 9 языках. Дублирует уже
+  // локализованные структурные карточки выше, поэтому переиспользует те же
+  // ключи (craft.results.title/mainRewardsTitle/noMainRewards/...) плюс
+  // несколько новых craft.results.log*-ключей под сам текстовый формат лога.
+  log.push(`🎯 ${t('craft.results.title', locale).replace('{n}', String(crafts))}`)
+  const recipeName = recipe.rewards.length
+    ? getCraftItemLabel(recipe.rewards[0].id, locale)
+    : recipe.id
+  log.push(`📋 ${t('craft.results.logRecipeLine', locale).replace('{name}', recipeName)}`)
 
   if (expectedIncentiveChance > 0 && incentive) {
-    log.push(`🎲 Шанс доп. награды: ${(expectedIncentiveChance * 100).toFixed(2)}%`)
+    log.push(
+      `🎲 ${t('craft.recipeCard.incentiveChance', locale).replace('{pct}', `${(expectedIncentiveChance * 100).toFixed(2)}%`)}`,
+    )
   }
 
-  log.push('🏆 Основные награды:')
+  log.push(`🏆 ${t('craft.results.mainRewardsTitle', locale)}:`)
   if (rewardDetails.length === 0) {
-    log.push('  - Нет наград')
+    log.push(`  - ${t('craft.results.noMainRewards', locale)}`)
   } else {
     for (const detail of rewardDetails) {
-      const chancePerCraft = detail.perCraft * 100
-      const sharePercent = detail.share * 100
+      const chancePerCraft = (detail.perCraft * 100).toFixed(1)
+      const sharePercent = (detail.share * 100).toFixed(1)
       log.push(
-        `  - ${translateItemId(detail.id)}: ${detail.amount} шт. (${chancePerCraft.toFixed(1)}% за крафт, ${sharePercent.toFixed(
-          1,
-        )}% от всех наград)`,
+        `  - ${t('craft.results.logRewardLine', locale)
+          .replace('{name}', getCraftItemLabel(detail.id, locale))
+          .replace('{amount}', String(detail.amount))
+          .replace('{perCraft}', chancePerCraft)
+          .replace('{share}', sharePercent)}`,
       )
     }
   }
 
   if (incentive) {
+    const incentiveName = getCraftItemLabel(incentive.id, locale)
     if (incentiveDetails.length > 0) {
-      log.push(`✨ Дополнительные награды (${translateItemId(incentive.id)}):`)
+      log.push(
+        `✨ ${t('craft.results.logIncentiveHeader', locale).replace('{name}', incentiveName)}`,
+      )
       for (const detail of incentiveDetails) {
-        const actualChance = detail.perCraft * 100
-        const expectedPercent = expectedIncentiveChance * 100
+        const actualChance = (detail.perCraft * 100).toFixed(1)
+        const expectedPercent = (expectedIncentiveChance * 100).toFixed(1)
         log.push(
-          `  - ${translateItemId(detail.id)}: ${detail.amount} шт. (ожидалось: ${expectedPercent.toFixed(1)}%, получено: ${actualChance.toFixed(
-            1,
-          )}%)`,
+          `  - ${t('craft.results.logIncentiveLine', locale)
+            .replace('{name}', incentiveName)
+            .replace('{amount}', String(detail.amount))
+            .replace('{expected}', expectedPercent)
+            .replace('{actual}', actualChance)}`,
         )
       }
     } else {
-      log.push(`✨ Дополнительные награды (${translateItemId(incentive.id)}) не выпали.`)
+      log.push(
+        `✨ ${t('craft.results.logIncentiveNotDropped', locale).replace('{name}', incentiveName)}`,
+      )
     }
   }
 
-  log.push('📊 Статистика:')
-  log.push(`  - Всего основных наград: ${totalMain}`)
-  log.push(`  - Всего дополнительных наград: ${totalIncentive}`)
-  log.push(`  - Общее количество наград: ${totalMain + totalIncentive}`)
+  log.push(`📊 ${t('craft.results.logStatsHeader', locale)}`)
+  log.push(`  - ${t('craft.results.logTotalMain', locale).replace('{n}', String(totalMain))}`)
+  log.push(
+    `  - ${t('craft.results.logTotalIncentive', locale).replace('{n}', String(totalIncentive))}`,
+  )
+  log.push(
+    `  - ${t('craft.results.logTotalAll', locale).replace('{n}', String(totalMain + totalIncentive))}`,
+  )
 
   return {
     crafts,
@@ -775,9 +878,26 @@ export function getRewardChance(reward: CraftReward, recipe: CraftRecipe): numbe
   return reward.odds / totalOdds
 }
 
-export function formatDurationMinutes(minutes: number): string {
+// Короткие единицы длительности - не игровые данные, обычная UI-обвязка
+// (как STAR_LABEL/TIER_ADJ_TO_KEY), поэтому переведено напрямую, без
+// официального источника Kobojo (для длительности его и нет).
+const DURATION_UNITS: Record<Locale, { instant: string; day: string; hour: string; min: string }> =
+  {
+    ru: { instant: 'мгновенно', day: 'д', hour: 'ч', min: 'мин' },
+    en: { instant: 'instant', day: 'd', hour: 'h', min: 'min' },
+    es: { instant: 'instantáneo', day: 'd', hour: 'h', min: 'min' },
+    fr: { instant: 'instantané', day: 'j', hour: 'h', min: 'min' },
+    de: { instant: 'sofort', day: 'T', hour: 'Std', min: 'Min' },
+    pt: { instant: 'instantâneo', day: 'd', hour: 'h', min: 'min' },
+    it: { instant: 'istantaneo', day: 'g', hour: 'h', min: 'min' },
+    tr: { instant: 'anlık', day: 'g', hour: 's', min: 'dk' },
+    nl: { instant: 'direct', day: 'd', hour: 'u', min: 'min' },
+  }
+
+export function formatDurationMinutes(minutes: number, locale: Locale = 'ru'): string {
+  const units = DURATION_UNITS[locale] ?? DURATION_UNITS.ru
   if (minutes <= 0) {
-    return 'мгновенно'
+    return units.instant
   }
 
   const days = Math.floor(minutes / (60 * 24))
@@ -785,11 +905,11 @@ export function formatDurationMinutes(minutes: number): string {
   const mins = minutes % 60
 
   const parts: string[] = []
-  if (days) parts.push(`${days} д`)
-  if (hours) parts.push(`${hours} ч`)
-  if (mins) parts.push(`${mins} мин`)
+  if (days) parts.push(`${days} ${units.day}`)
+  if (hours) parts.push(`${hours} ${units.hour}`)
+  if (mins) parts.push(`${mins} ${units.min}`)
 
-  return parts.join(' ') || 'мгновенно'
+  return parts.join(' ') || units.instant
 }
 
 export function getBonusRange(recipes: CraftRecipe[]): { min: number; max: number } {

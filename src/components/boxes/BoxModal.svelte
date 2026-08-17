@@ -1,7 +1,24 @@
 <script lang="ts">
   import boxesData from '@/data/boxes.json'
   import { textureUrl } from '@/lib/texture-cdn'
-  import { getMutantTexturePath, getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures'
+  import { getMutantTexturePath, getRewardTexturePath, getRewardLabel, formatCurrencyAmount } from '@/lib/bingo-textures'
+  import { getBoxName } from '@/lib/boxes-i18n'
+  import { t, pluralizeCount, type Locale } from '@/lib/i18n'
+  import { starLabelL } from '@/lib/mutant-dicts'
+
+  let {
+    locale = 'ru' as Locale,
+    names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>,
+  }: {
+    locale?: Locale
+    names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>
+  } = $props()
+
+  // Тот же приём, что MutantsBrowser.svelte/TierList.svelte: id уже базовый
+  // (см. boxes.json - lowercase specimen_*, без суффикса звезды).
+  function displayMutantName(m: { id: string; name: string }): string {
+    return names[m.id]?.name || m.name
+  }
 
   interface BoxMutantRef {
     id: string
@@ -34,8 +51,7 @@
 
   function formatPrice(price: BoxPrice | null): string | null {
     if (!price) return null
-    const label = price.type === 'hardcurrency' ? 'золота' : 'серебра'
-    return `${price.amount.toLocaleString('ru-RU')} ${label}`
+    return formatCurrencyAmount(price.amount, price.type, locale)
   }
 
   const boxes = boxesData as Box[]
@@ -48,10 +64,20 @@
     'платина': '/stars/star_platinum.webp',
   }
 
+  const TIER_KEY: Record<string, 'bronze' | 'silver' | 'gold' | 'platinum'> = {
+    'бронза': 'bronze', 'серебро': 'silver', 'золото': 'gold', 'платина': 'platinum',
+  }
+
+  // boxes.json хранит tier как RU-слово ('бронза' и т.п.) - alt/title
+  // рендерили его напрямую без locale (найдено live-прогоном 2026-08-17,
+  // тот же класс бага, что в roulette-симуляторах/materials).
+  function tierLabel(tier: string | null): string {
+    const key = tier ? TIER_KEY[tier] : undefined
+    return key ? starLabelL(key, locale) : (tier ?? '')
+  }
+
   function mutantIcon(m: BoxMutantRef): string {
-    const variant = (m.tier && ['бронза', 'серебро', 'золото', 'платина'].includes(m.tier)
-      ? { 'бронза': 'bronze', 'серебро': 'silver', 'золото': 'gold', 'платина': 'platinum' }[m.tier]
-      : 'normal') as 'normal' | 'bronze' | 'silver' | 'gold' | 'platinum'
+    const variant = (m.tier && TIER_KEY[m.tier]) || 'normal'
     return getMutantTexturePath(m.id, m.skin ?? '_any', variant)
   }
 
@@ -90,6 +116,7 @@
   let outcomes = $derived(box ? groupedOutcomes(box) : [])
   let guaranteed = $derived(outcomes.filter((o) => o.chance == null))
   let pool = $derived(outcomes.filter((o) => o.chance != null))
+  let boxName = $derived(box ? getBoxName(box.itemId, locale, box.name) : '')
 
   function onOpen(e: Event) {
     const itemId = (e as CustomEvent).detail?.boxId as string | undefined
@@ -130,24 +157,24 @@
     class="fixed inset-0 z-[90] bg-black/70 backdrop-blur-sm flex items-start justify-center p-2 md:p-4 overflow-y-auto overscroll-contain"
     onclick={(e) => { if (e.target === e.currentTarget) close() }}
   >
-    <div class="modal-panel w-full max-w-2xl mt-10 md:mt-20 mb-6 rounded-xl bg-slate-950 ring-1 ring-white/10 shadow-2xl" role="dialog" aria-modal="true" aria-label={box.name}>
+    <div class="modal-panel w-full max-w-2xl mt-10 md:mt-20 mb-6 rounded-xl bg-slate-950 ring-1 ring-white/10 shadow-2xl" role="dialog" aria-modal="true" aria-label={boxName}>
       <div class="modal-head flex items-start gap-4 p-4 border-b border-white/10">
         {#if box.icon}
           <img class="box-icon" src={textureUrl(box.icon)} alt="" loading="lazy" decoding="async" />
         {/if}
         <div class="flex-1 min-w-0">
-          {#if box.category}<div class="text-[11px] uppercase tracking-wide text-blue-300/80">{box.category}</div>{/if}
-          <h2 class="text-lg font-bold text-white leading-snug break-words">{box.name}</h2>
+          {#if box.category}<div class="text-[11px] uppercase tracking-wide text-blue-300/80">{box.category === 'Лаки-бокс' ? t('boxes.category.lucky', locale) : box.category === 'Мистери-бокс' ? t('boxes.category.mystery', locale) : box.category}</div>{/if}
+          <h2 class="text-lg font-bold text-white leading-snug break-words">{boxName}</h2>
           {#if formatPrice(box.price)}<div class="text-sm font-semibold text-amber-400 mt-0.5">{formatPrice(box.price)}</div>{/if}
-          {#if allMutants(box).length}<div class="text-xs text-slate-400 mt-1">Мутантов в дроп-листе: {allMutants(box).length}</div>{/if}
+          {#if allMutants(box).length}<div class="text-xs text-slate-400 mt-1">{t('boxes.mutantsInDropList', locale).replace('{n}', String(allMutants(box).length))}</div>{/if}
         </div>
-        <button class="close-btn shrink-0" onclick={close} aria-label="Закрыть">&times;</button>
+        <button class="close-btn shrink-0" onclick={close} aria-label={t('boxes.closeAria', locale)}>&times;</button>
       </div>
 
       <div class="p-4 flex flex-col gap-4">
         {#if guaranteed.length}
           <div>
-            <div class="section-title">Гарантированно в комплекте</div>
+            <div class="section-title">{t('boxes.guaranteedTitle', locale)}</div>
             <div class="reward-row">
               {#each guaranteed as o, i (i)}
                 {#each o.rewards as reward, j (j)}
@@ -155,7 +182,7 @@
                     {#if getRewardTexturePath(reward)}
                       <img src={textureUrl(getRewardTexturePath(reward))} alt="" loading="lazy" decoding="async" />
                     {/if}
-                    {getRewardLabel(reward)}
+                    {getRewardLabel(reward, locale, names)}
                   </span>
                 {/each}
                 {#each o.mutants as m (m.id)}
@@ -163,7 +190,7 @@
                     {#if mutantIcon(m)}
                       <img src={textureUrl(mutantIcon(m))} alt="" loading="lazy" decoding="async" />
                     {/if}
-                    {m.name}
+                    {displayMutantName(m)}
                   </button>
                 {/each}
               {/each}
@@ -173,7 +200,7 @@
 
         {#if pool.length}
           <div>
-            {#if guaranteed.length}<div class="section-title">Розыгрыш</div>{/if}
+            {#if guaranteed.length}<div class="section-title">{t('boxes.drawTitle', locale)}</div>{/if}
             <div class="mutant-grid">
               {#each pool as o, i (i)}
                 <div class="mutant-cell" class:multi={o.mutants.length + o.rewards.length > 1}>
@@ -185,12 +212,12 @@
                             <img src={textureUrl(mutantIcon(m))} alt="" loading="lazy" decoding="async" />
                           {/if}
                         </span>
-                        <span class="mutant-cell-name">{m.name}</span>
+                        <span class="mutant-cell-name">{displayMutantName(m)}</span>
                         {#if m.tier && TIER_ICON[m.tier]}
-                          <img class="tier-icon" src={textureUrl(TIER_ICON[m.tier])} alt={m.tier} title={m.tier} loading="lazy" decoding="async" />
+                          <img class="tier-icon" src={textureUrl(TIER_ICON[m.tier])} alt={tierLabel(m.tier)} title={tierLabel(m.tier)} loading="lazy" decoding="async" />
                         {/if}
                         {#if m.skin}
-                          <span class="skin-text" title={`Скин: ${m.skin}`}>скин «{m.skin}»</span>
+                          <span class="skin-text" title={t('boxes.skinTitle', locale).replace('{skin}', m.skin)}>{t('boxes.skinLabel', locale).replace('{skin}', m.skin)}</span>
                         {/if}
                       </button>
                     {/each}
@@ -199,7 +226,7 @@
                         {#if getRewardTexturePath(reward)}
                           <img src={textureUrl(getRewardTexturePath(reward))} alt="" loading="lazy" decoding="async" />
                         {/if}
-                        <span class="mutant-cell-name">{getRewardLabel(reward)}</span>
+                        <span class="mutant-cell-name">{getRewardLabel(reward, locale, names)}</span>
                       </span>
                     {/each}
                   </div>
