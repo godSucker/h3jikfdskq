@@ -10,6 +10,7 @@
   import { applySpeedSphere } from '@/lib/stats/speed-sphere-table';
   import { textureUrl } from '@/lib/texture-cdn';
   import { t, type Locale } from '@/lib/i18n';
+  import { getItemName } from '@/lib/materials-i18n';
   import {
     GENE_NAMES,
     GENE_ICONS,
@@ -1158,7 +1159,11 @@
 
   function groupOrbsByCategory(list: any[], prefix: string = 'basic'): { key: string; label: string; icon: string; items: any[] }[] {
     const map = new Map<string, any[]>();
-    for (const orb of list) {
+    for (const rawOrb of list) {
+      // Имя сферы приходит из orbs.json на RU - локализуем так же, как PvP-симулятор
+      // (orb-catalog.ts::localizeOrbs), иначе категории переведены, а сферы внутри - нет.
+      const orb =
+        locale === 'ru' ? rawOrb : { ...rawOrb, name: getItemName(rawOrb.id, locale, rawOrb.name) };
       const key = orbCategoryKey(orb);
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(orb);
