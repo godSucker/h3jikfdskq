@@ -1,9 +1,11 @@
 // sources.json "where" - не игровые данные Kobojo, а сайт-авторские
 // лейблы источника предмета ("Бинго"/"Магазин"/"Пасхальный ивент 2021" и
 // т.д.) - переводятся как обычный UI-текст (шаблон "тип + год"), не требуют
-// официального источника. Имена мутантов в кавычках («Безумный Майк» и т.д.)
-// остаются на RU - тот же принцип, что и везде на сайте (GACHA_NAME_RU,
-// mutantNames в reactor-gacha.ts) - имена мутантов/реакторов не переводятся.
+// официального источника. Имена мутантов в кавычках («Безумный Майк» и
+// т.д.) РЕЗОЛВЯТСЯ через официальные переводы names.{locale}.json (556/556
+// покрытие, см. mutant-names-i18n.ts) - MUTANT_ID_BY_RU_NAME ниже сопоставляет
+// RU-имя источнику мутанта вручную (только для 3 конкретных ивентов, найденных
+// в sources.json на 2026-08-17).
 //
 // Запуск: npx tsx scripts/build-sources-where-i18n.ts
 
@@ -12,6 +14,34 @@ import path from 'path'
 
 const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 type Locale = (typeof LOCALES)[number]
+
+const MUTANT_ID_BY_RU_NAME: Record<string, string> = {
+  'Сержант Сумерки': 'specimen_ac_10',
+  'Безумный Майк': 'specimen_de_10',
+  'Дрей, космический корги': 'specimen_de_11',
+}
+
+async function loadMutantNames(): Promise<Record<Locale, Record<string, { name: string }>>> {
+  const out = {} as Record<Locale, Record<string, { name: string }>>
+  for (const locale of LOCALES) {
+    out[locale] = JSON.parse(
+      await fs.readFile(
+        path.join(process.cwd(), `src/data/mutants/names.${locale}.json`),
+        'utf-8',
+      ),
+    )
+  }
+  return out
+}
+
+function mutantName(
+  ru: string,
+  locale: Locale,
+  mutantNames: Record<Locale, Record<string, { name: string }>>,
+): string {
+  const id = MUTANT_ID_BY_RU_NAME[ru]
+  return (id && mutantNames[locale][id]?.name) || ru
+}
 
 const W: Record<string, Record<Locale, string>> = {
   bingo: {
@@ -261,7 +291,11 @@ function tr(word: keyof typeof W, locale: Locale): string {
   return W[word][locale]
 }
 
-function translateWhere(ru: string, locale: Locale): string | null {
+function translateWhere(
+  ru: string,
+  locale: Locale,
+  mutantNames: Record<Locale, Record<string, { name: string }>>,
+): string | null {
   let m: RegExpMatchArray | null
 
   if (ru === 'Бинго') return tr('bingo', locale)
@@ -295,10 +329,10 @@ function translateWhere(ru: string, locale: Locale): string | null {
   if ((m = ru.match(/^Ивент ко Дню Св\. Валентина (\d+)$/)))
     return `${tr('valentinesEvent', locale)} ${m[1]}`
   if ((m = ru.match(/^Таинственные ивенты (\d+)$/))) return `${tr('mysteryEvents', locale)} ${m[1]}`
-  if ((m = ru.match(/^Предзаказ мутанта («.+») \(золотой\)$/)))
-    return `${tr('mutantPreorder', locale)} ${m[1]} (${tr('gold', locale)})`
+  if ((m = ru.match(/^Предзаказ мутанта «(.+)» \(золотой\)$/)))
+    return `${tr('mutantPreorder', locale)} «${mutantName(m[1], locale, mutantNames)}» (${tr('gold', locale)})`
   if (ru === 'Кроссовер Mutants: TCG 2019, можно обменять на «Дрей, космический корги»')
-    return `${tr('crossoverTcg', locale)} «Дрей, космический корги»`
+    return `${tr('crossoverTcg', locale)} «${mutantName('Дрей, космический корги', locale, mutantNames)}»`
 
   return null
 }
@@ -314,12 +348,14 @@ async function main() {
     for (const item of arr as { where: string }[]) uniqueWheres.add(item.where)
   }
 
+  const mutantNames = await loadMutantNames()
+
   const out: Partial<Record<Locale, Record<string, string>>> = {}
   const unresolved: string[] = []
   for (const locale of LOCALES) {
     out[locale] = {}
     for (const ru of uniqueWheres) {
-      const translated = translateWhere(ru, locale)
+      const translated = translateWhere(ru, locale, mutantNames)
       if (translated !== null) {
         out[locale]![ru] = translated
       } else if (!unresolved.includes(ru)) {
