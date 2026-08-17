@@ -118,7 +118,7 @@
   ];
 
   function detectResourceSummaryKey(entry: MadnessRewardAggregate): ResourceSummaryKey {
-    const { reward, label } = entry;
+    const { reward } = entry;
 
     if (reward.isSuperJackpot) {
       return 'jackpots';
@@ -129,7 +129,13 @@
     }
 
     const slug = reward.slug?.toLowerCase() ?? '';
-    const name = label.toLowerCase();
+    // reward.name - сырое RU-название из данных, стабильное независимо от
+    // локали страницы (раньше тут был entry.label - уже переведённый текст,
+    // из-за чего RU-подстроки матчились только на RU-локали и большинство
+    // наград на 7 не-RU-не-EN языках молча падали в 'mutants' по умолчанию -
+    // не утечка текста, а неверный подсчёт resource-summary, см. sibling
+    // LuckyMachineSimulator.svelte, который уже матчит reward.name).
+    const name = reward.name.toLowerCase();
 
     if (
       name.includes('жетон') ||
