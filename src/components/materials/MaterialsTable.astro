@@ -139,7 +139,7 @@ const withGroupHeaders = rows.flatMap((row) => {
                   <div class="thumb">
                     <img
                       src={textureUrl(row.levels[0].texture)}
-                      alt={`${row.name || row.id} — уровень ${row.levels[0].level}`}
+                      alt={`${row.name || row.id} — ${t('materials.table.level', locale).toLowerCase()} ${row.levels[0].level}`}
                       loading="lazy"
                       draggable="false"
                       oncontextmenu="return false"
@@ -438,16 +438,16 @@ const withGroupHeaders = rows.flatMap((row) => {
      к единому квадратному холсту 256x256 с автообрезкой пустоты.
      Это гарантирует 100% одинаковый размер всех элементов. */
 
-  .materials[data-title="Сферы"] .thumb,
-  .materials[data-title="Бустеры"] .thumb {
+  .materials[data-key="orbs"] .thumb,
+  .materials[data-key="charms"] .thumb {
     width: var(--orb-size-container-large);
     height: var(--orb-size-container-large);
     padding: 8px;
     flex-shrink: 0;
   }
 
-  .materials[data-title="Сферы"] .thumb img,
-  .materials[data-title="Бустеры"] .thumb img {
+  .materials[data-key="orbs"] .thumb img,
+  .materials[data-key="charms"] .thumb img {
     width: var(--orb-size-img-large);
     height: var(--orb-size-img-large);
     object-fit: contain;
@@ -490,14 +490,14 @@ const withGroupHeaders = rows.flatMap((row) => {
     .materials[data-key="buildings"] .thumb { width: 138px; padding: 8px; }
     .materials[data-key="buildings"] .thumb img { max-height: 140px; }
 
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb {
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb {
       width: 64px;
       height: 64px;
       padding: 6px;
     }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img {
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img {
       width: 48px;
       height: 48px;
     }
@@ -519,10 +519,10 @@ const withGroupHeaders = rows.flatMap((row) => {
     .thumb { width: 52px; padding: 4px; }
     .thumb img { max-height: 100px; }
     .materials[data-key="buildings"] .thumb { width: 112px; }
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb { width: 52px; height: 52px; padding: 4px; }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img { width: 40px; height: 40px; }
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb { width: 52px; height: 52px; padding: 4px; }
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img { width: 40px; height: 40px; }
     .name .title { font-size: 0.88rem; }
     .td.desc { font-size: 0.78rem; }
   }
@@ -535,14 +535,14 @@ const withGroupHeaders = rows.flatMap((row) => {
     .materials[data-key="buildings"] .tbody .tr { grid-template-columns: 300px minmax(200px, 1fr) minmax(260px, 2fr) minmax(220px, 1.4fr); }
     .materials[data-key="buildings"] .thumb { width: 280px; padding: 15px; }
     .materials[data-key="buildings"] .thumb img { max-height: 250px; }
-    .materials[data-title="Сферы"] .thumb,
-    .materials[data-title="Бустеры"] .thumb {
+    .materials[data-key="orbs"] .thumb,
+    .materials[data-key="charms"] .thumb {
       width: calc(var(--orb-size-container-large) * 1.25);
       height: calc(var(--orb-size-container-large) * 1.25);
       padding: 10px;
     }
-    .materials[data-title="Сферы"] .thumb img,
-    .materials[data-title="Бустеры"] .thumb img {
+    .materials[data-key="orbs"] .thumb img,
+    .materials[data-key="charms"] .thumb img {
       width: calc(var(--orb-size-img-large) * 1.25);
       height: calc(var(--orb-size-img-large) * 1.25);
     }
