@@ -2,6 +2,9 @@
 // Универсальный компонент таблицы. Принимает
 // props: columns (массив объектов {key, label}), rows (массив объектов).
 // Отображает простую таблицу без стилизации сортировки.
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
 const { columns = [], rows = [], title } = Astro.props as {
   columns: { key: string; label: string }[];
   rows: Record<string, unknown>[];
@@ -31,7 +34,7 @@ const { columns = [], rows = [], title } = Astro.props as {
       </tbody>
     </table>
   ) : (
-    <p>Нет данных для отображения.</p>
+    <p>{t('roulette.madness.noData', locale)}</p>
   )}
 </section>
 
