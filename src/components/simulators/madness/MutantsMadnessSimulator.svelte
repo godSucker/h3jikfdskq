@@ -14,6 +14,7 @@
     simulateMadnessAsync,
   } from '@/lib/madness-machine';
   import { t, type Locale } from '@/lib/i18n';
+  import { formatNumber as formatNumberIntl } from '@/lib/utils';
 
   // names - слайд {specimenId (lowercase): локализованное имя} только для
   // мутантов, реально встречающихся в machine.json, посчитанный на билде в
@@ -39,10 +40,12 @@
   let completedSpins = $state(0);
   let controller: AbortController | null = $state(null);
 
-  const numberFormatter = new Intl.NumberFormat('ru-RU');
-
+  // Раньше был захардкожен на 'ru-RU' независимо от локали (найдено
+  // систематическим i18n-аудитом 2026-08-17) - числа рендерились с русской
+  // группировкой разрядов на всех 9 языках. Имя функции сохранено, чтобы не
+  // трогать 20 call sites ниже - меняется только реализация.
   function formatNumber(value: number): string {
-    return numberFormatter.format(Math.floor(value));
+    return formatNumberIntl(value, locale);
   }
 
   type ResourceSummaryKey =

@@ -25,10 +25,10 @@ function resolveLuckyLabel(reward: (typeof luckyMachine.rewards)[number]): strin
   if (reward.isSuperJackpot) return t('roulette.madness.researchJackpot', locale);
   if (reward.isFreeTry) return t('roulette.lucky.freeSpinReward', locale);
   if (reward.type === 'hardcurrency') {
-    return `${formatNumber(reward.amount)} ${t('roulette.lucky.currencyGold', locale)}`;
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.lucky.currencyGold', locale)}`;
   }
   if (reward.type === 'softcurrency') {
-    return `${formatNumber(reward.amount)} ${t('roulette.lucky.currencySilver', locale)}`;
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.lucky.currencySilver', locale)}`;
   }
   if (reward.id?.startsWith('Specimen_')) {
     return mutantNamesFull[reward.id.toLowerCase()]?.name ?? reward.name;

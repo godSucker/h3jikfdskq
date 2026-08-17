@@ -43,10 +43,10 @@ export { formatNumber }
 
 export function getRewardLabel(reward: CashReward, locale: Locale = 'ru'): string {
   if (reward.type === 'hardcurrency') {
-    return `${formatNumber(reward.amount)} ${t('roulette.cash.unitGold', locale)}`
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.cash.unitGold', locale)}`
   }
   if (reward.type === 'softcurrency') {
-    return `${formatNumber(reward.amount)} ${t('roulette.cash.unitSilver', locale)}`
+    return `${formatNumber(reward.amount, locale)} ${t('roulette.cash.unitSilver', locale)}`
   }
   if (reward.picture && reward.picture.includes('jackpot')) {
     return t('roulette.madness.researchJackpot', locale)

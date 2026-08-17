@@ -158,13 +158,13 @@
   function getCurrencyLabel(entry: LuckyRewardAggregate): string {
     const { reward, totalAmount } = entry;
     if (reward.type === 'hardcurrency') {
-      return `${formatNumber(totalAmount)} ${t('roulette.lucky.currencyGold', locale)}`;
+      return `${formatNumber(totalAmount, locale)} ${t('roulette.lucky.currencyGold', locale)}`;
     }
     if (reward.type === 'softcurrency') {
-      return `${formatNumber(totalAmount)} ${t('roulette.lucky.currencySilver', locale)}`;
+      return `${formatNumber(totalAmount, locale)} ${t('roulette.lucky.currencySilver', locale)}`;
     }
     if (reward.category === 'token') {
-      return `${formatNumber(totalAmount)} ${t('roulette.lucky.currencyTokens', locale)}`;
+      return `${formatNumber(totalAmount, locale)} ${t('roulette.lucky.currencyTokens', locale)}`;
     }
     return '—';
   }
@@ -204,8 +204,8 @@
           <div class="progress-bar"><div class="progress-fill" style={`width: ${Math.min(progress * 100, 100)}%`}></div></div>
           <div class="progress-label">{t('roulette.lucky.progressLabel', locale)
             .replace('{pct}', String(Math.min(Math.floor(progress * 100), 100)))
-            .replace('{done}', formatNumber(completedPaid))
-            .replace('{total}', formatNumber(spins))}</div>
+            .replace('{done}', formatNumber(completedPaid, locale))
+            .replace('{total}', formatNumber(spins, locale))}</div>
         </div>
       {/if}
       {#if error}<p class="error">{error}</p>{/if}
@@ -228,31 +228,31 @@
         <section class="stats">
           <div class="stat-card">
             <img class="stat-icon" src={textureUrl("/etc/icon_timer.webp")} alt="" />
-            <div class="stat-body"><span class="label">{t('roulette.lucky.statTotalSpins', locale)}</span><strong>{formatNumber(result.totalSpins)}</strong></div>
+            <div class="stat-body"><span class="label">{t('roulette.lucky.statTotalSpins', locale)}</span><strong>{formatNumber(result.totalSpins, locale)}</strong></div>
           </div>
           <div class="stat-card">
             <img class="stat-icon" src={textureUrl("/materials/Material_Jackpot_Token.png")} alt="" />
-            <div class="stat-body"><span class="label">{t('roulette.lucky.statPaid', locale)}</span><strong>{formatNumber(result.paidSpins)}</strong></div>
+            <div class="stat-body"><span class="label">{t('roulette.lucky.statPaid', locale)}</span><strong>{formatNumber(result.paidSpins, locale)}</strong></div>
           </div>
           <div class="stat-card highlight">
             <img class="stat-icon" src={textureUrl("/etc/freespin.webp")} alt="" />
             <div class="stat-body">
               <span class="label">{t('roulette.lucky.statFree', locale)}</span>
-              <strong>{formatNumber(result.freeSpins)}</strong>
+              <strong>{formatNumber(result.freeSpins, locale)}</strong>
               <small>{t('roulette.lucky.statFreeShare', locale).replace('{rate}', getFreeSpinRate(result)).replace('{ratio}', getFreeSpinRatio(result))}</small>
             </div>
           </div>
           <div class="stat-card">
             <img class="stat-icon" src={textureUrl("/cash/g20.webp")} alt="" />
-            <div class="stat-body"><span class="label">{t('roulette.lucky.statGoldWon', locale)}</span><strong>{formatNumber(result.goldWon)}</strong></div>
+            <div class="stat-body"><span class="label">{t('roulette.lucky.statGoldWon', locale)}</span><strong>{formatNumber(result.goldWon, locale)}</strong></div>
           </div>
           <div class="stat-card">
             <img class="stat-icon" src={textureUrl("/cash/softcurrency.webp")} alt="" />
-            <div class="stat-body"><span class="label">{t('roulette.lucky.statSilverWon', locale)}</span><strong>{formatNumber(result.silverWon)}</strong></div>
+            <div class="stat-body"><span class="label">{t('roulette.lucky.statSilverWon', locale)}</span><strong>{formatNumber(result.silverWon, locale)}</strong></div>
           </div>
           <div class="stat-card">
             <img class="stat-icon" src={textureUrl("/materials/Material_Gacha_Token.png")} alt="" />
-            <div class="stat-body"><span class="label">{t('roulette.lucky.statTokens', locale)}</span><strong>{formatNumber(result.tokenItems)}</strong></div>
+            <div class="stat-body"><span class="label">{t('roulette.lucky.statTokens', locale)}</span><strong>{formatNumber(result.tokenItems, locale)}</strong></div>
           </div>
         </section>
 
@@ -262,8 +262,8 @@
               <div class="resource-icon"><img src={textureUrl(s.icon)} alt="" /></div>
               <div class="resource-body">
                 <span class="resource-title">{s.label}</span>
-                <strong>{formatNumber(s.count)}</strong>
-                <span class="resource-meta">{s.metaLabel}: {formatNumber(s.totalAmount)}</span>
+                <strong>{formatNumber(s.count, locale)}</strong>
+                <span class="resource-meta">{s.metaLabel}: {formatNumber(s.totalAmount, locale)}</span>
               </div>
             </article>
           {/each}
@@ -283,7 +283,7 @@
                     <div class="details">
                       <div class="row">
                         <span class="name">{entry.label}</span>
-                        <span class="count-badge">{formatNumber(entry.count)}×</span>
+                        <span class="count-badge">{formatNumber(entry.count, locale)}×</span>
                       </div>
                       <div class="pills">
                         <span class="pill actual">{t('roulette.lucky.actualShare', locale).replace('{pct}', getActualShare(entry))}</span>
@@ -292,7 +292,7 @@
                       {#if totalLabel !== '—'}
                         <span class="currency">{totalLabel}</span>
                       {:else if entry.totalAmount > entry.count}
-                        <span class="currency">{formatNumber(entry.totalAmount)} {t('roulette.lucky.unitPieces', locale)}</span>
+                        <span class="currency">{formatNumber(entry.totalAmount, locale)} {t('roulette.lucky.unitPieces', locale)}</span>
                       {/if}
                     </div>
                   </li>
@@ -316,7 +316,7 @@
                     {#if spin.type === 'free-spin'}
                       <span class="note">{t('roulette.lucky.freeSpinNote', locale)}</span>
                     {:else}
-                      <span class="note">{formatNumber(spin.reward.amount)}×</span>
+                      <span class="note">{formatNumber(spin.reward.amount, locale)}×</span>
                     {/if}
                   </li>
                 {/each}

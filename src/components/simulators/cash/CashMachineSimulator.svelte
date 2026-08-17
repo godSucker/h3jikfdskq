@@ -47,7 +47,7 @@
 
   function formatAmountWithUnit(amount: number, type: string): string {
     const unit = getRewardUnit(type);
-    return unit ? `${formatNumber(amount)} ${unit}` : formatNumber(amount);
+    return unit ? `${formatNumber(amount, locale)} ${unit}` : formatNumber(amount, locale);
   }
 
   let showOdds = $state(false);
@@ -203,8 +203,8 @@
           <div class="progress-label">
             {t('roulette.cash.progressLabel', locale)
               .replace('{pct}', String(Math.min(Math.floor(progress * 100), 100)))
-              .replace('{done}', formatNumber(completedSpins))
-              .replace('{total}', formatNumber(totalSpins))}
+              .replace('{done}', formatNumber(completedSpins, locale))
+              .replace('{total}', formatNumber(totalSpins, locale))}
           </div>
         </div>
       {/if}
@@ -233,35 +233,35 @@
             </div>
             <div class="metric-body">
               <span class="label">{t('roulette.cash.statSpins', locale)}</span>
-              <strong>{formatNumber(result.spins)}</strong>
+              <strong>{formatNumber(result.spins, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
             <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
               <span class="label">{t('roulette.cash.statGoldSpent', locale)}</span>
-              <strong>{formatNumber(result.goldSpent)}</strong>
+              <strong>{formatNumber(result.goldSpent, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
             <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
               <span class="label">{t('roulette.cash.statGoldWon', locale)}</span>
-              <strong>{formatNumber(result.goldWon)}</strong>
+              <strong>{formatNumber(result.goldWon, locale)}</strong>
             </div>
           </div>
           <div class="stat-card currency">
             <img class="stat-icon" src={textureUrl(silverIcon)} alt={t('roulette.cash.silverIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
               <span class="label">{t('roulette.cash.statSilverWon', locale)}</span>
-              <strong>{formatNumber(result.silverWon)}</strong>
+              <strong>{formatNumber(result.silverWon, locale)}</strong>
             </div>
           </div>
           <div class={`stat-card currency net ${result.netGold >= 0 ? 'positive' : 'negative'}`}>
             <img class="stat-icon" src={textureUrl(goldIcon)} alt={t('roulette.cash.goldIconAlt', locale)} loading="lazy" />
             <div class="stat-body">
               <span class="label">{t('roulette.cash.statNetResult', locale)}</span>
-              <strong>{result.netGold >= 0 ? '+' : ''}{formatNumber(result.netGold)}</strong>
+              <strong>{result.netGold >= 0 ? '+' : ''}{formatNumber(result.netGold, locale)}</strong>
             </div>
           </div>
         </section>
@@ -281,7 +281,7 @@
                     <img class="reward-icon" src={textureUrl(entry.icon)} alt={entry.label} loading="lazy" />
                     <span>{entry.label}</span>
                   </span>
-                  <span>x{formatNumber(entry.count)}</span>
+                  <span>x{formatNumber(entry.count, locale)}</span>
                   <span>{formatAmountWithUnit(entry.totalAmount, entry.reward.type)}</span>
                 </div>
               {/each}
