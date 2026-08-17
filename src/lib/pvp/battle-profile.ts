@@ -138,7 +138,15 @@ interface OrbEffects {
   atk2Pct: number
   speedPct: number
   critPct: number
-  abilityBonus: { kind: AbilityKind; pct: number } | null
+  // Раньше был единственным nullable-полем, которое последняя сфера в
+  // порядке перебора молча перезаписывала - обычная сфера абилки
+  // (orb_basic_<kind>) и особая сфера той же абилки (orb_special_add<kind>)
+  // считались как ОДНА сфера вместо суммы (баг найден 2026-08-17 по
+  // репорту юзера "обычные сферы... не дают никаких прибавок"). Теперь
+  // Map накапливает % по каждому kind отдельно - обе сферы одного kind
+  // складываются, разных kind (родная способность + спец-сфера) остаются
+  // раздельными записями.
+  abilityBonuses: Map<AbilityKind, number>
 }
 
 const ORB_MAP: Map<string, RawOrb> = new Map(
@@ -162,10 +170,17 @@ function abilityKindFromCode(code: string): AbilityKind | null {
   return null
 }
 
+/** Эффект одной сферы - отдельный тип от агрегата OrbEffects, т.к. на уровне
+ *  одной сферы abilityBonus всегда ровно ОДНА пара {kind,pct} (не Map), Map
+ *  нужна только на уровне суммы по всем экипированным сферам. */
+interface SingleOrbEffect extends Partial<Omit<OrbEffects, 'abilityBonuses'>> {
+  abilityBonus?: { kind: AbilityKind; pct: number }
+}
+
 /** Эффекты одной сферы. Дублирует orbEffectsFromId, + добавляет отсутствующую в
  *  StatsCalculator.svelte crit-ветку (crit-орбы там каталогизируются, но ни на что
  *  не влияют - известный пробел, см. план). */
-function orbEffects(orb: RawOrb | undefined): Partial<OrbEffects> {
+function orbEffects(orb: RawOrb | undefined): SingleOrbEffect {
   if (!orb) return {}
   const id = String(orb.id || '').toLowerCase()
   const pct = Number(orb.percent ?? orb.pct ?? 0)
@@ -195,7 +210,7 @@ function collectOrbModifiers(orbs: OrbSelection | undefined): OrbEffects {
     atk2Pct: 0,
     speedPct: 0,
     critPct: 0,
-    abilityBonus: null,
+    abilityBonuses: new Map<AbilityKind, number>(),
   }
   if (!orbs) return mods
   const ids = [...(orbs.basicOrbIds || []), orbs.specialOrbId].filter((id): id is string =>
@@ -208,7 +223,10 @@ function collectOrbModifiers(orbs: OrbSelection | undefined): OrbEffects {
     if (effects.atk2Pct) mods.atk2Pct += effects.atk2Pct
     if (effects.speedPct) mods.speedPct += effects.speedPct
     if (effects.critPct) mods.critPct += effects.critPct
-    if (effects.abilityBonus) mods.abilityBonus = effects.abilityBonus // спец-слот один, перезаписывать некому
+    if (effects.abilityBonus) {
+      const { kind, pct } = effects.abilityBonus
+      mods.abilityBonuses.set(kind, (mods.abilityBonuses.get(kind) ?? 0) + pct)
+    }
   }
   return mods
 }
@@ -279,6 +297,13 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
   // доходит - UI-пикер такой выбор не даёт сделать (см. TeamBuilder), а orbs.json
   // подтверждает, что все именные спец-сферы это ровно orb_special_add<kind> без
   // отдельного "усиливающего" варианта.
+  //
+  // Обычная сфера абилки (orb_basic_<kind>) - другое дело: пикер ЯВНО разрешает
+  // её выбрать вместе с родной способностью того же kind ИЛИ вместе со спец-сферой
+  // того же kind (basicOrbOptionsForMutant), поэтому её % должен СКЛАДЫВАТЬСЯ с
+  // родной/спец-способностью того же kind, а не отбрасываться - раньше отбрасывался
+  // (см. abilityBonuses в collectOrbModifiers), баг найден по репорту юзера
+  // "обычные сферы... не дают никаких прибавок, если ставишь особый и обычный усил".
   const abilityEntries: { name: string; pct: number }[] = Array.isArray(mutant.abilities)
     ? mutant.abilities
     : []
@@ -290,10 +315,13 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
         ? abilityEntries.find((a) => a.name.endsWith('_plus'))!
         : abilityEntries.find((a) => !a.name.endsWith('_plus')) || abilityEntries[0]
     ownKind = abilityKindFromCode(own.name)
-    if (ownKind) abilities.push({ kind: ownKind, pct: Math.abs(own.pct) })
+    if (ownKind) {
+      const orbBonus = mods.abilityBonuses.get(ownKind) ?? 0
+      abilities.push({ kind: ownKind, pct: Math.abs(own.pct) + orbBonus })
+    }
   }
-  if (mods.abilityBonus && mods.abilityBonus.kind !== ownKind) {
-    abilities.push({ kind: mods.abilityBonus.kind, pct: mods.abilityBonus.pct })
+  for (const [kind, pct] of mods.abilityBonuses) {
+    if (kind !== ownKind) abilities.push({ kind, pct })
   }
 
   const ownGene = normalizeGene(Array.isArray(mutant.genes) ? mutant.genes[0] : undefined)
