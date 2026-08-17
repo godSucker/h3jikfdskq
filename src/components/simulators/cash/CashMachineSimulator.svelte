@@ -29,7 +29,7 @@
   const costPerSpin = machine.cost;
   const rewardChances: RewardChance[] = machine.rewards
     .filter((reward) => reward.odds > 0)
-    .map((reward) => getRewardWithChance(reward, machine))
+    .map((reward) => getRewardWithChance(reward, machine, locale))
     .sort((a, b) => b.chance - a.chance);
 
   let budget = $state(1000);
@@ -116,6 +116,7 @@
         historySize: 12,
         batchSize: 2000,
         signal: controller.signal,
+        locale,
         onProgress(completed) {
           completedSpins = completed;
           progress = completed / spins;

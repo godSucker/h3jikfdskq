@@ -489,6 +489,7 @@
   "roulette.madness.oddsRewardCount": "Rewards: {n}",
   "roulette.madness.oddsMore": "…and {n} more",
   "roulette.cash.unitSilver": "silver",
+  "roulette.cash.unknownReward": "Unknown reward",
   "roulette.madness.resourceConsumables": "Consumables",
   "roulette.madness.resourceStars": "Stars",
   "roulette.madness.resourceSpheres": "Orbs",
