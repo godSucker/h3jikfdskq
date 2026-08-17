@@ -5,7 +5,7 @@
     incentiveRewards,
     incentiveLoopOrder,
     getIncentiveCycleState,
-    translateItemId,
+    getCraftItemLabel,
     describeIngredientRegex,
     getItemTexture,
     simulateRecipe,
@@ -13,7 +13,7 @@
     formatDurationMinutes,
     getBonusRange,
     getFeaturedRewardIds,
-    RECIPE_HEADER_TITLES,
+    getRecipeHeaderTitle,
     type CraftRecipe,
     type DetailedSimulationResult,
   } from '@/lib/craft-simulator';
@@ -83,7 +83,7 @@
   function buildFeaturedItems(recipes: CraftRecipe[], limit = 4): FeaturedItem[] {
     return getFeaturedRewardIds(recipes, limit).map((id) => ({
       id,
-      label: translateItemId(id),
+      label: getCraftItemLabel(id, locale),
       icon: getItemTexture(id),
     }));
   }
@@ -386,7 +386,7 @@
           <option value="">{t('craft.incentive.noneOption', locale)}</option>
           {#each incentiveRewards as incentive, index (index)}
             <option value={incentive.id}>
-              {translateItemId(incentive.id)} — {(incentive.per1000 / 10).toFixed(1)}%
+              {getCraftItemLabel(incentive.id, locale)} — {(incentive.per1000 / 10).toFixed(1)}%
             </option>
           {/each}
         </select>
@@ -395,7 +395,7 @@
         <div class="incentive-card__stats">
           <div>
             <span class="metric-label">{t('craft.incentive.metric.reward', locale)}</span>
-            <span class="metric-value">{translateItemId(activeIncentive.id)}</span>
+            <span class="metric-value">{getCraftItemLabel(activeIncentive.id, locale)}</span>
           </div>
           <div>
             <span class="metric-label">{t('craft.incentive.metric.chance', locale)}</span>
@@ -432,7 +432,7 @@
                 class:active={i === cycleState.activeIndex}
                 class:selected={i === selectedCycleIndex}
                 onclick={() => pickManualIncentive(entry.id, i)}
-                title={`${translateItemId(entry.id)} — ${(entry.per1000 / 10).toFixed(1)}%, ${formatDurationMinutes(entry.duration, locale)}`}
+                title={`${getCraftItemLabel(entry.id, locale)} — ${(entry.per1000 / 10).toFixed(1)}%, ${formatDurationMinutes(entry.duration, locale)}`}
               >
                 {#if i === cycleState.activeIndex}
                   <span class="incentive-cycle__now">{t('craft.incentive.now', locale)}</span>
@@ -442,7 +442,7 @@
                 {#if getItemTexture(entry.id)}
                   <img src={textureUrl(getItemTexture(entry.id) ?? '')} alt="" loading="lazy" />
                 {/if}
-                <span class="incentive-cycle__slot-name">{translateItemId(entry.id)}</span>
+                <span class="incentive-cycle__slot-name">{getCraftItemLabel(entry.id, locale)}</span>
                 <span class="incentive-cycle__slot-meta">{(entry.per1000 / 10).toFixed(1)}% · {formatDurationMinutes(entry.duration, locale)}</span>
               </button>
             {/each}
@@ -521,7 +521,7 @@
                   {@const displayReward = recipe.rewards[0]}
                   <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                   {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                  {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                  {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                   {@const rewardIcon = isSpecialRecipe ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null)}
                   <button
                     type="button"
@@ -548,7 +548,7 @@
                   {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
                   {@const isMovedRecipe = RECIPES_TO_MOVE.has(recipe.id)}
                   {@const useRecipeIdLabel = isSpecialRecipe || isMovedRecipe}
-                  {@const baseLabel = useRecipeIdLabel ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                  {@const baseLabel = useRecipeIdLabel ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                   {@const totalIngredients = recipe.ingredients.reduce(
                     (sum, ing) => sum + ing.amount,
                     0,
@@ -562,7 +562,7 @@
                     : skipMultiplier
                       ? baseLabel
                       : useRecipeIdLabel
-                        ? `${translateItemId(recipe.id)} ×${totalIngredients}`
+                        ? `${getCraftItemLabel(recipe.id, locale)} ×${totalIngredients}`
                         : `${baseLabel} ×${totalIngredients}`}
                   {@const rewardIcon = isPotPourriRecipe ? textureUrl('/med/normal_med.webp') : (useRecipeIdLabel ? getItemTexture(recipe.id) : (displayReward ? getItemTexture(displayReward.id) : null))}
                   <button
@@ -628,7 +628,7 @@
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                    {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
@@ -662,7 +662,7 @@
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                    {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
@@ -696,7 +696,7 @@
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                    {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
@@ -730,7 +730,7 @@
                     {@const displayReward = recipe.rewards[0]}
                     <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
                     {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-                    {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+                    {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
                     {@const totalIngredients = recipe.ingredients.reduce(
                       (sum, ing) => sum + ing.amount,
                       0,
@@ -767,7 +767,7 @@
               {@const displayReward = recipe.rewards[0]}
               <!-- For specific recipe IDs, use the recipe ID for translation instead of the first reward -->
               {@const isSpecialRecipe = recipe.id === 'orb_basic_1' || recipe.id === 'orb_basic_2' || recipe.id === 'orb_basic_3' || recipe.id === 'orb_basic_4' || recipe.id === 'orb_special_1' || recipe.id === 'orb_special_2' || recipe.id === 'orb_special_3' || recipe.id === 'orb_reroll_basic_1' || recipe.id === 'orb_reroll_special_1' || recipe.id === 'orb_reroll_basic_2' || recipe.id === 'orb_reroll_special_2' || recipe.id === 'orb_reroll_basic_3' || recipe.id === 'orb_reroll_special_3'}
-              {@const baseLabel = isSpecialRecipe ? translateItemId(recipe.id) : (displayReward ? translateItemId(displayReward.id) : t('craft.recipe.fallback', locale))}
+              {@const baseLabel = isSpecialRecipe ? getCraftItemLabel(recipe.id, locale) : (displayReward ? getCraftItemLabel(displayReward.id, locale) : t('craft.recipe.fallback', locale))}
               {@const totalIngredients = recipe.ingredients.reduce(
                 (sum, ing) => sum + ing.amount,
                 0,
@@ -801,7 +801,7 @@
               <div>
                 <h3>
                   {currentRecipe.rewards.length
-                    ? (RECIPE_HEADER_TITLES[currentRecipe.id] ?? translateItemId(currentRecipe.id))
+                    ? getRecipeHeaderTitle(currentRecipe.id, locale)
                     : t('craft.recipe.fallback', locale)}
                 </h3>
                 <p class="recipe-card__subtitle">
@@ -831,7 +831,7 @@
                 <h4>{t('craft.section.ingredients', locale)}</h4>
                 <ul class="ingredient-list">
                   {#each currentRecipe.ingredients as ingredient, index (ingredient.regex + index)}
-                    {@const label = describeIngredientRegex(ingredient.regex)}
+                    {@const label = describeIngredientRegex(ingredient.regex, locale)}
                     {@const icon = getItemTexture(ingredient.regex)}
                     <li>
                       <div class="item-icon">
@@ -856,7 +856,7 @@
                 <div class="rewards-scroll">
                   <ul class="reward-list">
                     {#each rewardDisplay as reward, index (index)}
-                      {@const label = translateItemId(reward.id)}
+                      {@const label = getCraftItemLabel(reward.id, locale)}
                       {@const icon = getItemTexture(reward.id)}
                       <li>
                         <div class="item-icon">
@@ -926,7 +926,7 @@
                     {#if rewardDetails.length > 0}
                       <ul>
                         {#each rewardDetails as detail (detail.id)}
-                          {@const label = translateItemId(detail.id)}
+                          {@const label = getCraftItemLabel(detail.id, locale)}
                           {@const icon = getItemTexture(detail.id)}
                           <li>
                             <div class="item-icon">
@@ -964,7 +964,7 @@
                     {#if incentiveDetails.length > 0}
                       <ul>
                         {#each incentiveDetails as detail (detail.id)}
-                          {@const label = translateItemId(detail.id)}
+                          {@const label = getCraftItemLabel(detail.id, locale)}
                           {@const icon = getItemTexture(detail.id)}
                           <li>
                             <div class="item-icon">

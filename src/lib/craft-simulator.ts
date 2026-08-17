@@ -12,8 +12,28 @@ import orbRaw from '@/data/simulators/CRAFT/orb.txt?raw'
 import starRaw from '@/data/simulators/CRAFT/star.txt?raw'
 import incentiveRaw from '@/data/simulators/CRAFT/incentreward.txt?raw'
 import mutantNamesData from '@/data/mutant_names.json'
+import craftI18nRaw from '@/data/simulators/craft-i18n.json'
 import { textureUrl } from '@/lib/texture-cdn'
 import type { Locale } from '@/lib/i18n'
+
+type CraftI18nDict = Partial<Record<string, Partial<Record<Locale, string>>>>
+const craftI18n = craftI18nRaw as {
+  items: CraftI18nDict
+  headers: CraftI18nDict
+  regex: CraftI18nDict
+}
+
+const CRAFT_LEVEL_WORD: Record<Locale, string> = {
+  ru: 'ур.',
+  en: 'Lv.',
+  es: 'Nv.',
+  fr: 'Niv.',
+  de: 'Stufe ',
+  pt: 'Nv.',
+  it: 'Liv.',
+  tr: 'Sv.',
+  nl: 'Niv.',
+}
 
 export type CraftCategory = 'blackhole' | 'lab' | 'orb' | 'star'
 
@@ -525,6 +545,50 @@ export function translateItemId(itemId: string): string {
   return readable.charAt(0).toUpperCase() + readable.slice(1)
 }
 
+// translateItemId() выше - RU-only (ITEM_TRANSLATIONS + mutantNamesData),
+// без единого параметра locale - craft-simulator рендерил русские названия
+// на всех 9 языках (найдено систематическим аудитом 2026-08-17, тот же класс
+// бага, что в cash-machine.ts/madness-machine.ts/lucky-machine.ts).
+// craft-i18n.json (src/data/simulators/craft-i18n.json) покрывает все
+// 222 id, используемых в orb.txt/lab.txt/star.txt/blackhole.txt/
+// incentreward.txt - 120 скопированы из materials-i18n.json (реальные
+// предметы), 58 craft-специфичных (recipe/token_sink id, orb_rankup_*
+// базовые названия без суффикса уровня - суффикс "ур.N"/"Lv.N"
+// добавляется здесь же, как и в translateItemId) переведены вручную.
+// materials-i18n.ts НЕ импортируется отсюда напрямую: CraftSimulator.svelte
+// - client:load, а materials-i18n.ts тянет 255KB словарь в клиентский бандл
+// (тот же класс регрессии, что 2.2MB в madness, см. d0390955b) - craft-i18n.json
+// самодостаточен именно поэтому.
+export function getCraftItemLabel(itemId: string, locale: Locale = 'ru'): string {
+  const ru = translateItemId(itemId)
+  if (locale === 'ru') return ru
+
+  const items = craftI18n.items
+  const direct = items[itemId]?.[locale]
+  if (direct) return direct
+
+  for (const baseId of Object.keys(items)) {
+    if (itemId.startsWith(`${baseId}_`)) {
+      const suffix = itemId.slice(baseId.length + 1)
+      const base = items[baseId]?.[locale]
+      if (base && /^\d+$/.test(suffix)) {
+        return `${base} ${CRAFT_LEVEL_WORD[locale]}${Number(suffix)}`
+      }
+    }
+  }
+
+  return ru
+}
+
+export function getRecipeHeaderTitle(recipeId: string, locale: Locale = 'ru'): string {
+  const ru = RECIPE_HEADER_TITLES[recipeId]
+  if (ru) {
+    if (locale === 'ru') return ru
+    return craftI18n.headers[recipeId]?.[locale] ?? ru
+  }
+  return getCraftItemLabel(recipeId, locale)
+}
+
 export function getItemTexture(itemId: string): string | null {
   const raw = getRawTexture(itemId)
   return raw ? textureUrl(raw) : null
@@ -601,9 +665,23 @@ function getRawTexture(itemId: string): string | null {
   return null
 }
 
-export function describeIngredientRegex(regex: string): string {
-  if (COMPLEX_REGEX_DESCRIPTIONS[regex]) {
-    return COMPLEX_REGEX_DESCRIPTIONS[regex]
+const CRAFT_OR_WORD: Record<Locale, string> = {
+  ru: 'или',
+  en: 'or',
+  es: 'o',
+  fr: 'ou',
+  de: 'oder',
+  pt: 'ou',
+  it: 'o',
+  tr: 'veya',
+  nl: 'of',
+}
+
+export function describeIngredientRegex(regex: string, locale: Locale = 'ru'): string {
+  const complexRu = COMPLEX_REGEX_DESCRIPTIONS[regex]
+  if (complexRu) {
+    if (locale === 'ru') return complexRu
+    return craftI18n.regex[regex]?.[locale] ?? complexRu
   }
 
   if (
@@ -612,7 +690,7 @@ export function describeIngredientRegex(regex: string): string {
     !regex.includes('(') &&
     !regex.includes('.')
   ) {
-    return translateItemId(regex)
+    return getCraftItemLabel(regex, locale)
   }
 
   const parts = regex
@@ -622,8 +700,8 @@ export function describeIngredientRegex(regex: string): string {
 
   if (parts.length > 1) {
     const unique = Array.from(new Set(parts))
-    const translated = unique.map((part) => translateItemId(part))
-    return translated.join(' или ')
+    const translated = unique.map((part) => getCraftItemLabel(part, locale))
+    return translated.join(` ${CRAFT_OR_WORD[locale]} `)
   }
 
   return regex
