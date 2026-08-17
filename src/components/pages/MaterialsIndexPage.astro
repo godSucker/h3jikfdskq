@@ -238,7 +238,7 @@ interface BuildingLevel {
 const buildingsRows = (Array.isArray(buildingsData) ? buildingsData : []).map((b: RawItem & { texture?: string; levels?: BuildingLevel[]; badge?: string }) => ({
   id: String(b?.id || '').trim(),
   name: getItemName(String(b?.id || '').trim(), locale, b?.name || (b?.id || '')),
-  description: b?.description || '',
+  description: getItemDescription(String(b?.id || '').trim(), locale, b?.description || ''),
   texture: b?.texture || `/buildings/${b?.id}.webp`,
   levels: b?.levels,
   badge: b?.badge

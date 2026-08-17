@@ -336,7 +336,9 @@ export function getRewardLabel(
       // тот же паттерн, что уже решён в guides-resolve.ts: размер зоны
       // важнее гена-специфичного названия, generic-фолбэк лучше RU-утечки.
       const match = reward.name.match(/_(\d+)_HC$/)
-      translated = match ? t('guides.reward.luxZone', locale).replace('{n}', String(Number(match[1]) + 1)) : getItemName(reward.name, locale, ru)
+      translated = match
+        ? t('guides.reward.luxZone', locale).replace('{n}', String(Number(match[1]) + 1))
+        : getItemName(reward.name, locale, ru)
     } else {
       translated = getItemName(reward.name, locale, ru)
     }
