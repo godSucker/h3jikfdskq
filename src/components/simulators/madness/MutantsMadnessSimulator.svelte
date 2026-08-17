@@ -229,7 +229,7 @@
   let tokenCostPerSpin = $derived(Math.ceil(machine.tokenCost * multiplier));
 
   let maxResearch = $derived(getMaxResearchForLevel(level));
-  let researchChances = $derived(getResearchChanceBreakdown(level, machine));
+  let researchChances = $derived(getResearchChanceBreakdown(level, machine, locale));
 
   let tokenSpins = $derived(tokenCostPerSpin > 0 ? Math.floor(tokens / tokenCostPerSpin) : 0);
   let goldSpins = $derived(goldCostPerSpin > 0 ? Math.floor(gold / goldCostPerSpin) : 0);
@@ -523,7 +523,7 @@
                   <div class="details">
                     <span class="name">{entry.label}</span>
                     <span class="meta">
-                      {entry.currency === 'token' ? t('roulette.madness.currencyLabelToken', locale) : t('roulette.madness.currencyLabelGold', locale)} · {getResearchLabel(entry.researchKey)}
+                      {entry.currency === 'token' ? t('roulette.madness.currencyLabelToken', locale) : t('roulette.madness.currencyLabelGold', locale)} · {getResearchLabel(entry.researchKey, locale)}
                     </span>
                   </div>
                 </li>

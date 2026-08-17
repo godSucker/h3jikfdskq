@@ -1,4 +1,5 @@
 import rawMachine from '@/data/simulators/mutants_madness/machine.json'
+import { t, type Locale } from '@/lib/i18n'
 
 export type MadnessRewardType = 'entity'
 
@@ -165,14 +166,14 @@ function getResearchKey(reward: MadnessReward): MadnessResearchKey {
   return reward.research
 }
 
-export function getResearchLabel(key: MadnessResearchKey): string {
+export function getResearchLabel(key: MadnessResearchKey, locale: Locale = 'ru'): string {
   if (key === 'jackpot') {
-    return 'Джекпот'
+    return t('roulette.madness.researchJackpot', locale)
   }
   if (key === 'special') {
-    return 'Специальные награды'
+    return t('roulette.madness.researchSpecial', locale)
   }
-  return `Исследование ${key}`
+  return t('roulette.madness.researchTier', locale).replace('{n}', String(key))
 }
 
 export function getRewardLabel(reward: MadnessReward): string {
@@ -230,6 +231,7 @@ export function getRewardChances(
 export function getResearchChanceBreakdown(
   level: number,
   machine: MadnessMachineDefinition = madnessMachine,
+  locale: Locale = 'ru',
 ): MadnessResearchChance[] {
   const rewards = getRewardChances(level, machine)
   const groups = new Map<MadnessResearchKey, MadnessResearchChance>()
@@ -244,7 +246,7 @@ export function getResearchChanceBreakdown(
     } else {
       groups.set(key, {
         key,
-        label: getResearchLabel(key),
+        label: getResearchLabel(key, locale),
         totalOdds: reward.odds,
         chance: 0,
         rewards: [reward],
