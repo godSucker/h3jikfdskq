@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LuckyMachineSimulator from '@/components/simulators/lucky/LuckyMachineSimulator.svelte';
-import { luckyMachine, getRewardWithChance } from '@/lib/lucky-machine';
+import { luckyMachine, getRewardWithChance, formatNumber } from '@/lib/lucky-machine';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { getItemName } from '@/lib/materials-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
 
@@ -12,6 +14,34 @@ const jackpotReward = luckyMachine.rewards.find((reward) => reward.isSuperJackpo
 const freeSpinReward = luckyMachine.rewards.find((reward) => reward.isFreeTry) ?? null;
 const jackpotChance = jackpotReward ? getRewardWithChance(jackpotReward, luckyMachine).chance : 0;
 const freeSpinChance = freeSpinReward ? getRewardWithChance(freeSpinReward, luckyMachine).chance : 0;
+
+// reward.name/CATEGORY_INFO в lucky-machine.ts - RU-only (machine.json не
+// хранит перевод). Резолвим label на билде (не в клиентском компоненте -
+// см. регрессию 2.2MB в madness, d0390955b) через тот же слой словарей,
+// что /guides/materials-i18n, и передаём готовую Record<rewardId,label>
+// пропом - lib и компонент только подставляют её вместо reward.name.
+const { names: mutantNamesFull } = getLocalizedMutantNames(locale);
+function resolveLuckyLabel(reward: (typeof luckyMachine.rewards)[number]): string {
+  if (reward.isSuperJackpot) return t('roulette.madness.researchJackpot', locale);
+  if (reward.isFreeTry) return t('roulette.lucky.freeSpinReward', locale);
+  if (reward.type === 'hardcurrency') {
+    return `${formatNumber(reward.amount)} ${t('roulette.lucky.currencyGold', locale)}`;
+  }
+  if (reward.type === 'softcurrency') {
+    return `${formatNumber(reward.amount)} ${t('roulette.lucky.currencySilver', locale)}`;
+  }
+  if (reward.id?.startsWith('Specimen_')) {
+    return mutantNamesFull[reward.id.toLowerCase()]?.name ?? reward.name;
+  }
+  if (reward.id) {
+    return getItemName(reward.id, locale, reward.name);
+  }
+  return reward.name;
+}
+const rewardLabels: Record<number, string> = {};
+for (const reward of luckyMachine.rewards) {
+  rewardLabels[reward.rewardId] = resolveLuckyLabel(reward);
+}
 ---
 <BaseLayout
   title={t('roulette.lucky.pageTitle', locale)}
@@ -53,7 +83,7 @@ const freeSpinChance = freeSpinReward ? getRewardWithChance(freeSpinReward, luck
     </div>
   </section>
 
-  <LuckyMachineSimulator client:load machine={luckyMachine} locale={locale} />
+  <LuckyMachineSimulator client:load machine={luckyMachine} locale={locale} labels={rewardLabels} />
 </BaseLayout>
 
 <style>

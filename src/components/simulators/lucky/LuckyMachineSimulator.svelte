@@ -14,7 +14,7 @@
   import { tick } from 'svelte';
   import { t, type Locale } from '@/lib/i18n';
 
-  let { machine, locale }: { machine: LuckyMachineDefinition; locale: Locale } = $props();
+  let { machine, locale, labels = {} }: { machine: LuckyMachineDefinition; locale: Locale; labels?: Record<number, string> } = $props();
 
   const rewardChances: LuckyRewardChance[] = machine.rewards
     .filter((reward) => reward.odds > 0)
@@ -111,6 +111,7 @@
         historySize: 24,
         batchSize: 200, // Еще меньше батч для частых обновлений
         signal: controller.signal,
+        labels,
         onProgress(completed) {
           completedPaid = completed;
           const raw = spins > 0 ? completed / spins : 0;
@@ -341,7 +342,7 @@
         <ul class="odds-list">
           {#each rewardChances as r}
             <li>
-              <span class="odds-name"><img class="odds-icon" src={textureUrl(r.icon)} alt="" /><span class="name">{r.name}</span></span>
+              <span class="odds-name"><img class="odds-icon" src={textureUrl(r.icon)} alt="" /><span class="name">{labels[r.rewardId] ?? r.name}</span></span>
               <span class="chance">{(r.chance * 100).toFixed(4)}%</span>
             </li>
           {/each}

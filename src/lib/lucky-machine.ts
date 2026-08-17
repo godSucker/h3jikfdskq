@@ -87,6 +87,7 @@ export interface LuckySimulationOptions {
   batchSize?: number
   onProgress?: (completed: number, total: number) => void
   signal?: AbortSignal
+  labels?: Record<number, string>
 }
 
 interface WeightedReward {
@@ -109,6 +110,7 @@ interface LuckySimulationContext {
   lastHistoryIndex: number
   baseTimestamp: number
   totalSpins: number
+  labels?: Record<number, string>
 }
 
 const CATEGORY_INFO: Record<LuckyRewardCategory, { label: string; icon: string }> = {
@@ -182,6 +184,7 @@ function createSimulationContext(
     lastHistoryIndex: -1,
     baseTimestamp: Date.now(),
     totalSpins: 0,
+    labels: options.labels,
   }
 }
 
@@ -228,7 +231,7 @@ function recordHistory(
   const summary: LuckySpinSummary = {
     type,
     reward,
-    label: reward.name,
+    label: ctx.labels?.[reward.rewardId] ?? reward.name,
     icon: reward.icon,
     timestamp: ctx.baseTimestamp + index,
   }
@@ -246,7 +249,7 @@ function recordReward(ctx: LuckySimulationContext, reward: LuckyReward, index: n
   if (!aggregate) {
     aggregate = {
       reward,
-      label: reward.name,
+      label: ctx.labels?.[reward.rewardId] ?? reward.name,
       count: 0,
       totalAmount: 0,
       icon: reward.icon,
