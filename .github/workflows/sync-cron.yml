@@ -130,6 +130,27 @@ jobs:
         if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
         run: npx tsx scripts/sync-skin-names.ts
 
+      - name: 4.56 Синхронизация переводов материалов (materials-i18n.json)
+        # material.json/charms.json/orbs.json/buildings.json НЕ зависят от
+        # парсера мутантов (статичные, курируются вручную) - без гейта на
+        # steps.parser.outcome. Merge с уже лежащим файлом (не перезапись!) -
+        # сохраняет 67 кураторских LLM-описаний material.json и
+        # Building_Mystery (нет официального ключа), которые скрипт не умеет
+        # генерировать сам. См. комментарий в build-materials-i18n.ts.
+        if: ${{ !cancelled() }}
+        run: npx tsx scripts/build-materials-i18n.ts
+
+      - name: 4.57 Сохранение переводов материалов
+        if: always()
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '🤖 Auto-Sync: переводы материалов'
+          commit_user_name: 'MGG Parser Bot'
+          commit_user_email: 'bot@archivist-library.com'
+          commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
+          branch: main
+          file_pattern: 'src/data/materials/materials-i18n.json'
+
       - name: 4.6 Пересборка топ-листов (toplists.json)
         # Рейтинги /top-mutants и бейджи рангов в MutantModal должны быть в ногу
         # с любым изменением статов/абилок - пересчитываем при каждом успешном

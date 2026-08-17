@@ -61,6 +61,16 @@ jobs:
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
 
+      - name: 6.5 Перевод новых записей obtain.json (obtain-names.{lang}.json)
+        # Идёт СРАЗУ после шага 6 - тот пишет в obtain.json RU-only (детект
+        # ротации обменников), без этого шага новые записи молча копились бы
+        # untranslated до ручного прогона. Полностью регенерирует
+        # obtain-names.{lang}.json из текущего obtain.json - идемпотентно,
+        # никакой ручной курации внутри этих файлов нет (в отличие от
+        # materials-i18n.json).
+        if: always()
+        run: npx tsx scripts/sync-obtain-names.ts
+
       - name: 7. Авто-синк жетонов (gamedefinitions.xml, s-beta) -> material.json
         if: always()
         run: npx tsx scripts/detect-tokens.ts
@@ -110,6 +120,7 @@ jobs:
             public/boxes/**
             public/materials/**
             src/data/mutants/obtain.json
+            src/data/mutants/obtain-names.*.json
             src/data/materials/material.json
             scripts/pending-names-cache.json
             src/data/announcements.json

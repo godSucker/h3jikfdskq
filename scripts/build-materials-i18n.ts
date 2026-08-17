@@ -8,6 +8,21 @@
 // Material: name = id напрямую; description почти никогда не имеет
 // официального ключа (это RU-курация сайта, не игровые данные) - переводится
 // только там, где официальный _tooltip реально существует (11/78).
+//
+// Buildings: site id -> официальный ключ Kobojo не совпадает (см.
+// BUILDING_KEY_MAP), резолвится только name (description зданий - авторский
+// игромеханический текст сайта, официального эквивалента нет).
+// Building_Mystery официального ключа не имеет вообще (кураторское имя
+// "Анализатор тайны", 2026-08-17) - остаётся вне карты, сохраняется через merge.
+//
+// ВАЖНО: результат MERGE-ится с уже лежащим на диске materials-i18n.json, а не
+// перезаписывает его с нуля. Причина: тот же файл вручную дополнен 67
+// кураторскими описаниями material.json (без официального _tooltip, обычным
+// LLM-переводом с разрешения юзера 2026-08-17) - у скрипта нет их источника, и
+// голая перезапись их стирает (было поймано и реверчено 2026-08-17). Merge
+// идёт по каждому id и локали отдельно: свежерезолвленные поля перекрывают
+// старые, всё остальное (buildings без официального ключа, curator-описания)
+// сохраняется как есть.
 // "Эфемерные" (заряд-N) orb-варианты не имеют собственного ключа - составлены
 // из orb_ephemeral_tooltip + attack_only (проверено: description идентичен
 // для всех 30 записей). orb_basic_attack_08/09 не имеют базовой записи вообще
@@ -66,6 +81,35 @@ type NameDescMap = Partial<
   Record<Locale, Partial<Record<string, { name?: string; description?: string }>>>
 >
 
+// site buildings.json id -> официальный ключ Kobojo (найдено вручную
+// 2026-08-17 через сверку RU-названий с localisation_ru.txt).
+// Building_Mystery намеренно отсутствует - нет официального ключа.
+const BUILDING_KEY_MAP: Record<string, string> = {
+  Building_Forge: 'Building_HC_1',
+  Building_Gold_Smelter: 'Building_HC_2',
+  Building_Med_Lab: 'Building_Hospital_1',
+  Building_Evo_Center: 'Building_Tech',
+  Building_Exchange: 'Building_Tokens_Jackpot',
+  Building_Incubator: 'Building_Incubator_1',
+  Building_Trial_Hall: 'Building_Event_1',
+  Building_Breeding_Center: 'Building_Breeding',
+}
+
+function deepMerge(existing: NameDescMap, fresh: NameDescMap): NameDescMap {
+  const merged: NameDescMap = {}
+  for (const locale of LOCALES) {
+    const existingLocale = existing[locale] ?? {}
+    const freshLocale = fresh[locale] ?? {}
+    const ids = new Set([...Object.keys(existingLocale), ...Object.keys(freshLocale)])
+    const mergedLocale: Partial<Record<string, { name?: string; description?: string }>> = {}
+    for (const id of ids) {
+      mergedLocale[id] = { ...existingLocale[id], ...freshLocale[id] }
+    }
+    merged[locale] = mergedLocale
+  }
+  return merged
+}
+
 async function main() {
   const maps = await loadAllLocs()
 
@@ -78,6 +122,9 @@ async function main() {
   const orbs = JSON.parse(
     await fs.readFile(path.join(process.cwd(), 'src/data/materials/orbs.json'), 'utf-8'),
   ) as { id: string; name: string; percent: string; description: string }[]
+  const buildings = JSON.parse(
+    await fs.readFile(path.join(process.cwd(), 'src/data/materials/buildings.json'), 'utf-8'),
+  ) as { id: string; name: string }[]
 
   const out: NameDescMap = {}
   for (const locale of LOCALES) out[locale] = {}
@@ -183,8 +230,28 @@ async function main() {
     }
   }
 
+  // buildings.json: только name, через BUILDING_KEY_MAP (описания - авторский
+  // текст сайта, не игровые данные, официального ключа нет)
+  const unresolvedBuildings: string[] = []
+  for (const b of buildings) {
+    const officialKey = BUILDING_KEY_MAP[b.id]
+    if (!officialKey) continue // Building_Mystery: нет официального ключа, пропускаем
+    let ok = false
+    for (const locale of LOCALES) {
+      const name = lookup(maps[locale], officialKey)
+      if (name !== undefined) {
+        out[locale]![b.id] = { ...out[locale]![b.id], name }
+        ok = true
+      }
+    }
+    if (!ok) unresolvedBuildings.push(b.id)
+  }
+
   const outPath = path.join(process.cwd(), 'src/data/materials/materials-i18n.json')
-  await fs.writeFile(outPath, JSON.stringify(out, null, 2) + '\n', 'utf-8')
+  const existingRaw = await fs.readFile(outPath, 'utf-8').catch(() => null)
+  const existing: NameDescMap = existingRaw ? JSON.parse(existingRaw) : {}
+  const merged = deepMerge(existing, out)
+  await fs.writeFile(outPath, JSON.stringify(merged, null, 2) + '\n', 'utf-8')
 
   console.log('\n=== Отчёт ===')
   console.log(
@@ -217,7 +284,15 @@ async function main() {
     'без имени ни на одном языке:',
     unresolvedOrbs,
   )
-  console.log('Записано в', outPath)
+  console.log(
+    'buildings.json:',
+    Object.keys(BUILDING_KEY_MAP).length,
+    'с официальным ключом;',
+    unresolvedBuildings.length,
+    'не резолвились ни на одном языке:',
+    unresolvedBuildings,
+  )
+  console.log('Записано в', outPath, '(merge с существующим содержимым)')
 }
 
 main().catch((err) => {
