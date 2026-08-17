@@ -4,6 +4,7 @@
   import { getMutantTexturePath, getRewardTexturePath, getRewardLabel, formatCurrencyAmount } from '@/lib/bingo-textures'
   import { getBoxName } from '@/lib/boxes-i18n'
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
+  import { starLabelL } from '@/lib/mutant-dicts'
 
   let {
     locale = 'ru' as Locale,
@@ -63,10 +64,20 @@
     'платина': '/stars/star_platinum.webp',
   }
 
+  const TIER_KEY: Record<string, 'bronze' | 'silver' | 'gold' | 'platinum'> = {
+    'бронза': 'bronze', 'серебро': 'silver', 'золото': 'gold', 'платина': 'platinum',
+  }
+
+  // boxes.json хранит tier как RU-слово ('бронза' и т.п.) - alt/title
+  // рендерили его напрямую без locale (найдено live-прогоном 2026-08-17,
+  // тот же класс бага, что в roulette-симуляторах/materials).
+  function tierLabel(tier: string | null): string {
+    const key = tier ? TIER_KEY[tier] : undefined
+    return key ? starLabelL(key, locale) : (tier ?? '')
+  }
+
   function mutantIcon(m: BoxMutantRef): string {
-    const variant = (m.tier && ['бронза', 'серебро', 'золото', 'платина'].includes(m.tier)
-      ? { 'бронза': 'bronze', 'серебро': 'silver', 'золото': 'gold', 'платина': 'platinum' }[m.tier]
-      : 'normal') as 'normal' | 'bronze' | 'silver' | 'gold' | 'platinum'
+    const variant = (m.tier && TIER_KEY[m.tier]) || 'normal'
     return getMutantTexturePath(m.id, m.skin ?? '_any', variant)
   }
 
@@ -203,7 +214,7 @@
                         </span>
                         <span class="mutant-cell-name">{displayMutantName(m)}</span>
                         {#if m.tier && TIER_ICON[m.tier]}
-                          <img class="tier-icon" src={textureUrl(TIER_ICON[m.tier])} alt={m.tier} title={m.tier} loading="lazy" decoding="async" />
+                          <img class="tier-icon" src={textureUrl(TIER_ICON[m.tier])} alt={tierLabel(m.tier)} title={tierLabel(m.tier)} loading="lazy" decoding="async" />
                         {/if}
                         {#if m.skin}
                           <span class="skin-text" title={t('boxes.skinTitle', locale).replace('{skin}', m.skin)}>{t('boxes.skinLabel', locale).replace('{skin}', m.skin)}</span>
