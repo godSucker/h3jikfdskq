@@ -242,6 +242,8 @@
   "breeding.results.count": "Combinações possíveis de cruzamento:",
   "breeding.results.childAlt": "Resultado do cruzamento",
   "breeding.results.secretTag": "★ Segredo",
+  "breeding.results.copyTag": "CÓPIA",
+  "breeding.results.platinumTag": "PLATINA",
   "breeding.results.empty": "Nenhuma combinação conhecida para esses pais.",
   "breeding.instruction.calc": "Toque em um slot acima para escolher um mutante da Base de DNA (à direita no PC / embaixo no celular).",
   "breeding.reverse.resetBtn": "✕ Redefinir",

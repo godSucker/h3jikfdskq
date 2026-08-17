@@ -242,6 +242,8 @@
   "breeding.results.count": "Combinaisons d'élevage possibles :",
   "breeding.results.childAlt": "Résultat de l'élevage",
   "breeding.results.secretTag": "★ Secret",
+  "breeding.results.copyTag": "COPIE",
+  "breeding.results.platinumTag": "PLATINE",
   "breeding.results.empty": "Aucune combinaison connue pour ces parents.",
   "breeding.instruction.calc": "Appuyez sur un emplacement ci-dessus pour choisir un mutant dans la Base d'ADN (à droite sur PC / en bas sur mobile).",
   "breeding.reverse.resetBtn": "✕ Réinitialiser",

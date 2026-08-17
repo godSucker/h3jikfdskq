@@ -1038,6 +1038,30 @@
     "Material_XP10000": {
       "name": "Jar of Spirit",
       "description": "The creature gains 10000 experience points. An item not added to the game."
+    },
+    "Building_HC_1": {
+      "name": "Gold Forge"
+    },
+    "Building_HC_2": {
+      "name": "Gold Furnace"
+    },
+    "Building_Hospital_1": {
+      "name": "Med Lab"
+    },
+    "Building_Tech": {
+      "name": "Evolution Center"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Exchange office"
+    },
+    "Building_Incubator_1": {
+      "name": "Incubator"
+    },
+    "Building_Event_1": {
+      "name": "Challenge Hall"
+    },
+    "Building_Breeding": {
+      "name": "Breeding Center"
     }
   },
   "es": {
@@ -2079,6 +2103,30 @@
     "Material_XP10000": {
       "name": "Frasco de Alcohol",
       "description": "La criatura gana 10000 puntos de experiencia. Un objeto no añadido al juego."
+    },
+    "Building_HC_1": {
+      "name": "Forja de Oro"
+    },
+    "Building_HC_2": {
+      "name": "Horno de Oro"
+    },
+    "Building_Hospital_1": {
+      "name": "Laboratorio Médico"
+    },
+    "Building_Tech": {
+      "name": "Centro de Evolución"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Oficina de cambio"
+    },
+    "Building_Incubator_1": {
+      "name": "Incubadora"
+    },
+    "Building_Event_1": {
+      "name": "Sala Reto"
+    },
+    "Building_Breeding": {
+      "name": "Hibridador"
     }
   },
   "fr": {
@@ -3120,6 +3168,30 @@
     "Material_XP10000": {
       "name": "Bocal d'Alcool",
       "description": "La créature gagne 10000 points d'expérience. Un objet non ajouté au jeu."
+    },
+    "Building_HC_1": {
+      "name": "Forge d'Or"
+    },
+    "Building_HC_2": {
+      "name": "Haut Fourneau d'Or"
+    },
+    "Building_Hospital_1": {
+      "name": "Labo médical"
+    },
+    "Building_Tech": {
+      "name": "Centre d'évolution"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Bureau de change"
+    },
+    "Building_Incubator_1": {
+      "name": "Incubateur"
+    },
+    "Building_Event_1": {
+      "name": "Challenge Hall"
+    },
+    "Building_Breeding": {
+      "name": "Hybridateur"
     }
   },
   "de": {
@@ -4161,6 +4233,30 @@
     "Material_XP10000": {
       "name": "Spirituosenglas",
       "description": "Die Kreatur erhält 10000 Erfahrungspunkte. Ein Gegenstand, der nicht ins Spiel aufgenommen wurde."
+    },
+    "Building_HC_1": {
+      "name": "Goldschmiede"
+    },
+    "Building_HC_2": {
+      "name": "Gold-Hochofen"
+    },
+    "Building_Hospital_1": {
+      "name": "Medizinlabor"
+    },
+    "Building_Tech": {
+      "name": "Entwicklungszentrum"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Wechselstube"
+    },
+    "Building_Incubator_1": {
+      "name": "Inkubator"
+    },
+    "Building_Event_1": {
+      "name": "Challenge-Saal"
+    },
+    "Building_Breeding": {
+      "name": "Brutzentrum"
     }
   },
   "pt": {
@@ -5199,6 +5295,30 @@
     "Material_XP10000": {
       "name": "Pote de Álcool",
       "description": "A criatura ganha 10000 pontos de experiência. Um item não adicionado ao jogo."
+    },
+    "Building_HC_1": {
+      "name": "Forja de Ouro"
+    },
+    "Building_HC_2": {
+      "name": "Fornalha de Ouro"
+    },
+    "Building_Hospital_1": {
+      "name": "Laboratório Médico"
+    },
+    "Building_Tech": {
+      "name": "Centro de Evolução"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Agência de câmbio"
+    },
+    "Building_Incubator_1": {
+      "name": "Incubadora"
+    },
+    "Building_Event_1": {
+      "name": "Challenge Hall"
+    },
+    "Building_Breeding": {
+      "name": "Centro de Reprodução"
     }
   },
   "it": {
@@ -6240,6 +6360,30 @@
     "Material_XP10000": {
       "name": "Barattolo di Alcol",
       "description": "La creatura ottiene 10000 punti esperienza. Un oggetto non aggiunto al gioco."
+    },
+    "Building_HC_1": {
+      "name": "Fucina d’Oro"
+    },
+    "Building_HC_2": {
+      "name": "Fornace d’Oro"
+    },
+    "Building_Hospital_1": {
+      "name": "Lab. medico"
+    },
+    "Building_Tech": {
+      "name": "Centro Evoluzione"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Ufficio cambi"
+    },
+    "Building_Incubator_1": {
+      "name": "Incubatrice"
+    },
+    "Building_Event_1": {
+      "name": "Atrio delle sfide"
+    },
+    "Building_Breeding": {
+      "name": "Ibridatore"
     }
   },
   "tr": {
@@ -7281,6 +7425,30 @@
     "Material_XP10000": {
       "name": "Alkol Kavanozu",
       "description": "Yaratık 10000 deneyim puanı kazanır. Oyuna eklenmemiş bir öğe."
+    },
+    "Building_HC_1": {
+      "name": "Altın Demirhane"
+    },
+    "Building_HC_2": {
+      "name": "Altın Ocak"
+    },
+    "Building_Hospital_1": {
+      "name": "Sağlık Laboratuvarı"
+    },
+    "Building_Tech": {
+      "name": "Evrim Merkezi"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Döviz bürosu"
+    },
+    "Building_Incubator_1": {
+      "name": "Kuluçka Makinesi"
+    },
+    "Building_Event_1": {
+      "name": "Meydan Okuma Salonu"
+    },
+    "Building_Breeding": {
+      "name": "Üreme Merkezi"
     }
   },
   "nl": {
@@ -8322,6 +8490,30 @@
     "Material_XP10000": {
       "name": "Pot Alcohol",
       "description": "Het wezen krijgt 10000 ervaringspunten. Een item dat niet aan het spel is toegevoegd."
+    },
+    "Building_HC_1": {
+      "name": "Gouden Smidse"
+    },
+    "Building_HC_2": {
+      "name": "Gouden Oven"
+    },
+    "Building_Hospital_1": {
+      "name": "Medisch lab"
+    },
+    "Building_Tech": {
+      "name": "Evolutiecentrum"
+    },
+    "Building_Tokens_Jackpot": {
+      "name": "Wisselkantoor"
+    },
+    "Building_Incubator_1": {
+      "name": "Kweekkamer"
+    },
+    "Building_Event_1": {
+      "name": "Challenge Hall"
+    },
+    "Building_Breeding": {
+      "name": "Kweekplaats"
     }
   }
 }

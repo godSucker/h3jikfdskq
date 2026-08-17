@@ -95,6 +95,15 @@
     return g.toUpperCase();
   }
 
+  // getBreedingTag()/платиновый фьюжн (breeding.ts, LOCKED-секция) отдают
+  // тег как RU-литерал ('КОПИЯ'/'ПЛАТИНА') - переводим только на слое
+  // отображения, саму логику не трогаем.
+  function breedingTagLabel(tag: string): string {
+    if (tag === 'КОПИЯ') return t('breeding.results.copyTag', locale);
+    if (tag === 'ПЛАТИНА') return t('breeding.results.platinumTag', locale);
+    return tag;
+  }
+
   function formatProb(prob: number): string {
     if (prob >= 100) return '100%';
     if (prob >= 10) return `${prob.toFixed(1)}%`;
@@ -585,7 +594,7 @@
                                                     <span class="secret-tag">{t('breeding.results.secretTag', locale)}</span>
                                                 {/if}
                                                 {#if res.tag && res.tag !== 'ВОЗМОЖНО' && res.tag !== 'РЕЦЕПТ'}
-                                                    <span class="info-tag">{res.tag}</span>
+                                                    <span class="info-tag">{breedingTagLabel(res.tag)}</span>
                                                 {/if}
                                             </div>
                                         </div>

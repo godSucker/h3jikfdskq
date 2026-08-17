@@ -242,6 +242,8 @@
   "breeding.results.count": "Possible breeding outcomes:",
   "breeding.results.childAlt": "Breeding result",
   "breeding.results.secretTag": "★ Secret",
+  "breeding.results.copyTag": "COPY",
+  "breeding.results.platinumTag": "PLATINUM",
   "breeding.results.empty": "No known combinations for these parents.",
   "breeding.instruction.calc": "Tap a slot above to pick a mutant from the DNA Base (right on desktop / bottom on mobile).",
   "breeding.reverse.resetBtn": "✕ Reset",

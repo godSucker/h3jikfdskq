@@ -242,6 +242,8 @@
   "breeding.results.count": "Mögliche Zuchtergebnisse:",
   "breeding.results.childAlt": "Zuchtergebnis",
   "breeding.results.secretTag": "★ Geheim",
+  "breeding.results.copyTag": "KOPIE",
+  "breeding.results.platinumTag": "PLATIN",
   "breeding.results.empty": "Keine bekannten Kombinationen für diese Eltern.",
   "breeding.instruction.calc": "Tippe oben auf einen Slot, um einen Mutanten aus der DNA-Basis auszuwählen (rechts am PC / unten auf Mobilgeräten).",
   "breeding.reverse.resetBtn": "✕ Zurücksetzen",

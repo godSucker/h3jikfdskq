@@ -231,7 +231,11 @@ async function main() {
   }
 
   // buildings.json: только name, через BUILDING_KEY_MAP (описания - авторский
-  // текст сайта, не игровые данные, официального ключа нет)
+  // текст сайта, не игровые данные, официального ключа нет).
+  // Пишем ОБА ключа - site id (b.id, используется /materials/buildings) И
+  // сырой Kobojo-ключ (officialKey) - reward-данные /guides ссылаются на
+  // здания напрямую по Kobojo id (напр. Building_Hospital_1), не по site id
+  // (Building_Med_Lab), см. guides-resolve.ts::resolveReward.
   const unresolvedBuildings: string[] = []
   for (const b of buildings) {
     const officialKey = BUILDING_KEY_MAP[b.id]
@@ -241,6 +245,7 @@ async function main() {
       const name = lookup(maps[locale], officialKey)
       if (name !== undefined) {
         out[locale]![b.id] = { ...out[locale]![b.id], name }
+        out[locale]![officialKey] = { ...out[locale]![officialKey], name }
         ok = true
       }
     }

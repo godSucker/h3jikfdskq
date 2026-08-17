@@ -242,6 +242,8 @@
   "breeding.results.count": "Mogelijke fokresultaten:",
   "breeding.results.childAlt": "Fokresultaat",
   "breeding.results.secretTag": "★ Geheim",
+  "breeding.results.copyTag": "KOPIE",
+  "breeding.results.platinumTag": "PLATINA",
   "breeding.results.empty": "Geen bekende combinaties voor deze ouders.",
   "breeding.instruction.calc": "Tik op een slot hierboven om een mutant te kiezen uit de DNA-basis (rechts op pc / onderaan op mobiel).",
   "breeding.reverse.resetBtn": "✕ Resetten",

@@ -180,11 +180,16 @@ export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): 
     if (reward.id.startsWith('Habitat_') || reward.id.startsWith('Building_')) {
       const match = reward.id.match(/_(\d+)_HC$/)
       const size = match ? Number(match[1]) + 1 : null
+      // ctx.translateItemId - locale-aware (materials-i18n.ts, покрывает
+      // building.json id вида Building_Hospital_1 напрямую, см. BUILDING_KEY_MAP
+      // в build-materials-i18n.ts) - предпочтительнее голого prettifyId,
+      // который раньше молча срабатывал для не-_HC-suffix зданий на всех
+      // не-RU языках (баг, пойман на аудите 2026-08-17).
       const label =
         ctx.getLocalisedName(reward.id) ??
         (size
           ? tr('guides.reward.luxZone', 'Люкс-зона x{n}', { n: String(size) })
-          : prettifyId(reward.id))
+          : ctx.translateItemId(reward.id))
       return { label, icon: null }
     }
     const ephemeralMatch = reward.id.match(/^(.+)_ephemeral_(\d+)$/)

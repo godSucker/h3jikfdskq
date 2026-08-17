@@ -244,6 +244,8 @@
   "breeding.results.count": "Возможные варианты разведения:",
   "breeding.results.childAlt": "Результат скрещивания",
   "breeding.results.secretTag": "★ Секрет",
+  "breeding.results.copyTag": "КОПИЯ",
+  "breeding.results.platinumTag": "ПЛАТИНА",
   "breeding.results.empty": "Нет известных комбинаций для этих родителей.",
   "breeding.instruction.calc": "Нажмите на слот выше, чтобы выбрать мутанта из Базы ДНК (справа на ПК / снизу на моб.)",
   "breeding.reverse.resetBtn": "✕ Сбросить",

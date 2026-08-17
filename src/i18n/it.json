@@ -242,6 +242,8 @@
   "breeding.results.count": "Combinazioni di riproduzione possibili:",
   "breeding.results.childAlt": "Risultato della riproduzione",
   "breeding.results.secretTag": "★ Segreto",
+  "breeding.results.copyTag": "COPIA",
+  "breeding.results.platinumTag": "PLATINO",
   "breeding.results.empty": "Nessuna combinazione nota per questi genitori.",
   "breeding.instruction.calc": "Tocca uno slot sopra per scegliere un mutante dalla Base del DNA (a destra su PC / in basso su mobile).",
   "breeding.reverse.resetBtn": "✕ Reimposta",

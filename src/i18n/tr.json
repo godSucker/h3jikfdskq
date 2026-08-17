@@ -242,6 +242,8 @@
   "breeding.results.count": "Olası üreme sonuçları:",
   "breeding.results.childAlt": "Üreme sonucu",
   "breeding.results.secretTag": "★ Gizli",
+  "breeding.results.copyTag": "KOPYA",
+  "breeding.results.platinumTag": "PLATİN",
   "breeding.results.empty": "Bu ebeveynler için bilinen kombinasyon yok.",
   "breeding.instruction.calc": "Yukarıdaki bir yuvaya dokunarak DNA Tabanı'ndan bir mutant seçin (PC'de sağda / mobilde altta).",
   "breeding.reverse.resetBtn": "✕ Sıfırla",
