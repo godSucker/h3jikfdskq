@@ -32,9 +32,10 @@ export const STRENGTHEN_STACK_MAX = 2
 
 export interface CombatAbility {
   kind: AbilityKind
-  /** Сырой % способности из данных мутанта - магнитуда всегда считается от
-   *  ФАКТИЧЕСКОГО урона конкретного удара (damageGiven/damageTaken), не от
-   *  этого поля напрямую - см. abilities.ts. */
+  /** Сырой % способности из данных мутанта - магнитуда для shield/regen/slash/
+   *  strengthen/weaken считается от ФАКТИЧЕСКОГО урона конкретного удара
+   *  (damageGiven/damageTaken), не от этого поля напрямую; retaliate - исключение,
+   *  считается от собственной атаки владельца (defender.atk1×pct) - см. abilities.ts. */
   pct: number
 }
 
