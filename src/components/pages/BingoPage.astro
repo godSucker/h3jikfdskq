@@ -336,7 +336,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                             })}
 
                             {hasLineRewards && (
-                              <div class="grid-cell reward-cell row-reward" title={getRewardLabel(rowRewards[r], locale)}>
+                              <div class="grid-cell reward-cell row-reward" title={getRewardLabel(rowRewards[r], locale, names)}>
                                 <div class="reward-content">
                                   <img src={textureUrl(getRewardTexturePath(rowRewards[r]))} alt="" class="reward-img" />
                                   <span class="reward-val">x{rowRewards[r].amount}</span>
@@ -350,7 +350,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                           <>
                             {hasHeaders && <div class="grid-cell empty"></div>}
                             {colRewards.map((reward) => (
-                              <div class="grid-cell reward-cell col-reward" title={getRewardLabel(reward, locale)}>
+                              <div class="grid-cell reward-cell col-reward" title={getRewardLabel(reward, locale, names)}>
                                 <div class="reward-content">
                                   <img src={textureUrl(getRewardTexturePath(reward))} alt="" class="reward-img" />
                                   <span class="reward-val">x{reward.amount}</span>
@@ -358,7 +358,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                               </div>
                             ))}
                             {completionReward && (
-                              <div class="grid-cell reward-cell completion-cell" title={getRewardLabel(completionReward, locale)}>
+                              <div class="grid-cell reward-cell completion-cell" title={getRewardLabel(completionReward, locale, names)}>
                                 <div class="reward-content">
                                   <img src={textureUrl(getRewardTexturePath(completionReward))} alt="" class="reward-img" />
                                   <span class="reward-val main">x{completionReward.amount}</span>
@@ -378,7 +378,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                            {(hasLineRewards ? otherRewards : bingo.rewards).map((reward) => (
                               <div class="reward-card-simple">
                                  <img src={textureUrl(getRewardTexturePath(reward))} alt="" />
-                                 <span>{getRewardLabel(reward, locale)}</span>
+                                 <span>{getRewardLabel(reward, locale, names)}</span>
                               </div>
                            ))}
                          </div>

@@ -182,7 +182,7 @@
                     {#if getRewardTexturePath(reward)}
                       <img src={textureUrl(getRewardTexturePath(reward))} alt="" loading="lazy" decoding="async" />
                     {/if}
-                    {getRewardLabel(reward, locale)}
+                    {getRewardLabel(reward, locale, names)}
                   </span>
                 {/each}
                 {#each o.mutants as m (m.id)}
@@ -226,7 +226,7 @@
                         {#if getRewardTexturePath(reward)}
                           <img src={textureUrl(getRewardTexturePath(reward))} alt="" loading="lazy" decoding="async" />
                         {/if}
-                        <span class="mutant-cell-name">{getRewardLabel(reward, locale)}</span>
+                        <span class="mutant-cell-name">{getRewardLabel(reward, locale, names)}</span>
                       </span>
                     {/each}
                   </div>

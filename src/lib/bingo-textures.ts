@@ -2,7 +2,8 @@ import { getItemTexture, translateItemId } from './craft-simulator'
 import { getMutantTexture, getSkinTexture } from './mutant-textures'
 import { normalizeSearch } from '@/lib/search-normalize'
 import { getItemName } from '@/lib/materials-i18n'
-import type { Locale } from '@/lib/i18n'
+import { t, type Locale } from '@/lib/i18n'
+import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
 import { normalizeMutantId } from '@/lib/utils'
 
@@ -312,6 +313,7 @@ export function getRewardLabel(
     amount?: number
   },
   locale: Locale = 'ru',
+  names?: Record<string, MutantNameEntry>,
 ): string {
   if (reward.type === 'hardcurrency' || reward.type === 'softcurrency') {
     return formatCurrencyAmount(reward.amount ?? 0, reward.type, locale)
@@ -320,9 +322,25 @@ export function getRewardLabel(
   // Для entity используем перевод из craft-simulator (RU-only), прогнанный
   // через materials-i18n для не-RU локалей - тот же баг и фикс, что был
   // в /guides (translateItemId игнорировал locale), см. память
-  // i18n-known-coverage-gaps.md раздел /bingo.
+  // i18n-known-coverage-gaps.md раздел /bingo. Specimen_* id - отдельный
+  // случай: materials-i18n не покрывает мутантов вообще, поэтому падал
+  // молча на RU-имя (найдено live-прогоном "тесты везде" 2026-08-17,
+  // completion-reward мутант на /bingo был русским на всех не-RU языках).
   const ru = translateItemId(reward.name)
-  const translated = locale === 'ru' ? ru : getItemName(reward.name, locale, ru)
+  let translated = ru
+  if (locale !== 'ru') {
+    if (reward.name.startsWith('Specimen_')) {
+      translated = names?.[reward.name.toLowerCase()]?.name ?? ru
+    } else if (reward.name.startsWith('Habitat_') || reward.name.startsWith('Building_')) {
+      // Habitat_*_HC/Building_*_HC (люкс-зоны) не покрыты materials-i18n -
+      // тот же паттерн, что уже решён в guides-resolve.ts: размер зоны
+      // важнее гена-специфичного названия, generic-фолбэк лучше RU-утечки.
+      const match = reward.name.match(/_(\d+)_HC$/)
+      translated = match ? t('guides.reward.luxZone', locale).replace('{n}', String(Number(match[1]) + 1)) : getItemName(reward.name, locale, ru)
+    } else {
+      translated = getItemName(reward.name, locale, ru)
+    }
+  }
   if (reward.amount && reward.amount > 1) {
     return `${translated} ×${reward.amount}`
   }
