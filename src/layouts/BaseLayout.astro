@@ -216,29 +216,84 @@ const structuredData = [
         transform: translateX(-2px);
       }
       
-      /* Языковой переключатель (i18n-пилот, Батч 11) */
-      .lang-switcher {
-        display: flex;
-        gap: 2px;
+      /* Языковой дропдаун (i18n-пилот Батч 11, кастомный дропдаун 2026-08-17 -
+         раньше 9 плоских ссылок съедали слишком много места в шапке). */
+      .lang-dropdown {
+        position: relative;
         flex-shrink: 0;
       }
 
-      .lang-switcher a {
+      .lang-trigger {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
         color: #8b949e;
-        text-decoration: none;
+        background: rgba(88, 166, 255, 0.08);
+        border: 1px solid rgba(48, 54, 61, 0.6);
         font-size: 0.72rem;
         font-weight: 700;
-        padding: 0.35rem 0.45rem;
+        padding: 0.35rem 0.55rem;
         border-radius: 6px;
+        cursor: pointer;
         transition: all 0.2s;
       }
 
-      .lang-switcher a:hover {
+      .lang-trigger:hover,
+      .lang-dropdown.open .lang-trigger {
+        background-color: rgba(88, 166, 255, 0.15);
+        color: #79c0ff;
+        border-color: rgba(88, 166, 255, 0.35);
+      }
+
+      .lang-current {
+        color: #58a6ff;
+      }
+
+      .lang-arrow {
+        font-size: 0.6rem;
+        transition: transform 0.2s;
+      }
+
+      .lang-dropdown.open .lang-arrow {
+        transform: rotate(180deg);
+      }
+
+      .lang-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        min-width: 4.5rem;
+        background-color: #161b22;
+        border: 1px solid rgba(48, 54, 61, 0.8);
+        border-radius: 8px;
+        padding: 4px;
+        box-shadow: 0 8px 24px rgba(1, 4, 9, 0.6);
+        z-index: 110;
+      }
+
+      .lang-dropdown.open .lang-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .lang-menu a {
+        color: #8b949e;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.4rem 0.6rem;
+        border-radius: 6px;
+        transition: all 0.15s;
+      }
+
+      .lang-menu a:hover {
         background-color: rgba(88, 166, 255, 0.1);
         color: #79c0ff;
       }
 
-      .lang-switcher a.active {
+      .lang-menu a.active {
         color: #58a6ff;
         background-color: rgba(88, 166, 255, 0.15);
       }
@@ -634,15 +689,32 @@ const structuredData = [
       </nav>
       <SearchBox client:visible locale={locale} />
       <!-- Переключатель языка (Батч 11, i18n-пилот): на непереведённых страницах
-           ведёт на локализованную главную, а не на 404 несуществующей страницы. -->
-      <div class="lang-switcher">
-        {TRANSLATED_UI_LOCALES.map((l) => (
-          <a
-            href={`${localePrefix(l)}${isPilotPage ? (pathWithoutLocale === '/' ? '' : pathWithoutLocale) : '/'}` || '/'}
-            class={l === locale ? 'active' : ''}
-            aria-current={l === locale ? 'true' : undefined}
-          >{l.toUpperCase()}</a>
-        ))}
+           ведёт на локализованную главную, а не на 404 несуществующей страницы.
+           Кастомный дропдаун (2026-08-17) - раньше 9 плоских RU/EN/ES/... ссылок
+           занимали слишком много места в шапке, юзер явно попросил спрятать в
+           выпадающий список. -->
+      <div class="lang-dropdown" id="langDropdown">
+        <button
+          type="button"
+          class="lang-trigger"
+          id="langTrigger"
+          aria-haspopup="true"
+          aria-expanded="false"
+          title={t('header.language', locale)}
+        >
+          <span class="lang-current">{locale.toUpperCase()}</span>
+          <span class="lang-arrow">▾</span>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu">
+          {TRANSLATED_UI_LOCALES.map((l) => (
+            <a
+              href={`${localePrefix(l)}${isPilotPage ? (pathWithoutLocale === '/' ? '' : pathWithoutLocale) : '/'}` || '/'}
+              class={l === locale ? 'active' : ''}
+              aria-current={l === locale ? 'true' : undefined}
+              role="menuitem"
+            >{l.toUpperCase()}</a>
+          ))}
+        </div>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label={t('header.openMenu', locale)}>
         <span></span>
@@ -713,6 +785,28 @@ const structuredData = [
       
       closeBtn?.addEventListener('click', closeMenu);
       overlay?.addEventListener('click', closeMenu);
+
+      // Language dropdown (кастомный, заменил плоский список RU/EN/ES/... -
+      // 2026-08-17, юзер попросил спрятать переключатель языка компактнее).
+      const langDropdown = document.getElementById('langDropdown');
+      const langTrigger = document.getElementById('langTrigger');
+      langTrigger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = langDropdown?.classList.toggle('open');
+        langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      document.addEventListener('click', (e) => {
+        if (langDropdown?.classList.contains('open') && !langDropdown.contains(e.target as Node)) {
+          langDropdown.classList.remove('open');
+          langTrigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && langDropdown?.classList.contains('open')) {
+          langDropdown.classList.remove('open');
+          langTrigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
       
       // Close menu when clicking on a link
       const mobileNavLinks = mobileNav?.querySelectorAll('a');
