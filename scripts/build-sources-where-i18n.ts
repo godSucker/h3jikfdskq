@@ -40,7 +40,14 @@ function mutantName(
   mutantNames: Record<Locale, Record<string, { name: string }>>,
 ): string {
   const id = MUTANT_ID_BY_RU_NAME[ru]
-  return (id && mutantNames[locale][id]?.name) || ru
+  const translated = id && mutantNames[locale][id]?.name
+  if (!translated) {
+    console.warn(
+      `[build-sources-where-i18n] нет записи в MUTANT_ID_BY_RU_NAME для «${ru}» - оставлен RU-фолбэк`,
+    )
+    return ru
+  }
+  return translated
 }
 
 const W: Record<string, Record<Locale, string>> = {
