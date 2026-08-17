@@ -1590,6 +1590,16 @@ const WRAPPER_RULES: WrapperRule[] = [
 // одним разом на все 8 языков - LLM ок для перевода уже решённого текста
 // (не для изобретения новых имён, см. память feedback-no-llm-authored-names).
 const FREEFORM_PAYLOAD_DICT: Record<string, Partial<Record<Locale, string>>> = {
+  'Пакет ко Дню мёртвых «Скелеторро»': {
+    en: 'Day of the Dead Pack «Calaca»',
+    es: 'Pack Día de los Muertos «Calaca»',
+    fr: 'Pack Jour des Morts «Calaca»',
+    de: 'Tag-der-Toten-Paket «Calaca»',
+    pt: 'Pacote Dia dos Mortos «Calaca»',
+    it: 'Pacchetto Giorno dei Morti «Calaca»',
+    tr: 'Ölüler Günü Paketi «Calaca»',
+    nl: 'Dag van de Doden-pakket «Calaca»',
+  },
   'Бронзовая Принцесса Космоса': {
     en: 'Bronze Space Princess',
     es: 'Princesa del Espacio de bronce',

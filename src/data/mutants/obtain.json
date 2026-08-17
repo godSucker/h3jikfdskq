@@ -16921,6 +16921,11 @@
     },
     {
       "type": "bundle",
+      "where": "Набор: Пакет ко Дню мёртвых «Скелеторро» ($11)",
+      "icon": "/mut_icons/donate.png"
+    },
+    {
+      "type": "bundle",
       "where": "Набор: Краткосрочное предложение: Сундук «Исследование VIII» (800 золота)",
       "icon": "/cash/hardcurrency.webp",
       "itemId": "lucky_box_research_viii_50_off"
