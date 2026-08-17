@@ -1599,7 +1599,7 @@
              <span>{t('stats.makeScreenshot', locale)}</span>
            {/if}
         </button>
-        <button class="tool-btn compare-btn" class:active={compareMode} onclick={() => { compareMode = !compareMode; if (compareMode && !selected2) selected2 = ALL_MUTANTS[1]; }}>
+        <button class="tool-btn compare-btn" class:active={compareMode} onclick={() => { compareMode = !compareMode; if (compareMode && !selected2) { selected2 = ALL_MUTANTS[1]; level2 = 30; } }}>
           <span>{compareMode ? t('stats.compareExit', locale) : t('stats.compare', locale)}</span>
         </button>
       </div>
