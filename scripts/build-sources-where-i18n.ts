@@ -25,10 +25,7 @@ async function loadMutantNames(): Promise<Record<Locale, Record<string, { name: 
   const out = {} as Record<Locale, Record<string, { name: string }>>
   for (const locale of LOCALES) {
     out[locale] = JSON.parse(
-      await fs.readFile(
-        path.join(process.cwd(), `src/data/mutants/names.${locale}.json`),
-        'utf-8',
-      ),
+      await fs.readFile(path.join(process.cwd(), `src/data/mutants/names.${locale}.json`), 'utf-8'),
     )
   }
   return out
