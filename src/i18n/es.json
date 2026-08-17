@@ -33,6 +33,7 @@
   "mutants.gene2.all": "Gen 2: TODOS",
   "mutants.gene.neutral": "Neutral",
   "modal.close": "Cerrar",
+  "modal.tierBadge": "Nivel {n}",
   "modal.statsLvl1": "Estadísticas de nivel 1",
   "modal.statsLvl30": "Estadísticas de nivel 30",
   "modal.speed": "Rapidez",

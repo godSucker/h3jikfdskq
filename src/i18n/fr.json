@@ -33,6 +33,7 @@
   "mutants.gene2.all": "Gène 2 : TOUS",
   "mutants.gene.neutral": "Neutre",
   "modal.close": "Fermer",
+  "modal.tierBadge": "Palier {n}",
   "modal.statsLvl1": "Stats au niveau 1",
   "modal.statsLvl30": "Stats au niveau 30",
   "modal.speed": "Vitesse",

@@ -375,15 +375,22 @@
     return out;
   };
 
-  // formatting
+  // formatting - тот же приём, что INTL_LOCALE в GuidesPage.astro/EvotechCalculator.svelte
+  // (не общий модуль). Раньше fmt()/fmtNoSign() были хардкожены на 'ru-RU' на ВСЕХ
+  // локалях (найдено систематическим i18n-аудитом 2026-08-17) - числа на стат-панели
+  // рендерились с русской группировкой разрядов независимо от языка страницы.
+  const INTL_LOCALE: Record<Locale, string> = {
+    ru: 'ru-RU', en: 'en-US', es: 'es-ES', fr: 'fr-FR',
+    de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
+  };
   function fmt(n: any): string {
     if (n === undefined || n === null || n === '' || Number.isNaN(Number(n))) return '—';
-    return Number(n).toLocaleString('ru-RU');
+    return Number(n).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
   }
   function fmtNoSign(v: any): string {
     if (v === undefined || v === null || v === '' || Number.isNaN(Number(v))) return '—';
     const num = Number(v);
-    if (Number.isFinite(num)) return Math.abs(num).toLocaleString('ru-RU');
+    if (Number.isFinite(num)) return Math.abs(num).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
     return String(v).replace(/^-+/, '');
   }
 
@@ -680,7 +687,7 @@
         </div>
         <div class="flex items-center gap-2 shrink-0">
           {#if mutant?.tier}
-            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">Тир {mutant.tier}</span>
+            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">{t('modal.tierBadge', locale).replace('{n}', String(mutant.tier))}</span>
           {/if}
           <span class={`px-2 py-1 rounded-full text-[10px] ring-1 ${STAR_COLOR[shownStar]}`}>{starLabelL(shownStar, locale)}</span>
         </div>

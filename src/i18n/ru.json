@@ -34,6 +34,7 @@
   "mutants.gene2.all": "Ген 2: ВСЕ",
   "mutants.gene.neutral": "Нейтральный",
   "modal.close": "Закрыть",
+  "modal.tierBadge": "Тир {n}",
   "modal.statsLvl1": "Статы на 1 уровне",
   "modal.statsLvl30": "Статы на 30 уровне",
   "modal.speed": "Скорость",

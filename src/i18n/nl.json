@@ -33,6 +33,7 @@
   "mutants.gene2.all": "Gen 2: ALLE",
   "mutants.gene.neutral": "Neutraal",
   "modal.close": "Sluiten",
+  "modal.tierBadge": "Tier {n}",
   "modal.statsLvl1": "Status op level 1",
   "modal.statsLvl30": "Status op level 30",
   "modal.speed": "Snelheid",
