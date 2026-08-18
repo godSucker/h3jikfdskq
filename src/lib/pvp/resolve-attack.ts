@@ -138,10 +138,20 @@ export function applyAttack(
   // Фаза 3: отражение целей - теперь идёт ЧЕРЕЗ щит атакующего (absorbWithShield), не
   // напрямую в hp, раз щит из фазы 2 уже мог встать.
   for (const { target, died } of pendingRetaliates) {
+    // Пред-смертный отраж СРАБАТЫВАЕТ (живой Frida-фидбек 2026-08-18) - смерть цели
+    // сама по себе не блокирует отражение. Блокирует только "бой уже проигран этой
+    // стороной" - если после этого удара на стороне цели не осталось живых юнитов.
+    // AOE-кейс: если удар разом добивает 2 из 3 союзников, все трое всё равно отражают
+    // (сторона ещё жива); если добивает всех троих - не отражает никто.
+    const sideWiped = died && !units.some((u) => u.side === target.side && u.isAlive)
+    if (sideWiped) continue
+    // Атакующий уже мог умереть от предыдущего отражения в этом же AOE-ударе -
+    // дальше считать нечего, иначе в лог уйдёт дублирующее "died"-событие.
+    if (!attacker.isAlive) break
     // retaliate - % от собственной атаки цели (target.atk1), не от урона входящего удара
     // (см. abilities.ts::retaliateDamage) - независимо от щита/атаки атакующего.
     const retaliate = retaliateDamage(target)
-    if (retaliate > 0 && !died) {
+    if (retaliate > 0) {
       const absorbed = absorbWithShield(attacker, retaliate)
       const finalRetaliate = Math.max(0, retaliate - absorbed)
       attacker.hp = Math.max(0, attacker.hp - finalRetaliate)
