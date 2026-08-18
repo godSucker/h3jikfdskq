@@ -30,8 +30,16 @@ async function loadLocMap(locale: string): Promise<Map<string, string>> {
       if (parts.length >= 2) {
         // см. тот же анескейп в scripts/sync-mutants.ts loadLocalFiles() -
         // литеральные "\n"/"/n" в исходнике Kobojo иначе попадают в lore
-        // как видимый текст вместо настоящего переноса строки.
-        const value = parts.slice(1).join(';').trim().replace(/\\n/g, '\n').replace(/\/n/g, '\n')
+        // как видимый текст вместо настоящего переноса строки. Голый "/" перед
+        // заглавной буквой (найдено 2026-08-18, стихотворный лор Брейкмастера в RU) -
+        // тот же класс бага, см. комментарий в sync-mutants.ts.
+        const value = parts
+          .slice(1)
+          .join(';')
+          .trim()
+          .replace(/\\n/g, '\n')
+          .replace(/\/n/g, '\n')
+          .replace(/\s*\/(?=[А-ЯЁ])/g, '\n')
         locMap.set(parts[0].trim().toLowerCase(), value)
       }
     })
