@@ -241,14 +241,24 @@ interface BuildingLevel {
   texture: string;
   description?: string;
 }
-const buildingsRows = (Array.isArray(buildingsData) ? buildingsData : []).map((b: RawItem & { texture?: string; levels?: BuildingLevel[]; badge?: string }) => ({
-  id: String(b?.id || '').trim(),
-  name: getItemName(String(b?.id || '').trim(), locale, b?.name || (b?.id || '')),
-  description: getItemDescription(String(b?.id || '').trim(), locale, b?.description || ''),
-  texture: b?.texture || `/buildings/${b?.id}.webp`,
-  levels: b?.levels,
-  badge: b?.badge === 'Предварительно' ? t('materials.badge.preliminary', locale) : b?.badge
-}));
+const buildingsRows = (Array.isArray(buildingsData) ? buildingsData : []).map((b: RawItem & { texture?: string; levels?: BuildingLevel[]; badge?: string }) => {
+  const bid = String(b?.id || '').trim();
+  return {
+    id: bid,
+    name: getItemName(bid, locale, b?.name || (b?.id || '')),
+    description: getItemDescription(bid, locale, b?.description || ''),
+    texture: b?.texture || `/buildings/${b?.id}.webp`,
+    // MaterialsTable рендерит levels[N].description НАПРЯМУЮ (не через
+    // name/description выше) - у Инкубатора/Центра разведения текст меняется
+    // по уровню, поэтому локализуем каждый уровень отдельным синтетическим id
+    // (`${bid}_lvl${N}`), не только "плоское" описание здания.
+    levels: b?.levels?.map((lvl) => ({
+      ...lvl,
+      description: getItemDescription(`${bid}_lvl${lvl.level}`, locale, lvl.description || ''),
+    })),
+    badge: b?.badge === 'Предварительно' ? t('materials.badge.preliminary', locale) : b?.badge
+  };
+});
 
 // ---------- зоны: поддержка строк/объектов из zones.json ----------
 const geneMap: Record<string, string> = { a:'Киборг', b:'Нежить', c:'Рубака', d:'Зооморф', e:'Галактик', f:'Мифик', abcdef:'Любые гены' };

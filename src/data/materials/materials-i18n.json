@@ -1079,6 +1079,24 @@
     "Building_Breeding": {
       "name": "Breeding Center",
       "description": "Building where you can breed mutants"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Building for raising mutants. 1 hatching slot. Upgrade to level 2 — 200 gold."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Building for raising mutants. 2 slots at once. Upgrade to level 3 — 500 gold."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Building for raising mutants. 3 slots at once (max level)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Building for breeding mutants. Base breeding speed. The higher the building level, the higher the chance to hatch rare mutants. Upgrade to level 2 — 250 gold."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Building for breeding mutants. Breeding 1.5x faster. The higher the building level, the higher the chance to hatch rare mutants. Upgrade to level 3 — 500 gold."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Building for breeding mutants. Breeding 3x faster (max level). The higher the building level, the higher the chance to hatch rare mutants."
     }
   },
   "es": {
@@ -2161,6 +2179,24 @@
     "Building_Breeding": {
       "name": "Hibridador",
       "description": "Edificio donde puedes cruzar mutantes"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Edificio para criar mutantes. 1 ranura de incubación. Mejora a nivel 2 — 200 de oro."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Edificio para criar mutantes. 2 ranuras a la vez. Mejora a nivel 3 — 500 de oro."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Edificio para criar mutantes. 3 ranuras a la vez (nivel máximo)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Edificio para cruzar mutantes. Velocidad de cruce básica. Cuanto mayor sea el nivel del edificio, mayor será la probabilidad de obtener mutantes raros. Mejora a nivel 2 — 250 de oro."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Edificio para cruzar mutantes. Cruce 1.5 veces más rápido. Cuanto mayor sea el nivel del edificio, mayor será la probabilidad de obtener mutantes raros. Mejora a nivel 3 — 500 de oro."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Edificio para cruzar mutantes. Cruce 3 veces más rápido (nivel máximo). Cuanto mayor sea el nivel del edificio, mayor será la probabilidad de obtener mutantes raros."
     }
   },
   "fr": {
@@ -3243,6 +3279,24 @@
     "Building_Breeding": {
       "name": "Hybridateur",
       "description": "Bâtiment où vous pouvez croiser des mutants"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Bâtiment pour élever des mutants. 1 emplacement d'éclosion. Amélioration au niveau 2 — 200 or."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Bâtiment pour élever des mutants. 2 emplacements à la fois. Amélioration au niveau 3 — 500 or."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Bâtiment pour élever des mutants. 3 emplacements à la fois (niveau maximum)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Bâtiment pour croiser des mutants. Vitesse de croisement de base. Plus le niveau du bâtiment est élevé, plus la chance d'obtenir des mutants rares est grande. Amélioration au niveau 2 — 250 or."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Bâtiment pour croiser des mutants. Croisement 1,5 fois plus rapide. Plus le niveau du bâtiment est élevé, plus la chance d'obtenir des mutants rares est grande. Amélioration au niveau 3 — 500 or."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Bâtiment pour croiser des mutants. Croisement 3 fois plus rapide (niveau maximum). Plus le niveau du bâtiment est élevé, plus la chance d'obtenir des mutants rares est grande."
     }
   },
   "de": {
@@ -4325,6 +4379,24 @@
     "Building_Breeding": {
       "name": "Brutzentrum",
       "description": "Gebäude, in dem man Mutanten kreuzen kann"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Gebäude zur Aufzucht von Mutanten. 1 Schlupfplatz. Upgrade auf Stufe 2 — 200 Gold."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Gebäude zur Aufzucht von Mutanten. 2 Plätze gleichzeitig. Upgrade auf Stufe 3 — 500 Gold."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Gebäude zur Aufzucht von Mutanten. 3 Plätze gleichzeitig (Höchststufe)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Gebäude zum Kreuzen von Mutanten. Grundgeschwindigkeit der Kreuzung. Je höher die Gebäudestufe, desto höher die Chance auf seltene Mutanten. Upgrade auf Stufe 2 — 250 Gold."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Gebäude zum Kreuzen von Mutanten. 1,5-mal schnellere Kreuzung. Je höher die Gebäudestufe, desto höher die Chance auf seltene Mutanten. Upgrade auf Stufe 3 — 500 Gold."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Gebäude zum Kreuzen von Mutanten. 3-mal schnellere Kreuzung (Höchststufe). Je höher die Gebäudestufe, desto höher die Chance auf seltene Mutanten."
     }
   },
   "pt": {
@@ -5404,6 +5476,24 @@
     "Building_Breeding": {
       "name": "Centro de Reprodução",
       "description": "Edifício onde é possível cruzar mutantes"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Edifício para criar mutantes. 1 espaço de incubação. Melhoria para o nível 2 — 200 de ouro."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Edifício para criar mutantes. 2 espaços ao mesmo tempo. Melhoria para o nível 3 — 500 de ouro."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Edifício para criar mutantes. 3 espaços ao mesmo tempo (nível máximo)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Edifício para cruzar mutantes. Velocidade de cruzamento básica. Quanto maior o nível do edifício, maior a chance de obter mutantes raros. Melhoria para o nível 2 — 250 de ouro."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Edifício para cruzar mutantes. Cruzamento 1,5 vezes mais rápido. Quanto maior o nível do edifício, maior a chance de obter mutantes raros. Melhoria para o nível 3 — 500 de ouro."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Edifício para cruzar mutantes. Cruzamento 3 vezes mais rápido (nível máximo). Quanto maior o nível do edifício, maior a chance de obter mutantes raros."
     }
   },
   "it": {
@@ -6486,6 +6576,24 @@
     "Building_Breeding": {
       "name": "Ibridatore",
       "description": "Edificio dove puoi incrociare i mutanti"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Edificio per allevare mutanti. 1 slot di schiusa. Aggiornamento al livello 2 — 200 oro."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Edificio per allevare mutanti. 2 slot contemporaneamente. Aggiornamento al livello 3 — 500 oro."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Edificio per allevare mutanti. 3 slot contemporaneamente (livello massimo)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Edificio per incrociare mutanti. Velocità di incrocio base. Più alto è il livello dell'edificio, maggiore è la probabilità di ottenere mutanti rari. Aggiornamento al livello 2 — 250 oro."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Edificio per incrociare mutanti. Incrocio 1,5 volte più veloce. Più alto è il livello dell'edificio, maggiore è la probabilità di ottenere mutanti rari. Aggiornamento al livello 3 — 500 oro."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Edificio per incrociare mutanti. Incrocio 3 volte più veloce (livello massimo). Più alto è il livello dell'edificio, maggiore è la probabilità di ottenere mutanti rari."
     }
   },
   "tr": {
@@ -7568,6 +7676,24 @@
     "Building_Breeding": {
       "name": "Üreme Merkezi",
       "description": "Mutantları çiftleştirebileceğiniz bina"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Mutant yetiştirmek için bina. 1 kuluçka slotu. 2. seviyeye yükseltme — 200 altın."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Mutant yetiştirmek için bina. Aynı anda 2 slot. 3. seviyeye yükseltme — 500 altın."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Mutant yetiştirmek için bina. Aynı anda 3 slot (maksimum seviye)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Mutantları çiftleştirmek için bina. Temel çiftleştirme hızı. Bina seviyesi ne kadar yüksekse, nadir mutant elde etme şansı o kadar yüksektir. 2. seviyeye yükseltme — 250 altın."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Mutantları çiftleştirmek için bina. 1,5 kat daha hızlı çiftleştirme. Bina seviyesi ne kadar yüksekse, nadir mutant elde etme şansı o kadar yüksektir. 3. seviyeye yükseltme — 500 altın."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Mutantları çiftleştirmek için bina. 3 kat daha hızlı çiftleştirme (maksimum seviye). Bina seviyesi ne kadar yüksekse, nadir mutant elde etme şansı o kadar yüksektir."
     }
   },
   "nl": {
@@ -8650,6 +8776,24 @@
     "Building_Breeding": {
       "name": "Kweekplaats",
       "description": "Gebouw waar je mutanten kunt kruisen"
+    },
+    "Building_Incubator_lvl1": {
+      "description": "Gebouw voor het opfokken van mutanten. 1 broedslot. Upgrade naar niveau 2 — 200 goud."
+    },
+    "Building_Incubator_lvl2": {
+      "description": "Gebouw voor het opfokken van mutanten. 2 slots tegelijk. Upgrade naar niveau 3 — 500 goud."
+    },
+    "Building_Incubator_lvl3": {
+      "description": "Gebouw voor het opfokken van mutanten. 3 slots tegelijk (maximaal niveau)."
+    },
+    "Building_Breeding_Center_lvl1": {
+      "description": "Gebouw om mutanten te kruisen. Basissnelheid voor kruisen. Hoe hoger het gebouwniveau, hoe groter de kans op zeldzame mutanten. Upgrade naar niveau 2 — 250 goud."
+    },
+    "Building_Breeding_Center_lvl2": {
+      "description": "Gebouw om mutanten te kruisen. 1,5 keer sneller kruisen. Hoe hoger het gebouwniveau, hoe groter de kans op zeldzame mutanten. Upgrade naar niveau 3 — 500 goud."
+    },
+    "Building_Breeding_Center_lvl3": {
+      "description": "Gebouw om mutanten te kruisen. 3 keer sneller kruisen (maximaal niveau). Hoe hoger het gebouwniveau, hoe groter de kans op zeldzame mutanten."
     }
   }
 }
