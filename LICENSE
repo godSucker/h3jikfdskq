@@ -19,3 +19,23 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+## Scope of this license
+
+This MIT license applies only to the original source code of this
+repository (Astro/Svelte/TypeScript application logic, build scripts,
+styles).
+
+It does NOT apply to game data and assets derived from Mutants Genetic
+Gladiators, including but not limited to the contents of `src/data/`,
+`public/mutants/`, `public/materials/`, `public/buildings/`, and any other
+game-sourced text, numbers, images, or textures anywhere in this
+repository or its build output. All such content is the property of its
+respective rights holders (Kobojo / Celsius Online) and is used here
+without claim of ownership, for non-commercial fan-project purposes only
+(a reference wiki and gameplay simulators for the game's community).
+
+This repository is an independent, unofficial fan project and is not
+affiliated with, endorsed by, or sponsored by Kobojo or Celsius Online.
