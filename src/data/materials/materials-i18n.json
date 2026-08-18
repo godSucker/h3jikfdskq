@@ -1005,31 +1005,40 @@
       "description": "Increases the experience acquired by a mutant during a battle (+300%)"
     },
     "Building_Forge": {
-      "name": "Gold Forge"
+      "name": "Gold Forge",
+      "description": "Gives 5 gold once every 12 hours"
     },
     "Building_Gold_Smelter": {
-      "name": "Gold Furnace"
+      "name": "Gold Furnace",
+      "description": "Gives 50 gold once every 2 days"
     },
     "Building_Med_Lab": {
-      "name": "Med Lab"
+      "name": "Med Lab",
+      "description": "Building for crafting first aid kits"
     },
     "Building_Evo_Center": {
-      "name": "Evolution Center"
+      "name": "Evolution Center",
+      "description": "Building for raising EVO level"
     },
     "Building_Exchange": {
-      "name": "Exchange office"
+      "name": "Exchange office",
+      "description": "Building where you can exchange jackpot tokens"
     },
     "Building_Incubator": {
-      "name": "Incubator"
+      "name": "Incubator",
+      "description": "Building where mutants are hatched"
     },
     "Building_Trial_Hall": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Building where you can exchange challenge tokens"
     },
     "Building_Mystery": {
-      "name": "Mysteries Analyzer"
+      "name": "Mysteries Analyzer",
+      "description": "For mystery tokens (10) opens a 24-hour contract; on completion grants a skin (3) from the past event."
     },
     "Building_Breeding_Center": {
-      "name": "Breeding Center"
+      "name": "Breeding Center",
+      "description": "Building where you can breed mutants"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Nightmare Token",
@@ -1040,28 +1049,36 @@
       "description": "The creature gains 10000 experience points. An item not added to the game."
     },
     "Building_HC_1": {
-      "name": "Gold Forge"
+      "name": "Gold Forge",
+      "description": "Gives 5 gold once every 12 hours"
     },
     "Building_HC_2": {
-      "name": "Gold Furnace"
+      "name": "Gold Furnace",
+      "description": "Gives 50 gold once every 2 days"
     },
     "Building_Hospital_1": {
-      "name": "Med Lab"
+      "name": "Med Lab",
+      "description": "Building for crafting first aid kits"
     },
     "Building_Tech": {
-      "name": "Evolution Center"
+      "name": "Evolution Center",
+      "description": "Building for raising EVO level"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Exchange office"
+      "name": "Exchange office",
+      "description": "Building where you can exchange jackpot tokens"
     },
     "Building_Incubator_1": {
-      "name": "Incubator"
+      "name": "Incubator",
+      "description": "Building where mutants are hatched"
     },
     "Building_Event_1": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Building where you can exchange challenge tokens"
     },
     "Building_Breeding": {
-      "name": "Breeding Center"
+      "name": "Breeding Center",
+      "description": "Building where you can breed mutants"
     }
   },
   "es": {
@@ -2070,31 +2087,40 @@
       "description": "Aumenta la experiencia adquirida por un mutante durante un combate (+300 %)"
     },
     "Building_Forge": {
-      "name": "Forja de Oro"
+      "name": "Forja de Oro",
+      "description": "Otorga 5 de oro cada 12 horas"
     },
     "Building_Gold_Smelter": {
-      "name": "Horno de Oro"
+      "name": "Horno de Oro",
+      "description": "Otorga 50 de oro cada 2 días"
     },
     "Building_Med_Lab": {
-      "name": "Laboratorio Médico"
+      "name": "Laboratorio Médico",
+      "description": "Edificio para crear botiquines"
     },
     "Building_Evo_Center": {
-      "name": "Centro de Evolución"
+      "name": "Centro de Evolución",
+      "description": "Edificio para subir el nivel de EVO"
     },
     "Building_Exchange": {
-      "name": "Oficina de cambio"
+      "name": "Oficina de cambio",
+      "description": "Edificio donde puedes intercambiar fichas de jackpot"
     },
     "Building_Incubator": {
-      "name": "Incubadora"
+      "name": "Incubadora",
+      "description": "Edificio donde nacen los mutantes"
     },
     "Building_Trial_Hall": {
-      "name": "Sala Reto"
+      "name": "Sala Reto",
+      "description": "Edificio donde puedes intercambiar fichas de desafío"
     },
     "Building_Mystery": {
-      "name": "Analizador de Misterios"
+      "name": "Analizador de Misterios",
+      "description": "A cambio de fichas misteriosas (10) abre un contrato de 24 horas; al completarlo otorga una skin (3) del evento pasado."
     },
     "Building_Breeding_Center": {
-      "name": "Hibridador"
+      "name": "Hibridador",
+      "description": "Edificio donde puedes cruzar mutantes"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Ficha de la Pesadilla",
@@ -2105,28 +2131,36 @@
       "description": "La criatura gana 10000 puntos de experiencia. Un objeto no añadido al juego."
     },
     "Building_HC_1": {
-      "name": "Forja de Oro"
+      "name": "Forja de Oro",
+      "description": "Otorga 5 de oro cada 12 horas"
     },
     "Building_HC_2": {
-      "name": "Horno de Oro"
+      "name": "Horno de Oro",
+      "description": "Otorga 50 de oro cada 2 días"
     },
     "Building_Hospital_1": {
-      "name": "Laboratorio Médico"
+      "name": "Laboratorio Médico",
+      "description": "Edificio para crear botiquines"
     },
     "Building_Tech": {
-      "name": "Centro de Evolución"
+      "name": "Centro de Evolución",
+      "description": "Edificio para subir el nivel de EVO"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Oficina de cambio"
+      "name": "Oficina de cambio",
+      "description": "Edificio donde puedes intercambiar fichas de jackpot"
     },
     "Building_Incubator_1": {
-      "name": "Incubadora"
+      "name": "Incubadora",
+      "description": "Edificio donde nacen los mutantes"
     },
     "Building_Event_1": {
-      "name": "Sala Reto"
+      "name": "Sala Reto",
+      "description": "Edificio donde puedes intercambiar fichas de desafío"
     },
     "Building_Breeding": {
-      "name": "Hibridador"
+      "name": "Hibridador",
+      "description": "Edificio donde puedes cruzar mutantes"
     }
   },
   "fr": {
@@ -3135,31 +3169,40 @@
       "description": "Augmente l'expérience gagnée par un mutant pendant un combat (+300%)"
     },
     "Building_Forge": {
-      "name": "Forge d'Or"
+      "name": "Forge d'Or",
+      "description": "Rapporte 5 or toutes les 12 heures"
     },
     "Building_Gold_Smelter": {
-      "name": "Haut Fourneau d'Or"
+      "name": "Haut Fourneau d'Or",
+      "description": "Rapporte 50 or tous les 2 jours"
     },
     "Building_Med_Lab": {
-      "name": "Labo médical"
+      "name": "Labo médical",
+      "description": "Bâtiment pour fabriquer des trousses de secours"
     },
     "Building_Evo_Center": {
-      "name": "Centre d'évolution"
+      "name": "Centre d'évolution",
+      "description": "Bâtiment pour augmenter le niveau EVO"
     },
     "Building_Exchange": {
-      "name": "Bureau de change"
+      "name": "Bureau de change",
+      "description": "Bâtiment où vous pouvez échanger des jetons de jackpot"
     },
     "Building_Incubator": {
-      "name": "Incubateur"
+      "name": "Incubateur",
+      "description": "Bâtiment où les mutants éclosent"
     },
     "Building_Trial_Hall": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Bâtiment où vous pouvez échanger des jetons de défi"
     },
     "Building_Mystery": {
-      "name": "Analyseur de Mystères"
+      "name": "Analyseur de Mystères",
+      "description": "Contre des jetons mystères (10), ouvre un contrat de 24 heures ; à la fin, octroie un skin (3) de l'événement passé."
     },
     "Building_Breeding_Center": {
-      "name": "Hybridateur"
+      "name": "Hybridateur",
+      "description": "Bâtiment où vous pouvez croiser des mutants"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Jeton Cauchemar",
@@ -3170,28 +3213,36 @@
       "description": "La créature gagne 10000 points d'expérience. Un objet non ajouté au jeu."
     },
     "Building_HC_1": {
-      "name": "Forge d'Or"
+      "name": "Forge d'Or",
+      "description": "Rapporte 5 or toutes les 12 heures"
     },
     "Building_HC_2": {
-      "name": "Haut Fourneau d'Or"
+      "name": "Haut Fourneau d'Or",
+      "description": "Rapporte 50 or tous les 2 jours"
     },
     "Building_Hospital_1": {
-      "name": "Labo médical"
+      "name": "Labo médical",
+      "description": "Bâtiment pour fabriquer des trousses de secours"
     },
     "Building_Tech": {
-      "name": "Centre d'évolution"
+      "name": "Centre d'évolution",
+      "description": "Bâtiment pour augmenter le niveau EVO"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Bureau de change"
+      "name": "Bureau de change",
+      "description": "Bâtiment où vous pouvez échanger des jetons de jackpot"
     },
     "Building_Incubator_1": {
-      "name": "Incubateur"
+      "name": "Incubateur",
+      "description": "Bâtiment où les mutants éclosent"
     },
     "Building_Event_1": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Bâtiment où vous pouvez échanger des jetons de défi"
     },
     "Building_Breeding": {
-      "name": "Hybridateur"
+      "name": "Hybridateur",
+      "description": "Bâtiment où vous pouvez croiser des mutants"
     }
   },
   "de": {
@@ -4200,31 +4251,40 @@
       "description": "Erhöht die Erfahrungspunkte, die ein Mutant im Kampf gewonnen hat (+300 %)"
     },
     "Building_Forge": {
-      "name": "Goldschmiede"
+      "name": "Goldschmiede",
+      "description": "Bringt alle 12 Stunden 5 Gold"
     },
     "Building_Gold_Smelter": {
-      "name": "Gold-Hochofen"
+      "name": "Gold-Hochofen",
+      "description": "Bringt alle 2 Tage 50 Gold"
     },
     "Building_Med_Lab": {
-      "name": "Medizinlabor"
+      "name": "Medizinlabor",
+      "description": "Gebäude zum Herstellen von Erste-Hilfe-Sets"
     },
     "Building_Evo_Center": {
-      "name": "Entwicklungszentrum"
+      "name": "Entwicklungszentrum",
+      "description": "Gebäude zum Erhöhen des EVO-Levels"
     },
     "Building_Exchange": {
-      "name": "Wechselstube"
+      "name": "Wechselstube",
+      "description": "Gebäude, in dem man Jackpot-Token eintauschen kann"
     },
     "Building_Incubator": {
-      "name": "Inkubator"
+      "name": "Inkubator",
+      "description": "Gebäude, in dem Mutanten ausgebrütet werden"
     },
     "Building_Trial_Hall": {
-      "name": "Challenge-Saal"
+      "name": "Challenge-Saal",
+      "description": "Gebäude, in dem man Herausforderungs-Token eintauschen kann"
     },
     "Building_Mystery": {
-      "name": "Mysterium Analysator"
+      "name": "Mysterium Analysator",
+      "description": "Öffnet gegen mysteriöse Token (10) einen 24-Stunden-Vertrag; nach Abschluss gibt es einen Skin (3) des vergangenen Events."
     },
     "Building_Breeding_Center": {
-      "name": "Brutzentrum"
+      "name": "Brutzentrum",
+      "description": "Gebäude, in dem man Mutanten kreuzen kann"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Albtraum-Chip",
@@ -4235,28 +4295,36 @@
       "description": "Die Kreatur erhält 10000 Erfahrungspunkte. Ein Gegenstand, der nicht ins Spiel aufgenommen wurde."
     },
     "Building_HC_1": {
-      "name": "Goldschmiede"
+      "name": "Goldschmiede",
+      "description": "Bringt alle 12 Stunden 5 Gold"
     },
     "Building_HC_2": {
-      "name": "Gold-Hochofen"
+      "name": "Gold-Hochofen",
+      "description": "Bringt alle 2 Tage 50 Gold"
     },
     "Building_Hospital_1": {
-      "name": "Medizinlabor"
+      "name": "Medizinlabor",
+      "description": "Gebäude zum Herstellen von Erste-Hilfe-Sets"
     },
     "Building_Tech": {
-      "name": "Entwicklungszentrum"
+      "name": "Entwicklungszentrum",
+      "description": "Gebäude zum Erhöhen des EVO-Levels"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Wechselstube"
+      "name": "Wechselstube",
+      "description": "Gebäude, in dem man Jackpot-Token eintauschen kann"
     },
     "Building_Incubator_1": {
-      "name": "Inkubator"
+      "name": "Inkubator",
+      "description": "Gebäude, in dem Mutanten ausgebrütet werden"
     },
     "Building_Event_1": {
-      "name": "Challenge-Saal"
+      "name": "Challenge-Saal",
+      "description": "Gebäude, in dem man Herausforderungs-Token eintauschen kann"
     },
     "Building_Breeding": {
-      "name": "Brutzentrum"
+      "name": "Brutzentrum",
+      "description": "Gebäude, in dem man Mutanten kreuzen kann"
     }
   },
   "pt": {
@@ -5261,31 +5329,40 @@
       "description": "Aumenta a experiência adquirida por um mutante durante um combate (+300%)"
     },
     "Building_Forge": {
-      "name": "Forja de Ouro"
+      "name": "Forja de Ouro",
+      "description": "Dá 5 de ouro a cada 12 horas"
     },
     "Building_Gold_Smelter": {
-      "name": "Fornalha de Ouro"
+      "name": "Fornalha de Ouro",
+      "description": "Dá 50 de ouro a cada 2 dias"
     },
     "Building_Med_Lab": {
-      "name": "Laboratório Médico"
+      "name": "Laboratório Médico",
+      "description": "Edifício para fabricar kits de primeiros socorros"
     },
     "Building_Evo_Center": {
-      "name": "Centro de Evolução"
+      "name": "Centro de Evolução",
+      "description": "Edifício para aumentar o nível de EVO"
     },
     "Building_Exchange": {
-      "name": "Agência de câmbio"
+      "name": "Agência de câmbio",
+      "description": "Edifício onde é possível trocar fichas de jackpot"
     },
     "Building_Incubator": {
-      "name": "Incubadora"
+      "name": "Incubadora",
+      "description": "Edifício onde os mutantes nascem"
     },
     "Building_Trial_Hall": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Edifício onde é possível trocar fichas de desafio"
     },
     "Building_Mystery": {
-      "name": "Analisador de Mistérios"
+      "name": "Analisador de Mistérios",
+      "description": "Em troca de fichas misteriosas (10) abre um contrato de 24 horas; ao concluir, concede uma skin (3) do evento passado."
     },
     "Building_Breeding_Center": {
-      "name": "Centro de Reprodução"
+      "name": "Centro de Reprodução",
+      "description": "Edifício onde é possível cruzar mutantes"
     },
     "Material_Plague_Token": {},
     "Material_Hallowen_Nightmare": {
@@ -5297,28 +5374,36 @@
       "description": "A criatura ganha 10000 pontos de experiência. Um item não adicionado ao jogo."
     },
     "Building_HC_1": {
-      "name": "Forja de Ouro"
+      "name": "Forja de Ouro",
+      "description": "Dá 5 de ouro a cada 12 horas"
     },
     "Building_HC_2": {
-      "name": "Fornalha de Ouro"
+      "name": "Fornalha de Ouro",
+      "description": "Dá 50 de ouro a cada 2 dias"
     },
     "Building_Hospital_1": {
-      "name": "Laboratório Médico"
+      "name": "Laboratório Médico",
+      "description": "Edifício para fabricar kits de primeiros socorros"
     },
     "Building_Tech": {
-      "name": "Centro de Evolução"
+      "name": "Centro de Evolução",
+      "description": "Edifício para aumentar o nível de EVO"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Agência de câmbio"
+      "name": "Agência de câmbio",
+      "description": "Edifício onde é possível trocar fichas de jackpot"
     },
     "Building_Incubator_1": {
-      "name": "Incubadora"
+      "name": "Incubadora",
+      "description": "Edifício onde os mutantes nascem"
     },
     "Building_Event_1": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Edifício onde é possível trocar fichas de desafio"
     },
     "Building_Breeding": {
-      "name": "Centro de Reprodução"
+      "name": "Centro de Reprodução",
+      "description": "Edifício onde é possível cruzar mutantes"
     }
   },
   "it": {
@@ -6327,31 +6412,40 @@
       "description": "Aumenta l'esperienza vinta da un mutante durante un combattimento (+300%)"
     },
     "Building_Forge": {
-      "name": "Fucina d’Oro"
+      "name": "Fucina d’Oro",
+      "description": "Dà 5 oro ogni 12 ore"
     },
     "Building_Gold_Smelter": {
-      "name": "Fornace d’Oro"
+      "name": "Fornace d’Oro",
+      "description": "Dà 50 oro ogni 2 giorni"
     },
     "Building_Med_Lab": {
-      "name": "Lab. medico"
+      "name": "Lab. medico",
+      "description": "Edificio per creare kit di pronto soccorso"
     },
     "Building_Evo_Center": {
-      "name": "Centro Evoluzione"
+      "name": "Centro Evoluzione",
+      "description": "Edificio per aumentare il livello EVO"
     },
     "Building_Exchange": {
-      "name": "Ufficio cambi"
+      "name": "Ufficio cambi",
+      "description": "Edificio dove puoi scambiare i gettoni jackpot"
     },
     "Building_Incubator": {
-      "name": "Incubatrice"
+      "name": "Incubatrice",
+      "description": "Edificio dove nascono i mutanti"
     },
     "Building_Trial_Hall": {
-      "name": "Atrio delle sfide"
+      "name": "Atrio delle sfide",
+      "description": "Edificio dove puoi scambiare i gettoni sfida"
     },
     "Building_Mystery": {
-      "name": "Analizzatore di Misteri"
+      "name": "Analizzatore di Misteri",
+      "description": "In cambio di gettoni misteriosi (10) apre un contratto di 24 ore; al termine concede una skin (3) dell'evento passato."
     },
     "Building_Breeding_Center": {
-      "name": "Ibridatore"
+      "name": "Ibridatore",
+      "description": "Edificio dove puoi incrociare i mutanti"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Gettone Incubo",
@@ -6362,28 +6456,36 @@
       "description": "La creatura ottiene 10000 punti esperienza. Un oggetto non aggiunto al gioco."
     },
     "Building_HC_1": {
-      "name": "Fucina d’Oro"
+      "name": "Fucina d’Oro",
+      "description": "Dà 5 oro ogni 12 ore"
     },
     "Building_HC_2": {
-      "name": "Fornace d’Oro"
+      "name": "Fornace d’Oro",
+      "description": "Dà 50 oro ogni 2 giorni"
     },
     "Building_Hospital_1": {
-      "name": "Lab. medico"
+      "name": "Lab. medico",
+      "description": "Edificio per creare kit di pronto soccorso"
     },
     "Building_Tech": {
-      "name": "Centro Evoluzione"
+      "name": "Centro Evoluzione",
+      "description": "Edificio per aumentare il livello EVO"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Ufficio cambi"
+      "name": "Ufficio cambi",
+      "description": "Edificio dove puoi scambiare i gettoni jackpot"
     },
     "Building_Incubator_1": {
-      "name": "Incubatrice"
+      "name": "Incubatrice",
+      "description": "Edificio dove nascono i mutanti"
     },
     "Building_Event_1": {
-      "name": "Atrio delle sfide"
+      "name": "Atrio delle sfide",
+      "description": "Edificio dove puoi scambiare i gettoni sfida"
     },
     "Building_Breeding": {
-      "name": "Ibridatore"
+      "name": "Ibridatore",
+      "description": "Edificio dove puoi incrociare i mutanti"
     }
   },
   "tr": {
@@ -7392,31 +7494,40 @@
       "description": "Savaşta bir mutanttan edinilen tecrübeyi artırır (+%300)"
     },
     "Building_Forge": {
-      "name": "Altın Demirhane"
+      "name": "Altın Demirhane",
+      "description": "Her 12 saatte bir 5 altın verir"
     },
     "Building_Gold_Smelter": {
-      "name": "Altın Ocak"
+      "name": "Altın Ocak",
+      "description": "Her 2 günde bir 50 altın verir"
     },
     "Building_Med_Lab": {
-      "name": "Sağlık Laboratuvarı"
+      "name": "Sağlık Laboratuvarı",
+      "description": "İlk yardım çantası üretmek için bina"
     },
     "Building_Evo_Center": {
-      "name": "Evrim Merkezi"
+      "name": "Evrim Merkezi",
+      "description": "EVO seviyesini yükseltmek için bina"
     },
     "Building_Exchange": {
-      "name": "Döviz bürosu"
+      "name": "Döviz bürosu",
+      "description": "Jackpot jetonlarını değiştirebileceğiniz bina"
     },
     "Building_Incubator": {
-      "name": "Kuluçka Makinesi"
+      "name": "Kuluçka Makinesi",
+      "description": "Mutantların kuluçkadan çıktığı bina"
     },
     "Building_Trial_Hall": {
-      "name": "Meydan Okuma Salonu"
+      "name": "Meydan Okuma Salonu",
+      "description": "Mücadele jetonlarını değiştirebileceğiniz bina"
     },
     "Building_Mystery": {
-      "name": "Gizem Çözümleyici"
+      "name": "Gizem Çözümleyici",
+      "description": "Gizemli jetonlar (10) karşılığında 24 saatlik bir sözleşme açar; tamamlandığında geçmiş etkinlikten bir kostüm (3) verir."
     },
     "Building_Breeding_Center": {
-      "name": "Üreme Merkezi"
+      "name": "Üreme Merkezi",
+      "description": "Mutantları çiftleştirebileceğiniz bina"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Kabus Jetonu",
@@ -7427,28 +7538,36 @@
       "description": "Yaratık 10000 deneyim puanı kazanır. Oyuna eklenmemiş bir öğe."
     },
     "Building_HC_1": {
-      "name": "Altın Demirhane"
+      "name": "Altın Demirhane",
+      "description": "Her 12 saatte bir 5 altın verir"
     },
     "Building_HC_2": {
-      "name": "Altın Ocak"
+      "name": "Altın Ocak",
+      "description": "Her 2 günde bir 50 altın verir"
     },
     "Building_Hospital_1": {
-      "name": "Sağlık Laboratuvarı"
+      "name": "Sağlık Laboratuvarı",
+      "description": "İlk yardım çantası üretmek için bina"
     },
     "Building_Tech": {
-      "name": "Evrim Merkezi"
+      "name": "Evrim Merkezi",
+      "description": "EVO seviyesini yükseltmek için bina"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Döviz bürosu"
+      "name": "Döviz bürosu",
+      "description": "Jackpot jetonlarını değiştirebileceğiniz bina"
     },
     "Building_Incubator_1": {
-      "name": "Kuluçka Makinesi"
+      "name": "Kuluçka Makinesi",
+      "description": "Mutantların kuluçkadan çıktığı bina"
     },
     "Building_Event_1": {
-      "name": "Meydan Okuma Salonu"
+      "name": "Meydan Okuma Salonu",
+      "description": "Mücadele jetonlarını değiştirebileceğiniz bina"
     },
     "Building_Breeding": {
-      "name": "Üreme Merkezi"
+      "name": "Üreme Merkezi",
+      "description": "Mutantları çiftleştirebileceğiniz bina"
     }
   },
   "nl": {
@@ -8457,31 +8576,40 @@
       "description": "Verhoogt de ervaring gewonnen door een mutant in een gevecht (+300%)"
     },
     "Building_Forge": {
-      "name": "Gouden Smidse"
+      "name": "Gouden Smidse",
+      "description": "Geeft elke 12 uur 5 goud"
     },
     "Building_Gold_Smelter": {
-      "name": "Gouden Oven"
+      "name": "Gouden Oven",
+      "description": "Geeft elke 2 dagen 50 goud"
     },
     "Building_Med_Lab": {
-      "name": "Medisch lab"
+      "name": "Medisch lab",
+      "description": "Gebouw voor het maken van EHBO-kits"
     },
     "Building_Evo_Center": {
-      "name": "Evolutiecentrum"
+      "name": "Evolutiecentrum",
+      "description": "Gebouw om het EVO-niveau te verhogen"
     },
     "Building_Exchange": {
-      "name": "Wisselkantoor"
+      "name": "Wisselkantoor",
+      "description": "Gebouw waar je jackpot-tokens kunt inwisselen"
     },
     "Building_Incubator": {
-      "name": "Kweekkamer"
+      "name": "Kweekkamer",
+      "description": "Gebouw waar mutanten worden uitgebroed"
     },
     "Building_Trial_Hall": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Gebouw waar je uitdaging-tokens kunt inwisselen"
     },
     "Building_Mystery": {
-      "name": "Mysteries Analysator"
+      "name": "Mysteries Analysator",
+      "description": "Opent voor mysterieuze tokens (10) een contract van 24 uur; bij voltooiing krijg je een skin (3) van het afgelopen evenement."
     },
     "Building_Breeding_Center": {
-      "name": "Kweekplaats"
+      "name": "Kweekplaats",
+      "description": "Gebouw waar je mutanten kunt kruisen"
     },
     "Material_Hallowen_Nightmare": {
       "name": "Nachtmerrie-muntje",
@@ -8492,28 +8620,36 @@
       "description": "Het wezen krijgt 10000 ervaringspunten. Een item dat niet aan het spel is toegevoegd."
     },
     "Building_HC_1": {
-      "name": "Gouden Smidse"
+      "name": "Gouden Smidse",
+      "description": "Geeft elke 12 uur 5 goud"
     },
     "Building_HC_2": {
-      "name": "Gouden Oven"
+      "name": "Gouden Oven",
+      "description": "Geeft elke 2 dagen 50 goud"
     },
     "Building_Hospital_1": {
-      "name": "Medisch lab"
+      "name": "Medisch lab",
+      "description": "Gebouw voor het maken van EHBO-kits"
     },
     "Building_Tech": {
-      "name": "Evolutiecentrum"
+      "name": "Evolutiecentrum",
+      "description": "Gebouw om het EVO-niveau te verhogen"
     },
     "Building_Tokens_Jackpot": {
-      "name": "Wisselkantoor"
+      "name": "Wisselkantoor",
+      "description": "Gebouw waar je jackpot-tokens kunt inwisselen"
     },
     "Building_Incubator_1": {
-      "name": "Kweekkamer"
+      "name": "Kweekkamer",
+      "description": "Gebouw waar mutanten worden uitgebroed"
     },
     "Building_Event_1": {
-      "name": "Challenge Hall"
+      "name": "Challenge Hall",
+      "description": "Gebouw waar je uitdaging-tokens kunt inwisselen"
     },
     "Building_Breeding": {
-      "name": "Kweekplaats"
+      "name": "Kweekplaats",
+      "description": "Gebouw waar je mutanten kunt kruisen"
     }
   }
 }
