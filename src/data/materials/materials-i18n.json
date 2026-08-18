@@ -1097,6 +1097,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Building for breeding mutants. Breeding 3x faster (max level). The higher the building level, the higher the chance to hatch rare mutants."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40% (charge: 10)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80% (charge: 10)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120% (charge: 10)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150% (charge: 10)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200% (charge: 10)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Life +28% (charge: 30)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Critical +17% (charge: 30)",
+      "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
     }
   },
   "es": {
@@ -2197,6 +2225,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Edificio para cruzar mutantes. Cruce 3 veces más rápido (nivel máximo). Cuanto mayor sea el nivel del edificio, mayor será la probabilidad de obtener mutantes raros."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "Experiencia +40 % (carga: 10)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "Experiencia +80 % (carga: 10)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "Experiencia +120 % (carga: 10)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "Experiencia +150 % (carga: 10)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "Experiencia +200 % (carga: 10)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Vida +28% (carga: 30)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Críticos +17% (carga: 30)",
+      "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
     }
   },
   "fr": {
@@ -3297,6 +3353,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Bâtiment pour croiser des mutants. Croisement 3 fois plus rapide (niveau maximum). Plus le niveau du bâtiment est élevé, plus la chance d'obtenir des mutants rares est grande."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40% (charge: 10)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80% (charge: 10)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120% (charge: 10)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150% (charge: 10)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200% (charge: 10)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Vie +28% (charge: 30)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Critique +17% (charge: 30)",
+      "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
     }
   },
   "de": {
@@ -4397,6 +4481,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Gebäude zum Kreuzen von Mutanten. 3-mal schnellere Kreuzung (Höchststufe). Je höher die Gebäudestufe, desto höher die Chance auf seltene Mutanten."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40 % (munition: 10)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80 % (munition: 10)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120 % (munition: 10)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150 % (munition: 10)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200 % (munition: 10)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Leben +28% (munition: 30)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Kritische Schläge +17% (munition: 30)",
+      "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
     }
   },
   "pt": {
@@ -5494,6 +5606,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Edifício para cruzar mutantes. Cruzamento 3 vezes mais rápido (nível máximo). Quanto maior o nível do edifício, maior a chance de obter mutantes raros."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40% (carga: 10)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80% (carga: 10)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120% (carga: 10)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150% (carga: 10)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200% (carga: 10)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Vida +28% (carga: 30)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Crítico +17% (carga: 30)",
+      "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
     }
   },
   "it": {
@@ -6594,6 +6734,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Edificio per incrociare mutanti. Incrocio 3 volte più veloce (livello massimo). Più alto è il livello dell'edificio, maggiore è la probabilità di ottenere mutanti rari."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40% (carico: 10)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80% (carico: 10)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120% (carico: 10)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150% (carico: 10)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200% (carico: 10)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Vita +28% (carico: 30)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Critico +17% (carico: 30)",
+      "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
     }
   },
   "tr": {
@@ -7694,6 +7862,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Mutantları çiftleştirmek için bina. 3 kat daha hızlı çiftleştirme (maksimum seviye). Bina seviyesi ne kadar yüksekse, nadir mutant elde etme şansı o kadar yüksektir."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +%40 (yük: 10)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +%80 (yük: 10)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +%120 (yük: 10)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +%150 (yük: 10)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +%200 (yük: 10)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Can (%+28) (yük: 30)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Kritik (%+17) (yük: 30)",
+      "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
     }
   },
   "nl": {
@@ -8794,6 +8990,34 @@
     },
     "Building_Breeding_Center_lvl3": {
       "description": "Gebouw om mutanten te kruisen. 3 keer sneller kruisen (maximaal niveau). Hoe hoger het gebouwniveau, hoe groter de kans op zeldzame mutanten."
+    },
+    "orb_basic_xp_01_ephemeral_10": {
+      "name": "XP +40% (charge: 10)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_xp_02_ephemeral_10": {
+      "name": "XP +80% (charge: 10)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_xp_03_ephemeral_10": {
+      "name": "XP +120% (charge: 10)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_xp_04_ephemeral_10": {
+      "name": "XP +150% (charge: 10)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_xp_05_ephemeral_10": {
+      "name": "XP +200% (charge: 10)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_life_05_ephemeral_30": {
+      "name": "Leven +28% (charge: 30)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
+    },
+    "orb_basic_critical_05_ephemeral_30": {
+      "name": "Kritieke slag +17% (charge: 30)",
+      "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
     }
   }
 }
