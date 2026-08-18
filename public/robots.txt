@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /panel-render
-
-Sitemap: https://archivist-library.com/sitemap-index.xml
