@@ -934,5 +934,7 @@
   "guides.zodiac.sign.capricorn": "Oğlak",
   "guides.zodiac.sign.aquarius": "Kova",
   "guides.zodiac.sign.pisces": "Balık",
-  "footer.disclaimer": "Archivist-Library, Kobojo veya Celsius Online ile bağlantısı olmayan bağımsız bir hayran projesidir. Mutants Genetic Gladiators'ın hakları ilgili sahiplerine aittir."
+  "footer.disclaimer": "Archivist-Library, Kobojo veya Celsius Online ile bağlantısı olmayan bağımsız bir hayran projesidir. Mutants Genetic Gladiators'ın hakları ilgili sahiplerine aittir.",
+  "home.card.pvp.title": "PvP savaş simülatörü",
+  "home.card.pvp.desc": "Gerçek oyun formüllerine göre hasarın ve savaş sonucunun hassas hesaplaması"
 }

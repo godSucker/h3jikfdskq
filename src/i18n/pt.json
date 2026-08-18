@@ -934,5 +934,7 @@
   "guides.zodiac.sign.capricorn": "Capricórnio",
   "guides.zodiac.sign.aquarius": "Aquário",
   "guides.zodiac.sign.pisces": "Peixes",
-  "footer.disclaimer": "Archivist-Library é um projeto de fãs independente, sem afiliação com a Kobojo ou a Celsius Online. Os direitos de Mutants Genetic Gladiators pertencem aos respectivos proprietários."
+  "footer.disclaimer": "Archivist-Library é um projeto de fãs independente, sem afiliação com a Kobojo ou a Celsius Online. Os direitos de Mutants Genetic Gladiators pertencem aos respectivos proprietários.",
+  "home.card.pvp.title": "Simulador de combate PvP",
+  "home.card.pvp.desc": "Cálculo preciso de dano e resultado da batalha com base nas fórmulas reais do jogo"
 }
