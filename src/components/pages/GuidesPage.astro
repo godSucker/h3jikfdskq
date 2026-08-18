@@ -71,6 +71,23 @@ function resolve(id: string) {
 
 const legendaries = (legendaryIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
 
+// zodiac.json.sign - хардкод RU (Овен/Телец/итд), закрытое множество из 12 знаков -
+// ключ словаря по RU-названию, не переведённое имя рендерилось напрямую на всех локалях.
+const ZODIAC_SIGN_KEY: Record<string, string> = {
+  Овен: 'aries',
+  Телец: 'taurus',
+  Близнецы: 'gemini',
+  Рак: 'cancer',
+  Лев: 'leo',
+  Дева: 'virgo',
+  Весы: 'libra',
+  Скорпион: 'scorpio',
+  Стрелец: 'sagittarius',
+  Козерог: 'capricorn',
+  Водолей: 'aquarius',
+  Рыбы: 'pisces',
+};
+
 const zodiac = (
   zodiacEntries as {
     id: string;
@@ -85,8 +102,10 @@ const zodiac = (
     const m = mutantsById.get(z.id);
     const resolved = resolve(z.id);
     if (!m || !resolved) return null;
+    const signKey = ZODIAC_SIGN_KEY[z.sign];
     return {
       ...z,
+      sign: signKey ? t(`guides.zodiac.sign.${signKey}`, locale) : z.sign,
       ...resolved,
       iconNormal: mutantIconAtStar(m, 'normal'),
       iconSilver: mutantIconAtStar(m, 'silver'),

@@ -921,5 +921,17 @@
   "search.reactorHub": "Reactor — pick a generator",
   "search.rouletteHub": "Roulettes — pick a simulator",
   "search.simulatorsHub": "Simulators — all",
-  "search.reactorSuffix": "reactor"
+  "search.reactorSuffix": "reactor",
+  "guides.zodiac.sign.aries": "Aries",
+  "guides.zodiac.sign.taurus": "Taurus",
+  "guides.zodiac.sign.gemini": "Gemini",
+  "guides.zodiac.sign.cancer": "Cancer",
+  "guides.zodiac.sign.leo": "Leo",
+  "guides.zodiac.sign.virgo": "Virgo",
+  "guides.zodiac.sign.libra": "Libra",
+  "guides.zodiac.sign.scorpio": "Scorpio",
+  "guides.zodiac.sign.sagittarius": "Sagittarius",
+  "guides.zodiac.sign.capricorn": "Capricorn",
+  "guides.zodiac.sign.aquarius": "Aquarius",
+  "guides.zodiac.sign.pisces": "Pisces"
 }

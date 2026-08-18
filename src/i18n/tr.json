@@ -921,5 +921,17 @@
   "search.reactorHub": "Reaktör — üreteç seç",
   "search.rouletteHub": "Ruletler — simülatör seç",
   "search.simulatorsHub": "Simülatörler — tümü",
-  "search.reactorSuffix": "reaktör"
+  "search.reactorSuffix": "reaktör",
+  "guides.zodiac.sign.aries": "Koç",
+  "guides.zodiac.sign.taurus": "Boğa",
+  "guides.zodiac.sign.gemini": "İkizler",
+  "guides.zodiac.sign.cancer": "Yengeç",
+  "guides.zodiac.sign.leo": "Aslan",
+  "guides.zodiac.sign.virgo": "Başak",
+  "guides.zodiac.sign.libra": "Terazi",
+  "guides.zodiac.sign.scorpio": "Akrep",
+  "guides.zodiac.sign.sagittarius": "Yay",
+  "guides.zodiac.sign.capricorn": "Oğlak",
+  "guides.zodiac.sign.aquarius": "Kova",
+  "guides.zodiac.sign.pisces": "Balık"
 }

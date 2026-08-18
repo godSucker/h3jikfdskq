@@ -921,5 +921,17 @@
   "search.reactorHub": "Reactor — kies een generator",
   "search.rouletteHub": "Roulettes — kies een simulator",
   "search.simulatorsHub": "Simulators — alle",
-  "search.reactorSuffix": "reactor"
+  "search.reactorSuffix": "reactor",
+  "guides.zodiac.sign.aries": "Ram",
+  "guides.zodiac.sign.taurus": "Stier",
+  "guides.zodiac.sign.gemini": "Tweelingen",
+  "guides.zodiac.sign.cancer": "Kreeft",
+  "guides.zodiac.sign.leo": "Leeuw",
+  "guides.zodiac.sign.virgo": "Maagd",
+  "guides.zodiac.sign.libra": "Weegschaal",
+  "guides.zodiac.sign.scorpio": "Schorpioen",
+  "guides.zodiac.sign.sagittarius": "Boogschutter",
+  "guides.zodiac.sign.capricorn": "Steenbok",
+  "guides.zodiac.sign.aquarius": "Waterman",
+  "guides.zodiac.sign.pisces": "Vissen"
 }
