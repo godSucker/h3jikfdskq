@@ -926,5 +926,17 @@
   "search.reactorHub": "Реактор — выбор генератора",
   "search.rouletteHub": "Рулетки — выбор симулятора",
   "search.simulatorsHub": "Симуляторы — все",
-  "search.reactorSuffix": "реактор"
+  "search.reactorSuffix": "реактор",
+  "guides.zodiac.sign.aries": "Овен",
+  "guides.zodiac.sign.taurus": "Телец",
+  "guides.zodiac.sign.gemini": "Близнецы",
+  "guides.zodiac.sign.cancer": "Рак",
+  "guides.zodiac.sign.leo": "Лев",
+  "guides.zodiac.sign.virgo": "Дева",
+  "guides.zodiac.sign.libra": "Весы",
+  "guides.zodiac.sign.scorpio": "Скорпион",
+  "guides.zodiac.sign.sagittarius": "Стрелец",
+  "guides.zodiac.sign.capricorn": "Козерог",
+  "guides.zodiac.sign.aquarius": "Водолей",
+  "guides.zodiac.sign.pisces": "Рыбы"
 }
