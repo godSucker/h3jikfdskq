@@ -915,7 +915,7 @@
     "name": "Mēxihcatl",
     "lore": "Bu evrensel tufanda Tanrı Quetzalcoatl'ın dünyaya\ncanavar lejyonlarını ve ateş iblislerini gönderdiği söylenir. Efsanevi\nkahramanlar bu uzun süreli savaşlarda bu sürelere karşı koymuştur. Meksikalı\nbir savaşçının reankarnasyonu olabilir mi?",
     "atk1Name": "Tenochtitlan Güneşi",
-    "atk2Name": "Macuahuitl \\n"
+    "atk2Name": "Macuahuitl \n"
   },
   "specimen_fd_04": {
     "name": "Buranka",
@@ -2094,7 +2094,7 @@
     "atk2Name": "Oğul ağzı"
   },
   "specimen_bc_10": {
-    "name": "Kral Lulu\\n\\n",
+    "name": "Kral Lulu\n\n",
     "lore": "Kral Lulu'nun hikâyes trajik… Sevdiklerini kaybedene kadar, sevilen ve sayılan bir kraldı. Sevdiklerini kaybettikten sonra, yatışmayan öfkesi nedeniyle, hıncını rakiplerinden çıkarmak için bir savaş mutandı halini aldı.",
     "atk1Name": "King of the Hill",
     "atk2Name": "Royal Chopper"

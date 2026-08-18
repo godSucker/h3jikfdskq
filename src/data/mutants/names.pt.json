@@ -914,7 +914,7 @@
   "specimen_fc_04": {
     "name": "Mexihcatl",
     "lore": "Dizem que durante o dilúvio universal, o Deus Tezcatlipoca enviou para a Terra as suas legiões de animais selvagens e demônios do fogo. Um herói lendário desafiou essas hordas durante longas batalhas. Exausto, com a cabeça do Deus em suas mãos, ele caiu de cansaço, depois de ter salvo o seu povo. Será que Mexihcatl é a reencarnação deste guerreiro?",
-    "atk1Name": "Sol de Tenochtitlan \\n",
+    "atk1Name": "Sol de Tenochtitlan \n",
     "atk2Name": "Macuahuitl"
   },
   "specimen_fd_04": {
@@ -2342,7 +2342,7 @@
   "specimen_cb_11": {
     "name": "Dissensão",
     "lore": "Antes de obter esse nome, Dissensão era um mercenário que lutava contra qualquer pessoa, em qualquer lugar, em troca de dinheiro. Por excesso de orgulho, ele aceitou um contrato para roubar uma espada que dava imortalidade ao seu portador. Ele lutou contra todos os guardiões da espada. Quando ele agarrou a espada, coberto com o sangue de seus inimigos, umas correntes pretas saíram dela e ela se fixou nas suas costas graças a um poderoso feitiço; um feitiço que só seria quebrado uma vez morto de velhice. Mas ele era imortal, e isso acabou mergulhando sua mente na loucura. O papel de mercenário não lhe bastava mais... Ele se tornou então Dissensão, uma entidade imortal, levada ao caos pela loucura.",
-    "atk1Name": "Arranca-Coração\\n\\n\\n",
+    "atk1Name": "Arranca-Coração\n\n\n",
     "atk2Name": "Bebedor de Almas"
   },
   "specimen_cc_11": {
