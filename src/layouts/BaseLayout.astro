@@ -579,7 +579,13 @@ const structuredData = [
         color: #7d8590;
         font-size: 0.9rem;
       }
-      
+
+      .footer-disclaimer {
+        margin-top: 0.5rem;
+        font-size: 0.78rem;
+        color: #58606a;
+      }
+
       /* Mobile styles */
       @media (max-width: 767px) {
         .menu-toggle {
@@ -758,6 +764,7 @@ const structuredData = [
     </main>
     <footer>
       <p>{t('footer.copyright', locale).replace('{year}', String(new Date().getFullYear()))}</p>
+      <p class="footer-disclaimer">{t('footer.disclaimer', locale)}</p>
     </footer>
     
     <script>
