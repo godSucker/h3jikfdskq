@@ -939,5 +939,7 @@
   "guides.zodiac.sign.capricorn": "Козерог",
   "guides.zodiac.sign.aquarius": "Водолей",
   "guides.zodiac.sign.pisces": "Рыбы",
-  "footer.disclaimer": "Архивариус — независимый фан-проект, не аффилирован с Kobojo и Celsius Online. Права на игру Mutants Genetic Gladiators принадлежат правообладателям."
+  "footer.disclaimer": "Архивариус — независимый фан-проект, не аффилирован с Kobojo и Celsius Online. Права на игру Mutants Genetic Gladiators принадлежат правообладателям.",
+  "home.card.pvp.title": "PvP-симулятор боя",
+  "home.card.pvp.desc": "Точный расчёт урона и исход боя по реальным игровым формулам"
 }
