@@ -34,6 +34,10 @@
 
   // --- HELPERS ---
   const getName = (m: Mutant) => names[m.id]?.name || m.name || m.id;
+  // secretCombos.childName - всегда RU (LOCKED-файл, см. secretCombos.ts) - сверять
+  // нужно с RU-канонiчным m.name, не с getName(m) (который на не-RU локалях отдаёт
+  // локализованное имя и никогда не совпадёт с RU childName - баг найден 2026-08-18).
+  const isSecretChild = (m: Mutant) => secretNames.has(normalize(m.name));
 
   function getImageSrc(m: Mutant): string {
     const img = m.image;
@@ -244,7 +248,7 @@
   });
 
   let filteredList = $derived(allMutants.filter(m => {
-    if (filterGene === 'recipe') return secretNames.has(normalize(getName(m)));
+    if (filterGene === 'recipe') return isSecretChild(m);
 
     const normalizedSearch = normalizeSearch(search);
     const nameMatch = !normalizedSearch || normalizeSearch(getName(m)).includes(normalizedSearch);
@@ -410,7 +414,7 @@
   });
 
   function handleCardClick(m: Mutant) {
-    const isSecret = secretNames.has(normalize(getName(m)));
+    const isSecret = isSecretChild(m);
 
     if (window.innerWidth < 1024) {
         mobileTab = 'lab';
@@ -590,7 +594,7 @@
                                             <div class="card-meta">
                                                 <span class="prob-badge">{formatProb(res.probability)}</span>
                                                 <span class="time">⏱ {formatMinutes(getIncubTime(res.child, resultStar))}</span>
-                                                {#if res.isSecret || secretNames.has(normalize(getName(res.child)))}
+                                                {#if res.isSecret || isSecretChild(res.child)}
                                                     <span class="secret-tag">{t('breeding.results.secretTag', locale)}</span>
                                                 {/if}
                                                 {#if res.tag && res.tag !== 'ВОЗМОЖНО' && res.tag !== 'РЕЦЕПТ'}
@@ -826,7 +830,7 @@
                     <div class="item-info-row">
                         <div class="item-name">{getName(m)}</div>
                     </div>
-                    {#if secretNames.has(normalize(getName(m)))}<div class="secret-badge">★</div>{/if}
+                    {#if isSecretChild(m)}<div class="secret-badge">★</div>{/if}
                 </button>
            {/each}
       </div>
