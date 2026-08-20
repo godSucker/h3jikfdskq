@@ -555,7 +555,9 @@
     "specimen_fc_14",
     "specimen_fa_14",
     "specimen_ef_15",
-    "specimen_fa_15"
+    "specimen_fa_15",
+    "specimen_bb_14",
+    "specimen_da_15"
   ],
   "skin": [
     "Specimen_A_01|japan",
@@ -683,6 +685,7 @@
     "Specimen_CC_02|movies",
     "Specimen_CC_03|starwars",
     "Specimen_CC_04|olympians",
+    "Specimen_CC_05|school",
     "Specimen_CC_06|independence",
     "Specimen_CC_08|labor",
     "Specimen_CC_09|valentines",

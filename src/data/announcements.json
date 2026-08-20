@@ -1676,5 +1676,38 @@
       }
     ],
     "link": "/announcements"
+  },
+  {
+    "id": "mutant-1787241092908",
+    "date": "2026-08-20T15:51:32.059Z",
+    "category": "mutant",
+    "title": "Новые мутанты: 2",
+    "items": [
+      {
+        "id": "specimen_bb_14",
+        "name": "Гематогул",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_bb_14_obtain.jpg"
+      },
+      {
+        "id": "specimen_da_15",
+        "name": "Флипфлоп, морфическая жираф",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_da_15_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1787241092910",
+    "date": "2026-08-20T15:51:32.059Z",
+    "category": "skin",
+    "title": "Шин Хакухо — school",
+    "items": [
+      {
+        "id": "Specimen_CC_05|school",
+        "name": "Шин Хакухо — school",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_cc_05_school.png"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
