@@ -3328,5 +3328,17 @@
     "lore": "A governante de Hex City. O seu vestuário reflete constantemente os fractais infinitos, e o seu equipamento espelha as estruturas aritmáticas que regem a zona dimensional onde reside. Foi responsável pelo banimento de um certo indivíduo, mas a influência desse indivíduo ainda perdura em múltiplas dimensões.",
     "atk1Name": "Fractal Infinito",
     "atk2Name": "Feitiço Geométrico"
+  },
+  "specimen_bb_14": {
+    "name": "Hematógulo",
+    "lore": "Imagina um híbrido entre um ghoul, um vampiro e uma sanguessuga… Depois, acrescenta a capacidade de transformar o sangue que absorve num poderoso explosivo. O resultado é a nova criação que ocupa o centro das atenções no Torneio Mundial — uma criatura aterradora e particularmente sangrenta! Não te esqueças de levar um guarda-chuva se fores assistir às batalhas!",
+    "atk1Name": "Ferida Fatal",
+    "atk2Name": "Esfera de Sangue"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, a Girafa Mórfica",
+    "lore": "A Flipflop era uma girafa simples que vivia na savana. Um dia, um helicóptero voou demasiado perto dela e, FLIPFLOP!, acabaram por se fundir numa criatura mórfica, capaz de se transformar à vontade num helicóptero e num canhão gigantesco.",
+    "atk1Name": "Girafóptero",
+    "atk2Name": "Canhão-Girafa"
   }
 }

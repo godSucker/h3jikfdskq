@@ -3334,5 +3334,17 @@
     "lore": "Die Herrscherin von Hex City. Ihre Kleidung spiegelt stets die unendlichen Fraktale wider, und ihre Ausrüstung spiegelt die arithmantischen Strukturen wider, die die Dimensionszone beherrschen, in der sie lebt. Sie war für die Verbannung einer bestimmten Person verantwortlich, doch der Einfluss dieser Person ist nach wie vor über mehrere Dimensionen hinweg spürbar.",
     "atk1Name": "Unendliches Fraktal",
     "atk2Name": "Geometrischer Hex"
+  },
+  "specimen_bb_14": {
+    "name": "Hämatogul",
+    "lore": "Stellt euch eine Kreuzung aus Ghul, Vampir und Blutegel vor … Dazu kommt noch die Fähigkeit, das aufgesaugte Blut in einen mächtigen Sprengstoff zu verwandeln. Das Ergebnis ist die neue Kreatur, die beim Weltturnier im Mittelpunkt steht – ein furchterregendes und besonders blutiges Wesen! Vergesst nicht, einen Regenschirm mitzunehmen, wenn ihr euch die Kämpfe ansehen wollt!",
+    "atk1Name": "Tödliche Wunde",
+    "atk2Name": "Blutkugel"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, morphische Giraffe",
+    "lore": "Flipflop war eine einfache Giraffe, die in der Savanne lebte. Eines Tages flog ein Hubschrauber ihr zu nahe, und FLIPFLOP! – schon verschmolzen sie zu einem morphischen Wesen, das sich nach Belieben in einen Hubschrauber und eine riesige Kanone verwandeln konnte.",
+    "atk1Name": "Giraffopter",
+    "atk2Name": "Giraffenkanone"
   }
 }

@@ -3334,5 +3334,17 @@
     "lore": "La dirigeante de Hex City. Sa tenue reflète en permanence les infinis fractaux et ses équipements les structures arithmantiques qui gouvernent la zone dimensionnelle où elle réside. Elle est à l’origine du bannissement d’un certain individu, mais l’influence de ce dernier perdure encore dans de multiples dimensions.",
     "atk1Name": "Fractale infinie",
     "atk2Name": "Sortilège Hexagonal"
+  },
+  "specimen_bb_14": {
+    "name": "Hématogoule",
+    "lore": "Imagines une fusion entre une goule, un vampire, et une sangsue… Et ajoutez-lui la capacité à manipuler le sang absorbé comme un puissant explosif. Vous obtenez la nouvelle création qui trône au centre du Tournoi Mondial, une créature terrifiante, et particulièrement sanglante ! Pensez à emmener un parapluie si vous allez observer les combats !",
+    "atk1Name": "Lacération fatale",
+    "atk2Name": "Sphère Sanglante"
+  },
+  "specimen_da_15": {
+    "name": "Flip-Flop la Girafe",
+    "lore": "Connaissez-vous l’histoire de Flip-Flop la Girafe ? Un jour, dans la savane, Flip-Flop mangeait tranquillement, quand soudain, un hélicoptère passa. Et FLIP-FLOP, les deux fusionnèrent en une girafe morphique capable de prendre la forme d’un hélicoptère ou d’un canon laser gigantesque !",
+    "atk1Name": "Girafoptère",
+    "atk2Name": "Canon Girafe"
   }
 }

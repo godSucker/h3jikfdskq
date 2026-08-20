@@ -59014,5 +59014,227 @@
     "name_attack2": "Геометрический гекс",
     "name_attack3": "",
     "name_lore": "Правительница города Хекс. Её наряд постоянно отражает бесконечные фракталы, а её снаряжение — арифмантические структуры, управляющие измерительной зоной, в которой она обитает. Именно она была ответственна за изгнание некого существа, но влияние этого существа до сих пор ощущается во многих измерениях."
+  },
+  {
+    "id": "specimen_bb_14",
+    "name": "Гематогул",
+    "genes": [
+      "B",
+      "B"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 1744,
+        "atk1": 614,
+        "atk2": 360,
+        "ability": 614,
+        "speed": 4.55,
+        "silver": 42,
+        "atk1_gene": "b",
+        "atk2_gene": "b",
+        "atk1_AOE": false,
+        "atk2_AOE": true
+      },
+      "lvl30": {
+        "hp": 6802,
+        "atk1": 3003,
+        "atk2": 1872,
+        "ability": 6006,
+        "speed": 4.55,
+        "silver": 1260,
+        "atk1_gene": "b",
+        "atk2_gene": "b",
+        "atk1_AOE": false,
+        "atk2_AOE": true
+      },
+      "hp_base": 1744,
+      "atk1_base": 614,
+      "atk1p_base": 770,
+      "atk2_base": 360,
+      "atk2p_base": 480,
+      "speed_base": 4.55,
+      "bank_base": 42,
+      "abilityPct1": -100,
+      "abilityPct2": -200
+    },
+    "abilities": [
+      {
+        "name": "ability_slash",
+        "pct": 100,
+        "value_atk1_lvl1": 614,
+        "value_atk2_lvl1": 360,
+        "value_atk1_lvl30": 3003,
+        "value_atk2_lvl30": 1872
+      },
+      {
+        "name": "ability_slash_plus",
+        "pct": 200,
+        "value_atk1_lvl1": 1228,
+        "value_atk2_lvl1": 720,
+        "value_atk1_lvl30": 6006,
+        "value_atk2_lvl30": 3744
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/bb_14/specimen_bb_14_normal.webp",
+          "textures_by_mutant/bb_14/larva_bb_14.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/bb_14/specimen_bb_14_bronze.webp",
+          "textures_by_mutant/bb_14/larva_bb_14.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/bb_14/specimen_bb_14_silver.webp",
+          "textures_by_mutant/bb_14/larva_bb_14.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/bb_14/specimen_bb_14_gold.webp",
+          "textures_by_mutant/bb_14/larva_bb_14.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+          "textures_by_mutant/bb_14/larva_bb_14.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 20,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Смертельное ранение",
+    "name_attack2": "Кровавая сфера",
+    "name_attack3": "",
+    "name_lore": "Представьте себе гибрид гуля, вампира и пиявки… А теперь добавьте к этому способность превращать поглощённую кровь в мощное взрывчатое вещество. Результатом стало новое создание, которое станет главной звездой Мирового турнира — ужасающее и особенно кровавое существо! Не забудьте взять с собой зонтик, если собираетесь посмотреть на сражения!"
+  },
+  {
+    "id": "specimen_da_15",
+    "name": "Флипфлоп, морфическая жираф",
+    "genes": [
+      "D",
+      "A"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 1775,
+        "atk1": 1048,
+        "atk2": 1048,
+        "ability": 262,
+        "speed": 4.76,
+        "silver": 42,
+        "atk1_gene": "d",
+        "atk2_gene": "a",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "lvl30": {
+        "hp": 6923,
+        "atk1": 5975,
+        "atk2": 5975,
+        "ability": 2390,
+        "speed": 4.76,
+        "silver": 1260,
+        "atk1_gene": "d",
+        "atk2_gene": "a",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "hp_base": 1775,
+      "atk1_base": 1048,
+      "atk1p_base": 1532,
+      "atk2_base": 1048,
+      "atk2p_base": 1532,
+      "speed_base": 4.76,
+      "bank_base": 42,
+      "abilityPct1": 25,
+      "abilityPct2": 40
+    },
+    "abilities": [
+      {
+        "name": "ability_strengthen",
+        "pct": 25,
+        "value_atk1_lvl1": 262,
+        "value_atk2_lvl1": 262,
+        "value_atk1_lvl30": 1494,
+        "value_atk2_lvl30": 1494
+      },
+      {
+        "name": "ability_strengthen_plus",
+        "pct": 40,
+        "value_atk1_lvl1": 419,
+        "value_atk2_lvl1": 419,
+        "value_atk1_lvl30": 2390,
+        "value_atk2_lvl30": 2390
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/da_15/specimen_da_15_normal.webp",
+          "textures_by_mutant/da_15/larva_da_15.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/da_15/specimen_da_15_bronze.webp",
+          "textures_by_mutant/da_15/larva_da_15.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/da_15/specimen_da_15_silver.webp",
+          "textures_by_mutant/da_15/larva_da_15.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/da_15/specimen_da_15_gold.webp",
+          "textures_by_mutant/da_15/larva_da_15.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+          "textures_by_mutant/da_15/larva_da_15.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 20,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Жирафоптер",
+    "name_attack2": "Жираф-пушка",
+    "name_attack3": "",
+    "name_lore": "Флипфлоп была обычной жирафом, жившей в саванне. Однажды вертолёт пролетел слишком близко к ней, и — ФЛИПФЛОП! — они слились в одно морфическое существо, способное по желанию превращаться то в вертолёт, то в огромную пушку."
   }
 ]

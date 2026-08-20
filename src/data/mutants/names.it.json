@@ -3334,5 +3334,17 @@
     "lore": "La sovrana di Hex City. Il suo abbigliamento riflette costantemente gli infiniti frattali, mentre il suo equipaggiamento rispecchia le strutture aritmantiche che governano la zona dimensionale in cui risiede. È stata lei a decidere la cacciata di un certo individuo, ma l’influenza di quest’ultimo persiste ancora attraverso molteplici dimensioni.",
     "atk1Name": "Frattale Infinito",
     "atk2Name": "Esagono Geometrico"
+  },
+  "specimen_bb_14": {
+    "name": "Ematodemone",
+    "lore": "Immaginate un incrocio tra un ghoul, un vampiro e una sanguisuga… Aggiungeteci poi la capacità di trasformare il sangue che assorbe in un potente esplosivo. Il risultato è la nuova creatura che sarà protagonista del Torneo Mondiale: una creatura terrificante e particolarmente sanguinaria! Se avete intenzione di assistere agli scontri, ricordatevi di portare un ombrello!",
+    "atk1Name": "Ferita mortale",
+    "atk2Name": "Sfera di sangue"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Giraffa morfica",
+    "lore": "Flipflop era una semplice giraffa che viveva nella savana. Un giorno, un elicottero le volò troppo vicino e, FLIPFLOP!, finirono per fondersi in una creatura morfica, capace di trasformarsi a piacimento in un elicottero e in un enorme cannone.",
+    "atk1Name": "Giraffottero",
+    "atk2Name": "Cannone giraffa"
   }
 }

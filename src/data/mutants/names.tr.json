@@ -3334,5 +3334,17 @@
     "lore": "Hex City’nin hükümdarı. Kıyafetleri sürekli olarak sonsuz fraktalları yansıtır ve teçhizatı, yaşadığı boyutsal bölgeyi yöneten aritmetik yapıları yansıtmaktadır. Belirli bir kişinin sürgüne gönderilmesinden sorumluydu, ancak o kişinin etkisi hâlâ birçok boyutta devam etmektedir.",
     "atk1Name": "Sonsuz Fraktal",
     "atk2Name": "Geometrik Büyü"
+  },
+  "specimen_bb_14": {
+    "name": "Hematogul",
+    "lore": "Bir gulyabani, bir vampir ve bir sülükün melezini hayal edin… Ardından, emdiği kanı güçlü bir patlayıcıya dönüştürme yeteneğini de ekleyin. Sonuçta ortaya, Dünya Turnuvası’nın başrolünü üstlenen yeni bir yaratık çıkıyor: korkunç ve son derece kanlı bir yaratık! Savaşları izlemeye gidiyorsanız mutlaka bir şemsiye getirmeyi unutmayın!",
+    "atk1Name": "Ölümcül Yara",
+    "atk2Name": "Kan Küresi"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Morfik Zürafa",
+    "lore": "Flipflop, savanada yaşayan sıradan bir zürafaydı. Bir gün, bir helikopter ona çok yaklaşarak uçtu ve FLIPFLOP! Sonunda ikisi birleşerek, istediği zaman helikoptere ve devasa bir topa dönüşebilen morfik bir yaratığa dönüştüler.",
+    "atk1Name": "Zürafopter",
+    "atk2Name": "Zürafa Topu"
   }
 }

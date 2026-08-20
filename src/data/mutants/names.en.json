@@ -3334,5 +3334,17 @@
     "lore": "The ruler of Hex City. Her attire constantly reflects the infinite fractals, and her equipment mirrors the arithmantical structures that govern the dimensional zone where she resides. She was responsible for the banishment of a certain individual, but that individual’s influence still lingers across multiple dimensions.",
     "atk1Name": "Infinite Fractal",
     "atk2Name": "Geometric Hex"
+  },
+  "specimen_bb_14": {
+    "name": "Hematoghoul",
+    "lore": "Imagine a hybrid of a ghoul, a vampire, and a leech… Then add the ability to manipulate the blood it absorbs as a powerful explosive. The result is the new creation taking center stage at the Global Tournament—a terrifying and particularly bloody creature! Be sure to bring an umbrella if you’re going to watch the battles!",
+    "atk1Name": "Fatal Wound",
+    "atk2Name": "Blood Sphere"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Morphic Giraffe",
+    "lore": "Flipflop was a simple giraffe, living in the savannah. One day, a helicopter flew too close to her, and FLIPFLOP!, they ended up merging into a morphic creature, able to turn at will into a helicopter and a massive cannon.",
+    "atk1Name": "Giraffopter",
+    "atk2Name": "Giraffe Cannon"
   }
 }

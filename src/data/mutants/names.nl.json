@@ -3334,5 +3334,17 @@
     "lore": "De heerseres van Hex City. Haar kleding weerspiegelt voortdurend de oneindige fractalen, en haar uitrusting weerspiegelt de aritmantische structuren die de dimensionale zone beheersen waarin zij verblijft. Zij was verantwoordelijk voor de verbanning van een bepaald individu, maar de invloed van dat individu is nog steeds voelbaar in meerdere dimensies.",
     "atk1Name": "Oneindige fractal",
     "atk2Name": "Geometrische hex"
+  },
+  "specimen_bb_14": {
+    "name": "Hematogeest",
+    "lore": "Stel je een kruising voor tussen een ghoul, een vampier en een bloedzuiger… Voeg daar dan nog het vermogen aan toe om het bloed dat het opzuigt te veranderen in een krachtig explosief. Het resultaat is de nieuwe creatie die tijdens het Wereldtoernooi in de schijnwerpers staat: een angstaanjagend en bijzonder bloederig wezen! Vergeet niet een paraplu mee te nemen als je de gevechten gaat bekijken!",
+    "atk1Name": "Dodelijke wond",
+    "atk2Name": "Bloedbol"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Morfische giraf",
+    "lore": "Flipflop was een gewone giraf die op de savanne leefde. Op een dag vloog er een helikopter te dicht bij haar, en FLIPFLOP!, versmolten ze tot een morfisch wezen dat zich naar believen kon veranderen in een helikopter en een enorm kanon.",
+    "atk1Name": "Girafopter",
+    "atk2Name": "Giraffenkanon"
   }
 }
