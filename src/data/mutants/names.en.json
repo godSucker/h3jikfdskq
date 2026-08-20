@@ -915,7 +915,7 @@
     "name": "Mexihcatl",
     "lore": "It is said that this famous Aztec warrior was once engaged to a princess, who died after being tricked into believing he was killed in battle. To honour her, he ordered a tomb to be build close to the sun. As years went by snow covered the grieving warrior and his beloved and they both transformed into volcanos. Meanwhile his ghost came to the arena to take vengeance on his opponents.",
     "atk1Name": "Tenochtitlan Sun",
-    "atk2Name": "Macuahuitl \\n"
+    "atk2Name": "Macuahuitl \n"
   },
   "specimen_fd_04": {
     "name": "Buranka",
@@ -954,7 +954,7 @@
     "atk2Name": "Air defence"
   },
   "specimen_ab_05": {
-    "name": "Neo-Urban XIII\\n",
+    "name": "Neo-Urban XIII\n",
     "lore": "The relationship between Eva and Urban has always been a mix of attraction and hatred. This creature illustrates exactly that. For years, Baron Urban has engaged in self-cloning experiments to create a perfect body for himself. The first clones died quickly, destroying parts of Urban's lab with their fury. The XIIIth was a failure too, but it survived. Its only motivation is to find Eva and absorb her. In the meantime, it destroys indistinctly every Mutant in its way.",
     "atk1Name": "Muto-gun",
     "atk2Name": "EV...V-VA!"
@@ -3334,5 +3334,17 @@
     "lore": "The ruler of Hex City. Her attire constantly reflects the infinite fractals, and her equipment mirrors the arithmantical structures that govern the dimensional zone where she resides. She was responsible for the banishment of a certain individual, but that individual’s influence still lingers across multiple dimensions.",
     "atk1Name": "Infinite Fractal",
     "atk2Name": "Geometric Hex"
+  },
+  "specimen_bb_14": {
+    "name": "Hematoghoul",
+    "lore": "Imagine a hybrid of a ghoul, a vampire, and a leech… Then add the ability to manipulate the blood it absorbs as a powerful explosive. The result is the new creation taking center stage at the Global Tournament—a terrifying and particularly bloody creature! Be sure to bring an umbrella if you’re going to watch the battles!",
+    "atk1Name": "Fatal Wound",
+    "atk2Name": "Blood Sphere"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Morphic Giraffe",
+    "lore": "Flipflop was a simple giraffe, living in the savannah. One day, a helicopter flew too close to her, and FLIPFLOP!, they ended up merging into a morphic creature, able to turn at will into a helicopter and a massive cannon.",
+    "atk1Name": "Giraffopter",
+    "atk2Name": "Giraffe Cannon"
   }
 }

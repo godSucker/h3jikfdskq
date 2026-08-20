@@ -195,6 +195,13 @@
             "value": 2104
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 2096
+          },
+          {
             "id": "specimen_ac_14",
             "name": "Профессор Хрономантик",
             "star": "platinum",
@@ -1599,6 +1606,13 @@
             "name": "Леди Свобода",
             "star": "normal",
             "icon": "/textures_by_mutant/ea_08/specimen_ea_08_normal.webp",
+            "value": 1228
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 1228
           },
           {
@@ -4411,6 +4425,13 @@
             "value": 724
           },
           {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 720
+          },
+          {
             "id": "specimen_cc_09",
             "name": "Ланселот",
             "star": "platinum",
@@ -7052,6 +7073,13 @@
             "value": 3550
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 3550
+          },
+          {
             "id": "specimen_df_03",
             "name": "Абсолем",
             "star": "platinum",
@@ -7189,6 +7217,13 @@
             "name": "Иши-но-Оками",
             "star": "platinum",
             "icon": "/textures_by_mutant/fd_11/specimen_fd_11_platinum.webp",
+            "value": 3488
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 3488
           },
           {
@@ -10869,6 +10904,13 @@
             "value": 4.76
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 4.76
+          },
+          {
             "id": "specimen_ce_08",
             "name": "Безымянный король",
             "star": "platinum",
@@ -11055,6 +11097,13 @@
             "name": "Брейкмастер",
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_14/specimen_ca_14_normal.webp",
+            "value": 4.55
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 4.55
           },
           {
@@ -16574,6 +16623,20 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 42
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -18585,6 +18648,14 @@
               "value": 3028
             },
             {
+              "id": "specimen_bb_14",
+              "name": "Гематогул",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+              "pct": 200,
+              "value": 2456
+            },
+            {
               "id": "specimen_da_08",
               "name": "Асайлан",
               "star": "platinum",
@@ -19409,6 +19480,14 @@
               "icon": "/textures_by_mutant/eb_06/specimen_eb_06_normal.webp",
               "pct": 45,
               "value": 852
+            },
+            {
+              "id": "specimen_da_15",
+              "name": "Флипфлоп, морфическая жираф",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+              "pct": 40,
+              "value": 838
             },
             {
               "id": "specimen_ce_13",
@@ -21341,6 +21420,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/de_04/specimen_de_04_platinum.webp",
             "value": 11966
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 11950
           },
           {
             "id": "specimen_ed_13",
@@ -23420,6 +23506,13 @@
             "star": "gold",
             "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
             "value": 6020
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 6006
           },
           {
             "id": "specimen_bd_02",
@@ -25592,6 +25685,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/f_04/specimen_f_04_normal.webp",
             "value": 3764
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 3744
           },
           {
             "id": "specimen_bb_11",
@@ -28081,6 +28181,13 @@
             "value": 13860
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 13846
+          },
+          {
             "id": "specimen_ce_10",
             "name": "Капитан Ахаба",
             "star": "normal",
@@ -28225,6 +28332,13 @@
             "name": "Иши-но-Оками",
             "star": "platinum",
             "icon": "/textures_by_mutant/fd_11/specimen_fd_11_platinum.webp",
+            "value": 13604
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 13604
           },
           {
@@ -31905,6 +32019,13 @@
             "value": 4.76
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 4.76
+          },
+          {
             "id": "specimen_ce_08",
             "name": "Безымянный король",
             "star": "platinum",
@@ -32091,6 +32212,13 @@
             "name": "Брейкмастер",
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_14/specimen_ca_14_normal.webp",
+            "value": 4.55
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 4.55
           },
           {
@@ -37610,6 +37738,20 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 1260
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -39621,6 +39763,14 @@
               "value": 17036
             },
             {
+              "id": "specimen_bb_14",
+              "name": "Гематогул",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+              "pct": 200,
+              "value": 12012
+            },
+            {
               "id": "specimen_da_08",
               "name": "Асайлан",
               "star": "platinum",
@@ -40453,6 +40603,14 @@
               "icon": "/textures_by_mutant/fc_13/specimen_fc_13_platinum.webp",
               "pct": 35,
               "value": 5034
+            },
+            {
+              "id": "specimen_da_15",
+              "name": "Флипфлоп, морфическая жираф",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+              "pct": 40,
+              "value": 4780
             },
             {
               "id": "specimen_ae_07",
@@ -44207,6 +44365,13 @@
             "value": 3550
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 3550
+          },
+          {
             "id": "specimen_df_03",
             "name": "Абсолем",
             "star": "platinum",
@@ -44351,6 +44516,13 @@
             "name": "Иши-но-Оками",
             "star": "platinum",
             "icon": "/textures_by_mutant/fd_11/specimen_fd_11_platinum.webp",
+            "value": 3488
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 3488
           },
           {
@@ -48059,6 +48231,13 @@
             "value": 4.76
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 4.76
+          },
+          {
             "id": "specimen_ce_08",
             "name": "Безымянный король",
             "star": "platinum",
@@ -48245,6 +48424,13 @@
             "name": "Брейкмастер",
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_14/specimen_ca_14_normal.webp",
+            "value": 4.55
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 4.55
           },
           {
@@ -53764,6 +53950,20 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 42
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -54056,6 +54256,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/de_04/specimen_de_04_platinum.webp",
             "value": 11966
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 11950
           },
           {
             "id": "specimen_ed_13",
@@ -56142,6 +56349,13 @@
             "star": "gold",
             "icon": "/textures_by_mutant/dc_03/specimen_dc_03_normal.webp",
             "value": 6020
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 6006
           },
           {
             "id": "specimen_bd_02",
@@ -58286,6 +58500,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/f_04/specimen_f_04_normal.webp",
             "value": 3764
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 3744
           },
           {
             "id": "specimen_bb_11",
@@ -60789,6 +61010,13 @@
             "value": 13845
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 13845
+          },
+          {
             "id": "specimen_df_03",
             "name": "Абсолем",
             "star": "platinum",
@@ -60933,6 +61161,13 @@
             "name": "Иши-но-Оками",
             "star": "platinum",
             "icon": "/textures_by_mutant/fd_11/specimen_fd_11_platinum.webp",
+            "value": 13603
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 13603
           },
           {
@@ -64641,6 +64876,13 @@
             "value": 4.76
           },
           {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 4.76
+          },
+          {
             "id": "specimen_ce_08",
             "name": "Безымянный король",
             "star": "platinum",
@@ -64827,6 +65069,13 @@
             "name": "Брейкмастер",
             "star": "platinum",
             "icon": "/textures_by_mutant/ca_14/specimen_ca_14_normal.webp",
+            "value": 4.55
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
             "value": 4.55
           },
           {
@@ -70346,6 +70595,20 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_bb_14",
+            "name": "Гематогул",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+            "value": 1260
+          },
+          {
+            "id": "specimen_da_15",
+            "name": "Флипфлоп, морфическая жираф",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -72357,6 +72620,14 @@
               "value": 17036
             },
             {
+              "id": "specimen_bb_14",
+              "name": "Гематогул",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bb_14/specimen_bb_14_platinum.webp",
+              "pct": 200,
+              "value": 12012
+            },
+            {
               "id": "specimen_da_08",
               "name": "Асайлан",
               "star": "platinum",
@@ -73189,6 +73460,14 @@
               "icon": "/textures_by_mutant/fc_13/specimen_fc_13_platinum.webp",
               "pct": 35,
               "value": 5034
+            },
+            {
+              "id": "specimen_da_15",
+              "name": "Флипфлоп, морфическая жираф",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
+              "pct": 40,
+              "value": 4780
             },
             {
               "id": "specimen_ae_07",

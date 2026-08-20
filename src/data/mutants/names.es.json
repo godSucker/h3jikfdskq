@@ -915,7 +915,7 @@
     "name": "Mexihcatl",
     "lore": "Se cuenta que, durante el Diluvio Universal, el dios Tezcatlipoca envió a la Tierra a sus legiones de animales salvajes y demonios de fuego. Un héroe legendario plantó cara a estas hordas en cruentos combates. Cuando ya había salvado a su pueblo y por fin tenía la cabeza del Dios entre sus manos, cayó muerto de fatiga. ¿Es Mexihcatl la reencarnación de ese guerrero?",
     "atk1Name": "Sol de Tenochtitlan",
-    "atk2Name": "Macuahuitl \\n"
+    "atk2Name": "Macuahuitl \n"
   },
   "specimen_fd_04": {
     "name": "Buranka",
@@ -954,7 +954,7 @@
     "atk2Name": "Defensa Aérea"
   },
   "specimen_ab_05": {
-    "name": "Neo Urban XIII\\n",
+    "name": "Neo Urban XIII\n",
     "lore": "La relación entre Eva y Urban siempre ha sido una mezcla de atracción y odio. Esta criatura es una buena prueba de ello. Durante años, el Barón Urban se sometió a experimentos de autoclonación para dotarse de un cuerpo perfecto. Los primeros clones murieron al poco tiempo, después de provocar graves destrozos en el laboratorio de Urban con su furia. El clon XIII también resultó un fracaso, pero sobrevivió... Su única motivación es encontrar a Eva y absorberla. Mientras tanto, destruye sin distinciones a todos los Mutantes con los que se cruza.",
     "atk1Name": "Mutoarma",
     "atk2Name": "¡EV...V-VA!"
@@ -3334,5 +3334,17 @@
     "lore": "La gobernante de Hex City. Su atuendo refleja constantemente los fractales infinitos, y su equipamiento refleja las estructuras aritmánticas que rigen la zona dimensional en la que reside. Fue la responsable del destierro de cierto individuo, pero la influencia de este aún perdura a través de múltiples dimensiones.",
     "atk1Name": "Fractal infinito",
     "atk2Name": "Hexágono geométrico"
+  },
+  "specimen_bb_14": {
+    "name": "Hematógulo",
+    "lore": "Imagina un cruce entre un ghoul, un vampiro y una sanguijuela… Y añádele la capacidad de convertir la sangre que absorbe en un potente explosivo. El resultado es la nueva creación que acapara toda la atención en el Torneo Mundial: ¡una criatura aterradora y especialmente sangrienta! ¡No olvides llevarte un paraguas si vas a ver las batallas!",
+    "atk1Name": "Herida mortal",
+    "atk2Name": "Esfera de sangre"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, Jirafa Mórfica",
+    "lore": "Flipflop era una jirafa muy sencilla que vivía en la sabana. Un día, un helicóptero voló demasiado cerca de ella y, ¡FLIPFLOP!, acabaron fusionándose en una criatura morfa, capaz de transformarse a voluntad en un helicóptero y en un cañón gigantesco.",
+    "atk1Name": "Jirafóptero",
+    "atk2Name": "Cañón de jirafa"
   }
 }

@@ -954,7 +954,7 @@
     "atk2Name": "Luftabwehr"
   },
   "specimen_ab_05": {
-    "name": "Neo-Urban XIII\\n",
+    "name": "Neo-Urban XIII\n",
     "lore": "Das Verhältnis zwischen Eva und Urban war immer schon eine Mischung aus Anziehung und Hass. Diese Kreatur versinnbildlicht genau das. Seit Jahren beschäftigt sich Baron Urban mit Selbstklon-Experimenten, um einen perfekten Körper für sich zu kreieren. Die ersten Klone starben schnell und zerstörten in ihrer Wut einen Teil von Urbans Labor. Auch der XIII. war ein Misserfolg, allerdings überlebte er. Seine einzige Motivation besteht darin Eva zu finden, um sie zu absorbieren. In der Zwischenzeit zerstört er wahllos alle Mutanten, die ihm in die Quere kommen.",
     "atk1Name": "Muto-gun",
     "atk2Name": "EV...V-VA!"
@@ -1443,7 +1443,7 @@
     "name": "Nekroparasit",
     "lore": "Darwin hat erst kürzlich festgestellt, dass mit den Zombies in der Arena irgendetwas anders ist. Und erst nach einer genauen Studie fand er heraus, dass diese Zombies von einem Pilz befallen waren, den er Nekroparasit nannte.",
     "atk1Name": "Parasitenschlag",
-    "atk2Name": "Pilzsporen\\n"
+    "atk2Name": "Pilzsporen\n"
   },
   "specimen_bc_07": {
     "name": "Torfmutant",
@@ -1646,7 +1646,7 @@
   "specimen_af_08": {
     "name": "H0ud1n1",
     "lore": "Dieser von Darwin entwickelte Roboter sollte ursprünglich die wissenschaftliche Wahrheit hinter der Magie ans Licht bringen. Doch nachdem er lange Zeit paranormalen Phänomenen ausgesetzt war, erlangte H0ud1n1 ein eigenes Bewusstsein und emanzipierte sich. Er machte sich auf, um zum besten Roboterzauberer der Welt zu werden.",
-    "atk1Name": "\\nElektronische Entladung",
+    "atk1Name": "\nElektronische Entladung",
     "atk2Name": "Blitzableiter"
   },
   "specimen_ba_08": {
@@ -1923,7 +1923,7 @@
     "name": "Mon-Key Crew",
     "lore": "Diese Crew bestehend aus wilden Affen lässt sich nicht auf den Schwanz treten! Es heißt, sie wären gemeinsam aus einem Labor geflüchtet, nachdem ihnen ihre Bananenration verweigert wurde.",
     "atk1Name": "Schmarre an Bord!",
-    "atk2Name": "\\nParty-Punch"
+    "atk2Name": "\nParty-Punch"
   },
   "specimen_ce_09": {
     "name": "Zar Bomba",
@@ -2366,8 +2366,8 @@
   "specimen_cf_11": {
     "name": "Calibur EX",
     "lore": "Der wahre Träger des Claíomh Solais. Nur er kann die ganze Kraft dieser Waffe entfalten. Da du ihm sein Schwert gebracht hast, wird er dir von nun an treu in jede Schlacht folgen.",
-    "atk1Name": "Waffenmeister\\n",
-    "atk2Name": "Meisterwaffe\\n"
+    "atk1Name": "Waffenmeister\n",
+    "atk2Name": "Meisterwaffe\n"
   },
   "specimen_da_11": {
     "name": "An0malie",
@@ -3051,7 +3051,7 @@
     "name": "Singularitätshexer",
     "lore": "„Pr ... - Versuchsprotokoll\n\n15. Januar - ... Teilchenbeschleuniger ... erste Tests ... Evolution ... Mutanten.\n\n12. März - ... Rückschlag ... Galaktische DNA ... kombinieren ...\n\n2. Juni - ... Reaktionen ... vielversprechend ... Evolution .... Menschheit ...\n\n7. August - ... glücklich ... Singularitätshexer ... entzogen ... Lasst uns die Experimente fortsetzen ...“",
     "atk1Name": "Massives schwarzes Loch",
-    "atk2Name": "Gravitationsbereich\\n"
+    "atk2Name": "Gravitationsbereich\n"
   },
   "specimen_fa_99": {
     "name": "Erzengel",
@@ -3334,5 +3334,17 @@
     "lore": "Die Herrscherin von Hex City. Ihre Kleidung spiegelt stets die unendlichen Fraktale wider, und ihre Ausrüstung spiegelt die arithmantischen Strukturen wider, die die Dimensionszone beherrschen, in der sie lebt. Sie war für die Verbannung einer bestimmten Person verantwortlich, doch der Einfluss dieser Person ist nach wie vor über mehrere Dimensionen hinweg spürbar.",
     "atk1Name": "Unendliches Fraktal",
     "atk2Name": "Geometrischer Hex"
+  },
+  "specimen_bb_14": {
+    "name": "Hämatogul",
+    "lore": "Stellt euch eine Kreuzung aus Ghul, Vampir und Blutegel vor … Dazu kommt noch die Fähigkeit, das aufgesaugte Blut in einen mächtigen Sprengstoff zu verwandeln. Das Ergebnis ist die neue Kreatur, die beim Weltturnier im Mittelpunkt steht – ein furchterregendes und besonders blutiges Wesen! Vergesst nicht, einen Regenschirm mitzunehmen, wenn ihr euch die Kämpfe ansehen wollt!",
+    "atk1Name": "Tödliche Wunde",
+    "atk2Name": "Blutkugel"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, morphische Giraffe",
+    "lore": "Flipflop war eine einfache Giraffe, die in der Savanne lebte. Eines Tages flog ein Hubschrauber ihr zu nahe, und FLIPFLOP! – schon verschmolzen sie zu einem morphischen Wesen, das sich nach Belieben in einen Hubschrauber und eine riesige Kanone verwandeln konnte.",
+    "atk1Name": "Giraffopter",
+    "atk2Name": "Giraffenkanone"
   }
 }

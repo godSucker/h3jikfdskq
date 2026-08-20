@@ -3246,6 +3246,32 @@
       ]
     },
     {
+      "id": "Specimen_CC_05",
+      "name": "Шин Хакухо",
+      "genes": [
+        "C",
+        "C"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 3763,
+          "atk1": 1458,
+          "atk2": 838
+        },
+        "lvl30": {
+          "hp": 14675,
+          "atk1": 8522,
+          "atk2": 4910
+        }
+      },
+      "star": "gold",
+      "skin": "school",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_cc_05_school.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_cc_05_school.webp"
+      ]
+    },
+    {
       "id": "Specimen_CC_06",
       "name": "Эль Гринго",
       "genes": [

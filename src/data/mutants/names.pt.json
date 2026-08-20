@@ -914,7 +914,7 @@
   "specimen_fc_04": {
     "name": "Mexihcatl",
     "lore": "Dizem que durante o dilúvio universal, o Deus Tezcatlipoca enviou para a Terra as suas legiões de animais selvagens e demônios do fogo. Um herói lendário desafiou essas hordas durante longas batalhas. Exausto, com a cabeça do Deus em suas mãos, ele caiu de cansaço, depois de ter salvo o seu povo. Será que Mexihcatl é a reencarnação deste guerreiro?",
-    "atk1Name": "Sol de Tenochtitlan \\n",
+    "atk1Name": "Sol de Tenochtitlan \n",
     "atk2Name": "Macuahuitl"
   },
   "specimen_fd_04": {
@@ -2342,7 +2342,7 @@
   "specimen_cb_11": {
     "name": "Dissensão",
     "lore": "Antes de obter esse nome, Dissensão era um mercenário que lutava contra qualquer pessoa, em qualquer lugar, em troca de dinheiro. Por excesso de orgulho, ele aceitou um contrato para roubar uma espada que dava imortalidade ao seu portador. Ele lutou contra todos os guardiões da espada. Quando ele agarrou a espada, coberto com o sangue de seus inimigos, umas correntes pretas saíram dela e ela se fixou nas suas costas graças a um poderoso feitiço; um feitiço que só seria quebrado uma vez morto de velhice. Mas ele era imortal, e isso acabou mergulhando sua mente na loucura. O papel de mercenário não lhe bastava mais... Ele se tornou então Dissensão, uma entidade imortal, levada ao caos pela loucura.",
-    "atk1Name": "Arranca-Coração\\n\\n\\n",
+    "atk1Name": "Arranca-Coração\n\n\n",
     "atk2Name": "Bebedor de Almas"
   },
   "specimen_cc_11": {
@@ -3328,5 +3328,17 @@
     "lore": "A governante de Hex City. O seu vestuário reflete constantemente os fractais infinitos, e o seu equipamento espelha as estruturas aritmáticas que regem a zona dimensional onde reside. Foi responsável pelo banimento de um certo indivíduo, mas a influência desse indivíduo ainda perdura em múltiplas dimensões.",
     "atk1Name": "Fractal Infinito",
     "atk2Name": "Feitiço Geométrico"
+  },
+  "specimen_bb_14": {
+    "name": "Hematógulo",
+    "lore": "Imagina um híbrido entre um ghoul, um vampiro e uma sanguessuga… Depois, acrescenta a capacidade de transformar o sangue que absorve num poderoso explosivo. O resultado é a nova criação que ocupa o centro das atenções no Torneio Mundial — uma criatura aterradora e particularmente sangrenta! Não te esqueças de levar um guarda-chuva se fores assistir às batalhas!",
+    "atk1Name": "Ferida Fatal",
+    "atk2Name": "Esfera de Sangue"
+  },
+  "specimen_da_15": {
+    "name": "Flipflop, a Girafa Mórfica",
+    "lore": "A Flipflop era uma girafa simples que vivia na savana. Um dia, um helicóptero voou demasiado perto dela e, FLIPFLOP!, acabaram por se fundir numa criatura mórfica, capaz de se transformar à vontade num helicóptero e num canhão gigantesco.",
+    "atk1Name": "Girafóptero",
+    "atk2Name": "Canhão-Girafa"
   }
 }

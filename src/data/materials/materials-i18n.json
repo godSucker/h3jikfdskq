@@ -1123,7 +1123,7 @@
       "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Critical +17% (charge: 30)",
+      "name": "Critical +17% charge 30 (charge: 30)",
       "description": "Grants the power of this orb for a limited number of battles. Available only when starting a battle"
     }
   },
@@ -2251,7 +2251,7 @@
       "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Críticos +17% (carga: 30)",
+      "name": "Críticos +17% carga 30 (carga: 30)",
       "description": "Atribuye el poder de este orbe por un número limitado de combates. Solo cuando lances un combate"
     }
   },
@@ -3379,7 +3379,7 @@
       "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Critique +17% (charge: 30)",
+      "name": "Critique +17% (30 charges) (charge: 30)",
       "description": "Attribue le pouvoir de cet orbe pour un nombre de combats limité. Seulement lorsque tu lances un combat"
     }
   },
@@ -4507,7 +4507,7 @@
       "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Kritische Schläge +17% (munition: 30)",
+      "name": "Kritische Schläge +17% Ladung 30 (munition: 30)",
       "description": "Verteile die Kraft dieser Sphäre auf eine begrenzte Anzahl von Kämpfen. Nur wenn du einen Kampf startest"
     }
   },
@@ -5632,7 +5632,7 @@
       "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Crítico +17% (carga: 30)",
+      "name": "Crítico +17% carga 30 (carga: 30)",
       "description": "Atribui o poder deste orbe a um número limitado de combates. Apenas quando você lança um combate"
     }
   },
@@ -6760,7 +6760,7 @@
       "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Critico +17% (carico: 30)",
+      "name": "Critico +17% carica 30 (carico: 30)",
       "description": "Attribuisce il potere di questo globo per un numero limitato di combattimenti. Solo quando lanci un combattimento"
     }
   },
@@ -7888,7 +7888,7 @@
       "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Kritik (%+17) (yük: 30)",
+      "name": "Kritik (%+17) taarruz 30 (yük: 30)",
       "description": "Bu kürenin gücünü sınırlı savaş süresince sağlar. Yalnızca savaşa başlarken mevcuttur"
     }
   },
@@ -9016,7 +9016,7 @@
       "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
     },
     "orb_basic_critical_05_ephemeral_30": {
-      "name": "Kritieke slag +17% (charge: 30)",
+      "name": "Kritieke slag +17% lading 30 (charge: 30)",
       "description": "Ken de macht van deze bol toe voor een beperkt aantal gevechten. Alleen als je een gevecht start"
     }
   }
