@@ -1709,5 +1709,23 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "bingo-1787244538951",
+    "date": "2026-08-20T16:48:58.932Z",
+    "category": "bingo",
+    "title": "morphology_2026_mutants: добавлен(ы) Specimen_DA_15, Specimen_BB_14",
+    "items": [
+      {
+        "id": "2026_mutants",
+        "name": "morphology_2026_mutants: добавлен(ы) Specimen_DA_15, Specimen_BB_14",
+        "image": null,
+        "addedNames": [
+          "Specimen_DA_15",
+          "Specimen_BB_14"
+        ]
+      }
+    ],
+    "link": "/bingo"
   }
 ]
