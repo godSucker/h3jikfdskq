@@ -14,12 +14,21 @@ import {
 // it gets its own token and, deliberately, NO user/chat allowlist. It also
 // only ever reads mutants.json + renders an image; it can't write anything.
 
-async function sendTelegramMessage(botToken: string, chatId: number | string, text: string) {
+async function sendTelegramMessage(
+  botToken: string,
+  chatId: number | string,
+  text: string,
+  replyToMessageId?: number,
+) {
   try {
     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, text }),
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+        ...(replyToMessageId ? { reply_parameters: { message_id: replyToMessageId } } : {}),
+      }),
     })
   } catch {
     // best effort - don't crash the handler over a failed reply
@@ -30,11 +39,13 @@ async function sendTelegramPhoto(
   botToken: string,
   chatId: number | string,
   photo: Buffer,
+  replyToMessageId?: number,
   caption?: string,
 ) {
   const form = new FormData()
   form.set('chat_id', String(chatId))
   if (caption) form.set('caption', caption)
+  if (replyToMessageId) form.set('reply_parameters', JSON.stringify({ message_id: replyToMessageId }))
   form.set('photo', new Blob([new Uint8Array(photo)], { type: 'image/png' }), 'card.png')
   const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
     method: 'POST',
@@ -84,11 +95,13 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   let chatId: number | string | null = null
+  let messageId: number | undefined
 
   try {
     const body = JSON.parse(await request.text())
     chatId = body.message?.chat?.id ?? null
     const text: string = body.message?.text ?? ''
+    messageId = body.message?.message_id
 
     if (chatId == null || !text) {
       return new Response(JSON.stringify({ ok: true }), {
@@ -98,7 +111,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (text === '/start' || text === '/help' || text === '/format') {
-      await sendTelegramMessage(BOT_TOKEN, chatId, FORMAT_HELP)
+      await sendTelegramMessage(BOT_TOKEN, chatId, FORMAT_HELP, messageId)
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -119,7 +132,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     const result = parseMessage(text.slice(1))
     if (!result.ok) {
-      await sendTelegramMessage(BOT_TOKEN, chatId, `Не понял: ${result.error}\n\nСм. /format`)
+      await sendTelegramMessage(
+        BOT_TOKEN,
+        chatId,
+        `Не понял: ${result.error}\n\nСм. /format`,
+        messageId,
+      )
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -131,7 +149,7 @@ export const POST: APIRoute = async ({ request }) => {
       ? await renderComparePair(primary, toCardInput(result.secondary))
       : await renderStatsCard(primary)
 
-    await sendTelegramPhoto(BOT_TOKEN, chatId, photo)
+    await sendTelegramPhoto(BOT_TOKEN, chatId, photo, messageId)
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -143,6 +161,7 @@ export const POST: APIRoute = async ({ request }) => {
         BOT_TOKEN,
         chatId,
         'Что-то сломалось при рендере карточки, попробуй ещё раз.',
+        messageId,
       )
     }
     // 200, not 500 - avoids a Telegram retry storm on a transient failure.
