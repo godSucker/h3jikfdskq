@@ -119,11 +119,6 @@ async function getYandexBalance(saKeyJson: string): Promise<string> {
   return `💰 Баланс Yandex Cloud: ${balance} ${acct.currency}`
 }
 
-// Команда пометки оплаты: ".оплатил <id>" — переводит nextDue на следующий
-// цикл (месяц/год) и коммитит payments.json, чтобы напоминание не срабатывало
-// вечно на уже оплаченную дату.
-const PAID_TRIGGER = '.оплатил'
-
 interface PaymentService {
   id: string
   name: string
@@ -163,16 +158,6 @@ function advanceOneCycle(dateStr: string, period: PaymentService['period']): str
     d.setDate(Math.min(day, daysInTargetMonth))
   }
   return d.toISOString().slice(0, 10)
-}
-
-function advanceUntilFuture(dateStr: string, period: PaymentService['period']): string {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  let next = dateStr
-  while (new Date(next).getTime() <= today.getTime()) {
-    next = advanceOneCycle(next, period)
-  }
-  return next
 }
 
 function formatPaymentsList(data: PaymentsData): string {
@@ -358,45 +343,6 @@ async function getPaymentsMessage(
   const file = await fetchGithubJsonFile(githubToken, owner, repo, PAYMENTS_PATH)
   if (!file) return '🔴 Не удалось загрузить список платежей'
   return formatPaymentsList(file.json as PaymentsData)
-}
-
-// ".оплатил <id>" - сдвигает nextDue на periodDays вперёд и коммитит,
-// чтобы напоминание не срабатывало вечно на уже оплаченную дату.
-async function markPaymentPaid(
-  githubToken: string,
-  owner: string,
-  repo: string,
-  serviceId: string,
-): Promise<string> {
-  // Мутатор нужен, чтобы прочитать service.name для commit-message ДО вызова
-  // mutate - через IIFE-подгляд файла отдельным первым fetch (легковесно, у
-  // нас всё равно один retry цикл сверху). Альтернативно можно было бы делать
-  // mutate + сохранять name в замыкание, но так проще для читателя.
-  const preview = await fetchGithubJsonFile(githubToken, owner, repo, PAYMENTS_PATH)
-  if (!preview) return '🔴 Не удалось загрузить список платежей'
-  const previewService = (preview.json as PaymentsData).services.find((s) => s.id === serviceId)
-  if (!previewService) {
-    const ids = (preview.json as PaymentsData).services.map((s) => s.id).join(', ')
-    return `🔴 Не найден сервис "${serviceId}". Доступные id: ${ids}`
-  }
-
-  let nextDue = ''
-  const result = await mutateGithubJsonFile<PaymentsData>(
-    githubToken,
-    owner,
-    repo,
-    PAYMENTS_PATH,
-    (data) => {
-      const service = data.services.find((s) => s.id === serviceId)
-      if (!service) return data // между preview и retry сервис пропал - маловероятно
-      service.nextDue = advanceUntilFuture(service.nextDue, service.period)
-      nextDue = service.nextDue
-      return data
-    },
-    `Payments: отметить "${previewService.name}" оплаченным`,
-  )
-  if (!result.ok) return `🔴 Не удалось сохранить изменения (${result.reason})`
-  return `✅ ${previewService.name}: следующий платёж — ${nextDue}`
 }
 
 // ".анонс" - публикация анонса на /announcements. У Bot API нет способа
@@ -888,18 +834,6 @@ export const POST: APIRoute = async ({ request }) => {
               `🔴 Не удалось получить баланс: ${message}`,
             )
           }
-        }
-        return new Response(JSON.stringify({ ok: true }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        })
-      }
-      // ".оплатил <id>" - сдвинуть дату следующего платежа вперёд
-      if (text.toLowerCase().startsWith(PAID_TRIGGER)) {
-        const serviceId = text.slice(PAID_TRIGGER.length).trim()
-        if (GITHUB_TOKEN && REPO_OWNER && REPO_NAME && serviceId) {
-          const result = await markPaymentPaid(GITHUB_TOKEN, REPO_OWNER, REPO_NAME, serviceId)
-          await sendTelegramMessage(BOT_TOKEN, chatId, `[Напоминалка]\n${result}`)
         }
         return new Response(JSON.stringify({ ok: true }), {
           status: 200,
