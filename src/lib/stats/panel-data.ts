@@ -822,8 +822,18 @@ const STAR_KEY_BY_INDEX = ['normal', 'bronze', 'silver', 'gold', 'platinum']
 // has a usable first entry.
 function portraitPath(rawMutant: any, starIndex: number): string {
   const key = STAR_KEY_BY_INDEX[starIndex] ?? 'normal'
-  const images = rawMutant.stars?.[key]?.images ?? rawMutant.stars?.normal?.images ?? []
-  return '/' + (images[0] ?? '')
+  let images = rawMutant.stars?.[key]?.images
+  // Some mutants only exist at one tier (e.g. platinum-exclusive specials) -
+  // 'normal' isn't guaranteed to exist. Fall back to whatever tier actually
+  // has images rather than sending an empty path to the CDN (that 403s and
+  // takes the whole render down, per the original crash report).
+  if (!images?.length) {
+    for (const fallbackKey of STAR_KEY_BY_INDEX) {
+      images = rawMutant.stars?.[fallbackKey]?.images
+      if (images?.length) break
+    }
+  }
+  return '/' + (images?.[0] ?? '')
 }
 
 export function buildPanelData(
