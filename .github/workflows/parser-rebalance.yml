@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # Общая группа с sync-cron.yml/parser-textures-only.yml: все три читают-меняют-
 # перезаписывают ВЕСЬ mutants.json целиком. Без общей группы ручной запуск,
@@ -96,3 +97,13 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🕐 **Время запуска:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
           echo "⏱️ **Режим парсера:** REBALANCE (умное обновление только изменённых данных)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 8. Триггер синхронизации preview
+        # git-auto-commit-action пушит через дефолтный GITHUB_TOKEN, а такие пуши
+        # не каскадируют в другие push-триггеры (анти-рекурсивная защита GitHub) -
+        # sync-preview-branch.yml сам не запускался. workflow_dispatch - исключение
+        # из этого правила, дёргаем явно. Идемпотентно, лишний вызов не страшен.
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run sync-preview-branch.yml --ref main
