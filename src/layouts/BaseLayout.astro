@@ -88,6 +88,10 @@ const structuredData = [
     <meta name="viewport" content={viewport} />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <!-- Google Translate ломает Svelte-реактивность (переводчик мутирует текстовые узлы напрямую,
+         Svelte теряет ссылки на них при точечных апдейтах DOM). У сайта уже есть свои переводы
+         на 9 языков, поэтому браузерный автоперевод отключаем целиком. -->
+    <meta name="google" content="notranslate" />
 
     <!-- Open Graph: карточка страницы в соцсетях/мессенджерах -->
     <meta property="og:type" content="website" />
