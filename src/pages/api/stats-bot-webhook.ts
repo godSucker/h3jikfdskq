@@ -105,7 +105,19 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
-    const result = parseMessage(text)
+    // Same "." trigger convention as .тир/.сфера/.анонс/.локал in
+    // telegram-webhook.ts - without it, a group chat with Privacy Mode
+    // disabled would try to parse every single message as a stat-card
+    // request. Anything not starting with "." is silently ignored (not
+    // even a "не понял" reply) - it's not addressed to the bot.
+    if (!text.startsWith('.')) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    const result = parseMessage(text.slice(1))
     if (!result.ok) {
       await sendTelegramMessage(BOT_TOKEN, chatId, `Не понял: ${result.error}\n\nСм. /format`)
       return new Response(JSON.stringify({ ok: true }), {
