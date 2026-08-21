@@ -159,12 +159,15 @@ function findMutant(text: string): { mutant: any; matchedLen: number } | null {
 // text - use explicit lookaround on "not a letter/digit" instead.
 const NOT_WORD = '(?![a-zа-яё0-9])'
 function findLevel(text: string): number | null {
+  // No real level cap in-game (only an HP-overflow ceiling that varies per
+  // mutant/star/orbs, in the tens of thousands - see maxLevelForHp in
+  // unified-calculator.ts) - \d{1,3} silently rejected anything above 999.
   const suffixMatch = text.match(
-    new RegExp(`(?:^|[^a-zа-яё0-9])(\\d{1,3})\\s*(?:ур\\.?|уровень|lvl|lv)${NOT_WORD}`, 'i'),
+    new RegExp(`(?:^|[^a-zа-яё0-9])(\\d{1,6})\\s*(?:ур\\.?|уровень|lvl|lv)${NOT_WORD}`, 'i'),
   )
   if (suffixMatch) return Number(suffixMatch[1])
   const prefixMatch = text.match(
-    new RegExp(`(?:ур\\.?|уровень|lvl|lv)\\s*(\\d{1,3})${NOT_WORD}`, 'i'),
+    new RegExp(`(?:ур\\.?|уровень|lvl|lv)\\s*(\\d{1,6})${NOT_WORD}`, 'i'),
   )
   if (prefixMatch) return Number(prefixMatch[1])
   return null
