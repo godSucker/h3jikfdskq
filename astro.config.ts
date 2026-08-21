@@ -11,7 +11,13 @@ const SRC = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
   site: 'https://archivist-library.com',
   output: 'server',
-  adapter: vercel(),
+  // harfbuzzjs (text shaping, pulled in transitively by @resvg/resvg-js for
+  // the stats-bot card renderer) loads hb.wasm at runtime via a path Vercel's
+  // file tracer doesn't follow statically - without this the function bundle
+  // is missing it and the whole process aborts on first render (ENOENT).
+  adapter: vercel({
+    includeFiles: ['./node_modules/harfbuzzjs/hb.wasm'],
+  }),
   prefetch: true,
   // i18n (Батч 11): RU остаётся канонической версией без префикса в URL,
   // остальные 8 локалей Kobojo живут под /en /es /fr /de /pt /it /tr /nl.
