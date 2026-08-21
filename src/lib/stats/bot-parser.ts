@@ -213,21 +213,36 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
         const windowStart = Math.max(0, idx - 15)
         const windowEnd = Math.min(lower.length, idx + kw.length + 15)
         const window = lower.slice(windowStart, windowEnd)
-        const percentMatch = window.match(/(\d{1,3})\s*%/)
-        if (percentMatch) {
-          const percent = Number(percentMatch[1])
-          const isSpecial = window.includes('спец') && Boolean(cat.specialPrefix)
-          const prefix = isSpecial ? cat.specialPrefix : (cat.basicPrefix ?? cat.specialPrefix)
-          if (prefix) {
-            const entry = ORB_CATALOG.find(
-              (o) =>
-                o.category === (isSpecial ? 'special' : 'basic') &&
-                o.id.startsWith(prefix) &&
-                o.percent === percent,
-            )
-            if (entry) {
-              mentions.push({ category: kw, percent, slot: entry.category, id: entry.id })
-            }
+        const isSpecial = window.includes('спец') && Boolean(cat.specialPrefix)
+        const prefix = isSpecial ? cat.specialPrefix : (cat.basicPrefix ?? cat.specialPrefix)
+        if (prefix) {
+          // "%" -> match by percent (unambiguous, every tier's percent is
+          // unique). A bare number with no "%" -> match by sphere LEVEL (the
+          // id's _0N suffix), not percent - "спец скорость 5" means tier 5
+          // (orb_special_speed_05), not "5%" (that'd be tier 1). Restricted
+          // to right after the keyword so it can't grab an unrelated number
+          // elsewhere in the message (mutant level, star index, ...).
+          const percentMatch = window.match(/(\d{1,3})\s*%/)
+          const levelMatch = !percentMatch
+            ? lower.slice(idx + kw.length, idx + kw.length + 5).match(/^\s*(\d{1,2})\b/)
+            : null
+          let entry: OrbCatalogEntry | null = null
+          if (percentMatch) {
+            const percent = Number(percentMatch[1])
+            entry =
+              ORB_CATALOG.find(
+                (o) =>
+                  o.category === (isSpecial ? 'special' : 'basic') &&
+                  o.id.startsWith(prefix) &&
+                  o.percent === percent,
+              ) ?? null
+          } else if (levelMatch) {
+            const level = levelMatch[1].padStart(2, '0')
+            const id = `${prefix}_${level}`
+            entry = ORB_CATALOG.find((o) => o.id === id) ?? null
+          }
+          if (entry) {
+            mentions.push({ category: kw, percent: entry.percent, slot: entry.category, id: entry.id })
           }
         }
         idx = lower.indexOf(kw, idx + kw.length)
