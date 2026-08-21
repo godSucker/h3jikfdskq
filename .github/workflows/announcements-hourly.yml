@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 # Общая группа с finish-pending.yml - оба финально запускают
 # build-announcements.ts и коммитят src/data/announcements.json +
@@ -154,3 +155,13 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.YANDEX_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.YANDEX_SECRET_KEY }}
           AWS_DEFAULT_REGION: ru-central1
+
+      - name: 13. Триггер синхронизации preview
+        # git-auto-commit-action пушит через дефолтный GITHUB_TOKEN, а такие пуши
+        # не каскадируют в другие push-триггеры (анти-рекурсивная защита GitHub) -
+        # sync-preview-branch.yml сам не запускался. workflow_dispatch - исключение
+        # из этого правила, дёргаем явно. Идемпотентно, лишний вызов не страшен.
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run sync-preview-branch.yml --ref main

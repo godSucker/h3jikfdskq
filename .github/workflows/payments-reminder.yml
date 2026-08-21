@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   check:
@@ -172,3 +173,13 @@ jobs:
           commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
           branch: main
           file_pattern: 'src/data/payments.json'
+
+      - name: Триггер синхронизации preview
+        # git-auto-commit-action пушит через дефолтный GITHUB_TOKEN, а такие пуши
+        # не каскадируют в другие push-триггеры (анти-рекурсивная защита GitHub) -
+        # sync-preview-branch.yml сам не запускался. workflow_dispatch - исключение
+        # из этого правила, дёргаем явно. Идемпотентно, лишний вызов не страшен.
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run sync-preview-branch.yml --ref main

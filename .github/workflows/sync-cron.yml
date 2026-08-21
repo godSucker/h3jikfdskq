@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-cron
@@ -341,3 +342,15 @@ jobs:
           fi
           echo "🕐 **Время запуска:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
           echo "⏱️ **Режим:** FULL (данные) + character-textures (инкремент)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 9. Триггер синхронизации preview
+        # git-auto-commit-action пушит через дефолтный GITHUB_TOKEN, а пуши от
+        # GITHUB_TOKEN не каскадируют в другие push-триггеры (анти-рекурсивная
+        # защита GitHub) - sync-preview-branch.yml (on: push: [main]) от таких
+        # коммитов сам не запускался. workflow_dispatch - исключение из этого
+        # правила, поэтому дёргаем его явно. Идемпотентно (up_to_date, если
+        # сливать нечего), лишний вызов ничего не ломает.
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run sync-preview-branch.yml --ref main
