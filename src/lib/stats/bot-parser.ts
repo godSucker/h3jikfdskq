@@ -173,14 +173,17 @@ function findLevel(text: string): number | null {
   return null
 }
 
-function findStar(text: string): number {
+// null = no star keyword in the text - caller decides the default (varies
+// per mutant: some don't have a "normal" tier at all, e.g. platinum-only
+// specials, so a flat 0 default is wrong for them).
+function findStarKeyword(text: string): number | null {
   const normalized = normalizeSearch(text)
   for (const { index, words } of STAR_KEYWORDS) {
     for (const w of words) {
       if (normalized.includes(normalizeSearch(w))) return index
     }
   }
-  return 0
+  return null
 }
 
 function findMultipliers(text: string): { 1: number; 2: number } {
@@ -242,7 +245,12 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
             entry = ORB_CATALOG.find((o) => o.id === id) ?? null
           }
           if (entry) {
-            mentions.push({ category: kw, percent: entry.percent, slot: entry.category, id: entry.id })
+            mentions.push({
+              category: kw,
+              percent: entry.percent,
+              slot: entry.category,
+              id: entry.id,
+            })
           }
         }
         idx = lower.indexOf(kw, idx + kw.length)
@@ -260,7 +268,17 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
     return {
       error: `не нашёл уровень (напиши число + "ур", например "20 ур") в "${segment.trim()}"`,
     }
-  const starIndex = findStar(segment)
+  const normalized = normalizeMutant(found.mutant)
+  // No star keyword in the text -> default to "normal" (0), same as before.
+  // But some mutants (platinum-exclusive specials etc.) don't have a
+  // "normal" tier at all - for those, fall back to whatever tier they DO
+  // have (highest available, matching the live page's own auto-select-on-
+  // mutant-change behavior) instead of silently rendering a tier that
+  // doesn't exist for them.
+  const availableStars = Array.from(normalized.availableStars)
+  const starIndex =
+    findStarKeyword(segment) ??
+    (availableStars.includes(0) ? 0 : availableStars.length > 0 ? Math.max(...availableStars) : 0)
   const atkMultipliers = findMultipliers(segment)
   const mentions = findOrbMentions(segment)
 
@@ -269,7 +287,6 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
   // group in StatsCalculator.svelte) - a real user can never reach that
   // state via the site, so the bot shouldn't manufacture one either. Silent
   // drop, not an error: the rest of the message still parses fine.
-  const normalized = normalizeMutant(found.mutant)
   for (const idx of [1, 2] as const) {
     if (normalized.attackMeta[idx]?.gene === 'neutro') atkMultipliers[idx] = 0
   }
