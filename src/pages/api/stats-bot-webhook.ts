@@ -6,6 +6,14 @@ import {
   renderComparePair,
   type CardInput,
 } from '@/lib/stats/telegram-card-render'
+import {
+  checkRateLimit,
+  getCachedCard,
+  setCachedCard,
+  recordRequest,
+  recordError,
+  getTodayStats,
+} from '@/lib/stats/bot-store'
 
 // Separate bot/token from telegram-webhook.ts on purpose (see memory
 // telegram-stats-bot-todo): that one is a private admin bot, allowlisted to
@@ -70,6 +78,18 @@ async function sendTelegramPhoto(
     const body = await res.text().catch(() => '')
     throw new Error(`sendPhoto failed: ${res.status} ${body}`)
   }
+}
+
+function cacheKeyFor(config: ParsedConfig): string {
+  return [
+    config.mutant.id,
+    config.level,
+    config.starIndex,
+    config.basicOrbIds.join(','),
+    config.specialOrbId ?? '',
+    config.atkMultipliers[1],
+    config.atkMultipliers[2],
+  ].join('|')
 }
 
 function toCardInput(config: ParsedConfig): CardInput {
@@ -152,6 +172,22 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
+    // Admin-only, DM-only - matches how the owner said they'd manage this
+    // bot (private chat, not group commands).
+    if (text === '/stats' && ADMIN_CHAT_ID && String(chatId) === ADMIN_CHAT_ID) {
+      const stats = await getTodayStats()
+      const reply = stats
+        ? `Сегодня: ${stats.total} запросов, ${stats.errors} не разобрано.\n\nТоп мутантов:\n${
+            stats.topMutants.map(([name, count]) => `${name}: ${count}`).join('\n') || '—'
+          }`
+        : 'Статистика недоступна (Redis не настроен или недоступен).'
+      await sendTelegramMessage(BOT_TOKEN, chatId, reply, messageId)
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
     // Same "." trigger convention as .тир/.сфера/.анонс/.локал in
     // telegram-webhook.ts - without it, a group chat with Privacy Mode
     // disabled would try to parse every single message as a stat-card
@@ -179,18 +215,49 @@ export const POST: APIRoute = async ({ request }) => {
           `Не разобрал запрос (чат ${chatId}):\n"${text}"\n\n${result.error}`,
         )
       }
+      await recordError()
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       })
     }
 
-    const primary = toCardInput(result.primary)
-    const photo = result.secondary
-      ? await renderComparePair(primary, toCardInput(result.secondary))
-      : await renderStatsCard(primary)
+    // Cache is keyed on the resolved config, not the raw text - "робот
+    // 20ур" and "робот 20 ур" hit the same entry. A hit skips the rate
+    // limiter entirely (serving a cached PNG costs ~nothing, so repeating
+    // an identical query is never penalized).
+    const cacheKey = [
+      cacheKeyFor(result.primary),
+      result.secondary ? cacheKeyFor(result.secondary) : '',
+    ].join('#vs#')
+    let photo = await getCachedCard(cacheKey)
+
+    if (!photo) {
+      const userId = body.message?.from?.id ?? chatId
+      const allowed = await checkRateLimit(userId)
+      if (!allowed) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          'Слишком часто - подожди немного и повтори.',
+          messageId,
+        )
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+
+      const primary = toCardInput(result.primary)
+      photo = result.secondary
+        ? await renderComparePair(primary, toCardInput(result.secondary))
+        : await renderStatsCard(primary)
+      await setCachedCard(cacheKey, photo)
+    }
 
     await sendTelegramPhoto(BOT_TOKEN, chatId, photo, messageId)
+    await recordRequest(result.primary.mutantName)
+    if (result.secondary) await recordRequest(result.secondary.mutantName)
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
