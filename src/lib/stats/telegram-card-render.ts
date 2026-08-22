@@ -246,7 +246,9 @@ async function buildPanelTree(input: CardInput) {
           // transform support is unreliable, so explicit px offsets instead
           // of the live page's translate(-50%,-50%).)
           'div',
-          { style: { display: 'flex', position: 'relative', width: 54, height: 44, flexShrink: 0 } },
+          {
+            style: { display: 'flex', position: 'relative', width: 54, height: 44, flexShrink: 0 },
+          },
           r.isAoe
             ? h('img', {
                 src: uriByPath[AOE_ICON],
