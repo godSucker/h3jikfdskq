@@ -14,6 +14,7 @@ import Fuse from 'fuse.js'
 import { normalizeSearch } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
+import nicknameAliases from '@/data/mutants/nickname-aliases.json'
 import { normalizeMutant } from './panel-data'
 
 interface RawOrb {
@@ -218,6 +219,25 @@ function fuzzyFindMutant(text: string): FindMutantResult {
   return { kind: 'found', mutant: best.item.mutant, fuzzy: true }
 }
 
+// One entry per exact display name - only matters for the rare pair of
+// mutants sharing a name differing purely by case (e.g. "Колосс" vs
+// "колосс", both real entries in mutants.json); aliases reference the
+// specific capitalization they mean, so this must NOT be normalized.
+const mutantByExactName = new Map<string, any>()
+for (const m of mutantsRaw as any[]) {
+  if (!mutantByExactName.has(m.name)) mutantByExactName.set(m.name, m)
+}
+
+// Curated from a months-old sibling bot's query cache (see memory) -
+// community nicknames/abbreviations too far from the canonical name for
+// fuzzy matching to safely guess (e.g. "борода" -> "Капитан Черная
+// Борода"), hand-approved one by one rather than merged wholesale.
+const ALIAS_CANDIDATES: Array<{ alias: string; mutant: any }> = Object.entries(
+  nicknameAliases as Record<string, string>,
+)
+  .map(([alias, targetName]) => ({ alias, mutant: mutantByExactName.get(targetName) }))
+  .filter((e): e is { alias: string; mutant: any } => Boolean(e.mutant))
+
 function findMutant(text: string): FindMutantResult {
   const normalizedText = normalizeSearch(text)
   let best: { mutant: any; matchedLen: number } | null = null
@@ -227,6 +247,15 @@ function findMutant(text: string): FindMutantResult {
     if (normalizedText.includes(normName)) {
       if (!best || normName.length > best.matchedLen) {
         best = { mutant: m, matchedLen: normName.length }
+      }
+    }
+  }
+  for (const { alias, mutant } of ALIAS_CANDIDATES) {
+    const normAlias = normalizeSearch(alias)
+    if (!normAlias) continue
+    if (normalizedText.includes(normAlias)) {
+      if (!best || normAlias.length > best.matchedLen) {
+        best = { mutant, matchedLen: normAlias.length }
       }
     }
   }
