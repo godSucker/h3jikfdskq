@@ -76,7 +76,9 @@ export async function recordRequest(mutantName: string): Promise<void> {
   const date = today()
   try {
     await Promise.all([
-      redis.incr(`statsbot:total:${date}`).then(() => redis.expire(`statsbot:total:${date}`, STATS_TTL_SECONDS)),
+      redis
+        .incr(`statsbot:total:${date}`)
+        .then(() => redis.expire(`statsbot:total:${date}`, STATS_TTL_SECONDS)),
       redis
         .hincrby(`statsbot:mutants:${date}`, mutantName, 1)
         .then(() => redis.expire(`statsbot:mutants:${date}`, STATS_TTL_SECONDS)),
