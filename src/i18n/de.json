@@ -936,5 +936,9 @@
   "guides.zodiac.sign.pisces": "Fische",
   "footer.disclaimer": "Archivist-Library ist ein unabhängiges Fanprojekt und nicht mit Kobojo oder Celsius Online verbunden. Die Rechte an Mutants Genetic Gladiators liegen bei den jeweiligen Rechteinhabern.",
   "home.card.pvp.title": "PvP-Kampfsimulator",
-  "home.card.pvp.desc": "Stelle dein Team und das des Gegners zusammen (3×3), wähle, wer manuell und wer per KI kämpft, und spiele den Kampf durch."
+  "home.card.pvp.desc": "Stelle dein Team und das des Gegners zusammen (3×3), wähle, wer manuell und wer per KI kämpft, und spiele den Kampf durch.",
+  "tierPoster.updatedOn": "Stand: {date}",
+  "tierPoster.disclaimer": "Diese Tierliste wurde vom Archivist-Library-Team auf Basis unserer eigenen Meta-Analyse und Spielerfahrung erstellt. Sie ist nicht in Stein gemeißelt — bei einzelnen Mutanten können die Meinungen in der Community auseinandergehen, versteht sie eher als groben Anhaltspunkt statt als strikte Rangliste.",
+  "tierPoster.legendUp": "stärkere Mutanten innerhalb des Tiers",
+  "tierPoster.legendDown": "schwächere Mutanten innerhalb des Tiers"
 }

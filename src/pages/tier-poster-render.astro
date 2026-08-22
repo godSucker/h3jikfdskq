@@ -5,7 +5,16 @@
 export const prerender = false;
 import mutantsData from '../data/mutants/mutants.json';
 import { sortMutantsByGene } from '../lib/mutant-sort';
-import { GENE_RU } from '../lib/mutant-dicts';
+import { GENE_DICT, GENE_RU } from '../lib/mutant-dicts';
+import { LOCALES, type Locale } from '../lib/i18n-locales';
+import { t } from '../lib/i18n';
+import { INTL_LOCALE } from '../lib/utils';
+
+const localeParam = Astro.url.searchParams.get('locale');
+const locale: Locale = (LOCALES as readonly string[]).includes(localeParam ?? '')
+  ? (localeParam as Locale)
+  : 'ru';
+const geneNames = GENE_DICT[locale] ?? GENE_RU;
 
 const STAR_ORDER = ['platinum', 'gold', 'silver', 'bronze', 'normal'];
 
@@ -36,7 +45,7 @@ function iconUrl(path: string): string {
 // остальные данные (иконка/имя/гены) берём из бандлового mutants.json на
 // сервере, не гоняем через URL.
 let tiers: Record<string, string> = {};
-let title = 'Тир-лист мутантов';
+let title = t('tierList.pageTitle', locale);
 try {
   const stateParam = Astro.url.searchParams.get('state');
   if (stateParam) {
@@ -110,11 +119,15 @@ for (const bucket of groups.values()) {
   bucket.down = sortItems(bucket.down);
 }
 
-const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+const dateLabel = new Date().toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', {
+  month: 'long',
+  year: 'numeric',
+});
+const updatedOnLabel = t('tierPoster.updatedOn', locale).replace('{date}', dateLabel);
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
 <head>
   <meta charset="utf-8" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
@@ -183,7 +196,7 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
   <div class="poster">
     <div class="header">
       <h1>{title}</h1>
-      <span class="date">актуально на {dateLabel}</span>
+      <span class="date">{updatedOnLabel}</span>
     </div>
 
     {['1', '2', '3', '4'].map((base) => {
@@ -192,7 +205,7 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
       const color = TIER_COLORS[base];
       return (
         <div class={`tier-box ${total === 0 ? 'empty' : ''}`} style={`border-color: ${color}`}>
-          <div class="tier-label" style={`color: ${color}`}>ТИР {base}</div>
+          <div class="tier-label" style={`color: ${color}`}>{t('tierList.tierLabel', locale)} {base}</div>
           <div class="tier-groups">
             {(['up', 'mid', 'down'] as const).map((key) => {
               const items = bucket[key];
@@ -227,14 +240,12 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
         {(['A', 'B', 'C', 'D', 'E', 'F'] as const).map((g) => (
           <span class="gene-chip">
             <span class="gene-swatch" style={`background: ${GENE_COLORS[g]}`}></span>
-            {GENE_RU[g]}
+            {geneNames[g] ?? GENE_RU[g]}
           </span>
         ))}
       </div>
       <p class="disclaimer">
-        Тир составлен командой Archivist-Library на основе собственного анализа меты и опыта игроков.
-        Это не истина в последней инстанции — по отдельным мутантам мнения в комьюнити могут расходиться,
-        воспринимайте список как ориентир, а не строгий рейтинг.
+        {t('tierPoster.disclaimer', locale)}
       </p>
     </div>
 
@@ -242,11 +253,11 @@ const dateLabel = new Date().toLocaleDateString('ru-RU', { month: 'long', year: 
       <div class="legend">
         <span class="up">
           <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polygon points="5,0 10,10 0,10" /></svg>
-          - более сильные мутанты внутри тира
+          - {t('tierPoster.legendUp', locale)}
         </span>
         <span class="down">
           <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 10,0 5,10" /></svg>
-          - более слабые мутанты внутри тира
+          - {t('tierPoster.legendDown', locale)}
         </span>
       </div>
       <span class="brand">ARCHIVIST-LIBRARY.COM</span>

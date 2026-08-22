@@ -351,6 +351,21 @@
   }
 
   let posterLoading = $state(false)
+  // Язык постера - независим от языка самой /tier-table (эта страница всегда
+  // на RU, это внутренний инструмент), постер же расходится дальше в паблик
+  // на разных языках сайта.
+  let posterLocale = $state('ru')
+  const POSTER_LOCALES: Array<{ code: string; label: string }> = [
+    { code: 'ru', label: 'RU' },
+    { code: 'en', label: 'EN' },
+    { code: 'es', label: 'ES' },
+    { code: 'fr', label: 'FR' },
+    { code: 'de', label: 'DE' },
+    { code: 'pt', label: 'PT' },
+    { code: 'it', label: 'IT' },
+    { code: 'tr', label: 'TR' },
+    { code: 'nl', label: 'NL' },
+  ]
 
   // Постер собирается из текущего "после" (включая несохранённые правки в
   // таблице - та же логика источника данных, что и у "→ в прод"), сервер
@@ -363,7 +378,7 @@
       const tiersOut: Record<string, string> = {}
       for (const [id, t] of tiers) if (t.after !== '-') tiersOut[id] = t.after
       const state = encodeURIComponent(JSON.stringify({ tiers: tiersOut }))
-      const res = await fetch(`/api/tier-poster?state=${state}`)
+      const res = await fetch(`/api/tier-poster?state=${state}&locale=${posterLocale}`)
       if (!res.ok) {
         statusMsg = `Ошибка генерации постера: ${res.status}`
         return
@@ -372,7 +387,7 @@
       const blobUrl = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = blobUrl
-      a.download = 'tier-poster.png'
+      a.download = `tier-poster-${posterLocale}.png`
       a.click()
       URL.revokeObjectURL(blobUrl)
     } catch {
@@ -424,6 +439,11 @@
     <button class="btn btn-danger" onclick={pushTiersToProd} disabled={pushingProd}>
       {pushingProd ? 'Отправляю…' : '🚀 Тир после → в прод'}
     </button>
+    <select class="btn" bind:value={posterLocale} title="Язык постера">
+      {#each POSTER_LOCALES as pl}
+        <option value={pl.code}>{pl.label}</option>
+      {/each}
+    </select>
     <button class="btn" onclick={downloadPoster} disabled={posterLoading}>
       {posterLoading ? 'Генерирую…' : '📸 Тир-постер'}
     </button>

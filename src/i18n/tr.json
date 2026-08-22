@@ -936,5 +936,9 @@
   "guides.zodiac.sign.pisces": "Balık",
   "footer.disclaimer": "Archivist-Library, Kobojo veya Celsius Online ile bağlantısı olmayan bağımsız bir hayran projesidir. Mutants Genetic Gladiators'ın hakları ilgili sahiplerine aittir.",
   "home.card.pvp.title": "PvP savaş simülatörü",
-  "home.card.pvp.desc": "Kendi takımını ve rakip takımını (3×3) oluştur, kimin elle kimin YZ ile savaşacağını seç ve savaşı oynat."
+  "home.card.pvp.desc": "Kendi takımını ve rakip takımını (3×3) oluştur, kimin elle kimin YZ ile savaşacağını seç ve savaşı oynat.",
+  "tierPoster.updatedOn": "{date} itibarıyla güncel",
+  "tierPoster.disclaimer": "Bu tier listesi, Archivist-Library ekibinin kendi meta analizi ve oyuncu deneyimine dayanarak hazırlanmıştır. Kesin bir doğru değildir — belirli mutantlar hakkında toplulukta farklı görüşler olabilir, bunu katı bir sıralama değil genel bir rehber olarak değerlendirin.",
+  "tierPoster.legendUp": "tier içinde daha güçlü mutantlar",
+  "tierPoster.legendDown": "tier içinde daha zayıf mutantlar"
 }

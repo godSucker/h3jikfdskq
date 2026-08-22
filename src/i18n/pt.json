@@ -936,5 +936,9 @@
   "guides.zodiac.sign.pisces": "Peixes",
   "footer.disclaimer": "Archivist-Library é um projeto de fãs independente, sem afiliação com a Kobojo ou a Celsius Online. Os direitos de Mutants Genetic Gladiators pertencem aos respectivos proprietários.",
   "home.card.pvp.title": "Simulador de combate PvP",
-  "home.card.pvp.desc": "Monte seu time e o do oponente (3×3), escolha quem luta manualmente e quem é controlado pela IA, e jogue a batalha."
+  "home.card.pvp.desc": "Monte seu time e o do oponente (3×3), escolha quem luta manualmente e quem é controlado pela IA, e jogue a batalha.",
+  "tierPoster.updatedOn": "atualizado em {date}",
+  "tierPoster.disclaimer": "Este tier list foi montado pela equipe da Archivist-Library com base em nossa própria análise da meta e experiência dos jogadores. Não é a palavra final — as opiniões sobre mutantes específicos podem divergir na comunidade, então encare como uma referência geral, não um ranking rígido.",
+  "tierPoster.legendUp": "mutantes mais fortes dentro do tier",
+  "tierPoster.legendDown": "mutantes mais fracos dentro do tier"
 }

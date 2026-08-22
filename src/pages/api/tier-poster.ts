@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { getBrowser, forceRelaunch, isBrowserDiedError } from '@/lib/headless-browser'
+import { LOCALES } from '@/lib/i18n-locales'
 
 export const GET: APIRoute = async ({ url }) => {
   const stateParam = url.searchParams.get('state')
@@ -7,8 +8,13 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing state param', { status: 400 })
   }
 
+  // Whitelist-валидация, не passthrough - это попадает прямо в URL, который
+  // наш же headless-браузер открывает (см. тот же приём в api/screenshot.ts).
+  const localeParam = url.searchParams.get('locale')
+  const locale = (LOCALES as readonly string[]).includes(localeParam ?? '') ? localeParam : 'ru'
+
   const origin = url.origin
-  const renderUrl = `${origin}/tier-poster-render?state=${encodeURIComponent(stateParam)}`
+  const renderUrl = `${origin}/tier-poster-render?state=${encodeURIComponent(stateParam)}&locale=${locale}`
 
   for (let attempt = 0; attempt < 2; attempt++) {
     let page
