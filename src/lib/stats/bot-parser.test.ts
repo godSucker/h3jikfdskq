@@ -63,7 +63,7 @@ describe('level', () => {
 })
 
 describe('star tier', () => {
-  it('defaults to the mutant\'s highest available tier when unspecified', () => {
+  it("defaults to the mutant's highest available tier when unspecified", () => {
     expect(ok('робот 20ур').primary.starIndex).toBe(4)
   })
 

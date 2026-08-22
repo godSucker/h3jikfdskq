@@ -31,6 +31,7 @@ const STAT_ICON_SPEED = '/etc/icon_speed.webp'
 const SILVER_ICON = '/cash/softcurrency.webp'
 const SLOT_BG_BASIC = '/orbs/basic/orb_slot.webp'
 const SLOT_BG_SPECIAL = '/orbs/special/orb_slot_spe.webp'
+const AOE_ICON = '/genes/atk_multiple.webp'
 const GENE_ICON_PATHS: Record<string, string> = {
   A: '/genes/gene_a.webp',
   B: '/genes/gene_b.webp',
@@ -126,6 +127,7 @@ async function buildPanelTree(input: CardInput) {
     ...panel.attackRows.flatMap((r) => r.effects.map((e) => e.icon)).filter(Boolean),
     ...panel.basicOrbs.filter((o): o is NonNullable<typeof o> => Boolean(o)).map((o) => o.icon),
     ...(panel.specialOrb ? [panel.specialOrb.icon] : []),
+    ...(panel.attackRows.some((r) => r.isAoe) ? [AOE_ICON] : []),
   ])
   const uriByPath: Record<string, string> = {}
   await Promise.all(
@@ -237,14 +239,31 @@ async function buildPanelTree(input: CardInput) {
       h(
         'div',
         { style: { display: 'flex', alignItems: 'center', gap: 10, width: '100%' } },
-        r.geneIcon
-          ? h('img', {
-              src: uriByPath[r.geneIcon],
-              width: 38,
-              height: 38,
-              style: { objectFit: 'contain' },
-            })
-          : null,
+        h(
+          // Matches .attack-gene/.attack-aoe in StatsCalculator.svelte: the
+          // AOE burst icon sits behind-and-right of the gene icon, not next
+          // to it - a relative/absolute pair, not a flex sibling. (Satori's
+          // transform support is unreliable, so explicit px offsets instead
+          // of the live page's translate(-50%,-50%).)
+          'div',
+          { style: { display: 'flex', position: 'relative', width: 54, height: 44, flexShrink: 0 } },
+          r.isAoe
+            ? h('img', {
+                src: uriByPath[AOE_ICON],
+                width: 44,
+                height: 44,
+                style: { position: 'absolute', top: 0, left: 12, objectFit: 'contain' },
+              })
+            : null,
+          r.geneIcon
+            ? h('img', {
+                src: uriByPath[r.geneIcon],
+                width: 38,
+                height: 38,
+                style: { position: 'absolute', top: 3, left: 0, objectFit: 'contain' },
+              })
+            : null,
+        ),
         h(
           'div',
           { style: { display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, gap: 2 } },
