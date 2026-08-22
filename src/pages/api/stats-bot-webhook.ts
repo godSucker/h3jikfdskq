@@ -156,8 +156,11 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Unlisted chat -> ignore entirely, same as an unaddressed message.
-    // No allowlist configured means unrestricted (opt-in feature).
-    if (allowedChats && !allowedChats.has(String(chatId))) {
+    // No allowlist configured means unrestricted (opt-in feature). The
+    // admin's own DM always gets through regardless - it's a management
+    // channel, not a public chat the allowlist is meant to gate.
+    const isAdminChat = Boolean(ADMIN_CHAT_ID) && String(chatId) === ADMIN_CHAT_ID
+    if (allowedChats && !allowedChats.has(String(chatId)) && !isAdminChat) {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -174,7 +177,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Admin-only, DM-only - matches how the owner said they'd manage this
     // bot (private chat, not group commands).
-    if (text === '/stats' && ADMIN_CHAT_ID && String(chatId) === ADMIN_CHAT_ID) {
+    if (text === '/stats' && isAdminChat) {
       const stats = await getTodayStats()
       const reply = stats
         ? `Сегодня: ${stats.total} запросов, ${stats.errors} не разобрано.\n\nТоп мутантов:\n${

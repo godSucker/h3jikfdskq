@@ -479,8 +479,16 @@ async function buildPanelTree(input: CardInput) {
     ),
   )
 
+  // Deliberately generous: Satori has a fixed SVG viewport, so an estimate
+  // that undershoots the real content clips it (rasterized straight past the
+  // bottom edge) - there's no auto-grow to fall back on. Overshooting costs
+  // nothing since rasterize()'s sharp().trim() crops the unused space back
+  // off. The +160 pads for a long mutant name wrapping to a second line
+  // (longest in mutants.json is ~30 chars, close enough to the header's
+  // single-line budget at 28px bold to not risk it) - untested against the
+  // actual extremes, so err generous rather than exact.
   const rowCount = 4 + panel.attackRows.length
-  const estHeight = 90 + 8 * 14 + 150 + 60 + 12 + 52 + 60 + rowCount * 60 + 60
+  const estHeight = 90 + 8 * 14 + 150 + 60 + 12 + 52 + 60 + rowCount * 60 + 60 + 160
   return { tree, estHeight }
 }
 

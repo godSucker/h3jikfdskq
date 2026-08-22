@@ -15,7 +15,8 @@ import { normalizeSearch } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
 import nicknameAliases from '@/data/mutants/nickname-aliases.json'
-import { normalizeMutant } from './panel-data'
+import { normalizeMutant, resolveOrb } from './panel-data'
+import { maxLevelForHp } from './unified-calculator'
 
 interface RawOrb {
   id: string
@@ -240,26 +241,32 @@ const ALIAS_CANDIDATES: Array<{ alias: string; mutant: any }> = Object.entries(
 
 function findMutant(text: string): FindMutantResult {
   const normalizedText = normalizeSearch(text)
-  let best: { mutant: any; matchedLen: number } | null = null
-  for (const m of mutantsRaw as any[]) {
-    const normName = normalizeSearch(m.name)
-    if (!normName) continue
-    if (normalizedText.includes(normName)) {
-      if (!best || normName.length > best.matchedLen) {
-        best = { mutant: m, matchedLen: normName.length }
-      }
+  // Collect every candidate at the current best (longest) match length,
+  // not just the first one seen - a same-length tie between two distinct
+  // mutants is genuine ambiguity (mirrors how fuzzyFindMutant handles it),
+  // not something array order should silently decide.
+  let bestLen = 0
+  let candidates: any[] = []
+  const consider = (matchedText: string, mutant: any) => {
+    if (!matchedText) return
+    if (!normalizedText.includes(matchedText)) return
+    if (matchedText.length > bestLen) {
+      bestLen = matchedText.length
+      candidates = [mutant]
+    } else if (matchedText.length === bestLen && !candidates.includes(mutant)) {
+      candidates.push(mutant)
     }
   }
-  for (const { alias, mutant } of ALIAS_CANDIDATES) {
-    const normAlias = normalizeSearch(alias)
-    if (!normAlias) continue
-    if (normalizedText.includes(normAlias)) {
-      if (!best || normAlias.length > best.matchedLen) {
-        best = { mutant, matchedLen: normAlias.length }
-      }
+  for (const m of mutantsRaw as any[]) consider(normalizeSearch(m.name), m)
+  for (const { alias, mutant } of ALIAS_CANDIDATES) consider(normalizeSearch(alias), mutant)
+
+  if (candidates.length === 1) return { kind: 'found', mutant: candidates[0], fuzzy: false }
+  if (candidates.length > 1) {
+    return {
+      kind: 'ambiguous',
+      candidates: Array.from(new Set(candidates.map((m) => m.name))),
     }
   }
-  if (best) return { kind: 'found', mutant: best.mutant, fuzzy: false }
   return fuzzyFindMutant(text)
 }
 
@@ -380,7 +387,7 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
     return {
       error: `не понял, какого мутанта имеешь в виду - похоже на ${found.candidates.join(' или ')}, уточни имя`,
     }
-  const level = findLevel(segment) ?? DEFAULT_LEVEL
+  const rawLevel = findLevel(segment) ?? DEFAULT_LEVEL
   const normalized = normalizeMutant(found.mutant)
   // No star keyword in the text -> default to the mutant's highest available
   // tier (platinum for anything that has one), same as the live page's
@@ -408,6 +415,18 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
   basicMentions.forEach((m, i) => {
     basicOrbIds[i] = m.id
   })
+
+  // Same HP-overflow cap the live calculator applies (maxLevelForHp in
+  // unified-calculator.ts, shared with the PvP fight-engine) - without it a
+  // troll level like "999999ур" produces an HP number the card's fixed-width
+  // layout was never built to hold, on top of not reflecting anything real
+  // in-game (int32 overflow past this point, see that function's comment).
+  const hpPct = [...basicOrbIds, specialMention?.id ?? null]
+    .map((id) => resolveOrb(id)?.hpPct ?? 0)
+    .reduce((a, b) => a + b, 0)
+  const starMul = normalized.starMultipliers[starIndex] ?? 1.0
+  const maxLevel = maxLevelForHp(normalized.hpBase * starMul * (1 + hpPct / 100))
+  const level = Math.min(rawLevel, maxLevel)
 
   return {
     mutant: found.mutant,
