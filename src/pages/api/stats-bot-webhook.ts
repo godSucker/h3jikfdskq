@@ -120,6 +120,14 @@ export const POST: APIRoute = async ({ request }) => {
     const text: string = body.message?.text ?? ''
     messageId = body.message?.message_id
 
+    // Cheap, always-on: lets chat_id be recovered from Vercel runtime logs
+    // instead of needing a Telegram-side lookup tool.
+    if (chatId != null) {
+      console.log(
+        `stats-bot: chat ${chatId} (${body.message?.chat?.type ?? '?'}) msg: ${JSON.stringify(text)}`,
+      )
+    }
+
     if (chatId == null || !text) {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
