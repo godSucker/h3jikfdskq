@@ -45,7 +45,8 @@ async function sendTelegramPhoto(
   const form = new FormData()
   form.set('chat_id', String(chatId))
   if (caption) form.set('caption', caption)
-  if (replyToMessageId) form.set('reply_parameters', JSON.stringify({ message_id: replyToMessageId }))
+  if (replyToMessageId)
+    form.set('reply_parameters', JSON.stringify({ message_id: replyToMessageId }))
   form.set('photo', new Blob([new Uint8Array(photo)], { type: 'image/png' }), 'card.png')
   const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
     method: 'POST',
