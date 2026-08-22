@@ -10,6 +10,7 @@
  * see isSelectableOrbId - mirrors buildOrbCatalog's filter in
  * StatsCalculator.svelte) are matched; weaker tiers are treated as unknown.
  */
+import Fuse from 'fuse.js'
 import { normalizeSearch } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
@@ -77,37 +78,37 @@ interface CategoryDef {
 }
 
 const CATEGORIES: CategoryDef[] = [
-  { keywords: ['атака'], basicPrefix: 'orb_basic_attack' },
-  { keywords: ['здоровье', 'хп', 'жизнь'], basicPrefix: 'orb_basic_life' },
-  { keywords: ['критический шанс', 'крит'], basicPrefix: 'orb_basic_critical' },
+  { keywords: ['атака', 'атк'], basicPrefix: 'orb_basic_attack' },
+  { keywords: ['здоровье', 'хп', 'жизнь', 'хелс'], basicPrefix: 'orb_basic_life' },
+  { keywords: ['критический шанс', 'крит', 'критшанс'], basicPrefix: 'orb_basic_critical' },
   {
-    keywords: ['вытягивание жизни', 'вампиризм', 'лайфстил'],
+    keywords: ['вытягивание жизни', 'вампиризм', 'лайфстил', 'вамп', 'вампирка'],
     basicPrefix: 'orb_basic_regenerate',
     specialPrefix: 'orb_special_addregenerate',
   },
   {
-    keywords: ['контратака', 'отражение'],
+    keywords: ['контратака', 'отражение', 'контра', 'реталиэйт'],
     basicPrefix: 'orb_basic_retaliate',
     specialPrefix: 'orb_special_addretaliate',
   },
   { keywords: ['щит'], basicPrefix: 'orb_basic_shield', specialPrefix: 'orb_special_addshield' },
   {
-    keywords: ['ранение', 'кровотечение'],
+    keywords: ['ранение', 'кровотечение', 'рана', 'кровь', 'кровоток'],
     basicPrefix: 'orb_basic_slash',
     specialPrefix: 'orb_special_addslash',
   },
   {
-    keywords: ['усиление'],
+    keywords: ['усиление', 'усил', 'баф', 'бафф'],
     basicPrefix: 'orb_basic_strengthen',
     specialPrefix: 'orb_special_addstrengthen',
   },
   {
-    keywords: ['проклятие', 'ослабление'],
+    keywords: ['проклятие', 'ослабление', 'дебаф', 'дебафф', 'прокл'],
     basicPrefix: 'orb_basic_weaken',
     specialPrefix: 'orb_special_addweaken',
   },
-  { keywords: ['опыт'], basicPrefix: 'orb_basic_xp' },
-  { keywords: ['скорость'], specialPrefix: 'orb_special_speed' },
+  { keywords: ['опыт', 'экспа', 'exp'], basicPrefix: 'orb_basic_xp' },
+  { keywords: ['скорость', 'скор', 'спид'], specialPrefix: 'orb_special_speed' },
 ]
 
 const STAR_KEYWORDS: Array<{ index: number; words: string[] }> = [
@@ -140,7 +141,84 @@ export interface ParsedConfig {
 export type ParseResult =
   { ok: true; primary: ParsedConfig; secondary?: ParsedConfig } | { ok: false; error: string }
 
-function findMutant(text: string): { mutant: any; matchedLen: number } | null {
+type FindMutantResult =
+  | { kind: 'found'; mutant: any; fuzzy: boolean }
+  | { kind: 'ambiguous'; candidates: string[] }
+  | { kind: 'none' }
+
+const FUZZY_MAX_SCORE = 0.3
+const FUZZY_TIE_EPSILON = 0.03
+
+let mutantFuse: Fuse<{ name: string; mutant: any }> | null = null
+let nameStripPattern: RegExp | null = null
+
+function getMutantFuse(): Fuse<{ name: string; mutant: any }> {
+  if (!mutantFuse) {
+    mutantFuse = new Fuse(
+      (mutantsRaw as any[]).map((m) => ({ name: m.name, mutant: m })),
+      { keys: ['name'], includeScore: true, threshold: 0.4, ignoreLocation: true },
+    )
+  }
+  return mutantFuse
+}
+
+function getNameStripPattern(): RegExp {
+  if (!nameStripPattern) {
+    const phrases = new Set<string>()
+    for (const { words } of STAR_KEYWORDS) for (const w of words) phrases.add(w)
+    for (const cat of CATEGORIES) for (const kw of cat.keywords) phrases.add(kw)
+    for (const w of [
+      'ур',
+      'уровень',
+      'lvl',
+      'lv',
+      'спец',
+      'на',
+      'первую',
+      'первая',
+      'вторую',
+      'вторая',
+      'атаку',
+    ])
+      phrases.add(w)
+    // Longest first, so e.g. "критический шанс" is stripped whole before its
+    // substring "крит" would otherwise chew into it piecemeal.
+    const sorted = Array.from(phrases).sort((a, b) => b.length - a.length)
+    const escaped = sorted.map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    nameStripPattern = new RegExp(`(?<![a-zа-яё0-9])(?:${escaped.join('|')})(?![a-zа-яё0-9])`, 'gi')
+  }
+  return nameStripPattern
+}
+
+// What's left after stripping every keyword the rest of the parser already
+// understands (level, star, orb categories, multiplier words) is presumed to
+// be the mutant name - typo'd or abbreviated. Fuzzy-matched only as a
+// fallback when the exact substring pass below finds nothing, so a clean
+// exact name is never second-guessed.
+function fuzzyFindMutant(text: string): FindMutantResult {
+  let remainder = ' ' + text.toLowerCase() + ' '
+  remainder = remainder.replace(/\d+\s*%/g, ' ')
+  remainder = remainder.replace(/[+-]\d{1,3}/g, ' ')
+  remainder = remainder.replace(/\d+/g, ' ')
+  remainder = remainder.replace(getNameStripPattern(), ' ')
+  remainder = remainder.replace(/\s+/g, ' ').trim()
+  if (remainder.length < 2) return { kind: 'none' }
+
+  const hits = getMutantFuse()
+    .search(remainder)
+    .filter((h) => (h.score ?? 1) <= FUZZY_MAX_SCORE)
+  if (hits.length === 0) return { kind: 'none' }
+
+  const best = hits[0]
+  const runnerUp = hits.find((h) => h.item.name !== best.item.name)
+  if (runnerUp && (runnerUp.score ?? 1) - (best.score ?? 0) < FUZZY_TIE_EPSILON) {
+    const names = Array.from(new Set([best, runnerUp].map((h) => h.item.name)))
+    return { kind: 'ambiguous', candidates: names }
+  }
+  return { kind: 'found', mutant: best.item.mutant, fuzzy: true }
+}
+
+function findMutant(text: string): FindMutantResult {
   const normalizedText = normalizeSearch(text)
   let best: { mutant: any; matchedLen: number } | null = null
   for (const m of mutantsRaw as any[]) {
@@ -152,7 +230,8 @@ function findMutant(text: string): { mutant: any; matchedLen: number } | null {
       }
     }
   }
-  return best
+  if (best) return { kind: 'found', mutant: best.mutant, fuzzy: false }
+  return fuzzyFindMutant(text)
 }
 
 // JS's \b only recognizes ASCII \w, so it's a no-op (or worse) around Cyrillic
@@ -260,25 +339,26 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
   return mentions
 }
 
+// Default level when the message names a mutant but never specifies one
+// (e.g. ".азимов" with nothing else) - there's no in-game "default level" so
+// this is purely a bot UX call: 30 reads as a reasonable mid-game snapshot.
+const DEFAULT_LEVEL = 30
+
 function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
   const found = findMutant(segment)
-  if (!found) return { error: `не нашёл мутанта в "${segment.trim()}"` }
-  const level = findLevel(segment)
-  if (level === null)
+  if (found.kind === 'none') return { error: `не нашёл мутанта в "${segment.trim()}"` }
+  if (found.kind === 'ambiguous')
     return {
-      error: `не нашёл уровень (напиши число + "ур", например "20 ур") в "${segment.trim()}"`,
+      error: `не понял, какого мутанта имеешь в виду - похоже на ${found.candidates.join(' или ')}, уточни имя`,
     }
+  const level = findLevel(segment) ?? DEFAULT_LEVEL
   const normalized = normalizeMutant(found.mutant)
-  // No star keyword in the text -> default to "normal" (0), same as before.
-  // But some mutants (platinum-exclusive specials etc.) don't have a
-  // "normal" tier at all - for those, fall back to whatever tier they DO
-  // have (highest available, matching the live page's own auto-select-on-
-  // mutant-change behavior) instead of silently rendering a tier that
-  // doesn't exist for them.
+  // No star keyword in the text -> default to the mutant's highest available
+  // tier (platinum for anything that has one), same as the live page's
+  // auto-select-on-mutant-change behavior.
   const availableStars = Array.from(normalized.availableStars)
   const starIndex =
-    findStarKeyword(segment) ??
-    (availableStars.includes(0) ? 0 : availableStars.length > 0 ? Math.max(...availableStars) : 0)
+    findStarKeyword(segment) ?? (availableStars.length > 0 ? Math.max(...availableStars) : 0)
   const atkMultipliers = findMultipliers(segment)
   const mentions = findOrbMentions(segment)
 
@@ -337,19 +417,22 @@ export function parseMessage(text: string): ParseResult {
 
 export const FORMAT_HELP = `Формат сообщения (свободный порядок слов, начинай с точки):
 
-.<имя мутанта> <уровень>ур [звёздность] [сферы] [атака1: X%] [атака2: X%]
+.<имя мутанта> [уровень]ур [звёздность] [сферы] [атака1: X%] [атака2: X%]
 
-Звёздность: обычный / бронза / серебро / золото / платина (по умолчанию - обычный)
+Имя мутанта можно писать с опечаткой или сокращённо - подберу похожее (если совпадений несколько, переспрошу).
+Уровень необязателен - без него подставлю 30.
+Звёздность необязательна - без неё подставлю максимально доступную мутанту (платину, если она есть).
 
 Сферы - пиши название категории + число вплотную рядом, например:
 "щит 20%" (по проценту) или "щит 4" (по уровню сферы, без "%")
 "спец щит 20%" (спец-слот - добавь слово "спец")
-Категории: атака, здоровье, крит, вытягивание жизни, контратака, щит, ранение, усиление, проклятие, опыт, скорость (только спец)
+Категории (можно сокращённо): атака/атк, здоровье/хп, крит, вытягивание жизни/вамп, контратака/контра, щит, ранение/кровь, усиление/баф, проклятие/дебаф, опыт, скорость/спид (только спец)
 
 Мультипликатор урона: "+25% на первую атаку", "-50% вторая атака" (допустимые значения: -50/-25/0/+25/+50)
 
 Сравнение двух мутантов - раздели сообщения словом "vs" или "против"
 
 Примеры:
+.азимов (30 уровень, максимальная звезда)
 .робот 20ур серебро щит 20% +25% на первую атаку
 .робот 20ур серебро vs зомби 30ур золото`
