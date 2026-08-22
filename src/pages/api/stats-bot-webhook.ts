@@ -10,9 +10,23 @@ import {
 // Separate bot/token from telegram-webhook.ts on purpose (see memory
 // telegram-stats-bot-todo): that one is a private admin bot, allowlisted to
 // a single user/chat, that commits straight to main. This one is meant to
-// be used in a public/group chat by anyone - different trust perimeter, so
-// it gets its own token and, deliberately, NO user/chat allowlist. It also
+// be used in a public/group chat by anyone - different trust perimeter. It
 // only ever reads mutants.json + renders an image; it can't write anything.
+// STATS_BOT_ALLOWED_CHATS restricts which chats it'll respond in (optional -
+// unset means unrestricted, so it doesn't break existing deployments).
+// STATS_BOT_ADMIN_CHAT_ID, if set, gets a DM for every failed parse - lets
+// the owner see real misses to tune name/orb matching without digging
+// through Vercel logs.
+
+function parseAllowedChats(raw: string | undefined): Set<string> | null {
+  if (!raw?.trim()) return null
+  return new Set(
+    raw
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
+  )
+}
 
 async function sendTelegramMessage(
   botToken: string,
@@ -76,6 +90,8 @@ function toCardInput(config: ParsedConfig): CardInput {
 export const POST: APIRoute = async ({ request }) => {
   const BOT_TOKEN = import.meta.env.STATS_BOT_TOKEN
   const WEBHOOK_SECRET = import.meta.env.STATS_BOT_WEBHOOK_SECRET
+  const ADMIN_CHAT_ID = import.meta.env.STATS_BOT_ADMIN_CHAT_ID as string | undefined
+  const allowedChats = parseAllowedChats(import.meta.env.STATS_BOT_ALLOWED_CHATS)
 
   // Same fail-closed pattern as telegram-webhook.ts: an unconfigured secret
   // disables the endpoint outright rather than silently skipping the check.
@@ -111,6 +127,15 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
+    // Unlisted chat -> ignore entirely, same as an unaddressed message.
+    // No allowlist configured means unrestricted (opt-in feature).
+    if (allowedChats && !allowedChats.has(String(chatId))) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
     if (text === '/start' || text === '/help' || text === '/format') {
       await sendTelegramMessage(BOT_TOKEN, chatId, FORMAT_HELP, messageId)
       return new Response(JSON.stringify({ ok: true }), {
@@ -139,6 +164,13 @@ export const POST: APIRoute = async ({ request }) => {
         `Не понял: ${result.error}\n\nСм. /format`,
         messageId,
       )
+      if (ADMIN_CHAT_ID) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          ADMIN_CHAT_ID,
+          `Не разобрал запрос (чат ${chatId}):\n"${text}"\n\n${result.error}`,
+        )
+      }
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
