@@ -25,10 +25,8 @@ export const GET: APIRoute = async ({ url }) => {
     let page
     try {
       const browser = await getBrowser()
-      page = await browser.newPage({
-        deviceScaleFactor: 2,
-        viewport: { width: 1400, height: 900 },
-      })
+      page = await browser.newPage()
+      await page.setViewportSize({ width: 1400, height: 900 })
 
       // Step 1: Load HTML + JS (no networkidle — it hangs on Vercel serverless)
       await page.goto(renderUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })

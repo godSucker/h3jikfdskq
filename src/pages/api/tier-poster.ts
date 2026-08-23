@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro'
+import type { Page } from 'playwright-core'
 import { getBrowser, forceRelaunch, isBrowserDiedError } from '@/lib/headless-browser'
 import { LOCALES } from '@/lib/i18n-locales'
 
@@ -17,10 +18,11 @@ export const GET: APIRoute = async ({ url }) => {
   const renderUrl = `${origin}/tier-poster-render?state=${encodeURIComponent(stateParam)}&locale=${locale}`
 
   for (let attempt = 0; attempt < 2; attempt++) {
-    let page
+    let page: Page | undefined
     try {
       const browser = await getBrowser()
-      page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1140, height: 800 } })
+      page = await browser.newPage()
+      await page.setViewportSize({ width: 1140, height: 800 })
 
       // Превью-деплои закрыты Vercel SSO Protection - без bypass-заголовка
       // headless-браузер попадает на стену авторизации вместо /tier-poster-render
@@ -38,15 +40,37 @@ export const GET: APIRoute = async ({ url }) => {
         page.waitForSelector('.poster', { timeout: 12000 }),
         page.evaluate(() => document.fonts.ready),
       ])
-      await page
+      // Up to ~556 mutant icons in one poster (tier-table.json is currently
+      // fully tiered), all fetched in parallel - on a cold CDN edge that
+      // routinely didn't finish inside the old 8s budget, and the silent
+      // .catch() meant the screenshot was taken anyway with whichever icons
+      // hadn't loaded yet rendering blank. 25s covers a cold burst at this
+      // volume (stats-panel's screenshot.ts stays at 5s - it's ~10-20 images,
+      // a different scale entirely); the warn below at least surfaces it in
+      // logs if some request still doesn't make it, instead of failing silent.
+      const openPage = page
+      const incompleteImageCount = await openPage
         .waitForFunction(
           () => {
             const imgs = Array.from(document.querySelectorAll('.poster img'))
             return imgs.length === 0 || imgs.every((i) => (i as HTMLImageElement).complete)
           },
-          { timeout: 8000 },
+          { timeout: 25000 },
         )
-        .catch(() => {})
+        .then(() => 0)
+        .catch(() =>
+          openPage.evaluate(
+            () =>
+              Array.from(document.querySelectorAll('.poster img')).filter(
+                (i) => !(i as HTMLImageElement).complete,
+              ).length,
+          ),
+        )
+      if (incompleteImageCount > 0) {
+        console.warn(
+          `[TierPoster] ${incompleteImageCount} icon(s) still loading after wait - poster will show them blank`,
+        )
+      }
       await page.waitForTimeout(100)
 
       const poster = await page.$('.poster')
