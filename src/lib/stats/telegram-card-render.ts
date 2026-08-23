@@ -526,7 +526,18 @@ async function rasterize(tree: any, width: number, height: number): Promise<Buff
     ],
   })
   const pngBuffer = new Resvg(svg, { fitTo: { mode: 'width', value: width * 2 } }).render().asPng()
-  return sharp(pngBuffer).trim().toBuffer()
+  // trim()'s default reference is whatever color sits at (0,0) - for a
+  // rounded-corner single card that's transparent (matches the generous
+  // estHeight overshoot below, so it crops away cleanly), but
+  // renderComparePair's wrapper paints an unrounded background starting
+  // exactly at (0,0), making that corner opaque. An opaque reference
+  // doesn't match the transparent overshoot padding, so trim() refuses to
+  // crop it - the exact bug (a white/blank strip once Telegram composites
+  // the leftover transparency). Pinning the trim target to transparent
+  // sidesteps corner-color luck entirely.
+  return sharp(pngBuffer)
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .toBuffer()
 }
 
 export async function renderStatsCard(input: CardInput): Promise<Buffer> {
