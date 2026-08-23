@@ -526,7 +526,18 @@ async function rasterize(tree: any, width: number, height: number): Promise<Buff
     ],
   })
   const pngBuffer = new Resvg(svg, { fitTo: { mode: 'width', value: width * 2 } }).render().asPng()
-  return sharp(pngBuffer).trim().toBuffer()
+  // trim()'s default reference is whatever color sits at (0,0) - for a
+  // rounded-corner single card that's transparent (matches the generous
+  // estHeight overshoot below, so it crops away cleanly), but
+  // renderComparePair's wrapper paints an unrounded background starting
+  // exactly at (0,0), making that corner opaque. An opaque reference
+  // doesn't match the transparent overshoot padding, so trim() refuses to
+  // crop it - the exact bug (a white/blank strip once Telegram composites
+  // the leftover transparency). Pinning the trim target to transparent
+  // sidesteps corner-color luck entirely.
+  return sharp(pngBuffer)
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .toBuffer()
 }
 
 export async function renderStatsCard(input: CardInput): Promise<Buffer> {
@@ -534,14 +545,36 @@ export async function renderStatsCard(input: CardInput): Promise<Buffer> {
   return rasterize(tree, 680, estHeight)
 }
 
-export async function renderComparePair(a: CardInput, b: CardInput): Promise<Buffer> {
-  const [treeA, treeB] = await Promise.all([buildPanelTree(a), buildPanelTree(b)])
+// Shared by the 2-way ".vs"/"против" card and the up-to-5-way ".сравнение"
+// card - both are just a single flex row of panels with a divider between
+// each pair, sized to fit whichever panel estimates tallest.
+async function renderCompareRow(cards: CardInput[]): Promise<Buffer> {
+  const trees = await Promise.all(cards.map(buildPanelTree))
+  const children: ReturnType<typeof h>[] = []
+  trees.forEach((t, i) => {
+    if (i > 0) {
+      children.push(
+        h('div', {
+          style: { display: 'flex', width: 2, background: '#3a475a', alignSelf: 'stretch' },
+        }),
+      )
+    }
+    children.push(t.tree)
+  })
   const wrapper = h(
     'div',
     { style: { display: 'flex', alignItems: 'flex-start', gap: 0, background: '#1b212a' } },
-    treeA.tree,
-    h('div', { style: { display: 'flex', width: 2, background: '#3a475a', alignSelf: 'stretch' } }),
-    treeB.tree,
+    ...children,
   )
-  return rasterize(wrapper, 680 * 2 + 2, Math.max(treeA.estHeight, treeB.estHeight))
+  const width = 680 * cards.length + 2 * (cards.length - 1)
+  const height = Math.max(...trees.map((t) => t.estHeight))
+  return rasterize(wrapper, width, height)
+}
+
+export async function renderComparePair(a: CardInput, b: CardInput): Promise<Buffer> {
+  return renderCompareRow([a, b])
+}
+
+export async function renderCompareMulti(cards: CardInput[]): Promise<Buffer> {
+  return renderCompareRow(cards)
 }
