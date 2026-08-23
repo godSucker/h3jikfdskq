@@ -1,47 +1,5 @@
 import type { APIRoute } from 'astro'
-import { chromium, type Browser } from 'playwright-core'
-import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
-
-// Fluid Compute reuses warm function instances between requests, so we keep
-// one Chromium process alive at module scope instead of launching/closing it
-// per request - @sparticuz/chromium's cold start (extracting + spawning the
-// binary) was the dominant chunk of the reported 6-12s screenshot latency.
-let browserPromise: Promise<Browser> | null = null
-
-async function launchBrowser(): Promise<Browser> {
-  await cleanupStalePlaywrightProfiles()
-  const Chromium = (await import('@sparticuz/chromium')).default
-  const execPath = await Chromium.executablePath()
-  const browser = await chromium.launch({
-    executablePath: execPath,
-    args: Chromium.args,
-  })
-  // Chromium runs --single-process for the serverless binary, so a crash in
-  // any one concurrent page can take the whole shared instance down. Drop the
-  // cached promise immediately so the next getBrowser() call relaunches
-  // instead of handing out a reference nobody can open new pages on.
-  browser.on('disconnected', () => {
-    if (browserPromise === launchingPromise) browserPromise = null
-  })
-  return browser
-}
-
-let launchingPromise: Promise<Browser> | null = null
-
-async function getBrowser(): Promise<Browser> {
-  if (browserPromise) {
-    try {
-      const existing = await browserPromise
-      if (existing.isConnected()) return existing
-    } catch {
-      // previous launch failed - fall through and retry below
-    }
-    browserPromise = null
-  }
-  launchingPromise = launchBrowser()
-  browserPromise = launchingPromise
-  return browserPromise
-}
+import { getBrowser, forceRelaunch, isBrowserDiedError } from '@/lib/headless-browser'
 
 export const GET: APIRoute = async ({ url }) => {
   const stateParam = url.searchParams.get('state')
@@ -67,10 +25,8 @@ export const GET: APIRoute = async ({ url }) => {
     let page
     try {
       const browser = await getBrowser()
-      page = await browser.newPage({
-        deviceScaleFactor: 2,
-        viewport: { width: 1400, height: 900 },
-      })
+      page = await browser.newPage()
+      await page.setViewportSize({ width: 1400, height: 900 })
 
       // Step 1: Load HTML + JS (no networkidle — it hangs on Vercel serverless)
       await page.goto(renderUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })
@@ -194,9 +150,8 @@ export const GET: APIRoute = async ({ url }) => {
       // Shared warm browser can die mid-request from an unrelated concurrent
       // page crash (single-process Chromium). Force a relaunch and retry once
       // before giving up.
-      const browserDied = /has been closed|disconnected|Target closed/i.test(message)
-      if (browserDied && attempt === 0) {
-        browserPromise = null
+      if (isBrowserDiedError(message) && attempt === 0) {
+        forceRelaunch()
         continue
       }
       console.error('[Screenshot]', message)
