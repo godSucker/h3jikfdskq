@@ -143,6 +143,9 @@ export interface ParsedConfig {
 export type ParseResult =
   { ok: true; primary: ParsedConfig; secondary?: ParsedConfig } | { ok: false; error: string }
 
+export type ParseCompareResult =
+  { ok: true; configs: ParsedConfig[] } | { ok: false; error: string }
+
 type FindMutantResult =
   | { kind: 'found'; mutant: any; fuzzy: boolean }
   | { kind: 'ambiguous'; candidates: string[] }
@@ -439,15 +442,19 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
   }
 }
 
+const COMPARE_SEPARATOR = /\s+(?:vs|против)\s+/i
+const MAX_MULTI_COMPARE = 5
+
 export function parseMessage(text: string): ParseResult {
   const trimmed = text.trim()
   if (!trimmed) return { ok: false, error: 'пустое сообщение' }
 
-  const compareSplit = trimmed.split(/\s+(?:vs|против)\s+/i)
+  const compareSplit = trimmed.split(COMPARE_SEPARATOR)
   if (compareSplit.length > 2) {
     return {
       ok: false,
-      error: 'больше одного разделителя "vs"/"против" - непонятно что сравнивать',
+      error:
+        'больше одного разделителя "vs"/"против" - для сравнения больше двух мутантов используй .сравнение',
     }
   }
 
@@ -461,6 +468,34 @@ export function parseMessage(text: string): ParseResult {
   }
 
   return { ok: true, primary }
+}
+
+// Same "vs"/"против" segmentation as parseMessage, just without the
+// hard cap at two - .сравнение is the only entry point that reaches this,
+// so a plain ".vs" message still can't accidentally produce a 5-way card
+// (which would need a wider render than renderComparePair is built for).
+export function parseCompareMessage(text: string): ParseCompareResult {
+  const trimmed = text.trim()
+  if (!trimmed) return { ok: false, error: 'пустое сообщение' }
+
+  const segments = trimmed.split(COMPARE_SEPARATOR)
+  if (segments.length < 2) {
+    return {
+      ok: false,
+      error: 'нужно минимум 2 мутанта, раздели их через "vs" или "против"',
+    }
+  }
+  if (segments.length > MAX_MULTI_COMPARE) {
+    return { ok: false, error: `максимум ${MAX_MULTI_COMPARE} мутантов за раз` }
+  }
+
+  const configs: ParsedConfig[] = []
+  for (const segment of segments) {
+    const parsed = parseSingleSegment(segment)
+    if ('error' in parsed) return { ok: false, error: parsed.error }
+    configs.push(parsed)
+  }
+  return { ok: true, configs }
 }
 
 export const FORMAT_HELP = `Формат сообщения (свободный порядок слов, начинай с точки):
@@ -480,7 +515,10 @@ export const FORMAT_HELP = `Формат сообщения (свободный 
 
 Сравнение двух мутантов - раздели сообщения словом "vs" или "против"
 
+Сравнение до 5 мутантов - начни с ".сравнение", дальше те же сегменты через "vs"/"против"
+
 Примеры:
 .азимов (30 уровень, максимальная звезда)
 .робот 20ур серебро щит 20% +25% на первую атаку
-.робот 20ур серебро vs зомби 30ур золото`
+.робот 20ур серебро vs зомби 30ур золото
+.сравнение робот 30ур vs зомби 45ур vs воин 55ур vs брейкмастер 1ур vs банши 4ур`

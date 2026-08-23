@@ -1,9 +1,15 @@
 import type { APIRoute } from 'astro'
-import { parseMessage, FORMAT_HELP, type ParsedConfig } from '@/lib/stats/bot-parser'
+import {
+  parseMessage,
+  parseCompareMessage,
+  FORMAT_HELP,
+  type ParsedConfig,
+} from '@/lib/stats/bot-parser'
 import { buildPanelData } from '@/lib/stats/panel-data'
 import {
   renderStatsCard,
   renderComparePair,
+  renderCompareMulti,
   type CardInput,
 } from '@/lib/stats/telegram-card-render'
 import {
@@ -197,6 +203,66 @@ export const POST: APIRoute = async ({ request }) => {
     // request. Anything not starting with "." is silently ignored (not
     // even a "не понял" reply) - it's not addressed to the bot.
     if (!text.startsWith('.')) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".сравнение <a> vs <b> vs ... vs <e>" - up to 5-way, same "vs"/"против"
+    // separator as the regular 2-way card but routed to its own parser (see
+    // parseCompareMessage) and a wider render, so a plain ".vs" message
+    // never accidentally has to handle more than 2 segments.
+    const compareCommandMatch = text.slice(1).match(/^сравнение(?![a-zа-яё0-9])\s*/i)
+    if (compareCommandMatch) {
+      const rest = text.slice(1 + compareCommandMatch[0].length)
+      const compareResult = parseCompareMessage(rest)
+      if (!compareResult.ok) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          `Не понял: ${compareResult.error}\n\nСм. /format`,
+          messageId,
+        )
+        if (ADMIN_CHAT_ID) {
+          await sendTelegramMessage(
+            BOT_TOKEN,
+            ADMIN_CHAT_ID,
+            `Не разобрал запрос .сравнение (чат ${chatId}):\n"${text}"\n\n${compareResult.error}`,
+          )
+        }
+        await recordError()
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+
+      const cacheKey = compareResult.configs.map(cacheKeyFor).join('#multi#')
+      let photo = await getCachedCard(cacheKey)
+
+      if (!photo) {
+        const userId = body.message?.from?.id ?? chatId
+        const allowed = await checkRateLimit(userId)
+        if (!allowed) {
+          await sendTelegramMessage(
+            BOT_TOKEN,
+            chatId,
+            'Слишком часто - подожди немного и повтори.',
+            messageId,
+          )
+          return new Response(JSON.stringify({ ok: true }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        }
+
+        photo = await renderCompareMulti(compareResult.configs.map(toCardInput))
+        await setCachedCard(cacheKey, photo)
+      }
+
+      await sendTelegramPhoto(BOT_TOKEN, chatId, photo, messageId)
+      for (const config of compareResult.configs) await recordRequest(config.mutantName)
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
