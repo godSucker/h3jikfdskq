@@ -18,6 +18,12 @@ import nicknameAliases from '@/data/mutants/nickname-aliases.json'
 import { normalizeMutant, resolveOrb } from './panel-data'
 import { maxLevelForHp } from './unified-calculator'
 
+// mutants.json's inferred JSON type is a large literal union that's
+// impractical to thread through every consumer in this file - one shared
+// cast instead of repeating "mutantsRaw as any[]" at each call site.
+const ALL_MUTANTS = mutantsRaw as any[]
+type MutantMap = Map<string, any>
+
 interface RawOrb {
   id: string
   name: string
@@ -121,6 +127,8 @@ const STAR_KEYWORDS: Array<{ index: number; words: string[] }> = [
   { index: 4, words: ['платина', 'платиновый', 'платиновая'] },
 ]
 
+const STAR_NAMES = ['обычная', 'бронза', 'серебро', 'золото', 'платина']
+
 const ALLOWED_MULTIPLIERS = [-50, -25, 0, 25, 50]
 
 export interface ParsedOrbMention {
@@ -160,7 +168,7 @@ let nameStripPattern: RegExp | null = null
 function getMutantFuse(): Fuse<{ name: string; mutant: any }> {
   if (!mutantFuse) {
     mutantFuse = new Fuse(
-      (mutantsRaw as any[]).map((m) => ({ name: m.name, mutant: m })),
+      ALL_MUTANTS.map((m) => ({ name: m.name, mutant: m })),
       { keys: ['name'], includeScore: true, threshold: 0.4, ignoreLocation: true },
     )
   }
@@ -227,9 +235,23 @@ function fuzzyFindMutant(text: string): FindMutantResult {
 // mutants sharing a name differing purely by case (e.g. "Колосс" vs
 // "колосс", both real entries in mutants.json); aliases reference the
 // specific capitalization they mean, so this must NOT be normalized.
-const mutantByExactName = new Map<string, any>()
-for (const m of mutantsRaw as any[]) {
+const mutantByExactName: MutantMap = new Map()
+for (const m of ALL_MUTANTS) {
   if (!mutantByExactName.has(m.name)) mutantByExactName.set(m.name, m)
+}
+
+const mutantById: MutantMap = new Map(ALL_MUTANTS.map((m) => [m.id, m]))
+
+// Alias -> mutant ID (not name). Unlike the name-keyed candidates below,
+// this resolves correctly even for the two duplicate-name pairs in the
+// game data (Колосс/колосс, Бабайка/Бабайка) since ids are always unique -
+// see [[stats-bot-queued-fixes-2026-08-23]] for why the name-keyed form
+// broke for those specifically. Passed in per-call (not module-scope) since
+// entries can be added live via ".добавить" and read from a Redis overlay
+// in bot-store.ts - the parser itself stays I/O-free.
+export interface AliasOverlayEntry {
+  alias: string
+  mutantId: string
 }
 
 // Curated from a months-old sibling bot's query cache (see memory) -
@@ -242,7 +264,22 @@ const ALIAS_CANDIDATES: Array<{ alias: string; mutant: any }> = Object.entries(
   .map(([alias, targetName]) => ({ alias, mutant: mutantByExactName.get(targetName) }))
   .filter((e): e is { alias: string; mutant: any } => Boolean(e.mutant))
 
-function findMutant(text: string): FindMutantResult {
+function findMutant(text: string, overlay: AliasOverlayEntry[] = []): FindMutantResult {
+  // Exact-case pass, tried first: normalizeSearch below lowercases
+  // everything, so the one duplicate-name-by-case pair in the data
+  // (Колосс vs колосс) would otherwise ALWAYS tie in the normalized pass
+  // below, no matter what the user actually typed. A user who typed the
+  // exact capitalization gets resolved here for free, with no alias
+  // needed; anyone who didn't (or meant the other one) falls through to
+  // the normal path, which still reports the pair as ambiguous rather than
+  // guessing.
+  const exactCaseHits = Array.from(mutantByExactName.entries()).filter(([name]) =>
+    text.includes(name),
+  )
+  if (exactCaseHits.length === 1) {
+    return { kind: 'found', mutant: exactCaseHits[0][1], fuzzy: false }
+  }
+
   const normalizedText = normalizeSearch(text)
   // Collect every candidate at the current best (longest) match length,
   // not just the first one seen - a same-length tie between two distinct
@@ -260,8 +297,12 @@ function findMutant(text: string): FindMutantResult {
       candidates.push(mutant)
     }
   }
-  for (const m of mutantsRaw as any[]) consider(normalizeSearch(m.name), m)
+  for (const m of ALL_MUTANTS) consider(normalizeSearch(m.name), m)
   for (const { alias, mutant } of ALIAS_CANDIDATES) consider(normalizeSearch(alias), mutant)
+  for (const { alias, mutantId } of overlay) {
+    const mutant = mutantById.get(mutantId)
+    if (mutant) consider(normalizeSearch(alias), mutant)
+  }
 
   if (candidates.length === 1) return { kind: 'found', mutant: candidates[0], fuzzy: false }
   if (candidates.length > 1) {
@@ -271,6 +312,47 @@ function findMutant(text: string): FindMutantResult {
     }
   }
   return fuzzyFindMutant(text)
+}
+
+// Exact-name lookup for admin tooling (".добавить") - deliberately NOT
+// fuzzy or substring-based, an admin curating an alias needs to hit the
+// exact intended mutant, not a guess. Accepts either the exact display
+// name (case-sensitive first, case-insensitive fallback if that's unique)
+// or a raw mutant id (for the duplicate-name pairs, where no name typed
+// alone can ever be unique - see AliasOverlayEntry above).
+export type ResolveExactResult =
+  | { kind: 'found'; mutant: any }
+  | { kind: 'ambiguous'; candidates: Array<{ name: string; id: string }> }
+  | { kind: 'none' }
+
+export function resolveMutantByExactName(input: string): ResolveExactResult {
+  const trimmed = input.trim()
+  const byId = mutantById.get(trimmed)
+  if (byId) return { kind: 'found', mutant: byId }
+
+  const exact = mutantByExactName.get(trimmed)
+  // mutantByExactName keeps only the first mutant per exact name string, so
+  // a duplicate-name case (Бабайка/Бабайка) would silently resolve to the
+  // wrong one here - detect that case explicitly and demand the id instead.
+  const allWithName = ALL_MUTANTS.filter((m) => m.name === trimmed)
+  if (allWithName.length > 1) {
+    return {
+      kind: 'ambiguous',
+      candidates: allWithName.map((m) => ({ name: m.name, id: m.id })),
+    }
+  }
+  if (exact) return { kind: 'found', mutant: exact }
+
+  const lower = trimmed.toLowerCase()
+  const caseInsensitive = ALL_MUTANTS.filter((m) => m.name.toLowerCase() === lower)
+  if (caseInsensitive.length === 1) return { kind: 'found', mutant: caseInsensitive[0] }
+  if (caseInsensitive.length > 1) {
+    return {
+      kind: 'ambiguous',
+      candidates: caseInsensitive.map((m) => ({ name: m.name, id: m.id })),
+    }
+  }
+  return { kind: 'none' }
 }
 
 // JS's \b only recognizes ASCII \w, so it's a no-op (or worse) around Cyrillic
@@ -326,30 +408,45 @@ function findMultipliers(text: string): { 1: number; 2: number } {
 
 function findOrbMentions(text: string): ParsedOrbMention[] {
   const lower = text.toLowerCase()
-  const mentions: ParsedOrbMention[] = []
+  // Collected as {mention, pos} and sorted by pos before returning (below) -
+  // the double loop below walks CATEGORIES in a fixed priority order
+  // (атака, здоровье, крит, ...), NOT the order the user actually typed
+  // them in. Mattered nowhere until a message asks for more basic-slot
+  // orbs than the mutant has slots for: parseSingleSegment fills slots via
+  // `.slice(0, basicSlotCount)`, so whichever category happens to sit
+  // earlier in CATEGORIES silently wins over one the user typed first -
+  // confirmed live: "хп5 хп5 усил5 усил4" on a 3-basic-slot mutant kept
+  // both хп mentions (здоровье comes before усиление in CATEGORIES) and
+  // dropped "усил4" even though it was typed before nothing that survived
+  // ahead of it in the message itself.
+  const mentions: Array<{ mention: ParsedOrbMention; pos: number }> = []
   for (const cat of CATEGORIES) {
     for (const kw of cat.keywords) {
       let idx = lower.indexOf(kw)
       while (idx !== -1) {
-        const windowStart = Math.max(0, idx - 15)
-        const windowEnd = Math.min(lower.length, idx + kw.length + 15)
-        const window = lower.slice(windowStart, windowEnd)
-        const isSpecial = window.includes('спец') && Boolean(cat.specialPrefix)
+        // "спец" flag: only a boolean lookback before the keyword (matches
+        // the documented "спец <категория>" order) - a wide window here is
+        // safe since it can only flip basic->special, it never pulls a
+        // value out of unrelated text.
+        const specWindowStart = Math.max(0, idx - 15)
+        const isSpecial =
+          lower.slice(specWindowStart, idx).includes('спец') && Boolean(cat.specialPrefix)
         const prefix = isSpecial ? cat.specialPrefix : (cat.basicPrefix ?? cat.specialPrefix)
         if (prefix) {
-          // "%" -> match by percent (unambiguous, every tier's percent is
-          // unique). A bare number with no "%" -> match by sphere LEVEL (the
-          // id's _0N suffix), not percent - "спец скорость 5" means tier 5
-          // (orb_special_speed_05), not "5%" (that'd be tier 1). Restricted
-          // to right after the keyword so it can't grab an unrelated number
-          // elsewhere in the message (mutant level, star index, ...).
-          const percentMatch = window.match(/(\d{1,3})\s*%/)
-          const levelMatch = !percentMatch
-            ? lower.slice(idx + kw.length, idx + kw.length + 5).match(/^\s*(\d{1,2})\b/)
-            : null
+          // Value must sit directly after the keyword ("щит 20%" / "щит 4").
+          // Anchored at the keyword's end (^\s*) so it can only ever read
+          // the FIRST number it meets there - previously this scanned a
+          // ±15-char window, so an unrelated "+50% на первую атаку" later
+          // in the message could inject a "%" into that window and flip a
+          // level-form mention ("скорость 5") onto the percent branch,
+          // silently dropping it (no orb has speed=5%). Anchoring fixes
+          // both the percent and the level read, since the regex simply
+          // stops once the optional "%" isn't the very next non-space char.
+          const afterKw = lower.slice(idx + kw.length, idx + kw.length + 7)
+          const valueMatch = afterKw.match(/^\s*(\d{1,3})\s*(%)?/)
           let entry: OrbCatalogEntry | null = null
-          if (percentMatch) {
-            const percent = Number(percentMatch[1])
+          if (valueMatch?.[1] && valueMatch[2]) {
+            const percent = Number(valueMatch[1])
             entry =
               ORB_CATALOG.find(
                 (o) =>
@@ -357,17 +454,20 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
                   o.id.startsWith(prefix) &&
                   o.percent === percent,
               ) ?? null
-          } else if (levelMatch) {
-            const level = levelMatch[1].padStart(2, '0')
+          } else if (valueMatch?.[1]) {
+            const level = valueMatch[1].padStart(2, '0')
             const id = `${prefix}_${level}`
             entry = ORB_CATALOG.find((o) => o.id === id) ?? null
           }
           if (entry) {
             mentions.push({
-              category: kw,
-              percent: entry.percent,
-              slot: entry.category,
-              id: entry.id,
+              pos: idx,
+              mention: {
+                category: kw,
+                percent: entry.percent,
+                slot: entry.category,
+                id: entry.id,
+              },
             })
           }
         }
@@ -375,7 +475,7 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
       }
     }
   }
-  return mentions
+  return mentions.sort((a, b) => a.pos - b.pos).map((m) => m.mention)
 }
 
 // Default level when the message names a mutant but never specifies one
@@ -383,8 +483,11 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
 // this is purely a bot UX call: 30 reads as a reasonable mid-game snapshot.
 const DEFAULT_LEVEL = 30
 
-function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
-  const found = findMutant(segment)
+function parseSingleSegment(
+  segment: string,
+  overlay: AliasOverlayEntry[],
+): ParsedConfig | { error: string } {
+  const found = findMutant(segment, overlay)
   if (found.kind === 'none') return { error: `не нашёл мутанта в "${segment.trim()}"` }
   if (found.kind === 'ambiguous')
     return {
@@ -392,12 +495,30 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
     }
   const rawLevel = findLevel(segment) ?? DEFAULT_LEVEL
   const normalized = normalizeMutant(found.mutant)
+  const availableStars = Array.from(normalized.availableStars)
+  const explicitStarIndex = findStarKeyword(segment)
+  // A star word WAS written but this mutant never had that tier in-game
+  // (e.g. ".утконос платина" - Утконос only has stars.normal) - reject
+  // rather than silently rendering a fabricated tier. Most GACHA mutants
+  // only have one tier at all, so this also covers "не пиши звезду тому,
+  // у кого она всего одна" for free - any explicit star word on such a
+  // mutant is necessarily not in availableStars unless it happens to be
+  // the one tier it does have, which is fine to accept.
+  if (explicitStarIndex !== null && !availableStars.includes(explicitStarIndex)) {
+    const available = availableStars
+      .slice()
+      .sort((a, b) => a - b)
+      .map((i) => STAR_NAMES[i])
+      .join(', ')
+    return {
+      error: `у мутанта «${found.mutant.name}» нет такой звезды - доступно: ${available || 'только обычная'}`,
+    }
+  }
   // No star keyword in the text -> default to the mutant's highest available
   // tier (platinum for anything that has one), same as the live page's
   // auto-select-on-mutant-change behavior.
-  const availableStars = Array.from(normalized.availableStars)
   const starIndex =
-    findStarKeyword(segment) ?? (availableStars.length > 0 ? Math.max(...availableStars) : 0)
+    explicitStarIndex ?? (availableStars.length > 0 ? Math.max(...availableStars) : 0)
   const atkMultipliers = findMultipliers(segment)
   const mentions = findOrbMentions(segment)
 
@@ -445,7 +566,7 @@ function parseSingleSegment(segment: string): ParsedConfig | { error: string } {
 const COMPARE_SEPARATOR = /\s+(?:vs|против)\s+/i
 const MAX_MULTI_COMPARE = 5
 
-export function parseMessage(text: string): ParseResult {
+export function parseMessage(text: string, overlay: AliasOverlayEntry[] = []): ParseResult {
   const trimmed = text.trim()
   if (!trimmed) return { ok: false, error: 'пустое сообщение' }
 
@@ -458,11 +579,11 @@ export function parseMessage(text: string): ParseResult {
     }
   }
 
-  const primary = parseSingleSegment(compareSplit[0])
+  const primary = parseSingleSegment(compareSplit[0], overlay)
   if ('error' in primary) return { ok: false, error: primary.error }
 
   if (compareSplit.length === 2) {
-    const secondary = parseSingleSegment(compareSplit[1])
+    const secondary = parseSingleSegment(compareSplit[1], overlay)
     if ('error' in secondary) return { ok: false, error: secondary.error }
     return { ok: true, primary, secondary }
   }
@@ -474,7 +595,10 @@ export function parseMessage(text: string): ParseResult {
 // hard cap at two - .сравнение is the only entry point that reaches this,
 // so a plain ".vs" message still can't accidentally produce a 5-way card
 // (which would need a wider render than renderComparePair is built for).
-export function parseCompareMessage(text: string): ParseCompareResult {
+export function parseCompareMessage(
+  text: string,
+  overlay: AliasOverlayEntry[] = [],
+): ParseCompareResult {
   const trimmed = text.trim()
   if (!trimmed) return { ok: false, error: 'пустое сообщение' }
 
@@ -491,7 +615,7 @@ export function parseCompareMessage(text: string): ParseCompareResult {
 
   const configs: ParsedConfig[] = []
   for (const segment of segments) {
-    const parsed = parseSingleSegment(segment)
+    const parsed = parseSingleSegment(segment, overlay)
     if ('error' in parsed) return { ok: false, error: parsed.error }
     configs.push(parsed)
   }
@@ -522,3 +646,28 @@ export const FORMAT_HELP = `Формат сообщения (свободный 
 .робот 20ур серебро щит 20% +25% на первую атаку
 .робот 20ур серебро vs зомби 30ур золото
 .сравнение робот 30ур vs зомби 45ур vs воин 55ур vs брейкмастер 1ур vs банши 4ур`
+
+// Sent only via /admin (private chat, allowlisted senders - see
+// stats-bot-webhook.ts) - the public FORMAT_HELP above stays clean for
+// everyone else.
+export const ADMIN_FORMAT_HELP = `Админ-команды (пишутся в чате бота, только для допущенных):
+
+.добавить "Ориг Имя Мутанта" - "сокращение"
+  Добавляет ник в общий словарь (id вместо имени - если мутантов с таким именем несколько, попрошу id, не буду гадать сам).
+  Пример: .добавить "Капитан Черная Борода" - "борода2"
+  Пример по id: .добавить specimen_ce_99 - "колосс_спец"
+
+.лимит N/M [T]  (ответом на сообщение юзера)
+  Ставит юзеру персональный рейт-лимит: N запросов за M секунд, действует T минут (по умолчанию 1440 = сутки). Заменяет дефолтный лимит 8/60с, пока активен.
+  Пример: .лимит 2/60 30
+
+.снять_лимит  (ответом на сообщение юзера)
+  Досрочно снимает персональный лимит.
+
+.бан  (ответом на сообщение юзера)
+  Полностью блокирует юзера - карточки рендерить не будет, пока не разбанишь. Постоянно, без срока.
+
+.разбан  (ответом на сообщение юзера)
+  Снимает бан.
+
+Все команды - только для тех, чей id в STATS_BOT_ADMIN_USER_IDS (или для админского чата) - остальным отвечает "Отказано."`

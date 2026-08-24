@@ -76,6 +76,11 @@ describe('star tier', () => {
     // "normal" for a tier that was never real for this mutant.
     expect(ok('риф 20ур').primary.starIndex).toBe(4)
   })
+
+  it('rejects an explicit star tier the mutant never had in-game', () => {
+    // Риф only exists at platinum - "бронза" was never a real tier for it.
+    expect(err('риф 20ур бронза')).toMatch(/нет такой звезды/)
+  })
 })
 
 describe('orb mentions', () => {
@@ -98,6 +103,33 @@ describe('orb mentions', () => {
   it('recognizes a colloquial category abbreviation', () => {
     const cfg = ok('робот 20ур критшанс 15%').primary
     expect(cfg.basicOrbIds).toContain('orb_basic_critical_04')
+  })
+
+  it('keeps a level-form sphere mention when a "%" attack multiplier appears later in the message', () => {
+    // Regression: the percent/level decision used to scan a wide window
+    // around the keyword, so a later "+50% на первую атаку" could leak its
+    // "%" into that window and flip "скорость 5" (sphere LEVEL 5) onto the
+    // percent branch, matching no orb (none has speed=5%) and silently
+    // dropping it.
+    const cfg = ok('зверь 20ур спец скорость 5 +50% на первую атаку').primary
+    expect(cfg.specialOrbId).toBe('orb_special_speed_05')
+    expect(cfg.atkMultipliers[1]).toBe(50)
+  })
+
+  it('fills basic slots in the order orbs were typed, not by category priority', () => {
+    // Regression, caught live in the test chat: findOrbMentions used to
+    // collect mentions by walking CATEGORIES in its own fixed order
+    // (здоровье before усиление), so a message asking for more basic-slot
+    // orbs than the mutant has slots for would always keep whichever
+    // category happened to sit earlier in that list - regardless of what
+    // the user actually typed first. "Орбитальный Нексус" has exactly 3
+    // basic slots.
+    const cfg = ok('нексус 30ур платина хп5 усил5 усил4 хп5').primary
+    expect(cfg.basicOrbIds).toEqual([
+      'orb_basic_life_05',
+      'orb_basic_strengthen_05',
+      'orb_basic_strengthen_04',
+    ])
   })
 })
 
