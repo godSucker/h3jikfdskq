@@ -15,7 +15,12 @@ export interface PlayerRecord {
   tandem: string
   atk1: string
   atk2: string
-  socials: { type: 'fb' | 'vk' | 'tg' | 'link'; url: string; label: string }[]
+  socials: {
+    type: 'fb' | 'vk' | 'tg' | 'link' | 'text'
+    url: string
+    label: string
+    source: 'profile' | 'contact'
+  }[]
 }
 
 function parseCSV(text: string): string[][] {
@@ -97,51 +102,109 @@ export async function loadEvoTop(): Promise<PlayerRecord[]> {
         const atk1 = formatNum(row[6]) // 1 атака
         const atk2 = formatNum(row[7]) // 2 атака
 
-        const socialRaw1 = String(row[8] || '').trim() // Фейсбук
-        const socialRaw2 = String(row[9] || '').trim() // Контакт для связи
+        const socialRaw1 = String(row[8] || '').trim() // Фейсбук - ссылка на игровой профиль
+        const socialRaw2 = String(row[9] || '').trim() // Контакт для связи (добавление в друзья)
 
-        const socials: { type: 'fb' | 'vk' | 'tg' | 'link'; url: string; label: string }[] = []
+        const socials: PlayerRecord['socials'] = []
 
-        const addSocial = (raw: string) => {
+        // Подписи-маркеры, которые в таблице означают "тут просто указан тип
+        // контакта", а не осмысленный текст - в этом случае label берём по типу,
+        // а не показываем сырое "Тг"/"Вк" как есть.
+        const GENERIC_LABELS = new Set([
+          'тг',
+          'вк',
+          'tg',
+          'vk',
+          'facebook',
+          'фб',
+          'fb',
+          'телеграм',
+          'телеграмм',
+          'вконтакте',
+        ])
+
+        // Ссылка/хэндл узнаётся по форме: http(s)://..., @handle или голый домен.
+        // Если это не так - считаем ячейку обычным текстом ("Принимает всех в
+        // фейсбуке", "Принимает до лимита в 5к друзей" и т.п.) и НЕ пытаемся
+        // собрать из него URL (раньше такой текст лился в https://<текст с
+        // пробелами>, что давало битую ссылку).
+        const looksLikeLink = (candidate: string) =>
+          /^https?:\/\//i.test(candidate) ||
+          candidate.startsWith('@') ||
+          /^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i.test(candidate)
+
+        const addSocial = (raw: string, source: 'profile' | 'contact') => {
           if (!raw || ['undefined', '-', 'нет', 'net', '—', '0'].includes(raw.toLowerCase())) return
 
-          let type: 'fb' | 'vk' | 'tg' | 'link' = 'link'
-          let label = 'Ссылка'
-
-          let url = raw
+          // Отделяем возможную подпись перед ссылкой ("ДЕШЕВЫЙ ДОНАТ В ИГРУ -
+          // https://t.me/Donut_Safe" -> customLabel="ДЕШЕВЫЙ ДОНАТ В ИГРУ"), чтобы
+          // авторский текст из таблицы мог переопределить дефолтный лейбл типа.
+          let customLabel = ''
+          let url: string
           if (raw.includes('http')) {
-            url = raw.substring(raw.indexOf('http'))
+            const idx = raw.indexOf('http')
+            customLabel = raw
+              .slice(0, idx)
+              .replace(/[-–—:]\s*$/, '')
+              .trim()
+            url = raw.slice(idx).trim()
           } else {
-            url = raw.replace(/^[\wа-яА-ЯёЁ]+\s*[-–—:]\s*/i, '').trim()
+            const m = raw.match(/^([\wа-яА-ЯёЁ]+)\s*[-–—:]\s*(.*)$/i)
+            if (m) {
+              customLabel = m[1]
+              url = m[2].trim()
+            } else {
+              url = raw.trim()
+            }
           }
 
-          const lower = url.toLowerCase()
+          if (!looksLikeLink(url)) {
+            socials.push({ type: 'text', url: '', label: raw, source })
+            return
+          }
 
-          if (lower.includes('vk.com') || lower.includes('vk.cc')) {
-            type = 'vk'
-            label = 'VKontakte'
-          } else if (lower.includes('facebook') || lower.includes('fb.com')) {
+          // Колонка профиля по смыслу - всегда ссылка на FB (даже если физически
+          // это vk.com/away.php-редирект на facebook.com, вставленный через кнопку
+          // "поделиться" ВК) - тип не сниффим, помечаем как fb.
+          let type: 'fb' | 'vk' | 'tg' | 'link' = 'link'
+          let defaultLabel = 'Ссылка'
+
+          if (source === 'profile') {
             type = 'fb'
-            label = 'Facebook'
-          } else if (
-            lower.includes('t.me') ||
-            lower.includes('tg') ||
-            raw.toLowerCase().includes('тг')
-          ) {
-            type = 'tg'
-            label = 'Telegram'
-            if (!url.includes('http') && !url.includes('t.me')) {
-              const nick = url.replace('@', '').trim().split(' ')[0]
-              url = `https://t.me/${nick}`
+            defaultLabel = 'Facebook'
+          } else {
+            const lower = url.toLowerCase()
+            if (lower.includes('vk.com') || lower.includes('vk.cc')) {
+              type = 'vk'
+              defaultLabel = 'VKontakte'
+            } else if (lower.includes('facebook') || lower.includes('fb.com')) {
+              type = 'fb'
+              defaultLabel = 'Facebook'
+            } else if (
+              lower.includes('t.me') ||
+              lower.includes('tg') ||
+              raw.toLowerCase().includes('тг')
+            ) {
+              type = 'tg'
+              defaultLabel = 'Telegram'
+              if (!url.includes('http') && !url.includes('t.me')) {
+                const nick = url.replace('@', '').trim().split(' ')[0]
+                url = `https://t.me/${nick}`
+              }
             }
           }
 
           if (!url.startsWith('http://') && !url.startsWith('https://')) url = `https://${url}`
-          socials.push({ type, url, label })
+
+          const label =
+            customLabel && !GENERIC_LABELS.has(customLabel.toLowerCase())
+              ? customLabel
+              : defaultLabel
+          socials.push({ type, url, label, source })
         }
 
-        addSocial(socialRaw1)
-        addSocial(socialRaw2)
+        addSocial(socialRaw1, 'profile')
+        addSocial(socialRaw2, 'contact')
 
         const cleanName = String(name || '').trim()
         const cleanLvl = Number(String(level).replace(/[^0-9]/g, ''))
