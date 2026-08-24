@@ -5,6 +5,7 @@
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
   import { geneLabelL } from '@/lib/mutant-dicts'
+  import QuestsTab from './QuestsTab.svelte'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -63,7 +64,17 @@
   }
   interface SpecialLadders { experiment: DungeonEntry[]; challenge: DungeonEntry[] }
   interface QuestReward { label: string; icon: string | null; mutant?: MutantLite }
-  interface Quest { id: string; title: string; caption: string; rewards: QuestReward[] }
+  type TriggerCategory = 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation' | 'building' | 'level' | 'collection' | 'social' | 'misc'
+  interface Quest {
+    id: string
+    title: string
+    caption: string
+    rewards: QuestReward[]
+    chainType: 'story' | 'achievement'
+    prevId: string | null
+    trigger: { category: TriggerCategory; amount: number | null }
+    icon: string | null
+  }
   interface OfferMutant { id: string; name: string; tier: string | null; skin: string | null; icon: string }
   interface OfferGroup { chance: number | null; mutants: OfferMutant[]; rewards: ResolvedItem[] }
   interface SpecialOffer {
@@ -244,16 +255,6 @@
     return '—'
   }
 
-  let questSearch = $state('')
-  let filteredQuests = $derived(
-    questSearch.trim()
-      ? quests.filter(
-          (q) =>
-            q.title.toLowerCase().includes(questSearch.trim().toLowerCase()) ||
-            q.caption.toLowerCase().includes(questSearch.trim().toLowerCase()),
-        )
-      : quests,
-  )
 </script>
 
 <div class="tab-bar" role="tablist">
@@ -482,38 +483,7 @@
       </table>
     </div>
   {:else if activeTab === 'quests'}
-    <div class="text-block">
-      <p>{t('guides.intro.quests.p1', locale)}</p>
-    </div>
-    <input class="quest-search" type="search" placeholder={t('guides.quests.searchPlaceholder', locale)} bind:value={questSearch} />
-    <div class="quest-list">
-      {#each filteredQuests as q (q.id)}
-        <div class="quest-row">
-          <div class="quest-row-body">
-            <div class="quest-row-title">{q.title}</div>
-            <div class="quest-row-caption">{q.caption}</div>
-          </div>
-          <div class="quest-row-rewards">
-            {#each q.rewards as r, i (i)}
-              {#if r.mutant}
-                <button class="farmer-chip" onclick={() => openMutant(r.mutant.id)}>
-                  {#if r.mutant.icon}<img src={textureUrl(r.mutant.icon)} alt="" loading="lazy" decoding="async" />{/if}
-                  <span>{r.mutant.name}</span>
-                </button>
-              {:else}
-                <span class="reward-inline">
-                  {#if r.icon}<img src={textureUrl(r.icon)} alt="" loading="lazy" decoding="async" />{/if}
-                  {r.label}
-                </span>
-              {/if}
-            {/each}
-          </div>
-        </div>
-      {/each}
-      {#if !filteredQuests.length}
-        <p class="soon-block">{t('guides.emptyState', locale)}</p>
-      {/if}
-    </div>
+    <QuestsTab {locale} {quests} />
   {:else if activeTab === 'divisions'}
     <div class="text-block">
       <p>{t('guides.intro.divisions.p1', locale)}</p>
@@ -1102,25 +1072,6 @@
   .farmer-card-price { font-size: 0.76rem; color: #94a3b8; }
   .farmer-card-verdict { margin: 0; font-size: 0.8rem; line-height: 1.5; color: #cbd5f5; }
   .authored-name { font-style: italic; }
-  .quest-search {
-    display: block; width: 100%; max-width: 360px; margin-bottom: 0.75rem; padding: 0.45rem 0.7rem;
-    background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
-    color: #e2e8f0; font-size: 0.85rem;
-  }
-  .quest-search:focus { outline: none; border-color: rgba(96,165,250,0.4); }
-
-  .quest-list { display: flex; flex-direction: column; gap: 3px; border-radius: 10px; overflow: hidden; }
-  .quest-row {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem;
-    padding: 0.55rem 0.85rem; background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;
-  }
-  .quest-row:hover { background: rgba(30, 41, 59, 0.75); border-color: rgba(96,165,250,0.25); }
-  .quest-row-body { flex: 1 1 260px; min-width: 0; }
-  .quest-row-title { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; }
-  .quest-row-caption { font-size: 0.78rem; color: #94a3b8; margin-top: 2px; line-height: 1.4; }
-  .quest-row-rewards { display: flex; flex-wrap: wrap; gap: 5px 10px; justify-content: flex-end; flex: 0 1 auto; }
-  .quest-row-rewards .reward-inline { font-size: 0.78rem; color: #86efac; }
-
   .speed-table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; max-height: 640px; overflow-y: auto; }
   .speed-table { border-collapse: collapse; width: 100%; font-size: 0.8rem; min-width: 560px; }
   .speed-table th { position: sticky; top: 0; background: #161b22; color: #94a3b8; text-align: right; padding: 0.4rem 0.6rem; font-weight: 700; white-space: nowrap; border-bottom: 1px solid rgba(255,255,255,0.12); }
