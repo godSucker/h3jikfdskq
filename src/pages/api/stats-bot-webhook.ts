@@ -204,21 +204,24 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
-    // Unlisted chat -> ignore entirely, same as an unaddressed message.
-    // No allowlist configured means unrestricted (opt-in feature). The
-    // admin's own DM(s) always get through regardless - it's a management
-    // channel, not a public chat the allowlist is meant to gate.
     const isAdminChat = Boolean(adminChatIds) && adminChatIds!.has(String(chatId))
-    if (allowedChats && !allowedChats.has(String(chatId)) && !isAdminChat) {
+    const fromUserId = body.message?.from?.id as number | undefined
+    const isAdminUser =
+      Boolean(adminUserIds) && fromUserId != null && adminUserIds!.has(String(fromUserId))
+
+    // Unlisted chat -> ignore entirely, same as an unaddressed message.
+    // No allowlist configured means unrestricted (opt-in feature). Both an
+    // admin chat AND an admin user always get through regardless - an
+    // admin in STATS_BOT_ADMIN_USER_IDS but not STATS_BOT_ADMIN_CHAT_ID
+    // still needs their own DM to reach /admin, otherwise it's silently
+    // dropped right here before that check ever runs (this was a real bug -
+    // caught live when an admin's /admin got no reply).
+    if (allowedChats && !allowedChats.has(String(chatId)) && !isAdminChat && !isAdminUser) {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       })
     }
-
-    const fromUserId = body.message?.from?.id as number | undefined
-    const isAdminUser =
-      Boolean(adminUserIds) && fromUserId != null && adminUserIds!.has(String(fromUserId))
 
     // Full ban (see .бан below) - checked before anything else a user could
     // type, including /format. Doesn't apply to admins (an admin banning
