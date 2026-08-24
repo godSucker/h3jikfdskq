@@ -270,7 +270,20 @@ const divisions = divisionsRaw.map((camp, campIndex) => ({
   }),
 }));
 
-interface QuestRaw { id: string; title: string; caption: string; rewards: RewardRaw[] }
+type QuestTriggerCategory =
+  | 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation'
+  | 'building' | 'level' | 'collection' | 'social' | 'misc';
+
+interface QuestRaw {
+  id: string;
+  title: string;
+  caption: string;
+  rewards: RewardRaw[];
+  chainType: 'story' | 'achievement';
+  prevId: string | null;
+  trigger: { category: QuestTriggerCategory; amount: string | null };
+  icon: string | null;
+}
 
 const quests = (questsData as QuestRaw[]).map((q) => {
   const text = getQuestText(q.title, q.caption, locale);
@@ -279,6 +292,10 @@ const quests = (questsData as QuestRaw[]).map((q) => {
     title: text.title,
     caption: text.caption,
     rewards: q.rewards.map(resolveReward),
+    chainType: q.chainType,
+    prevId: q.prevId,
+    trigger: { category: q.trigger.category, amount: q.trigger.amount != null ? Number(q.trigger.amount) : null },
+    icon: q.icon,
   };
 });
 
