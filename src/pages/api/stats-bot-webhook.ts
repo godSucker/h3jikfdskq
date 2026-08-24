@@ -2,7 +2,9 @@ import type { APIRoute } from 'astro'
 import {
   parseMessage,
   parseCompareMessage,
+  resolveMutantByExactName,
   FORMAT_HELP,
+  ADMIN_FORMAT_HELP,
   type ParsedConfig,
 } from '@/lib/stats/bot-parser'
 import { buildPanelData } from '@/lib/stats/panel-data'
@@ -14,11 +16,19 @@ import {
 } from '@/lib/stats/telegram-card-render'
 import {
   checkRateLimit,
+  type RateLimitResult,
   getCachedCard,
   setCachedCard,
   recordRequest,
   recordError,
   getTodayStats,
+  getAliasOverlay,
+  addAliasOverlay,
+  setRateLimitOverride,
+  clearRateLimitOverride,
+  setBan,
+  clearBan,
+  isBanned,
 } from '@/lib/stats/bot-store'
 
 // Separate bot/token from telegram-webhook.ts on purpose (see memory
@@ -40,6 +50,29 @@ function parseAllowedChats(raw: string | undefined): Set<string> | null {
       .map((s) => s.trim())
       .filter(Boolean),
   )
+}
+
+// Same shape as STATS_BOT_ALLOWED_CHATS, but for Telegram *user* ids, not
+// chat ids - ".добавить"/".лимит" are typed inside a group, so gating on
+// chat.id (like isAdminChat below, meant for the owner's private DM) would
+// either lock every admin out of the group or let every group member
+// through. An explicit id list (the owner pastes ids in, not
+// getChatAdministrators) matches how ADMIN_CHAT_ID is already managed.
+function parseAdminUserIds(raw: string | undefined): Set<string> | null {
+  if (!raw?.trim()) return null
+  return new Set(
+    raw
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean),
+  )
+}
+
+function rateLimitMessage(rl: RateLimitResult): string {
+  if (rl.reason === 'override' && rl.override) {
+    return `На тебя наложены ограничения: не больше ${rl.override.max} запрос(ов) за ${rl.override.window}с. Попробуй через ~${rl.retryAfterSeconds}с.`
+  }
+  return `Слишком часто - подожди ~${rl.retryAfterSeconds ?? 10}с и повтори.`
 }
 
 async function sendTelegramMessage(
@@ -116,8 +149,18 @@ function toCardInput(config: ParsedConfig): CardInput {
 export const POST: APIRoute = async ({ request }) => {
   const BOT_TOKEN = import.meta.env.STATS_BOT_TOKEN
   const WEBHOOK_SECRET = import.meta.env.STATS_BOT_WEBHOOK_SECRET
-  const ADMIN_CHAT_ID = import.meta.env.STATS_BOT_ADMIN_CHAT_ID as string | undefined
+  // STATS_BOT_ADMIN_CHAT_ID stays a single value for the failed-parse DM
+  // target below (picking one place to send those is enough), but can now
+  // hold a comma-separated list too - same parser as STATS_BOT_ALLOWED_CHATS
+  // - so a second private chat (e.g. the owner's wife) gets the same
+  // admin-DM privileges (isAdminChat below, /admin, /stats) without being
+  // added to STATS_BOT_ADMIN_USER_IDS (which additionally grants
+  // .добавить/.лимит/.бан execution rights in group chats).
+  const ADMIN_CHAT_ID_RAW = import.meta.env.STATS_BOT_ADMIN_CHAT_ID as string | undefined
+  const adminChatIds = parseAllowedChats(ADMIN_CHAT_ID_RAW)
+  const ADMIN_CHAT_ID = ADMIN_CHAT_ID_RAW?.split(',')[0]?.trim() || undefined
   const allowedChats = parseAllowedChats(import.meta.env.STATS_BOT_ALLOWED_CHATS)
+  const adminUserIds = parseAdminUserIds(import.meta.env.STATS_BOT_ADMIN_USER_IDS)
 
   // Same fail-closed pattern as telegram-webhook.ts: an unconfigured secret
   // disables the endpoint outright rather than silently skipping the check.
@@ -163,10 +206,26 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Unlisted chat -> ignore entirely, same as an unaddressed message.
     // No allowlist configured means unrestricted (opt-in feature). The
-    // admin's own DM always gets through regardless - it's a management
+    // admin's own DM(s) always get through regardless - it's a management
     // channel, not a public chat the allowlist is meant to gate.
-    const isAdminChat = Boolean(ADMIN_CHAT_ID) && String(chatId) === ADMIN_CHAT_ID
+    const isAdminChat = Boolean(adminChatIds) && adminChatIds!.has(String(chatId))
     if (allowedChats && !allowedChats.has(String(chatId)) && !isAdminChat) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    const fromUserId = body.message?.from?.id as number | undefined
+    const isAdminUser =
+      Boolean(adminUserIds) && fromUserId != null && adminUserIds!.has(String(fromUserId))
+
+    // Full ban (see .бан below) - checked before anything else a user could
+    // type, including /format. Doesn't apply to admins (an admin banning
+    // themselves would be a self-lockout with no way back short of editing
+    // Redis directly).
+    if (!isAdminChat && !isAdminUser && fromUserId != null && (await isBanned(fromUserId))) {
+      await sendTelegramMessage(BOT_TOKEN, chatId, 'Ты забанен в этом боте.', messageId)
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -175,6 +234,24 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (text === '/start' || text === '/help' || text === '/format') {
       await sendTelegramMessage(BOT_TOKEN, chatId, FORMAT_HELP, messageId)
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // /admin - private-chat only, allowlisted senders only (admin chat(s) or
+    // STATS_BOT_ADMIN_USER_IDS) - sends the ".добавить"/".лимит"/".бан" etc.
+    // syntax reference. Silent (not even "Отказано") for anyone else, same
+    // as how /stats already behaves for a non-admin chat - it's a
+    // discoverability command for people who already know it exists, not
+    // meant to advertise itself.
+    if (
+      text === '/admin' &&
+      (isAdminChat || isAdminUser) &&
+      body.message?.chat?.type === 'private'
+    ) {
+      await sendTelegramMessage(BOT_TOKEN, chatId, ADMIN_FORMAT_HELP, messageId)
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -209,6 +286,182 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
+    // ".добавить "Ориг Имя" - "сокращение"" (or "specimen_xx_00" instead of
+    // the name, needed for the 2 duplicate-name pairs in the data - see
+    // resolveMutantByExactName) - admin-only, writes into the Redis alias
+    // overlay (see getAliasOverlay/addAliasOverlay in bot-store.ts).
+    // Deliberately NOT auto-generating candidate nicknames itself - this
+    // only persists what the admin typed, one at a time
+    // (see [[feedback-no-llm-authored-names]]).
+    const addAliasMatch = text
+      .slice(1)
+      .match(/^добавить\s*[«"']([^»"']+)[»"']\s*-\s*[«"']([^»"']+)[»"']\s*$/i)
+    if (addAliasMatch) {
+      // Same 8/60s cap as everything else in this handler - without it, a
+      // non-admin spamming ".добавить" would get an instant "Отказано." for
+      // free every time, no cost gate at all.
+      if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      if (!isAdminUser) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, 'Отказано.', messageId)
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      const [, origInput, aliasInput] = addAliasMatch
+      const resolved = resolveMutantByExactName(origInput.trim())
+      if (resolved.kind === 'none') {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          `Не нашёл мутанта "${origInput.trim()}" - имя должно быть точным (с учётом регистра) или укажи id.`,
+          messageId,
+        )
+      } else if (resolved.kind === 'ambiguous') {
+        const list = resolved.candidates.map((c) => `${c.name} (id: ${c.id})`).join(', ')
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          `Несколько мутантов с именем "${origInput.trim()}" - укажи id вместо имени: ${list}`,
+          messageId,
+        )
+      } else {
+        const alias = aliasInput.trim()
+        const saved = await addAliasOverlay(alias, resolved.mutant.id)
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          saved
+            ? `Добавил: "${alias}" -> ${resolved.mutant.name} (${resolved.mutant.id})`
+            : 'Не получилось сохранить (Redis недоступен) - попробуй позже.',
+          messageId,
+        )
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".лимит N/M [T]" в ответ на сообщение юзера - ставит персональный
+    // рейт-лимит (N запросов за M секунд), активный T минут (по умолчанию
+    // 1440 = сутки). Приоритетнее дефолтного 8/60с - см. checkRateLimit в
+    // bot-store.ts. ".снять_лимит" в ответ на сообщение - снимает раньше
+    // срока.
+    const limitMatch = text
+      .slice(1)
+      .match(/^лимит\s+(\d{1,3})\s*\/\s*(\d{1,4})(?:\s+(\d{1,5}))?\s*$/i)
+    const clearLimitMatch = text.slice(1).match(/^снять_лимит\s*$/i)
+    if (limitMatch || clearLimitMatch) {
+      if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      if (!isAdminUser) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, 'Отказано.', messageId)
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      const targetId = body.message?.reply_to_message?.from?.id as number | undefined
+      if (targetId == null) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          'Ответь этой командой на сообщение того, кому ставишь/снимаешь лимит.',
+          messageId,
+        )
+      } else if (limitMatch) {
+        const max = Number(limitMatch[1])
+        const windowSec = Number(limitMatch[2])
+        const durationMin = limitMatch[3] ? Number(limitMatch[3]) : 1440
+        const saved = await setRateLimitOverride(targetId, max, windowSec, durationMin * 60)
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          saved
+            ? `Лимит для ${targetId}: ${max} запрос(ов) / ${windowSec}с, активен ${durationMin} мин.`
+            : 'Не получилось сохранить (Redis недоступен) - попробуй позже.',
+          messageId,
+        )
+      } else {
+        const cleared = await clearRateLimitOverride(targetId)
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          cleared ? `Лимит для ${targetId} снят.` : 'Не получилось (Redis недоступен).',
+          messageId,
+        )
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".бан"/".разбан" в ответ на сообщение юзера - полная блокировка
+    // (isBanned check выше, до /format) в отличие от ".лимит" выше, который
+    // просто throttles. Постоянно, без TTL - см. setBan/clearBan.
+    const banMatch = text.slice(1).match(/^бан\s*$/i)
+    const unbanMatch = text.slice(1).match(/^разбан\s*$/i)
+    if (banMatch || unbanMatch) {
+      if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      if (!isAdminUser) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, 'Отказано.', messageId)
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      const targetId = body.message?.reply_to_message?.from?.id as number | undefined
+      if (targetId == null) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          'Ответь этой командой на сообщение того, кого баните/разбаните.',
+          messageId,
+        )
+      } else if (banMatch) {
+        const saved = await setBan(targetId)
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          saved ? `Юзер ${targetId} забанен.` : 'Не получилось (Redis недоступен).',
+          messageId,
+        )
+      } else {
+        const cleared = await clearBan(targetId)
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          cleared ? `Юзер ${targetId} разбанен.` : 'Не получилось (Redis недоступен).',
+          messageId,
+        )
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // Live-added aliases (see getAliasOverlay) - a normal message never pays
+    // a fresh Redis round-trip for this, only the first one after the
+    // in-module cache goes stale (see ALIAS_OVERLAY_TTL_MS).
+    const aliasOverlay = await getAliasOverlay()
+
     // ".сравнение <a> vs <b> vs ... vs <e>" - up to 5-way, same "vs"/"против"
     // separator as the regular 2-way card but routed to its own parser (see
     // parseCompareMessage) and a wider render, so a plain ".vs" message
@@ -216,7 +469,7 @@ export const POST: APIRoute = async ({ request }) => {
     const compareCommandMatch = text.slice(1).match(/^сравнение(?![a-zа-яё0-9])\s*/i)
     if (compareCommandMatch) {
       const rest = text.slice(1 + compareCommandMatch[0].length)
-      const compareResult = parseCompareMessage(rest)
+      const compareResult = parseCompareMessage(rest, aliasOverlay)
       if (!compareResult.ok) {
         await sendTelegramMessage(
           BOT_TOKEN,
@@ -243,14 +496,9 @@ export const POST: APIRoute = async ({ request }) => {
 
       if (!photo) {
         const userId = body.message?.from?.id ?? chatId
-        const allowed = await checkRateLimit(userId)
-        if (!allowed) {
-          await sendTelegramMessage(
-            BOT_TOKEN,
-            chatId,
-            'Слишком часто - подожди немного и повтори.',
-            messageId,
-          )
+        const rl = await checkRateLimit(userId)
+        if (!rl.allowed) {
+          await sendTelegramMessage(BOT_TOKEN, chatId, rateLimitMessage(rl), messageId)
           return new Response(JSON.stringify({ ok: true }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
@@ -269,7 +517,7 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
-    const result = parseMessage(text.slice(1))
+    const result = parseMessage(text.slice(1), aliasOverlay)
     if (!result.ok) {
       await sendTelegramMessage(
         BOT_TOKEN,
@@ -303,14 +551,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!photo) {
       const userId = body.message?.from?.id ?? chatId
-      const allowed = await checkRateLimit(userId)
-      if (!allowed) {
-        await sendTelegramMessage(
-          BOT_TOKEN,
-          chatId,
-          'Слишком часто - подожди немного и повтори.',
-          messageId,
-        )
+      const rl = await checkRateLimit(userId)
+      if (!rl.allowed) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, rateLimitMessage(rl), messageId)
         return new Response(JSON.stringify({ ok: true }), {
           status: 200,
           headers: { 'Content-Type': 'application/json' },
