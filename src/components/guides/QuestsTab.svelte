@@ -75,6 +75,20 @@
     return `${n} ${pluralizeCount(n, locale, 'guides.count.stage')}`
   }
 
+  // Локализация Kobojo для части сюжетных квестов (44 из 68 с amount>1) не
+  // называет число в тексте вообще ("Заключить контракты в медлаборатории"
+  // без "100") - живой фидбек в Telegram поймал именно это. trigger.amount
+  // уже распаршен в build-quests.ts, просто раньше не выводился, когда текст
+  // сам его не содержит. Ачивок это не касается - там абсолютный порог всегда
+  // уже есть в caption (см. achievementTiers выше).
+  function captionAmountSuffix(q: Quest): string {
+    const amt = q.trigger.amount
+    if (amt == null || amt <= 1 || !q.caption) return ''
+    const alreadyShown = new RegExp(`(^|\\D)${amt}(\\D|$)`).test(q.caption)
+    if (alreadyShown) return ''
+    return ` (${amt.toLocaleString('ru-RU')})`
+  }
+
   // Тиры ачивки берутся в порядке дерева (prevMissions уже кодирует верную
   // прогрессию тиров). Сортировка по trigger.amount была бы ОШИБКОЙ - amount
   // в игровых данных для тиров 2+ это ПРИРАЩЕНИЕ от предыдущего тира, а не
@@ -157,7 +171,7 @@
         {/if}
         <span class="quest-node-title">{node.quest.title}</span>
       </div>
-      {#if node.quest.caption}<div class="quest-node-caption">{node.quest.caption}</div>{/if}
+      {#if node.quest.caption}<div class="quest-node-caption">{node.quest.caption}{captionAmountSuffix(node.quest)}</div>{/if}
       {@render rewardChips(node.quest.rewards)}
     </div>
     {#if node.children.length > 0}
