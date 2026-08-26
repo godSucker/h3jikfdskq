@@ -218,6 +218,31 @@ export async function addAliasOverlay(alias: string, mutantId: string): Promise<
   }
 }
 
+// Exact match first; case-insensitive fallback against the live overlay so
+// an admin who doesn't remember the exact casing they typed into
+// ".добавить" isn't forced to run ".сокращения" first just to copy it back.
+export async function removeAliasOverlay(
+  alias: string,
+): Promise<'removed' | 'not_found' | 'error'> {
+  const redis = getRedis()
+  if (!redis) return 'error'
+  try {
+    const entries = await getAliasOverlay()
+    const target =
+      entries.find((e) => e.alias === alias) ??
+      entries.find((e) => e.alias.toLowerCase() === alias.toLowerCase())
+    if (!target) return 'not_found'
+    await redis.hdel('statsbot:aliases', target.alias)
+    aliasOverlayCache = {
+      entries: entries.filter((e) => e.alias !== target.alias),
+      fetchedAt: Date.now(),
+    }
+    return 'removed'
+  } catch {
+    return 'error'
+  }
+}
+
 export async function getCachedCard(key: string): Promise<Buffer | null> {
   const redis = getRedis()
   if (!redis) return null

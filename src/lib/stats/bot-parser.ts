@@ -242,6 +242,12 @@ for (const m of ALL_MUTANTS) {
 
 const mutantById: MutantMap = new Map(ALL_MUTANTS.map((m) => [m.id, m]))
 
+// For admin tooling that only has a mutant id on hand (the alias overlay is
+// id-keyed, see AliasOverlayEntry below) and needs a display name.
+export function mutantNameById(id: string): string | undefined {
+  return mutantById.get(id)?.name
+}
+
 // Alias -> mutant ID (not name). Unlike the name-keyed candidates below,
 // this resolves correctly even for the two duplicate-name pairs in the
 // game data (Колосс/колосс, Бабайка/Бабайка) since ids are always unique -
@@ -648,6 +654,10 @@ export const ADMIN_FORMAT_HELP = `Админ-команды:
 
 .добавить "Имя" - "сокращение"
 .добавить specimen_ce_99 - "колосс_спец"   (id вместо имени, если имя не уникально)
+
+.удалить "сокращение"  - убирает ранее добавленное через .добавить
+
+.сокращения  - список всех добавленных через .добавить
 
 .лимит N/M [T]  - ответом на сообщение юзера, N запросов/M сек на T минут (по умолчанию 1440)
 .лимит 2/60 30
