@@ -3,6 +3,7 @@ import {
   parseMessage,
   parseCompareMessage,
   resolveMutantByExactName,
+  mutantNameById,
   FORMAT_HELP,
   ADMIN_FORMAT_HELP,
   type ParsedConfig,
@@ -24,6 +25,7 @@ import {
   getTodayStats,
   getAliasOverlay,
   addAliasOverlay,
+  removeAliasOverlay,
   setRateLimitOverride,
   clearRateLimitOverride,
   setBan,
@@ -66,6 +68,31 @@ function parseAdminUserIds(raw: string | undefined): Set<string> | null {
       .map((s) => s.trim())
       .filter(Boolean),
   )
+}
+
+// "<chatId>:<threadId>,<threadId>;<chatId>:<threadId>,..." - restricts which
+// forum topics (Telegram "threads") the bot answers in, per chat. Only
+// chats listed as a key are restricted; any chat not mentioned stays
+// unrestricted (same opt-in shape as STATS_BOT_ALLOWED_CHATS). A chat with
+// no forum/topics enabled never sends message_thread_id, so it's never
+// affected even if accidentally listed.
+function parseAllowedThreads(raw: string | undefined): Map<string, Set<string>> {
+  const map = new Map<string, Set<string>>()
+  if (!raw?.trim()) return map
+  for (const entry of raw.split(';')) {
+    const [chatId, threadsRaw] = entry.split(':')
+    if (!chatId?.trim() || !threadsRaw?.trim()) continue
+    map.set(
+      chatId.trim(),
+      new Set(
+        threadsRaw
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+      ),
+    )
+  }
+  return map
 }
 
 function rateLimitMessage(rl: RateLimitResult): string {
@@ -161,6 +188,7 @@ export const POST: APIRoute = async ({ request }) => {
   const ADMIN_CHAT_ID = ADMIN_CHAT_ID_RAW?.split(',')[0]?.trim() || undefined
   const allowedChats = parseAllowedChats(import.meta.env.STATS_BOT_ALLOWED_CHATS)
   const adminUserIds = parseAdminUserIds(import.meta.env.STATS_BOT_ADMIN_USER_IDS)
+  const allowedThreads = parseAllowedThreads(import.meta.env.STATS_BOT_ALLOWED_THREADS)
 
   // Same fail-closed pattern as telegram-webhook.ts: an unconfigured secret
   // disables the endpoint outright rather than silently skipping the check.
@@ -208,6 +236,7 @@ export const POST: APIRoute = async ({ request }) => {
     const fromUserId = body.message?.from?.id as number | undefined
     const isAdminUser =
       Boolean(adminUserIds) && fromUserId != null && adminUserIds!.has(String(fromUserId))
+    const threadId = body.message?.message_thread_id as number | undefined
 
     // Unlisted chat -> ignore entirely, same as an unaddressed message.
     // No allowlist configured means unrestricted (opt-in feature). Both an
@@ -217,6 +246,28 @@ export const POST: APIRoute = async ({ request }) => {
     // dropped right here before that check ever runs (this was a real bug -
     // caught live when an admin's /admin got no reply).
     if (allowedChats && !allowedChats.has(String(chatId)) && !isAdminChat && !isAdminUser) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // Per-chat forum-topic restriction (STATS_BOT_ALLOWED_THREADS) - e.g.
+    // limits the bot to only the "Общий чат"/"О(б)суждение тира"/
+    // "Калькулятор статов (бот)" topics inside one specific forum-enabled
+    // chat, ignoring it elsewhere in that same chat. A message sent to the
+    // chat's General topic often omits message_thread_id entirely (Telegram
+    // quirk, not consistent across clients) - treated as always-allowed
+    // rather than guessing, same as admins bypassing this like they do the
+    // chat-level allowlist above.
+    const chatThreadAllowlist = allowedThreads.get(String(chatId))
+    if (
+      chatThreadAllowlist &&
+      threadId != null &&
+      !chatThreadAllowlist.has(String(threadId)) &&
+      !isAdminChat &&
+      !isAdminUser
+    ) {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -289,6 +340,19 @@ export const POST: APIRoute = async ({ request }) => {
       })
     }
 
+    // A bare "." (or "." plus only whitespace) - no command text at all.
+    // Previously fell through to parseMessage("") below, which always fails
+    // to parse and (for a non-empty chatId) also DMs the admin a
+    // "failed to parse" report - so every stray "." sent as a connectivity
+    // check or a typo spammed both the sender and the admin. Silently
+    // ignored instead, same as an unaddressed message.
+    if (!text.slice(1).trim()) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
     // ".добавить "Ориг Имя" - "сокращение"" (or "specimen_xx_00" instead of
     // the name, needed for the 2 duplicate-name pairs in the data - see
     // resolveMutantByExactName) - admin-only, writes into the Redis alias
@@ -345,6 +409,71 @@ export const POST: APIRoute = async ({ request }) => {
           messageId,
         )
       }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".удалить "сокращение"" - admin-only, снимает ранее добавленный через
+    // ".добавить" алиас. Ищет сначала точное совпадение, потом
+    // регистронезависимое (см. removeAliasOverlay) - не нужно помнить
+    // точный регистр, каким его вводили.
+    const removeAliasMatch = text.slice(1).match(/^удалить\s*[«"']([^»"']+)[»"']\s*$/i)
+    if (removeAliasMatch) {
+      if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      if (!isAdminUser) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, 'Отказано.', messageId)
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      const alias = removeAliasMatch[1].trim()
+      const removed = await removeAliasOverlay(alias)
+      const reply =
+        removed === 'removed'
+          ? `Удалил: "${alias}".`
+          : removed === 'not_found'
+            ? `Не нашёл сокращение "${alias}" - см. .сокращения.`
+            : 'Не получилось (Redis недоступен) - попробуй позже.'
+      await sendTelegramMessage(BOT_TOKEN, chatId, reply, messageId)
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".сокращения" - admin-only, список всех алиасов, добавленных через
+    // ".добавить".
+    const listAliasesMatch = text.slice(1).match(/^сокращения\s*$/i)
+    if (listAliasesMatch) {
+      if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      if (!isAdminUser) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, 'Отказано.', messageId)
+        return new Response(JSON.stringify({ ok: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+      const overlay = await getAliasOverlay()
+      const reply = overlay.length
+        ? overlay
+            .map((e) => `"${e.alias}" -> ${mutantNameById(e.mutantId) ?? '?'} (${e.mutantId})`)
+            .join('\n')
+            .slice(0, 3900)
+        : 'Сокращений пока нет.'
+      await sendTelegramMessage(BOT_TOKEN, chatId, reply, messageId)
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -585,6 +714,19 @@ export const POST: APIRoute = async ({ request }) => {
         chatId,
         'Что-то сломалось при рендере карточки, попробуй ещё раз.',
         messageId,
+      )
+    }
+    // Same DM-the-admin pattern as a failed parse below - without this, an
+    // incident like a CDN outage (every image fetch in renderStatsCard
+    // timing out for ~an hour, live-caught 2026-08-25) was only visible to
+    // whichever users happened to ping the bot during the window, and to
+    // the admin only in hindsight via Vercel logs.
+    if (ADMIN_CHAT_ID) {
+      const errMsg = error instanceof Error ? (error.stack ?? error.message) : String(error)
+      await sendTelegramMessage(
+        BOT_TOKEN,
+        ADMIN_CHAT_ID,
+        `Необработанная ошибка в хендлере (чат ${chatId}):\n${errMsg}`.slice(0, 3500),
       )
     }
     // 200, not 500 - avoids a Telegram retry storm on a transient failure.
