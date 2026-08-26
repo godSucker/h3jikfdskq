@@ -91,6 +91,36 @@ export function getTypeIcon(type?: string | null): string | null {
   return TYPE_ICONS[t] ?? `/mut_icons/icon_${t}.webp`
 }
 
+// Реальные фоны профиля мутанта из игры (extract из APK, assets/mobile/hud/m_m_m/
+// profil_bg_*.png - "m_m_m" = "My Mutant Modal" по контексту, тот самый экран
+// карточки одного мутанта). SPECIAL и COMMUNITY - буквально один и тот же файл
+// в игре (community-тип всего у одного мутанта, "Мастер Лапа" - разработчик не
+// стал рисовать отдельный фон под один экземпляр), поэтому оба ключа указывают
+// на profil_bg_captainpeace.webp, дублировать байты не нужно.
+export const TYPE_BACKGROUNDS: Record<string, string> = {
+  default: '/mut_backgrounds/profil_bg_normal.webp',
+  special: '/mut_backgrounds/profil_bg_captainpeace.webp',
+  community: '/mut_backgrounds/profil_bg_captainpeace.webp',
+  heroic: '/mut_backgrounds/profil_bg_heroic.webp',
+  legend: '/mut_backgrounds/profil_bg_legend.webp',
+  legends: '/mut_backgrounds/profil_bg_legend.webp',
+  legendary: '/mut_backgrounds/profil_bg_legend.webp',
+  gacha: '/mut_backgrounds/profil_bg_gacha.webp',
+  reactor: '/mut_backgrounds/profil_bg_gacha.webp',
+  pvp: '/mut_backgrounds/profil_bg_pvp.webp',
+  seasonal: '/mut_backgrounds/profil_bg_seasonal.webp',
+  recipe: '/mut_backgrounds/profil_bg_recipe.webp',
+  videogame: '/mut_backgrounds/profil_bg_videogame.webp',
+  video_game: '/mut_backgrounds/profil_bg_videogame.webp',
+  zodiac: '/mut_backgrounds/profil_bg_zodiac.webp',
+  реактор: '/mut_backgrounds/profil_bg_gacha.webp',
+}
+
+export function getTypeBackground(type?: string | null): string {
+  const t = String(type ?? '').toLowerCase()
+  return TYPE_BACKGROUNDS[t] ?? TYPE_BACKGROUNDS.default
+}
+
 export const STAT_ICONS: Record<string, string> = {
   hp: '/etc/icon_hp.webp',
   atk: '/etc/icon_atk.webp',

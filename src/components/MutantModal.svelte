@@ -20,6 +20,7 @@
     ABILITY_ICONS,
     ABILITY_ALIASES,
     getGeneIcon,
+    getTypeBackground,
   } from '@/lib/mutant-icons';
   import { baseMutantId as baseId } from '@/lib/utils';
   import { renderObtainWhere } from '@/lib/obtain-render';
@@ -612,7 +613,7 @@
       <!-- Ряд звёзд показываем и при единственной звезде, если есть скины: -->
       <!-- эта кнопка работает как «убрать скин» (Крушила и другие SPECIAL с GACHA-скином). -->
       {#if showStarRow || skins.length > 0}
-        <div class="flex gap-2 mb-2 flex-wrap justify-center items-center">
+        <div class="relative z-10 flex gap-2 mb-2 flex-wrap justify-center items-center">
           {#if showStarRow}
             {#each availableStars as s}
               <button
@@ -648,7 +649,23 @@
           {/each}
         </div>
       {/if}
-      <div class="flex-1 flex items-center justify-center w-full">
+      <div class="relative overflow-hidden rounded-xl flex-1 flex items-center justify-center w-full">
+          <!-- Реальный фон профиля мутанта из игры, привязанный к type (см. TYPE_BACKGROUNDS
+               в mutant-icons.ts) - вытащен из APK, assets/mobile/hud/m_m_m/profil_bg_*.png
+               ("m_m_m" = экран карточки одного мутанта). Ограничен только зоной арта -
+               по правке юзера не должен заходить под ряд звёзд/скинов выше. scale-110
+               компенсирует blur: у смазанного края иначе просвечивал бы чёткий край
+               картинки/фон контейнера. onerror тихо прячет картинку, если файла на CDN
+               нет - под ним остаётся обычный тёмный градиент контейнера. -->
+          <img
+            class="absolute inset-0 z-0 w-full h-full object-cover scale-110 blur-[6px]"
+            src={textureUrl(getTypeBackground(displayType))}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            onerror={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+          />
           <img
             alt={displayMutant?.name}
             src={textureUrl(heroSrcs[Math.min(heroIdx, heroSrcs.length - 1)])}
@@ -658,7 +675,7 @@
             }}
             oncontextmenu={(e) => e.preventDefault()}
             draggable="false"
-            class="mutant-hero-img max-w-full max-h-[55vh] w-auto h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.55)] image-rendering-auto"
+            class="relative z-10 mutant-hero-img max-w-full max-h-[55vh] w-auto h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.55)] image-rendering-auto"
             loading="lazy"
             decoding="async"
           />
