@@ -95,6 +95,57 @@ function parseAllowedThreads(raw: string | undefined): Map<string, Set<string>> 
   return map
 }
 
+// Reads a single «quoted», "quoted" or 'quoted' argument from the start of
+// `s`. Closing delimiter must be the SAME character that opened it, not
+// "any quote char" - a shared [^»"']-style class breaks on a mutant name
+// that itself contains an apostrophe (e.g. "Д'Аратомис", "Мор'Гул") because
+// that apostrophe reads as a premature closing quote. Live-caught: ".добавить
+// "Д'Аратомис" - "Дарт"" silently fell through to the stats parser and
+// rendered "Д'Аратомис"'s card instead of registering the alias.
+function readQuoted(s: string): { value: string; rest: string } | null {
+  const open = s[0]
+  const close = open === '«' ? '»' : open === '"' || open === "'" ? open : null
+  if (close == null) return null
+  const closeIdx = s.indexOf(close, 1)
+  if (closeIdx === -1) return null
+  return { value: s.slice(1, closeIdx), rest: s.slice(closeIdx + 1) }
+}
+
+// The first ".добавить" argument may be a bare mutant id (no spaces/quotes,
+// e.g. "specimen_ce_99" - see resolveMutantByExactName and ADMIN_FORMAT_HELP)
+// instead of a quoted display name. Tried after readQuoted so a quoted value
+// still wins when present; this never matched before this fix (the old
+// single regex required quotes on both sides), so the documented id-instead-
+// of-name form silently fell through to the stats parser just like the
+// apostrophe bug above.
+function readFirstAddAliasArg(s: string): { value: string; rest: string } | null {
+  const quoted = readQuoted(s)
+  if (quoted) return quoted
+  const bare = /^(\S+)/.exec(s)
+  if (!bare) return null
+  return { value: bare[1], rest: s.slice(bare[1].length) }
+}
+
+function matchAddAlias(text: string): { orig: string; alias: string } | null {
+  const cmd = /^добавить\s*/i.exec(text)
+  if (!cmd) return null
+  const first = readFirstAddAliasArg(text.slice(cmd[0].length))
+  if (!first) return null
+  const sep = /^\s*-\s*/.exec(first.rest)
+  if (!sep) return null
+  const second = readQuoted(first.rest.slice(sep[0].length))
+  if (!second || second.rest.trim() !== '') return null
+  return { orig: first.value.trim(), alias: second.value.trim() }
+}
+
+function matchRemoveAlias(text: string): { alias: string } | null {
+  const cmd = /^удалить\s*/i.exec(text)
+  if (!cmd) return null
+  const q = readQuoted(text.slice(cmd[0].length))
+  if (!q || q.rest.trim() !== '') return null
+  return { alias: q.value.trim() }
+}
+
 function rateLimitMessage(rl: RateLimitResult): string {
   if (rl.reason === 'override' && rl.override) {
     return `На тебя наложены ограничения: не больше ${rl.override.max} запрос(ов) за ${rl.override.window}с. Попробуй через ~${rl.retryAfterSeconds}с.`
@@ -360,9 +411,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Deliberately NOT auto-generating candidate nicknames itself - this
     // only persists what the admin typed, one at a time
     // (see [[feedback-no-llm-authored-names]]).
-    const addAliasMatch = text
-      .slice(1)
-      .match(/^добавить\s*[«"']([^»"']+)[»"']\s*-\s*[«"']([^»"']+)[»"']\s*$/i)
+    const addAliasMatch = matchAddAlias(text.slice(1))
     if (addAliasMatch) {
       // Same 8/60s cap as everything else in this handler - without it, a
       // non-admin spamming ".добавить" would get an instant "Отказано." for
@@ -380,13 +429,13 @@ export const POST: APIRoute = async ({ request }) => {
           headers: { 'Content-Type': 'application/json' },
         })
       }
-      const [, origInput, aliasInput] = addAliasMatch
-      const resolved = resolveMutantByExactName(origInput.trim())
+      const { orig: origInput, alias: aliasInput } = addAliasMatch
+      const resolved = resolveMutantByExactName(origInput)
       if (resolved.kind === 'none') {
         await sendTelegramMessage(
           BOT_TOKEN,
           chatId,
-          `Не нашёл мутанта "${origInput.trim()}" - имя должно быть точным (с учётом регистра) или укажи id.`,
+          `Не нашёл мутанта "${origInput}" - имя должно быть точным (с учётом регистра) или укажи id.`,
           messageId,
         )
       } else if (resolved.kind === 'ambiguous') {
@@ -394,11 +443,11 @@ export const POST: APIRoute = async ({ request }) => {
         await sendTelegramMessage(
           BOT_TOKEN,
           chatId,
-          `Несколько мутантов с именем "${origInput.trim()}" - укажи id вместо имени: ${list}`,
+          `Несколько мутантов с именем "${origInput}" - укажи id вместо имени: ${list}`,
           messageId,
         )
       } else {
-        const alias = aliasInput.trim()
+        const alias = aliasInput
         const saved = await addAliasOverlay(alias, resolved.mutant.id)
         await sendTelegramMessage(
           BOT_TOKEN,
@@ -419,7 +468,7 @@ export const POST: APIRoute = async ({ request }) => {
     // ".добавить" алиас. Ищет сначала точное совпадение, потом
     // регистронезависимое (см. removeAliasOverlay) - не нужно помнить
     // точный регистр, каким его вводили.
-    const removeAliasMatch = text.slice(1).match(/^удалить\s*[«"']([^»"']+)[»"']\s*$/i)
+    const removeAliasMatch = matchRemoveAlias(text.slice(1))
     if (removeAliasMatch) {
       if (!(await checkRateLimit(fromUserId ?? chatId)).allowed) {
         return new Response(JSON.stringify({ ok: true }), {
@@ -434,7 +483,7 @@ export const POST: APIRoute = async ({ request }) => {
           headers: { 'Content-Type': 'application/json' },
         })
       }
-      const alias = removeAliasMatch[1].trim()
+      const alias = removeAliasMatch.alias
       const removed = await removeAliasOverlay(alias)
       const reply =
         removed === 'removed'
