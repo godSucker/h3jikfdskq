@@ -797,6 +797,28 @@
         </table>
       </div>
 
+      <h2>{t('guides.numbers.speedFormula.title', locale)}</h2>
+      <p>
+        {t('guides.numbers.speedFormula.p1', locale)}
+      </p>
+      <div class="formula-box">
+        {t('guides.numbers.speedFormula.formula', locale)}
+      </div>
+      <p>
+        {t('guides.numbers.speedFormula.p2', locale)}
+      </p>
+      <div class="formula-box formula-steps">
+        <div><span class="step-num">1</span> {t('guides.numbers.speedFormula.step1', locale)}</div>
+        <div><span class="step-num">2</span> {t('guides.numbers.speedFormula.step2', locale)}</div>
+        <div><span class="step-num">3</span> {t('guides.numbers.speedFormula.step3', locale)}</div>
+      </div>
+      <p>
+        {t('guides.numbers.speedFormula.example', locale)}
+      </p>
+      <p class="crit-booster-line">
+        {t('guides.numbers.speedFormula.tieNote', locale)}
+      </p>
+
       <h2>{t('guides.numbers.limits.title', locale)}</h2>
       <p>
         {t('guides.numbers.limits.p1', locale)}

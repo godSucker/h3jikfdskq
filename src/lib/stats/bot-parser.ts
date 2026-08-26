@@ -11,7 +11,7 @@
  * StatsCalculator.svelte) are matched; weaker tiers are treated as unknown.
  */
 import Fuse from 'fuse.js'
-import { normalizeSearch } from '@/lib/search-normalize'
+import { normalizeSearch, normalizeSearchTokens } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
 import nicknameAliases from '@/data/mutants/nickname-aliases.json'
@@ -286,7 +286,13 @@ function findMutant(text: string, overlay: AliasOverlayEntry[] = []): FindMutant
     return { kind: 'found', mutant: exactCaseHits[0][1], fuzzy: false }
   }
 
-  const normalizedText = normalizeSearch(text)
+  // Padded with spaces so containment checks below can require a real word
+  // boundary on both sides (normalizeSearchTokens keeps single spaces where
+  // normalizeSearch would delete them entirely) - otherwise a short alias
+  // like "ира" (-> "Фигуристка Ирия") incidentally matches mid-word inside
+  // an unrelated name like "жираф" (жИРАф), stealing the match before a
+  // genuine word-bounded candidate (or the fuzzy fallback) ever gets a look.
+  const haystack = ` ${normalizeSearchTokens(text)} `
   // Collect every candidate at the current best (longest) match length,
   // not just the first one seen - a same-length tie between two distinct
   // mutants is genuine ambiguity (mirrors how fuzzyFindMutant handles it),
@@ -302,9 +308,10 @@ function findMutant(text: string, overlay: AliasOverlayEntry[] = []): FindMutant
   let bestLen = 0
   let bestPriority = -1
   let candidates: any[] = []
-  const consider = (matchedText: string, mutant: any, priority: number) => {
+  const consider = (name: string, mutant: any, priority: number) => {
+    const matchedText = normalizeSearchTokens(name)
     if (!matchedText) return
-    if (!normalizedText.includes(matchedText)) return
+    if (!haystack.includes(` ${matchedText} `)) return
     if (
       matchedText.length > bestLen ||
       (matchedText.length === bestLen && priority > bestPriority)
@@ -320,11 +327,11 @@ function findMutant(text: string, overlay: AliasOverlayEntry[] = []): FindMutant
       candidates.push(mutant)
     }
   }
-  for (const m of ALL_MUTANTS) consider(normalizeSearch(m.name), m, 0)
-  for (const { alias, mutant } of ALIAS_CANDIDATES) consider(normalizeSearch(alias), mutant, 1)
+  for (const m of ALL_MUTANTS) consider(m.name, m, 0)
+  for (const { alias, mutant } of ALIAS_CANDIDATES) consider(alias, mutant, 1)
   for (const { alias, mutantId } of overlay) {
     const mutant = mutantById.get(mutantId)
-    if (mutant) consider(normalizeSearch(alias), mutant, 2)
+    if (mutant) consider(alias, mutant, 2)
   }
 
   if (candidates.length === 1) return { kind: 'found', mutant: candidates[0], fuzzy: false }
