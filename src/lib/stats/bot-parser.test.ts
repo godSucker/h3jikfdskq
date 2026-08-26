@@ -13,6 +13,12 @@ function err(text: string) {
   return r.error
 }
 
+function okOverlay(text: string, overlay: { alias: string; mutantId: string }[]) {
+  const r = parseMessage(text, overlay)
+  if (!r.ok) throw new Error(`expected ok, got error: ${r.error}`)
+  return r
+}
+
 describe('mutant name matching', () => {
   it('matches an exact name', () => {
     expect(ok('робот 20ур').primary.mutantName).toBe('Робот')
@@ -39,6 +45,17 @@ describe('mutant name matching', () => {
     // containing both as substrings must not silently pick whichever
     // happens to come first in mutants.json.
     expect(err('тор гор 10ур')).toMatch(/не понял, какого мутанта/)
+  })
+
+  it('an overlay alias wins a length tie against a static curated alias for the same text', () => {
+    // nickname-aliases.json already maps "оса" -> "Бензиновая оса" (static,
+    // curated at build time). Live-caught bug: adding ".добавить" for
+    // "Апиархия" - "оса" via the Redis overlay tied at the same match
+    // length as that static entry and the pair reported ambiguous instead
+    // of the overlay winning - even though the overlay exists specifically
+    // to override a stale static nickname without a deploy.
+    const overlay = [{ alias: 'оса', mutantId: 'specimen_d_14' }]
+    expect(okOverlay('оса 20ур', overlay).primary.mutantName).toBe('Апиархия')
   })
 })
 

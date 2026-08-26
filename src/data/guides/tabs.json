@@ -3,6 +3,7 @@
   { "key": "zodiac", "label": "Зодиакальные даты", "ready": true },
   { "key": "tandem", "label": "Тандем", "ready": true },
   { "key": "pvp-bug", "label": "PvP-фича", "ready": true },
+  { "key": "pvp-farm", "label": "PvP-фарм", "ready": true },
   { "key": "speed-orbs", "label": "Сферы скорости", "ready": true },
   { "key": "quests", "label": "Квесты", "ready": true },
   { "key": "farmers", "label": "Топ фармеров", "ready": true },

@@ -3,6 +3,7 @@ export const prerender = true;
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import mutantsData from '@/data/mutants/mutants.json';
 import legendaryIds from '@/data/guides/legendaries.json';
+import pvpFarmMutantIds from '@/data/guides/pvp-farm-mutants.json';
 import zodiacEntries from '@/data/guides/zodiac.json';
 import farmerRows from '@/data/guides/farmers.json';
 import speedOrbs from '@/data/guides/speed-orbs.json';
@@ -70,6 +71,7 @@ function resolve(id: string) {
 }
 
 const legendaries = (legendaryIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
+const pvpFarmMutants = (pvpFarmMutantIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
 
 // zodiac.json.sign - хардкод RU (Овен/Телец/итд), закрытое множество из 12 знаков -
 // ключ словаря по RU-названию, не переведённое имя рендерилось напрямую на всех локалях.
@@ -438,6 +440,7 @@ const specialOffers = (specialOffersData as SpecialOfferRaw[]).map((o) => ({
     client:load
     locale={locale}
     legendaries={legendaries}
+    pvpFarmMutants={pvpFarmMutants}
     zodiac={zodiac}
     farmers={farmers}
     speedOrbs={speedOrbs}

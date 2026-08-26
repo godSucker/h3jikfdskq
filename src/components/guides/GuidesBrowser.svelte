@@ -90,6 +90,7 @@
   let {
     locale = 'ru' as Locale,
     legendaries = [],
+    pvpFarmMutants = [],
     zodiac = [],
     farmers = [],
     speedOrbs = [],
@@ -104,6 +105,7 @@
   }: {
     locale?: Locale
     legendaries: MutantLite[]
+    pvpFarmMutants: MutantLite[]
     zodiac: ZodiacEntry[]
     farmers: FarmerRow[]
     speedOrbs: SpeedOrbRow[]
@@ -421,6 +423,69 @@
       <div class="note">{t('guides.pvpBug.note', locale)}</div>
       <p>{t('guides.pvpBug.disclaimer', locale)}</p>
     </div>
+  {:else if activeTab === 'pvp-farm'}
+    <div class="text-block guide-prose">
+      <p>{t('guides.pvpFarm.intro', locale)}</p>
+    </div>
+    <div class="farm-methods">
+      <div class="farm-method">
+        <div class="farm-method-head">
+          <span class="farm-method-badge">{t('guides.pvpFarm.method1.badge', locale)}</span>
+          <span class="farm-method-title">{t('guides.pvpFarm.method1.title', locale)}</span>
+        </div>
+        <p>{t('guides.pvpFarm.method1.p1', locale)}</p>
+        <div class="farm-mutants-block">
+          <div class="farm-mutants-label">{t('guides.pvpFarm.method1.mutantsHint', locale)}</div>
+          <div class="farm-mutant-chips">
+            {#each pvpFarmMutants as m (m.id)}
+              <button class="farmer-chip" onclick={() => openMutant(m.id)}>
+                {#if m.icon}<img src={textureUrl(m.icon)} alt="" loading="lazy" decoding="async" />{/if}
+                <span>{m.name}</span>
+              </button>
+            {/each}
+          </div>
+        </div>
+        <div class="farm-pros-cons">
+          <div class="farm-pc-block pros">
+            <div class="farm-pc-title"><span class="farm-pc-icon">✓</span>{t('guides.pvpFarm.prosTitle', locale)}</div>
+            <ul><li>{t('guides.pvpFarm.method1.pros1', locale)}</li></ul>
+          </div>
+          <div class="farm-pc-block cons">
+            <div class="farm-pc-title"><span class="farm-pc-icon">✕</span>{t('guides.pvpFarm.consTitle', locale)}</div>
+            <ul><li>{t('guides.pvpFarm.method1.cons1', locale)}</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="farm-method">
+        <div class="farm-method-head">
+          <span class="farm-method-badge">{t('guides.pvpFarm.method2.badge', locale)}</span>
+          <span class="farm-method-title">{t('guides.pvpFarm.method2.title', locale)}</span>
+        </div>
+        <p>{t('guides.pvpFarm.method2.p1', locale)}</p>
+        <div class="note">{t('guides.pvpFarm.method2.note', locale)}</div>
+        <div class="farm-pros-cons">
+          <div class="farm-pc-block pros">
+            <div class="farm-pc-title"><span class="farm-pc-icon">✓</span>{t('guides.pvpFarm.prosTitle', locale)}</div>
+            <ul>
+              <li>{t('guides.pvpFarm.method2.pros1', locale)}</li>
+              <li>{t('guides.pvpFarm.method2.pros2', locale)}</li>
+            </ul>
+          </div>
+          <div class="farm-pc-block cons">
+            <div class="farm-pc-title"><span class="farm-pc-icon">✕</span>{t('guides.pvpFarm.consTitle', locale)}</div>
+            <p class="farm-pc-intro">{t('guides.pvpFarm.method2.consIntro', locale)}</p>
+            <ul>
+              <li>{t('guides.pvpFarm.method2.consLi1', locale)}</li>
+              <li>{t('guides.pvpFarm.method2.consLi2', locale)}</li>
+              <li>{t('guides.pvpFarm.method2.consLi3', locale)}</li>
+              <li>{t('guides.pvpFarm.method2.consLi4', locale)}</li>
+              <li>{t('guides.pvpFarm.method2.consLi5', locale)}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="guide-author">{t('guides.pvpFarm.author', locale)}</div>
   {:else if activeTab === 'farmers'}
     <div class="text-block">
       <p>{t('guides.intro.farmers.p1', locale)}</p>
@@ -972,6 +1037,31 @@
     font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.85em;
   }
   .note { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.75rem 1rem; margin: 0.75rem 0; font-size: 0.87rem; color: #bfdbfe; }
+
+  .farm-methods { display: flex; flex-direction: column; gap: 1.25rem; margin: 0.5rem 0 1rem; }
+  .farm-method { border-radius: 12px; padding: 1.15rem 1.3rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); }
+  .farm-method p { color: #cbd5e1; line-height: 1.55; margin: 0 0 0.75rem; }
+  .farm-method-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem; flex-wrap: wrap; }
+  .farm-method-badge { display: flex; align-items: center; justify-content: center; padding: 0.2rem 0.65rem; border-radius: 999px; background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3); color: #93c5fd; font-weight: 700; font-size: 0.78rem; }
+  .farm-method-title { font-size: 1.05rem; font-weight: 700; color: #e2e8f0; }
+  .farm-mutants-block { margin: 0 0 0.9rem; }
+  .farm-mutants-label { font-size: 0.82rem; color: #94a3b8; margin-bottom: 0.5rem; }
+  .farm-mutant-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .farm-pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.85rem; margin-top: 0.5rem; }
+  .farm-pc-block { border-radius: 10px; padding: 0.85rem 1rem; }
+  .farm-pc-block.pros { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); }
+  .farm-pc-block.cons { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); }
+  .farm-pc-title { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .farm-pc-icon { display: flex; align-items: center; justify-content: center; width: 1.2rem; height: 1.2rem; border-radius: 999px; font-size: 0.75rem; flex-shrink: 0; }
+  .farm-pc-block.pros .farm-pc-title { color: #86efac; }
+  .farm-pc-block.pros .farm-pc-icon { background: rgba(34,197,94,0.2); }
+  .farm-pc-block.cons .farm-pc-title { color: #fca5a5; }
+  .farm-pc-block.cons .farm-pc-icon { background: rgba(248,113,113,0.2); }
+  .farm-pc-intro { margin: 0 0 0.4rem; font-size: 0.86rem; color: #cbd5e1; }
+  .farm-pc-block ul { margin: 0; padding-left: 1.1rem; font-size: 0.86rem; color: #cbd5e1; line-height: 1.55; }
+  .farm-pc-block li { margin-bottom: 0.3rem; }
+  .farm-pc-block li:last-child { margin-bottom: 0; }
+  .guide-author { text-align: right; font-size: 0.8rem; color: #64748b; font-style: italic; margin: 0.25rem 0 0.5rem; }
 
   .numbers-tab .crit-booster-line {
     font-size: 0.9rem; color: #e2e8f0;
