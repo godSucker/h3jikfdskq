@@ -290,24 +290,41 @@ function findMutant(text: string, overlay: AliasOverlayEntry[] = []): FindMutant
   // Collect every candidate at the current best (longest) match length,
   // not just the first one seen - a same-length tie between two distinct
   // mutants is genuine ambiguity (mirrors how fuzzyFindMutant handles it),
-  // not something array order should silently decide.
+  // not something array order should silently decide. A length tie between
+  // sources is NOT always genuine ambiguity though: an admin-added overlay
+  // alias (".добавить") existing specifically to override a stale entry in
+  // the static curated list (e.g. "оса" pointed at "Бензиновая оса" in
+  // nickname-aliases.json, then re-added via ".добавить" for "Апиархия"
+  // once the community's usage drifted) must win that tie, not report
+  // ambiguity - so ties are broken by source priority (overlay > static
+  // alias > mutant name) before falling back to genuine multi-candidate
+  // ambiguity within the same priority tier.
   let bestLen = 0
+  let bestPriority = -1
   let candidates: any[] = []
-  const consider = (matchedText: string, mutant: any) => {
+  const consider = (matchedText: string, mutant: any, priority: number) => {
     if (!matchedText) return
     if (!normalizedText.includes(matchedText)) return
-    if (matchedText.length > bestLen) {
+    if (
+      matchedText.length > bestLen ||
+      (matchedText.length === bestLen && priority > bestPriority)
+    ) {
       bestLen = matchedText.length
+      bestPriority = priority
       candidates = [mutant]
-    } else if (matchedText.length === bestLen && !candidates.includes(mutant)) {
+    } else if (
+      matchedText.length === bestLen &&
+      priority === bestPriority &&
+      !candidates.includes(mutant)
+    ) {
       candidates.push(mutant)
     }
   }
-  for (const m of ALL_MUTANTS) consider(normalizeSearch(m.name), m)
-  for (const { alias, mutant } of ALIAS_CANDIDATES) consider(normalizeSearch(alias), mutant)
+  for (const m of ALL_MUTANTS) consider(normalizeSearch(m.name), m, 0)
+  for (const { alias, mutant } of ALIAS_CANDIDATES) consider(normalizeSearch(alias), mutant, 1)
   for (const { alias, mutantId } of overlay) {
     const mutant = mutantById.get(mutantId)
-    if (mutant) consider(normalizeSearch(alias), mutant)
+    if (mutant) consider(normalizeSearch(alias), mutant, 2)
   }
 
   if (candidates.length === 1) return { kind: 'found', mutant: candidates[0], fuzzy: false }
