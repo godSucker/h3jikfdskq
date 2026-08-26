@@ -57,6 +57,19 @@ describe('mutant name matching', () => {
     const overlay = [{ alias: 'оса', mutantId: 'specimen_d_14' }]
     expect(okOverlay('оса 20ур', overlay).primary.mutantName).toBe('Апиархия')
   })
+
+  it('does not let a short alias steal a match by landing mid-word in an unrelated name', () => {
+    // Live-caught bug: nickname-aliases.json maps "ирия"/"фигуристка" ->
+    // "Фигуристка Ирия", and an admin also added the overlay alias "ира" for
+    // the same mutant. Since normalizeSearch used to strip spaces entirely,
+    // "ира" matched as a bare substring inside "жираф" (жИРАф) - stealing
+    // the giraffe's own ".добавить"-ed alias before the boundary fix below.
+    const overlay = [
+      { alias: 'ира', mutantId: 'specimen_cf_14' },
+      { alias: 'жираф', mutantId: 'specimen_da_15' },
+    ]
+    expect(okOverlay('жираф 20ур', overlay).primary.mutantName).toBe('Флипфлоп, морфическая жираф')
+  })
 })
 
 describe('level', () => {
