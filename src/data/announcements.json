@@ -1727,5 +1727,509 @@
       }
     ],
     "link": "/bingo"
+  },
+  {
+    "id": "shopForecast-1787820582642",
+    "date": "2026-08-27T08:49:40.634Z",
+    "category": "shopForecast",
+    "title": "Прогноз магазина: 38",
+    "items": [
+      {
+        "id": "256|bundle_orbs_adaptive_retaliate_14",
+        "name": "Адаптивный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bundle_orbs_adaptive_retaliate.png",
+        "price": {
+          "amount": 900,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_EA_06_Bronze",
+        "name": "Бронзовый Кранк",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ea_06_bronze.png",
+        "price": {
+          "amount": 1020,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|bundle_orbs_crafting_master",
+        "name": "Мастер ремесла",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_crafting_master.png",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_FC_08_sc",
+        "name": "Кудамоно",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_fc_08.png",
+        "price": {
+          "amount": 9500000,
+          "type": "softcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_FC_04",
+        "name": "Мексикоатль",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_fc_04.png",
+        "price": null
+      },
+      {
+        "id": "256|pack_be_13_1000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_be_13_1000_seg.png",
+        "price": null
+      },
+      {
+        "id": "256|pack_be_13_4000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_be_13_4000_seg.png",
+        "price": null
+      },
+      {
+        "id": "256|pack_be_13_10000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_be_13_10000_seg.png",
+        "price": null
+      },
+      {
+        "id": "256|Specimen_BB_08",
+        "name": "Чумная Ведьма",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_bb_08.png",
+        "price": {
+          "amount": 950,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|LuckyBox_Research_IX",
+        "name": "Сундук «Исследование IX»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_research_ix.png",
+        "price": {
+          "amount": 1500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_BA_05_Gold",
+        "name": "Доктор Блоу",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ba_05_gold.png",
+        "price": {
+          "amount": 1440,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Pack_Dieselpunk",
+        "name": "Пакет дизельпанка",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_dieselpunk.png",
+        "price": {
+          "amount": 2770,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|pack_daily_3_gold_68",
+        "name": "Звездное предложение",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_3_gold.png",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_BC_13_rc",
+        "name": "Док Живодер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_bc_13.png",
+        "price": null
+      },
+      {
+        "id": "256|Specimen_EA_09_sc",
+        "name": "Капитан Горн",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ea_09.png",
+        "price": {
+          "amount": 10000000,
+          "type": "softcurrency"
+        }
+      },
+      {
+        "id": "256|bundle_orbs_experimental_growth_11",
+        "name": "Пакет сфер роста",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/orb_bundle_growth.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_DC_06_Bronze_sc",
+        "name": "Бронзовая Бабка-волчанка",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_dc_06_bronze.png",
+        "price": {
+          "amount": 10200000,
+          "type": "softcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_AA_06_Gold",
+        "name": "Золотой Геркулес",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_aa_06_gold.png",
+        "price": {
+          "amount": 1530,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|LuckyBox_Mythic_Prime",
+        "name": "Легендарный мификаконтейнер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_mystic.png",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_CA_06",
+        "name": "РАЗ-РУ-Бот",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ca_06.png",
+        "price": {
+          "amount": 850,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|bank_ca_12_t1",
+        "name": "Пакет «Терракотовый генерал»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_ca_12_jt_t5.png",
+        "price": null
+      },
+      {
+        "id": "256|bank_bd_99_10jp",
+        "name": "Пакет «Тэнгу»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_bd_99_jt_t4.png",
+        "price": null
+      },
+      {
+        "id": "256|bank_bc_13_20jp",
+        "name": "Пакет «Док Живодер»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_bc_13_jt_t3.png",
+        "price": null
+      },
+      {
+        "id": "256|bank_da_13_45jp",
+        "name": "Пакет ветерана «Антробот-мечтатель»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_da_13_jt_t2.png",
+        "price": null
+      },
+      {
+        "id": "256|bank_fb_14_100jp",
+        "name": "Престижный пакет «Загам, Великий Король Жадности»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_fb_14_jt_t1.png",
+        "price": null
+      },
+      {
+        "id": "256|pack_daily_50_jt_59",
+        "name": "Предложение жетонов",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_50_jt.png",
+        "price": {
+          "amount": 400,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_EC_07_Bronze",
+        "name": "Бронзовый Инквизитор",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ec_07_bronze.png",
+        "price": {
+          "amount": 1080,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Pack_Nightmare",
+        "name": "Кошмарный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_nightmare.png",
+        "price": {
+          "amount": 4110,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_AC_09_Bronze",
+        "name": "Бронзовый Оптимус Зорд",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ac_09_bronze.png",
+        "price": {
+          "amount": 1200,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Mysterybox_Ability_Slash",
+        "name": "Усиленный контейнер «Ранение» ",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/shop_mystery_slash.png",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_EE_04",
+        "name": "Летающий Джордсон",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ee_04.png",
+        "price": {
+          "amount": 750,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|bundle_orbs_life_5_38",
+        "name": "Жизни пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bundle_orbs_life_5.png",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_CC_12_Gold",
+        "name": "Золотой Скарамуш",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cc_12_gold.png",
+        "price": {
+          "amount": 2800,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_AC_08_sc",
+        "name": "Шнайдер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ac_08.png",
+        "price": {
+          "amount": 9500000,
+          "type": "softcurrency"
+        }
+      },
+      {
+        "id": "256|pack_powerlevel_90",
+        "name": "Пакет прокачки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_powerlevel.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_EE_07_Bronze",
+        "name": "Бронзовый Маршал Мэллоу",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ee_07_bronze.png",
+        "price": {
+          "amount": 1080,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|LuckyBox_Cyber_Elite",
+        "name": "элитный контейнер «зооморфа»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_elite_cyber.png",
+        "price": {
+          "amount": 700,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Specimen_EB_05_Bronze",
+        "name": "Бронзовый Мертвый солдат",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_eb_05_bronze.png",
+        "price": {
+          "amount": 960,
+          "type": "hardcurrency"
+        }
+      }
+    ],
+    "link": "/materials"
+  },
+  {
+    "id": "dailyNews-1787820587030",
+    "date": "2026-08-27T08:49:40.634Z",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 22",
+    "items": [
+      {
+        "id": "256|Shop_bundle_orbs_adaptive_retaliate_14",
+        "name": "Адаптивный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_adaptive_retaliate-ru.jpg",
+        "price": {
+          "amount": 900,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_bundle_orbs_retaliate_5_27",
+        "name": "Контратака пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bundle_orbs_retaliate_5-ru.jpg",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_bundle_orbs_crafting_master",
+        "name": "Мастер ремесла",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_pack_crafting_master-ru.jpg",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_pack_be_13_1000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_be_13_seg-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|Shop_pack_be_13_4000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_be_13_seg-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|Shop_pack_be_13_10000_hc",
+        "name": "Уникальный пакет Путешественник по червоточинам",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_be_13_seg-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|Shop_Specimen_FC_04",
+        "name": "Мексикоатль",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_comeback_fc_04-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|Shop_LuckyBox_Research_IX",
+        "name": "Сундук «Исследование IX»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_luckybox_research_ix-ru.jpg",
+        "price": {
+          "amount": 1500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_Pack_Dieselpunk",
+        "name": "Пакет дизельпанка",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_pack_dieselpunk-ru.jpg",
+        "price": {
+          "amount": 2770,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_pack_daily_3_gold_68",
+        "name": "Звездное предложение",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_promo_3_gold_stars-ru.jpg",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_bundle_orbs_experimental_growth_11",
+        "name": "Пакет сфер роста",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/orb_experimental_bundle-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Daily_news_shop_24h_2026_256b",
+        "name": "Daily News Shop 24h 2026 256b",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256b-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|daily_news_jackpot_madness_weekend_50",
+        "name": "Daily News Jackpot Madness Weekend 50",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_jackpot_madness_weekend_april_2017-en.jpg",
+        "price": null
+      },
+      {
+        "id": "256|Shop_LuckyBox_Mythic_Prime",
+        "name": "Легендарный мификаконтейнер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mysterybox_mystic_2018-ru.jpg",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|PayWall_Sprint_247",
+        "name": "Paywall Sprint 247",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_sprint_247-ru.jpg",
+        "price": null
+      },
+      {
+        "id": "256|shop_pack_daily_50_jt_59",
+        "name": "Предложение жетонов",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_token-ru.jpg",
+        "price": {
+          "amount": 400,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_Pack_Nightmare",
+        "name": "Кошмарный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_pack_nightmare-ru.jpg",
+        "price": {
+          "amount": 4110,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_Mysterybox_Ability_Slash",
+        "name": "Усиленный контейнер «Ранение» ",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mystery_slash-ru.jpg",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_bundle_orbs_life_5_38",
+        "name": "Жизни пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bundle_orbs_life_5-ru.jpg",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_pack_powerlevel_90",
+        "name": "Пакет прокачки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_pack_powerlevel-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Shop_LuckyBox_Cyber_Elite",
+        "name": "элитный контейнер «зооморфа»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mystery_elite_cyber-ru.jpg",
+        "price": {
+          "amount": 700,
+          "type": "hardcurrency"
+        }
+      },
+      {
+        "id": "256|Daily_news_shop_24h_2026_256a",
+        "name": "Daily News Shop 24h 2026 256a",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256a-ru.jpg",
+        "price": null
+      }
+    ],
+    "link": "/announcements"
   }
 ]
