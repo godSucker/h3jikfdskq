@@ -658,7 +658,7 @@
                картинки/фон контейнера. onerror тихо прячет картинку, если файла на CDN
                нет - под ним остаётся обычный тёмный градиент контейнера. -->
           <img
-            class="absolute inset-0 z-0 w-full h-full object-cover scale-110 blur-[7px] brightness-75"
+            class="absolute inset-0 z-0 w-full h-full object-cover scale-110 blur-[7px]"
             src={textureUrl(getTypeBackground(displayType))}
             alt=""
             aria-hidden="true"
