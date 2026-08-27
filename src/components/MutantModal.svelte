@@ -642,9 +642,7 @@
                     t.src = t.dataset.fallbackSrc;
                   }
                 }}
-                alt="" class="w-9 h-9 object-contain" loading="lazy" decoding="async" draggable="false" />
-
-              <span class="text-[9px] leading-tight">{s.skin}</span>
+                alt="" class="skin-switch-icon w-9 h-9 object-contain" loading="lazy" decoding="async" draggable="false" />
             </button>
           {/each}
         </div>
@@ -981,24 +979,27 @@
   /* Skin switcher */
   .skin-switch-btn {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 2px;
-    padding: 3px;
+    justify-content: center;
+    padding: 4px;
     border-radius: 8px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
     cursor: pointer;
     opacity: 0.5;
     transition: all 0.2s;
-    color: rgba(255,255,255,0.6);
+    overflow: hidden;
+  }
+  /* Гача-иконки скинов свёрстаны с большим прозрачным полем внутри самого PNG,
+     поэтому при равном с звёздами боксе арт кажется мельче - подтягиваем масштабом. */
+  .skin-switch-icon {
+    transform: scale(1.7);
   }
   .skin-switch-btn:hover { opacity: 0.8; background: rgba(255,255,255,0.1); }
   .skin-switch-btn.active {
     opacity: 1;
     background: rgba(6,182,212,0.2);
     border-color: rgba(6,182,212,0.5);
-    color: #fff;
   }
 
   @media (max-width: 1200px) {
