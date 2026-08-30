@@ -3,5 +3,23 @@
     "type": "reactor",
     "id": "zodiac",
     "alertedAt": "2026-08-07T15:59:57.842Z"
+  },
+  "dungeon:celestial_13": {
+    "type": "dungeon",
+    "id": "celestial_13",
+    "dungeonType": "experiment",
+    "alertedAt": "2026-08-30T17:16:06.779Z"
+  },
+  "dungeon:pit_saber_12": {
+    "type": "dungeon",
+    "id": "pit_saber_12",
+    "dungeonType": "experiment",
+    "alertedAt": "2026-08-30T17:16:06.917Z"
+  },
+  "dungeon:pit_galactic_12": {
+    "type": "dungeon",
+    "id": "pit_galactic_12",
+    "dungeonType": "experiment",
+    "alertedAt": "2026-08-30T17:16:07.056Z"
   }
 }
