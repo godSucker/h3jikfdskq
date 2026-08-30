@@ -135,6 +135,15 @@ describe('orb mentions', () => {
     expect(cfg.basicOrbIds).toContain('orb_basic_critical_04')
   })
 
+  it('recognizes short slang synonyms for retaliate/strengthen/weaken', () => {
+    const cfg = ok('нексус 30ур платина отраж 17% ап 19% курс 21%').primary
+    expect(cfg.basicOrbIds).toEqual([
+      'orb_basic_retaliate_03',
+      'orb_basic_strengthen_03',
+      'orb_basic_weaken_04',
+    ])
+  })
+
   it('keeps a level-form sphere mention when a "%" attack multiplier appears later in the message', () => {
     // Regression: the percent/level decision used to scan a wide window
     // around the keyword, so a later "+50% на первую атаку" could leak its

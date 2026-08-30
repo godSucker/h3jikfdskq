@@ -95,7 +95,7 @@ const CATEGORIES: CategoryDef[] = [
     specialPrefix: 'orb_special_addregenerate',
   },
   {
-    keywords: ['контратака', 'отражение', 'контра', 'реталиэйт'],
+    keywords: ['контратака', 'отражение', 'отраж', 'контра', 'реталиэйт'],
     basicPrefix: 'orb_basic_retaliate',
     specialPrefix: 'orb_special_addretaliate',
   },
@@ -106,12 +106,12 @@ const CATEGORIES: CategoryDef[] = [
     specialPrefix: 'orb_special_addslash',
   },
   {
-    keywords: ['усиление', 'усил', 'баф', 'бафф'],
+    keywords: ['усиление', 'усил', 'баф', 'бафф', 'ап', 'повыш'],
     basicPrefix: 'orb_basic_strengthen',
     specialPrefix: 'orb_special_addstrengthen',
   },
   {
-    keywords: ['проклятие', 'ослабление', 'дебаф', 'дебафф', 'прокл'],
+    keywords: ['проклятие', 'ослабление', 'дебаф', 'дебафф', 'прокл', 'курс', 'пониж'],
     basicPrefix: 'orb_basic_weaken',
     specialPrefix: 'orb_special_addweaken',
   },
