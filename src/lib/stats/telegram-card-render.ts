@@ -51,12 +51,27 @@ const MULT_COLORS: Record<string, { color: string; border: string; bg: string }>
 }
 const MULT_STEPS = [-50, -25, 0, 25, 50]
 
+// Yandex CDN GSLB (cdn.archivist-library.com) occasionally drops the TCP
+// connect from Vercel's US region with a ConnectTimeoutError - transient,
+// not an outage, so worth one retry before giving up on the whole card render.
+async function fetchWithRetry(url: string, retries = 2): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(url)
+      if (res.ok || attempt >= retries) return res
+    } catch (err) {
+      if (attempt >= retries) throw err
+    }
+    await new Promise((r) => setTimeout(r, 300 * 2 ** attempt))
+  }
+}
+
 const imgCache = new Map<string, string>()
 async function loadImageDataUri(relPath: string, grayscale = false): Promise<string> {
   const key = grayscale ? `${relPath}#gray` : relPath
   const cached = imgCache.get(key)
   if (cached) return cached
-  const res = await fetch(CDN + relPath)
+  const res = await fetchWithRetry(CDN + relPath)
   if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
   const buf = Buffer.from(await res.arrayBuffer())
   let img = sharp(buf)
@@ -69,13 +84,21 @@ async function loadImageDataUri(relPath: string, grayscale = false): Promise<str
 let fontsPromise: Promise<{ bold: Buffer; medium: Buffer; regular: Buffer }> | null = null
 function loadFonts() {
   if (!fontsPromise) {
+    // On failure, drop the cached rejected promise - Fluid Compute reuses this
+    // instance across requests, so otherwise every future request on it would
+    // fail instantly forever without even attempting a new fetch.
     fontsPromise = Promise.all(
       ['Bold', 'Medium', 'Regular'].map(async (w) => {
-        const res = await fetch(`${FONT_BASE}/TTSupermolotNeue-${w}.ttf`)
+        const res = await fetchWithRetry(`${FONT_BASE}/TTSupermolotNeue-${w}.ttf`)
         if (!res.ok) throw new Error(`font fetch failed ${res.status} ${w}`)
         return Buffer.from(await res.arrayBuffer())
       }),
-    ).then(([bold, medium, regular]) => ({ bold, medium, regular }))
+    )
+      .then(([bold, medium, regular]) => ({ bold, medium, regular }))
+      .catch((err) => {
+        fontsPromise = null
+        throw err
+      })
   }
   return fontsPromise
 }
