@@ -122,8 +122,8 @@ async function main() {
 
     const context = [
       `🆕 *Новый(ая) ${TYPE_LABEL[d.type]} в игре*: \`${d.id}\``,
-      `Награды: ${rewardLines || '—'}`,
-      mutantName ? `Мутант-награда: ${mutantName}` : null,
+      `Награды: \`${rewardLines || '—'}\``,
+      mutantName ? `Мутант-награда: \`${mutantName}\`` : null,
       '',
       `Ответь: \`.локал dungeon:${d.id} "Имя"\``,
     ]
