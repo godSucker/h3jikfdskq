@@ -74642,13 +74642,7 @@
             "skin": "school"
           }
         ],
-        "rewards": [
-          {
-            "name": "Material_Mystery26_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
+        "rewards": []
       },
       {
         "chance": 16.666666666666664,
@@ -74657,7 +74651,7 @@
             "id": "specimen_fe_04",
             "name": "Принцесса Селена",
             "tier": "золото",
-            "skin": "school"
+            "skin": null
           }
         ],
         "rewards": [
@@ -74732,7 +74726,13 @@
             "skin": "school"
           }
         ],
-        "rewards": []
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       }
     ]
   },
