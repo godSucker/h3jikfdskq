@@ -114,13 +114,13 @@ interface LuckySimulationContext {
 }
 
 const CATEGORY_INFO: Record<LuckyRewardCategory, { label: string; icon: string }> = {
-  jackpot: { label: 'Джекпоты', icon: '/cash/jackpot.webp' },
+  jackpot: { label: 'Джекпоты', icon: '/roulette-thumbs/jackpot.png' },
   'free-spin': { label: 'Бесплатные прокруты', icon: '/etc/freespin.webp' },
   star: { label: 'Звёзды', icon: '/stars/star_gold.webp' },
   material: { label: 'Материалы', icon: '/materials/mini_xp.webp' },
   booster: { label: 'Бустеры', icon: '/boosters/charm_xpx2_7.webp' },
   mutant: { label: 'Мутанты', icon: '/mut_icons/icon_gacha.webp' },
-  currency: { label: 'Валюта', icon: '/cash/hardcurrency.webp' },
+  currency: { label: 'Валюта', icon: '/roulette-thumbs/hardcurrency.png' },
   token: { label: 'Жетоны', icon: '/materials/Material_Gacha_Token.png' },
   orb: { label: 'Сферы', icon: '/orbs/basic/orb_basic_xp.webp' },
   special: { label: 'Особые призы', icon: '/etc/icon_timer.webp' },

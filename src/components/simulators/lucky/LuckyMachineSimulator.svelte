@@ -41,7 +41,7 @@
     boosters: { label: t('roulette.lucky.resourceBoosters', locale), icon: '/boosters/charm_xpx2_7.webp', metaLabel: t('roulette.lucky.metaTotal', locale) },
     tokens: { label: t('roulette.lucky.resourceTokens', locale), icon: '/materials/Material_Gacha_Token.png', metaLabel: t('roulette.lucky.metaTotal', locale) },
     mutants: { label: t('roulette.lucky.resourceMutants', locale), icon: '/etc/icon_larva.webp', metaLabel: t('roulette.lucky.metaDropped', locale) },
-    jackpots: { label: t('roulette.lucky.resourceJackpots', locale), icon: '/cash/jackpot.webp', metaLabel: t('roulette.lucky.metaDropped', locale) },
+    jackpots: { label: t('roulette.lucky.resourceJackpots', locale), icon: '/roulette-thumbs/jackpot.png', metaLabel: t('roulette.lucky.metaDropped', locale) },
   };
 
   const resourceSummaryOrder: ResourceSummaryKey[] = ['consumables','stars','spheres','boosters','tokens','mutants','jackpots'];
@@ -243,11 +243,11 @@
             </div>
           </div>
           <div class="stat-card">
-            <img class="stat-icon" src={textureUrl("/cash/g20.webp")} alt="" />
+            <img class="stat-icon" src={textureUrl("/roulette-thumbs/hc20.png")} alt="" />
             <div class="stat-body"><span class="label">{t('roulette.lucky.statGoldWon', locale)}</span><strong>{formatNumber(result.goldWon, locale)}</strong></div>
           </div>
           <div class="stat-card">
-            <img class="stat-icon" src={textureUrl("/cash/softcurrency.webp")} alt="" />
+            <img class="stat-icon" src={textureUrl("/roulette-thumbs/softcurrency.png")} alt="" />
             <div class="stat-body"><span class="label">{t('roulette.lucky.statSilverWon', locale)}</span><strong>{formatNumber(result.silverWon, locale)}</strong></div>
           </div>
           <div class="stat-card">
