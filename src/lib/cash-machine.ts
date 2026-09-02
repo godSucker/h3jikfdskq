@@ -54,48 +54,48 @@ export function getRewardLabel(reward: CashReward, locale: Locale = 'ru'): strin
   return t('roulette.cash.unknownReward', locale)
 }
 
-const GOLD_REWARD_AMOUNTS = new Set([30, 40, 50, 80, 100, 200, 500, 1000, 2000, 5000])
+// Real Cash Frenzy reward thumbnails, mirrored from the game CDN
+// (assets/thumbnails/*.png) into public/cash/frenzy/. The roulette config
+// references each thumbnail by name in reward.picture; earlier this module
+// ignored that and substituted the generic outlined coin icons in
+// public/cash/*.webp (shared with bingo/lucky/madness), which did not match
+// the artwork shown inside the roulette itself.
+const FRENZY_ICON_BASE = '/cash/frenzy'
 
-const SILVER_REWARD_AMOUNTS = new Set([50000])
+const FRENZY_REWARD_ICONS = new Set([
+  'jackpot',
+  'jackpot_gold_x30',
+  'jackpot_gold_x40',
+  'jackpot_gold_x50',
+  'jackpot_gold_x80',
+  'jackpot_gold_x100',
+  'jackpot_gold_x200',
+  'jackpot_gold_x500',
+  'jackpot_gold_x1000',
+  'jackpot_gold_x2000',
+  'jackpot_gold_x5000',
+  'sc10000',
+])
 
-function buildCashIcon(prefix: 'g' | 's', amount: number): string {
-  return `/cash/${prefix}${amount}.webp`
-}
-
-function getGoldRewardIcon(amount: number): string {
-  if (GOLD_REWARD_AMOUNTS.has(amount)) {
-    return buildCashIcon('g', amount)
-  }
-
-  return getCurrencyIcon('hardcurrency')
-}
-
-function getSilverRewardIcon(amount: number): string {
-  if (SILVER_REWARD_AMOUNTS.has(amount)) {
-    return buildCashIcon('s', amount)
-  }
-
-  return getCurrencyIcon('softcurrency')
+function frenzyIconFromPicture(picture: string | null): string | null {
+  if (!picture) return null
+  const base = picture.replace(/^.*\//, '').replace(/\.[a-z0-9]+$/i, '')
+  return FRENZY_REWARD_ICONS.has(base) ? `${FRENZY_ICON_BASE}/${base}.png` : null
 }
 
 export function getCurrencyIcon(currency: 'hardcurrency' | 'softcurrency'): string {
-  return currency === 'hardcurrency' ? '/cash/hardcurrency.webp' : '/cash/softcurrency.webp'
+  return currency === 'hardcurrency'
+    ? `${FRENZY_ICON_BASE}/hardcurrency.png`
+    : `${FRENZY_ICON_BASE}/softcurrency.png`
 }
 
 export function getRewardIcon(reward: CashReward): string {
-  if (reward.type === 'hardcurrency') {
-    return getGoldRewardIcon(reward.amount)
-  }
+  const fromPicture = frenzyIconFromPicture(reward.picture)
+  if (fromPicture) return fromPicture
 
-  if (reward.type === 'softcurrency') {
-    return getSilverRewardIcon(reward.amount)
-  }
-
-  if (reward.type === 'entity') {
-    return '/cash/jackpot.webp'
-  }
-
-  return '/cash/unknown.webp'
+  if (reward.type === 'softcurrency') return getCurrencyIcon('softcurrency')
+  if (reward.type === 'entity') return `${FRENZY_ICON_BASE}/jackpot.png`
+  return getCurrencyIcon('hardcurrency')
 }
 
 export function getRewardChance(
