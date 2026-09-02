@@ -55,12 +55,12 @@ export function getRewardLabel(reward: CashReward, locale: Locale = 'ru'): strin
 }
 
 // Real Cash Frenzy reward thumbnails, mirrored from the game CDN
-// (assets/thumbnails/*.png) into public/cash/frenzy/. The roulette config
+// (assets/thumbnails/*.png) into public/roulette-thumbs/. The roulette config
 // references each thumbnail by name in reward.picture; earlier this module
 // ignored that and substituted the generic outlined coin icons in
 // public/cash/*.webp (shared with bingo/lucky/madness), which did not match
 // the artwork shown inside the roulette itself.
-const FRENZY_ICON_BASE = '/cash/frenzy'
+const FRENZY_ICON_BASE = '/roulette-thumbs'
 
 const FRENZY_REWARD_ICONS = new Set([
   'jackpot',

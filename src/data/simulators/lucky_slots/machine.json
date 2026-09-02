@@ -17,7 +17,7 @@
       "name": "Джекпот",
       "description": "Главный приз",
       "category": "jackpot",
-      "icon": "/cash/jackpot.webp"
+      "icon": "/roulette-thumbs/jackpot.png"
     },
     {
       "rewardId": 2,
@@ -107,7 +107,7 @@
       "name": "Аптечка",
       "description": "15 аптечек для лечения мутантов",
       "category": "material",
-      "icon": "/med/normal_med.webp"
+      "icon": "/roulette-thumbs/material_lp100_x15.png"
     },
     {
       "rewardId": 8,
@@ -122,7 +122,7 @@
       "name": "Большая аптечка",
       "description": "10 больших аптечек",
       "category": "material",
-      "icon": "/med/big_med.webp"
+      "icon": "/roulette-thumbs/material_lp1000_x10.png"
     },
     {
       "rewardId": 9,
@@ -137,7 +137,7 @@
       "name": "Большая доза мутостерона",
       "description": "2 большие дозы для улучшений",
       "category": "material",
-      "icon": "/materials/big_muto.webp"
+      "icon": "/roulette-thumbs/material_muto50_x2.png"
     },
     {
       "rewardId": 10,
@@ -152,7 +152,7 @@
       "name": "5000 монет",
       "description": "Игровая валюта",
       "category": "currency",
-      "icon": "/cash/softcurrency.webp"
+      "icon": "/roulette-thumbs/sc100.png"
     },
     {
       "rewardId": 11,
@@ -167,7 +167,7 @@
       "name": "10000 монет",
       "description": "Игровая валюта",
       "category": "currency",
-      "icon": "/cash/s10000.webp"
+      "icon": "/roulette-thumbs/sc500.png"
     },
     {
       "rewardId": 12,
@@ -182,7 +182,7 @@
       "name": "20000 монет",
       "description": "Игровая валюта",
       "category": "currency",
-      "icon": "/cash/softcurrency.webp"
+      "icon": "/roulette-thumbs/sc1000.png"
     },
     {
       "rewardId": 13,
@@ -197,7 +197,7 @@
       "name": "50000 монет",
       "description": "Игровая валюта",
       "category": "currency",
-      "icon": "/cash/s50000.webp"
+      "icon": "/roulette-thumbs/sc10000.png"
     },
     {
       "rewardId": 14,
@@ -212,7 +212,7 @@
       "name": "100000 монет",
       "description": "Крупная сумма игровой валюты",
       "category": "currency",
-      "icon": "/cash/s100000.webp"
+      "icon": "/roulette-thumbs/sc50000.png"
     },
     {
       "rewardId": 15,
@@ -227,7 +227,7 @@
       "name": "500000 монет",
       "description": "Очень крупная сумма игровой валюты",
       "category": "currency",
-      "icon": "/cash/softcurrency.webp"
+      "icon": "/roulette-thumbs/sc75000.png"
     },
     {
       "rewardId": 16,
@@ -242,7 +242,7 @@
       "name": "1000000 монет",
       "description": "Огромная сумма игровой валюты",
       "category": "currency",
-      "icon": "/cash/s1000000.webp"
+      "icon": "/roulette-thumbs/sc100000.png"
     },
     {
       "rewardId": 17,
@@ -257,7 +257,7 @@
       "name": "5000000 монет",
       "description": "Гигантская сумма игровой валюты",
       "category": "currency",
-      "icon": "/cash/softcurrency.webp"
+      "icon": "/roulette-thumbs/sc1000000.png"
     },
     {
       "rewardId": 18,
@@ -302,7 +302,7 @@
       "name": "10 золота",
       "description": "Премиум валюта",
       "category": "currency",
-      "icon": "/cash/g10.webp"
+      "icon": "/roulette-thumbs/hc10.png"
     },
     {
       "rewardId": 21,
@@ -317,7 +317,7 @@
       "name": "20 золота",
       "description": "Премиум валюта",
       "category": "currency",
-      "icon": "/cash/g20.webp"
+      "icon": "/roulette-thumbs/hc20.png"
     },
     {
       "rewardId": 22,
@@ -332,7 +332,7 @@
       "name": "40 золота",
       "description": "Премиум валюта",
       "category": "currency",
-      "icon": "/cash/g40.webp"
+      "icon": "/roulette-thumbs/hc40.png"
     },
     {
       "rewardId": 23,
@@ -347,7 +347,7 @@
       "name": "Баночка опыта",
       "description": "Опыт для прокачки мутантов",
       "category": "material",
-      "icon": "/materials/mini_xp.webp"
+      "icon": "/roulette-thumbs/material_xp250.png"
     },
     {
       "rewardId": 24,
@@ -362,7 +362,7 @@
       "name": "Банка опыта",
       "description": "Много опыта для прокачки мутантов",
       "category": "material",
-      "icon": "/materials/big_xp.webp"
+      "icon": "/roulette-thumbs/material_xp1000.png"
     },
     {
       "rewardId": 25,
@@ -572,7 +572,7 @@
       "name": "1000 золота",
       "description": "Огромное количество премиум валюты",
       "category": "currency",
-      "icon": "/cash/g1000.webp"
+      "icon": "/roulette-thumbs/jackpot_gold_x1000.png"
     },
     {
       "rewardId": 39,
