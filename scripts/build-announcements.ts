@@ -56,6 +56,12 @@ interface Announcement {
   text?: string | null
   items: AnnouncementItem[]
   link?: string | null
+  // Только shopForecast/dailyNews - номер спринта этой записи. Нужен, чтобы
+  // на следующих часовых прогонах находить УЖЕ опубликованную запись и
+  // дозаполнять её items свежими exactDateLabel (часть офферов узнают точную
+  // дату не сразу, а ближе к своему старту) - без этого поля пришлось бы
+  // парсить id первого item'а, хрупко.
+  sprintKey?: string
 }
 
 interface Ledger {
@@ -141,6 +147,14 @@ const SKIN_NAME_RU: Record<string, string> = {
 interface DetectResult {
   newIds: string[]
   items: AnnouncementItem[]
+  // Только shopForecast/dailyNews - спринт уже опубликован (seen), но офферы
+  // могли получить/уточнить exactDateLabel с прошлого прогона (см.
+  // Announcement.sprintKey) - патчим существующую запись НА МЕСТЕ, без
+  // нового поста/id/даты/алерта.
+  updateExisting?: { sprintKey: string; items: AnnouncementItem[] }
+  // Только shopForecast/dailyNews, только при СОЗДАНИИ новой записи (items
+  // непустой, updateExisting не задан) - записывается в Announcement.sprintKey.
+  sprintKey?: string
 }
 
 type StarsMap = Record<string, { images?: string[] }>
@@ -449,36 +463,35 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
   const forecast = await fetchShopForecast()
   if (!forecast) return { newIds: seen, items: [] }
   const key = String(forecast.sprint)
-  if (seen.includes(key)) return { newIds: seen, items: [] }
-  return {
-    newIds: [...seen, key],
-    items: forecast.items.map((it) => ({
-      id: `${key}|${it.itemId}`,
-      name: it.name,
-      image: it.image,
-      price: it.price,
-      ribbon: it.ribbon,
-      exactDateLabel: it.exactDateLabel,
-    })),
-  }
+  const items = forecast.items.map((it) => ({
+    id: `${key}|${it.itemId}`,
+    name: it.name,
+    image: it.image,
+    price: it.price,
+    ribbon: it.ribbon,
+    exactDateLabel: it.exactDateLabel,
+  }))
+  // Спринт уже опубликован раньше - не новый пост, а дозаполнение exactDateLabel
+  // на месте (часть офферов узнают точную дату не в момент первой публикации
+  // прогноза, а ближе к своему старту, см. память auto-announcements-architecture).
+  if (seen.includes(key)) return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
+  return { newIds: [...seen, key], items, sprintKey: key }
 }
 
 async function detectDailyNews(seen: string[]): Promise<DetectResult> {
   const forecast = await fetchDailyNewsForecast()
   if (!forecast) return { newIds: seen, items: [] }
   const key = String(forecast.sprint)
-  if (seen.includes(key)) return { newIds: seen, items: [] }
-  return {
-    newIds: [...seen, key],
-    items: forecast.items.map((it) => ({
-      id: `${key}|${it.filter}`,
-      name: it.name,
-      image: it.image ?? forecast.coverImage,
-      price: it.price,
-      ribbon: it.ribbon,
-      exactDateLabel: it.exactDateLabel,
-    })),
-  }
+  const items = forecast.items.map((it) => ({
+    id: `${key}|${it.filter}`,
+    name: it.name,
+    image: it.image ?? forecast.coverImage,
+    price: it.price,
+    ribbon: it.ribbon,
+    exactDateLabel: it.exactDateLabel,
+  }))
+  if (seen.includes(key)) return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
+  return { newIds: [...seen, key], items, sprintKey: key }
 }
 
 async function detectRebalance(seen: string[]): Promise<DetectResult> {
@@ -635,7 +648,7 @@ async function main() {
 
   for (const d of DETECTORS) {
     try {
-      const { newIds, items } = await d.run(ledger[d.category])
+      const { newIds, items, updateExisting, sprintKey } = await d.run(ledger[d.category])
       if (items.length > 0) {
         const a: Announcement = {
           id: `${d.category}-${Date.now()}`,
@@ -644,10 +657,20 @@ async function main() {
           title: items.length === 1 ? items[0].name : `${d.title}: ${items.length}`,
           items,
           link: d.link,
+          sprintKey,
         }
         announcements.push(a)
         newlyAdded.push(a)
         published.push(`${d.category} (${items.length})`)
+      } else if (updateExisting) {
+        // Спринт уже опубликован - не новый пост, а дозаполнение items
+        // (exactDateLabel) в УЖЕ существующей записи. Не трогает id/date/
+        // title - на ленте это не выглядит как новый анонс, notifyRunSummary/
+        // кросс-пост не триггерятся (announcements/newlyAdded не пополняются).
+        const existing = announcements.find(
+          (a2) => a2.category === d.category && a2.sprintKey === updateExisting.sprintKey,
+        )
+        if (existing) existing.items = updateExisting.items
       }
       // Ledger обновляется ТОЛЬКО при успехе: если детектор упал, оставляем
       // старое значение - на следующем прогоне попробуем ещё раз, ничего не

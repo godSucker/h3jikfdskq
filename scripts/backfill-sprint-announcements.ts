@@ -40,6 +40,9 @@ interface Announcement {
   title: string
   items: AnnouncementItem[]
   link?: string | null
+  // См. build-announcements.ts::Announcement.sprintKey - без него часовой
+  // пайплайн не найдёт эту запись для дозаполнения exactDateLabel.
+  sprintKey?: string
 }
 
 async function loadJson<T>(p: string, fallback: T): Promise<T> {
@@ -90,6 +93,7 @@ async function main() {
           exactDateLabel: it.exactDateLabel,
         })),
         link: '/materials',
+        sprintKey: String(sprint),
       })
     } else {
       console.log(`[BACKFILL] shopForecast: спринт ${sprint} не найден в shopitems.xml, пропуск`)
@@ -111,6 +115,7 @@ async function main() {
           exactDateLabel: it.exactDateLabel,
         })),
         link: '/announcements',
+        sprintKey: String(sprint),
       })
     } else {
       console.log(`[BACKFILL] dailyNews: спринт ${sprint} не найден в dailypopup.xml, пропуск`)
