@@ -18,6 +18,7 @@ import {
   uniqueBoxMutants,
   boxDescription,
   TIER_ICON,
+  fmtDate,
   ribbonLabel,
   ribbonClass,
   type Announcement,
@@ -118,6 +119,7 @@ const forecastOffers =
         <img class="hero-art" src={textureUrl(mutantLite.fullArt)} alt={mutantLite.name} loading="lazy" decoding="async" />
       </button>
       <div class="card-body">
+        <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.mutant}</span>
         <button class="hero-name-btn" data-open-mutant={mutantLite.id}>{mutantLite.name}</button>
         {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
@@ -129,6 +131,7 @@ const forecastOffers =
         {it.image && <img class="hero-art" src={textureUrl(it.image)} alt={it.name} loading="lazy" decoding="async" />}
       </button>
       <div class="card-body">
+        <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.skin}</span>
         <button class="hero-name-btn" data-open-mutant={skinBaseId}>{it.name}</button>
         {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
@@ -140,6 +143,7 @@ const forecastOffers =
         {it.image && <img class="hero-art" src={textureUrl(it.image)} alt={it.name} loading="lazy" decoding="async" />}
       </a>
       <div class="card-body">
+        <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.reactor}</span>
         <a class="hero-name-btn" href={`/simulators/reactor/${it.id}`}>{it.name}</a>
         {showCta && <a class="card-source" href={`/simulators/reactor/${it.id}`}>Открыть реактор →</a>}
@@ -184,6 +188,7 @@ const forecastOffers =
         <img class="bingo-screenshot" src={`/api/screenshot-bingo?board=${encodeURIComponent(it.id)}`} alt={formatBingoTitle(ctx.bingosById.get(it.id) ?? it.name, it.id)} loading="lazy" decoding="async" />
       </div>
       <div class="card-body">
+        <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.bingo}</span>
         <div class="dg-name">{formatBingoTitle(ctx.bingosById.get(it.id) ?? it.name, it.id)}</div>
         {it.addedNames && it.addedNames.length > 0 ? (
@@ -252,6 +257,7 @@ const forecastOffers =
         </div>
       )}
       <div class="card-body">
+        <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         {a.category && <span class="card-category">{CATEGORY_RU[a.category] ?? a.category}</span>}
         {a.title && <h2 class="card-title">{a.title}</h2>}
         {a.text && <p class="card-text">{a.text}</p>}
@@ -299,6 +305,24 @@ const forecastOffers =
   }
   .card-body {
     padding: 1rem 1.1rem 1.2rem;
+  }
+  /* Только для типов БЕЗ собственной реальной даты (мутанты/скины/реакторы/
+     бинго/обменники/жетоны/ребаланс) - "когда наш бот это заметил", не дата
+     события в игре. У рейдов/лесенок/боксов/прогноза магазина теперь есть
+     настоящий exactDateLabel/sprintRangeLabel - там эта плашка убрана
+     совсем (была бы двусмысленной, читалась как игровая дата). */
+  .card-date {
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: rgb(96, 165, 250);
+    background: rgba(96, 165, 250, 0.12);
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    border-radius: 999px;
+    padding: 0.2rem 0.6rem;
   }
   .card-category {
     display: inline-block;
