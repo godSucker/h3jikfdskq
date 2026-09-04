@@ -12,7 +12,12 @@
 export const LANG_SUFFIXES = ['ru', 'en'] as const
 
 import axios from 'axios'
-import { currentSprint, sprintRangeLabel, sprintStartDate, formatExactRangeRu } from '../src/lib/sprint-calendar'
+import {
+  currentSprint,
+  sprintRangeLabel,
+  sprintStartDate,
+  formatExactRangeRu,
+} from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 
@@ -215,7 +220,10 @@ export async function fetchDailyNewsForecast(): Promise<DailyNewsForecast | null
       price: shopInfo?.price ?? null,
       ribbon: shopInfo?.ribbon ?? null,
       exactDateLabel: exactRange
-        ? formatExactRangeRu(new Date(exactRange.start), exactRange.end ? new Date(exactRange.end) : null)
+        ? formatExactRangeRu(
+            new Date(exactRange.start),
+            exactRange.end ? new Date(exactRange.end) : null,
+          )
         : null,
     })
   }

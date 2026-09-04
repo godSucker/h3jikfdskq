@@ -70,7 +70,8 @@ export function sprintRangeLabel(sprint: number): string {
 // "фичи", не ротации) endDate не несут вообще (-1 в живых данных).
 export function formatExactRangeRu(start: Date, end: Date | null): string {
   if (!end) return formatDateRu(start)
-  const sameMonth = start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()
+  const sameMonth =
+    start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()
   const startLabel = sameMonth
     ? start.toLocaleDateString('ru-RU', { day: 'numeric', timeZone: 'UTC' })
     : formatDateRu(start)
