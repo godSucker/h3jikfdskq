@@ -410,7 +410,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "14 — 15 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_AA_06_Gold",
@@ -421,7 +422,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "13 — 14 сентября",
+        "exactDateStart": "2026-09-13T10:00:00+00:00"
       },
       {
         "id": "256|LuckyBox_Mythic_Prime",
@@ -432,7 +434,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 15 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_CA_06",
@@ -443,7 +446,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "12 — 13 сентября",
+        "exactDateStart": "2026-09-12T10:00:00+00:00"
       },
       {
         "id": "256|bank_ca_12_t1",
@@ -454,7 +458,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|bank_bd_99_10jp",
@@ -465,7 +470,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|bank_bc_13_20jp",
@@ -476,7 +482,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|bank_da_13_45jp",
@@ -487,7 +494,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|bank_fb_14_100jp",
@@ -498,7 +506,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|pack_daily_50_jt_59",
@@ -509,7 +518,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "10 — 12 сентября",
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_EC_07_Bronze",
@@ -520,7 +530,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "10 — 11 сентября",
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|Pack_Nightmare",
@@ -531,7 +542,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "9 — 12 сентября",
+        "exactDateStart": "2026-09-09T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_AC_09_Bronze",
@@ -542,7 +554,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "9 — 10 сентября",
+        "exactDateStart": "2026-09-09T10:00:00+00:00"
       },
       {
         "id": "256|Mysterybox_Ability_Slash",
@@ -553,7 +566,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "8 — 11 сентября",
+        "exactDateStart": "2026-09-08T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_EE_04",
@@ -564,7 +578,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "8 — 9 сентября",
+        "exactDateStart": "2026-09-08T10:00:00+00:00"
       },
       {
         "id": "256|bundle_orbs_life_5_38",
@@ -575,7 +590,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "7 — 10 сентября",
+        "exactDateStart": "2026-09-07T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_CC_12_Gold",
@@ -586,7 +602,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "7 — 14 сентября",
+        "exactDateStart": "2026-09-07T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_AC_08_sc",
@@ -597,7 +614,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "7 — 8 сентября",
+        "exactDateStart": "2026-09-07T10:00:00+00:00"
       },
       {
         "id": "256|pack_powerlevel_90",
@@ -608,7 +626,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "6 — 8 сентября",
+        "exactDateStart": "2026-09-06T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_EE_07_Bronze",
@@ -619,7 +638,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "6 — 7 сентября",
+        "exactDateStart": "2026-09-06T10:00:00+00:00"
       },
       {
         "id": "256|LuckyBox_Cyber_Elite",
@@ -630,7 +650,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "5 — 8 сентября",
+        "exactDateStart": "2026-09-05T10:00:00+00:00"
       },
       {
         "id": "256|Specimen_EB_05_Bronze",
@@ -641,7 +662,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": "5 — 6 сентября",
+        "exactDateStart": "2026-09-05T10:00:00+00:00"
       }
     ],
     "link": "/materials",
@@ -788,7 +810,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_jackpot_madness_weekend_april_2017-en.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 14 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|Shop_LuckyBox_Mythic_Prime",
@@ -799,7 +822,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "11 — 15 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|PayWall_Sprint_247",
@@ -807,7 +831,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_sprint_247-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null
+        "exactDateLabel": "10 — 13 сентября",
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|shop_pack_daily_50_jt_59",
@@ -818,7 +843,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "10 — 12 сентября",
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Pack_Nightmare",
@@ -829,7 +855,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "9 — 12 сентября",
+        "exactDateStart": "2026-09-09T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Mysterybox_Ability_Slash",
@@ -840,7 +867,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "8 — 11 сентября",
+        "exactDateStart": "2026-09-08T10:00:00+00:00"
       },
       {
         "id": "256|Shop_bundle_orbs_life_5_38",
@@ -851,7 +879,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "7 — 10 сентября",
+        "exactDateStart": "2026-09-07T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_powerlevel_90",
@@ -862,7 +891,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "6 — 8 сентября",
+        "exactDateStart": "2026-09-06T10:00:00+00:00"
       },
       {
         "id": "256|Shop_LuckyBox_Cyber_Elite",
@@ -873,7 +903,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": "5 — 8 сентября",
+        "exactDateStart": "2026-09-05T10:00:00+00:00"
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256a",
@@ -881,7 +912,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256a-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null
+        "exactDateLabel": "5 — 12 сентября",
+        "exactDateStart": "2026-09-05T10:00:00+00:00"
       }
     ],
     "link": "/announcements",
