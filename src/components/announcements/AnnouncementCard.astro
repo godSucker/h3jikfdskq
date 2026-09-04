@@ -53,7 +53,10 @@ const forecastOffers =
   kind === 'forecast' && a.items
     ? a.items
         .filter((o, i, arr) => !o.image || arr.findIndex((x) => x.image === o.image) === i)
-        .slice(0, isBoard ? 24 : 12)
+        // Офферы с точной датой (живой kartel-запрос) - самая ценная информация
+        // на карточке, приоритет вперёд, чтобы срез .slice() их не отрезал.
+        .sort((a2, b2) => Number(!!b2.exactDateLabel) - Number(!!a2.exactDateLabel))
+        .slice(0, isBoard ? 24 : 18)
     : []
 ---
 
@@ -205,6 +208,12 @@ const forecastOffers =
           // баннер конкретного оффера не нашёлся (404, редкий старый ивент),
           // показываем текстовую подпись как обычно - иначе тайл окажется пуст.
           const skipCaption = isBoard && !!offer.image
+          // exactDateLabel - точный диапазон ЭТОГО оффера (живой kartel-запрос,
+          // см. scripts/kartel-filter-dates.ts), не общий диапазон спринта.
+          // В board-режиме подпись имени/цены скрыта (баннер сам всё несёт),
+          // но точная дата - НОВАЯ информация, которой в баннере нет, поэтому
+          // показываем её отдельной строкой, даже когда skipCaption=true.
+          const dateLabel = offer.exactDateLabel ?? (sprint !== null ? sprintRangeLabel(sprint) : null)
           return (
             <div class:list={['forecast-tile', { 'forecast-tile-board': isBoard }]}>
               <div class="forecast-tile-media">
@@ -218,9 +227,12 @@ const forecastOffers =
                   <span class="forecast-tile-name">{offer.name}</span>
                   <span class="forecast-tile-meta">
                     {formatPrice(offer.price) && <span class="forecast-tile-price">{formatPrice(offer.price)}</span>}
-                    {sprint !== null && <span class="forecast-tile-date">{sprintRangeLabel(sprint)}</span>}
+                    {dateLabel && <span class="forecast-tile-date">{dateLabel}</span>}
                   </span>
                 </div>
+              )}
+              {skipCaption && offer.exactDateLabel && (
+                <div class="forecast-tile-date-board">{offer.exactDateLabel}</div>
               )}
             </div>
           )
@@ -650,6 +662,12 @@ const forecastOffers =
   }
   .forecast-tile-board img {
     aspect-ratio: 1 / 1;
+  }
+  .forecast-tile-date-board {
+    font-size: 0.64rem;
+    color: #94a3b8;
+    text-align: center;
+    padding: 0.25rem 0.3rem;
   }
   /* Ленты - зеркалят настоящие игровые offerTag (legendary$$/limited$$/
      offertag_new$$/offertag_NN$$), не выдумка. Цвета - тот же язык, что у

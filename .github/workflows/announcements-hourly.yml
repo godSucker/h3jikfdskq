@@ -90,6 +90,34 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
+      - name: 9.5 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
+        # Статичные shopitems.xml/dailypopup.xml несут только номер спринта
+        # (2-недельное окно) - точный день конкретного оффера решает сервер
+        # в реальном времени и виден только авторизованному игровому клиенту.
+        # См. память auto-announcements-architecture.md ("ПРОРЫВ: точные даты
+        # РЕШЕНЫ"). continue-on-error - это ОБОГАЩЕНИЕ, не критический путь:
+        # detect-shop-forecast.ts/detect-daily-news.ts сами падают обратно на
+        # диапазон всего спринта, если scripts/live-filter-dates.json нет.
+        id: kartel_fetch
+        if: always()
+        continue-on-error: true
+        run: |
+          pip install requests
+          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
+      - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
+        # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
+        # сейчас сломалось", а не только ежемесячное календарное напоминание
+        # (kartel-auth-reminder.yml) - токен может истечь раньше/позже 60 дней.
+        if: always() && steps.kartel_fetch.outcome == 'failure'
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d parse_mode="Markdown" \
+            -d text="🔴 *Kartel-фильтры*: не удалось получить живые точные даты офферов. Скорее всего истёк \`auth_request_fresh.bin\` (~60 дней) - нужно обновить и перезалить секрет \`KARTEL_AUTH_BLOB_B64\`. Прогноз магазина продолжит работать на диапазоне всего спринта (без точных дат), ничего не сломано."
+
       - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news) + кросс-пост в канал
         # Прогноз магазина и daily_news не пишут отдельных файлов - тянут
         # shopitems.xml/dailypopup.xml прямо внутри build-announcements.ts

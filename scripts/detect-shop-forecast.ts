@@ -18,8 +18,9 @@
 // только превью на 1-2 недели, отдельно грузить его на свой CDN избыточно.
 
 import axios from 'axios'
-import { currentSprint, sprintRangeLabel } from '../src/lib/sprint-calendar'
+import { currentSprint, sprintRangeLabel, formatExactRangeRu } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
+import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -41,6 +42,11 @@ interface ForecastItem {
   image: string | null
   price: ForecastPrice | null
   ribbon: OfferRibbon | null
+  // Точный диапазон ЭТОГО оффера (не всего спринта), из живого kartel-запроса
+  // - см. scripts/kartel-filter-dates.ts. null, если live-данных нет (шаг не
+  // запускался/оффер не нашёлся среди фильтров) - card.astro в этом случае
+  // падает обратно на sprintRangeLabel(sprint), как было раньше.
+  exactDateLabel: string | null
 }
 
 export interface ShopForecast {
@@ -104,6 +110,8 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
     nextMarkerIdx === -1 ? undefined : xml.lastIndexOf('<ShopItem', nextMarkerIdx),
   )
 
+  const filterDates = await loadFilterDates()
+
   const items: ForecastItem[] = []
   for (const itemXml of block.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
     const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
@@ -114,6 +122,8 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
     const costMatch = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
     const usd = costMatch ? null : parseRealPriceUSD(itemXml)
     const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
+    const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
+    const exactRange = pickFilterDateRange(filterDates, filterTag)
     items.push({
       itemId,
       name: resolveName(itemId, caption),
@@ -124,6 +134,9 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
           ? { amount: usd, type: 'usd' }
           : null,
       ribbon: parseOfferRibbon(offerTag),
+      exactDateLabel: exactRange
+        ? formatExactRangeRu(new Date(exactRange.start), exactRange.end ? new Date(exactRange.end) : null)
+        : null,
     })
   }
 

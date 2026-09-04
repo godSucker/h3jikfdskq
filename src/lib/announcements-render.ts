@@ -38,6 +38,10 @@ export interface AnnouncementItem {
   // Только для shopForecast/dailyNews - настоящая игровая лента оффера
   // (offerTag из shopitems.xml), см. scripts/shop-offer-tags.ts.
   ribbon?: string | null
+  // Точный диапазон ЭТОГО оффера из живого kartel-запроса (см. scripts/
+  // kartel-filter-dates.ts) - null, если live-данных нет, тогда карточка
+  // берёт общий sprintRangeLabel(sprint) как раньше.
+  exactDateLabel?: string | null
 }
 
 // Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -

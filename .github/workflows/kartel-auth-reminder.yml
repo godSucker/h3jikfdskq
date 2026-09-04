@@ -1,0 +1,23 @@
+name: Kartel Auth Reminder
+
+# Напоминание в Telegram раз в месяц: auth_request_fresh.bin (используется
+# scripts/kartel/fetch-filters.py для точных дат офферов в /announcements)
+# живёт ~60 дней, дальше живой запрос начнёт молча падать (алерт при этом
+# уже есть отдельно - см. шаг "9.6" в announcements-hourly.yml, срабатывает
+# сразу при первом же сбое) - это ПРОАКТИВНОЕ напоминание обновить блоб ДО
+# истечения, не дожидаясь падения. См. память auto-announcements-architecture.
+on:
+  schedule:
+    - cron: '0 9 1 * *' # 1 число каждого месяца, 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Напоминание в Telegram
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            -d parse_mode="Markdown" \
+            -d text="🔑 *Ежемесячное напоминание*: обнови \`auth_request_fresh.bin\` для kartel-детектора точных дат офферов (живёт ~60 дней). После обновления:%0A\`base64 -w0 auth_request_fresh.bin | gh secret set KARTEL_AUTH_BLOB_B64 --repo godSucker/h3jikfdskq\`"

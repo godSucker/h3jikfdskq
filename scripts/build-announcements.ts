@@ -42,6 +42,10 @@ interface AnnouncementItem {
   // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
   // (legendary/limited/new/discount-N/...), см. scripts/shop-offer-tags.ts.
   ribbon?: OfferRibbon | null
+  // Только для shopForecast/dailyNews - точный диапазон ЭТОГО оффера из
+  // живого kartel-запроса (см. scripts/kartel-filter-dates.ts). null, если
+  // live-данных для него нет - страница падает на sprintRangeLabel(sprint).
+  exactDateLabel?: string | null
 }
 
 interface Announcement {
@@ -454,6 +458,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
       image: it.image,
       price: it.price,
       ribbon: it.ribbon,
+      exactDateLabel: it.exactDateLabel,
     })),
   }
 }
@@ -471,6 +476,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
       image: it.image ?? forecast.coverImage,
       price: it.price,
       ribbon: it.ribbon,
+      exactDateLabel: it.exactDateLabel,
     })),
   }
 }

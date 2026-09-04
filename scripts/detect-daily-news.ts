@@ -12,8 +12,9 @@
 export const LANG_SUFFIXES = ['ru', 'en'] as const
 
 import axios from 'axios'
-import { currentSprint, sprintRangeLabel, sprintStartDate } from '../src/lib/sprint-calendar'
+import { currentSprint, sprintRangeLabel, sprintStartDate, formatExactRangeRu } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
+import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 
 const DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
@@ -32,6 +33,8 @@ interface DailyNewsItem {
   image: string | null
   price: DailyNewsPrice | null
   ribbon: OfferRibbon | null
+  // См. detect-shop-forecast.ts - тот же live-источник (kartel-filter-dates).
+  exactDateLabel: string | null
 }
 
 function balanceQuotes(name: string): string {
@@ -197,10 +200,13 @@ export async function fetchDailyNewsForecast(): Promise<DailyNewsForecast | null
     if (filter) rawItems.push({ filter, category, imageRaw, entity })
   }
 
+  const filterDates = await loadFilterDates()
+
   const items: DailyNewsItem[] = []
   for (const it of rawItems) {
     const image = it.imageRaw ? await resolveOfferBanner(it.imageRaw) : null
     const shopInfo = it.entity ? shopIndex.get(it.entity.toLowerCase()) : undefined
+    const exactRange = pickFilterDateRange(filterDates, it.filter)
     items.push({
       filter: it.filter,
       name: shopInfo?.name ?? prettifyFilter(it.filter),
@@ -208,6 +214,9 @@ export async function fetchDailyNewsForecast(): Promise<DailyNewsForecast | null
       image,
       price: shopInfo?.price ?? null,
       ribbon: shopInfo?.ribbon ?? null,
+      exactDateLabel: exactRange
+        ? formatExactRangeRu(new Date(exactRange.start), exactRange.end ? new Date(exactRange.end) : null)
+        : null,
     })
   }
 
