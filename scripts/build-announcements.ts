@@ -708,11 +708,16 @@ async function notifyNewExactDates(
   // после обновления auth.bin) список легко перевалит за лимит сообщения
   // Telegram (4096 символов), сообщение просто не уйдёт вообще.
   const CAP = 20
-  const lines = items.slice(0, CAP).map((it) => `📅 ${it.announcementTitle} → ${it.itemName}: ${it.exactDateLabel}`)
+  const lines = items
+    .slice(0, CAP)
+    .map((it) => `📅 ${it.announcementTitle} → ${it.itemName}: ${it.exactDateLabel}`)
   if (items.length > CAP) lines.push(`… и ещё ${items.length - CAP}`)
-  const text = [`Уточнились точные даты (${items.length}):`, ...lines, '', 'https://archivist-library.com/announcements'].join(
-    '\n',
-  )
+  const text = [
+    `Уточнились точные даты (${items.length}):`,
+    ...lines,
+    '',
+    'https://archivist-library.com/announcements',
+  ].join('\n')
 
   try {
     await axios.post(

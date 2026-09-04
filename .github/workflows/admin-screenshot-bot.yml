@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      test_chat_id:
+        description: 'Переопределить чат назначения на этот прогон (для проверки в тестовом чате, вместо реального админ-чата). Пусто = обычный TELEGRAM_CHAT_ID.'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -45,7 +50,7 @@ jobs:
         run: npx tsx scripts/process-pending-screenshots.ts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ inputs.test_chat_id || secrets.TELEGRAM_CHAT_ID }}
 
       - name: 5. Коммит очереди (если что-то изменилось)
         uses: stefanzweifel/git-auto-commit-action@v5
