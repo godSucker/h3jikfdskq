@@ -23,6 +23,7 @@ import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-po
 import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 import { formatExactRangeRu } from '../src/lib/sprint-calendar'
+import { enqueueScreenshotJobs } from './pending-screenshots'
 
 const ROOT = process.cwd()
 // НЕ scripts/.cache/ - та папка в .gitignore и не переживает между прогонами
@@ -689,6 +690,41 @@ async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
   }
 }
 
+// Отдельный алерт "у уже опубликованного оффера появилась точная дата" -
+// юзер попросил не молчать про дозаполнение (kartel открывает даты
+// постепенно по мере приближения спринта, не разом, см. комментарий у
+// newlyDated в main()). НАМЕРЕННО без parse_mode - имена офферов несут
+// «»/_/* (реальные примеры), Markdown-парсинг Telegram падает на них 400-кой
+// (тот же класс проблемы, что описан в scripts/telegram-admin-bot.ts).
+async function notifyNewExactDates(
+  items: { announcementTitle: string; itemName: string; exactDateLabel: string }[],
+): Promise<void> {
+  if (items.length === 0) return
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!token || !chatId) return
+
+  // Кап на 20 строк - при массовом раскрытии дат разом (например, сразу
+  // после обновления auth.bin) список легко перевалит за лимит сообщения
+  // Telegram (4096 символов), сообщение просто не уйдёт вообще.
+  const CAP = 20
+  const lines = items.slice(0, CAP).map((it) => `📅 ${it.announcementTitle} → ${it.itemName}: ${it.exactDateLabel}`)
+  if (items.length > CAP) lines.push(`… и ещё ${items.length - CAP}`)
+  const text = [`Уточнились точные даты (${items.length}):`, ...lines, '', 'https://archivist-library.com/announcements'].join(
+    '\n',
+  )
+
+  try {
+    await axios.post(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      { chat_id: chatId, text },
+      { timeout: 10_000 },
+    )
+  } catch (e) {
+    console.error('[ANNOUNCE] Не удалось отправить алерт о новых точных датах:', e)
+  }
+}
+
 async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
@@ -723,6 +759,13 @@ async function main() {
   const published: string[] = []
   const failed: string[] = []
   const newlyAdded: Announcement[] = []
+  // Отдельно от newlyAdded - это НЕ новые посты (updateExisting не создаёт
+  // Announcement), а точечное дозаполнение exactDateLabel на уже
+  // опубликованных офферах прогноза (kartel отдаёт даты не сразу на весь
+  // спринт разом, а постепенно, по мере приближения даты - юзер попросил
+  // отдельный алерт "как только добавятся новые даты", не молчать как
+  // раньше). См. notifyNewExactDates ниже.
+  const newlyDated: { announcementTitle: string; itemName: string; exactDateLabel: string }[] = []
 
   for (const d of DETECTORS) {
     try {
@@ -761,11 +804,25 @@ async function main() {
         )
         if (existing) {
           const oldById = new Map(existing.items.map((it) => [it.id, it]))
-          existing.items = updateExisting.items.map((fresh) => ({
-            ...fresh,
-            exactDateLabel: fresh.exactDateLabel ?? oldById.get(fresh.id)?.exactDateLabel ?? null,
-            exactDateStart: fresh.exactDateStart ?? oldById.get(fresh.id)?.exactDateStart ?? null,
-          }))
+          existing.items = updateExisting.items.map((fresh) => {
+            const old = oldById.get(fresh.id)
+            // Дата ПОЯВИЛАСЬ именно в этом прогоне (раньше её не было, сейчас
+            // есть) - собираем для алерта. Не триггерим на "дата уже была
+            // раньше" (fresh совпадает со старым значением на большинстве
+            // тиков - kartel просто подтверждает то же самое окно).
+            if (fresh.exactDateLabel && !old?.exactDateLabel) {
+              newlyDated.push({
+                announcementTitle: existing.title ?? d.title,
+                itemName: fresh.name,
+                exactDateLabel: fresh.exactDateLabel,
+              })
+            }
+            return {
+              ...fresh,
+              exactDateLabel: fresh.exactDateLabel ?? old?.exactDateLabel ?? null,
+              exactDateStart: fresh.exactDateStart ?? old?.exactDateStart ?? null,
+            }
+          })
         }
       }
       // Ledger обновляется ТОЛЬКО при успехе: если детектор упал, оставляем
@@ -781,6 +838,16 @@ async function main() {
 
   await saveLedger(ledger)
   await fs.writeFile(ANNOUNCEMENTS_PATH, JSON.stringify(announcements, null, 2) + '\n', 'utf-8')
+
+  // Бот-скриншотер в АДМИН-чат (TELEGRAM_CHAT_ID, не публичный канал) -
+  // отдельный флоу от CROSS_POST_ENABLED ниже, независимо от того, включён
+  // публичный кросс-пост или нет. Только СТАВИТ задачи в очередь - реальную
+  // отправку делает scripts/process-pending-screenshots.ts отдельным
+  // 5-минутным cron'ом (нужна пауза на Vercel-редеплой перед скриншотом
+  // живого прода, см. scripts/pending-screenshots.ts).
+  await enqueueScreenshotJobs(newlyAdded).catch((err) =>
+    console.error('[ADMIN-BOT] Не удалось поставить задачи в очередь скриншотов:', err),
+  )
 
   // Кросс-пост в Telegram-канал ОТКЛЮЧЁН 2026-08-08 (юзер: "пока надо
   // отключить" - после нескольких раундов нестабильности скриншот-эндпоинта
@@ -825,6 +892,7 @@ async function main() {
   }
 
   await notifyRunSummary(newlyAdded)
+  await notifyNewExactDates(newlyDated)
 
   const cacheDir = path.join(ROOT, 'scripts/.cache')
   await fs.mkdir(cacheDir, { recursive: true })

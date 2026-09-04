@@ -197,7 +197,30 @@
     const key = window.location.hash.slice(1)
     return TABS.some((t) => t.key === key) ? key : 'legendaries'
   }
-  let activeTab = $state(initialTab())
+
+  // ?dungeon=<id> - открыть конкретный рейд/лесенку напрямую (для
+  // api/screenshot-dungeon.ts, бот-скриншотер в админ-чат, см. память
+  // auto-announcements-architecture.md). Ищет id среди raids/eventLadders/
+  // specialLadders.{experiment,challenge} ПРОПСОВ (не данных - на момент
+  // вызова этой функции они уже переданы компоненту), чтобы понять сразу и
+  // вкладку (raids/ladders), и секцию лесенок (event/experiment/challenge) -
+  // activeLadderSection ниже иначе не узнала бы, в какой из трёх массивов
+  // смотреть. Определяется ОДИН раз при маунте, до объявления activeTab/
+  // activeLadderSection ($state), как обычная функция, не $derived - иначе
+  // порядок инициализации двух state-полей сломался бы (второе ещё не
+  // существует, когда считается первое).
+  function resolveDungeonDeepLink(): { tab: string; section: 'event' | 'experiment' | 'challenge' } | null {
+    if (typeof window === 'undefined') return null
+    const id = new URLSearchParams(window.location.search).get('dungeon')
+    if (!id) return null
+    if (raids.some((r) => r.id === id)) return { tab: 'raids', section: 'event' }
+    if (eventLadders.some((e) => e.id === id)) return { tab: 'ladders', section: 'event' }
+    if (specialLadders.experiment.some((d) => d.id === id)) return { tab: 'ladders', section: 'experiment' }
+    if (specialLadders.challenge.some((d) => d.id === id)) return { tab: 'ladders', section: 'challenge' }
+    return null
+  }
+  const dungeonDeepLink = resolveDungeonDeepLink()
+  let activeTab = $state(dungeonDeepLink?.tab ?? initialTab())
 
   // Клик по результату поиска на СТРАНИЦЕ /guides меняет только фрагмент
   // (#quests и т.п.) - это НЕ полная навигация, initialTab() выше запускается
@@ -237,7 +260,7 @@
     return n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
   }
 
-  let activeLadderSection = $state<'event' | 'experiment' | 'challenge'>('event')
+  let activeLadderSection = $state<'event' | 'experiment' | 'challenge'>(dungeonDeepLink?.section ?? 'event')
 
   let offersByLevel = $derived.by(() => {
     const map = new Map<number, SpecialOffer[]>()
@@ -280,7 +303,7 @@
   )}
     {@const fallbackIcon = items.find((it) => it.icon)?.icon ?? currency.find((c) => c.icon)?.icon ?? '/stars/star_gold.webp'}
     {@const cover = dungeonCovers[id]}
-    <div class="activity-card" class:no-mutant={!mutant}>
+    <div class="activity-card" class:no-mutant={!mutant} data-dungeon-id={id}>
       {#if mutant}
         <button
           class="activity-hero"

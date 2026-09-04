@@ -78,6 +78,7 @@ jobs:
             src/data/mutants/obtain.json
             src/data/announcements.json
             scripts/announced-ids-cache.json
+            scripts/pending-screenshots.json
             scripts/resolved-names-cache.json
             scripts/pending-names-cache.json
             public/reactor/**
