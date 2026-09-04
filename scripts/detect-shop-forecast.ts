@@ -70,6 +70,10 @@ interface ForecastItem {
   // запускался/оффер не нашёлся среди фильтров) - card.astro в этом случае
   // падает обратно на sprintRangeLabel(sprint), как было раньше.
   exactDateLabel: string | null
+  // ISO-дата начала (не форматированная) - нужна для хронологической
+  // сортировки офферов на странице (ближайшие сверху), formatExactRangeRu()
+  // теряет сортируемость (текст с названием месяца).
+  exactDateStart: string | null
 }
 
 export interface ShopForecast {
@@ -168,6 +172,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
             exactRange.end ? new Date(exactRange.end) : null,
           )
         : null,
+      exactDateStart: exactRange?.start ?? null,
     })
   }
 

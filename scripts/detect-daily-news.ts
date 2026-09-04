@@ -40,6 +40,7 @@ interface DailyNewsItem {
   ribbon: OfferRibbon | null
   // См. detect-shop-forecast.ts - тот же live-источник (kartel-filter-dates).
   exactDateLabel: string | null
+  exactDateStart: string | null
 }
 
 function balanceQuotes(name: string): string {
@@ -229,6 +230,7 @@ export async function fetchDailyNewsForecast(
             exactRange.end ? new Date(exactRange.end) : null,
           )
         : null,
+      exactDateStart: exactRange?.start ?? null,
     })
   }
 

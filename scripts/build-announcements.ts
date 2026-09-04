@@ -51,6 +51,9 @@ interface AnnouncementItem {
   // gacha.xml <Filter> нет вообще, реакторы не датируются в принципе).
   // null, если live-данных для него нет.
   exactDateLabel?: string | null
+  // ISO-дата начала (не форматированная) - для хронологической сортировки
+  // на странице (ближайшие сверху), formatExactRangeRu() не сортируется.
+  exactDateStart?: string | null
 }
 
 interface Announcement {
@@ -315,12 +318,17 @@ async function buildDungeonFilterMap(): Promise<Map<string, string>> {
   return map
 }
 
-async function exactDateFor(filterName: string | undefined): Promise<string | null> {
+async function exactDateFor(
+  filterName: string | undefined,
+): Promise<{ label: string; start: string } | null> {
   if (!filterName) return null
   const dates = await loadFilterDates()
   const range = pickFilterDateRange(dates, filterName)
   if (!range) return null
-  return formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null)
+  return {
+    label: formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null),
+    start: range.start,
+  }
 }
 
 async function detectBoxes(seen: string[]): Promise<DetectResult> {
@@ -334,12 +342,16 @@ async function detectBoxes(seen: string[]): Promise<DetectResult> {
   return {
     newIds: boxes.map((b) => b.itemId),
     items: await Promise.all(
-      fresh.map(async (b) => ({
-        id: b.itemId,
-        name: b.name,
-        image: b.icon ?? null,
-        exactDateLabel: await exactDateFor(filterMap.get(b.itemId)),
-      })),
+      fresh.map(async (b) => {
+        const exact = await exactDateFor(filterMap.get(b.itemId))
+        return {
+          id: b.itemId,
+          name: b.name,
+          image: b.icon ?? null,
+          exactDateLabel: exact?.label ?? null,
+          exactDateStart: exact?.start ?? null,
+        }
+      }),
     ),
   }
 }
@@ -431,7 +443,8 @@ async function detectDungeons(
 
   const seenSet = new Set(seen)
   const fresh = entries.filter((d) => !seenSet.has(d.id))
-  const filterMap = fresh.length > 0 ? await buildDungeonFilterMap().catch(() => new Map()) : new Map()
+  const filterMap =
+    fresh.length > 0 ? await buildDungeonFilterMap().catch(() => new Map()) : new Map()
 
   const items = await Promise.all(
     fresh.map(async (d) => {
@@ -450,11 +463,13 @@ async function detectDungeons(
           : d.rewards.items[0]
             ? (await dungeonItemName(d.rewards.items[0].id, materialsById, mutantsById)).image
             : null
+      const exact = await exactDateFor(filterMap.get(d.id))
       return {
         id: d.id,
         name: `${linePrefix} «${d.name}» (${d.fightCount} боёв)`,
         image,
-        exactDateLabel: await exactDateFor(filterMap.get(d.id)),
+        exactDateLabel: exact?.label ?? null,
+        exactDateStart: exact?.start ?? null,
       }
     }),
   )
@@ -529,6 +544,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
     price: it.price,
     ribbon: it.ribbon,
     exactDateLabel: it.exactDateLabel,
+    exactDateStart: it.exactDateStart,
   }))
   // Спринт уже опубликован раньше - не новый пост, а дозаполнение exactDateLabel
   // на месте (часть офферов узнают точную дату не в момент первой публикации
@@ -549,6 +565,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
     price: it.price,
     ribbon: it.ribbon,
     exactDateLabel: it.exactDateLabel,
+    exactDateStart: it.exactDateStart,
   }))
   if (seen.includes(key))
     return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
@@ -728,10 +745,28 @@ async function main() {
         // (exactDateLabel) в УЖЕ существующей записи. Не трогает id/date/
         // title - на ленте это не выглядит как новый анонс, notifyRunSummary/
         // кросс-пост не триггерятся (announcements/newlyAdded не пополняются).
+        //
+        // НАЙДЕНО 2026-09-04: live-фильтры account'а НЕ растут монотонно -
+        // набор может СЖИМАТЬСЯ между прогонами (сколько именно окон отдаёт
+        // сервер в моменте - не гарантировано), даже когда сам запрос
+        // отработал успешно (не упал). Слепая замена existing.items = свежие
+        // один раз реально стёрла 22 уже найденных даты спринта 256 в 0 -
+        // конкретно у пользователя на проде. Мердж по id: новое значение
+        // побеждает, ТОЛЬКО если оно реально есть - иначе сохраняем старое.
+        // Остальные поля (картинка/цена/лента) берём из свежих данных как
+        // есть - те приходят из статичного XML, не live-kartel, там регрессий
+        // такого рода не бывает.
         const existing = announcements.find(
           (a2) => a2.category === d.category && a2.sprintKey === updateExisting.sprintKey,
         )
-        if (existing) existing.items = updateExisting.items
+        if (existing) {
+          const oldById = new Map(existing.items.map((it) => [it.id, it]))
+          existing.items = updateExisting.items.map((fresh) => ({
+            ...fresh,
+            exactDateLabel: fresh.exactDateLabel ?? oldById.get(fresh.id)?.exactDateLabel ?? null,
+            exactDateStart: fresh.exactDateStart ?? oldById.get(fresh.id)?.exactDateStart ?? null,
+          }))
+        }
       }
       // Ledger обновляется ТОЛЬКО при успехе: если детектор упал, оставляем
       // старое значение - на следующем прогоне попробуем ещё раз, ничего не
