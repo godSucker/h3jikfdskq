@@ -2231,5 +2231,59 @@
       }
     ],
     "link": "/announcements"
+  },
+  {
+    "id": "ladder-1788531645531",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Новые лесенки: 9",
+    "items": [
+      {
+        "id": "celestial_13",
+        "name": "Лесенка «Небесное тело» (50 боёв)",
+        "image": "textures_by_mutant/ce_11/specimen_ce_11_normal.webp"
+      },
+      {
+        "id": "pit_saber_12",
+        "name": "Лесенка «Яма: Рубака» (45 боёв)",
+        "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp"
+      },
+      {
+        "id": "pit_galactic_12",
+        "name": "Лесенка «Яма: Галактик» (45 боёв)",
+        "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp"
+      },
+      {
+        "id": "rapanui_17",
+        "name": "Лесенка «Рапа-Нуи» (100 боёв)",
+        "image": null
+      },
+      {
+        "id": "gotham_17",
+        "name": "Лесенка «Темный город» (100 боёв)",
+        "image": null
+      },
+      {
+        "id": "jungle_17",
+        "name": "Лесенка «Амазонка» (101 боёв)",
+        "image": null
+      },
+      {
+        "id": "miami_17",
+        "name": "Лесенка «Пляжные бои Майами» (100 боёв)",
+        "image": null
+      },
+      {
+        "id": "olympus_17",
+        "name": "Лесенка «Гора Олимп» (100 боёв)",
+        "image": null
+      },
+      {
+        "id": "space_17",
+        "name": "Лесенка «Космопорт» (100 боёв)",
+        "image": null
+      }
+    ],
+    "link": "/guides"
   }
 ]

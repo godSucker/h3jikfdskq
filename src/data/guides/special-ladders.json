@@ -3146,6 +3146,125 @@
           }
         ]
       }
+    },
+    {
+      "id": "celestial_13",
+      "name": "Небесное тело",
+      "nameAuthored": true,
+      "mutantId": "Specimen_CE_11",
+      "fightCount": 50,
+      "bossCount": 9,
+      "rewards": {
+        "currency": {
+          "softcurrency": 187250,
+          "hardcurrency": 0,
+          "experience": 14945
+        },
+        "items": [
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 2
+          },
+          {
+            "id": "orb_basic_retaliate_03",
+            "amount": 1
+          },
+          {
+            "id": "Material_Gacha_Token",
+            "amount": 1
+          },
+          {
+            "id": "Habitat_F_3_HC",
+            "amount": 1
+          },
+          {
+            "id": "Star_Platinum",
+            "amount": 1
+          },
+          {
+            "id": "Specimen_CE_11",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pit_saber_12",
+      "name": "Яма: Рубака",
+      "nameAuthored": true,
+      "mutantId": "Specimen_CC_10",
+      "fightCount": 45,
+      "bossCount": 1,
+      "rewards": {
+        "currency": {
+          "softcurrency": 172000,
+          "hardcurrency": 0,
+          "experience": 17200
+        },
+        "items": [
+          {
+            "id": "Material_XP1000",
+            "amount": 5
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 2
+          },
+          {
+            "id": "orb_basic_retaliate_04",
+            "amount": 1
+          },
+          {
+            "id": "Specimen_CC_10",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pit_galactic_12",
+      "name": "Яма: Галактик",
+      "nameAuthored": true,
+      "mutantId": "Specimen_EB_10",
+      "fightCount": 45,
+      "bossCount": 1,
+      "rewards": {
+        "currency": {
+          "softcurrency": 118000,
+          "hardcurrency": 0,
+          "experience": 11500
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 1
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "Material_XP1000",
+            "amount": 10
+          },
+          {
+            "id": "orb_basic_strengthen_04",
+            "amount": 1
+          },
+          {
+            "id": "Specimen_EB_10",
+            "amount": 1
+          }
+        ]
+      }
     }
   ],
   "challenge": [
@@ -4238,6 +4357,256 @@
           {
             "id": "orb_special_addregenerate_03_ephemeral_20",
             "amount": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "rapanui_17",
+      "name": "Рапа-Нуи",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 100,
+      "bossCount": 0,
+      "rewards": {
+        "currency": {
+          "softcurrency": 470000,
+          "hardcurrency": 0,
+          "experience": 41650
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "Charm_Anticritical_3",
+            "amount": 2
+          },
+          {
+            "id": "orb_special_addshield_03",
+            "amount": 1
+          },
+          {
+            "id": "Star_Gold",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "gotham_17",
+      "name": "Темный город",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 100,
+      "bossCount": 0,
+      "rewards": {
+        "currency": {
+          "softcurrency": 470000,
+          "hardcurrency": 0,
+          "experience": 41650
+        },
+        "items": [
+          {
+            "id": "Material_LP1000",
+            "amount": 10
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Material_XP1000",
+            "amount": 5
+          },
+          {
+            "id": "Charm_Critical_3",
+            "amount": 2
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "orb_special_addstrengthen_03",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "jungle_17",
+      "name": "Амазонка",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 101,
+      "bossCount": 1,
+      "rewards": {
+        "currency": {
+          "softcurrency": 485000,
+          "hardcurrency": 0,
+          "experience": 43150
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Material_XP1000",
+            "amount": 10
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 1
+          },
+          {
+            "id": "Star_Gold",
+            "amount": 1
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "miami_17",
+      "name": "Пляжные бои Майами",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 100,
+      "bossCount": 0,
+      "rewards": {
+        "currency": {
+          "softcurrency": 470000,
+          "hardcurrency": 0,
+          "experience": 41650
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 5
+          },
+          {
+            "id": "Material_XP1000",
+            "amount": 10
+          },
+          {
+            "id": "orb_special_addweaken_03",
+            "amount": 1
+          },
+          {
+            "id": "Star_Gold",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "olympus_17",
+      "name": "Гора Олимп",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 100,
+      "bossCount": 0,
+      "rewards": {
+        "currency": {
+          "softcurrency": 470000,
+          "hardcurrency": 0,
+          "experience": 41650
+        },
+        "items": [
+          {
+            "id": "Charm_Regenx4_3",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 1
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "orb_special_addslash_03",
+            "amount": 1
+          },
+          {
+            "id": "Star_Platinum",
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "space_17",
+      "name": "Космопорт",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 100,
+      "bossCount": 0,
+      "rewards": {
+        "currency": {
+          "softcurrency": 470000,
+          "hardcurrency": 0,
+          "experience": 41650
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 1
+          },
+          {
+            "id": "Material_Event_Token",
+            "amount": 30
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 10
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 1
+          },
+          {
+            "id": "orb_special_addweaken_03",
+            "amount": 1
+          },
+          {
+            "id": "Charm_Xpx3_3",
+            "amount": 2
           }
         ]
       }

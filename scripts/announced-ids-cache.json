@@ -2362,6 +2362,9 @@
     "anniversary_25_1",
     "anniversary_25_2",
     "hexcity_2",
+    "celestial_13",
+    "pit_saber_12",
+    "pit_galactic_12",
     "jungle_bells_1",
     "jungle_bells_2",
     "jungle_bells_3",
@@ -2390,7 +2393,13 @@
     "triangle_def",
     "halloween2018_1",
     "halloween2018_2",
-    "japan_16"
+    "japan_16",
+    "rapanui_17",
+    "gotham_17",
+    "jungle_17",
+    "miami_17",
+    "olympus_17",
+    "space_17"
   ],
   "token": [
     "Daily_Token",
