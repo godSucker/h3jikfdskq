@@ -234,7 +234,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_EA_06_Bronze",
@@ -245,7 +246,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|bundle_orbs_crafting_master",
@@ -256,7 +258,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-75",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_FC_08_sc",
@@ -267,7 +270,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_FC_04",
@@ -278,7 +282,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|pack_be_13_1000_hc",
@@ -289,7 +294,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|pack_be_13_4000_hc",
@@ -300,7 +306,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|pack_be_13_10000_hc",
@@ -311,7 +318,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_BB_08",
@@ -322,7 +330,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|LuckyBox_Research_IX",
@@ -333,7 +342,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_BA_05_Gold",
@@ -344,7 +354,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Pack_Dieselpunk",
@@ -355,7 +366,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|pack_daily_3_gold_68",
@@ -366,7 +378,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_BC_13_rc",
@@ -377,7 +390,8 @@
           "type": "usd"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_EA_09_sc",
@@ -388,7 +402,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|bundle_orbs_experimental_growth_11",
@@ -399,7 +414,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Specimen_DC_06_Bronze_sc",
@@ -684,7 +700,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_retaliate_5_27",
@@ -695,7 +712,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_crafting_master",
@@ -706,7 +724,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-75",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_1000_hc",
@@ -717,7 +736,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_4000_hc",
@@ -728,7 +748,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_10000_hc",
@@ -739,7 +760,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_Specimen_FC_04",
@@ -750,7 +772,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_LuckyBox_Research_IX",
@@ -761,7 +784,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_Pack_Dieselpunk",
@@ -772,7 +796,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_daily_3_gold_68",
@@ -783,7 +808,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_experimental_growth_11",
@@ -794,7 +820,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256b",
@@ -802,7 +829,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256b-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|daily_news_jackpot_madness_weekend_50",
