@@ -13,6 +13,7 @@ export const LANG_SUFFIXES = ['ru', 'en'] as const
 
 import axios from 'axios'
 import { currentSprint, sprintRangeLabel, sprintStartDate } from '../src/lib/sprint-calendar'
+import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 
 const DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
@@ -22,7 +23,7 @@ const ASSETS_BASE = 'https://s-beta.kobojo.com/mutants/assets/'
 
 export interface DailyNewsPrice {
   amount: number
-  type: 'hardcurrency' | 'softcurrency'
+  type: 'hardcurrency' | 'softcurrency' | 'usd'
 }
 interface DailyNewsItem {
   filter: string
@@ -30,6 +31,7 @@ interface DailyNewsItem {
   category: string | null
   image: string | null
   price: DailyNewsPrice | null
+  ribbon: OfferRibbon | null
 }
 
 function balanceQuotes(name: string): string {
@@ -101,6 +103,7 @@ async function resolveOfferBanner(imageRaw: string): Promise<string | null> {
 interface ShopItemInfo {
   name: string
   price: DailyNewsPrice | null
+  ribbon: OfferRibbon | null
 }
 
 async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
@@ -150,11 +153,16 @@ async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
     if (!itemId) continue
     const caption = itemXml.match(/caption="([^"]+)"/)?.[1]
     const costMatch = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
+    const usd = costMatch ? null : parseRealPriceUSD(itemXml)
+    const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
     index.set(itemId.toLowerCase(), {
       name: resolveName(itemId, caption),
       price: costMatch
         ? { amount: Number(costMatch[1]), type: costMatch[2] as 'hardcurrency' | 'softcurrency' }
-        : null,
+        : usd !== null
+          ? { amount: usd, type: 'usd' }
+          : null,
+      ribbon: parseOfferRibbon(offerTag),
     })
   }
   return index
@@ -199,6 +207,7 @@ export async function fetchDailyNewsForecast(): Promise<DailyNewsForecast | null
       category: it.category,
       image,
       price: shopInfo?.price ?? null,
+      ribbon: shopInfo?.ribbon ?? null,
     })
   }
 

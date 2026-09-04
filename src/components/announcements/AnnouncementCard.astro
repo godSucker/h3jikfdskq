@@ -19,6 +19,8 @@ import {
   boxDescription,
   TIER_ICON,
   fmtDate,
+  ribbonLabel,
+  ribbonClass,
   type Announcement,
   type AnnouncementRenderContext,
 } from '@/lib/announcements-render'
@@ -191,7 +193,12 @@ const forecastOffers =
       <div class="forecast-grid">
         {forecastOffers.map((offer) => (
           <div class="forecast-tile">
-            {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
+            <div class="forecast-tile-media">
+              {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
+              {ribbonLabel(offer.ribbon) && (
+                <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon)}</span>
+              )}
+            </div>
             <div class="forecast-tile-info">
               <span class="forecast-tile-name">{offer.name}</span>
               <span class="forecast-tile-meta">
@@ -608,6 +615,9 @@ const forecastOffers =
     overflow: hidden;
     background: rgba(255, 255, 255, 0.04);
   }
+  .forecast-tile-media {
+    position: relative;
+  }
   .forecast-tile img {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -615,6 +625,29 @@ const forecastOffers =
     background: rgba(0, 0, 0, 0.35);
     display: block;
   }
+  /* Ленты - зеркалят настоящие игровые offerTag (legendary$$/limited$$/
+     offertag_new$$/offertag_NN$$), не выдумка. Цвета - тот же язык, что у
+     игры (красный "лимитка", фиолетовый "легендарка"). */
+  .forecast-ribbon {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+  .ribbon-legendary { background: linear-gradient(135deg, #a855f7, #6d28d9); }
+  .ribbon-limited { background: linear-gradient(135deg, #f87171, #b91c1c); }
+  .ribbon-new { background: linear-gradient(135deg, #4ade80, #15803d); }
+  .ribbon-heroic { background: linear-gradient(135deg, #fb923c, #c2410c); }
+  .ribbon-exclusive { background: linear-gradient(135deg, #f472b6, #be185d); }
+  .ribbon-seasonal { background: linear-gradient(135deg, #38bdf8, #0369a1); }
+  .ribbon-discount { background: linear-gradient(135deg, #60a5fa, #1d4ed8); }
   .forecast-tile-info {
     display: flex;
     flex-direction: column;

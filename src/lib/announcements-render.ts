@@ -32,7 +32,36 @@ export interface AnnouncementItem {
   addedNames?: string[]
   // Только для shopForecast/dailyNews - реальная цена оффера, если она есть
   // (не у всех, часть daily_news - чисто событийные анонсы без покупки).
-  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null
+  // 'usd' - донат-паки за реальные деньги (<RealPrices Currency="USD">),
+  // отдельно от игровой золота/серебра.
+  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
+  // Только для shopForecast/dailyNews - настоящая игровая лента оффера
+  // (offerTag из shopitems.xml), см. scripts/shop-offer-tags.ts.
+  ribbon?: string | null
+}
+
+// Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -
+// он тянет node-only axios/fs и живёт вне Vite-графа страницы).
+const RIBBON_LABEL: Record<string, string> = {
+  legendary: 'Легендарный',
+  limited: 'Ограниченное предложение',
+  new: 'Новинка',
+  heroic: 'Героический',
+  exclusive: 'Эксклюзив',
+  seasonal: 'Событие',
+}
+
+export function ribbonLabel(ribbon: string | null | undefined): string | null {
+  if (!ribbon) return null
+  const discount = ribbon.match(/^discount-(\d+)$/)
+  if (discount) return `-${discount[1]}%`
+  return RIBBON_LABEL[ribbon] ?? null
+}
+
+export function ribbonClass(ribbon: string | null | undefined): string {
+  if (!ribbon) return ''
+  if (ribbon.startsWith('discount-')) return 'ribbon-discount'
+  return `ribbon-${ribbon}`
 }
 
 export interface Announcement {
@@ -112,9 +141,10 @@ export const TIER_ICON: Record<string, string> = {
 }
 
 export function formatPrice(
-  price: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null | undefined,
+  price: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null | undefined,
 ): string | null {
   if (!price) return null
+  if (price.type === 'usd') return `USD ${price.amount.toFixed(2)}`
   const label = price.type === 'hardcurrency' ? 'золота' : 'серебра'
   return `${price.amount.toLocaleString('ru-RU')} ${label}`
 }

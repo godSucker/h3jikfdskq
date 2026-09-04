@@ -20,6 +20,7 @@ import axios from 'axios'
 import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
+import type { OfferRibbon } from './shop-offer-tags'
 
 const ROOT = process.cwd()
 // НЕ scripts/.cache/ - та папка в .gitignore и не переживает между прогонами
@@ -37,7 +38,10 @@ interface AnnouncementItem {
   // добавленных в уже существующую (см. detectBingo).
   addedNames?: string[]
   // Только для shopForecast/dailyNews.
-  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null
+  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
+  // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
+  // (legendary/limited/new/discount-N/...), см. scripts/shop-offer-tags.ts.
+  ribbon?: OfferRibbon | null
 }
 
 interface Announcement {
@@ -449,6 +453,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
       name: it.name,
       image: it.image,
       price: it.price,
+      ribbon: it.ribbon,
     })),
   }
 }
@@ -465,6 +470,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
       name: it.name,
       image: it.image ?? forecast.coverImage,
       price: it.price,
+      ribbon: it.ribbon,
     })),
   }
 }
