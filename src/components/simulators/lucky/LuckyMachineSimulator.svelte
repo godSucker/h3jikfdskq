@@ -146,7 +146,7 @@
   // --- Helpers for Detailed Results ---
   function getActualShare(entry: LuckyRewardAggregate): string {
     if (!result || result.totalSpins <= 0) return '—';
-    return formatPercent(entry.count / result.totalSpins, 2);
+    return formatPercent(entry.count / result.totalSpins, 4);
   }
 
   function getExpectedShare(entry: LuckyRewardAggregate): string {

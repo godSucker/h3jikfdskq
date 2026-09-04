@@ -338,7 +338,7 @@
 
   function getActualShare(entry: MadnessRewardAggregate): string {
     if (!result || result.totalSpins <= 0) return '—';
-    return `${((entry.count / result.totalSpins) * 100).toFixed(2)}%`;
+    return `${((entry.count / result.totalSpins) * 100).toFixed(4)}%`;
   }
 
   function getCurrencyLabel(entry: MadnessRewardAggregate): string {
