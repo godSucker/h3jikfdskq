@@ -31,6 +31,7 @@ interface AnnouncementItem {
   price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
   ribbon?: string | null
   exactDateLabel?: string | null
+  exactDateStart?: string | null
 }
 
 interface Announcement {
@@ -94,6 +95,7 @@ async function main() {
           price: it.price,
           ribbon: it.ribbon,
           exactDateLabel: it.exactDateLabel,
+          exactDateStart: it.exactDateStart,
         })),
         link: '/materials',
         sprintKey: String(sprint),
@@ -116,6 +118,7 @@ async function main() {
           price: it.price,
           ribbon: it.ribbon,
           exactDateLabel: it.exactDateLabel,
+          exactDateStart: it.exactDateStart,
         })),
         link: '/announcements',
         sprintKey: String(sprint),

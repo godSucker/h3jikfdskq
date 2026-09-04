@@ -42,6 +42,9 @@ export interface AnnouncementItem {
   // kartel-filter-dates.ts) - null, если live-данных нет, тогда карточка
   // берёт общий sprintRangeLabel(sprint) как раньше.
   exactDateLabel?: string | null
+  // ISO-дата начала (не форматированная) - для хронологической сортировки
+  // офферов на странице (ближайшие сверху), exactDateLabel не сортируется.
+  exactDateStart?: string | null
 }
 
 // Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -

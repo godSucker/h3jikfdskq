@@ -77,7 +77,9 @@
       {
         "id": "Mystery_School_2026",
         "name": "Таинственный контейнер «Снова в школу»",
-        "image": "/boxes/mystery_school.png"
+        "image": "/boxes/mystery_school.png",
+        "exactDateLabel": "31 августа — 7 сентября",
+        "exactDateStart": "2026-08-31T10:00:00+00:00"
       }
     ],
     "link": "/boxes"
@@ -166,17 +168,23 @@
       {
         "id": "celestial_13",
         "name": "Лесенка «Небесное тело» (50 боёв)",
-        "image": "textures_by_mutant/ce_11/specimen_ce_11_normal.webp"
+        "image": "textures_by_mutant/ce_11/specimen_ce_11_normal.webp",
+        "exactDateLabel": "12 сентября — 2 октября",
+        "exactDateStart": "2026-09-12T10:00:00+00:00"
       },
       {
         "id": "pit_saber_12",
         "name": "Лесенка «Яма: Рубака» (45 боёв)",
-        "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp"
+        "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp",
+        "exactDateLabel": "2 — 22 октября",
+        "exactDateStart": "2026-10-02T10:00:00+00:00"
       },
       {
         "id": "pit_galactic_12",
         "name": "Лесенка «Яма: Галактик» (45 боёв)",
-        "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp"
+        "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
+        "exactDateLabel": "23 августа — 12 сентября",
+        "exactDateStart": "2026-08-23T10:00:00+00:00"
       },
       {
         "id": "rapanui_17",
