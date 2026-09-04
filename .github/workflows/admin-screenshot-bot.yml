@@ -1,0 +1,58 @@
+name: Admin Screenshot Bot
+
+# Разбирает scripts/pending-screenshots.json (задачи ставит
+# build-announcements.ts при каждой новой публикации) и шлёт скриншоты
+# новых анонсов в личный админ-чат (TELEGRAM_CHAT_ID). Отдельный workflow
+# на 5-минутном cron'е, а не шаг внутри announcements-hourly.yml - задачи
+# должны отлежаться минимум 5 минут (Vercel-редеплой после коммита), спать
+# внутри одного прогона CI смысла нет, только жжёт минуты впустую. См.
+# память auto-announcements-architecture.md ("бот-скриншотер в админ-чат").
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Общая группа с announcements-hourly.yml/finish-pending.yml - все трое
+# пишут в один и тот же scripts/pending-screenshots.json (и announcements.json/
+# announced-ids-cache.json), см. комментарий в announcements-hourly.yml про
+# non-fast-forward push при параллельной записи.
+concurrency:
+  group: announcements-writes
+  cancel-in-progress: false
+
+jobs:
+  screenshot-bot-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 1. Клонирование репозитория
+        uses: actions/checkout@v4
+
+      - name: 2. Установка Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 3. Установка зависимостей
+        run: npm ci
+
+      - name: 4. Разбор очереди и отправка скриншотов
+        run: npx tsx scripts/process-pending-screenshots.ts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: 5. Коммит очереди (если что-то изменилось)
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '🤖 Auto-Sync: очередь скриншотов анонсов'
+          commit_user_name: 'MGG Parser Bot'
+          commit_user_email: 'bot@archivist-library.com'
+          commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
+          branch: main
+          file_pattern: scripts/pending-screenshots.json

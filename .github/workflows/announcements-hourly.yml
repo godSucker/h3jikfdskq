@@ -154,6 +154,7 @@ jobs:
             scripts/pending-names-cache.json
             src/data/announcements.json
             scripts/announced-ids-cache.json
+            scripts/pending-screenshots.json
 
       - name: 12. Синхронизация новых иконок боксов/жетонов с Яндекс CDN
         # Тот же инкрементальный приём, что в sync-cron.yml (шаг 7) - только

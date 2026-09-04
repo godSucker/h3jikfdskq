@@ -171,6 +171,24 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
         window.dispatchEvent(new CustomEvent('archivist:open-box', { detail: { boxId: card.dataset.boxId } }));
       });
     });
+
+    // ?box=<itemId> - открыть конкретный бокс напрямую (используется
+    // api/screenshot-box.ts, бот-скриншотер в админ-чат). BoxModal.svelte
+    // монтируется с client:load - на момент DOMContentLoaded его $effect,
+    // слушающий archivist:open-box, может ещё не быть навешан (гидрация
+    // асинхронна). Повторяем диспатч короткими интервалами, пока модалка
+    // реально не откроется в DOM - не гадаем с одним фиксированным таймаутом.
+    const boxId = new URLSearchParams(location.search).get('box');
+    if (boxId) {
+      let tries = 0;
+      const tryOpen = () => {
+        if (document.querySelector('.modal-panel')) return;
+        window.dispatchEvent(new CustomEvent('archivist:open-box', { detail: { boxId } }));
+        tries++;
+        if (tries < 20) setTimeout(tryOpen, 100);
+      };
+      tryOpen();
+    }
   });
 </script>
 
