@@ -59,7 +59,10 @@ async function main() {
   // может оказаться УЖЕ завершившимся (live-фильтры для него истекли, exactDateLabel
   // выйдет пустым у всех офферов - проверено 2026-09-04) - тогда осмысленнее взять
   // currentSprint()+1 (следующий, ещё живые точные даты) вместо currentSprint().
-  const argTargets = process.argv.slice(2).map(Number).filter((n) => !Number.isNaN(n))
+  const argTargets = process.argv
+    .slice(2)
+    .map(Number)
+    .filter((n) => !Number.isNaN(n))
   const targets = argTargets.length === 2 ? argTargets : [currentSprint(), currentSprint() - 1]
   console.log(`[BACKFILL] Спринты: ${targets[0]}, ${targets[1]}`)
 

@@ -178,7 +178,9 @@ async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
 
 // sprintOverride - см. detect-shop-forecast.ts::fetchShopForecast, тот же
 // разовый бэкафилл-параметр, часовой пайплайн его не передаёт.
-export async function fetchDailyNewsForecast(sprintOverride?: number): Promise<DailyNewsForecast | null> {
+export async function fetchDailyNewsForecast(
+  sprintOverride?: number,
+): Promise<DailyNewsForecast | null> {
   const [{ data: xml }, shopIndex] = await Promise.all([
     axios.get<string>(DAILYPOPUP_URL, { responseType: 'text', timeout: 20000 }),
     buildShopItemIndex(),

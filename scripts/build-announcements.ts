@@ -21,6 +21,8 @@ import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import type { OfferRibbon } from './shop-offer-tags'
+import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { formatExactRangeRu } from '../src/lib/sprint-calendar'
 
 const ROOT = process.cwd()
 // НЕ scripts/.cache/ - та папка в .gitignore и не переживает между прогонами
@@ -42,9 +44,12 @@ interface AnnouncementItem {
   // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
   // (legendary/limited/new/discount-N/...), см. scripts/shop-offer-tags.ts.
   ribbon?: OfferRibbon | null
-  // Только для shopForecast/dailyNews - точный диапазон ЭТОГО оффера из
-  // живого kartel-запроса (см. scripts/kartel-filter-dates.ts). null, если
-  // live-данных для него нет - страница падает на sprintRangeLabel(sprint).
+  // shopForecast/dailyNews/raid/ladder/box - точный диапазон ЭТОГО оффера/
+  // рейда/лесенки/бокса из живого kartel-запроса (см.
+  // scripts/kartel-filter-dates.ts), джойн по <Filter> (shopitems.xml для
+  // shopForecast/dailyNews/box, dungeon/dungeons.xml для raid/ladder - у
+  // gacha.xml <Filter> нет вообще, реакторы не датируются в принципе).
+  // null, если live-данных для него нет.
   exactDateLabel?: string | null
 }
 
@@ -274,6 +279,50 @@ async function detectBingo(seen: string[]): Promise<DetectResult> {
   return { newIds: allKeys, items }
 }
 
+// Точные даты для рейдов/лесенок/боксов - тот же принцип, что у shopForecast/
+// dailyNews (scripts/detect-shop-forecast.ts), но join-карту нужно строить
+// самим: <Filter> тут не привязан детерминированно к id (mars_16 несёт
+// "filter_dungeon_challenge_mars_15" - другой номер; moon_3 -
+// "filter_dungeon_challenge_moon" - без номера вообще; cyberless -
+// "filter_dungeon_challenge_no_cyber" - другое слово) - только прямое чтение
+// тега из живого XML, угадывать нельзя. gacha.xml <Filter> вообще не несёт -
+// реакторы этим путём не датируются (проверено 2026-09-04).
+async function buildShopFilterMap(): Promise<Map<string, string>> {
+  const { data: xml } = await axios.get<string>(
+    'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml',
+    { responseType: 'text', timeout: 20000 },
+  )
+  const map = new Map<string, string>()
+  for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
+    const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
+    const filter = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
+    if (itemId && filter) map.set(itemId, filter)
+  }
+  return map
+}
+
+async function buildDungeonFilterMap(): Promise<Map<string, string>> {
+  const { data: xml } = await axios.get<string>(
+    'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml',
+    { responseType: 'text', timeout: 20000 },
+  )
+  const map = new Map<string, string>()
+  for (const m of xml.matchAll(
+    /<Dungeon id="([^"]+)"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)<\/Filter>/g,
+  )) {
+    map.set(m[1], m[2])
+  }
+  return map
+}
+
+async function exactDateFor(filterName: string | undefined): Promise<string | null> {
+  if (!filterName) return null
+  const dates = await loadFilterDates()
+  const range = pickFilterDateRange(dates, filterName)
+  if (!range) return null
+  return formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null)
+}
+
 async function detectBoxes(seen: string[]): Promise<DetectResult> {
   const boxes = await loadJson<{ itemId: string; name: string; icon?: string }[]>(
     'src/data/boxes.json',
@@ -281,9 +330,17 @@ async function detectBoxes(seen: string[]): Promise<DetectResult> {
   )
   const seenSet = new Set(seen)
   const fresh = boxes.filter((b) => !seenSet.has(b.itemId))
+  const filterMap = fresh.length > 0 ? await buildShopFilterMap().catch(() => new Map()) : new Map()
   return {
     newIds: boxes.map((b) => b.itemId),
-    items: fresh.map((b) => ({ id: b.itemId, name: b.name, image: b.icon ?? null })),
+    items: await Promise.all(
+      fresh.map(async (b) => ({
+        id: b.itemId,
+        name: b.name,
+        image: b.icon ?? null,
+        exactDateLabel: await exactDateFor(filterMap.get(b.itemId)),
+      })),
+    ),
   }
 }
 
@@ -374,6 +431,7 @@ async function detectDungeons(
 
   const seenSet = new Set(seen)
   const fresh = entries.filter((d) => !seenSet.has(d.id))
+  const filterMap = fresh.length > 0 ? await buildDungeonFilterMap().catch(() => new Map()) : new Map()
 
   const items = await Promise.all(
     fresh.map(async (d) => {
@@ -396,6 +454,7 @@ async function detectDungeons(
         id: d.id,
         name: `${linePrefix} «${d.name}» (${d.fightCount} боёв)`,
         image,
+        exactDateLabel: await exactDateFor(filterMap.get(d.id)),
       }
     }),
   )
@@ -474,7 +533,8 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
   // Спринт уже опубликован раньше - не новый пост, а дозаполнение exactDateLabel
   // на месте (часть офферов узнают точную дату не в момент первой публикации
   // прогноза, а ближе к своему старту, см. память auto-announcements-architecture).
-  if (seen.includes(key)) return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
+  if (seen.includes(key))
+    return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
   return { newIds: [...seen, key], items, sprintKey: key }
 }
 
@@ -490,7 +550,8 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
     ribbon: it.ribbon,
     exactDateLabel: it.exactDateLabel,
   }))
-  if (seen.includes(key)) return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
+  if (seen.includes(key))
+    return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
   return { newIds: [...seen, key], items, sprintKey: key }
 }
 

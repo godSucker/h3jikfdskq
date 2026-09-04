@@ -83,6 +83,7 @@ const forecastOffers =
           <div class="dg-mutant-name muted">без уникального мутанта</div>
         )}
         <div class="dg-secondary">{dungeon.fightCount} боёв</div>
+        {it?.exactDateLabel && <div class="dg-exact-date">{it.exactDateLabel}</div>}
         {dungeon.currency.length > 0 && (
           <div class="dg-currency">
             {dungeon.currency.map((c) => (
@@ -156,6 +157,7 @@ const forecastOffers =
         <div class="box-preview-title">
           <div class="box-preview-name">{box.name}</div>
           {formatPrice(box.price) && <div class="box-preview-price">{formatPrice(box.price)}</div>}
+          {it.exactDateLabel && <div class="box-preview-date">{it.exactDateLabel}</div>}
         </div>
       </div>
       <div class="box-preview-desc">{boxDescription(box)}</div>
@@ -445,6 +447,14 @@ const forecastOffers =
     color: #64748b;
     margin-top: 0.25rem;
   }
+  /* Точная дата запуска - живой kartel-запрос (см. scripts/kartel-filter-dates.ts),
+     не диапазон спринта - у рейдов/лесенок его и не было отродясь. */
+  .dg-exact-date {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgb(96, 165, 250);
+    margin-top: 0.15rem;
+  }
   .dg-currency {
     display: flex;
     flex-wrap: wrap;
@@ -563,6 +573,12 @@ const forecastOffers =
     font-size: 0.85rem;
     font-weight: 600;
     color: #fbbf24;
+  }
+  .box-preview-date {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgb(96, 165, 250);
+    margin-top: 1px;
   }
   .box-preview-desc {
     font-size: 0.68rem;
