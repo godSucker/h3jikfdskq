@@ -31,7 +31,11 @@ export async function sendAdminText(text: string): Promise<void> {
   }
 }
 
-export async function sendAdminPhoto(buffer: Buffer, caption: string, filename: string): Promise<boolean> {
+export async function sendAdminPhoto(
+  buffer: Buffer,
+  caption: string,
+  filename: string,
+): Promise<boolean> {
   const creds = getCreds()
   if (!creds) return false
   try {
@@ -82,7 +86,11 @@ export async function sendAdminMediaGroup(photos: AdminPhoto[], caption: string)
     }))
     form.append('media', JSON.stringify(media))
     photos.forEach((p, i) => {
-      form.append(`photo${i}`, new Blob([new Uint8Array(p.buffer)], { type: 'image/png' }), p.filename)
+      form.append(
+        `photo${i}`,
+        new Blob([new Uint8Array(p.buffer)], { type: 'image/png' }),
+        p.filename,
+      )
     })
     const res = await fetch(`https://api.telegram.org/bot${creds.botToken}/sendMediaGroup`, {
       method: 'POST',

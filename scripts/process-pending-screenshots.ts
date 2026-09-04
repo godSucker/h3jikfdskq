@@ -6,7 +6,12 @@
 // auto-announcements-architecture.md ("бот-скриншотер в админ-чат").
 import fs from 'fs/promises'
 import { QUEUE_PATH, type PendingScreenshotJob } from './pending-screenshots'
-import { sendAdminPhoto, sendAdminMediaGroup, sendAdminText, type AdminPhoto } from './telegram-admin-bot'
+import {
+  sendAdminPhoto,
+  sendAdminMediaGroup,
+  sendAdminText,
+  type AdminPhoto,
+} from './telegram-admin-bot'
 
 const SITE = 'https://archivist-library.com'
 const MIN_AGE_MS = 5 * 60 * 1000
@@ -71,19 +76,26 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   const caption = `${icon} ${job.title}\n\n${SITE}${link}`
 
   if (job.category === 'bingo') {
-    const primary = await fetchPhoto(`${SITE}/api/screenshot-bingo?board=${encodeURIComponent(job.itemIds[0])}`)
+    const primary = await fetchPhoto(
+      `${SITE}/api/screenshot-bingo?board=${encodeURIComponent(job.itemIds[0])}`,
+    )
     if (!primary.ok) return 'retry'
     return (await sendAdminPhoto(primary.buffer, caption, `bingo-${job.id}.png`)) ? 'sent' : 'retry'
   }
 
   // Все остальные категории имеют карточку на /announcements/render/[id] -
   // тот же скриншот, что уже умеет отдавать api/screenshot-announcement.ts.
-  const primary = await fetchPhoto(`${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}`)
+  const primary = await fetchPhoto(
+    `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}`,
+  )
   if (!primary.ok) return 'retry'
 
-  const needsContent = job.category === 'box' || job.category === 'raid' || job.category === 'ladder'
+  const needsContent =
+    job.category === 'box' || job.category === 'raid' || job.category === 'ladder'
   if (!needsContent) {
-    return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`)) ? 'sent' : 'retry'
+    return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`))
+      ? 'sent'
+      : 'retry'
   }
 
   const contentUrlFor = (itemId: string) =>
@@ -95,7 +107,9 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   // содержимого держит пост читаемым даже когда за один часовой прогон
   // нашлось сразу несколько новых боксов/рейдов.
   const cappedIds = job.itemIds.slice(0, 4)
-  const contentResults = await Promise.all(cappedIds.map((itemId) => fetchPhoto(contentUrlFor(itemId))))
+  const contentResults = await Promise.all(
+    cappedIds.map((itemId) => fetchPhoto(contentUrlFor(itemId))),
+  )
   const contentBuffers = contentResults
     .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
     .filter((x): x is { buffer: Buffer; itemId: string } => x !== null)
@@ -111,7 +125,10 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
 
   const photos: AdminPhoto[] = [
     { buffer: primary.buffer, filename: `${job.category}-${job.id}.png` },
-    ...contentBuffers.map((c) => ({ buffer: c.buffer, filename: `${job.category}-content-${c.itemId}.png` })),
+    ...contentBuffers.map((c) => ({
+      buffer: c.buffer,
+      filename: `${job.category}-content-${c.itemId}.png`,
+    })),
   ]
   if (photos.length === 1) {
     return (await sendAdminPhoto(photos[0].buffer, caption, photos[0].filename)) ? 'sent' : 'retry'
