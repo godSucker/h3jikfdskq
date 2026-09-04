@@ -31,6 +31,7 @@ const CATEGORY_ICON: Record<string, string> = {
 }
 
 const CATEGORY_LINK: Record<string, string> = {
+  mutant: '/mutants',
   box: '/boxes',
   raid: '/guides',
   ladder: '/guides',
@@ -39,6 +40,20 @@ const CATEGORY_LINK: Record<string, string> = {
   token: '/materials',
   shopForecast: '/announcements',
   dailyNews: '/announcements',
+}
+
+// mutant - ТОЛЬКО содержимое (модалка), без карточки анонса вообще: модалка
+// мутанта несёт полную статкарту, карточка анонса - только имя+иконку,
+// избыточна рядом с модалкой. box ТОЖЕ обсуждался (юзер просил убрать
+// карточку и там), но решение отложено ("надо обдумать") - box пока
+// остаётся в старой ветке ниже (карточка анонса + до 4 фото содержимого),
+// не трогать без отдельного разговора.
+const CONTENT_ONLY_CATEGORIES = new Set(['mutant'])
+
+function contentUrlFor(category: string, itemId: string): string {
+  if (category === 'box') return `${SITE}/api/screenshot-box?itemId=${encodeURIComponent(itemId)}`
+  if (category === 'mutant') return `${SITE}/api/screenshot-mutant?id=${encodeURIComponent(itemId)}`
+  return `${SITE}/api/screenshot-dungeon?id=${encodeURIComponent(itemId)}`
 }
 
 async function loadQueue(): Promise<PendingScreenshotJob[]> {
@@ -83,6 +98,35 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     return (await sendAdminPhoto(primary.buffer, caption, `bingo-${job.id}.png`)) ? 'sent' : 'retry'
   }
 
+  if (CONTENT_ONLY_CATEGORIES.has(job.category)) {
+    // Никакой карточки анонса вообще - только модалка/содержимое (см.
+    // комментарий у CONTENT_ONLY_CATEGORIES выше). Капаем на 4 - альбом
+    // Telegram допускает 2-10 элементов.
+    const cappedIds = job.itemIds.slice(0, 4)
+    const results = await Promise.all(
+      cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId))),
+    )
+    const buffers = results
+      .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
+      .filter((x): x is { buffer: Buffer; itemId: string } => x !== null)
+
+    // Ничего не готово - ждём следующий тик (нет "карточки анонса" как
+    // резервного фолбэка у этих категорий - если содержимое не готово,
+    // отправлять просто нечего).
+    if (buffers.length === 0) return 'retry'
+
+    const photos: AdminPhoto[] = buffers.map((b) => ({
+      buffer: b.buffer,
+      filename: `${job.category}-content-${b.itemId}.png`,
+    }))
+    if (photos.length === 1) {
+      return (await sendAdminPhoto(photos[0].buffer, caption, photos[0].filename))
+        ? 'sent'
+        : 'retry'
+    }
+    return (await sendAdminMediaGroup(photos, caption)) ? 'sent' : 'retry'
+  }
+
   // Все остальные категории имеют карточку на /announcements/render/[id] -
   // тот же скриншот, что уже умеет отдавать api/screenshot-announcement.ts.
   const primary = await fetchPhoto(
@@ -98,17 +142,12 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
       : 'retry'
   }
 
-  const contentUrlFor = (itemId: string) =>
-    job.category === 'box'
-      ? `${SITE}/api/screenshot-box?itemId=${encodeURIComponent(itemId)}`
-      : `${SITE}/api/screenshot-dungeon?id=${encodeURIComponent(itemId)}`
-
   // Капаем на 4 - альбом Telegram допускает 2-10 элементов, 1 карточка + 4
   // содержимого держит пост читаемым даже когда за один часовой прогон
-  // нашлось сразу несколько новых боксов/рейдов.
+  // нашлось сразу несколько новых рейдов/лесенок.
   const cappedIds = job.itemIds.slice(0, 4)
   const contentResults = await Promise.all(
-    cappedIds.map((itemId) => fetchPhoto(contentUrlFor(itemId))),
+    cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId))),
   )
   const contentBuffers = contentResults
     .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
