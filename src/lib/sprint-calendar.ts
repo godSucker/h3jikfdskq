@@ -62,3 +62,17 @@ export function formatDateRu(d: Date): string {
 export function sprintRangeLabel(sprint: number): string {
   return `${formatDateRu(sprintStartDate(sprint))} — ${formatDateRu(sprintEndDate(sprint))}`
 }
+
+// Точный диапазон ОДНОГО оффера (не всего спринта) - из живого kartel-запроса
+// (getuser + acceptFuturFilters=true, см. scripts/kartel/), не из статичных
+// XML-файлов (там точных дат нет в принципе, см. память
+// auto-announcements-architecture). end опционален - часть фильтров (долгие
+// "фичи", не ротации) endDate не несут вообще (-1 в живых данных).
+export function formatExactRangeRu(start: Date, end: Date | null): string {
+  if (!end) return formatDateRu(start)
+  const sameMonth = start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()
+  const startLabel = sameMonth
+    ? start.toLocaleDateString('ru-RU', { day: 'numeric', timeZone: 'UTC' })
+    : formatDateRu(start)
+  return `${startLabel} — ${formatDateRu(end)}`
+}

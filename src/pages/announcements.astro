@@ -102,7 +102,10 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
 
 <style>
   .announcements-page {
-    max-width: 760px;
+    /* Раньше 760px (узкая лента) - под board-грид (dailyNews) и плотный
+       прогноз магазина маловато, тайлы жались в 2-3 колонки. Пошире, чтобы
+       было удобно снимать скриншотом, как у референсов юзера. */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1.5rem 1rem 3rem;
   }

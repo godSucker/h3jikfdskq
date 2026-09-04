@@ -19,6 +19,8 @@ import {
   boxDescription,
   TIER_ICON,
   fmtDate,
+  ribbonLabel,
+  ribbonClass,
   type Announcement,
   type AnnouncementRenderContext,
 } from '@/lib/announcements-render'
@@ -41,11 +43,20 @@ const skinBaseId = kind === 'skin' && it ? it.id.split('|')[0]?.toLowerCase() : 
 const box = kind === 'box' && it ? ctx.findBox(it.id) : null
 const boxMutants = box ? uniqueBoxMutants(box).slice(0, 8) : []
 const sprint = kind === 'forecast' && a.items ? forecastSprint(a.items) : null
+// dailyNews-офферы несут ГОТОВЫЙ игровой баннер (assets/hud/daily_news/ -
+// хекс-рамка/название/кнопка уже впаяны в картинку, см. detect-daily-news.ts) -
+// рендерим их крупнее и без своей подписи-дубликата под картинкой (board-вид,
+// 1-в-1 совпадает с тем, что видно в живой игре). shopForecast-офферы несут
+// только голую иконку без рамки - для них подпись/цена/лента нужны.
+const isBoard = a.category === 'dailyNews'
 const forecastOffers =
   kind === 'forecast' && a.items
     ? a.items
         .filter((o, i, arr) => !o.image || arr.findIndex((x) => x.image === o.image) === i)
-        .slice(0, 12)
+        // Офферы с точной датой (живой kartel-запрос) - самая ценная информация
+        // на карточке, приоритет вперёд, чтобы срез .slice() их не отрезал.
+        .sort((a2, b2) => Number(!!b2.exactDateLabel) - Number(!!a2.exactDateLabel))
+        .slice(0, isBoard ? 24 : 18)
     : []
 ---
 
@@ -187,20 +198,45 @@ const forecastOffers =
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU[a.category ?? ''] ?? a.category}</span>
       </div>
-      {sprint !== null && <div class="forecast-range">{sprintRangeLabel(sprint)}</div>}
-      <div class="forecast-grid">
-        {forecastOffers.map((offer) => (
-          <div class="forecast-tile">
-            {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
-            <div class="forecast-tile-info">
-              <span class="forecast-tile-name">{offer.name}</span>
-              <span class="forecast-tile-meta">
-                {formatPrice(offer.price) && <span class="forecast-tile-price">{formatPrice(offer.price)}</span>}
-                {sprint !== null && <span class="forecast-tile-date">{sprintRangeLabel(sprint)}</span>}
-              </span>
+      {sprint !== null && (
+        <div class="forecast-range">Сезон {sprint} · {sprintRangeLabel(sprint)}</div>
+      )}
+      <div class:list={['forecast-grid', { 'forecast-grid-board': isBoard }]}>
+        {forecastOffers.map((offer) => {
+          // Баннер dailyNews несёт название/кнопку УЖЕ впаянными в картинку
+          // (реальный игровой ассет) - подпись под ним была бы дублем. Если
+          // баннер конкретного оффера не нашёлся (404, редкий старый ивент),
+          // показываем текстовую подпись как обычно - иначе тайл окажется пуст.
+          const skipCaption = isBoard && !!offer.image
+          // exactDateLabel - точный диапазон ЭТОГО оффера (живой kartel-запрос,
+          // см. scripts/kartel-filter-dates.ts), не общий диапазон спринта.
+          // В board-режиме подпись имени/цены скрыта (баннер сам всё несёт),
+          // но точная дата - НОВАЯ информация, которой в баннере нет, поэтому
+          // показываем её отдельной строкой, даже когда skipCaption=true.
+          const dateLabel = offer.exactDateLabel ?? (sprint !== null ? sprintRangeLabel(sprint) : null)
+          return (
+            <div class:list={['forecast-tile', { 'forecast-tile-board': isBoard }]}>
+              <div class="forecast-tile-media">
+                {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
+                {ribbonLabel(offer.ribbon) && (
+                  <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon)}</span>
+                )}
+              </div>
+              {!skipCaption && (
+                <div class="forecast-tile-info">
+                  <span class="forecast-tile-name">{offer.name}</span>
+                  <span class="forecast-tile-meta">
+                    {formatPrice(offer.price) && <span class="forecast-tile-price">{formatPrice(offer.price)}</span>}
+                    {dateLabel && <span class="forecast-tile-date">{dateLabel}</span>}
+                  </span>
+                </div>
+              )}
+              {skipCaption && offer.exactDateLabel && (
+                <div class="forecast-tile-date-board">{offer.exactDateLabel}</div>
+              )}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
       <div class="forecast-watermark">
         <img src="/favicon.png" alt="" loading="lazy" decoding="async" />
@@ -601,12 +637,21 @@ const forecastOffers =
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 0.7rem;
   }
+  /* Board-вид (dailyNews) - баннеры почти квадратные (реальный формат
+     Kobojo ~408x409), крупнее и без текстовой подписи под картинкой -
+     ближе к тому, как выглядит "доска" прямо в игре. */
+  .forecast-grid-board {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
   .forecast-tile {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.04);
+  }
+  .forecast-tile-media {
+    position: relative;
   }
   .forecast-tile img {
     width: 100%;
@@ -615,6 +660,42 @@ const forecastOffers =
     background: rgba(0, 0, 0, 0.35);
     display: block;
   }
+  .forecast-tile-board img {
+    aspect-ratio: 1 / 1;
+  }
+  .forecast-tile-date-board {
+    font-size: 0.64rem;
+    color: #94a3b8;
+    text-align: center;
+    padding: 0.25rem 0.3rem;
+  }
+  /* Ленты - зеркалят настоящие игровые offerTag (legendary$$/limited$$/
+     offertag_new$$/offertag_NN$$), не выдумка. Цвета - тот же язык, что у
+     игры (красный "лимитка", фиолетовый "легендарка"). */
+  .forecast-ribbon {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: #fff;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+  .ribbon-legendary { background: linear-gradient(135deg, #a855f7, #6d28d9); }
+  .ribbon-limited { background: linear-gradient(135deg, #f87171, #b91c1c); }
+  .ribbon-new { background: linear-gradient(135deg, #4ade80, #15803d); }
+  .ribbon-heroic { background: linear-gradient(135deg, #fb923c, #c2410c); }
+  .ribbon-exclusive { background: linear-gradient(135deg, #f472b6, #be185d); }
+  .ribbon-seasonal { background: linear-gradient(135deg, #38bdf8, #0369a1); }
+  .ribbon-discount { background: linear-gradient(135deg, #60a5fa, #1d4ed8); }
   .forecast-tile-info {
     display: flex;
     flex-direction: column;
