@@ -574,7 +574,12 @@ async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
     const count = a.items.length
     return `${icon} ${a.title}${count > 1 ? ` (${count})` : ''}`
   })
-  const text = [`📋 *Найдено за этот прогон:*`, ...lines, '', `[Открыть /announcements](${'https://archivist-library.com'}/announcements)`].join('\n')
+  const text = [
+    `📋 *Найдено за этот прогон:*`,
+    ...lines,
+    '',
+    `[Открыть /announcements](${'https://archivist-library.com'}/announcements)`,
+  ].join('\n')
 
   try {
     await axios.post(

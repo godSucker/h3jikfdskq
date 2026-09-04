@@ -11,13 +11,7 @@
 // Храним ribbon как плоскую строку (не union-объект) - так он безопасно
 // проходит через announcements.json (обычный JSON, без сериализации классов).
 export type OfferRibbon =
-  | 'legendary'
-  | 'limited'
-  | 'new'
-  | 'heroic'
-  | 'exclusive'
-  | 'seasonal'
-  | `discount-${number}`
+  'legendary' | 'limited' | 'new' | 'heroic' | 'exclusive' | 'seasonal' | `discount-${number}`
 
 export function parseOfferRibbon(raw: string | undefined | null): OfferRibbon | null {
   if (!raw) return null
