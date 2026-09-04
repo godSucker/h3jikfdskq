@@ -43,11 +43,17 @@ const skinBaseId = kind === 'skin' && it ? it.id.split('|')[0]?.toLowerCase() : 
 const box = kind === 'box' && it ? ctx.findBox(it.id) : null
 const boxMutants = box ? uniqueBoxMutants(box).slice(0, 8) : []
 const sprint = kind === 'forecast' && a.items ? forecastSprint(a.items) : null
+// dailyNews-офферы несут ГОТОВЫЙ игровой баннер (assets/hud/daily_news/ -
+// хекс-рамка/название/кнопка уже впаяны в картинку, см. detect-daily-news.ts) -
+// рендерим их крупнее и без своей подписи-дубликата под картинкой (board-вид,
+// 1-в-1 совпадает с тем, что видно в живой игре). shopForecast-офферы несут
+// только голую иконку без рамки - для них подпись/цена/лента нужны.
+const isBoard = a.category === 'dailyNews'
 const forecastOffers =
   kind === 'forecast' && a.items
     ? a.items
         .filter((o, i, arr) => !o.image || arr.findIndex((x) => x.image === o.image) === i)
-        .slice(0, 12)
+        .slice(0, isBoard ? 24 : 12)
     : []
 ---
 
@@ -189,25 +195,36 @@ const forecastOffers =
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU[a.category ?? ''] ?? a.category}</span>
       </div>
-      {sprint !== null && <div class="forecast-range">{sprintRangeLabel(sprint)}</div>}
-      <div class="forecast-grid">
-        {forecastOffers.map((offer) => (
-          <div class="forecast-tile">
-            <div class="forecast-tile-media">
-              {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
-              {ribbonLabel(offer.ribbon) && (
-                <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon)}</span>
+      {sprint !== null && (
+        <div class="forecast-range">Сезон {sprint} · {sprintRangeLabel(sprint)}</div>
+      )}
+      <div class:list={['forecast-grid', { 'forecast-grid-board': isBoard }]}>
+        {forecastOffers.map((offer) => {
+          // Баннер dailyNews несёт название/кнопку УЖЕ впаянными в картинку
+          // (реальный игровой ассет) - подпись под ним была бы дублем. Если
+          // баннер конкретного оффера не нашёлся (404, редкий старый ивент),
+          // показываем текстовую подпись как обычно - иначе тайл окажется пуст.
+          const skipCaption = isBoard && !!offer.image
+          return (
+            <div class:list={['forecast-tile', { 'forecast-tile-board': isBoard }]}>
+              <div class="forecast-tile-media">
+                {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
+                {ribbonLabel(offer.ribbon) && (
+                  <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon)}</span>
+                )}
+              </div>
+              {!skipCaption && (
+                <div class="forecast-tile-info">
+                  <span class="forecast-tile-name">{offer.name}</span>
+                  <span class="forecast-tile-meta">
+                    {formatPrice(offer.price) && <span class="forecast-tile-price">{formatPrice(offer.price)}</span>}
+                    {sprint !== null && <span class="forecast-tile-date">{sprintRangeLabel(sprint)}</span>}
+                  </span>
+                </div>
               )}
             </div>
-            <div class="forecast-tile-info">
-              <span class="forecast-tile-name">{offer.name}</span>
-              <span class="forecast-tile-meta">
-                {formatPrice(offer.price) && <span class="forecast-tile-price">{formatPrice(offer.price)}</span>}
-                {sprint !== null && <span class="forecast-tile-date">{sprintRangeLabel(sprint)}</span>}
-              </span>
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
       <div class="forecast-watermark">
         <img src="/favicon.png" alt="" loading="lazy" decoding="async" />
@@ -608,6 +625,12 @@ const forecastOffers =
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 0.7rem;
   }
+  /* Board-вид (dailyNews) - баннеры почти квадратные (реальный формат
+     Kobojo ~408x409), крупнее и без текстовой подписи под картинкой -
+     ближе к тому, как выглядит "доска" прямо в игре. */
+  .forecast-grid-board {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
   .forecast-tile {
     display: flex;
     flex-direction: column;
@@ -624,6 +647,9 @@ const forecastOffers =
     object-fit: contain;
     background: rgba(0, 0, 0, 0.35);
     display: block;
+  }
+  .forecast-tile-board img {
+    aspect-ratio: 1 / 1;
   }
   /* Ленты - зеркалят настоящие игровые offerTag (legendary$$/limited$$/
      offertag_new$$/offertag_NN$$), не выдумка. Цвета - тот же язык, что у
