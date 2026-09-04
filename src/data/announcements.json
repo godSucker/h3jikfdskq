@@ -212,8 +212,8 @@
     "link": "/guides"
   },
   {
-    "id": "shopForecast-1788537505868-256",
-    "date": "2026-09-04T15:58:24.661Z",
+    "id": "shopForecast-1788538154046-256",
+    "date": "2026-09-04T16:09:11.807Z",
     "category": "shopForecast",
     "title": "Прогноз магазина (5 сентября — 18 сентября)",
     "items": [
@@ -636,11 +636,12 @@
         "exactDateLabel": "5 — 6 сентября"
       }
     ],
-    "link": "/materials"
+    "link": "/materials",
+    "sprintKey": "256"
   },
   {
-    "id": "dailyNews-1788537510736-256",
-    "date": "2026-09-04T15:58:24.661Z",
+    "id": "dailyNews-1788538158649-256",
+    "date": "2026-09-04T16:09:11.807Z",
     "category": "dailyNews",
     "title": "Скоро в игре (5 сентября — 18 сентября)",
     "items": [
@@ -875,11 +876,12 @@
         "exactDateLabel": "5 — 12 сентября"
       }
     ],
-    "link": "/announcements"
+    "link": "/announcements",
+    "sprintKey": "256"
   },
   {
-    "id": "shopForecast-1788537511363-255",
-    "date": "2026-09-04T15:58:24.661Z",
+    "id": "shopForecast-1788538159258-255",
+    "date": "2026-09-04T16:09:11.807Z",
     "category": "shopForecast",
     "title": "Прогноз магазина (22 августа — 4 сентября)",
     "items": [
@@ -1390,11 +1392,12 @@
         "exactDateLabel": null
       }
     ],
-    "link": "/materials"
+    "link": "/materials",
+    "sprintKey": "255"
   },
   {
-    "id": "dailyNews-1788537515872-255",
-    "date": "2026-09-04T15:58:24.661Z",
+    "id": "dailyNews-1788538164155-255",
+    "date": "2026-09-04T16:09:11.807Z",
     "category": "dailyNews",
     "title": "Скоро в игре (22 августа — 4 сентября)",
     "items": [
@@ -1634,6 +1637,7 @@
         "exactDateLabel": "29 августа — 5 сентября"
       }
     ],
-    "link": "/announcements"
+    "link": "/announcements",
+    "sprintKey": "255"
   }
 ]
