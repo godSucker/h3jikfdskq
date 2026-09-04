@@ -176,13 +176,15 @@ async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
   return index
 }
 
-export async function fetchDailyNewsForecast(): Promise<DailyNewsForecast | null> {
+// sprintOverride - см. detect-shop-forecast.ts::fetchShopForecast, тот же
+// разовый бэкафилл-параметр, часовой пайплайн его не передаёт.
+export async function fetchDailyNewsForecast(sprintOverride?: number): Promise<DailyNewsForecast | null> {
   const [{ data: xml }, shopIndex] = await Promise.all([
     axios.get<string>(DAILYPOPUP_URL, { responseType: 'text', timeout: 20000 }),
     buildShopItemIndex(),
   ])
 
-  const target = currentSprint() + 1
+  const target = sprintOverride ?? currentSprint() + 1
   const markerRe = new RegExp(`<!--\\s*DEBUT SPRINT ${target}\\s*-->`)
   const markerMatch = xml.match(markerRe)
   if (!markerMatch || markerMatch.index === undefined) return null

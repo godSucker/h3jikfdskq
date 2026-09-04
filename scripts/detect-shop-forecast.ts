@@ -37,7 +37,10 @@ async function resolveThumbnailUrl(picture: string): Promise<string | null> {
   for (const lang of ['ru', 'en']) {
     const url = `${THUMB_BASE}${picture.replace('$$', `-${lang}`)}.png`
     try {
-      const res = await axios.head(url, { timeout: 8000, validateStatus: (s) => s === 200 || s === 404 })
+      const res = await axios.head(url, {
+        timeout: 8000,
+        validateStatus: (s) => s === 200 || s === 404,
+      })
       if (res.status === 200) return url
     } catch {
       // сеть упала - пробуем следующий суффикс, ниже общий null-фоллбек
@@ -75,7 +78,12 @@ export interface ShopForecast {
   items: ForecastItem[]
 }
 
-export async function fetchShopForecast(): Promise<ShopForecast | null> {
+// sprintOverride - только для разового ручного бэкафилла (см.
+// scripts/backfill-sprint-announcements.ts) - публикует уже прошедшие/живые
+// спринты через тот же парсер, не только "следующий" (по умолчанию). Часовой
+// автоматический пайплайн (build-announcements.ts) его не передаёт - там
+// всегда currentSprint()+1, как было.
+export async function fetchShopForecast(sprintOverride?: number): Promise<ShopForecast | null> {
   const [{ data: xml }, { data: locRaw }] = await Promise.all([
     axios.get<string>(SHOPITEMS_URL, { responseType: 'text', timeout: 20000 }),
     axios.get<string>(LOC_RU_URL, { responseType: 'text', timeout: 20000 }),
@@ -116,7 +124,7 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
       .trim()
   }
 
-  const target = currentSprint() + 1
+  const target = sprintOverride ?? currentSprint() + 1
   const marker = `----------------------------// SPRINT ${target} \\\\----------------------------`
   const startIdx = xml.indexOf(`itemId="${marker}"`)
   if (startIdx === -1) return null
