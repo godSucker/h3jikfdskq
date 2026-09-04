@@ -44,7 +44,7 @@ export interface AnnouncementItem {
 // он тянет node-only axios/fs и живёт вне Vite-графа страницы).
 const RIBBON_LABEL: Record<string, string> = {
   legendary: 'Легендарный',
-  limited: 'Ограниченное предложение',
+  limited: 'Ограничено',
   new: 'Новинка',
   heroic: 'Героический',
   exclusive: 'Эксклюзив',
