@@ -26,6 +26,26 @@ const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xm
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
 const THUMB_BASE = 'https://s-beta.kobojo.com/mutants/assets/thumbnails/'
 
+// Часть picture-атрибутов несёт "$$" - тот же плейсхолдер локали, что у
+// баннеров daily_news (resolveOfferBanner в detect-daily-news.ts). Найдено
+// 2026-09-04 на живом баге ("Жизни пакет" 404) - слепое вырезание "$$" (как
+// было раньше) даёт несуществующий URL, нужна подстановка -ru/-en. 141 запись
+// в истории shopitems.xml так размечена - не единичный случай. У большинства
+// picture БЕЗ "$$" - для них ничего не меняется, прямой URL как раньше.
+async function resolveThumbnailUrl(picture: string): Promise<string | null> {
+  if (!picture.includes('$$')) return `${THUMB_BASE}${picture}.png`
+  for (const lang of ['ru', 'en']) {
+    const url = `${THUMB_BASE}${picture.replace('$$', `-${lang}`)}.png`
+    try {
+      const res = await axios.head(url, { timeout: 8000, validateStatus: (s) => s === 200 || s === 404 })
+      if (res.status === 200) return url
+    } catch {
+      // сеть упала - пробуем следующий суффикс, ниже общий null-фоллбек
+    }
+  }
+  return null
+}
+
 function balanceQuotes(name: string): string {
   const open = (name.match(/«/g) ?? []).length
   const close = (name.match(/»/g) ?? []).length
@@ -127,7 +147,7 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
     items.push({
       itemId,
       name: resolveName(itemId, caption),
-      image: picture ? `${THUMB_BASE}${picture.replace(/\$\$$/, '')}.png` : null,
+      image: picture ? await resolveThumbnailUrl(picture) : null,
       price: costMatch
         ? { amount: Number(costMatch[1]), type: costMatch[2] as 'hardcurrency' | 'softcurrency' }
         : usd !== null
@@ -135,7 +155,10 @@ export async function fetchShopForecast(): Promise<ShopForecast | null> {
           : null,
       ribbon: parseOfferRibbon(offerTag),
       exactDateLabel: exactRange
-        ? formatExactRangeRu(new Date(exactRange.start), exactRange.end ? new Date(exactRange.end) : null)
+        ? formatExactRangeRu(
+            new Date(exactRange.start),
+            exactRange.end ? new Date(exactRange.end) : null,
+          )
         : null,
     })
   }
