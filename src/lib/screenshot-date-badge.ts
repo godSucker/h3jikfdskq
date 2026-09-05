@@ -28,6 +28,21 @@ export async function freezePageForModalShot(page: Page, selector: string): Prom
       node = node.parentElement
     }
     document.documentElement.scrollTop = 0
+
+    // Битые картинки ВНУТРИ модалки (скин-арт, которого нет на CDN) - у них
+    // Svelte-обработчик onerror перебирает fallback-кандидаты, каждый новый src
+    // меняет высоту колонки -> bbox диалога осциллирует -> Playwright никогда
+    // не считает элемент "stable" -> screenshot timeout. Клон без слушателей +
+    // снятие src замораживает раскладку.
+    dlg.querySelectorAll('img').forEach((el) => {
+      const img = el as HTMLImageElement
+      if (img.complete && img.naturalWidth > 0) return
+      const clone = img.cloneNode(true) as HTMLImageElement
+      clone.removeAttribute('src')
+      clone.removeAttribute('srcset')
+      clone.style.visibility = 'hidden'
+      img.replaceWith(clone)
+    })
   }, selector)
 }
 
