@@ -12,6 +12,7 @@
 // location.search, поэтому api/screenshot-skin.ts дописывает их к адресу.
 export const prerender = false;
 
+import '@/styles/global.css'; // Tailwind - MutantModal.svelte весь на утилити-классах (md:grid-cols-* и т.п.), без него модалка схлопывается в сырой столбец
 import mutantsData from '@/data/mutants/mutants.json';
 import skinsData from '@/data/mutants/skins.json';
 import MutantsBrowser from '@/components/MutantsBrowser.svelte';
