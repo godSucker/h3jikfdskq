@@ -120,7 +120,26 @@ export const GET: APIRoute = async ({ url }) => {
     if (!card) {
       return new Response('Announcement card not found', { status: 404 })
     }
-    const buffer = (await card.screenshot({ type: 'png' })) as Buffer
+    // page.screenshot({clip}) вместо card.screenshot() (ElementHandle.screenshot
+    // не принимает clip вообще) - клипуем по высоте, чтобы огромная карточка
+    // (box-дроплист на сотни мутантов, board-грид daily_news на 24 тайла) не
+    // дала абсурдно вытянутый PNG, который Telegram отклонит по соотношению
+    // сторон. 2600 CSS-px x deviceScaleFactor:2 = 5200px - с запасом в лимитах
+    // (сумма сторон <= 10000, соотношение <= 20). Тот же приём, что в
+    // screenshot-box.ts.
+    const bbox = await card.boundingBox()
+    if (!bbox) {
+      return new Response('Announcement card has no layout box', { status: 500 })
+    }
+    const buffer = (await page.screenshot({
+      type: 'png',
+      clip: {
+        x: bbox.x,
+        y: bbox.y,
+        width: bbox.width,
+        height: Math.min(bbox.height, 2600),
+      },
+    })) as Buffer
 
     return new Response(new Uint8Array(buffer), {
       status: 200,

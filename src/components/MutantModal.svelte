@@ -92,11 +92,15 @@
     unavailable: '/etc/icon_timer.webp',
   };
 
-  let { open = false, mutant = null, star = 'normal', skins = [], onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
+  let { open = false, mutant = null, star = 'normal', skins = [], initialSkin = null, onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
     open?: boolean;
     mutant?: any;
     star?: string;
     skins?: any[];
+    // Ключ скина (поле skin из skins.json) для предвыбора при открытии по
+    // диплинку /mutants?mutant=...&skin=... (см. MutantsBrowser.svelte). null =
+    // открыть на базовом мутанте, как обычно.
+    initialSkin?: string | null;
     onclose?: () => void;
     locale?: Locale;
     names?: Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>;
@@ -166,9 +170,16 @@
   let selectedSkin = $state(null);
 
   $effect(() => {
-    if (mutant?.id) {
-      selectedSkin = null;
-    }
+    if (!mutant?.id) return;
+    // По умолчанию открываем на базовом мутанте. Если пришёл диплинк
+    // ?skin=<key> и такой скин есть в списке - предвыбираем его (скрин из
+    // бота-скриншотера, шаринг-ссылка). Сравнение регистронезависимо - ключ
+    // из URL может не совпасть по регистру с skins.json.
+    const key = initialSkin ? String(initialSkin).toLowerCase() : null;
+    selectedSkin =
+      key && skins.length
+        ? (skins.find((s) => String(s?.skin ?? '').toLowerCase() === key) ?? null)
+        : null;
   });
 
   let displayMutant = $derived(selectedSkin ?? mutant);

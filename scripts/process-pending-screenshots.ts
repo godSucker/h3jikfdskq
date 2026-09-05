@@ -32,6 +32,7 @@ const CATEGORY_ICON: Record<string, string> = {
 
 const CATEGORY_LINK: Record<string, string> = {
   mutant: '/mutants',
+  skin: '/mutants',
   box: '/boxes',
   raid: '/guides',
   ladder: '/guides',
@@ -42,17 +43,20 @@ const CATEGORY_LINK: Record<string, string> = {
   dailyNews: '/announcements',
 }
 
-// mutant - ТОЛЬКО содержимое (модалка), без карточки анонса вообще: модалка
-// мутанта несёт полную статкарту, карточка анонса - только имя+иконку,
-// избыточна рядом с модалкой. box ТОЖЕ обсуждался (юзер просил убрать
-// карточку и там), но решение отложено ("надо обдумать") - box пока
-// остаётся в старой ветке ниже (карточка анонса + до 4 фото содержимого),
-// не трогать без отдельного разговора.
-const CONTENT_ONLY_CATEGORIES = new Set(['mutant'])
+// mutant/skin - ТОЛЬКО содержимое (модалка), без карточки анонса вообще:
+// модалка несёт полную статкарту + плашку даты (?date=), карточка анонса -
+// только имя+иконку, избыточна рядом с модалкой.
+// box - один скрин с карточки анонса (/announcements/render/[id]): дизайн
+// там подтянут 1-в-1 к /boxes + добавлена плашка даты, отдельный скрин
+// модалки /boxes больше не шлём (решение юзера 2026-09-05).
+const CONTENT_ONLY_CATEGORIES = new Set(['mutant', 'skin'])
 
-function contentUrlFor(category: string, itemId: string): string {
-  if (category === 'box') return `${SITE}/api/screenshot-box?itemId=${encodeURIComponent(itemId)}`
-  if (category === 'mutant') return `${SITE}/api/screenshot-mutant?id=${encodeURIComponent(itemId)}`
+function contentUrlFor(category: string, itemId: string, date?: string): string {
+  const dateParam = date ? `&date=${encodeURIComponent(date)}` : ''
+  if (category === 'mutant')
+    return `${SITE}/api/screenshot-mutant?id=${encodeURIComponent(itemId)}${dateParam}`
+  if (category === 'skin')
+    return `${SITE}/api/screenshot-skin?id=${encodeURIComponent(itemId)}${dateParam}`
   return `${SITE}/api/screenshot-dungeon?id=${encodeURIComponent(itemId)}`
 }
 
@@ -104,7 +108,7 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     // Telegram допускает 2-10 элементов.
     const cappedIds = job.itemIds.slice(0, 4)
     const results = await Promise.all(
-      cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId))),
+      cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId, job.date))),
     )
     const buffers = results
       .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
@@ -134,8 +138,9 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   )
   if (!primary.ok) return 'retry'
 
-  const needsContent =
-    job.category === 'box' || job.category === 'raid' || job.category === 'ladder'
+  // box больше НЕ в needsContent - его карточка анонса теперь несёт полный
+  // дизайн /boxes + дату, один скрин достаточен (юзер, 2026-09-05).
+  const needsContent = job.category === 'raid' || job.category === 'ladder'
   if (!needsContent) {
     return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`))
       ? 'sent'

@@ -23,6 +23,12 @@ export interface PendingScreenshotJob {
   itemIds: string[]
   createdAt: string // ISO
   attempts: number
+  // ISO-дата анонса (Announcement.date). Для mutant/skin прокидывается в
+  // screenshot-эндпоинт как ?date= и рисуется плашкой прямо на скрине модалки
+  // (у этих категорий нет игровой даты события - это "когда бот заметил", та
+  // же плашка, что на карточке анонса). Опционально: задачи из очереди,
+  // поставленной ДО этой правки, поля не имеют.
+  date?: string
 }
 
 // Категории, для которых вообще имеет смысл скриншотить (не дублируем
@@ -47,6 +53,7 @@ interface AnnouncementLike {
   id: string
   category?: string
   title?: string
+  date?: string
   items?: { id: string; name: string }[] | null
 }
 
@@ -82,6 +89,7 @@ export async function enqueueScreenshotJobs(newlyAdded: AnnouncementLike[]): Pro
       itemIds: a.items!.map((it) => it.id),
       createdAt: now,
       attempts: 0,
+      date: a.date,
     })
   }
   await fs.writeFile(QUEUE_PATH, JSON.stringify(queue, null, 2) + '\n', 'utf-8')

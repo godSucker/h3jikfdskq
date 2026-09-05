@@ -22,7 +22,7 @@ import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
-import { formatExactRangeRu } from '../src/lib/sprint-calendar'
+import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 
 const ROOT = process.cwd()
@@ -159,8 +159,10 @@ interface DetectResult {
   // Только shopForecast/dailyNews - спринт уже опубликован (seen), но офферы
   // могли получить/уточнить exactDateLabel с прошлого прогона (см.
   // Announcement.sprintKey) - патчим существующую запись НА МЕСТЕ, без
-  // нового поста/id/даты/алерта.
-  updateExisting?: { sprintKey: string; items: AnnouncementItem[] }
+  // нового поста/id/даты/алерта. Массив: за один прогон дозаполняем И живой
+  // спринт (currentSprint - точные даты открываются сервером ещё ~2 недели
+  // после старта), И следующий, если он уже был опубликован как "прогноз".
+  updateExisting?: { sprintKey: string; items: AnnouncementItem[] }[]
   // Только shopForecast/dailyNews, только при СОЗДАНИИ новой записи (items
   // непустой, updateExisting не задан) - записывается в Announcement.sprintKey.
   sprintKey?: string
@@ -534,43 +536,93 @@ async function detectReactors(seen: string[]): Promise<DetectResult> {
 // id="<sprint>|<itemId>" (префикс спринта нужен странице, чтобы вытащить
 // диапазон дат через sprintRangeLabel() без повторного похода в игровые
 // файлы). Announcement остаётся ОДИН на спринт (ledger-ключ не меняется).
+// Тянем ДВА спринта за прогон - живой (currentSprint) и следующий (+1).
+// Раньше фетчили только "+1": как только спринт становился текущим, его
+// дозаполнение точных дат обрывалось, хотя сервер (kartel acceptFuturFilters)
+// продолжает открывать даты офферов ещё ~2 недели после старта спринта.
+// Живой спринт ВСЕГДА идёт по updateExisting (никогда не создаёт новый пост);
+// "+1" - как прежде: новый пост, если ещё не публиковали, иначе дозаполнение.
+type ForecastLike = { sprint: number }
+function splitForecastSprints<F extends ForecastLike>(
+  seen: string[],
+  live: F | null,
+  next: F | null,
+  toItems: (forecast: F) => AnnouncementItem[],
+): DetectResult {
+  const updateExisting: { sprintKey: string; items: AnnouncementItem[] }[] = []
+
+  if (live) {
+    const key = String(live.sprint)
+    const liveItems = toItems(live)
+    if (seen.includes(key) && liveItems.length > 0) {
+      // liveItems.length>0 - страховка: merge ниже делает existing.items =
+      // upd.items.map(...), пустой upd.items стёр бы всю запись (а не "только
+      // добавляет"). Живой спринт из статичного XML всегда непустой, пока он
+      // в файле; выпал из файла -> fetch обычно даёт null, но не полагаемся.
+      updateExisting.push({ sprintKey: key, items: liveItems })
+    } else if (!seen.includes(key)) {
+      // Живой спринт без записи в ledger - НЕ публикуем тут (первичную
+      // публикацию произвольного спринта делает scripts/backfill-sprint-
+      // announcements.ts). В нормальном режиме сюда не попадаем: каждый спринт
+      // публикуется как "+1" ещё до того, как станет текущим.
+      console.warn(
+        `[ANNOUNCE] forecast: живой спринт ${key} не в ledger - пропуск (нужен разовый backfill)`,
+      )
+    }
+  }
+
+  if (next) {
+    const key = String(next.sprint)
+    const items = toItems(next)
+    if (seen.includes(key)) {
+      updateExisting.push({ sprintKey: key, items })
+    } else if (items.length > 0) {
+      // Первичная публикация "+1" - ТОЛЬКО когда офферы реально появились.
+      // dailypopup.xml/shopitems.xml иногда несут маркер спринта (`<!-- DEBUT
+      // SPRINT N -->`) раньше, чем сами `<Offer>` под ним - в этот момент
+      // fetch отдаёт непустой forecast с items:[]. Помечать такой спринт как
+      // seen нельзя: когда офферы добавят, он уже будет в ledger -> уйдёт в
+      // updateExisting -> existing-записи нет -> пост потеряется молча.
+      return { newIds: [...seen, key], items, sprintKey: key, updateExisting }
+    }
+  }
+
+  return { newIds: seen, items: [], updateExisting }
+}
+
 async function detectShopForecast(seen: string[]): Promise<DetectResult> {
-  const forecast = await fetchShopForecast()
-  if (!forecast) return { newIds: seen, items: [] }
-  const key = String(forecast.sprint)
-  const items = forecast.items.map((it) => ({
-    id: `${key}|${it.itemId}`,
-    name: it.name,
-    image: it.image,
-    price: it.price,
-    ribbon: it.ribbon,
-    exactDateLabel: it.exactDateLabel,
-    exactDateStart: it.exactDateStart,
-  }))
-  // Спринт уже опубликован раньше - не новый пост, а дозаполнение exactDateLabel
-  // на месте (часть офферов узнают точную дату не в момент первой публикации
-  // прогноза, а ближе к своему старту, см. память auto-announcements-architecture).
-  if (seen.includes(key))
-    return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
-  return { newIds: [...seen, key], items, sprintKey: key }
+  const cs = currentSprint()
+  const [live, next] = await Promise.all([fetchShopForecast(cs), fetchShopForecast(cs + 1)])
+  return splitForecastSprints(seen, live, next, (forecast) =>
+    forecast.items.map((it) => ({
+      id: `${forecast.sprint}|${it.itemId}`,
+      name: it.name,
+      image: it.image,
+      price: it.price,
+      ribbon: it.ribbon,
+      exactDateLabel: it.exactDateLabel,
+      exactDateStart: it.exactDateStart,
+    })),
+  )
 }
 
 async function detectDailyNews(seen: string[]): Promise<DetectResult> {
-  const forecast = await fetchDailyNewsForecast()
-  if (!forecast) return { newIds: seen, items: [] }
-  const key = String(forecast.sprint)
-  const items = forecast.items.map((it) => ({
-    id: `${key}|${it.filter}`,
-    name: it.name,
-    image: it.image ?? forecast.coverImage,
-    price: it.price,
-    ribbon: it.ribbon,
-    exactDateLabel: it.exactDateLabel,
-    exactDateStart: it.exactDateStart,
-  }))
-  if (seen.includes(key))
-    return { newIds: seen, items: [], updateExisting: { sprintKey: key, items } }
-  return { newIds: [...seen, key], items, sprintKey: key }
+  const cs = currentSprint()
+  const [live, next] = await Promise.all([
+    fetchDailyNewsForecast(cs),
+    fetchDailyNewsForecast(cs + 1),
+  ])
+  return splitForecastSprints(seen, live, next, (forecast) =>
+    forecast.items.map((it) => ({
+      id: `${forecast.sprint}|${it.filter}`,
+      name: it.name,
+      image: it.image ?? forecast.coverImage,
+      price: it.price,
+      ribbon: it.ribbon,
+      exactDateLabel: it.exactDateLabel,
+      exactDateStart: it.exactDateStart,
+    })),
+  )
 }
 
 async function detectRebalance(seen: string[]): Promise<DetectResult> {
@@ -788,11 +840,16 @@ async function main() {
         announcements.push(a)
         newlyAdded.push(a)
         published.push(`${d.category} (${items.length})`)
-      } else if (updateExisting) {
-        // Спринт уже опубликован - не новый пост, а дозаполнение items
-        // (exactDateLabel) в УЖЕ существующей записи. Не трогает id/date/
-        // title - на ленте это не выглядит как новый анонс, notifyRunSummary/
-        // кросс-пост не триггерятся (announcements/newlyAdded не пополняются).
+      }
+      // updateExisting может прийти В ТОТ ЖЕ прогон, что и новый пост (напр.
+      // спринт "+1" опубликован впервые, а живой спринт дозаполнен) - это НЕ
+      // взаимоисключающие ветки. Массив: за прогон патчим и живой спринт, и
+      // "+1", если оба уже были опубликованы (см. detectShopForecast).
+      for (const upd of updateExisting ?? []) {
+        // Уже опубликованный спринт - не новый пост, а дозаполнение items
+        // (exactDateLabel) в существующей записи. Не трогает id/date/title -
+        // на ленте не выглядит как новый анонс, notifyRunSummary/кросс-пост
+        // не триггерятся (announcements/newlyAdded не пополняются).
         //
         // НАЙДЕНО 2026-09-04: live-фильтры account'а НЕ растут монотонно -
         // набор может СЖИМАТЬСЯ между прогонами (сколько именно окон отдаёт
@@ -805,11 +862,11 @@ async function main() {
         // есть - те приходят из статичного XML, не live-kartel, там регрессий
         // такого рода не бывает.
         const existing = announcements.find(
-          (a2) => a2.category === d.category && a2.sprintKey === updateExisting.sprintKey,
+          (a2) => a2.category === d.category && a2.sprintKey === upd.sprintKey,
         )
         if (existing) {
           const oldById = new Map(existing.items.map((it) => [it.id, it]))
-          existing.items = updateExisting.items.map((fresh) => {
+          existing.items = upd.items.map((fresh) => {
             const old = oldById.get(fresh.id)
             // Дата ПОЯВИЛАСЬ именно в этом прогоне (раньше её не было, сейчас
             // есть) - собираем для алерта. Не триггерим на "дата уже была

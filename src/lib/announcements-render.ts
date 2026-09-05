@@ -165,6 +165,47 @@ export function boxMutantIcon(m: BoxMutantRef): string {
   return getMutantTexturePath(m.id, m.skin ?? '_any', variant)
 }
 
+export interface BoxReward {
+  name: string
+  type: 'entity' | 'hardcurrency' | 'softcurrency'
+  amount: number
+}
+export interface BoxOutcome {
+  chance: number | null
+  mutants: BoxMutantRef[]
+  rewards: BoxReward[]
+}
+
+// 1-в-1 с BoxModal.svelte::groupedOutcomes: игра разыгрывает бокс по группам
+// (мутант + бонусный жетон в одном атомарном исходе, а не два независимых
+// слота). Схлопываем группы с одинаковым содержимым, суммируя шанс. Затем
+// делим на гарантированное (chance == null) и пул (chance != null).
+export function boxGroupedOutcomes(box: BoxEntry): {
+  guaranteed: BoxOutcome[]
+  pool: BoxOutcome[]
+} {
+  const map = new Map<string, BoxOutcome>()
+  for (const g of box.groups as unknown as BoxOutcome[]) {
+    const key = [
+      ...g.mutants.map((m) => `m:${m.id}|${m.tier ?? ''}|${m.skin ?? ''}`),
+      ...(g.rewards ?? []).map((r) => `r:${r.type}|${r.name}|${r.amount}`),
+    ]
+      .sort()
+      .join(',')
+    const existing = map.get(key)
+    if (existing) {
+      if (existing.chance != null && g.chance != null) existing.chance += g.chance
+    } else {
+      map.set(key, { chance: g.chance, mutants: g.mutants, rewards: g.rewards ?? [] })
+    }
+  }
+  const outcomes = [...map.values()]
+  return {
+    guaranteed: outcomes.filter((o) => o.chance == null),
+    pool: outcomes.filter((o) => o.chance != null),
+  }
+}
+
 export function uniqueBoxMutants(box: BoxEntry): BoxMutantRef[] {
   const seen = new Set<string>()
   const out: BoxMutantRef[] = []
