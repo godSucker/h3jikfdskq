@@ -32,7 +32,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
     const page = await browser.newPage({
       deviceScaleFactor: 2,
-      viewport: { width: 1100, height: 1000 },
+      viewport: { width: 1100, height: 1600 },
     })
 
     await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })
@@ -97,7 +97,18 @@ export const GET: APIRoute = async ({ url }) => {
       // процессор очереди трактует 404 как "повторить позже".
       return new Response('Mutant not found', { status: 404 })
     }
-    const buffer = (await dialog.screenshot({ type: 'png' })) as Buffer
+    // page.screenshot({clip}), НЕ dialog.screenshot(): у ElementHandle-снимка
+    // встроенное ожидание "element stable", и инъекция плашки даты (новый узел
+    // в модалке) его сбрасывала -> Timeout 30000ms. clip по boundingBox даёт
+    // тот же кадр без ожидания стабильности.
+    const bbox = await dialog.boundingBox()
+    if (!bbox) {
+      return new Response('Mutant dialog has no layout box', { status: 500 })
+    }
+    const buffer = (await page.screenshot({
+      type: 'png',
+      clip: { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height },
+    })) as Buffer
 
     return new Response(new Uint8Array(buffer), {
       status: 200,

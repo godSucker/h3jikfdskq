@@ -15,8 +15,10 @@ export function ruDate(iso: string): string | null {
 }
 
 // Вставляет плашку в левый верхний угол элемента-диалога. position:absolute
-// внутри самого dialog (делаем его positioned, если вдруг static) - так плашка
-// гарантированно попадает в кадр dialog.screenshot(). No-op при пустом label.
+// внутри самого dialog (делаем его positioned, если вдруг static). No-op при
+// пустом label. Снимать после этого нужно через page.screenshot({clip}) -
+// НЕ elementHandle.screenshot(): у последнего встроенное ожидание "element
+// stable", и добавление узла в модалку его сбрасывало -> таймаут 30с.
 export async function injectDateBadge(
   page: Page,
   selector: string,
@@ -30,6 +32,7 @@ export async function injectDateBadge(
       if (getComputedStyle(dlg).position === 'static') dlg.style.position = 'relative'
       const badge = document.createElement('div')
       badge.textContent = text
+      // Без backdrop-filter - тяжёлая непрерывная композиция кадра.
       badge.style.cssText = [
         'position:absolute',
         'top:12px',
@@ -38,11 +41,10 @@ export async function injectDateBadge(
         'font:700 13px/1 "TT Supermolot Neue",ui-sans-serif,system-ui,sans-serif',
         'letter-spacing:0.02em',
         'color:rgb(96,165,250)',
-        'background:rgba(96,165,250,0.14)',
-        'border:1px solid rgba(96,165,250,0.4)',
+        'background:rgba(30,41,59,0.92)',
+        'border:1px solid rgba(96,165,250,0.5)',
         'border-radius:999px',
         'padding:6px 12px',
-        'backdrop-filter:blur(4px)',
       ].join(';')
       dlg.appendChild(badge)
     },

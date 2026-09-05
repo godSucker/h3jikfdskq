@@ -40,7 +40,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
     const page = await browser.newPage({
       deviceScaleFactor: 2,
-      viewport: { width: 1100, height: 1000 },
+      viewport: { width: 1100, height: 1600 },
     })
 
     await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })
@@ -119,7 +119,16 @@ export const GET: APIRoute = async ({ url }) => {
       // процессор очереди трактует 404 как "повторить позже".
       return new Response('Skin not found', { status: 404 })
     }
-    const buffer = (await dialog.screenshot({ type: 'png' })) as Buffer
+    // page.screenshot({clip}), НЕ dialog.screenshot() - см. комментарий в
+    // screenshot-mutant.ts (инъекция плашки даты ломала ожидание "stable").
+    const bbox = await dialog.boundingBox()
+    if (!bbox) {
+      return new Response('Skin dialog has no layout box', { status: 500 })
+    }
+    const buffer = (await page.screenshot({
+      type: 'png',
+      clip: { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height },
+    })) as Buffer
 
     return new Response(new Uint8Array(buffer), {
       status: 200,
