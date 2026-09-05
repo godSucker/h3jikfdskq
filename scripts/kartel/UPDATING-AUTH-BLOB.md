@@ -1,167 +1,173 @@
 # Обновление `auth_request_fresh.bin` (секрет `KARTEL_AUTH_BLOB_B64`)
 
-Инструкция на случай, когда меня нет рядом. Занимает ~15 минут, из них
-большая часть — поднять телефон с Frida.
+Инструкция на случай, когда меня нет рядом. ~15 минут, из них большая часть -
+поднять телефон с Frida.
 
 ## Что это и зачем
 
-`scripts/kartel/fetch-filters.py` дергает живой `getuser` у сервера MGG, чтобы
-достать точные даты старта офферов магазина / «скоро в игре» (в статичных
-XML с CDN этих дат нет — их решает сервер в реальном времени). Пайплайн
-`announcements-hourly.yml`, шаг 9.5, гоняет этот скрипт каждый час.
+`scripts/kartel/fetch-filters.py` дёргает живой `getuser` у сервера MGG, чтобы
+достать точные даты старта офферов магазина / «скоро в игре» (в статичных XML
+с CDN этих дат нет). Пайплайн `announcements-hourly.yml`, шаг 9.5, гоняет его
+каждый час.
 
-Для авторизации скрипт берёт **`auth_request_fresh.bin`** — это перехваченное
+Для авторизации скрипт берёт **`auth_request_fresh.bin`** - перехваченное
 тело POST-запроса, который игровой клиент шлёт на `AuthService.ashx` при
-старте. Внутри — XMZ+zlib(JSON) с данными аккаунта фарм-бота (level 234,
-`mgg_dump/`). Скрипт его декодирует, подставляет свежий `DevID`, заново
-кодирует и отправляет — получает одноразовый `UserId:AuthToken`.
+старте. Внутри - XMZ+zlib(JSON) с `AccTok` / `DevID` / `User` аккаунта
+фарм-бота. Скрипт декодирует, подставляет свежий `DevID`, заново кодирует,
+отправляет - получает одноразовый `UserId:AuthToken`, потом `getuser` на
+`kartel.ashx`.
 
-Блоб живёт **~60 дней**. Дальше `auth()` начинает падать. Два сигнала:
+Блоб живёт **~60 дней** (истекает `AccTok`). Сигналы протухания:
 
 - **Активный алерт**: `announcements-hourly.yml` шаг 9.6 шлёт в личный чат
-  `🔴 Kartel-фильтры: не удалось получить живые точные даты…` при первом же
-  сбое шага 9.5.
-- **Проактивное напоминание**: `kartel-auth-reminder.yml` — cron 1-го числа
-  каждого месяца, шлёт в чат готовую команду заливки.
+  `🔴 Kartel-фильтры: не удалось получить живые точные даты…` при первом сбое.
+- **Проактивное напоминание**: `kartel-auth-reminder.yml` - 1-го числа каждого
+  месяца.
 
-Пока блоб протух, ничего не «ломается» — прогноз магазина продолжает
-показывать диапазон всего спринта (2 недели) без точных дней. Чинить не
-срочно, но лучше в течение недели.
+Пока протух - ничего не «ломается»: прогноз показывает диапазон всего спринта
+(2 недели) без точных дней. Чинить не срочно, но в течение недели.
+
+## ⚠️ Привязка к аккаунту (важно!)
+
+`fetch-filters.py` строку 88 хардкодит FB-ID аккаунта:
+
+```python
+return '%d:0:109526704649610:%s' % (resp['UserId'], resp['AuthToken'])
+```
+
+Токен, полученный `auth()`, работает на `kartel.ashx` **только с FB-ID того же
+аккаунта**, с которого снят блоб. Снимешь с другого аккаунта - `kartel.ashx`
+ответит `FAIL:AUTH_ERROR`, даже если `auth()` прошёл.
+
+**Захватывать с аккаунта `109526704649610`** (тот, что в текущем секрете;
+`~/site-workspace/4443/autofarm2.py` использует его же). Если осознанно
+меняешь аккаунт - поправь FB-ID в `fetch-filters.py:88` под новый (его
+`User.PlatformUserId` из блоба; `auth-blob-from-capture.py` его печатает).
 
 ## Что понадобится
 
-- Рутованный Android-телефон с установленной MGG (тот же аккаунт-фарм-бот).
-- `frida-server` на телефоне (бинарь уже лежал в `~` телефона в прошлых
-  сессиях; если нет — скачать под нужный ABI с github.com/frida/frida/releases).
+- Рутованный Android с MGG (аккаунт `109526704649610`).
+- `frida-server` на телефоне (бинарь лежал в `/data/local/tmp/` в прошлых
+  сессиях; иначе - github.com/frida/frida/releases под нужный ABI).
 - На ПК: `pip install frida-tools requests`.
-- Рабочая копия `/home/godbtw/site-workspace/4443/` (RE-тулинг, НЕ в этом репо).
-- `gh` CLI, залогиненный под аккаунтом с доступом к репо `godSucker/h3jikfdskq`.
+- RE-тулинг `~/site-workspace/4443/` (там `kartel-receiver.py` +
+  `kartel-capture-all.js` - проверенный годами путь захвата).
+- `gh` CLI, залогинен с доступом к `godSucker/h3jikfdskq`.
 
 ## Шаги
 
 ### 1. Поднять Frida на телефоне
 
 ```bash
-# на телефоне (adb shell или напрямую)
+# на телефоне
 su -c '/data/local/tmp/frida-server -D &'
 ```
 
-С ПК проверить связь и найти PID игры (телефон и ПК в одной сети,
-27042 — дефолтный порт frida-server):
+С ПК - найти PID работающей игры (телефон и ПК в одной сети):
 
 ```bash
 frida-ps -H <IP_ТЕЛЕФОНА>:27042 | grep -i mutant
-# пример вывода:  12345  com.kobojo.mutantsgeneticgladiators
+#  12345  com.kobojo.mutantsgeneticgladiators
 ```
 
-> Игра **должна быть запущена** — PID нужен живой. Если игра вылетала по сети,
-> PID мог смениться: перепроверять `frida-ps` перед каждым заходом, не
-> полагаться на старый.
+> Игра должна быть запущена. Вылетала по сети - PID мог смениться,
+> перепроверяй `frida-ps` перед каждым заходом.
 
-### 2. Запустить приёмник захвата
+### 2. Запустить проверенный приёмник захвата
 
 ```bash
-cd /home/godbtw/site-workspace/4443
-python3 receiver.py <IP_ТЕЛЕФОНА>:27042 <PID> capture_auth_binary.js
+cd ~/site-workspace/4443
+python3 kartel-receiver.py <IP_ТЕЛЕФОНА>:27042 <PID>
 ```
 
-`capture_auth_binary.js` хукает `SSL_write` в `libmutants_android_game.so` и
-ловит тело POST на `AuthService.ashx`. Скрипт печатает
-`=== AUTH BINARY CAPTURE ===` и ждёт.
+Дефолтный режим = `kartel-capture-all.js`, хукает `SSL_write` в
+`libmutants_android_game.so`, пишет **все** kobojo-запросы (kartel + auth) в
+`mgg_dump/requests.jsonl`. Отдельного `auth_request_fresh.bin` он НЕ пишет -
+его достаёт скрипт из шага 4.
+
+Останавливать: `Ctrl+C` (или `kill -TERM <pid>`), дождаться `summary.json`.
+
+> ⚠️ НЕ путать с `4443/receiver.py` - у него дефолтный скрипт
+> `capture-string-decrypt.js`, которого в папке нет, он не загрузится.
+> Рабочий - именно `kartel-receiver.py`.
 
 ### 3. Заставить игру переавторизоваться
 
-Тело `AuthService.ashx` уходит **только при свежем логине**. Проще всего:
+Тело `AuthService.ashx` уходит только при свежем логине. Пока
+`kartel-receiver.py` работает:
 
-- полностью закрыть игру (свайпнуть из недавних), затем открыть заново; **или**
+- полностью закрыть игру (свайп из недавних) и открыть заново; **или**
 - Настройки Android → Приложения → Mutants → Остановить, затем открыть; **или**
-- если не помогло — очистить данные игры и залогиниться через Facebook заново
-  (крайний случай, придётся заново принимать туториал-экран).
+- крайний случай: очистить данные игры и залогиниться через Facebook заново.
 
-Как только клиент дошёл до авторизации, в приёмнике появится:
+В `requests.jsonl` первой же строкой должна появиться запись с
+`"url": "/AuthService.ashx"` и полем `"hex"` (~430-600 «байт» в `size`).
 
-```
-========== AUTH BODY CAPTURED ==========
-[SIZE] 560 bytes
-[FIRST_BYTE] 0x24 ($)
-[SENT] Binary hex to receiver
-[SAVED] auth_request_fresh.bin (560 bytes)
-```
-
-Файл лёг в `/home/godbtw/site-workspace/4443/mgg_dump/auth_request_fresh.bin`.
-Останавливаем приёмник: `Ctrl+C` (или `kill -TERM <pid>`).
-
-Здоровый блоб — **~430–600 байт**, первый байт `0x24` (`$`) или `0x7e` (`~`).
-Если размер вроде 50 байт или первый байт другой — захват кривой, повторить
-шаг 3.
-
-### 4. Проверить блоб ЛОКАЛЬНО до заливки
-
-Не заливать вслепую. `fetch-filters.py` умеет читать блоб из файла:
+### 4. Собрать `.bin` из захвата и проверить
 
 ```bash
-cd /home/godbtw/site-workspace/mutants_site
-python3 scripts/kartel/fetch-filters.py \
-  --auth-file /home/godbtw/site-workspace/4443/mgg_dump/auth_request_fresh.bin
+cd ~/site-workspace/mutants_site
+python3 scripts/kartel/auth-blob-from-capture.py \
+  ~/site-workspace/4443/mgg_dump/requests.jsonl \
+  -o /tmp/auth_request_fresh.bin --verify
 ```
 
-**Хорошо** — на stdout JSON вида
-`{"fetchedAt": "...", "filters": {"Shop_...": {"start": "2026-...", "end": ...}, ...}}`
-с десятками фильтров.
+Скрипт:
 
-**Плохо** — в stderr `KARTEL_FETCH_ERROR: auth failed after 3 attempts…`.
-Значит блоб не подошёл (кривой захват / не тот аккаунт / сервер поменял
-протокол). Вернуться к шагу 3; если повторяется — писать мне.
+1. достаёт `AuthService.ashx`-запись из `requests.jsonl`, пишет `hex` как байты;
+2. **sanity-check**: маркер `$`/`~`, xmz-decode + zlib + JSON, ключи
+   `AccTok`/`DevID`/`User`;
+3. **FB-ID check**: сверяет `User.PlatformUserId` из блоба с зашитым в
+   `fetch-filters.py` - при расхождении падает с понятным сообщением ДО сети;
+4. `--verify`: гоняет `fetch-filters.py --auth-file` на блобе (живой `getuser`
+   у прода). Печатает `ok - сервер вернул N фильтров` = блоб рабочий.
 
-### 5. Залить как секрет
+Любой из чеков упал → чини по сообщению (чаще всего: захват с не того
+аккаунта, или игра не переавторизовалась - в `requests.jsonl` нет
+AuthService), не заливай секрет.
+
+### 5. Залить секрет
 
 ```bash
-base64 -w0 /home/godbtw/site-workspace/4443/mgg_dump/auth_request_fresh.bin \
+base64 -w0 /tmp/auth_request_fresh.bin \
   | gh secret set KARTEL_AUTH_BLOB_B64 --repo godSucker/h3jikfdskq
 ```
 
-(`-w0` обязателен — без него base64 переносит строки, секрет ломается.)
+(`-w0` обязателен - иначе base64 переносит строки, секрет ломается.)
 
 ### 6. Подтвердить на CI
 
 ```bash
 gh workflow run announcements-hourly.yml --repo godSucker/h3jikfdskq
-# подождать ~2 мин, затем:
+sleep 120
 gh run list --workflow=announcements-hourly.yml --limit 1 --repo godSucker/h3jikfdskq
 gh run view <RUN_ID> --log --repo godSucker/h3jikfdskq | grep -A3 "9.5 Живые точные даты"
 ```
 
-Шаг 9.5 зелёный и без `KARTEL_FETCH_ERROR`, шаг 9.6 (алерт) **пропущен** —
-значит всё поднялось. В течение следующих прогонов `notifyNewExactDates`
-дошлёт в чат вновь раскрывшиеся даты живого спринта.
+Шаг 9.5 зелёный без `KARTEL_FETCH_ERROR`, шаг 9.6 (алерт) пропущен = поднялось.
+В следующих часовых прогонах `notifyNewExactDates` дошлёт в чат вновь
+раскрывшиеся точные даты живого спринта.
 
-## Если офсеты в Frida-скрипте протухли
+## Если Frida-хук перестал ловить (апдейт игры)
 
-`capture_auth_binary.js` хардкодит адрес `SSL_write` (`base.add(0xb22368)`)
-под конкретную версию `libmutants_android_game.so` (v76-802-172880). После
-крупного апдейта игры адрес сдвинется — захват просто ничего не поймает
-(приёмник висит, `AUTH BODY CAPTURED` не появляется).
+`kartel-capture-all.js` хардкодит адрес `SSL_WRITE = 0xb22368` под версию
+`libmutants_android_game.so` v76-802-172880. После крупного апдейта адрес
+сдвинется - `requests.jsonl` останется пустым.
 
-Тогда:
-
-1. Вытащить свежий `libmutants_android_game.so` из APK
-   (`unzip -o base.apk 'lib/arm64-v8a/*'`).
-2. Найти экспорт `SSL_write`:
-   `nm -D --defined-only lib/arm64-v8a/libmutants_android_game.so | grep -i ssl_write`
-   — взять его offset, подставить в `Interceptor.attach(base.add(0xXXXX), …)`
-   в `capture_auth_binary.js` (и в `frida_auth_hook.js`, где тот же адрес).
-3. Альтернатива без ручного поиска — `frida_capture_full_auth.js` в `4443/`
-   резолвит по имени модуля/символа динамичнее; можно попробовать его как
-   `python3 receiver.py <IP>:PORT <PID> frida_capture_full_auth.js`.
+1. Вытащить свежий `.so`: `unzip -o base.apk 'lib/arm64-v8a/*'`.
+2. `nm -D --defined-only lib/arm64-v8a/libmutants_android_game.so | grep -i ssl_write`
+   - взять offset, подставить в `SSL_WRITE` в `kartel-capture-all.js` (и в
+   `CURL_CLIENT_WRITE`/`CURL_EASY_SETOPT` по аналогии, если поехали и они).
 
 ## Файлы
 
 | Что | Где |
 |-----|-----|
-| Потребитель блоба (в этом репо) | `scripts/kartel/fetch-filters.py` |
+| Потребитель блоба (этот репо) | `scripts/kartel/fetch-filters.py` (FB-ID на стр. 88) |
+| Сборка `.bin` из захвата (этот репо) | `scripts/kartel/auth-blob-from-capture.py` |
 | CI-шаги 9.5 / 9.6 | `.github/workflows/announcements-hourly.yml` |
 | Месячное напоминание | `.github/workflows/kartel-auth-reminder.yml` |
-| Frida-скрипт захвата | `~/site-workspace/4443/capture_auth_binary.js` |
-| Приёмник | `~/site-workspace/4443/receiver.py` |
-| Куда падает свежий блоб | `~/site-workspace/4443/mgg_dump/auth_request_fresh.bin` |
+| Проверенный приёмник захвата | `~/site-workspace/4443/kartel-receiver.py` |
+| Frida-скрипт захвата | `~/site-workspace/4443/kartel-capture-all.js` |
+| Куда пишется захват | `~/site-workspace/4443/mgg_dump/requests.jsonl` |
 | Референс-клиент (auth+send целиком) | `~/site-workspace/4443/mgg_client.py` |
