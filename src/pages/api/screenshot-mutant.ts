@@ -4,22 +4,29 @@ import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
 
 // Скриншот модалки ОДНОГО мутанта (MutantModal.svelte) для бот-скриншотера в
-// админ-чат - юзер попросил модалку вместо сухой карточки анонса (та несёт
-// только имя+иконку, модалка - полную статкарту). Переиспользует уже
-// существующий ?mutant=<id> deep-link /mutants (см. MutantsBrowser.svelte,
-// тот же приём, что даёт сайтовый поиск - строить отдельную render-страницу
-// не нужно, модалка и так открывается по URL). ?date= рисует плашку с датой
-// анонса прямо на скрине (см. src/lib/screenshot-date-badge.ts).
-
+// админ-чат. Снимаем с изолированной /mutants/skin-render/[id] (та же, что для
+// скинов - MutantsBrowser рендерит ровно один мутант, всё лишнее скрыто CSS),
+// НЕ с живой /mutants: там грид каталога на сотни lazy-картинок + битые
+// иконки в модалке у части мутантов не дают headless-Chromium дождаться
+// "element stable" -> Timeout 30000ms (Флипфлоп da_15 стабильно падал,
+// фидбек 2026-09-05). Диплинк /mutants?mutant= для людей не тронут.
+//
+// id = specimen id мутанта (из detectMutants, уже lowercase). ?date= рисует
+// плашку с датой анонса (screenshot-date-badge.ts).
 export const GET: APIRoute = async ({ url }) => {
-  const id = url.searchParams.get('id')
-  if (!id) {
+  const rawId = url.searchParams.get('id')
+  if (!rawId) {
     return new Response('Missing id param', { status: 400 })
   }
+  const id = rawId.toLowerCase()
   const dateLabel = ruDate(url.searchParams.get('date') ?? '')
 
-  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/mutants?mutant=${encodeURIComponent(id)}`
+  // Хардкод хоста, не url.origin: см. комментарий в screenshot.ts (SSRF через
+  // Host). ?mutant= в query читает MutantsBrowser::tryOpenFromUrl на самой
+  // render-странице (путь /[id] - для резолва данных во frontmatter).
+  const pageUrl =
+    `https://archivist-library.com/mutants/skin-render/${encodeURIComponent(id)}` +
+    `?mutant=${encodeURIComponent(id)}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {
@@ -35,13 +42,11 @@ export const GET: APIRoute = async ({ url }) => {
       viewport: { width: 1100, height: 1600 },
     })
 
-    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })
+    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 20000 })
 
-    // aria-labelledby, не .modal-2k (Tailwind-класс) - устойчивее к правкам
-    // вёрстки, id="mutant-title" уникален на странице только внутри модалки.
     const selector = '[role="dialog"][aria-labelledby="mutant-title"]'
     await Promise.all([
-      page.waitForSelector(selector, { timeout: 12000, state: 'visible' }),
+      page.waitForSelector(selector, { timeout: 25000, state: 'visible' }),
       page.evaluate(() => document.fonts.ready),
     ])
 
@@ -109,12 +114,6 @@ export const GET: APIRoute = async ({ url }) => {
       // процессор очереди трактует 404 как "повторить позже".
       return new Response('Mutant not found', { status: 404 })
     }
-    // animations:'disabled' - Playwright замораживает CSS-анимации/переходы и
-    // НЕ ждёт "element stable" из-за них. Без этого инъекция плашки даты
-    // (микро-reflow при подгрузке шрифта плашки) держала проверку
-    // стабильности незавершённой -> Timeout 30000ms. page.screenshot({clip})
-    // тут не годится - ждёт стабилизации ВСЕЙ страницы (фон /mutants с сотнями
-    // lazy-картинок за модалкой никогда не "устаканивается").
     const buffer = (await dialog.screenshot({
       type: 'png',
       animations: 'disabled',

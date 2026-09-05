@@ -83,3 +83,4 @@ scripts/i18n-sweep-report.json
 # auth-блоба живёт в KARTEL_AUTH_BLOB_B64 (GitHub Secrets), не в файлах.
 scripts/live-filter-dates.json
 scripts/kartel/auth_request_fresh.bin
+downloads/

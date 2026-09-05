@@ -106,13 +106,17 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     // Никакой карточки анонса вообще - только модалка/содержимое (см.
     // комментарий у CONTENT_ONLY_CATEGORIES выше). Капаем на 4 - альбом
     // Telegram допускает 2-10 элементов.
+    // ПОСЛЕДОВАТЕЛЬНО, не Promise.all: каждый скрин модалки поднимает свой
+    // headless-Chromium на проде, два-три параллельно на одном тёплом
+    // Vercel-контейнере упираются в ERR_INSUFFICIENT_RESOURCES и оба падают
+    // (анонс "Новые мутанты: 2" клал очередь в ретрай навсегда, фидбек
+    // 2026-09-05). Медленнее, зато надёжно.
     const cappedIds = job.itemIds.slice(0, 4)
-    const results = await Promise.all(
-      cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId, job.date))),
-    )
-    const buffers = results
-      .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
-      .filter((x): x is { buffer: Buffer; itemId: string } => x !== null)
+    const buffers: { buffer: Buffer; itemId: string }[] = []
+    for (const itemId of cappedIds) {
+      const r = await fetchPhoto(contentUrlFor(job.category, itemId, job.date))
+      if (r.ok) buffers.push({ buffer: r.buffer, itemId })
+    }
 
     // Ничего не готово - ждём следующий тик (нет "карточки анонса" как
     // резервного фолбэка у этих категорий - если содержимое не готово,
@@ -131,53 +135,21 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     return (await sendAdminMediaGroup(photos, caption)) ? 'sent' : 'retry'
   }
 
-  // Все остальные категории имеют карточку на /announcements/render/[id] -
-  // тот же скриншот, что уже умеет отдавать api/screenshot-announcement.ts.
+  // Все остальные категории (box/raid/ladder/reactor/token/shopForecast/
+  // dailyNews) шлют ОДИН скрин карточки с /announcements/render/[id]:
+  // - box: карточка несёт полный дизайн /boxes + дату (юзер, 2026-09-05);
+  // - raid/ladder: карточка уже расписывает данж (имя/мутант/бои/награды/
+  //   валюта), отдельный скрин из /guides был дублем (юзер, 2026-09-05);
+  // - reactor/token/forecast: у них и так одна карточка.
+  // screenshot-dungeon.ts / screenshot-box.ts остаются рабочими, просто не
+  // зовутся отсюда.
   const primary = await fetchPhoto(
     `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}`,
   )
   if (!primary.ok) return 'retry'
-
-  // box больше НЕ в needsContent - его карточка анонса теперь несёт полный
-  // дизайн /boxes + дату, один скрин достаточен (юзер, 2026-09-05).
-  const needsContent = job.category === 'raid' || job.category === 'ladder'
-  if (!needsContent) {
-    return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`))
-      ? 'sent'
-      : 'retry'
-  }
-
-  // Капаем на 4 - альбом Telegram допускает 2-10 элементов, 1 карточка + 4
-  // содержимого держит пост читаемым даже когда за один часовой прогон
-  // нашлось сразу несколько новых рейдов/лесенок.
-  const cappedIds = job.itemIds.slice(0, 4)
-  const contentResults = await Promise.all(
-    cappedIds.map((itemId) => fetchPhoto(contentUrlFor(job.category, itemId))),
-  )
-  const contentBuffers = contentResults
-    .map((r, i) => (r.ok ? { buffer: r.buffer, itemId: cappedIds[i] } : null))
-    .filter((x): x is { buffer: Buffer; itemId: string } => x !== null)
-
-  // Контент ещё не готов (0 из ожидаемых) - ждём следующий тик, ЕСЛИ ещё
-  // остался запас попыток. На последней попытке шлём что есть (пусть даже
-  // только карточку анонса) - лучше неполный альбом, чем анонс без фото
-  // вообще из-за одного упрямого содержимого.
-  const isLastAttempt = job.attempts >= MAX_ATTEMPTS - 1
-  if (contentBuffers.length === 0 && cappedIds.length > 0 && !isLastAttempt) {
-    return 'retry'
-  }
-
-  const photos: AdminPhoto[] = [
-    { buffer: primary.buffer, filename: `${job.category}-${job.id}.png` },
-    ...contentBuffers.map((c) => ({
-      buffer: c.buffer,
-      filename: `${job.category}-content-${c.itemId}.png`,
-    })),
-  ]
-  if (photos.length === 1) {
-    return (await sendAdminPhoto(photos[0].buffer, caption, photos[0].filename)) ? 'sent' : 'retry'
-  }
-  return (await sendAdminMediaGroup(photos, caption)) ? 'sent' : 'retry'
+  return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`))
+    ? 'sent'
+    : 'retry'
 }
 
 async function main() {

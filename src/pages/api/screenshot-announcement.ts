@@ -17,6 +17,11 @@ export const GET: APIRoute = async ({ url }) => {
   if (!id) {
     return new Response('Missing id param', { status: 400 })
   }
+  // Прогноз магазина/«скоро в игре» - широкая доска офферов (render-страница
+  // сама разворачивается до ~1880px для этих категорий), нужен FHD-viewport,
+  // иначе тайлы жмутся (фидбек 2026-09-05). Остальным хватает 800.
+  const isForecast = id.startsWith('shopForecast-') || id.startsWith('dailyNews-')
+  const viewportWidth = isForecast ? 1960 : 800
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
   const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`
@@ -32,7 +37,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
     const page = await browser.newPage({
       deviceScaleFactor: 2,
-      viewport: { width: 800, height: 1000 },
+      viewport: { width: viewportWidth, height: 1000 },
     })
 
     // Бинго-карточка сама встраивает <img src="/api/screenshot-bingo"> - на
