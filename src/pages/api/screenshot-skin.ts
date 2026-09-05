@@ -60,7 +60,8 @@ export const GET: APIRoute = async ({ url }) => {
     // просто не найтись, тогда снимем базового (лучше, чем 500).
     await page
       .waitForFunction(
-        (sel) => (document.querySelector(`${sel} #mutant-title`)?.textContent ?? '').includes(' — '),
+        (sel) =>
+          (document.querySelector(`${sel} #mutant-title`)?.textContent ?? '').includes(' — '),
         selector,
         { timeout: 4000 },
       )
