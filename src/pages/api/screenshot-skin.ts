@@ -67,6 +67,17 @@ export const GET: APIRoute = async ({ url }) => {
       page.evaluate(() => document.fonts.ready),
     ])
 
+    // Явно тянем кастомный шрифт - см. комментарий в screenshot-mutant.ts.
+    await page
+      .evaluate(async () => {
+        await Promise.all([
+          document.fonts.load('700 16px "TT Supermolot Neue"'),
+          document.fonts.load('400 16px "TT Supermolot Neue"'),
+        ])
+        await document.fonts.ready
+      })
+      .catch(() => {})
+
     // Скин выбирается реактивно в MutantModal (initialSkin -> $effect). Заголовок
     // модалки при выбранном скине - "<Имя> — <Имя скина>". Ждём появления " — "
     // как сигнала, что вариант применился, прежде чем ждать картинки (иначе
