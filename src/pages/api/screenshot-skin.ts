@@ -119,15 +119,11 @@ export const GET: APIRoute = async ({ url }) => {
       // процессор очереди трактует 404 как "повторить позже".
       return new Response('Skin not found', { status: 404 })
     }
-    // page.screenshot({clip}), НЕ dialog.screenshot() - см. комментарий в
-    // screenshot-mutant.ts (инъекция плашки даты ломала ожидание "stable").
-    const bbox = await dialog.boundingBox()
-    if (!bbox) {
-      return new Response('Skin dialog has no layout box', { status: 500 })
-    }
-    const buffer = (await page.screenshot({
+    // animations:'disabled' - см. комментарий в screenshot-mutant.ts (инъекция
+    // плашки даты ломала ожидание "element stable").
+    const buffer = (await dialog.screenshot({
       type: 'png',
-      clip: { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height },
+      animations: 'disabled',
     })) as Buffer
 
     return new Response(new Uint8Array(buffer), {

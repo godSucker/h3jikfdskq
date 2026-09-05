@@ -32,13 +32,15 @@ export async function injectDateBadge(
       if (getComputedStyle(dlg).position === 'static') dlg.style.position = 'relative'
       const badge = document.createElement('div')
       badge.textContent = text
-      // Без backdrop-filter - тяжёлая непрерывная композиция кадра.
+      // Только системный шрифт (без "TT Supermolot Neue") и без backdrop-filter:
+      // и то, и другое давало микро-reflow/непрерывную композицию кадра, из-за
+      // чего Playwright'овская проверка "element stable" не завершалась.
       badge.style.cssText = [
         'position:absolute',
         'top:12px',
         'left:12px',
         'z-index:99999',
-        'font:700 13px/1 "TT Supermolot Neue",ui-sans-serif,system-ui,sans-serif',
+        'font:700 13px/1 ui-sans-serif,system-ui,-apple-system,sans-serif',
         'letter-spacing:0.02em',
         'color:rgb(96,165,250)',
         'background:rgba(30,41,59,0.92)',
