@@ -3,23 +3,31 @@ import { chromium } from 'playwright-core'
 import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 import { ruDate, injectDateBadge } from '@/lib/screenshot-date-badge'
 
-// Скриншот модалки ОДНОГО мутанта (MutantModal.svelte) для бот-скриншотера в
-// админ-чат - юзер попросил модалку вместо сухой карточки анонса (та несёт
-// только имя+иконку, модалка - полную статкарту). Переиспользует уже
-// существующий ?mutant=<id> deep-link /mutants (см. MutantsBrowser.svelte,
-// тот же приём, что даёт сайтовый поиск - строить отдельную render-страницу
-// не нужно, модалка и так открывается по URL). ?date= рисует плашку с датой
-// анонса прямо на скрине (см. src/lib/screenshot-date-badge.ts).
-
+// Скриншот модалки ОДНОГО скина (MutantModal.svelte с предвыбранным вариантом
+// скина) для бот-скриншотера в админ-чат - как screenshot-mutant.ts, но
+// открывает конкретный скин через диплинк /mutants?mutant=<base>&skin=<key>
+// (см. MutantsBrowser.svelte::tryOpenFromUrl + MutantModal.svelte initialSkin).
+//
+// id = полный item.id анонса скина, формат "<SpecimenId>|<skinKey>" (см.
+// detectSkins в scripts/build-announcements.ts). Делим по "|".
+// ?date= рисует плашку с датой анонса на скрине (screenshot-date-badge.ts).
 export const GET: APIRoute = async ({ url }) => {
-  const id = url.searchParams.get('id')
-  if (!id) {
+  const raw = url.searchParams.get('id')
+  if (!raw) {
     return new Response('Missing id param', { status: 400 })
   }
+  const sep = raw.indexOf('|')
+  if (sep <= 0 || sep === raw.length - 1) {
+    return new Response('id must be "<specimenId>|<skinKey>"', { status: 400 })
+  }
+  const baseId = raw.slice(0, sep)
+  const skinKey = raw.slice(sep + 1)
   const dateLabel = ruDate(url.searchParams.get('date') ?? '')
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/mutants?mutant=${encodeURIComponent(id)}`
+  const pageUrl = `https://archivist-library.com/mutants?mutant=${encodeURIComponent(
+    baseId,
+  )}&skin=${encodeURIComponent(skinKey)}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {
@@ -44,6 +52,19 @@ export const GET: APIRoute = async ({ url }) => {
       page.waitForSelector(selector, { timeout: 12000, state: 'visible' }),
       page.evaluate(() => document.fonts.ready),
     ])
+
+    // Скин выбирается реактивно в MutantModal (initialSkin -> $effect). Заголовок
+    // модалки при выбранном скине - "<Имя> — <Имя скина>". Ждём появления " — "
+    // как сигнала, что вариант применился, прежде чем ждать картинки (иначе
+    // можем снять базового мутанта). Не критично при таймауте - скин мог
+    // просто не найтись, тогда снимем базового (лучше, чем 500).
+    await page
+      .waitForFunction(
+        (sel) => (document.querySelector(`${sel} #mutant-title`)?.textContent ?? '').includes(' — '),
+        selector,
+        { timeout: 4000 },
+      )
+      .catch(() => {})
 
     await page.evaluate((sel) => {
       document
@@ -93,9 +114,9 @@ export const GET: APIRoute = async ({ url }) => {
 
     const dialog = await page.$(selector)
     if (!dialog) {
-      // Мутант не найден на живом проде (данные ещё не задеплоились) -
+      // Скин/мутант не найден на живом проде (данные ещё не задеплоились) -
       // процессор очереди трактует 404 как "повторить позже".
-      return new Response('Mutant not found', { status: 404 })
+      return new Response('Skin not found', { status: 404 })
     }
     const buffer = (await dialog.screenshot({ type: 'png' })) as Buffer
 
@@ -108,7 +129,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
-    console.error('[Screenshot-Mutant]', message)
+    console.error('[Screenshot-Skin]', message)
     return new Response(`Screenshot error: ${message}`, { status: 500 })
   } finally {
     try {

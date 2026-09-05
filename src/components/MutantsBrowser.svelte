@@ -442,19 +442,30 @@
   // назад через историю браузера. pushState на открытие (новая запись в
   // истории - "назад" закрывает модалку), replaceState на закрытие (не
   // плодим лишнюю запись "закрыто").
+  // Диплинк на КОНКРЕТНЫЙ вариант скина: /mutants?mutant=<baseId>&skin=<skinKey>
+  // (используется api/screenshot-skin.ts, бот-скриншотер в админ-чат; при
+  // желании и шаринг-ссылкой). Ключ скина = поле skin из skins.json. null =
+  // базовый мутант. Сбрасывается при ручном открытии/закрытии модалки, чтобы
+  // не "прилипал" к следующему мутанту, открытому кликом.
+  let deepLinkSkin: string | null = $state(null);
+
   const openModal = (it: any) => {
     openItem = it;
+    deepLinkSkin = null;
     if (typeof window === 'undefined' || !it?.id) return;
     const url = new URL(window.location.href);
     url.searchParams.set('mutant', it.id);
+    url.searchParams.delete('skin');
     window.history.pushState({ mutant: it.id }, '', url);
   };
   const closeModal = () => {
     openItem = null;
+    deepLinkSkin = null;
     if (typeof window === 'undefined') return;
     const url = new URL(window.location.href);
-    if (!url.searchParams.has('mutant')) return;
+    if (!url.searchParams.has('mutant') && !url.searchParams.has('skin')) return;
     url.searchParams.delete('mutant');
+    url.searchParams.delete('skin');
     window.history.replaceState({}, '', url);
   };
 
@@ -467,10 +478,14 @@
   // переоткрыло бы модалку, которую пользователь уже закрыл сам.
   let deepLinkHandled = false;
   function tryOpenFromUrl() {
-    const id = new URLSearchParams(window.location.search).get('mutant');
-    if (!id) { openItem = null; return; }
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('mutant');
+    if (!id) { openItem = null; deepLinkSkin = null; return; }
     const match = items.find((it: any) => it?.id === id) ?? items.find((it: any) => baseId(it?.id) === baseId(id));
-    if (match) openItem = enrichItem(match);
+    if (match) {
+      openItem = enrichItem(match);
+      deepLinkSkin = params.get('skin');
+    }
   }
   $effect(() => {
     if (typeof window === 'undefined' || deepLinkHandled) return;
@@ -710,7 +725,7 @@
   {/if}
 
   {#if openItem}
-    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} onclose={closeModal} locale={locale} names={names} obtainNames={obtainNames} />
+    <MutantModal open={true} mutant={openItem} star={rarityType(openItem)} skins={skinLookup.get(baseId(openItem.id)) ?? []} initialSkin={deepLinkSkin} onclose={closeModal} locale={locale} names={names} obtainNames={obtainNames} />
   {/if}
 
   {#if showScrollTop}

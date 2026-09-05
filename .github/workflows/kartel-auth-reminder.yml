@@ -20,4 +20,4 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
             -d parse_mode="Markdown" \
-            -d text="🔑 *Ежемесячное напоминание*: обнови \`auth_request_fresh.bin\` для kartel-детектора точных дат офферов (живёт ~60 дней). После обновления:%0A\`base64 -w0 auth_request_fresh.bin | gh secret set KARTEL_AUTH_BLOB_B64 --repo godSucker/h3jikfdskq\`"
+            -d text="🔑 *Ежемесячное напоминание*: обнови \`auth_request_fresh.bin\` для kartel-детектора точных дат офферов (живёт ~60 дней). Полный ранбук: \`scripts/kartel/UPDATING-AUTH-BLOB.md\` в репо. Короткий путь после захвата свежего блоба:%0A\`base64 -w0 auth_request_fresh.bin | gh secret set KARTEL_AUTH_BLOB_B64 --repo godSucker/h3jikfdskq\`"
