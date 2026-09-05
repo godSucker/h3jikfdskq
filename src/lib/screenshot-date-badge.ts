@@ -35,9 +35,12 @@ export async function injectDateBadge(
       // Только системный шрифт (без "TT Supermolot Neue") и без backdrop-filter:
       // и то, и другое давало микро-reflow/непрерывную композицию кадра, из-за
       // чего Playwright'овская проверка "element stable" не завершалась.
+      // top:74px, не 12px: у самого верха модалки слева переключатель звёзд.
+      // 74px = под ним, поверх верхнего-левого угла арта мутанта (пустой
+      // градиент) - не зависит от общей высоты модалки.
       badge.style.cssText = [
         'position:absolute',
-        'top:12px',
+        'top:74px',
         'left:12px',
         'z-index:99999',
         'font:700 13px/1 ui-sans-serif,system-ui,-apple-system,sans-serif',
