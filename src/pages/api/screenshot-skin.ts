@@ -20,7 +20,11 @@ export const GET: APIRoute = async ({ url }) => {
   if (sep <= 0 || sep === raw.length - 1) {
     return new Response('id must be "<specimenId>|<skinKey>"', { status: 400 })
   }
-  const baseId = raw.slice(0, sep)
+  // mutants.json хранит id в lowercase (skins.json - в CamelCase), а deep-link
+  // резолвится против каталога мутантов -> приводим базовый id к нижнему
+  // регистру. skinKey оставляем как есть (matcher в MutantModal регистр не
+  // учитывает).
+  const baseId = raw.slice(0, sep).toLowerCase()
   const skinKey = raw.slice(sep + 1)
   const dateLabel = ruDate(url.searchParams.get('date') ?? '')
 
@@ -43,13 +47,17 @@ export const GET: APIRoute = async ({ url }) => {
       viewport: { width: 1100, height: 1600 },
     })
 
-    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 15000 })
+    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 20000 })
 
     // aria-labelledby, не .modal-2k (Tailwind-класс) - устойчивее к правкам
     // вёрстки, id="mutant-title" уникален на странице только внутри модалки.
+    // Таймаут 25с (у screenshot-mutant хватает 12с): у скина лишний шаг -
+    // модалка открывается на базовом мутанте, затем $effect initialSkin
+    // подхватывает вариант; на холодном serverless-Chromium это заметно
+    // дольше.
     const selector = '[role="dialog"][aria-labelledby="mutant-title"]'
     await Promise.all([
-      page.waitForSelector(selector, { timeout: 12000, state: 'visible' }),
+      page.waitForSelector(selector, { timeout: 25000, state: 'visible' }),
       page.evaluate(() => document.fonts.ready),
     ])
 
@@ -63,7 +71,7 @@ export const GET: APIRoute = async ({ url }) => {
         (sel) =>
           (document.querySelector(`${sel} #mutant-title`)?.textContent ?? '').includes(' — '),
         selector,
-        { timeout: 4000 },
+        { timeout: 8000 },
       )
       .catch(() => {})
 
