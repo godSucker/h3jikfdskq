@@ -1,39 +1,5 @@
 [
   {
-    "id": "mutant-1787241092908",
-    "category": "mutant",
-    "title": "Новые мутанты: 2",
-    "itemIds": [
-      "specimen_bb_14",
-      "specimen_da_15"
-    ],
-    "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:51:32.059Z"
-  },
-  {
-    "id": "skin-1787241092910",
-    "category": "skin",
-    "title": "Шин Хакухо — school",
-    "itemIds": [
-      "Specimen_CC_05|school"
-    ],
-    "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:51:32.059Z"
-  },
-  {
-    "id": "box-1787240278357",
-    "category": "box",
-    "title": "Таинственный контейнер «Снова в школу»",
-    "itemIds": [
-      "Mystery_School_2026"
-    ],
-    "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:37:58.324Z"
-  },
-  {
     "id": "bingo-1787240278343",
     "category": "bingo",
     "title": "morphology_2026_skins: добавлен(ы) Шин Хакухо",
@@ -41,7 +7,7 @@
       "2026_skins"
     ],
     "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
+    "attempts": 1,
     "date": "2026-08-20T15:37:58.324Z"
   },
   {
@@ -52,7 +18,7 @@
       "hexcity_2"
     ],
     "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
+    "attempts": 1,
     "date": "2026-08-07T01:24:11.430Z"
   },
   {
@@ -63,7 +29,7 @@
       "Material_Preorder_Token_FC_11"
     ],
     "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
+    "attempts": 1,
     "date": "2026-08-07T15:59:59.921Z"
   },
   {
@@ -111,7 +77,7 @@
       "256|Specimen_EB_05_Bronze"
     ],
     "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
+    "attempts": 1,
     "date": "2026-09-04T16:09:11.807Z"
   },
   {
@@ -143,7 +109,7 @@
       "256|Daily_news_shop_24h_2026_256a"
     ],
     "createdAt": "2026-09-05T17:31:56.331Z",
-    "attempts": 0,
+    "attempts": 1,
     "date": "2026-09-04T16:09:11.807Z"
   }
 ]
