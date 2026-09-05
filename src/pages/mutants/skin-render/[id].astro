@@ -1,15 +1,18 @@
 ---
-// Изолированная страница с ОДНОЙ открытой модалкой скина - только для
-// api/screenshot-skin.ts (бот-скриншотер в админ-чат). Живая /mutants с её
-// гридом на сотни lazy-картинок + backdrop-filter оверлея не даёт headless-
-// Chromium'у на холодном serverless дождаться "element stable" -> снимок
-// отваливается по таймауту (перепробовано: animations:disabled, page.screenshot
-// clip, заморозка фона - не хватало). Тот же приём, что /announcements/render/[id]
-// и BoxesPage-модалка: рендерим ровно то, что нужно, без окружения.
+// Изолированная страница с ОДНОЙ открытой модалкой мутанта/скина - для
+// api/screenshot-mutant.ts и api/screenshot-skin.ts (бот-скриншотер в
+// админ-чат). Живая /mutants с её гридом на сотни lazy-картинок +
+// backdrop-filter оверлея не даёт headless-Chromium'у на холодном serverless
+// дождаться "element stable" -> снимок отваливается по таймауту (перепробовано:
+// animations:disabled, page.screenshot clip, заморозка фона - не хватало). Тот
+// же приём, что /announcements/render/[id]: рендерим ровно то, что нужно, без
+// окружения. Имя каталога "skin-render" историческое - страница обслуживает и
+// обычных мутантов (без ?skin=).
 //
-// id = "<SpecimenId>|<skinKey>" (item.id анонса скина, см. detectSkins).
-// URL этой страницы БЕЗ query - MutantsBrowser читает ?mutant=&skin= из
-// location.search, поэтому api/screenshot-skin.ts дописывает их к адресу.
+// id (путь) = "<SpecimenId>" или "<SpecimenId>|<skinKey>" - берётся только
+// базовый id для резолва данных во frontmatter. Что именно открыть решает
+// MutantsBrowser по ?mutant=&skin= из location.search, поэтому оба
+// screenshot-эндпоинта дописывают их к адресу.
 export const prerender = false;
 
 import '@/styles/global.css'; // Tailwind - MutantModal.svelte весь на утилити-классах (md:grid-cols-* и т.п.), без него модалка схлопывается в сырой столбец
@@ -33,8 +36,11 @@ const { names, obtainNames } = getLocalizedMutantNames('ru');
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
-    <link rel="stylesheet" href="/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+    <!-- Шрифт грузим с CDN тем же путём, что BaseLayout - локальный /fonts/…
+         на проде не отдаётся, из-за чего скрин выходил системным шрифтом
+         (фидбек 2026-09-05). -->
+    <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
+    <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
     <style is:global>
       *, *::before, *::after {
         animation: none !important;
@@ -42,11 +48,16 @@ const { names, obtainNames } = getLocalizedMutantNames('ru');
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
       }
+      /* !important - иначе Tailwind preflight (из global.css) перебивает
+         font-family на html своим системным стеком. */
+      html, body, body * {
+        font-family: 'TT Supermolot Neue', ui-sans-serif, system-ui, sans-serif !important;
+      }
       html, body {
         margin: 0;
         background: #0d1117;
         color: #e2e8f0;
-        font-family: 'TT Supermolot Neue', ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
       }
       /* Всё, что рендерит MutantsBrowser помимо модалки (грид/тулбар/заголовок),
          скрыто - видимой оставляем только ветку модалки (overlay position:fixed). */

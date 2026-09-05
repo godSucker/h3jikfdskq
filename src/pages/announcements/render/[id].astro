@@ -16,22 +16,28 @@ const id = Astro.params.id;
 const announcements = (announcementsData as Announcement[]) ?? [];
 const a = announcements.find((x) => x.id === id);
 const ctx = buildAnnouncementContext();
+
+// Прогноз магазина/«скоро в игре» - доска офферов, на 760px тайлы жмутся в
+// 2 колонки и выглядят плохо (фидбек 2026-09-05: «надо скринить с full-hd»).
+// Для них - широкая раскладка, остальным категориям 760px в самый раз.
+const isForecast = a?.category === 'shopForecast' || a?.category === 'dailyNews';
 ---
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <link rel="preload" as="font" type="font/woff2" href="/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
-  <link rel="stylesheet" href="/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
-  <style>
+  <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
+  <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+  <style define:vars={{ wrapW: isForecast ? '1880px' : '760px' }}>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       background: #0d1117;
       color: #e2e8f0;
       font-family: "TT Supermolot Neue", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
     }
-    .wrap { width: 760px; padding: 6px; }
+    .wrap { width: var(--wrapW); padding: 6px; }
     .missing { padding: 2rem; color: #94a3b8; }
   </style>
 </head>

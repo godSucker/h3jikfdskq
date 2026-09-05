@@ -638,7 +638,7 @@
           {/if}
           {#each skins as s}
             <button
-              class="skin-switch-btn {selectedSkin === s ? 'active' : ''}"
+              class="skin-switch-btn {selectedSkin && String(selectedSkin.skin) === String(s.skin) ? 'active' : ''}"
               onclick={() => { selectedSkin = (selectedSkin === s ? null : s); }}
               title={getSkinName(s.skin, locale) ?? s.skin}
             >

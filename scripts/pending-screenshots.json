@@ -8,52 +8,8 @@
       "specimen_da_15"
     ],
     "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
+    "attempts": 2,
     "date": "2026-08-20T15:51:32.059Z"
-  },
-  {
-    "id": "skin-1787241092910",
-    "category": "skin",
-    "title": "Шин Хакухо — school",
-    "itemIds": [
-      "Specimen_CC_05|school"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:51:32.059Z"
-  },
-  {
-    "id": "box-1787240278357",
-    "category": "box",
-    "title": "Таинственный контейнер «Снова в школу»",
-    "itemIds": [
-      "Mystery_School_2026"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:37:58.324Z"
-  },
-  {
-    "id": "bingo-1787240278343",
-    "category": "bingo",
-    "title": "morphology_2026_skins: добавлен(ы) Шин Хакухо",
-    "itemIds": [
-      "2026_skins"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-08-20T15:37:58.324Z"
-  },
-  {
-    "id": "ladder-1786065851507",
-    "category": "ladder",
-    "title": "Лесенка «Гекс-Сити II» (150 боёв)",
-    "itemIds": [
-      "hexcity_2"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-08-07T01:24:11.430Z"
   },
   {
     "id": "token-1786118399992",
@@ -63,87 +19,7 @@
       "Material_Preorder_Token_FC_11"
     ],
     "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
+    "attempts": 2,
     "date": "2026-08-07T15:59:59.921Z"
-  },
-  {
-    "id": "shopForecast-1788538154046-256",
-    "category": "shopForecast",
-    "title": "Прогноз магазина (5 сентября — 18 сентября)",
-    "itemIds": [
-      "256|bundle_orbs_adaptive_retaliate_14",
-      "256|Specimen_EA_06_Bronze",
-      "256|bundle_orbs_crafting_master",
-      "256|Specimen_FC_08_sc",
-      "256|Specimen_FC_04",
-      "256|pack_be_13_1000_hc",
-      "256|pack_be_13_4000_hc",
-      "256|pack_be_13_10000_hc",
-      "256|Specimen_BB_08",
-      "256|LuckyBox_Research_IX",
-      "256|Specimen_BA_05_Gold",
-      "256|Pack_Dieselpunk",
-      "256|pack_daily_3_gold_68",
-      "256|Specimen_BC_13_rc",
-      "256|Specimen_EA_09_sc",
-      "256|bundle_orbs_experimental_growth_11",
-      "256|Specimen_DC_06_Bronze_sc",
-      "256|Specimen_AA_06_Gold",
-      "256|LuckyBox_Mythic_Prime",
-      "256|Specimen_CA_06",
-      "256|bank_ca_12_t1",
-      "256|bank_bd_99_10jp",
-      "256|bank_bc_13_20jp",
-      "256|bank_da_13_45jp",
-      "256|bank_fb_14_100jp",
-      "256|pack_daily_50_jt_59",
-      "256|Specimen_EC_07_Bronze",
-      "256|Pack_Nightmare",
-      "256|Specimen_AC_09_Bronze",
-      "256|Mysterybox_Ability_Slash",
-      "256|Specimen_EE_04",
-      "256|bundle_orbs_life_5_38",
-      "256|Specimen_CC_12_Gold",
-      "256|Specimen_AC_08_sc",
-      "256|pack_powerlevel_90",
-      "256|Specimen_EE_07_Bronze",
-      "256|LuckyBox_Cyber_Elite",
-      "256|Specimen_EB_05_Bronze"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-09-04T16:09:11.807Z"
-  },
-  {
-    "id": "dailyNews-1788538158649-256",
-    "category": "dailyNews",
-    "title": "Скоро в игре (5 сентября — 18 сентября)",
-    "itemIds": [
-      "256|Shop_bundle_orbs_adaptive_retaliate_14",
-      "256|Shop_bundle_orbs_retaliate_5_27",
-      "256|Shop_bundle_orbs_crafting_master",
-      "256|Shop_pack_be_13_1000_hc",
-      "256|Shop_pack_be_13_4000_hc",
-      "256|Shop_pack_be_13_10000_hc",
-      "256|Shop_Specimen_FC_04",
-      "256|Shop_LuckyBox_Research_IX",
-      "256|Shop_Pack_Dieselpunk",
-      "256|Shop_pack_daily_3_gold_68",
-      "256|Shop_bundle_orbs_experimental_growth_11",
-      "256|Daily_news_shop_24h_2026_256b",
-      "256|daily_news_jackpot_madness_weekend_50",
-      "256|Shop_LuckyBox_Mythic_Prime",
-      "256|PayWall_Sprint_247",
-      "256|shop_pack_daily_50_jt_59",
-      "256|Shop_Pack_Nightmare",
-      "256|Shop_Mysterybox_Ability_Slash",
-      "256|Shop_bundle_orbs_life_5_38",
-      "256|Shop_pack_powerlevel_90",
-      "256|Shop_LuckyBox_Cyber_Elite",
-      "256|Daily_news_shop_24h_2026_256a"
-    ],
-    "createdAt": "2026-09-05T17:13:01.156Z",
-    "attempts": 0,
-    "date": "2026-09-04T16:09:11.807Z"
   }
 ]
