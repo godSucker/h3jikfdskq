@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { chromium } from 'playwright-core'
 import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
-import { ruDate, injectDateBadge } from '@/lib/screenshot-date-badge'
+import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
 
 // Скриншот модалки ОДНОГО скина (MutantModal.svelte с предвыбранным вариантом
 // скина) для бот-скриншотера в админ-чат - как screenshot-mutant.ts, но
@@ -118,8 +118,9 @@ export const GET: APIRoute = async ({ url }) => {
     })
 
     await injectDateBadge(page, selector, dateLabel)
+    await freezePageForModalShot(page, selector)
 
-    await page.waitForTimeout(150)
+    await page.waitForTimeout(400)
 
     const dialog = await page.$(selector)
     if (!dialog) {
