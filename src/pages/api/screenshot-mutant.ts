@@ -97,17 +97,15 @@ export const GET: APIRoute = async ({ url }) => {
       // процессор очереди трактует 404 как "повторить позже".
       return new Response('Mutant not found', { status: 404 })
     }
-    // page.screenshot({clip}), НЕ dialog.screenshot(): у ElementHandle-снимка
-    // встроенное ожидание "element stable", и инъекция плашки даты (новый узел
-    // в модалке) его сбрасывала -> Timeout 30000ms. clip по boundingBox даёт
-    // тот же кадр без ожидания стабильности.
-    const bbox = await dialog.boundingBox()
-    if (!bbox) {
-      return new Response('Mutant dialog has no layout box', { status: 500 })
-    }
-    const buffer = (await page.screenshot({
+    // animations:'disabled' - Playwright замораживает CSS-анимации/переходы и
+    // НЕ ждёт "element stable" из-за них. Без этого инъекция плашки даты
+    // (микро-reflow при подгрузке шрифта плашки) держала проверку
+    // стабильности незавершённой -> Timeout 30000ms. page.screenshot({clip})
+    // тут не годится - ждёт стабилизации ВСЕЙ страницы (фон /mutants с сотнями
+    // lazy-картинок за модалкой никогда не "устаканивается").
+    const buffer = (await dialog.screenshot({
       type: 'png',
-      clip: { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height },
+      animations: 'disabled',
     })) as Buffer
 
     return new Response(new Uint8Array(buffer), {
