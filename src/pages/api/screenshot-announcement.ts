@@ -21,7 +21,10 @@ export const GET: APIRoute = async ({ url }) => {
   // сама разворачивается до ~1880px для этих категорий), нужен FHD-viewport,
   // иначе тайлы жмутся (фидбек 2026-09-05). Остальным хватает 800.
   const isForecast = id.startsWith('shopForecast-') || id.startsWith('dailyNews-')
-  const viewportWidth = isForecast ? 1960 : 800
+  // Доска офферов на render-странице разворачивается до ~1880px; viewport с
+  // запасом, иначе последняя колонка тайлов подрезается справа (фидбек
+  // 2026-09-05).
+  const viewportWidth = isForecast ? 2200 : 800
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
   const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`
@@ -136,12 +139,14 @@ export const GET: APIRoute = async ({ url }) => {
     if (!bbox) {
       return new Response('Announcement card has no layout box', { status: 500 })
     }
+    // Клампим clip по фактическому viewport - если карточка почему-то шире
+    // (внутренний скролл/оверфлоу), page.screenshot иначе режет справа молча.
     const buffer = (await page.screenshot({
       type: 'png',
       clip: {
         x: bbox.x,
         y: bbox.y,
-        width: bbox.width,
+        width: Math.min(bbox.width, viewportWidth - bbox.x),
         height: Math.min(bbox.height, 2600),
       },
     })) as Buffer

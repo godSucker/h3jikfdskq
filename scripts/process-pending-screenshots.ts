@@ -123,9 +123,13 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
       if (r.ok) buffers.push({ buffer: r.buffer, itemId })
     }
 
-    // Ничего не готово - ждём следующий тик (нет "карточки анонса" как
-    // резервного фолбэка у этих категорий - если содержимое не готово,
-    // отправлять просто нечего).
+    // Готово НЕ всё содержимое (напр. один из двух скринов модалки упал на
+    // холодном старте) - ретраим целиком на следующем тике, ПОКА есть запас
+    // попыток. Иначе бот слал бы неполный альбом ("Новые мутанты: 2", а фото
+    // одно - фидбек 2026-09-05). На последней попытке шлём что есть - лучше
+    // неполно, чем никак.
+    const isLastAttempt = job.attempts >= MAX_ATTEMPTS - 1
+    if (buffers.length < cappedIds.length && !isLastAttempt) return 'retry'
     if (buffers.length === 0) return 'retry'
 
     const photos: AdminPhoto[] = buffers.map((b) => ({
