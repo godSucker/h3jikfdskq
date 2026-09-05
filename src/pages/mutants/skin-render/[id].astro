@@ -1,0 +1,88 @@
+---
+// Изолированная страница с ОДНОЙ открытой модалкой скина - только для
+// api/screenshot-skin.ts (бот-скриншотер в админ-чат). Живая /mutants с её
+// гридом на сотни lazy-картинок + backdrop-filter оверлея не даёт headless-
+// Chromium'у на холодном serverless дождаться "element stable" -> снимок
+// отваливается по таймауту (перепробовано: animations:disabled, page.screenshot
+// clip, заморозка фона - не хватало). Тот же приём, что /announcements/render/[id]
+// и BoxesPage-модалка: рендерим ровно то, что нужно, без окружения.
+//
+// id = "<SpecimenId>|<skinKey>" (item.id анонса скина, см. detectSkins).
+// URL этой страницы БЕЗ query - MutantsBrowser читает ?mutant=&skin= из
+// location.search, поэтому api/screenshot-skin.ts дописывает их к адресу.
+export const prerender = false;
+
+import mutantsData from '@/data/mutants/mutants.json';
+import skinsData from '@/data/mutants/skins.json';
+import MutantsBrowser from '@/components/MutantsBrowser.svelte';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+
+const raw = Astro.params.id ?? '';
+const sep = raw.indexOf('|');
+const baseId = (sep > 0 ? raw.slice(0, sep) : raw).toLowerCase();
+
+const mutant = (mutantsData as { id: string }[]).find((m) => m.id === baseId) ?? null;
+const allSkins = (skinsData as { specimens?: { id: string }[] }).specimens ?? [];
+const skins = allSkins.filter((s) => String(s.id).toLowerCase() === baseId);
+
+const { names, obtainNames } = getLocalizedMutantNames('ru');
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+    <style is:global>
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+      html, body {
+        margin: 0;
+        background: #0d1117;
+        color: #e2e8f0;
+        font-family: 'TT Supermolot Neue', ui-sans-serif, system-ui, sans-serif;
+      }
+      /* Всё, что рендерит MutantsBrowser помимо модалки (грид/тулбар/заголовок),
+         скрыто - видимой оставляем только ветку модалки (overlay position:fixed). */
+      body { visibility: hidden; }
+      [role='dialog'][aria-labelledby='mutant-title'],
+      [role='dialog'][aria-labelledby='mutant-title'] * {
+        visibility: visible;
+      }
+      /* Оверлей во весь экран - тёмный фон под модалкой, чтобы скрин был
+         на нейтральном, а не на «просвечивающем» гриде. */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: #0d1117;
+        visibility: visible;
+        z-index: 1;
+      }
+      [role='dialog'][aria-labelledby='mutant-title'] { position: relative; z-index: 2; }
+      .missing { visibility: visible; padding: 2rem; color: #94a3b8; position: relative; z-index: 2; }
+    </style>
+  </head>
+  <body>
+    {mutant ? (
+      <MutantsBrowser
+        client:load
+        items={[mutant]}
+        skins={skins}
+        bingos={[]}
+        bingoIndex={[]}
+        title=""
+        locale="ru"
+        names={names}
+        obtainNames={obtainNames}
+      />
+    ) : (
+      <div class="missing">Мутант не найден: {baseId}</div>
+    )}
+  </body>
+</html>

@@ -4,9 +4,13 @@ import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
 
 // Скриншот модалки ОДНОГО скина (MutantModal.svelte с предвыбранным вариантом
-// скина) для бот-скриншотера в админ-чат - как screenshot-mutant.ts, но
-// открывает конкретный скин через диплинк /mutants?mutant=<base>&skin=<key>
-// (см. MutantsBrowser.svelte::tryOpenFromUrl + MutantModal.svelte initialSkin).
+// скина) для бот-скриншотера в админ-чат. Снимаем НЕ с живой /mutants
+// (грид на сотни lazy-картинок + backdrop-filter оверлея не дают headless-
+// Chromium дождаться "element stable" на холодном serverless - перепробовано
+// animations:disabled / page.screenshot clip / заморозка фона), а с
+// изолированной /mutants/skin-render/[id] - там MutantsBrowser рендерит ровно
+// один мутант, всё лишнее скрыто CSS'ом. Диплинк /mutants?mutant=&skin= для
+// людей (шаринг) остаётся, эндпоинт им просто не пользуется.
 //
 // id = полный item.id анонса скина, формат "<SpecimenId>|<skinKey>" (см.
 // detectSkins в scripts/build-announcements.ts). Делим по "|".
@@ -20,18 +24,20 @@ export const GET: APIRoute = async ({ url }) => {
   if (sep <= 0 || sep === raw.length - 1) {
     return new Response('id must be "<specimenId>|<skinKey>"', { status: 400 })
   }
-  // mutants.json хранит id в lowercase (skins.json - в CamelCase), а deep-link
-  // резолвится против каталога мутантов -> приводим базовый id к нижнему
-  // регистру. skinKey оставляем как есть (matcher в MutantModal регистр не
-  // учитывает).
+  // mutants.json хранит id в lowercase (skins.json - в CamelCase), а
+  // MutantsBrowser резолвит ?mutant= против каталога мутантов -> нижний
+  // регистр. skinKey как есть (matcher initialSkin регистр не учитывает).
   const baseId = raw.slice(0, sep).toLowerCase()
   const skinKey = raw.slice(sep + 1)
   const dateLabel = ruDate(url.searchParams.get('date') ?? '')
 
-  // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/mutants?mutant=${encodeURIComponent(
-    baseId,
-  )}&skin=${encodeURIComponent(skinKey)}`
+  // Хардкод хоста, не url.origin: см. комментарий в screenshot.ts (SSRF через
+  // Host). ?mutant=&skin= в query - их читает MutantsBrowser::tryOpenFromUrl
+  // на самой render-странице (путь /[id] только для резолва данных в
+  // frontmatter).
+  const pageUrl =
+    `https://archivist-library.com/mutants/skin-render/${encodeURIComponent(raw)}` +
+    `?mutant=${encodeURIComponent(baseId)}&skin=${encodeURIComponent(skinKey)}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {
