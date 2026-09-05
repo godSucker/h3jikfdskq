@@ -81,7 +81,12 @@ type FetchResult = { ok: true; buffer: Buffer } | { ok: false }
 // разница видна в логе Vercel, если понадобится расследовать.
 async function fetchPhoto(url: string): Promise<FetchResult> {
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(30000) })
+    // 100с, не 30: скриншот-эндпоинты на ХОЛОДНОМ @sparticuz/chromium
+    // (первый вызов после редеплоя/простоя) реально отвечают 60-90с - на
+    // живом прогоне bingo/token отдавали 62-65с и не укладывались в 30с ->
+    // задачи вечно висели в ретрае (фидбек 2026-09-05). Тёплый контейнер -
+    // 8-12с, кап нужен только для реально зависшего вызова.
+    const res = await fetch(url, { signal: AbortSignal.timeout(100_000) })
     if (!res.ok) return { ok: false }
     return { ok: true, buffer: Buffer.from(await res.arrayBuffer()) }
   } catch {

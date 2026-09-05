@@ -31,7 +31,11 @@ concurrency:
 jobs:
   screenshot-bot-job:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # 20 мин: холодный @sparticuz/chromium отвечает до ~90с на вызов, а за
+    # один прогон может накопиться несколько задач (в проде редко >2, но
+    # запас нужен). Один прогон всё равно ограничен MAX_ATTEMPTS/MIN_AGE_MS
+    # в самом скрипте.
+    timeout-minutes: 20
 
     steps:
       - name: 1. Клонирование репозитория
