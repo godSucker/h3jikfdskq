@@ -1,5 +1,36 @@
 import type { Page } from 'playwright-core'
 
+// Готовит страницу /mutants к снимку модалки: (1) снимает backdrop-filter
+// (overlay модалки несёт backdrop-blur-sm - непрерывная композиция кадра, из-за
+// неё Playwright не считает элемент "stable" и screenshot отваливается по
+// таймауту), (2) прячет всё, кроме оверлея с модалкой - фон каталога (грид с
+// сотнями lazy-картинок) продолжает reflow'иться и тоже мешает стабилизации.
+// Делается в headless-табе эндпоинта, живую страницу не трогает.
+export async function freezePageForModalShot(page: Page, selector: string): Promise<void> {
+  await page.evaluate((sel) => {
+    const dlg = document.querySelector<HTMLElement>(sel)
+    if (!dlg) return
+    const overlay = (dlg.closest('.fixed') as HTMLElement | null) ?? dlg
+    document.querySelectorAll<HTMLElement>('*').forEach((el) => {
+      const bf = getComputedStyle(el).backdropFilter
+      if (bf && bf !== 'none') {
+        el.style.backdropFilter = 'none'
+        el.style.setProperty('-webkit-backdrop-filter', 'none')
+      }
+    })
+    // Прячем сиблингов оверлея на всех уровнях вверх до body - остаётся видимой
+    // только ветка, ведущая к модалке.
+    let node: HTMLElement | null = overlay
+    while (node && node !== document.body && node.parentElement) {
+      for (const sib of Array.from(node.parentElement.children)) {
+        if (sib !== node) (sib as HTMLElement).style.visibility = 'hidden'
+      }
+      node = node.parentElement
+    }
+    document.documentElement.scrollTop = 0
+  }, selector)
+}
+
 // Плашка "дата" на скрине модалки мутанта/скина для бот-скриншотера в
 // админ-чат. У этих категорий нет игровой даты события - это "когда бот
 // заметил появление", та же плашка, что на карточке анонса
