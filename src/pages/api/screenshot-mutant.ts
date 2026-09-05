@@ -45,6 +45,17 @@ export const GET: APIRoute = async ({ url }) => {
       page.evaluate(() => document.fonts.ready),
     ])
 
+    // У мутанта на скрине всегда выбираем МАКСИМАЛЬНУЮ доступную звезду -
+    // .star-switch-btn в MutantModal рендерятся по возрастанию
+    // (normal→bronze→silver→gold→platinum), кликаем последнюю. Нет ряда звёзд
+    // (одна звезда) - кликать нечего, и так максимум.
+    await page
+      .evaluate((sel) => {
+        const btns = document.querySelectorAll<HTMLButtonElement>(`${sel} .star-switch-btn`)
+        if (btns.length > 1) btns[btns.length - 1].click()
+      }, selector)
+      .catch(() => {})
+
     await page.evaluate((sel) => {
       document
         .querySelectorAll(`${sel} img[loading="lazy"]`)

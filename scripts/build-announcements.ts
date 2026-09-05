@@ -864,8 +864,15 @@ async function main() {
         const existing = announcements.find(
           (a2) => a2.category === d.category && a2.sprintKey === upd.sprintKey,
         )
+        if (!existing) {
+          console.log(
+            `[forecast] ${d.category} спринт ${upd.sprintKey}: записи для дозаполнения нет (${upd.items.length} офферов из fetch)`,
+          )
+        }
         if (existing) {
           const oldById = new Map(existing.items.map((it) => [it.id, it]))
+          const datedBefore = existing.items.filter((it) => it.exactDateLabel).length
+          const datedFresh = upd.items.filter((it) => it.exactDateLabel).length
           existing.items = upd.items.map((fresh) => {
             const old = oldById.get(fresh.id)
             // Дата ПОЯВИЛАСЬ именно в этом прогоне (раньше её не было, сейчас
@@ -885,6 +892,11 @@ async function main() {
               exactDateStart: fresh.exactDateStart ?? old?.exactDateStart ?? null,
             }
           })
+          const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
+          console.log(
+            `[forecast] ${d.category} спринт ${upd.sprintKey}: точных дат ${datedBefore} -> ${datedAfter} ` +
+              `(live-fetch отдал ${datedFresh}/${upd.items.length})`,
+          )
         }
       }
       // Ledger обновляется ТОЛЬКО при успехе: если детектор упал, оставляем
