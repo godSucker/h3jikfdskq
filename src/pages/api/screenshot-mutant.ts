@@ -50,6 +50,20 @@ export const GET: APIRoute = async ({ url }) => {
       page.evaluate(() => document.fonts.ready),
     ])
 
+    // Явно тянем кастомный шрифт: на минималистичной render-странице
+    // document.fonts.ready может резолвнуться до фактической загрузки
+    // @font-face (font-display:swap), и снимок ловил фолбэк-шрифт (фидбек
+    // 2026-09-05). document.fonts.load() форсит фетч и ждёт его.
+    await page
+      .evaluate(async () => {
+        await Promise.all([
+          document.fonts.load('700 16px "TT Supermolot Neue"'),
+          document.fonts.load('400 16px "TT Supermolot Neue"'),
+        ])
+        await document.fonts.ready
+      })
+      .catch(() => {})
+
     // У мутанта на скрине всегда выбираем МАКСИМАЛЬНУЮ доступную звезду -
     // .star-switch-btn в MutantModal рендерятся по возрастанию
     // (normal→bronze→silver→gold→platinum), кликаем последнюю. Нет ряда звёзд
