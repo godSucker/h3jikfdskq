@@ -31,11 +31,11 @@ export interface PendingScreenshotJob {
   date?: string
 }
 
-// Категории, для которых вообще имеет смысл скриншотить (не дублируем
-// сознательные решения из telegram-cross-post.ts: rebalance никогда не
-// постится - "уже есть человек, который делает это вручную"; exchange -
-// текстом, "и так норм", там нет одной репрезентативной карточки на
-// несколько обменников разом).
+// Категории, для которых вообще имеет смысл скриншотить. rebalance
+// сознательно НЕ здесь - "уже есть человек, который делает это вручную"
+// (решение из telegram-cross-post.ts, ныне отключённого). exchange - скрин
+// карточки анонса "Обновление зала обмена" (generic-kind: бейдж + список
+// "мутант -> зал обмена - N жетонов"), как box/raid/ladder (юзер, 2026-09-06).
 const SCREENSHOT_CATEGORIES = new Set([
   'mutant',
   'skin',
@@ -45,6 +45,7 @@ const SCREENSHOT_CATEGORIES = new Set([
   'raid',
   'ladder',
   'bingo',
+  'exchange',
   'shopForecast',
   'dailyNews',
 ])

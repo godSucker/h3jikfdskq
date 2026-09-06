@@ -26,6 +26,7 @@ const CATEGORY_ICON: Record<string, string> = {
   ladder: '🪜',
   token: '🪙',
   reactor: '🎰',
+  exchange: '🔁',
   shopForecast: '🛒',
   dailyNews: '📰',
 }
@@ -39,6 +40,7 @@ const CATEGORY_LINK: Record<string, string> = {
   bingo: '/bingo',
   reactor: '/simulators/reactor',
   token: '/materials',
+  exchange: '/mutants',
   shopForecast: '/announcements',
   dailyNews: '/announcements',
 }
@@ -144,12 +146,12 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     return (await sendAdminMediaGroup(photos, caption)) ? 'sent' : 'retry'
   }
 
-  // Все остальные категории (box/raid/ladder/reactor/token/shopForecast/
-  // dailyNews) шлют ОДИН скрин карточки с /announcements/render/[id]:
+  // Все остальные категории (box/raid/ladder/reactor/token/exchange/
+  // shopForecast/dailyNews) шлют ОДИН скрин карточки с /announcements/render/[id]:
   // - box: карточка несёт полный дизайн /boxes + дату (юзер, 2026-09-05);
   // - raid/ladder: карточка уже расписывает данж (имя/мутант/бои/награды/
   //   валюта), отдельный скрин из /guides был дублем (юзер, 2026-09-05);
-  // - reactor/token/forecast: у них и так одна карточка.
+  // - reactor/token/exchange/forecast: у них и так одна карточка.
   // screenshot-dungeon.ts / screenshot-box.ts остаются рабочими, просто не
   // зовутся отсюда.
   const primary = await fetchPhoto(
