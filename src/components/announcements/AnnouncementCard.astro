@@ -22,6 +22,7 @@ import {
   fmtDate,
   ribbonLabel,
   ribbonClass,
+  featuredMutantLabel,
   type Announcement,
   type AnnouncementRenderContext,
 } from '@/lib/announcements-render'
@@ -276,6 +277,11 @@ const forecastOffers =
                 {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
                 {ribbonLabel(offer.ribbon) && (
                   <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon)}</span>
+                )}
+                {featuredMutantLabel(offer.featuredMutant) && (
+                  <span class:list={['forecast-featured', `forecast-featured-${offer.featuredMutant}`]}>
+                    {featuredMutantLabel(offer.featuredMutant)}
+                  </span>
                 )}
               </div>
               {!skipCaption && (
@@ -848,6 +854,30 @@ const forecastOffers =
     padding: 0.1rem 0.35rem;
     border-radius: 4px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  }
+  /* "Мутант недели"/"Мутант месяца" - оффер с заметно более длинным окном
+     продажи (classifyFeaturedMutant). Полоса по низу медиа, не угловой бейдж:
+     тайл ~200px, угол справа столкнулся бы с .forecast-ribbon слева. */
+  .forecast-featured {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 0.56rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.16rem 0.3rem;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+  }
+  .forecast-featured-week {
+    background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+    color: #06283d;
+  }
+  .forecast-featured-month {
+    background: linear-gradient(135deg, #fde68a, #f59e0b);
+    color: #3a2708;
   }
   .ribbon-legendary { background: linear-gradient(135deg, #a855f7, #6d28d9); }
   .ribbon-limited { background: linear-gradient(135deg, #f87171, #b91c1c); }
