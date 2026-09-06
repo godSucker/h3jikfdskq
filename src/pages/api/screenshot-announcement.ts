@@ -17,14 +17,13 @@ export const GET: APIRoute = async ({ url }) => {
   if (!id) {
     return new Response('Missing id param', { status: 400 })
   }
-  // Прогноз магазина/«скоро в игре» - широкая доска офферов (render-страница
-  // сама разворачивается до ~1880px для этих категорий), нужен FHD-viewport,
-  // иначе тайлы жмутся (фидбек 2026-09-05). Остальным хватает 800.
+  // Прогноз магазина/«скоро в игре» - доска офферов. Юзер: FHD-ширина (8
+  // мелких колонок) хуже, чем «крупные плитки» на телефоне - вернули к
+  // ~900px (render-страница). Viewport с БОЛЬШИМ запасом по обеим осям:
+  // page.screenshot({clip}) НЕ выходит за viewport, а доска высокая (~1300+)
+  // и раньше её резало и справа, и снизу (фидбек 2026-09-05).
   const isForecast = id.startsWith('shopForecast-') || id.startsWith('dailyNews-')
-  // Доска офферов на render-странице разворачивается до ~1880px; viewport с
-  // запасом, иначе последняя колонка тайлов подрезается справа (фидбек
-  // 2026-09-05).
-  const viewportWidth = isForecast ? 2200 : 800
+  const viewport = isForecast ? { width: 1400, height: 5000 } : { width: 800, height: 1000 }
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
   const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`
@@ -40,7 +39,7 @@ export const GET: APIRoute = async ({ url }) => {
     })
     const page = await browser.newPage({
       deviceScaleFactor: 2,
-      viewport: { width: viewportWidth, height: 1000 },
+      viewport,
     })
 
     // Бинго-карточка сама встраивает <img src="/api/screenshot-bingo"> - на
@@ -129,25 +128,22 @@ export const GET: APIRoute = async ({ url }) => {
       return new Response('Announcement card not found', { status: 404 })
     }
     // page.screenshot({clip}) вместо card.screenshot() (ElementHandle.screenshot
-    // не принимает clip вообще) - клипуем по высоте, чтобы огромная карточка
-    // (box-дроплист на сотни мутантов, board-грид daily_news на 24 тайла) не
-    // дала абсурдно вытянутый PNG, который Telegram отклонит по соотношению
-    // сторон. 2600 CSS-px x deviceScaleFactor:2 = 5200px - с запасом в лимитах
-    // (сумма сторон <= 10000, соотношение <= 20). Тот же приём, что в
-    // screenshot-box.ts.
+    // не принимает clip) - кэпим высоту 2600 CSS-px, чтобы огромный box-дроплист
+    // не дал абсурдно вытянутый PNG (Telegram отклонит по соотношению сторон).
+    // Клампим clip ПО ФАКТИЧЕСКОМУ VIEWPORT по обеим осям: page.screenshot({clip})
+    // НЕ выходит за viewport, всё что за краем режется молча (фидбек 2026-09-05:
+    // доску прогноза резало и справа, и снизу при viewport 800x1000).
     const bbox = await card.boundingBox()
     if (!bbox) {
       return new Response('Announcement card has no layout box', { status: 500 })
     }
-    // Клампим clip по фактическому viewport - если карточка почему-то шире
-    // (внутренний скролл/оверфлоу), page.screenshot иначе режет справа молча.
     const buffer = (await page.screenshot({
       type: 'png',
       clip: {
         x: bbox.x,
         y: bbox.y,
-        width: Math.min(bbox.width, viewportWidth - bbox.x),
-        height: Math.min(bbox.height, 2600),
+        width: Math.min(bbox.width, viewport.width - bbox.x),
+        height: Math.min(bbox.height, 2600, viewport.height - bbox.y),
       },
     })) as Buffer
 
