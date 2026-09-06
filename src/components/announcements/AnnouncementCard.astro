@@ -783,7 +783,10 @@ const forecastOffers =
      Kobojo ~408x409), крупнее и без текстовой подписи под картинкой -
      ближе к тому, как выглядит "доска" прямо в игре. */
   .forecast-grid-board {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    /* 200px, не 150 - на render-странице (~860px) 150 давало 5 колонок, и
+       крайняя лезла за правый край карточки (фидбек 2026-09-06). 200 -> 4
+       колонки, как у shopForecast. */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   .forecast-tile {
     display: flex;
