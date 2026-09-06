@@ -1,8 +1,11 @@
-// Отправка скриншотов новых анонсов в ЛИЧНЫЙ админ-чат (TELEGRAM_CHAT_ID) -
-// не путать с scripts/telegram-cross-post.ts (публичный TELEGRAM_CHANNEL_ID,
-// сейчас выключен CROSS_POST_ENABLED=false, Markdown-подписи). Вызывается из
-// scripts/process-pending-screenshots.ts, см. память
-// auto-announcements-architecture.md ("бот-скриншотер в админ-чат").
+// Отправка скриншотов новых анонсов. Чат: TELEGRAM_ANNOUNCE_CHAT_ID, иначе
+// фолбэк на TELEGRAM_CHAT_ID. Отдельный секрет нужен, чтобы СКРИНЫ анонсов
+// шли в свою группу («MGG Fb | Админка»), а вся техничка (дайджест прогона,
+// падения детекторов, .локал-промпты, деплой/health) оставалась в общем
+// алерт-чате TELEGRAM_CHAT_ID (решение юзера 2026-09-06: "туда только
+// скрины анонсов и всё"). НЕ путать с scripts/telegram-cross-post.ts
+// (публичный TELEGRAM_CHANNEL_ID, выключен CROSS_POST_ENABLED=false).
+// Вызывается из scripts/process-pending-screenshots.ts.
 //
 // НАМЕРЕННО без parse_mode: имена мутантов/боксов несут «»/_/*/[ (реальные
 // живые примеры) - Markdown-парсинг Telegram падает на них 400-кой, а
@@ -11,7 +14,7 @@
 // Простой текст этого класса ошибок не имеет вообще.
 function getCreds() {
   const botToken = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
+  const chatId = process.env.TELEGRAM_ANNOUNCE_CHAT_ID || process.env.TELEGRAM_CHAT_ID
   if (!botToken || !chatId) return null
   return { botToken, chatId }
 }
