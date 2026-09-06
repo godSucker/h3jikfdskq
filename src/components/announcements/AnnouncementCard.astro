@@ -762,6 +762,14 @@ const forecastOffers =
     width: 100%;
     padding: 1rem 1.1rem 1.2rem;
   }
+  /* box-sizing:border-box ОБЯЗАТЕЛЕН: reset из /announcements/render/[id].astro
+     не достаёт до scoped-стилей этого компонента, дефолтный content-box +
+     width:100% + padding раздувал .forecast-card на ~35px за пределы .card,
+     а .card{overflow:hidden} резал доску справа (фидбек 2026-09-06). */
+  .forecast-card,
+  .forecast-card * {
+    box-sizing: border-box;
+  }
   .forecast-head {
     display: flex;
     align-items: center;
