@@ -55,6 +55,26 @@ function balanceQuotes(name: string): string {
   return open > close ? name + '»'.repeat(open - close) : name
 }
 
+// "Мутанта недели"/"мутанта месяца" определяем по длине живого окна оффера
+// (kartel filters[].startDate/endDate, см. scripts/kartel-filter-dates.ts):
+// обычный мутант-оффер держится 1-2 дня, недельный - ровно ~7, месячный -
+// ~28-31 (проверено на спринтах 255-256: Скарамуш 7-14 сент = 7 дней;
+// Виргон 23 авг - 23 сент = 31; Флипфлоп 2-30 сент = 28). Между 2 и 7 днями
+// у мутант-офферов пусто - пороги с запасом. Гейт по Specimen_ обязателен:
+// 7-дневные и 30-дневные окна бывают и у контейнеров/банков/обменников.
+export function classifyFeaturedMutant(
+  itemId: string,
+  start: string | null,
+  end: string | null,
+): 'week' | 'month' | null {
+  if (!start || !end) return null
+  if (!/^-*#?specimen_/i.test(itemId)) return null
+  const days = (new Date(end).getTime() - new Date(start).getTime()) / 86_400_000
+  if (days >= 6 && days <= 9) return 'week'
+  if (days >= 25 && days <= 33) return 'month'
+  return null
+}
+
 export interface ForecastPrice {
   amount: number
   type: 'hardcurrency' | 'softcurrency' | 'usd'
@@ -74,6 +94,9 @@ interface ForecastItem {
   // сортировки офферов на странице (ближайшие сверху), formatExactRangeRu()
   // теряет сортируемость (текст с названием месяца).
   exactDateStart: string | null
+  // 'week'/'month', если это мутант-оффер с окном ~7 или ~28-31 день - см.
+  // classifyFeaturedMutant. null для не-мутантов и обычных коротких окон.
+  featuredMutant: 'week' | 'month' | null
 }
 
 export interface ShopForecast {
@@ -173,6 +196,11 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
           )
         : null,
       exactDateStart: exactRange?.start ?? null,
+      featuredMutant: classifyFeaturedMutant(
+        itemId,
+        exactRange?.start ?? null,
+        exactRange?.end ?? null,
+      ),
     })
   }
 

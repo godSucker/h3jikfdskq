@@ -45,6 +45,16 @@ export interface AnnouncementItem {
   // ISO-дата начала (не форматированная) - для хронологической сортировки
   // офферов на странице (ближайшие сверху), exactDateLabel не сортируется.
   exactDateStart?: string | null
+  // Только shopForecast - 'week'/'month' помечает "мутанта недели"/"мутанта
+  // месяца" (окно продажи ~7 или ~28-31 день, см.
+  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant).
+  featuredMutant?: 'week' | 'month' | null
+}
+
+export function featuredMutantLabel(v: string | null | undefined): string | null {
+  if (v === 'week') return 'Мутант недели'
+  if (v === 'month') return 'Мутант месяца'
+  return null
 }
 
 // Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -

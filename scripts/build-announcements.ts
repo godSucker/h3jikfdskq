@@ -90,6 +90,10 @@ interface AnnouncementItem {
   // ISO-дата начала (не форматированная) - для хронологической сортировки
   // на странице (ближайшие сверху), formatExactRangeRu() не сортируется.
   exactDateStart?: string | null
+  // Только shopForecast - 'week'/'month', если оффер помечен игрой как
+  // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
+  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant).
+  featuredMutant?: 'week' | 'month' | null
 }
 
 interface Announcement {
@@ -637,6 +641,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
       ribbon: it.ribbon,
       exactDateLabel: it.exactDateLabel,
       exactDateStart: it.exactDateStart,
+      featuredMutant: it.featuredMutant,
     })),
   )
 }
@@ -925,6 +930,10 @@ async function main() {
               ...fresh,
               exactDateLabel: fresh.exactDateLabel ?? old?.exactDateLabel ?? null,
               exactDateStart: fresh.exactDateStart ?? old?.exactDateStart ?? null,
+              // Тот же "только дополняем, не стираем": на тике, где kartel
+              // отдал start без end, classifyFeaturedMutant вернёт null -
+              // без этой строки spread затёр бы уже известный 'week'/'month'.
+              featuredMutant: fresh.featuredMutant ?? old?.featuredMutant ?? null,
             }
           })
           const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
