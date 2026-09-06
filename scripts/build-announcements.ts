@@ -23,7 +23,42 @@ import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-po
 import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
+import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
+import skinsI18n from '../src/data/mutants/skins-i18n.json'
+
+// Причёсанное имя (для бинго-заголовков и фолбэков в подписях бота): убрать
+// dash-префикс сортировки, "_" -> пробел, разбить camelCase, Title Case.
+function prettifyName(raw: string): string {
+  return raw
+    .replace(/^-+/, '')
+    .replace(/^(morphology|specimen|material|shop|filter)_/i, '')
+    .replace(/_/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ')
+}
+
+// 1-в-1 с src/lib/announcements-render.ts::formatBingoTitle - подпись бота и
+// карточка анонса на сайте должны совпадать. bingoLabel() резолвит известные
+// доски по id/заголовку, иначе - prettify сырого заголовка.
+function bingoDisplayName(title: string, id: string): string {
+  const byId = bingoLabel(id)
+  if (byId && byId !== id) return byId
+  const byTitle = bingoLabel(title)
+  if (byTitle && byTitle !== title) return byTitle
+  return prettifyName(title)
+}
+
+// RU-имя скина: skins-i18n.json (общий с сайтом) -> локальный SKIN_NAME_RU ->
+// prettify слага (не сырой lowercase-ключ вроде "school"). LLM-имена НЕ
+// придумываем (см. память feedback-no-llm-authored-names).
+function skinDisplayName(slug: string): string {
+  const i18n = (skinsI18n as Record<string, { ru?: string }>)[slug]?.ru
+  return i18n ?? SKIN_NAME_RU[slug] ?? prettifyName(slug)
+}
 
 const ROOT = process.cwd()
 // НЕ scripts/.cache/ - та папка в .gitignore и не переживает между прогонами
@@ -235,10 +270,9 @@ async function detectSkins(seen: string[]): Promise<DetectResult> {
     newIds: allKeys,
     items: fresh.map((k) => {
       const s = byKey.get(k)!
-      const skinName = SKIN_NAME_RU[s.skin] ?? s.skin
       return {
         id: k,
-        name: `${s.name} — ${skinName}`,
+        name: `${s.name} — ${skinDisplayName(s.skin)}`,
         image: s.image?.[0] ?? null,
       }
     }),
@@ -272,11 +306,12 @@ async function detectBingo(seen: string[]): Promise<DetectResult> {
     const isNewBoard = freshKeys.length === boardKeys.length
     const addedNames = freshKeys.map((k) => {
       const specimenId = k.slice(b.id.length + 1)
-      return mutantNames[specimenId] ?? specimenId
+      return mutantNames[specimenId] ?? prettifyName(specimenId)
     })
+    const boardName = bingoDisplayName(b.title, b.id)
     items.push({
       id: b.id,
-      name: isNewBoard ? b.title : `${b.title}: добавлен(ы) ${addedNames.join(', ')}`,
+      name: isNewBoard ? boardName : `${boardName}: добавлен(ы) ${addedNames.join(', ')}`,
       image: null,
       addedNames: isNewBoard ? undefined : addedNames,
     })
