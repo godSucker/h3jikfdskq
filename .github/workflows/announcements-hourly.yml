@@ -62,6 +62,15 @@ jobs:
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
 
+      - name: 6.1 Авто-дополнение obtain.json из магазина/PvP-релиза (новые мутанты)
+        # Additive-only: пишет {type, where} ТОЛЬКО мутантам без единой записи
+        # и только из механически однозначных источников (shopitems.xml gold_shop/
+        # credits_shop, dailypopup.xml News_release_pvp_* -> pvp). Скрещивание/
+        # бинго/квест/реактор/донат-паки не трогает - остаются на
+        # detect-missing-obtain.ts (sync-cron) + ручную калибровку.
+        if: always()
+        run: npx tsx scripts/autofill-obtain.ts
+
       - name: 6.5 Перевод новых записей obtain.json (obtain-names.{lang}.json)
         # Идёт СРАЗУ после шага 6 - тот пишет в obtain.json RU-only (детект
         # ротации обменников), без этого шага новые записи молча копились бы
