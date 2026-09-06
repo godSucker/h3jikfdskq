@@ -17,9 +17,10 @@ const announcements = (announcementsData as Announcement[]) ?? [];
 const a = announcements.find((x) => x.id === id);
 const ctx = buildAnnouncementContext();
 
-// Прогноз магазина/«скоро в игре» - доска офферов, на 760px тайлы жмутся в
-// 2 колонки и выглядят плохо (фидбек 2026-09-05: «надо скринить с full-hd»).
-// Для них - широкая раскладка, остальным категориям 760px в самый раз.
+// Прогноз магазина/«скоро в игре» - доска офферов. Юзеру FHD-ширина (8
+// мелких колонок) не зашла - вернули к «крупным плиткам» ~4 в ряд (фидбек
+// 2026-09-05). 900px: shopForecast (minmax 200px) -> ~4 кол., dailyNews
+// (minmax 150px) -> ~5. Остальным категориям 760px.
 const isForecast = a?.category === 'shopForecast' || a?.category === 'dailyNews';
 ---
 
@@ -29,7 +30,7 @@ const isForecast = a?.category === 'shopForecast' || a?.category === 'dailyNews'
   <meta charset="utf-8" />
   <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
   <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
-  <style define:vars={{ wrapW: isForecast ? '1880px' : '760px' }}>
+  <style define:vars={{ wrapW: isForecast ? '900px' : '760px' }}>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       background: #0d1117;
