@@ -794,12 +794,19 @@ const forecastOffers =
     border-radius: 10px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.04);
+    /* Grid-айтем по умолчанию min-width:auto = min-content баннера (его
+       intrinsic ~408px) - трек раздувается за край карточки, .card
+       overflow:hidden режет крайнюю колонку без правого отступа (фидбек
+       2026-09-06). min-width:0 заставляет тайл уважать трек. */
+    min-width: 0;
   }
   .forecast-tile-media {
     position: relative;
+    min-width: 0;
   }
   .forecast-tile img {
     width: 100%;
+    max-width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: contain;
     background: rgba(0, 0, 0, 0.35);
