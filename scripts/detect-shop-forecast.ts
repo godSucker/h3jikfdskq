@@ -364,4 +364,24 @@ async function appendDailyMutantOffers(
     }
     items.push(built.item)
   }
+
+  // Передний край пула (см. память auto-announcements-architecture,
+  // "загадка 2 недель вперёд") - логируем БЕЗ учёта окна спринта, чтобы
+  // видеть в проде, когда Kobojo реально продвигает горизонт вперёд
+  // (SPRINT-дивайдер для след. спринта появляется в файле отдельно от
+  // dailyoffer-пула - это два разных механизма обновления). Как только
+  // frontEdge перевалит за конец текущего спринта, следующий прогон сам
+  // начнёт покрывать начало следующего - никакого доп. кода не нужно,
+  // просто нужно видеть момент сдвига в логах.
+  if (pool.length > 0 && confirmed.length > 0) {
+    const frontEntry = pool[0]
+    const frontNeighbor = pickNearestConfirmed(frontEntry.position, confirmed)
+    if (frontNeighbor) {
+      const frontDayMs =
+        frontNeighbor.dayMs - (frontEntry.position - frontNeighbor.position) * DAY_MS
+      console.log(
+        `[forecast] дневной пул: передний край (позиция 0, не резолвится kartel дальше) = ${formatDateRu(new Date(frontDayMs))}`,
+      )
+    }
+  }
 }
