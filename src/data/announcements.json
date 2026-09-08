@@ -444,7 +444,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "14 — 15 сентября",
         "exactDateStart": "2026-09-14T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|Specimen_AA_06_Gold",
@@ -457,7 +457,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "13 — 14 сентября",
         "exactDateStart": "2026-09-13T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|LuckyBox_Mythic_Prime",
@@ -574,7 +574,7 @@
         "ribbon": "limited",
         "exactDateLabel": "10 — 11 сентября",
         "exactDateStart": "2026-09-10T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|Pack_Nightmare",
@@ -600,7 +600,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "9 — 10 сентября",
         "exactDateStart": "2026-09-09T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|Mysterybox_Ability_Slash",
@@ -626,7 +626,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "8 — 9 сентября",
         "exactDateStart": "2026-09-08T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|bundle_orbs_life_5_38",
