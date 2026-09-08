@@ -47,7 +47,11 @@ function formatAmount(n: number): string {
   return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0')
 }
 
-function shopWhere(amount: number, currency: 'hardcurrency' | 'softcurrency', tier: string): string {
+function shopWhere(
+  amount: number,
+  currency: 'hardcurrency' | 'softcurrency',
+  tier: string,
+): string {
   const version = ` (версия: ${tier})`
   return currency === 'hardcurrency'
     ? `Магазин за ${formatAmount(amount)} золота${version}`
