@@ -14,6 +14,22 @@ auto-announcements-architecture.md - раздел "ПРОРЫВ: точные д
 dungeons) соответствует 1-в-1 записи filters[].name в ответе - прямой
 join-ключ, без "Shop_"+itemId эвристик.
 
+НАХОДКА 2026-09-08: параметр "filters" в getuser-запросе - это не просто
+поле результата, это ЗАПРОШЕННЫЙ клиентом список имён (подтверждено в
+Ghidra, TBMM::CmdParamApplicationUserFilters::serializeToJsonNode сериализует
+вектор строк this+0x10..0x18 под ключом "filters"). Если слать пустой
+массив (как раньше), сервер отдаёт только маленький авто-набор (~9 записей
+Shop_Specimen_*). Если явно перечислить конкретные имена Shop_Specimen_* из
+пула dailyoffer в shopitems.xml - сервер отдаёт РЕАЛЬНЫЕ даты для каждого
+запрошенного имени, если оно уже "видимо" серверу (подтверждено на 25+
+днях подряд назад без единого расхождения). Дальше некоторого горизонта
+вперёд (~11 дней от сегодня на момент теста) сервер не отдаёт данные даже
+по явному запросу - это НЕ ограничение параметра filters, а сам файл
+shopitems.xml с CDN Kobojo (s-beta.kobojo.com) физически не содержит записи
+дальше этого горизонта (проверено побайтовым сравнением свежескачанного
+файла - не кэш/не устаревшая копия). s-dev/s-hom вообще не резолвятся для
+game-data XML (только s-beta работает, как и everywhere else in this repo).
+
 Формат дат: startDate/endDate - миллисекунды с псевдо-.NET-эпохи
 0001-01-01T00:00:00 (не Unix ms, не .NET-тики) - подтверждено на 6+
 независимых точках 2026-09-04.
@@ -31,6 +47,7 @@ import argparse
 import base64
 import json
 import os
+import re
 import sys
 import time
 import uuid
@@ -44,6 +61,7 @@ from xmz_codec import encode_xmz, decode  # noqa: E402
 
 AUTH_URL = 'https://service-mutants.kobojo.com/AuthService.ashx'
 KARTEL = 'https://service-mutants.kobojo.com/kartel.ashx'
+SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 PSEUDO_DOTNET_EPOCH = datetime(1, 1, 1, tzinfo=timezone.utc)
 
 
@@ -130,6 +148,23 @@ def send(uid: str, queries: list, retries: int = 3) -> dict:
     raise RuntimeError(f'send failed after {retries} attempts: {last_err}')
 
 
+def fetch_daily_specimen_filter_names() -> list:
+    r = requests.get(SHOPITEMS_URL, timeout=30)
+    r.raise_for_status()
+    xml = r.text
+    names = []
+    for item in re.findall(r'<ShopItem\b[^>]*>[\s\S]*?</ShopItem>', xml):
+        if 'subCat="dailyoffer"' not in item:
+            continue
+        m_id = re.search(r'itemId="([^"]+)"', item)
+        if not m_id or not re.match(r'^-*#?specimen_', m_id.group(1), re.I):
+            continue
+        m_filter = re.search(r'<Filter>([^<]*)</Filter>', item)
+        if m_filter and m_filter.group(1):
+            names.append(m_filter.group(1))
+    return names
+
+
 def extract_filters(response: dict) -> list:
     for answer in response.get('answers', []):
         for item in answer.get('data', []):
@@ -145,6 +180,12 @@ def main():
     parser.add_argument('--auth-file', default=None, help='Локальный auth_request_fresh.bin (вместо KARTEL_AUTH_BLOB_B64)')
     args = parser.parse_args()
 
+    try:
+        filter_names = fetch_daily_specimen_filter_names()
+    except Exception as e:  # noqa: BLE001
+        print(f'WARNING: shopitems.xml fetch failed, falling back to empty filters[]: {e}', file=sys.stderr)
+        filter_names = []
+
     blob = load_auth_blob(args.auth_file)
     uid = auth(blob)
     response = send(uid, [
@@ -153,7 +194,7 @@ def main():
         {
             'cmd': 'getuser',
             'data': json.dumps(
-                {'UserOs': 2, 'acceptFuturFilters': True, 'filters': [], 'userId': int(uid.split(':')[0])},
+                {'UserOs': 2, 'acceptFuturFilters': True, 'filters': filter_names, 'userId': int(uid.split(':')[0])},
                 separators=(',', ':'),
             ) + '\n',
         },
