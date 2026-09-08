@@ -23,6 +23,7 @@ import {
   sprintRangeLabel,
   sprintStartDate,
   formatExactRangeRu,
+  formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange, type FilterDateRange } from './kartel-filter-dates'
@@ -236,7 +237,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   // и тот же daily-оффер мог бы попасть и в fetchShopForecast(cs), и в
   // fetchShopForecast(cs+1) (оба вызова парсят один и тот же xml целиком).
   const beforeDaily = items.length
-  await appendDailyMutantOffers(xml, target, buildItem, items)
+  await appendDailyMutantOffers(xml, target, filterDates, buildItem, items)
   console.log(
     `[forecast] shopForecast спринт ${target}: дневных мутантов ${items.length - beforeDaily}`,
   )
@@ -244,9 +245,55 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items }
 }
 
+const DAY_MS = 86_400_000
+
+interface DailyPoolEntry {
+  position: number
+  itemXml: string
+  filterTag: string | null
+}
+
+// НАХОДКА 2026-09-08 (совместно с юзером, через живой Frida-захват + разбор
+// поста @KaiserZ t.me/mutants_mgg_fb/9483): порядок записей daily-offer пула
+// в shopitems.xml НЕ произволен - он несёт саму хронологию. На спринте 256
+// позиция 9 (последняя от конца пула) = сегодня (8 сент), позиция 0 = самый
+// дальний день недели (18 сент), т.е. ПОЗИЦИЯ УБЫВАЕТ РОВНО НА 1 ДЕНЬ ЗА
+// ПОЗИЦИЮ ВПЕРЁД. Подтверждено 9 из 10 независимых точек (5 - наш живой
+// kartel-захват, 4 - имена/даты из поста Кайзера, сматченные через
+// localisation_ru.txt). Есть локальные "пропуски" (позиция не даёт ровно
+// -1 день от соседа) - видимо не каждая запись пула размечена, но
+// направление и приблизительный шаг железные.
+//
+// Отсюда стратегия "kartel + позиция вместе" (юзер прямо попросил не
+// заменять kartel, а комбинировать): kartel остаётся ЕДИНСТВЕННЫМ источником
+// ПОДТВЕРЖДЁННОЙ даты (то, что уже показываем без "≈"). Для дней, до которых
+// kartel ещё не дотянулся (typical horizon ~неделя), берём ближайшую по
+// позиции ПОДТВЕРЖДЁННУЮ точку и экстраполируем на -1 день за позицию -
+// это ПРОГНОЗ, помечается "≈" в exactDateLabel, никогда не выдаётся за
+// подтверждённый факт. Как только kartel сам дотягивается до этой даты
+// (часовой крон), merge-логика в build-announcements.ts подменяет "≈"-строку
+// на настоящую (fresh всегда побеждает, см. комментарий там) - без ручных
+// действий.
+function pickNearestConfirmed(
+  position: number,
+  confirmed: { position: number; dayMs: number }[],
+): { position: number; dayMs: number } | null {
+  let best: { position: number; dayMs: number } | null = null
+  let bestDist = Infinity
+  for (const c of confirmed) {
+    const dist = Math.abs(c.position - position)
+    if (dist < bestDist) {
+      bestDist = dist
+      best = c
+    }
+  }
+  return best
+}
+
 async function appendDailyMutantOffers(
   xml: string,
   sprint: number,
+  filterDates: Record<string, FilterDateRange>,
   buildItem: (
     itemXml: string,
     forceFeatured?: 'day',
@@ -255,14 +302,66 @@ async function appendDailyMutantOffers(
 ): Promise<void> {
   const windowStart = sprintStartDate(sprint).getTime()
   const windowEnd = sprintStartDate(sprint + 1).getTime()
+
+  // НАХОДКА 2026-09-08: фильтр по атрибуту category="specimen" пропускает
+  // Specimen_CA_06 - тот же специмен, но с ОШИБОЧНОЙ разметкой в игре
+  // (category="material" на реальном мутанте, баг данных Kobojo). Из-за
+  // этого позиция для 12 сентября выпадала из пула, что выглядело как
+  // "провал" в последовательности. Фильтр по префиксу itemId (тот же
+  // /^-*#?specimen_/i, что уже использует classifyFeaturedMutant) находит
+  // его правильно, независимо от того, что написано в category. С этим
+  // фиксом позиции 0-7 спринта 256 легли ИДЕАЛЬНО день-в-день без единого
+  // расхождения (проверено на живых данных + посте @KaiserZ).
+  const pool: DailyPoolEntry[] = []
+  let position = 0
   for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
-    if (!itemXml.includes('subCat="dailyoffer"') || !itemXml.includes('category="specimen"')) {
-      continue
+    if (!itemXml.includes('subCat="dailyoffer"')) continue
+    const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
+    if (!itemId || !/^-*#?specimen_/i.test(itemId)) continue
+    const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1] ?? null
+    pool.push({ position: position++, itemXml, filterTag })
+  }
+
+  // Проход 1 - подтверждённые kartel-точки (окно <=3 дня, тот же гейт, что
+  // classifyFeaturedMutant использует для "обычного" дневного оффера).
+  const confirmed: { position: number; dayMs: number }[] = []
+  for (const entry of pool) {
+    const range = pickFilterDateRange(filterDates, entry.filterTag)
+    if (!range?.start || !range.end) continue
+    const startMs = new Date(range.start).getTime()
+    const endMs = new Date(range.end).getTime()
+    if (Number.isNaN(startMs) || Number.isNaN(endMs) || (endMs - startMs) / DAY_MS > 3) continue
+    confirmed.push({ position: entry.position, dayMs: startMs })
+  }
+
+  // Проход 2 - для каждой записи пула решаем, подтверждена дата или её
+  // нужно прогнозировать по ближайшему подтверждённому соседу; отбрасываем
+  // всё, что не попадает в окно текущего спринта (и подтверждённое, и
+  // прогнозное - иначе прогноз на позицию за сотни дней от ближайшего
+  // якоря дал бы бессмыслицу, дата-фильтр её и отсекает).
+  for (const entry of pool) {
+    const range = pickFilterDateRange(filterDates, entry.filterTag)
+    const isConfirmed = !!(
+      range?.start &&
+      range.end &&
+      (new Date(range.end).getTime() - new Date(range.start).getTime()) / DAY_MS <= 3
+    )
+    let dayMs: number
+    if (isConfirmed) {
+      dayMs = new Date(range!.start).getTime()
+    } else {
+      const neighbor = pickNearestConfirmed(entry.position, confirmed)
+      if (!neighbor) continue
+      dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
     }
-    const built = await buildItem(itemXml, 'day')
-    if (!built?.exactRange?.start) continue
-    const startMs = new Date(built.exactRange.start).getTime()
-    if (Number.isNaN(startMs) || startMs < windowStart || startMs >= windowEnd) continue
+    if (dayMs < windowStart || dayMs >= windowEnd) continue
+
+    const built = await buildItem(entry.itemXml, 'day')
+    if (!built) continue
+    if (!isConfirmed) {
+      built.item.exactDateLabel = `≈ ${formatDateRu(new Date(dayMs))}`
+      built.item.exactDateStart = new Date(dayMs).toISOString()
+    }
     items.push(built.item)
   }
 }
