@@ -92,8 +92,9 @@ interface AnnouncementItem {
   exactDateStart?: string | null
   // Только shopForecast - 'week'/'month', если оффер помечен игрой как
   // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
-  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant).
-  featuredMutant?: 'week' | 'month' | null
+  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
+  // из пула daily-offer ("мутант дня", см. fetchDailyMutantOffers).
+  featuredMutant?: 'day' | 'week' | 'month' | null
 }
 
 interface Announcement {
@@ -911,10 +912,23 @@ async function main() {
         }
         if (existing) {
           const oldById = new Map(existing.items.map((it) => [it.id, it]))
+          const freshById = new Map(upd.items.map((it) => [it.id, it]))
           const datedBefore = existing.items.filter((it) => it.exactDateLabel).length
           const datedFresh = upd.items.filter((it) => it.exactDateLabel).length
-          existing.items = upd.items.map((fresh) => {
-            const old = oldById.get(fresh.id)
+          // Union по id (старые ∪ свежие), не только "map по свежим" - для
+          // обычных спринтовых офферов список itemId стабилен (весь спринт
+          // целиком лежит в статичном XML независимо от live-видимости), но
+          // "дневной мутант" (fetchDailyMutantOffers) СУЩЕСТВУЕТ в items
+          // только пока kartel отдаёт его окно - а live-фильтры аккаунта, как
+          // уже ловили 2026-09-04, могут СЖИМАТЬСЯ между прогонами. Map по
+          // upd.items тут стёр бы уже опубликованную карточку дневного
+          // мутанта целиком, не просто дату - то же нарушение "только
+          // добавлять, никогда не стирать", просто на уровне item, не поля.
+          const mergedIds = [...new Set([...oldById.keys(), ...freshById.keys()])]
+          existing.items = mergedIds.map((id) => {
+            const fresh = freshById.get(id)
+            const old = oldById.get(id)
+            if (!fresh) return old! // выпал из свежего fetch - оставляем как было
             // Дата ПОЯВИЛАСЬ именно в этом прогоне (раньше её не было, сейчас
             // есть) - собираем для алерта. Не триггерим на "дата уже была
             // раньше" (fresh совпадает со старым значением на большинстве

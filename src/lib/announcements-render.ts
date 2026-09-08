@@ -47,11 +47,15 @@ export interface AnnouncementItem {
   exactDateStart?: string | null
   // Только shopForecast - 'week'/'month' помечает "мутанта недели"/"мутанта
   // месяца" (окно продажи ~7 или ~28-31 день, см.
-  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant).
-  featuredMutant?: 'week' | 'month' | null
+  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
+  // из пула daily-offer (Path cat="special" subCat="dailyoffer") - тот самый
+  // "мутант дня" из календаря MUTODEX/@KaiserZ, см.
+  // scripts/detect-shop-forecast.ts::fetchDailyMutantOffers.
+  featuredMutant?: 'day' | 'week' | 'month' | null
 }
 
 export function featuredMutantLabel(v: string | null | undefined): string | null {
+  if (v === 'day') return 'Дневной мутант'
   if (v === 'week') return 'Мутант недели'
   if (v === 'month') return 'Мутант месяца'
   return null

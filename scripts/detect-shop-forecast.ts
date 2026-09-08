@@ -18,9 +18,14 @@
 // только превью на 1-2 недели, отдельно грузить его на свой CDN избыточно.
 
 import axios from 'axios'
-import { currentSprint, sprintRangeLabel, formatExactRangeRu } from '../src/lib/sprint-calendar'
+import {
+  currentSprint,
+  sprintRangeLabel,
+  sprintStartDate,
+  formatExactRangeRu,
+} from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
-import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { loadFilterDates, pickFilterDateRange, type FilterDateRange } from './kartel-filter-dates'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -95,8 +100,12 @@ interface ForecastItem {
   // теряет сортируемость (текст с названием месяца).
   exactDateStart: string | null
   // 'week'/'month', если это мутант-оффер с окном ~7 или ~28-31 день - см.
-  // classifyFeaturedMutant. null для не-мутантов и обычных коротких окон.
-  featuredMutant: 'week' | 'month' | null
+  // classifyFeaturedMutant. 'day' - оффер из пула daily-offer (см.
+  // fetchDailyMutantOffers), проставляется напрямую, не через
+  // classifyFeaturedMutant (там окно 1-2 дня для ОБЫЧНОГО спринтового
+  // оффера ничего не значит - тут источник уже точно известен по Path).
+  // null для не-мутантов и обычных коротких окон.
+  featuredMutant: 'day' | 'week' | 'month' | null
 }
 
 export interface ShopForecast {
@@ -167,42 +176,93 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
 
   const filterDates = await loadFilterDates()
 
-  const items: ForecastItem[] = []
-  for (const itemXml of block.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
+  // Общий разбор одного <ShopItem> - используется и для спринтового блока
+  // (ниже), и для пула daily-offer (fetchDailyMutantOffers). forceFeatured
+  // проставляет featuredMutant напрямую (для daily-offer источник уже точно
+  // известен по Path, classifyFeaturedMutant по длине окна тут не нужен и
+  // была бы неверна - у daily-оффера окно 1-2 дня, а не 7/28-31).
+  async function buildItem(
+    itemXml: string,
+    forceFeatured?: 'day',
+  ): Promise<{ item: ForecastItem; exactRange: FilterDateRange | null } | null> {
     const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
     const hidden = itemXml.match(/hidden="([^"]+)"/)?.[1]
     const picture = itemXml.match(/picture="([^"]+)"/)?.[1]
     const caption = itemXml.match(/caption="([^"]+)"/)?.[1]
-    if (!itemId || hidden === 'true') continue
+    if (!itemId || hidden === 'true') return null
     const costMatch = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
     const usd = costMatch ? null : parseRealPriceUSD(itemXml)
     const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
     const exactRange = pickFilterDateRange(filterDates, filterTag)
-    items.push({
-      itemId,
-      name: resolveName(itemId, caption),
-      image: picture ? await resolveThumbnailUrl(picture) : null,
-      price: costMatch
-        ? { amount: Number(costMatch[1]), type: costMatch[2] as 'hardcurrency' | 'softcurrency' }
-        : usd !== null
-          ? { amount: usd, type: 'usd' }
-          : null,
-      ribbon: parseOfferRibbon(offerTag),
-      exactDateLabel: exactRange
-        ? formatExactRangeRu(
-            new Date(exactRange.start),
-            exactRange.end ? new Date(exactRange.end) : null,
-          )
-        : null,
-      exactDateStart: exactRange?.start ?? null,
-      featuredMutant: classifyFeaturedMutant(
+    return {
+      exactRange,
+      item: {
         itemId,
-        exactRange?.start ?? null,
-        exactRange?.end ?? null,
-      ),
-    })
+        name: resolveName(itemId, caption),
+        image: picture ? await resolveThumbnailUrl(picture) : null,
+        price: costMatch
+          ? { amount: Number(costMatch[1]), type: costMatch[2] as 'hardcurrency' | 'softcurrency' }
+          : usd !== null
+            ? { amount: usd, type: 'usd' }
+            : null,
+        ribbon: parseOfferRibbon(offerTag),
+        exactDateLabel: exactRange
+          ? formatExactRangeRu(
+              new Date(exactRange.start),
+              exactRange.end ? new Date(exactRange.end) : null,
+            )
+          : null,
+        exactDateStart: exactRange?.start ?? null,
+        featuredMutant:
+          forceFeatured ??
+          classifyFeaturedMutant(itemId, exactRange?.start ?? null, exactRange?.end ?? null),
+      },
+    }
   }
 
+  const items: ForecastItem[] = []
+  for (const itemXml of block.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
+    const built = await buildItem(itemXml)
+    if (built) items.push(built.item)
+  }
+
+  // "Дневной мутант" (запрошено юзером 2026-09-08, пост @KaiserZ с недельным
+  // календарём - t.me/mutants_mgg_fb/9483) - пул daily-offer (Path
+  // cat="special" subCat="dailyoffer", category="specimen", 1157 записей на
+  // 2026-09-08) физически лежит ВНЕ спринтовых маркеров, но несёт тот же
+  // <Filter>Shop_<itemId></Filter>, что и обычные офферы - джойн по kartel
+  // работает 1-в-1. Скоуп по [sprintStart, nextSprintStart) - без него один
+  // и тот же daily-оффер мог бы попасть и в fetchShopForecast(cs), и в
+  // fetchShopForecast(cs+1) (оба вызова парсят один и тот же xml целиком).
+  const beforeDaily = items.length
+  await appendDailyMutantOffers(xml, target, buildItem, items)
+  console.log(
+    `[forecast] shopForecast спринт ${target}: дневных мутантов ${items.length - beforeDaily}`,
+  )
+
   return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items }
+}
+
+async function appendDailyMutantOffers(
+  xml: string,
+  sprint: number,
+  buildItem: (
+    itemXml: string,
+    forceFeatured?: 'day',
+  ) => Promise<{ item: ForecastItem; exactRange: FilterDateRange | null } | null>,
+  items: ForecastItem[],
+): Promise<void> {
+  const windowStart = sprintStartDate(sprint).getTime()
+  const windowEnd = sprintStartDate(sprint + 1).getTime()
+  for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
+    if (!itemXml.includes('subCat="dailyoffer"') || !itemXml.includes('category="specimen"')) {
+      continue
+    }
+    const built = await buildItem(itemXml, 'day')
+    if (!built?.exactRange?.start) continue
+    const startMs = new Date(built.exactRange.start).getTime()
+    if (Number.isNaN(startMs) || startMs < windowStart || startMs >= windowEnd) continue
+    items.push(built.item)
+  }
 }
