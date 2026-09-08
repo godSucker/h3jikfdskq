@@ -62,6 +62,8 @@ from xmz_codec import encode_xmz, decode  # noqa: E402
 AUTH_URL = 'https://service-mutants.kobojo.com/AuthService.ashx'
 KARTEL = 'https://service-mutants.kobojo.com/kartel.ashx'
 SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
+DUNGEONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml'
+DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 PSEUDO_DOTNET_EPOCH = datetime(1, 1, 1, tzinfo=timezone.utc)
 
 
@@ -148,21 +150,43 @@ def send(uid: str, queries: list, retries: int = 3) -> dict:
     raise RuntimeError(f'send failed after {retries} attempts: {last_err}')
 
 
-def fetch_daily_specimen_filter_names() -> list:
+def fetch_all_filter_names() -> list:
+    """Собирает ВСЕ <Filter> имена из трёх источников игровых данных - не
+    только daily-offer специмены (для дневных мутантов), но и ЛЮБой ShopItem
+    (боксы - detectBoxes в build-announcements.ts джойнит по itemId->filter
+    без ограничения на subCat/category), dungeons.xml (рейды/лесенки -
+    detectRaids/detectLadders) и dailypopup.xml (daily_news-баннеры). Один
+    live-filter-dates.json на выходе кормит ВСЕ детекторы разом - они уже
+    умеют читать его (см. exactDateFor() в build-announcements.ts), не
+    хватало только явного запроса нужных имён (см. комментарий выше)."""
+    names: list[str] = []
+
     r = requests.get(SHOPITEMS_URL, timeout=30)
     r.raise_for_status()
-    xml = r.text
-    names = []
-    for item in re.findall(r'<ShopItem\b[^>]*>[\s\S]*?</ShopItem>', xml):
-        if 'subCat="dailyoffer"' not in item:
-            continue
-        m_id = re.search(r'itemId="([^"]+)"', item)
-        if not m_id or not re.match(r'^-*#?specimen_', m_id.group(1), re.I):
-            continue
+    for item in re.findall(r'<ShopItem\b[^>]*>[\s\S]*?</ShopItem>', r.text):
         m_filter = re.search(r'<Filter>([^<]*)</Filter>', item)
         if m_filter and m_filter.group(1):
             names.append(m_filter.group(1))
-    return names
+
+    r = requests.get(DUNGEONS_URL, timeout=30)
+    r.raise_for_status()
+    for m in re.finditer(r'<Dungeon id="[^"]+"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)</Filter>', r.text):
+        names.append(m.group(1))
+
+    r = requests.get(DAILYPOPUP_URL, timeout=30)
+    r.raise_for_status()
+    for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', r.text):
+        if m_filter.group(1):
+            names.append(m_filter.group(1))
+
+    # dedup, сохраняя порядок - дубли не проблема для сервера, но зачем слать лишнее
+    seen = set()
+    out = []
+    for n in names:
+        if n not in seen:
+            seen.add(n)
+            out.append(n)
+    return out
 
 
 def extract_filters(response: dict) -> list:
@@ -181,9 +205,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        filter_names = fetch_daily_specimen_filter_names()
+        filter_names = fetch_all_filter_names()
     except Exception as e:  # noqa: BLE001
-        print(f'WARNING: shopitems.xml fetch failed, falling back to empty filters[]: {e}', file=sys.stderr)
+        print(f'WARNING: filter-name fetch failed, falling back to empty filters[]: {e}', file=sys.stderr)
         filter_names = []
 
     blob = load_auth_blob(args.auth_file)
