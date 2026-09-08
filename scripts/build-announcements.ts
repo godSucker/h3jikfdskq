@@ -24,6 +24,7 @@ import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
+import { cardKind } from '../src/lib/announcements-render'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
 
@@ -1035,21 +1036,47 @@ async function main() {
   // раньше). См. notifyNewExactDates ниже.
   const newlyDated: { announcementTitle: string; itemName: string; exactDateLabel: string }[] = []
 
+  // НАЙДЕНО 2026-09-08: AnnouncementCard.astro для kind dungeon/mutant/skin/
+  // reactor/box/bingo рендерит ТОЛЬКО items[0] (`const it = a.items?.[0]`) -
+  // это карточки одного объекта (герой-арт, дата, награды), не грид. Батч из
+  // N новых объектов за один прогон (юзер поймал на "Новые лесенки: 9" -
+  // pit_saber_12 был в данных, но никогда не показывался) молча прячет N-1
+  // объектов. forecast (shopForecast/dailyNews) и generic (exchange/token/
+  // rebalance) рендерят a.items.map(...) - полный список, батч там корректен
+  // и оставлен как есть. cardKind() - тот же классификатор, что и на странице.
+  const SINGLE_ITEM_KINDS = new Set(['dungeon', 'mutant', 'skin', 'reactor', 'box', 'bingo'])
+
   for (const d of DETECTORS) {
     try {
       const { newIds, items, updateExisting, sprintKey } = await d.run(ledger[d.category])
       if (items.length > 0) {
-        const a: Announcement = {
-          id: `${d.category}-${Date.now()}`,
-          date: now,
-          category: d.category,
-          title: items.length === 1 ? items[0].name : `${d.title}: ${items.length}`,
-          items,
-          link: d.link,
-          sprintKey,
+        if (SINGLE_ITEM_KINDS.has(cardKind(d.category))) {
+          items.forEach((item, i) => {
+            const a: Announcement = {
+              id: `${d.category}-${Date.now()}-${i}`,
+              date: now,
+              category: d.category,
+              title: item.name,
+              items: [item],
+              link: d.link,
+              sprintKey,
+            }
+            announcements.push(a)
+            newlyAdded.push(a)
+          })
+        } else {
+          const a: Announcement = {
+            id: `${d.category}-${Date.now()}`,
+            date: now,
+            category: d.category,
+            title: items.length === 1 ? items[0].name : `${d.title}: ${items.length}`,
+            items,
+            link: d.link,
+            sprintKey,
+          }
+          announcements.push(a)
+          newlyAdded.push(a)
         }
-        announcements.push(a)
-        newlyAdded.push(a)
         published.push(`${d.category} (${items.length})`)
       }
       // updateExisting может прийти В ТОТ ЖЕ прогон, что и новый пост (напр.

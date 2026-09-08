@@ -109,16 +109,25 @@
     "link": "/mutants"
   },
   {
-    "id": "mutant-1787241092908",
+    "id": "mutant-1787241092908-0",
     "date": "2026-08-20T15:51:32.059Z",
     "category": "mutant",
-    "title": "Новые мутанты: 2",
+    "title": "Гематогул",
     "items": [
       {
         "id": "specimen_bb_14",
         "name": "Гематогул",
         "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_bb_14_obtain.jpg"
-      },
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "mutant-1787241092908-1",
+    "date": "2026-08-20T15:51:32.059Z",
+    "category": "mutant",
+    "title": "Флипфлоп, морфическая жираф",
+    "items": [
       {
         "id": "specimen_da_15",
         "name": "Флипфлоп, морфическая жираф",
@@ -160,10 +169,10 @@
     "link": "/bingo"
   },
   {
-    "id": "ladder-1788531645531",
+    "id": "ladder-1788531645531-0",
     "date": "2026-09-04T14:20:45.440Z",
     "category": "ladder",
-    "title": "Новые лесенки: 9",
+    "title": "Лесенка «Небесное тело» (50 боёв)",
     "items": [
       {
         "id": "celestial_13",
@@ -171,46 +180,118 @@
         "image": "textures_by_mutant/ce_11/specimen_ce_11_normal.webp",
         "exactDateLabel": "12 сентября — 2 октября",
         "exactDateStart": "2026-09-12T10:00:00+00:00"
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-1",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Яма: Рубака» (45 боёв)",
+    "items": [
       {
         "id": "pit_saber_12",
         "name": "Лесенка «Яма: Рубака» (45 боёв)",
         "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp",
         "exactDateLabel": "2 — 22 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00"
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-2",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Яма: Галактик» (45 боёв)",
+    "items": [
       {
         "id": "pit_galactic_12",
         "name": "Лесенка «Яма: Галактик» (45 боёв)",
         "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
         "exactDateLabel": "23 августа — 12 сентября",
         "exactDateStart": "2026-08-23T10:00:00+00:00"
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-3",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Рапа-Нуи» (100 боёв)",
+    "items": [
       {
         "id": "rapanui_17",
         "name": "Лесенка «Рапа-Нуи» (100 боёв)",
         "image": null
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-4",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Темный город» (100 боёв)",
+    "items": [
       {
         "id": "gotham_17",
         "name": "Лесенка «Темный город» (100 боёв)",
         "image": null
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-5",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Амазонка» (101 боёв)",
+    "items": [
       {
         "id": "jungle_17",
         "name": "Лесенка «Амазонка» (101 боёв)",
         "image": null
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-6",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Пляжные бои Майами» (100 боёв)",
+    "items": [
       {
         "id": "miami_17",
         "name": "Лесенка «Пляжные бои Майами» (100 боёв)",
         "image": null
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-7",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Гора Олимп» (100 боёв)",
+    "items": [
       {
         "id": "olympus_17",
         "name": "Лесенка «Гора Олимп» (100 боёв)",
         "image": null
-      },
+      }
+    ],
+    "link": "/guides"
+  },
+  {
+    "id": "ladder-1788531645531-8",
+    "date": "2026-09-04T14:20:45.440Z",
+    "category": "ladder",
+    "title": "Лесенка «Космопорт» (100 боёв)",
+    "items": [
       {
         "id": "space_17",
         "name": "Лесенка «Космопорт» (100 боёв)",
