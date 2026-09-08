@@ -122,6 +122,7 @@ interface Ledger {
   rebalance: string[]
   raid: string[]
   ladder: string[]
+  eventLadder: string[]
   token: string[]
   reactor: string[]
   shopForecast: string[]
@@ -137,6 +138,7 @@ const EMPTY_LEDGER: Ledger = {
   rebalance: [],
   raid: [],
   ladder: [],
+  eventLadder: [],
   token: [],
   reactor: [],
   shopForecast: [],
@@ -154,7 +156,15 @@ async function loadJson<T>(relPath: string, fallback: T): Promise<T> {
 async function loadLedger(): Promise<{ ledger: Ledger; isBootstrap: boolean }> {
   try {
     const raw = await fs.readFile(LEDGER_PATH, 'utf-8')
-    return { ledger: JSON.parse(raw), isBootstrap: false }
+    // НАЙДЕНО 2026-09-08: живой прогон при добавлении eventLadder упал с
+    // "seen is not iterable" - старый файл на диске не содержит новый ключ
+    // категории, JSON.parse даёт undefined вместо []. Мёржим с дефолтом,
+    // чтобы добавление НОВОЙ категории детектора никогда не требовало
+    // ручной миграции ledger-файла.
+    return {
+      ledger: { ...structuredClone(EMPTY_LEDGER), ...JSON.parse(raw) },
+      isBootstrap: false,
+    }
   } catch {
     return { ledger: structuredClone(EMPTY_LEDGER), isBootstrap: true }
   }
@@ -361,6 +371,20 @@ async function buildDungeonFilterMap(): Promise<Map<string, string>> {
   return map
 }
 
+// НАЙДЕНО 2026-09-08 (та же регрессия, что и в detect-shop-forecast.ts/
+// detect-daily-news.ts после расширения явного запроса имён фильтров на ВСЕ
+// <Filter>-теги): Kobojo иногда переиспользует один generic Filter-тег для
+// РАЗНЫХ по времени офферов/рейдов - kartel просто отдаёт дату ПОСЛЕДНЕГО
+// известного ему включения, не обязательно текущего. У боксов/рейдов/лесенок
+// (в отличие от shopForecast/dailyNews) нет единого "своего спринта" для
+// точной проверки окна - но detectBoxes/detectDungeons вызывают это только
+// для СВЕЖЕОБНАРУЖЕННЫХ (ещё не объявленных) записей, так что легитимная
+// дата должна быть близко к "сейчас": не более 30 дней в прошлом (отсекает
+// протухшие даты типа "5 августа" для сентябрьского релиза), будущее не
+// ограничиваем - рейды планируются на недели вперёд (подтверждено вживую
+// на 44 дня).
+const STALE_PAST_DAYS = 30
+
 async function exactDateFor(
   filterName: string | undefined,
 ): Promise<{ label: string; start: string } | null> {
@@ -368,6 +392,18 @@ async function exactDateFor(
   const dates = await loadFilterDates()
   const range = pickFilterDateRange(dates, filterName)
   if (!range) return null
+  const startMs = new Date(range.start).getTime()
+  if (Number.isNaN(startMs) || startMs < Date.now() - STALE_PAST_DAYS * 86_400_000) return null
+  // НАЙДЕНО 2026-09-08: hexcity_2 резолвился в "10-23 августа" (уже 16 дней
+  // как закончилось на момент прогона 8 сентября) - 30-дневный барьер по
+  // startMs его пропускал (29 < 30), детектор объявил бы уже завершившийся
+  // рейд как "новый". Если у окна есть конец и он в прошлом больше чем на
+  // 3 дня (грейс-период для боксов - у них короткие 1-3-дневные продажи,
+  // датировать их сразу после завершения ещё осмысленно) - считаем протухшим.
+  if (range.end) {
+    const endMs = new Date(range.end).getTime()
+    if (!Number.isNaN(endMs) && endMs < Date.now() - 3 * 86_400_000) return null
+  }
   return {
     label: formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null),
     start: range.start,
@@ -469,6 +505,23 @@ interface DungeonRawShape {
   }
 }
 
+// НАЙДЕНО 2026-09-08 (юзер поймал): рейды/лесенки НЕ одноразовые - одна и та
+// же "abyss" реально возвращается через месяцы с НОВЫМ окном дат (rerun).
+// Старый триггер "новый id в raids.json/special-ladders.json один раз
+// навсегда" такое пропускает - id уже в seen, повторный заход того же рейда
+// молча теряется. Раньше это ещё маскировалось тем, что дозаполнения дат для
+// уже объявленных вообще не было (см. коммит 6a1aa1d59).
+//
+// Новый триггер - "новое подтверждённое kartel-окно" (id+startDate как ключ
+// в ledger'е вместо голого id, тот же приём, что уже использует
+// detectExchange для составных ключей). Следствия:
+// - рейд без live-даты от kartel вообще не публикуется (юзер попросил явно -
+//   "анонсить только то что отдаёт картель по датам")
+// - rerun того же id с ДРУГОЙ датой = другой ключ = публикуется заново
+// - те же id+дата повторно - ключ уже в seen, публикации нет (не дублируем)
+// - бэкфилл 16 старых рейдов решается сам собой: они появятся ровно тогда,
+//   когда kartel реально покажет для них активное/ближайшее окно, а не
+//   разовым дампом всех разом
 async function detectDungeons(
   seen: string[],
   entries: DungeonRawShape[],
@@ -485,12 +538,19 @@ async function detectDungeons(
   const mutantsById = new Map(mutants.map((m) => [m.id, m]))
 
   const seenSet = new Set(seen)
-  const fresh = entries.filter((d) => !seenSet.has(d.id))
-  const filterMap =
-    fresh.length > 0 ? await buildDungeonFilterMap().catch(() => new Map()) : new Map()
+  const filterMap = await buildDungeonFilterMap().catch(() => new Map())
+
+  const dated: { entry: DungeonRawShape; key: string; exact: { label: string; start: string } }[] =
+    []
+  for (const d of entries) {
+    const exact = await exactDateFor(filterMap.get(d.id))
+    if (!exact) continue
+    dated.push({ entry: d, key: `${d.id}@${exact.start}`, exact })
+  }
+  const fresh = dated.filter((d) => !seenSet.has(d.key))
 
   const items = await Promise.all(
-    fresh.map(async (d) => {
+    fresh.map(async ({ entry: d, exact }) => {
       // finish-pending.ts качает титульный баннер (title_<id>-ru.png) в
       // public/dungeon-covers/ при доделке - если он есть, он лучше сырой
       // иконки мутанта/материала для карточки анонса.
@@ -506,18 +566,18 @@ async function detectDungeons(
           : d.rewards.items[0]
             ? (await dungeonItemName(d.rewards.items[0].id, materialsById, mutantsById)).image
             : null
-      const exact = await exactDateFor(filterMap.get(d.id))
       return {
         id: d.id,
         name: `${linePrefix} «${d.name}» (${d.fightCount} боёв)`,
         image,
-        exactDateLabel: exact?.label ?? null,
-        exactDateStart: exact?.start ?? null,
+        exactDateLabel: exact.label,
+        exactDateStart: exact.start,
       }
     }),
   )
 
-  return { newIds: entries.map((d) => d.id), items }
+  const newIds = [...new Set([...seen, ...dated.map((d) => d.key)])]
+  return { newIds, items }
 }
 
 async function detectRaids(seen: string[]): Promise<DetectResult> {
@@ -531,6 +591,90 @@ async function detectLadders(seen: string[]): Promise<DetectResult> {
     { experiment: [], challenge: [] },
   )
   return detectDungeons(seen, [...special.experiment, ...special.challenge], 'Лесенка')
+}
+
+interface EventLadderRawShape {
+  id: string
+  name: string
+  nameAuthored?: boolean
+  mapCount: number
+  mutantId: string | null
+  maps: { mapId: string; fightCount: number; reward: { id: string; amount: number } | null }[]
+}
+
+// НАЙДЕНО 2026-09-08: event-ladders.json хранит id с префиксом "season_"
+// (напр. "season_vegas"), которого нет в dungeons.xml (там "vegas_16") - ПРЯМОГО
+// join'а по id никогда не было (см. sync-dungeon-covers.ts:52, где та же
+// проблема решалась только для обложек эвристикой по имени файла). Разобрано
+// ПОЛНОСТЬЮ, не догадка: если id после снятия "season_" уже кончается на
+// "_<цифры>" (season_anniversary_18_1 -> anniversary_18_1) - это ЗАФИКСИРОВАННЫЙ
+// эдишн, ищем ТОЛЬКО точное совпадение (эдишны прошлых лет типа 18/19 законно
+// не найдутся - они реально прошли и вычищены из dungeons.xml, это не баг).
+// Если хвостовых цифр нет вообще (season_vegas -> "vegas") - это ГЕНЕРИЧЕСКАЯ
+// тема, ищем dungeons.xml id вида "vegas_<N>" (текущий живой номерной прогон
+// той же темы) - берём ТОЛЬКО если совпадение ровно одно, иначе не гадаем.
+// Проверено на живых данных 2026-09-08: 19/33 резолвится, 0 неоднозначных
+// совпадений (сохранить эту находку - см. память auto-announcements-architecture).
+function resolveEventLadderDungeonId(eventLadderId: string, dungeonIds: string[]): string | null {
+  const theme = eventLadderId.replace(/^season_/, '')
+  if (dungeonIds.includes(theme)) return theme
+  if (/_\d+$/.test(theme)) return null // зафиксированный старый эдишн, вычищен из dungeons.xml
+  const candidates = dungeonIds.filter((d) => new RegExp(`^${theme}_\\d+$`).test(d))
+  return candidates.length === 1 ? candidates[0] : null
+}
+
+async function detectEventLadders(seen: string[]): Promise<DetectResult> {
+  const [entries, materials, mutants] = await Promise.all([
+    loadJson<EventLadderRawShape[]>('src/data/guides/event-ladders.json', []),
+    loadJson<{ id: string; name?: string; texture?: string }[]>(
+      'src/data/materials/material.json',
+      [],
+    ),
+    loadJson<{ id: string; name: string; stars?: StarsMap }[]>('src/data/mutants/mutants.json', []),
+  ])
+  const materialsById = new Map(materials.map((m) => [m.id, m]))
+  const mutantsById = new Map(mutants.map((m) => [m.id, m]))
+
+  const seenSet = new Set(seen)
+  const filterMap = await buildDungeonFilterMap().catch(() => new Map())
+  const dungeonIds = [...filterMap.keys()]
+
+  const dated: { entry: EventLadderRawShape; key: string; exact: { label: string; start: string } }[] =
+    []
+  for (const e of entries) {
+    const dungeonId = resolveEventLadderDungeonId(e.id, dungeonIds)
+    if (!dungeonId) continue
+    const exact = await exactDateFor(filterMap.get(dungeonId))
+    if (!exact) continue
+    dated.push({ entry: e, key: `${e.id}@${exact.start}`, exact })
+  }
+  const fresh = dated.filter((d) => !seenSet.has(d.key))
+
+  const items = await Promise.all(
+    fresh.map(async ({ entry: e, exact }) => {
+      const coverPath = path.join(ROOT, 'public/dungeon-covers', `${e.id}.png`)
+      const hasCover = await fs
+        .access(coverPath)
+        .then(() => true)
+        .catch(() => false)
+      const image = hasCover
+        ? `/dungeon-covers/${e.id}.png`
+        : e.mutantId
+          ? (await dungeonItemName(e.mutantId, materialsById, mutantsById)).image
+          : null
+      const fightCount = e.maps.reduce((sum, m) => sum + m.fightCount, 0)
+      return {
+        id: e.id,
+        name: `Ивент-лесенка «${e.name}» (${fightCount} боёв)`,
+        image,
+        exactDateLabel: exact.label,
+        exactDateStart: exact.start,
+      }
+    }),
+  )
+
+  const newIds = [...new Set([...seen, ...dated.map((d) => d.key)])]
+  return { newIds, items }
 }
 
 // Жетоны сами в material.json пишет scripts/detect-tokens.ts (Phase-1-детектор
@@ -696,6 +840,12 @@ const DETECTORS: {
   { category: 'exchange', title: 'Обновление зала обмена', link: '/mutants', run: detectExchange },
   { category: 'raid', title: 'Новые рейды', link: '/guides', run: detectRaids },
   { category: 'ladder', title: 'Новые лесенки', link: '/guides', run: detectLadders },
+  {
+    category: 'eventLadder',
+    title: 'Новые ивент-лесенки',
+    link: '/guides',
+    run: detectEventLadders,
+  },
   { category: 'token', title: 'Новые жетоны', link: '/materials', run: detectTokens },
   {
     category: 'reactor',
@@ -826,6 +976,23 @@ async function notifyNewExactDates(
 async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
+
+  // МИГРАЦИЯ 2026-09-08: raid/ladder/eventLadder перешли с ключа "голый id"
+  // на "id@exactDateStart" (см. detectDungeons/detectEventLadders выше -
+  // юзер поймал, что rerun'ы того же id с новой датой раньше молча терялись).
+  // Без этого шага уже опубликованные celestial_13/pit_saber_12/... заново
+  // "всплыли" бы как новые на первом же прогоне после деплоя - добавляем их
+  // composite-ключи в ledger аддитивно (старые голые id не трогаем/не удаляем).
+  for (const category of ['raid', 'ladder', 'eventLadder'] as const) {
+    const seenSet = new Set(ledger[category])
+    for (const a of announcements) {
+      if (a.category !== category) continue
+      for (const it of a.items) {
+        if (it.exactDateStart) seenSet.add(`${it.id}@${it.exactDateStart}`)
+      }
+    }
+    ledger[category] = [...seenSet]
+  }
 
   if (isBootstrap) {
     console.log(
@@ -1037,7 +1204,16 @@ async function main() {
   console.log(summary)
 }
 
-main().catch((err) => {
-  console.error('[ANNOUNCE] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+// НАЙДЕНО 2026-09-08: без guard'а main() выполнялся при ЛЮБОМ импорте модуля
+// (напр. `import { detectRaids } from './build-announcements'` в тестовом
+// скрипте) - реально записал прод-файлы (announcements.json/ledger/pending-
+// screenshots) при попытке изолированно протестировать один детектор. Тот же
+// приём, что уже используют detect-shop-forecast.ts/detect-new-dungeons.ts -
+// в CI всегда вызывается напрямую (`npx tsx scripts/build-announcements.ts`),
+// это условие true, поведение пайплайна не меняется.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((err) => {
+    console.error('[ANNOUNCE] Ошибка:', err instanceof Error ? err.message : err)
+    process.exit(1)
+  })
+}
