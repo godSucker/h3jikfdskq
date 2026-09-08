@@ -351,8 +351,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": "5 — 6 августа",
-        "exactDateStart": "2026-08-05T10:00:00+00:00",
+        "exactDateLabel": null,
+        "exactDateStart": null,
         "featuredMutant": null
       },
       {
@@ -611,8 +611,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "18 — 19 августа",
-        "exactDateStart": "2026-08-18T10:00:00+00:00",
+        "exactDateLabel": null,
+        "exactDateStart": null,
         "featuredMutant": null
       },
       {
@@ -702,8 +702,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 августа",
-        "exactDateStart": "2026-08-11T10:00:00+00:00",
+        "exactDateLabel": null,
+        "exactDateStart": null,
         "featuredMutant": null
       },
       {

@@ -639,8 +639,11 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
   const filterMap = await buildDungeonFilterMap().catch(() => new Map())
   const dungeonIds = [...filterMap.keys()]
 
-  const dated: { entry: EventLadderRawShape; key: string; exact: { label: string; start: string } }[] =
-    []
+  const dated: {
+    entry: EventLadderRawShape
+    key: string
+    exact: { label: string; start: string }
+  }[] = []
   for (const e of entries) {
     const dungeonId = resolveEventLadderDungeonId(e.id, dungeonIds)
     if (!dungeonId) continue
@@ -1107,15 +1110,18 @@ async function main() {
                 exactDateLabel: fresh.exactDateLabel,
               })
             }
-            return {
-              ...fresh,
-              exactDateLabel: fresh.exactDateLabel ?? old?.exactDateLabel ?? null,
-              exactDateStart: fresh.exactDateStart ?? old?.exactDateStart ?? null,
-              // Тот же "только дополняем, не стираем": на тике, где kartel
-              // отдал start без end, classifyFeaturedMutant вернёт null -
-              // без этой строки spread затёр бы уже известный 'week'/'month'.
-              featuredMutant: fresh.featuredMutant ?? old?.featuredMutant ?? null,
-            }
+            // НАЙДЕНО 2026-09-08: "только дополняем, не стираем" тут сломалось
+            // об собственный фикс защиты от чужих дат (detect-shop-forecast.ts,
+            // sprintWindowStart/End проверка) - LuckyBox_Research_IX корректно
+            // пересчитался в null (дата была чужая, из другого включения того
+            // же Filter-тега), но ?? old?.exactDateLabel откатывал обратно на
+            // старое НЕВЕРНОЕ значение с прошлого (ещё бажного) прогона -
+            // навсегда, ни один следующий прогон уже не мог его стереть.
+            // fresh пересобирается ПОЛНОСТЬЮ из XML каждый прогон (весь блок
+            // спринта, не подмножество) - в отличие от daily-mutant пула (см.
+            // комментарий про `if (!fresh) return old!` выше), значению fresh
+            // для shopForecast/dailyNews можно доверять целиком без отката.
+            return fresh
           })
           const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
           console.log(
