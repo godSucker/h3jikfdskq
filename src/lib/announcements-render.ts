@@ -105,6 +105,7 @@ export const CATEGORY_RU: Record<string, string> = {
   exchange: 'Обменники',
   raid: 'Рейды',
   ladder: 'Лесенки',
+  eventLadder: 'Ивент-лесенки',
   reactor: 'Реакторы',
   token: 'Жетоны',
   shopForecast: 'Прогноз магазина',
@@ -116,7 +117,7 @@ export type CardKind =
   'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'generic'
 
 export function cardKind(category: string | undefined): CardKind {
-  if (category === 'raid' || category === 'ladder') return 'dungeon'
+  if (category === 'raid' || category === 'ladder' || category === 'eventLadder') return 'dungeon'
   if (category === 'mutant') return 'mutant'
   if (category === 'skin') return 'skin'
   if (category === 'reactor') return 'reactor'

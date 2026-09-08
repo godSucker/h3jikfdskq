@@ -212,11 +212,24 @@ export async function fetchDailyNewsForecast(
 
   const filterDates = await loadFilterDates()
 
+  // См. detect-shop-forecast.ts::fetchShopForecast - тот же фикс "чужая
+  // дата по переиспользованному generic Filter-тегу" (LuckyBox_Research_IX
+  // регрессия 2026-09-08). Окно того же спринта +- 3 дня на границы.
+  const DAY_MS = 86_400_000
+  const sprintWindowStart = sprintStartDate(target).getTime() - 3 * DAY_MS
+  const sprintWindowEnd = sprintStartDate(target + 1).getTime() + 3 * DAY_MS
+
   const items: DailyNewsItem[] = []
   for (const it of rawItems) {
     const image = it.imageRaw ? await resolveOfferBanner(it.imageRaw) : null
     const shopInfo = it.entity ? shopIndex.get(it.entity.toLowerCase()) : undefined
-    const exactRange = pickFilterDateRange(filterDates, it.filter)
+    const rawExactRange = pickFilterDateRange(filterDates, it.filter)
+    const exactRange =
+      rawExactRange &&
+      new Date(rawExactRange.start).getTime() >= sprintWindowStart &&
+      new Date(rawExactRange.start).getTime() < sprintWindowEnd
+        ? rawExactRange
+        : null
     items.push({
       filter: it.filter,
       name: shopInfo?.name ?? prettifyFilter(it.filter),

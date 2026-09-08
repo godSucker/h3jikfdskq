@@ -177,6 +177,18 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
 
   const filterDates = await loadFilterDates()
 
+  // НАЙДЕНО 2026-09-08 (живой прогон после расширения явного запроса имён
+  // фильтров на ВСЕ <Filter>-теги, не только специмены дня): Kobojo иногда
+  // ПЕРЕИСПОЛЬЗУЕТ один и тот же generic Filter-тег для РАЗНЫХ по времени
+  // офферов (LuckyBox_Research_IX показал "5-6 августа" для оффера спринта
+  // 256, который реально идёт 5-18 сентября - kartel просто вернул дату
+  // последнего известного ему включения этого фильтра, не обязательно ТЕКУЩЕГО).
+  // Раньше exactRange принимался вслепую по имени без проверки, что дата вообще
+  // относится к нужному спринту - теперь отбрасываем resolved-дату, если она
+  // не укладывается в окно целевого спринта (+- 3 дня на границы).
+  const sprintWindowStart = sprintStartDate(target).getTime() - 3 * DAY_MS
+  const sprintWindowEnd = sprintStartDate(target + 1).getTime() + 3 * DAY_MS
+
   // Общий разбор одного <ShopItem> - используется и для спринтового блока
   // (ниже), и для пула daily-offer (fetchDailyMutantOffers). forceFeatured
   // проставляет featuredMutant напрямую (для daily-offer источник уже точно
@@ -195,7 +207,13 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     const usd = costMatch ? null : parseRealPriceUSD(itemXml)
     const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
-    const exactRange = pickFilterDateRange(filterDates, filterTag)
+    const rawExactRange = pickFilterDateRange(filterDates, filterTag)
+    const exactRange =
+      rawExactRange &&
+      new Date(rawExactRange.start).getTime() >= sprintWindowStart &&
+      new Date(rawExactRange.start).getTime() < sprintWindowEnd
+        ? rawExactRange
+        : null
     return {
       exactRange,
       item: {
