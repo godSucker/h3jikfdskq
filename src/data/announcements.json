@@ -273,9 +273,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 18 сентября",
+        "exactDateStart": "2026-09-18T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "256|Specimen_FC_04",
@@ -338,9 +338,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 17 сентября",
+        "exactDateStart": "2026-09-17T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "256|LuckyBox_Research_IX",
@@ -351,8 +351,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "5 — 6 августа",
+        "exactDateStart": "2026-08-05T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -364,9 +364,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 16 сентября",
+        "exactDateStart": "2026-09-16T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "256|Pack_Dieselpunk",
@@ -416,9 +416,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 15 сентября",
+        "exactDateStart": "2026-09-15T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "256|bundle_orbs_experimental_growth_11",
@@ -483,7 +483,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "12 — 13 сентября",
         "exactDateStart": "2026-09-12T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|bank_ca_12_t1",
@@ -611,8 +611,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "8 — 11 сентября",
-        "exactDateStart": "2026-09-08T10:00:00+00:00",
+        "exactDateLabel": "18 — 19 августа",
+        "exactDateStart": "2026-08-18T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -665,7 +665,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "7 — 8 сентября",
         "exactDateStart": "2026-09-07T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|pack_powerlevel_90",
@@ -691,7 +691,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "6 — 7 сентября",
         "exactDateStart": "2026-09-06T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       },
       {
         "id": "256|LuckyBox_Cyber_Elite",
@@ -702,8 +702,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "5 — 8 сентября",
-        "exactDateStart": "2026-09-05T10:00:00+00:00",
+        "exactDateLabel": "11 — 12 августа",
+        "exactDateStart": "2026-08-11T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -717,7 +717,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "5 — 6 сентября",
         "exactDateStart": "2026-09-05T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": "day"
       }
     ],
     "link": "/materials",
@@ -829,8 +829,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "5 — 6 августа",
+        "exactDateStart": "2026-08-05T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -950,8 +950,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "8 — 11 сентября",
-        "exactDateStart": "2026-09-08T10:00:00+00:00",
+        "exactDateLabel": "18 — 19 августа",
+        "exactDateStart": "2026-08-18T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -989,8 +989,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "5 — 8 сентября",
-        "exactDateStart": "2026-09-05T10:00:00+00:00",
+        "exactDateLabel": "11 — 12 августа",
+        "exactDateStart": "2026-08-11T10:00:00+00:00",
         "featuredMutant": null
       },
       {
