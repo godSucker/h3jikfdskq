@@ -2399,8 +2399,12 @@
     "jungle_17",
     "miami_17",
     "olympus_17",
-    "space_17"
+    "space_17",
+    "celestial_13@2026-09-12T10:00:00+00:00",
+    "pit_saber_12@2026-10-02T10:00:00+00:00",
+    "pit_galactic_12@2026-08-23T10:00:00+00:00"
   ],
+  "eventLadder": [],
   "token": [
     "Daily_Token",
     "Material_Jackpot_Token",
@@ -2446,16 +2450,6 @@
     "Material_Mutenstein_Token",
     "Material_Hexcity_Token"
   ],
-  "shopForecast": [
-    "254",
-    "255",
-    "256"
-  ],
-  "dailyNews": [
-    "254",
-    "255",
-    "256"
-  ],
   "reactor": [
     "western",
     "gachaboss",
@@ -2478,5 +2472,15 @@
     "olympics",
     "checkmate",
     "gemstones"
+  ],
+  "shopForecast": [
+    "254",
+    "255",
+    "256"
+  ],
+  "dailyNews": [
+    "254",
+    "255",
+    "256"
   ]
 }
