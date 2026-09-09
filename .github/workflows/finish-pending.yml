@@ -49,6 +49,25 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
+      - name: 4.5 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
+        # НАЙДЕНО 2026-09-09: этого шага тут не было вообще (в отличие от
+        # announcements-hourly.yml) - build-announcements.ts на шаге 5 ниже
+        # тоже читает scripts/live-filter-dates.json (shopForecast/dailyNews/
+        # raid/ladder/box все точные даты оттуда), но без этого шага файла
+        # просто нет - loadFilterDates() тихо фоллбэкается на {}. Мердж-логика
+        # (после фикса 30ea7f3bf) теперь ПОЛНОСТЬЮ доверяет fresh - без живых
+        # данных fresh честно посчитал "дат нет" и стёр ВСЕ уже известные даты
+        # спринта 256 одним прогоном (юзер поймал на живом сайте). Тот же
+        # continue-on-error - обогащение, не критический путь.
+        id: kartel_fetch
+        if: always()
+        continue-on-error: true
+        run: |
+          pip install requests
+          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
       - name: 5. Публикация анонса (сразу, без ожидания sync-cron) + кросс-пост в канал
         # Реактор/данж только что дописан в gacha.json/raids.json/
         # special-ladders.json - build-announcements.ts увидит его как обычный
