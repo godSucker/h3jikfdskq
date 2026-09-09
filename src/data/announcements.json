@@ -820,8 +820,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_retaliate_5_27",
@@ -833,8 +832,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_crafting_master",
@@ -846,8 +844,7 @@
         },
         "ribbon": "discount-75",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_1000_hc",
@@ -859,8 +856,7 @@
         },
         "ribbon": "new",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_4000_hc",
@@ -872,8 +868,7 @@
         },
         "ribbon": "new",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_be_13_10000_hc",
@@ -885,8 +880,7 @@
         },
         "ribbon": "new",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_Specimen_FC_04",
@@ -898,8 +892,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_LuckyBox_Research_IX",
@@ -911,8 +904,7 @@
         },
         "ribbon": "new",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_Pack_Dieselpunk",
@@ -924,8 +916,7 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_pack_daily_3_gold_68",
@@ -937,8 +928,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_experimental_growth_11",
@@ -950,8 +940,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256b",
@@ -960,8 +949,7 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|daily_news_jackpot_madness_weekend_50",
@@ -970,8 +958,7 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "11 — 14 сентября",
-        "exactDateStart": "2026-09-11T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|Shop_LuckyBox_Mythic_Prime",
@@ -983,8 +970,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "11 — 15 сентября",
-        "exactDateStart": "2026-09-11T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-11T10:00:00+00:00"
       },
       {
         "id": "256|PayWall_Sprint_247",
@@ -993,8 +979,7 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "10 — 13 сентября",
-        "exactDateStart": "2026-09-10T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|shop_pack_daily_50_jt_59",
@@ -1006,8 +991,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "10 — 12 сентября",
-        "exactDateStart": "2026-09-10T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-10T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Pack_Nightmare",
@@ -1019,8 +1003,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "9 — 12 сентября",
-        "exactDateStart": "2026-09-09T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-09T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Mysterybox_Ability_Slash",
@@ -1032,8 +1015,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Shop_bundle_orbs_life_5_38",
@@ -1045,8 +1027,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "7 — 10 сентября",
-        "exactDateStart": "2026-09-07T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-07T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_powerlevel_90",
@@ -1058,8 +1039,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "6 — 8 сентября",
-        "exactDateStart": "2026-09-06T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-06T10:00:00+00:00"
       },
       {
         "id": "256|Shop_LuckyBox_Cyber_Elite",
@@ -1071,8 +1051,7 @@
         },
         "ribbon": "limited",
         "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateStart": null
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256a",
@@ -1081,8 +1060,7 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "5 — 12 сентября",
-        "exactDateStart": "2026-09-05T10:00:00+00:00",
-        "featuredMutant": null
+        "exactDateStart": "2026-09-05T10:00:00+00:00"
       }
     ],
     "link": "/announcements",
