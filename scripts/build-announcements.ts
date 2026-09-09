@@ -24,7 +24,6 @@ import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
-import { cardKind } from '../src/lib/announcements-render'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
 
@@ -1043,14 +1042,33 @@ async function main() {
   // pit_saber_12 был в данных, но никогда не показывался) молча прячет N-1
   // объектов. forecast (shopForecast/dailyNews) и generic (exchange/token/
   // rebalance) рендерят a.items.map(...) - полный список, батч там корректен
-  // и оставлен как есть. cardKind() - тот же классификатор, что и на странице.
-  const SINGLE_ITEM_KINDS = new Set(['dungeon', 'mutant', 'skin', 'reactor', 'box', 'bingo'])
+  // и оставлен как есть.
+  //
+  // НЕ импортировать cardKind() из announcements-render.ts сюда - оно тянет
+  // craft-simulator.ts/localisation.ts (Vite-only `?raw` импорт .txt), что
+  // роняет голый `npx tsx` вне Astro/Vite с "ERR_UNKNOWN_FILE_EXTENSION" на
+  // .txt (см. память auto-announcements-architecture про тот же трюк с
+  // resolveReward - наступил на те же грабли повторно 2026-09-09, сломал
+  // finish-pending.yml на 3 прогона подряд). Категории здесь - те же, что
+  // cardKind() маппит на dungeon/mutant/skin/reactor/box/bingo, продублировано
+  // вручную как плоский список категорий (не kind), синхронизировать руками
+  // при изменении cardKind() в announcements-render.ts.
+  const SINGLE_ITEM_CATEGORIES = new Set([
+    'raid',
+    'ladder',
+    'eventLadder',
+    'mutant',
+    'skin',
+    'reactor',
+    'box',
+    'bingo',
+  ])
 
   for (const d of DETECTORS) {
     try {
       const { newIds, items, updateExisting, sprintKey } = await d.run(ledger[d.category])
       if (items.length > 0) {
-        if (SINGLE_ITEM_KINDS.has(cardKind(d.category))) {
+        if (SINGLE_ITEM_CATEGORIES.has(d.category)) {
           items.forEach((item, i) => {
             const a: Announcement = {
               id: `${d.category}-${Date.now()}-${i}`,
