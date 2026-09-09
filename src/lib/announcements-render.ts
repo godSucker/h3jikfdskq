@@ -55,7 +55,7 @@ export interface AnnouncementItem {
 }
 
 export function featuredMutantLabel(v: string | null | undefined): string | null {
-  if (v === 'day') return 'Дневной мутант'
+  if (v === 'day') return 'Мутант дня'
   if (v === 'week') return 'Мутант недели'
   if (v === 'month') return 'Мутант месяца'
   return null
