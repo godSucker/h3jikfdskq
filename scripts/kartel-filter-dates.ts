@@ -30,6 +30,19 @@ export async function loadFilterDates(): Promise<Record<string, FilterDateRange>
   return cache
 }
 
+// НАЙДЕНО 2026-09-09: этот "тихий фоллбек на {}" - именно то, что позволило
+// finish-pending.yml молча стереть все уже известные даты спринта, когда шаг
+// fetch-filters.py вообще не был подключён (см. коммит 52abe5f99). Сам
+// фоллбек оставляем (легитимный для локальной разработки), но даём вызывающей
+// стороне (build-announcements.ts::main(), merge-логика) способ отличить
+// "живых данных вообще не было в этом прогоне" от "живые данные были, просто
+// для конкретного item'а окна нет" - это разные ситуации и должны по-разному
+// мерджиться с уже известным старым значением.
+export async function hasLiveFilterData(): Promise<boolean> {
+  const dates = await loadFilterDates()
+  return Object.keys(dates).length > 0
+}
+
 export function pickFilterDateRange(
   dates: Record<string, FilterDateRange>,
   filterName: string | null | undefined,

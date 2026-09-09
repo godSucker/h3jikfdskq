@@ -64,6 +64,23 @@ jobs:
           branch: main
           file_pattern: 'src/data/mutants/*.json'
 
+      - name: 6.05 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
+        # НАЙДЕНО 2026-09-09: этого шага тут не было вообще (тот же баг, что
+        # чинили в finish-pending.yml, коммит 52abe5f99 - см. комментарий там
+        # и в build-announcements.ts::main() про liveDataMissing). Структурный
+        # guard в build-announcements.ts теперь не даёт стереть уже известные
+        # даты, если этого шага нет/он упал, но без него шаг 6.1 ниже никогда
+        # бы не подтягивал новые/уточнённые даты. continue-on-error -
+        # обогащение, не критический путь.
+        id: kartel_fetch
+        if: steps.check-changes.outputs.has_changes == 'true'
+        continue-on-error: true
+        run: |
+          pip install requests
+          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
       - name: 6.1 Авто-публикация анонса (ребаланс)
         # Публикуем сразу, не дожидаясь завтрашнего дневного sync-cron -
         # ребаланс запускается вручную/по вебхуку, задержка в анонсе не нужна.
