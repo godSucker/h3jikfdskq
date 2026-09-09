@@ -178,6 +178,25 @@ jobs:
           branch: main
           file_pattern: 'src/data/mutants/skin-icons.json public/skins/**'
 
+      - name: 4.85 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
+        # НАЙДЕНО 2026-09-09: этого шага тут не было вообще (тот же баг, что
+        # чинили в finish-pending.yml, коммит 52abe5f99 - см. комментарий там
+        # и в build-announcements.ts::main() про liveDataMissing). Без него
+        # build-announcements.ts на шаге 4.9 ниже гонялся бы без живых дат
+        # каждый ДЕНЬ (этот workflow - ежедневный cron, не разовый dispatch) -
+        # структурный guard в build-announcements.ts теперь не даёт стереть
+        # уже известные даты в этом случае, но без самого шага новые/уточнённые
+        # даты никогда бы и не появлялись. continue-on-error - обогащение,
+        # не критический путь.
+        id: kartel_fetch
+        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
+        continue-on-error: true
+        run: |
+          pip install requests
+          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
       - name: 4.9 Авто-публикация анонсов (мутанты/скины/бинго/боксы/обменники/ребаланс)
         # Идёт ПОСЛЕДНИМ из data-шагов - нужны самые свежие версии ВСЕХ JSON
         # разом (mutants/skins/bingos/boxes/obtain/rebalance-history). Ledger

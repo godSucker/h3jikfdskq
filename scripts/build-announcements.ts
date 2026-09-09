@@ -21,7 +21,7 @@ import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import type { OfferRibbon } from './shop-offer-tags'
-import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './kartel-filter-dates'
 import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
@@ -980,6 +980,24 @@ async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
 
+  // НАЙДЕНО 2026-09-09 (коммит 52abe5f99): finish-pending.yml гонял этот
+  // скрипт вообще без шага fetch-filters.py - loadFilterDates() тихо
+  // фоллбечился на {}, fresh пересчитывался с exactDateLabel=null для ВСЕХ
+  // офферов спринта, а merge-логика ниже (return fresh) это доверяла и
+  // стёрла 24 уже известных даты в одном прогоне. Тот баг починен добавлением
+  // недостающего шага в конкретный workflow, но это не защита от следующего
+  // workflow/будущей правки, забывшей его - liveDataMissing здесь ловит саму
+  // ситуацию "живых данных вообще нет" НАПРЯМУЮ, а не полагается на то, что
+  // каждый вызывающий workflow всегда всё сделает правильно.
+  const liveDataMissing = !(await hasLiveFilterData())
+  if (liveDataMissing) {
+    console.warn(
+      '[ANNOUNCE] ⚠️  scripts/live-filter-dates.json пуст/отсутствует - живых точных дат ' +
+        'нет вообще в этом прогоне. Уже известные exactDateLabel НЕ будут стёрты (см. merge ' +
+        'ниже), но и новые/уточнённые даты в этом прогоне не появятся.',
+    )
+  }
+
   // МИГРАЦИЯ 2026-09-08: raid/ladder/eventLadder перешли с ключа "голый id"
   // на "id@exactDateStart" (см. detectDungeons/detectEventLadders выше -
   // юзер поймал, что rerun'ы того же id с новой датой раньше молча терялись).
@@ -1165,7 +1183,29 @@ async function main() {
             // fresh пересобирается ПОЛНОСТЬЮ из XML каждый прогон (весь блок
             // спринта, не подмножество) - в отличие от daily-mutant пула (см.
             // комментарий про `if (!fresh) return old!` выше), значению fresh
-            // для shopForecast/dailyNews можно доверять целиком без отката.
+            // для shopForecast/dailyNews можно доверять целиком без отката -
+            // КРОМЕ одного случая: этого прогона вообще без живых kartel-
+            // данных (liveDataMissing, см. коммит 52abe5f99 - workflow забыл
+            // шаг fetch-filters.py). Тогда fresh.exactDateLabel=null для
+            // ВСЕХ офферов без исключения - это не "дата оказалась чужой",
+            // а "мы вообще не спрашивали" - в этом единственном случае
+            // защищаем уже известное старое значение, а не доверяем fresh.
+            if (liveDataMissing && !fresh.exactDateLabel && old?.exactDateLabel) {
+              // featuredMutant ('week'/'month') тоже считается через
+              // classifyFeaturedMutant(id, exactRange.start, exactRange.end) -
+              // тот же exactRange, что и exactDateLabel/exactDateStart выше.
+              // Без live-данных exactRange=null для КАЖДОГО айтема -> classify
+              // вернёт null для всех "мутант недели/месяца" тоже, не только
+              // для даты. Тот же откат, тем же условием (см. advisor-ревью
+              // 2026-09-09 - поймано ДО деплоя, до того как реально стёрло
+              // ленту "Мутант недели/месяца" на проде).
+              return {
+                ...fresh,
+                exactDateLabel: old.exactDateLabel,
+                exactDateStart: old.exactDateStart,
+                featuredMutant: fresh.featuredMutant ?? old.featuredMutant ?? null,
+              }
+            }
             return fresh
           })
           const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
