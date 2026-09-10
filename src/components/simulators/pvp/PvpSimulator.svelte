@@ -284,7 +284,7 @@
       <button
         type="button"
         onclick={startFight}
-        class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
+        class="px-4 py-2 min-h-11 inline-flex items-center justify-center rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
       >
         {t('pvp.startFight', locale)}
       </button>
@@ -292,7 +292,7 @@
         type="button"
         onclick={runBatch}
         disabled={batchRunning}
-        class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white ring-1 ring-white/10"
+        class="px-4 py-2 min-h-11 inline-flex items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white ring-1 ring-white/10"
       >
         {batchRunning ? t('pvp.estimateOdds.running', locale) : t('pvp.estimateOdds.button', locale).replace('{n}', String(clampedBatchRuns))}
       </button>
@@ -334,14 +334,14 @@
         <button
           type="button"
           onclick={startFight}
-          class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
+          class="px-4 py-2 min-h-11 inline-flex items-center justify-center rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
         >
           {t('pvp.startFightAgain', locale)}
         </button>
         <button
           type="button"
           onclick={reset}
-          class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
+          class="px-4 py-2 min-h-11 inline-flex items-center justify-center rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
         >
           {t('pvp.resetTeams', locale)}
         </button>

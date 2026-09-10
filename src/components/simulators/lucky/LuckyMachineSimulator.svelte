@@ -500,9 +500,11 @@
     color: #e0e7ff;
   }
 
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 36×36px - унифицируем
+     close-кнопки по сайту на 44px (тот же паттерн в Cash Machine). */
   .modal-close {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;

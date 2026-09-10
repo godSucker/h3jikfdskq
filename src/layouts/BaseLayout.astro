@@ -230,6 +230,7 @@ const structuredData = [
       .lang-trigger {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 0.3rem;
         color: #8b949e;
         background: rgba(88, 166, 255, 0.08);
@@ -237,6 +238,10 @@ const structuredData = [
         font-size: 0.72rem;
         font-weight: 700;
         padding: 0.35rem 0.55rem;
+        /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 44×30px - высота ниже
+           рекомендованных 44px. min-height проще и надёжнее, чем подбирать
+           асимметричный padding под текущий font-size/line-height. */
+        min-height: 44px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s;
@@ -283,6 +288,11 @@ const structuredData = [
       }
 
       .lang-menu a {
+        display: flex;
+        align-items: center;
+        /* НАЙДЕНО 2026-09-10: было ~25px высотой (padding+line-height), на
+           грани WCAG-пола (24px), заметно ниже рекомендации (44px). */
+        min-height: 44px;
         color: #8b949e;
         text-decoration: none;
         font-size: 0.75rem;
@@ -306,11 +316,19 @@ const structuredData = [
       .menu-toggle {
         display: none;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         gap: 4px;
         background: none;
         border: none;
         cursor: pointer;
+        /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 40×33px с padding:8px
+           (17px-стопка из 3 span'ов + 8px паддинг с каждой стороны) - ниже
+           рекомендованных 44×44. min-width/height + center вместо подбора
+           асимметричного padding под геометрию иконки. */
         padding: 8px;
+        min-width: 44px;
+        min-height: 44px;
       }
       
       .menu-toggle span {

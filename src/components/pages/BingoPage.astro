@@ -290,7 +290,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                       <div
                         class="bingo-grid"
                         style={`
-                          grid-template-columns: repeat(${totalCols}, 1fr);
+                          grid-template-columns: repeat(${totalCols}, minmax(1.75rem, 1fr));
                           --total-cols: ${totalCols};
                         `}
                       >
@@ -540,6 +540,19 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
 
   .bingo-grid {
     display: grid;
+    /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): колонки были чистый `1fr` -
+       на 390px экране это тайлы ~37px с gap 4px (мобильный override ниже),
+       ниже WCAG-рекомендации (44px), при этом `.mutant-cell` - реальная
+       кликабельная плитка (открывает модалку мутанта по tap). Пробовали
+       minmax(44px,1fr) + overflow-x:auto на широких досках (см. коммент у
+       .bingo-board-wrapper ниже) - юзер отклонил горизонтальный скролл.
+       11 досок research_1..11 реально требуют 8 колонок, на 390px телефоне
+       под сетку доступно ~282px - 44px-пол там физически не влезает без
+       скролла (максимум ~30px). minmax(28px,1fr) в инлайн-style выше -
+       безопасный пол: не форсит overflow ни на одной реальной доске (для
+       8-колоночных де-факто не меняет ничего, для 5-7-колоночных, то есть
+       для большинства досок, даёт реальный прирост, т.к. 1fr там и так
+       выжимал больше 28px). */
     gap: 8px;
     width: 100%;
     margin: 0 auto;
@@ -852,6 +865,15 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
     .bingo-board-wrapper {
       max-width: 100%;
       transform: none;
+      /* ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ РАЗОБРАН И ОТКЛОНЁН (юзер, 2026-09-10):
+         пробовали overflow-x:auto как safety net для minmax(44px,1fr) - юзеру
+         не понравился UX. Реальные цифры (см. комментарий у --total-cols
+         ниже): 11 research_1..11 досок требуют 8 колонок, на 390px телефоне
+         под сетку доступно ~282px - без скролла максимум ~30px на плитку,
+         примерно то же, что было и БЕЗ фикса (1fr и так выжимал похожий
+         размер). Юзер выбрал "без скролла везде" осознанно, приняв, что для
+         этих 11 широких досок реального прироста не будет - см. minmax-пол
+         ниже, он теперь безопасно низкий (не форсит overflow), а не 44px. */
     }
 
     .bingo-panel[data-bingo-id="Starter"] .bingo-board-wrapper {
@@ -863,7 +885,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
     }
 
     .bingo-grid {
-      gap: 6px;
+      gap: 8px;
     }
 
     .grid-cell {
@@ -930,7 +952,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
 
   @media (max-width: 480px) {
     .bingo-grid {
-      gap: 4px;
+      gap: 6px;
     }
 
     .grid-cell {

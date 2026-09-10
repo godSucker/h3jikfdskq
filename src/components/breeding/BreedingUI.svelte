@@ -1037,12 +1037,16 @@
 
   .building-level-btns {
     display: flex;
-    gap: 0.35rem;
+    /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 0.35rem (~5.6px) между
+       кнопками с рамкой/заливкой - ниже рекомендованного порога в 12px. */
+    gap: 0.75rem;
   }
 
   .level-btn {
-    width: 32px;
-    height: 32px;
+    /* НАЙДЕНО 2026-09-10: было 32px (и того хуже - 30px на мобиле, см.
+       @media(max-width:480px) ниже, было убрано), ниже рекомендованных 44px. */
+    width: 44px;
+    height: 44px;
     border-radius: 8px;
     border: 1px solid rgba(132, 204, 22, 0.2);
     background: rgba(132, 204, 22, 0.05);
@@ -1446,16 +1450,17 @@
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.06);
   }
-  .star-btn { width: 32px; height: 32px; padding: 0; }
+  /* Тот же .level-btn-паттерн, тот же фикс 2026-09-10: было 32px. */
+  .star-btn { width: 44px; height: 44px; padding: 0; }
   .star-btn-icon { width: 20px; height: 20px; object-fit: contain; }
   @media (max-width: 480px) {
     .reverse-settings { flex-direction: column; gap: 0.15rem; margin-bottom: 0.15rem; margin-top: -0.35rem; }
     .reverse-settings .building-level-bar { min-width: 100%; padding: 0.2rem 0.4rem; }
     .reverse-star-bar { min-width: 100%; padding: 0.2rem 0.4rem; justify-content: center; }
     .building-label { font-size: 0.55rem; }
-    .level-btn { width: 30px; height: 30px; font-size: 0.7rem; }
-    .star-btn { width: 30px; height: 30px; }
-    .star-btn-icon { width: 18px; height: 18px; }
+    /* НАЙДЕНО 2026-09-10: тут кнопки раньше ЕЩЁ УМЕНЬШАЛИСЬ до 30px на узком
+       мобильном брейкпоинте - в точности неправильное направление для тач-
+       таргета. Убрано, базовые 44px (см. выше) остаются и здесь. */
   }
 
   .pairs-list { display: grid; gap: 0.4rem; }

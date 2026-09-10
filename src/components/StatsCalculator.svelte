@@ -2431,8 +2431,12 @@
   }
 
   .catalog{ background:#212832; border-radius:12px; padding:16px; display:flex; flex-direction:column; }
-  .filters-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
-  .gene-chip{ width:28px; height:28px; padding:2px; border-radius:6px; background:#2b3442; border:1px solid #364456; cursor: pointer; }
+  .filters-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 28×28px/gap 8px. Строка
+     оборачивается (flex-wrap:wrap), так что расти безопасно - переполнение
+     невозможно, лишние чипсы просто уйдут на следующую строку. Подняли до
+     того же размера, что уже используется в фильтре генов на /mutants. */
+  .gene-chip{ width:40px; height:40px; padding:2px; border-radius:6px; background:#2b3442; border:1px solid #364456; cursor: pointer; }
   .gene-chip.active{ outline:2px solid #90f36b; }
   .gene-chip img{ width:100%; height:100%; object-fit:contain; }
   .filter-chip {
@@ -2654,9 +2658,15 @@
     }
   }
 
-  .x{ position:absolute; right:-6px; top:-6px; width:18px; height:18px; border-radius:50%; border:none; background:#ff6464; color:white; font-size:12px; cursor: pointer; z-index: 2; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 18px на мобиле (22px
+     только с 768px+ - т.е. на самом мобильном экране кнопка была МЕНЬШЕ,
+     не больше). Полные 44px сюда не влезут - это бейдж-оверлей на углу
+     52px слота с 10px зазором между слотами (см. .slots ниже), больше
+     реального риска перекрыть соседний слот. Подняли до WCAG-пола (24px)
+     с безопасным отступом, гораздо лучше прежних 18px. */
+  .x{ position:absolute; right:-8px; top:-8px; width:24px; height:24px; border-radius:50%; border:none; background:#ff6464; color:white; font-size:12px; cursor: pointer; z-index: 2; }
   @media (min-width: 768px) {
-    .x { right: -8px; top: -8px; width: 22px; height: 22px; font-size: 14px; }
+    .x { right: -10px; top: -10px; width: 28px; height: 28px; font-size: 14px; }
   }
   /* В режиме сравнения сдвигаем X-кнопку слотов левее, чтобы не наезжала на инпут поиска */
   .compare-active .slot .x { right: -10px !important; }
@@ -2968,17 +2978,24 @@
 
   .atk-mult-btns {
     display: flex;
-    gap: 2px;
+    gap: 4px;
   }
 
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит, доп. проверка): было padding
+     1px 4px / font-size 9px - крайне тесно даже для текстовой кнопки
+     (line 3011-3014 только раздвигал ЭТИ же значения на 768px+, где этот
+     виджет вообще-то скрыт другим правилом - похоже на мёртвый CSS, не
+     трогаем). Полные 44px тут нереальны - 5 кнопок в строке рядом с
+     иконкой умения, но текстовая кнопка прощает мелкий тач лучше значка -
+     дали больше воздуха вокруг текста, не перестраивая ряд. */
   .atk-mult-btn {
     appearance: none;
     border: 1px solid #2e3948;
     background: #10161f;
     color: #6b7a8d;
     border-radius: 4px;
-    padding: 1px 4px;
-    font-size: 9px;
+    padding: 4px 7px;
+    font-size: 10px;
     font-weight: 600;
     line-height: 1.3;
     cursor: pointer;

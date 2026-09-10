@@ -1246,7 +1246,9 @@
   .fights-modal-head-body { flex: 1; min-width: 0; }
   .fights-modal-title { font-size: 1.05rem; font-weight: 800; color: #fff; }
   .fights-modal-lore { margin: 0.3rem 0 0; font-size: 0.78rem; color: #94a3b8; line-height: 1.45; }
-  .close-btn { appearance: none; background: transparent; border: none; color: #94a3b8; font-size: 1.4rem; line-height: 1; cursor: pointer; padding: 0.2rem 0.4rem; flex-shrink: 0; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было ~28×35px (padding+глиф) -
+     унифицируем close-кнопки по сайту на 44px. */
+  .close-btn { appearance: none; background: transparent; border: none; color: #94a3b8; font-size: 1.4rem; line-height: 1; cursor: pointer; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .close-btn:hover { color: #fff; }
   .fights-modal-body { overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.9rem; }
   .fight-row { display: flex; flex-direction: column; gap: 0.4rem; }

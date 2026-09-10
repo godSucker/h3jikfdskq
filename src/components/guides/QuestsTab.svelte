@@ -272,9 +272,14 @@
     color: #e2e8f0; font-size: 0.85rem;
   }
   .quest-search:focus { outline: none; border-color: rgba(96,165,250,0.4); }
-  .quest-filters { display: flex; gap: 6px; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): .filter-chip было ~27px высотой
+     (padding 6px + line-height), gap 6px - оба ниже рекомендаций (44px/12px).
+     Добавлен flex-wrap на всякий случай (всего 3 чипса, но подстрахует). */
+  .quest-filters { display: flex; flex-wrap: wrap; gap: 12px; }
   .filter-chip {
-    padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.25);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 44px;
+    padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.25);
     background: rgba(15, 23, 42, 0.5); color: #94a3b8; font-size: 0.8rem; font-weight: 600; cursor: pointer;
     transition: all 0.15s;
   }

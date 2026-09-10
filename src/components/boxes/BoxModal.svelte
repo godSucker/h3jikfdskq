@@ -243,7 +243,10 @@
 
 <style>
   .box-icon { width: 64px; height: 64px; object-fit: contain; border-radius: 10px; background: rgba(255,255,255,0.04); padding: 6px; }
-  .close-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.06); color: #cbd5f5; font-size: 1.4rem; line-height: 1; border: none; cursor: pointer; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 32×32px - один из 4 разных
+     размеров close-кнопки по сайту (32/36/44/~28×35px), ни один не 44px.
+     Унифицируем на 44px. */
+  .close-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: rgba(255,255,255,0.06); color: #cbd5f5; font-size: 1.4rem; line-height: 1; border: none; cursor: pointer; }
   .close-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
   .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #94a3b8; margin-bottom: 0.5rem; }
@@ -259,7 +262,12 @@
   .mutant-cell { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.5rem 0.35rem; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); text-align: center; }
   .mutant-cell.multi { background: rgba(96,165,250,0.05); border-color: rgba(96,165,250,0.15); }
 
-  .cell-items { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 0.4rem; }
+  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 0.4rem (~6.4px) между
+     соседними мутант/награда-плитками в дроп-пуле (может быть много штук на
+     бокс) - ниже рекомендованного порога 12px. Сами плитки (иконка 44px +
+     подпись) уже нормального размера, ряд оборачивается (flex-wrap) - расти
+     безопасно. */
+  .cell-items { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 0.75rem; }
   .cell-item { display: flex; flex-direction: column; align-items: center; gap: 2px; background: none; border: none; padding: 0; cursor: pointer; text-align: center; }
   button.cell-item:hover .mutant-cell-name { color: #93c5fd; }
   button.cell-item:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }

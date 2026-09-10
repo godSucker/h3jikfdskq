@@ -2002,7 +2002,11 @@
     /* Compact grid (transformatron etc) */
     .recipe-selector.grid-3-4 {
       grid-template-columns: 1fr 1fr;
-      gap: 0.3rem;
+      /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 0.3rem (~5px) между
+         кнопками-рецептами 165×52px в плотном списке (до 21 штуки) - ниже
+         рекомендованного порога в 12px, риск зацепить соседний рецепт. Сами
+         кнопки размером уже ок, места под больший gap хватает с запасом. */
+      gap: 0.75rem;
     }
     .recipe-selector.grid-3-4 button {
       padding: 0.35rem;

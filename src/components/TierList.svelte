@@ -189,8 +189,9 @@
                       onerror={(e) => { if (!e.currentTarget.dataset.fallback) { e.currentTarget.dataset.fallback = '1'; e.currentTarget.src = specimenFallback(m) } }}
                     />
                     <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent
-                                px-px py-px opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <span class="text-[6px] sm:text-[7px] md:text-[8px] text-white leading-tight line-clamp-2 text-center block">
+                                px-px py-px opacity-100 transition-opacity duration-200
+                                [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100">
+                      <span class="text-[7px] sm:text-[8px] md:text-[9px] text-white leading-tight line-clamp-2 text-center block">
                         {displayName(m)}
                       </span>
                     </div>
@@ -219,11 +220,25 @@
 {/if}
 
 <style>
-  .tier-icon { width: 100%; aspect-ratio: 1; box-sizing: border-box; max-width: var(--tier-icon); max-height: var(--tier-icon); }
+  /* НАЙДЕНО 2026-09-10: max-width/max-height: var(--tier-icon) (36px на
+     базовом брейкпоинте) раньше ГЛУШИЛ фикс grid'а ниже - тайл честно
+     занимал всю ячейку (width:100%), но упирался в потолок в 36px, так что
+     auto-fill/minmax колонки просто оставляли пустое место вместо того,
+     чтобы реально увеличить тайл. На мобиле (grid-режим) тайл теперь
+     заполняет ячейку целиком - её размер уже гарантирован minmax() ниже,
+     свой потолок не нужен. Потолок остаётся только на 768px+ (flex-wrap
+     режим, где --tier-icon - единственный источник размера). */
+  .tier-icon { width: 100%; aspect-ratio: 1; box-sizing: border-box; }
   .tier-grid {
     display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 5px;
+    /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было repeat(9,1fr) - на 390px
+       экране это тайлы ~35px с gap 5px, ниже WCAG-рекомендации (44px) и
+       зазора (12px), при этом каждый тайл - настоящая <button onclick>.
+       auto-fill + minmax гарантирует минимум 44px на тайл, число колонок
+       подстраивается под реальную ширину (обычно выходит 5-6 на мобиле
+       вместо жёстких 9). */
+    grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr));
+    gap: 8px;
   }
   @media (min-width: 768px) {
     .tier-icon { width: var(--tier-icon); height: var(--tier-icon); max-width: none; max-height: none; aspect-ratio: auto; }
