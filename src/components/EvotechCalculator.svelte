@@ -375,11 +375,11 @@
 
   <div class="mt-4 inline-flex rounded-xl border border-slate-700/70 bg-slate-950/60 p-1">
     <button type="button" onclick={() => { mode = 'forward'; errorMsg = ''; }}
-      class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'forward' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
+      class="px-3 py-1.5 min-h-11 inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors {mode ==='forward' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
       {t('evotech.modeForward', locale)}
     </button>
     <button type="button" onclick={() => { mode = 'reverse'; errorMsg = ''; }}
-      class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'reverse' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
+      class="px-3 py-1.5 min-h-11 inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors {mode ==='reverse' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
       {t('evotech.modeReverse', locale)}
     </button>
   </div>
@@ -465,5 +465,9 @@
   </div>
 </div>
 <style>
-.evo-pad { padding-left: 16px; }
+/* НАЙДЕНО 2026-09-10 (рой саб-агентов): было только padding-left - ни
+   одного явного вертикального padding/height у инпутов и select, высота
+   целиком на откупе UA-дефолта браузера (~24-28px, непостоянно между
+   браузерами/ОС). Добавлен явный вертикальный padding + min-height:44px. */
+.evo-pad { padding-left: 16px; padding-top: 12px; padding-bottom: 12px; min-height: 44px; box-sizing: border-box; }
 </style>

@@ -382,7 +382,7 @@
   .checkbox-wrap input:checked ~ .checkbox-box .checkbox-mark { opacity: 1; }
   .checkbox-wrap input:hover ~ .checkbox-box { border-color: rgba(59, 130, 246, 0.6); }
   .checkbox-wrap input:focus-visible ~ .checkbox-box { box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); }
-  .help-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5f5; padding: 0.5rem 1rem; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .help-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5f5; padding: 0.5rem 1rem; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
   .help-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
 
   .list { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -416,7 +416,10 @@
   .modal-card { background: #1e293b; width: 100%; max-width: 400px; border-radius: 24px; padding: 2rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.1); animation: popIn 0.2s ease-out; }
   @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-  .modal-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): не было ЗАДАННОГО размера вообще
+     (только font-size, тап-зона = дефолтный UA-паддинг браузера) - хуже
+     уже унифицированной на 44px версии в Cash/Lucky/Boxes/Guides. */
+  .modal-close { position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
   .modal-header { text-align: center; }
   .modal-rank { font-size: 2rem; margin-bottom: 0.5rem; }
   .modal-name { font-size: 1.5rem; color: #fff; margin: 0; }

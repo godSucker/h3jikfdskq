@@ -213,17 +213,22 @@
 <style>
   .toolbar { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
 
-  .cat-tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): .cat-tab было ~30px/gap 5.6px. */
+  .cat-tabs { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .cat-tab {
     appearance: none; border: 1px solid rgba(48, 54, 61, 0.6); background: rgba(22, 27, 34, 0.9);
     color: #94a3b8; border-radius: 8px; padding: 0.45rem 0.85rem; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
   }
   .cat-tab:hover { background: rgba(30, 58, 138, 0.2); color: #fff; }
   .cat-tab.active { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border-color: rgba(96,165,250,0.4); }
 
   .controls-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
+  /* .pill-group - сегментированный контрол (общая рамка, overflow:hidden), сегменты
+     намеренно без зазора друг от друга - это не нарушение чек-листа, а
+     распознаваемый паттерн (аналог iOS segmented control). Высоту всё равно подняли. */
   .pill-group { display: inline-flex; border: 1px solid rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; }
-  .pill { appearance: none; border: none; background: rgba(15, 23, 42, 0.7); color: #94a3b8; padding: 0.4rem 0.9rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+  .pill { appearance: none; border: none; background: rgba(15, 23, 42, 0.7); color: #94a3b8; padding: 0.4rem 0.9rem; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
   .pill.active { background: rgba(59, 130, 246, 0.35); color: #fff; }
 
   .pill:disabled { opacity: 0.35; cursor: not-allowed; }
@@ -239,7 +244,7 @@
      колонка оставляла огромные пустые поля по бокам. */
   .rank-list {
     list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr)); gap: 0.5rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr)); gap: 0.75rem;
   }
 
   .rank-btn {

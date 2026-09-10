@@ -624,7 +624,7 @@
       <!-- Ряд звёзд показываем и при единственной звезде, если есть скины: -->
       <!-- эта кнопка работает как «убрать скин» (Крушила и другие SPECIAL с GACHA-скином). -->
       {#if showStarRow || skins.length > 0}
-        <div class="relative z-10 flex gap-2 mb-2 flex-wrap justify-center items-center">
+        <div class="relative z-10 flex gap-3 mb-2 flex-wrap justify-center items-center">
           {#if showStarRow}
             {#each availableStars as s}
               <button
@@ -825,12 +825,17 @@
 
       <!-- Способы получения -->
       {#if mutant?.id && obtainData[mutant.id]?.length}
-        <details class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
-          <summary class="text-xs text-slate-300 cursor-pointer select-none list-none flex items-center justify-between">
+        <!-- НАЙДЕНО 2026-09-10 (рой саб-агентов): p-2 висел на <details>, не на
+             <summary> - реальная тап-зона тоггла была только высота текста
+             (~16px), паддинг применялся лишь к контенту, когда уже открыто.
+             Паддинг перенесён на сам <summary> (py-3.5 ~ 14px * 2 + line-height
+             16px = 44px), контент ниже держит свой отступ отдельно. -->
+        <details class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 overflow-hidden">
+          <summary class="text-xs text-slate-300 cursor-pointer select-none list-none flex items-center justify-between px-2 py-3.5">
             <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.howToObtain', locale)} ({obtainData[mutant.id].length})</span>
             <span class="details-chevron text-slate-400">▾</span>
           </summary>
-          <div class="flex flex-col gap-1.5 mt-2">
+          <div class="flex flex-col gap-1.5 px-2 pb-2">
             {#each obtainData[mutant.id] as o}
               <div class="flex items-center gap-2 text-[12px] text-slate-200">
                 <span class="w-11 h-11 shrink-0 flex items-center justify-center">
@@ -925,7 +930,7 @@
       <div class="mt-0 flex items-center justify-end">
         <button
           bind:this={closeBtn}
-          class="inline-flex items-center justify-center px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 ring-1 ring-indigo-400/50"
+          class="inline-flex items-center justify-center px-3 py-2 min-h-11 rounded-lg bg-indigo-600 hover:bg-indigo-500 ring-1 ring-indigo-400/50"
           onclick={close}
         >
           {t('modal.close', locale)}
@@ -1041,14 +1046,22 @@
     display: none;
   }
   @media (max-width: 768px) {
+    /* НАЙДЕНО 2026-09-10 (рой саб-агентов, разведка после мобильного
+       UX-аудита): `float: right` НЕ действует на grid-item по спецификации
+       CSS Grid (родитель - `.modal-2k`, `display:grid`) - кнопка реально
+       садилась у ЛЕВОГО края модалки вместо правого (подтверждено живьём:
+       getBoundingClientRect().left=8 на 390px вьюпорте). `justify-self:end`
+       - корректный способ прижать grid-item к правому краю его ячейки.
+       Заодно размер 28px -> 44px (5-й разный размер close-кнопки на сайте,
+       остальные 4 уже унифицированы на 44px в прошлой волне фиксов). */
     .mobile-close-btn {
       display: flex;
       position: sticky;
       top: 0;
-      float: right;
+      justify-self: end;
       z-index: 10;
-      width: 28px;
-      height: 28px;
+      width: 44px;
+      height: 44px;
       align-items: center;
       justify-content: center;
       border-radius: 7px;

@@ -1055,11 +1055,14 @@
 {/if}
 
 <style>
-  .tab-bar { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.1rem; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): было ~30px/gap 5.6px - верхний ряд
+     вкладок самого GuidesBrowser (общий для ВСЕХ табов), тот же паттерн, что
+     уже чинили в .filter-chip Квестов. */
+  .tab-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.1rem; }
   .tab-btn {
     appearance: none; border: 1px solid rgba(48, 54, 61, 0.6); background: rgba(22, 27, 34, 0.9);
     color: #94a3b8; border-radius: 8px; padding: 0.45rem 0.85rem; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 0.35rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; min-height: 44px;
   }
   .tab-btn:hover { background: rgba(30, 58, 138, 0.2); color: #fff; }
   .tab-btn.active { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border-color: rgba(96,165,250,0.4); }
@@ -1091,7 +1094,7 @@
   .farm-method-title { font-size: 1.05rem; font-weight: 700; color: #e2e8f0; }
   .farm-mutants-block { margin: 0 0 0.9rem; }
   .farm-mutants-label { font-size: 0.82rem; color: #94a3b8; margin-bottom: 0.5rem; }
-  .farm-mutant-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .farm-mutant-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .farm-pros-cons { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.85rem; margin-top: 0.5rem; }
   .farm-pc-block { border-radius: 10px; padding: 0.85rem 1rem; }
   .farm-pc-block.pros { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); }
@@ -1159,7 +1162,7 @@
   .number-card.ok .number-card-value { color: #86efac; }
   .number-card p { margin: 0; font-size: 0.82rem; color: #94a3b8; line-height: 1.5; }
 
-  .mutant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.7rem; }
+  .mutant-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; }
   .mutant-card { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.6rem 0.4rem; border-radius: 10px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); cursor: pointer; text-align: center; }
   .mutant-card:hover { background: rgba(30, 41, 59, 0.85); border-color: rgba(96,165,250,0.3); }
   .mutant-card.featured { border-color: rgba(250,204,21,0.6); box-shadow: 0 0 12px rgba(250,204,21,0.25); }
@@ -1169,8 +1172,8 @@
   .mutant-card-icon img { width: 100%; height: 100%; object-fit: cover; }
   .mutant-card-name { font-size: 11.5px; font-weight: 600; color: #e2e8f0; line-height: 1.2; }
 
-  .zodiac-star-switcher { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-  .zodiac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.65rem; }
+  .zodiac-star-switcher { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+  .zodiac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
   .zodiac-card { display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.7rem; border-radius: 10px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); cursor: pointer; text-align: left; }
   .zodiac-card:hover { background: rgba(30, 41, 59, 0.85); border-color: rgba(96,165,250,0.3); }
   .zodiac-card-icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.25); }
@@ -1182,7 +1185,10 @@
   .zodiac-card-price { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 11px; font-weight: 700; color: #fbbf24; margin-top: 0.15rem; }
   .zodiac-card-price img { width: 14px; height: 14px; object-fit: contain; }
 
-  .farmer-chip { display: inline-flex; align-items: center; gap: 0.35rem; background: transparent; border: none; color: #e2e8f0; font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 1px 0; text-align: left; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): было ~22px (padding:1px 0), ниже
+     WCAG-пола 24px. Используется в 4 местах (PvP-фарм, Фармеры, Дивизии,
+     Спецпредложения) - фикс единый на всех сразу. */
+  .farmer-chip { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; gap: 0.35rem; background: transparent; border: none; color: #e2e8f0; font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 4px 6px; text-align: left; }
   .farmer-chip:hover { color: #60a5fa; }
   .farmer-chip img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; }
   .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -1193,7 +1199,7 @@
   .farmer-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 0.85rem 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
   .farmer-card:hover { border-color: rgba(96,165,250,0.25); }
   .farmer-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.6rem; }
-  .farmer-card-mutants { display: flex; flex-direction: column; gap: 3px; }
+  .farmer-card-mutants { display: flex; flex-direction: column; gap: 0.5rem; }
   .farmer-rating { flex-shrink: 0; font-size: 0.78rem; font-weight: 800; border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
   .farmer-rating.rating-high { background: rgba(34,197,94,0.15); color: #86efac; }
   .farmer-rating.rating-mid { background: rgba(250,204,21,0.15); color: #fde68a; }
@@ -1217,8 +1223,11 @@
   .speed-table .base-speed { font-weight: 700; color: #e2e8f0; text-align: left; }
   .speed-table .pct { color: #64748b; font-size: 0.72rem; }
 
-  .division-switcher { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-  .division-btn { appearance: none; border: 1px solid rgba(48, 54, 61, 0.6); background: rgba(15, 23, 42, 0.6); color: #94a3b8; border-radius: 8px; padding: 0.4rem 0.8rem; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): .division-btn было ~28.5px/gap
+     6.4px - переиспользован в 3 местах (зодиак-звезда, дивизии, лесенки-
+     секции), фикс единый на всех сразу. */
+  .division-switcher { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+  .division-btn { appearance: none; border: 1px solid rgba(48, 54, 61, 0.6); background: rgba(15, 23, 42, 0.6); color: #94a3b8; border-radius: 8px; padding: 0.4rem 0.8rem; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
   .division-btn:hover { color: #e2e8f0; border-color: rgba(96,165,250,0.3); }
   .division-btn.active { background: rgba(30, 58, 138, 0.4); color: #60a5fa; border-color: rgba(96,165,250,0.4); }
   .division-rec { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.65rem 0.9rem; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 700; color: #bfdbfe; display: flex; align-items: center; gap: 0.5rem; }
@@ -1236,6 +1245,7 @@
   .division-map-toggle {
     appearance: none; align-self: flex-start; border: 1px solid rgba(96,165,250,0.25); background: rgba(30, 58, 138, 0.15);
     color: #60a5fa; border-radius: 6px; padding: 0.3rem 0.65rem; font-size: 0.74rem; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
   }
   .division-map-toggle:hover { background: rgba(30, 58, 138, 0.3); }
   .reward-inline { display: inline-flex; align-items: center; gap: 5px; }
@@ -1298,7 +1308,9 @@
   .no-mutant .activity-hero { background: rgba(15,23,42,0.35); }
   .activity-card-body { padding: 0.6rem 0.75rem 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
   .activity-name { font-size: 0.8rem; font-weight: 700; color: #94a3b8; }
-  .activity-mutant-name { appearance: none; background: none; border: none; padding: 0; text-align: left; font-size: 0.94rem; font-weight: 800; color: #e2e8f0; cursor: pointer; }
+  /* НАЙДЕНО 2026-09-10 (рой саб-агентов): было padding:0, реальная тап-зона
+     = только высота строки текста (~18px). */
+  .activity-mutant-name { appearance: none; background: none; border: none; padding: 8px 0; text-align: left; font-size: 0.94rem; font-weight: 800; color: #e2e8f0; cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; }
   .activity-mutant-name:hover { color: #60a5fa; }
   .activity-mutant-name.muted { color: #64748b; font-weight: 600; font-size: 0.82rem; cursor: default; }
   .activity-secondary { font-size: 0.72rem; color: #64748b; }
@@ -1335,7 +1347,7 @@
   .offer-card-cost { font-size: 0.75rem; color: #fbbf24; font-weight: 600; margin-top: 2px; }
   .offer-card-outcomes-hint { font-size: 0.7rem; color: #60a5fa; }
   .offer-outcome {
-    display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem;
     background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.3rem 0.5rem;
   }
   .offer-outcome-chance { margin-left: auto; font-size: 0.7rem; font-weight: 700; color: #86efac; white-space: nowrap; }
