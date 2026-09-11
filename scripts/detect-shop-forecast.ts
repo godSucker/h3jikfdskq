@@ -331,6 +331,80 @@ function pickNearestConfirmed(
   return best
 }
 
+// ВОЛНЫ (2026-09-11, разобрано с юзером перед реализацией - см. память
+// auto-announcements-architecture.md): честный бэктест на срезе 06.09 показал,
+// что MAX_NEIGHBOR_DISTANCE=5 режет РОВНУЮ волну (позиции 0-44 спринта 256 -
+// 44 позиции/38 дней БЕЗ единого настоящего разрыва, только шум ±1-3 дня от
+// сдвоенных/пропущенных дней) на пятой позиции от любого якоря - это
+// самоограничение алгоритма, не предел данных. Настоящая граница волны
+// отличима от шума с большим запасом: на позициях 44->46 спринта 256 дата
+// прыгнула НАЗАД на 10 дней при сдвиге всего на 2 позиции - Kobojo заливает
+// контент "партиями", не единой хронологической лентой, и партии не идут
+// подряд по позиции.
+//
+// Подтверждённые точки (kartel-снэпшот + date-ledger.json) сортируются по
+// позиции и "сцепляются" в волну, пока экстраполяция -1день/позиция от
+// последней точки волны попадает в WAVE_TOLERANCE_DAYS; иначе - новая волна.
+// Волна с >=2 точками - "доверенная": ВНУТРИ её диапазона позиций якорь
+// берётся без ограничения по дистанции (дата зажата подтверждёнными фактами
+// с обеих сторон), а ЗА краем волны - с запасом WAVE_EDGE_MARGIN. Значение
+// подобрано тем же бэктестом (срез 06.09, честный forward-test): margin=10
+// держит ошибку <=2 дня на всех новых предсказаниях (10->16 из 51
+// out-of-sample, 0 регрессий против старого метода); margin=20 поднимает
+// худший случай до 4 дней; margin=40 - до 18 дней (там начинается уже другая
+// волна, для которой ещё нет данных, экстраполяция настолько далеко уже
+// гадание). Одиночные точки без второго подтверждающего соседа (волна из 1
+// элемента) в "доверенные" не попадают - для них остаётся старый
+// MAX_NEIGHBOR_DISTANCE как более консервативный фоллбек.
+const WAVE_TOLERANCE_DAYS = 3
+const WAVE_MAX_POSITION_GAP = 20
+const WAVE_EDGE_MARGIN = 10
+
+function buildWaves(
+  confirmed: { position: number; dayMs: number }[],
+): { position: number; dayMs: number }[][] {
+  const sorted = [...confirmed].sort((a, b) => a.position - b.position)
+  const waves: { position: number; dayMs: number }[][] = []
+  let current: { position: number; dayMs: number }[] = []
+  for (const c of sorted) {
+    const last = current[current.length - 1]
+    if (last) {
+      const dpos = c.position - last.position
+      const predictedMs = last.dayMs - dpos * DAY_MS
+      const errDays = Math.abs(c.dayMs - predictedMs) / DAY_MS
+      if (errDays > WAVE_TOLERANCE_DAYS || dpos > WAVE_MAX_POSITION_GAP) {
+        waves.push(current)
+        current = []
+      }
+    }
+    current.push(c)
+  }
+  if (current.length > 0) waves.push(current)
+  return waves.filter((w) => w.length >= 2)
+}
+
+function pickWaveAnchor(
+  position: number,
+  waves: { position: number; dayMs: number }[][],
+): { position: number; dayMs: number } | null {
+  for (const wave of waves) {
+    const lo = wave[0].position
+    const hi = wave[wave.length - 1].position
+    if (position < lo - WAVE_EDGE_MARGIN || position > hi + WAVE_EDGE_MARGIN) continue
+    let best: { position: number; dayMs: number } | null = null
+    let bestDist = Infinity
+    for (const a of wave) {
+      const dist = Math.abs(a.position - position)
+      if (dist < bestDist) {
+        bestDist = dist
+        best = a
+      }
+    }
+    return best
+  }
+  return null
+}
+
 async function appendDailyMutantOffers(
   xml: string,
   sprint: number,
@@ -390,11 +464,13 @@ async function appendDailyMutantOffers(
     }
   }
 
+  const waves = buildWaves(confirmed)
+
   // Проход 2 - для каждой записи пула решаем, подтверждена дата или её
-  // нужно прогнозировать по ближайшему подтверждённому соседу; отбрасываем
-  // всё, что не попадает в окно текущего спринта (и подтверждённое, и
-  // прогнозное - иначе прогноз на позицию за сотни дней от ближайшего
-  // якоря дал бы бессмыслицу, дата-фильтр её и отсекает).
+  // нужно прогнозировать; отбрасываем всё, что не попадает в окно текущего
+  // спринта (и подтверждённое, и прогнозное - иначе прогноз на позицию за
+  // сотни дней от ближайшего якоря дал бы бессмыслицу, дата-фильтр её и
+  // отсекает).
   for (const entry of pool) {
     const range = pickFilterDateRange(filterDates, entry.filterTag)
     const isConfirmed = !!(
@@ -406,13 +482,17 @@ async function appendDailyMutantOffers(
     if (isConfirmed) {
       dayMs = new Date(range!.start).getTime()
     } else {
-      const neighbor = pickNearestConfirmed(entry.position, confirmed)
-      // MAX_NEIGHBOR_DISTANCE: живой бэктест на срезе 06.09 показал, что
-      // экстраполяция рядом с якорем (dist<=5) даёт медиану ~1 день ошибки,
-      // а дальше (>15) - от 4 до 1680 дней (пул не единая хронология, а
-      // локальные "волны" контента). Без порога - молчаливый мусор в датах.
-      if (!neighbor || neighbor.dist > MAX_NEIGHBOR_DISTANCE) continue
-      dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
+      const waveAnchor = pickWaveAnchor(entry.position, waves)
+      if (waveAnchor) {
+        dayMs = waveAnchor.dayMs - (entry.position - waveAnchor.position) * DAY_MS
+      } else {
+        // Фоллбек для позиций без "доверенной" волны (одиночный
+        // неподтверждённый вторым соседом якорь) - консервативный
+        // MAX_NEIGHBOR_DISTANCE, как было раньше.
+        const neighbor = pickNearestConfirmed(entry.position, confirmed)
+        if (!neighbor || neighbor.dist > MAX_NEIGHBOR_DISTANCE) continue
+        dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
+      }
     }
     if (dayMs < windowStart || dayMs >= windowEnd) continue
 
