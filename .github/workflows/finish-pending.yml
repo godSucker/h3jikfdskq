@@ -77,6 +77,10 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          # Без него notifyRunSummary()/notifyNewExactDates() в build-announcements.ts
+          # молча ничего не шлют (гейт "нет секрета - не шлём") - забыли прокинуть
+          # при создании этого workflow, в отличие от announcements-hourly.yml.
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: 6. Коммит данных
         if: always()
