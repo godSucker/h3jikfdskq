@@ -257,7 +257,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   const beforeDaily = items.length
   await appendDailyMutantOffers(xml, target, filterDates, buildItem, items)
   console.log(
-    `[forecast] shopForecast спринт ${target}: дневных мутантов ${items.length - beforeDaily}`,
+    `[forecast] shopForecast спринт ${target}: дневных офферов (мутанты+орбы+паки) ${items.length - beforeDaily}`,
   )
 
   return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items }
@@ -292,17 +292,35 @@ interface DailyPoolEntry {
 // (часовой крон), merge-логика в build-announcements.ts подменяет "≈"-строку
 // на настоящую (fresh всегда побеждает, см. комментарий там) - без ручных
 // действий.
+//
+// РАСШИРЕНИЕ 2026-09-11 (юзер попросил проверить, "можно ли предугадать без
+// дат картеля"): весь пул dailyoffer (1714 записей на 11.09, не только
+// specimen_-префикс) проверен живым бэктестом на срезе 06.09 - позиция ->
+// дата держится РЯДОМ с известной точкой (nbDist<=5: медианная ошибка 0.5
+// дня), но ЛОМАЕТСЯ на больших дистанциях (Anniversary26_Box_* дали
+// стабильную ошибку +4 дня на nbDist~20-29, дальние pack_daily/omega -
+// ошибка 16-18 дней, случайная древняя запись на nbDist~1700 - ошибка 1680
+// дней). Файл НЕ единая хронологическая лента - это набор локальных "волн"
+// контента, между которыми смещение не сохраняется. Поэтому: (1) пул
+// расширен с specimen_ также на bundle_orbs_/pack_daily_ (та же
+// subCat="dailyoffer" разметка, та же локальная точность рядом с якорем),
+// (2) добавлен MAX_NEIGHBOR_DISTANCE - экстраполяция дальше этого порога
+// молча отбрасывается (лучше не показать прогноз вообще, чем показать
+// уверенно неверный - тот же принцип, что уже применяется к "чужим датам"
+// в exactDateFor() у build-announcements.ts).
+const MAX_NEIGHBOR_DISTANCE = 5
+
 function pickNearestConfirmed(
   position: number,
   confirmed: { position: number; dayMs: number }[],
-): { position: number; dayMs: number } | null {
-  let best: { position: number; dayMs: number } | null = null
+): { position: number; dayMs: number; dist: number } | null {
+  let best: { position: number; dayMs: number; dist: number } | null = null
   let bestDist = Infinity
   for (const c of confirmed) {
     const dist = Math.abs(c.position - position)
     if (dist < bestDist) {
       bestDist = dist
-      best = c
+      best = { ...c, dist }
     }
   }
   return best
@@ -335,7 +353,7 @@ async function appendDailyMutantOffers(
   for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
     if (!itemXml.includes('subCat="dailyoffer"')) continue
     const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
-    if (!itemId || !/^-*#?specimen_/i.test(itemId)) continue
+    if (!itemId || !/^-*#?(specimen_|bundle_orbs_|pack_daily_)/i.test(itemId)) continue
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1] ?? null
     pool.push({ position: position++, itemXml, filterTag })
   }
@@ -369,12 +387,18 @@ async function appendDailyMutantOffers(
       dayMs = new Date(range!.start).getTime()
     } else {
       const neighbor = pickNearestConfirmed(entry.position, confirmed)
-      if (!neighbor) continue
+      // MAX_NEIGHBOR_DISTANCE: живой бэктест на срезе 06.09 показал, что
+      // экстраполяция рядом с якорем (dist<=5) даёт медиану ~1 день ошибки,
+      // а дальше (>15) - от 4 до 1680 дней (пул не единая хронология, а
+      // локальные "волны" контента). Без порога - молчаливый мусор в датах.
+      if (!neighbor || neighbor.dist > MAX_NEIGHBOR_DISTANCE) continue
       dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
     }
     if (dayMs < windowStart || dayMs >= windowEnd) continue
 
-    const built = await buildItem(entry.itemXml, 'day')
+    const itemId = entry.itemXml.match(/itemId="([^"]+)"/)?.[1] ?? ''
+    const isSpecimen = /^-*#?specimen_/i.test(itemId)
+    const built = await buildItem(entry.itemXml, isSpecimen ? 'day' : undefined)
     if (!built) continue
     if (!isConfirmed) {
       built.item.exactDateLabel = `≈ ${formatDateRu(new Date(dayMs))}`
