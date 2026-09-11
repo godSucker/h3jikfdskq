@@ -116,6 +116,17 @@ jobs:
         env:
           KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
 
+      - name: 9.55 Пополнение постоянного журнала дат (date-ledger.json)
+        # Живой снэпшот шага 9.5 видит только ~7 дней вперёд и живёт один
+        # прогон (scripts/live-filter-dates.json гитигнорится). Этот шаг
+        # копит подтверждённые даты НАВСЕГДА в scripts/kartel/date-ledger.json
+        # (append-only, коммитится) - detect-shop-forecast.ts подмешивает его
+        # в якоря ближайшего соседа для позиций, чей живой горизонт уже ушёл
+        # в прошлое. Не критический путь - если живого снэпшота нет (шаг 9.5
+        # упал), просто добавит 0 записей.
+        if: always()
+        run: npx tsx scripts/kartel/update-date-ledger.ts
+
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
         # сейчас сломалось", а не только ежемесячное календарное напоминание
@@ -164,6 +175,7 @@ jobs:
             src/data/announcements.json
             scripts/announced-ids-cache.json
             scripts/pending-screenshots.json
+            scripts/kartel/date-ledger.json
 
       - name: 12. Синхронизация новых иконок боксов/жетонов с Яндекс CDN
         # Тот же инкрементальный приём, что в sync-cron.yml (шаг 7) - только
