@@ -26,7 +26,12 @@ import {
   formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
-import { loadFilterDates, pickFilterDateRange, type FilterDateRange } from './kartel-filter-dates'
+import {
+  loadFilterDates,
+  loadDateLedger,
+  pickFilterDateRange,
+  type FilterDateRange,
+} from './kartel-filter-dates'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -358,16 +363,31 @@ async function appendDailyMutantOffers(
     pool.push({ position: position++, itemXml, filterTag })
   }
 
-  // Проход 1 - подтверждённые kartel-точки (окно <=3 дня, тот же гейт, что
-  // classifyFeaturedMutant использует для "обычного" дневного оффера).
+  // Проход 1 - подтверждённые точки: живой снэпшот kartel этого прогона
+  // (окно <=3 дня, тот же гейт, что classifyFeaturedMutant использует для
+  // "обычного" дневного оффера) ПЛЮС постоянный журнал (scripts/kartel/
+  // date-ledger.json) - тот копит подтверждённые даты за всю историю
+  // прогонов, живой снэпшот видит только ~7 дней вперёд. Журнал даёт
+  // якоря там, где живого окна уже нет, но позиция когда-то была
+  // подтверждена - плотнее сетка соседей = меньше отбросов по
+  // MAX_NEIGHBOR_DISTANCE.
+  const dateLedger = await loadDateLedger()
   const confirmed: { position: number; dayMs: number }[] = []
   for (const entry of pool) {
     const range = pickFilterDateRange(filterDates, entry.filterTag)
-    if (!range?.start || !range.end) continue
-    const startMs = new Date(range.start).getTime()
-    const endMs = new Date(range.end).getTime()
-    if (Number.isNaN(startMs) || Number.isNaN(endMs) || (endMs - startMs) / DAY_MS > 3) continue
-    confirmed.push({ position: entry.position, dayMs: startMs })
+    if (range?.start && range.end) {
+      const startMs = new Date(range.start).getTime()
+      const endMs = new Date(range.end).getTime()
+      if (!Number.isNaN(startMs) && !Number.isNaN(endMs) && (endMs - startMs) / DAY_MS <= 3) {
+        confirmed.push({ position: entry.position, dayMs: startMs })
+        continue
+      }
+    }
+    const ledgerStart = entry.filterTag ? dateLedger[entry.filterTag] : undefined
+    if (ledgerStart) {
+      const startMs = new Date(ledgerStart).getTime()
+      if (!Number.isNaN(startMs)) confirmed.push({ position: entry.position, dayMs: startMs })
+    }
   }
 
   // Проход 2 - для каждой записи пула решаем, подтверждена дата или её

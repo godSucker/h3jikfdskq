@@ -50,3 +50,24 @@ export function pickFilterDateRange(
   if (!filterName) return null
   return dates[filterName] ?? null
 }
+
+// Постоянный журнал подтверждённых дат (scripts/kartel/update-date-ledger.ts
+// копит его каждый час, append-only) - в отличие от loadFilterDates() выше
+// (транзиентный снэпшот текущего прогона, живой горизонт kartel ~7 дней),
+// этот файл коммитится в git и растёт бессрочно. detect-shop-forecast.ts
+// подмешивает его в "подтверждённые" якоря для ближайшего соседа - чем
+// длиннее история, тем плотнее сетка якорей внутри пула dailyoffer.
+const DATE_LEDGER_PATH = path.join(process.cwd(), 'scripts/kartel/date-ledger.json')
+
+let ledgerCache: Record<string, string> | null = null
+
+export async function loadDateLedger(): Promise<Record<string, string>> {
+  if (ledgerCache) return ledgerCache
+  try {
+    const raw = await fs.readFile(DATE_LEDGER_PATH, 'utf-8')
+    ledgerCache = JSON.parse(raw) as Record<string, string>
+  } catch {
+    ledgerCache = {}
+  }
+  return ledgerCache
+}

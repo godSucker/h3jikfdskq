@@ -197,6 +197,13 @@ jobs:
         env:
           KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
 
+      - name: 4.86 Пополнение постоянного журнала дат (date-ledger.json)
+        # Тот же шаг, что announcements-hourly.yml (9.55) - живой снэпшот выше
+        # видит только ~7 дней вперёд и живёт один прогон, этот копит
+        # подтверждённые даты НАВСЕГДА в scripts/kartel/date-ledger.json.
+        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
+        run: npx tsx scripts/kartel/update-date-ledger.ts
+
       - name: 4.9 Авто-публикация анонсов (мутанты/скины/бинго/боксы/обменники/ребаланс)
         # Идёт ПОСЛЕДНИМ из data-шагов - нужны самые свежие версии ВСЕХ JSON
         # разом (mutants/skins/bingos/boxes/obtain/rebalance-history). Ledger
@@ -225,7 +232,7 @@ jobs:
           commit_user_email: 'bot@archivist-library.com'
           commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
           branch: main
-          file_pattern: 'src/data/announcements.json scripts/announced-ids-cache.json'
+          file_pattern: 'src/data/announcements.json scripts/announced-ids-cache.json scripts/kartel/date-ledger.json'
 
       - name: 5. Проверка изменений
         id: check-changes
