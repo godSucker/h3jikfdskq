@@ -315,8 +315,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "18 — 21 сентября",
+        "exactDateStart": "2026-09-18T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -328,9 +328,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "18 — 19 сентября",
+        "exactDateStart": "2026-09-18T10:00:00+00:00",
+        "featuredMutant": "day"
       },
       {
         "id": "256|bundle_orbs_crafting_master",
@@ -341,8 +341,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-75",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "17 — 19 сентября",
+        "exactDateStart": "2026-09-17T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -354,8 +354,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 18 сентября",
-        "exactDateStart": "2026-09-18T10:00:00.000Z",
+        "exactDateLabel": "17 — 18 сентября",
+        "exactDateStart": "2026-09-17T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -367,9 +367,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "16 — 23 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "featuredMutant": "week"
       },
       {
         "id": "256|pack_be_13_1000_hc",
@@ -380,8 +380,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -393,8 +393,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -406,8 +406,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -419,8 +419,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 17 сентября",
-        "exactDateStart": "2026-09-17T10:00:00.000Z",
+        "exactDateLabel": "18 — 19 сентября",
+        "exactDateStart": "2026-09-18T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -432,8 +432,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "15 — 19 сентября",
+        "exactDateStart": "2026-09-15T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -445,8 +445,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 16 сентября",
-        "exactDateStart": "2026-09-16T10:00:00.000Z",
+        "exactDateLabel": "15 — 16 сентября",
+        "exactDateStart": "2026-09-15T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -458,8 +458,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "14 — 17 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -471,8 +471,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "14 — 16 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -484,9 +484,9 @@
           "type": "usd"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "14 — 21 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
+        "featuredMutant": "week"
       },
       {
         "id": "256|Specimen_EA_09_sc",
@@ -497,8 +497,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 15 сентября",
-        "exactDateStart": "2026-09-15T10:00:00.000Z",
+        "exactDateLabel": "14 — 15 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -510,8 +510,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "13 — 16 сентября",
+        "exactDateStart": "2026-09-13T10:00:00+00:00",
         "featuredMutant": null
       },
       {
@@ -523,8 +523,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "14 — 15 сентября",
-        "exactDateStart": "2026-09-14T10:00:00+00:00",
+        "exactDateLabel": "13 — 14 сентября",
+        "exactDateStart": "2026-09-13T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -536,8 +536,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "13 — 14 сентября",
-        "exactDateStart": "2026-09-13T10:00:00+00:00",
+        "exactDateLabel": "12 — 13 сентября",
+        "exactDateStart": "2026-09-12T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -562,8 +562,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "12 — 13 сентября",
-        "exactDateStart": "2026-09-12T10:00:00+00:00",
+        "exactDateLabel": "11 — 12 сентября",
+        "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": "day"
       },
       {
@@ -575,7 +575,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 сентября",
+        "exactDateLabel": "11 — 14 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": null
       },
@@ -588,7 +588,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 сентября",
+        "exactDateLabel": "11 — 14 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": null
       },
@@ -601,7 +601,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 сентября",
+        "exactDateLabel": "11 — 14 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": null
       },
@@ -614,7 +614,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 сентября",
+        "exactDateLabel": "11 — 14 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": null
       },
@@ -627,7 +627,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "11 — 12 сентября",
+        "exactDateLabel": "11 — 14 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
         "featuredMutant": null
       },
@@ -819,8 +819,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "18 — 21 сентября",
+        "exactDateStart": "2026-09-18T10:00:00+00:00"
       },
       {
         "id": "256|Shop_bundle_orbs_retaliate_5_27",
@@ -843,8 +843,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-75",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "17 — 19 сентября",
+        "exactDateStart": "2026-09-17T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_be_13_1000_hc",
@@ -855,8 +855,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_be_13_4000_hc",
@@ -867,8 +867,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_be_13_10000_hc",
@@ -879,8 +879,8 @@
           "type": "usd"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "16 — 19 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Specimen_FC_04",
@@ -891,8 +891,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "16 — 23 сентября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00"
       },
       {
         "id": "256|Shop_LuckyBox_Research_IX",
@@ -903,8 +903,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 — 19 сентября",
+        "exactDateStart": "2026-09-15T10:00:00+00:00"
       },
       {
         "id": "256|Shop_Pack_Dieselpunk",
@@ -915,8 +915,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "14 — 17 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00"
       },
       {
         "id": "256|Shop_pack_daily_3_gold_68",
@@ -927,8 +927,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "14 — 16 сентября",
+        "exactDateStart": "2026-09-14T10:00:00+00:00"
       },
       {
         "id": "256|Shop_bundle_orbs_experimental_growth_11",
@@ -939,8 +939,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "13 — 16 сентября",
+        "exactDateStart": "2026-09-13T10:00:00+00:00"
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256b",
@@ -948,8 +948,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256b-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "12 — 19 сентября",
+        "exactDateStart": "2026-09-12T10:00:00+00:00"
       },
       {
         "id": "256|daily_news_jackpot_madness_weekend_50",
