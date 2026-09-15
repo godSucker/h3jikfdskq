@@ -644,8 +644,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 8 сентября",
+        "exactDateStart": "2026-09-08T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -735,8 +735,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 5 сентября",
+        "exactDateStart": "2026-09-05T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -1983,8 +1983,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 2 октября",
+        "exactDateStart": "2026-10-02T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -1996,8 +1996,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 2 октября",
+        "exactDateStart": "2026-10-02T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2009,8 +2009,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 1 октября",
+        "exactDateStart": "2026-10-01T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2022,8 +2022,8 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 1 октября",
+        "exactDateStart": "2026-10-01T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2035,8 +2035,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 30 сентября",
+        "exactDateStart": "2026-09-30T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2048,8 +2048,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 29 сентября",
+        "exactDateStart": "2026-09-29T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2061,8 +2061,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 29 сентября",
+        "exactDateStart": "2026-09-29T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2074,8 +2074,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 29 сентября",
+        "exactDateStart": "2026-09-29T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2087,8 +2087,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 28 сентября",
+        "exactDateStart": "2026-09-28T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2100,8 +2100,8 @@
           "type": "usd"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 28 сентября",
+        "exactDateStart": "2026-09-28T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2113,8 +2113,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 28 сентября",
+        "exactDateStart": "2026-09-28T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2126,8 +2126,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 27 сентября",
+        "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2139,8 +2139,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 27 сентября",
+        "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2152,8 +2152,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 27 сентября",
+        "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2165,8 +2165,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 26 сентября",
+        "exactDateStart": "2026-09-26T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2178,9 +2178,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 28 сентября",
-        "exactDateStart": "2026-09-28T10:00:00.000Z",
-        "featuredMutant": "day"
+        "exactDateLabel": "≈ 26 сентября",
+        "exactDateStart": "2026-09-26T10:00:00.000Z",
+        "featuredMutant": null
       },
       {
         "id": "257|Pack_Medieval",
@@ -2191,8 +2191,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 25 сентября",
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2204,8 +2204,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 27 сентября",
-        "exactDateStart": "2026-09-27T10:00:00.000Z",
+        "exactDateLabel": "≈ 25 сентября",
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2217,9 +2217,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 26 сентября",
-        "exactDateStart": "2026-09-26T10:00:00.000Z",
-        "featuredMutant": "day"
+        "exactDateLabel": "≈ 25 сентября",
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
+        "featuredMutant": null
       },
       {
         "id": "257|Specimen_EC_09_Gold",
@@ -2230,9 +2230,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 25 сентября",
-        "exactDateStart": "2026-09-25T10:00:00.000Z",
-        "featuredMutant": "day"
+        "exactDateLabel": "≈ 24 сентября",
+        "exactDateStart": "2026-09-24T10:00:00.000Z",
+        "featuredMutant": null
       },
       {
         "id": "257|Specimen_AE_02",
@@ -2243,8 +2243,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "seasonal",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 23 сентября",
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2256,8 +2256,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "seasonal",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 23 сентября",
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2269,8 +2269,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 24 сентября",
-        "exactDateStart": "2026-09-24T10:00:00.000Z",
+        "exactDateLabel": "≈ 23 сентября",
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2284,7 +2284,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 23 сентября",
         "exactDateStart": "2026-09-23T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "257|LuckyBox_Zoo_Prime",
@@ -2295,8 +2295,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 22 сентября",
+        "exactDateStart": "2026-09-22T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2310,7 +2310,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 22 сентября",
         "exactDateStart": "2026-09-22T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "257|bank_e_14_10ct",
@@ -2321,8 +2321,8 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2334,8 +2334,8 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2347,8 +2347,8 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2360,8 +2360,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-50",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2373,8 +2373,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2388,7 +2388,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 21 сентября",
         "exactDateStart": "2026-09-21T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "257|Mystery_Autumn_2026",
@@ -2399,8 +2399,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 20 сентября",
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2412,8 +2412,8 @@
           "type": "hardcurrency"
         },
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 20 сентября",
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2425,8 +2425,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 20 сентября",
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2440,7 +2440,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 20 сентября",
         "exactDateStart": "2026-09-20T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "257|LuckyBox_Galactic_Elite",
@@ -2451,8 +2451,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 19 сентября",
+        "exactDateStart": "2026-09-19T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2466,7 +2466,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 19 сентября",
         "exactDateStart": "2026-09-19T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": null
       }
     ],
     "link": "/materials",
