@@ -2842,5 +2842,345 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "exchange-1789500464215",
+    "date": "2026-09-15T19:27:43.098Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 29",
+    "items": [
+      {
+        "id": "jackpot|READY_04|specimen_aa_09",
+        "name": "О.Х.0.Т.Н.№.К",
+        "image": "textures_by_mutant/aa_09/specimen_aa_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_05|specimen_db_10",
+        "name": "Буффалор",
+        "image": "textures_by_mutant/db_10/specimen_db_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_06|specimen_f_12",
+        "name": "Призыватель",
+        "image": "textures_by_mutant/f_12/specimen_f_12_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 250,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_07|specimen_cb_09",
+        "name": "Пилатесса",
+        "image": "textures_by_mutant/cb_09/specimen_cb_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_08|specimen_de_10",
+        "name": "Безумный Майк",
+        "image": "textures_by_mutant/de_10/specimen_de_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_09|specimen_fd_11",
+        "name": "Иши-но-Оками",
+        "image": "textures_by_mutant/fd_11/specimen_fd_11_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 200,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_11|specimen_da_11",
+        "name": "Ан0малия",
+        "image": "textures_by_mutant/da_11/specimen_da_11_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1000,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_12|specimen_aa_04",
+        "name": "Полиглоб",
+        "image": "textures_by_mutant/aa_04/specimen_aa_04_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1300,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_13|specimen_ff_99",
+        "name": "Эмоциональная маскарада",
+        "image": "textures_by_mutant/ff_99/specimen_ff_99_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 3000,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_14|specimen_cd_09",
+        "name": "Отпетые приматы",
+        "image": "textures_by_mutant/cd_09/specimen_cd_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1000,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_15|specimen_fe_03",
+        "name": "Астромаг",
+        "image": "textures_by_mutant/fe_03/specimen_fe_03_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1000,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_16|specimen_eb_07",
+        "name": "Звездонатор",
+        "image": "textures_by_mutant/eb_07/specimen_eb_07_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1300,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_17|specimen_fa_15",
+        "name": "Маджика, Королева Арифмантики",
+        "image": "textures_by_mutant/fa_15/specimen_fa_15_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 3900,
+          "name": "Жетон Hex City",
+          "image": "/materials/Material_Hexcity_Token_v2.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_19|specimen_af_12",
+        "name": "Хранитель грез",
+        "image": "textures_by_mutant/af_12/specimen_af_12_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 1600,
+          "name": "Закатный жетон",
+          "image": "/materials/Material_Xmas24_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_20|specimen_ac_13",
+        "name": "Капсульный станок МТЗ-004",
+        "image": "textures_by_mutant/ac_13/specimen_ac_13_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 2000,
+          "name": "Жетон капсулы",
+          "image": "/materials/Material_Capsule_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_21|specimen_fe_09",
+        "name": "Кселерот",
+        "image": "textures_by_mutant/fe_09/specimen_fe_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 30,
+          "name": "Жетон ящика игрушек",
+          "image": "/materials/Material_Toybox_Token.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_25|specimen_af_12",
+        "name": "Хранитель грез",
+        "image": "textures_by_mutant/af_12/specimen_af_12_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 20,
+          "name": "Апельсин",
+          "image": "/materials/Material_Winter_Orange.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_23|specimen_bd_08",
+        "name": "Крошка и Майнд",
+        "image": "textures_by_mutant/bd_08/specimen_bd_08_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 13,
+          "name": "Уголь",
+          "image": "/materials/Material_Winter_Coal.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_22|specimen_ee_08",
+        "name": "Големаг",
+        "image": "textures_by_mutant/ee_08/specimen_ee_08_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 40,
+          "name": "Апельсин",
+          "image": "/materials/Material_Winter_Orange.png"
+        }
+      },
+      {
+        "id": "jackpot|READY_24|specimen_fe_12",
+        "name": "Морозный экзоцелестус",
+        "image": "textures_by_mutant/fe_12/specimen_fe_12_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 40,
+          "name": "Апельсин",
+          "image": "/materials/Material_Winter_Orange.png"
+        }
+      },
+      {
+        "id": "event|READY_04|specimen_fa_10",
+        "name": "Часовщица Мими",
+        "image": "textures_by_mutant/fa_10/specimen_fa_10_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 40,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        }
+      },
+      {
+        "id": "event|READY_07|specimen_eb_08",
+        "name": "Доктор Нуклеус",
+        "image": "textures_by_mutant/eb_08/specimen_eb_08_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 100,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        }
+      },
+      {
+        "id": "event|READY_09|specimen_dc_14",
+        "name": "Ужас юрского периода",
+        "image": "textures_by_mutant/dc_14/specimen_dc_14_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 180,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        }
+      },
+      {
+        "id": "mystery|READY_01|Specimen_AC_08|3|kings",
+        "name": "Шнайдер — 3⭐ · скин: Короли",
+        "image": "textures_by_mutant/ac_08/specimen_ac_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "kings"
+      },
+      {
+        "id": "mystery|READY_02|Specimen_BE_03|3|summer",
+        "name": "Огромнус — 3⭐ · скин: Summer",
+        "image": "textures_by_mutant/be_03/specimen_be_03_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "summer"
+      },
+      {
+        "id": "mystery|READY_03|Specimen_FC_08|3|europe",
+        "name": "Кудамоно — 3⭐ · скин: Europe",
+        "image": "textures_by_mutant/fc_08/specimen_fc_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "europe"
+      },
+      {
+        "id": "mystery|READY_04|Specimen_EB_10|3|aprilfools",
+        "name": "Гакарианец — 3⭐ · скин: 1 апреля",
+        "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2026",
+          "image": "/materials/Material_Mystery26_Token.png"
+        },
+        "star": "gold",
+        "skin": "aprilfools"
+      },
+      {
+        "id": "mystery|READY_05|Specimen_DD_08|3|school",
+        "name": "Ринотавр — 3⭐ · скин: School",
+        "image": "textures_by_mutant/dd_08/specimen_dd_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "school"
+      },
+      {
+        "id": "mystery|READY_06|Specimen_AB_11|3|honeybee",
+        "name": "Энвайро 3.0 — 3⭐ · скин: Honeybee",
+        "image": "textures_by_mutant/ab_11/specimen_ab_11_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2026",
+          "image": "/materials/Material_Mystery26_Token.png"
+        },
+        "star": "gold",
+        "skin": "honeybee"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
