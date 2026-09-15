@@ -282,7 +282,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "18 — 19 сентября",
         "exactDateStart": "2026-09-18T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|bundle_orbs_crafting_master",
@@ -308,7 +308,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "17 — 18 сентября",
         "exactDateStart": "2026-09-17T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|Specimen_FC_04",
@@ -373,7 +373,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "18 — 19 сентября",
         "exactDateStart": "2026-09-18T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|LuckyBox_Research_IX",
@@ -399,7 +399,7 @@
         "ribbon": "limited",
         "exactDateLabel": "15 — 16 сентября",
         "exactDateStart": "2026-09-15T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|Pack_Dieselpunk",
@@ -451,7 +451,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "14 — 15 сентября",
         "exactDateStart": "2026-09-14T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|bundle_orbs_experimental_growth_11",
@@ -477,7 +477,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "13 — 14 сентября",
         "exactDateStart": "2026-09-13T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|Specimen_AA_06_Gold",
@@ -490,7 +490,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "12 — 13 сентября",
         "exactDateStart": "2026-09-12T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|LuckyBox_Mythic_Prime",
@@ -516,7 +516,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "11 — 12 сентября",
         "exactDateStart": "2026-09-11T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|bank_ca_12_t1",
@@ -607,7 +607,7 @@
         "ribbon": "limited",
         "exactDateLabel": "10 — 11 сентября",
         "exactDateStart": "2026-09-10T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|Pack_Nightmare",
@@ -633,7 +633,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "9 — 10 сентября",
         "exactDateStart": "2026-09-09T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|Mysterybox_Ability_Slash",
@@ -659,7 +659,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "8 — 9 сентября",
         "exactDateStart": "2026-09-08T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|bundle_orbs_life_5_38",
@@ -698,7 +698,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "7 — 8 сентября",
         "exactDateStart": "2026-09-07T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|pack_powerlevel_90",
@@ -724,7 +724,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "6 — 7 сентября",
         "exactDateStart": "2026-09-06T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       },
       {
         "id": "256|LuckyBox_Cyber_Elite",
@@ -750,7 +750,7 @@
         "ribbon": "legendary",
         "exactDateLabel": "5 — 6 сентября",
         "exactDateStart": "2026-09-05T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": null
       }
     ],
     "link": "/materials",
