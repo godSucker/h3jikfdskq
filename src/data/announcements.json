@@ -2755,5 +2755,221 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "exchange-1789507470916",
+    "date": "2026-09-15T21:24:29.674Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 15",
+    "items": [
+      {
+        "id": "jackpot|READY_04|specimen_aa_09",
+        "name": "О.Х.0.Т.Н.№.К",
+        "image": "textures_by_mutant/aa_09/specimen_aa_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "26 августа — 27 сентября",
+        "exactDateStart": "2026-08-26T10:00:00+00:00"
+      },
+      {
+        "id": "jackpot|READY_05|specimen_db_10",
+        "name": "Буффалор",
+        "image": "textures_by_mutant/db_10/specimen_db_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "26 августа — 27 сентября",
+        "exactDateStart": "2026-08-26T10:00:00+00:00"
+      },
+      {
+        "id": "jackpot|READY_06|specimen_f_12",
+        "name": "Призыватель",
+        "image": "textures_by_mutant/f_12/specimen_f_12_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 250,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "26 августа — 27 сентября",
+        "exactDateStart": "2026-08-26T10:00:00+00:00"
+      },
+      {
+        "id": "jackpot|READY_07|specimen_cb_09",
+        "name": "Пилатесса",
+        "image": "textures_by_mutant/cb_09/specimen_cb_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "27 сентября — ?",
+        "exactDateStart": "2026-09-27T10:00:00+00:00"
+      },
+      {
+        "id": "jackpot|READY_08|specimen_de_10",
+        "name": "Безумный Майк",
+        "image": "textures_by_mutant/de_10/specimen_de_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "27 сентября — ?",
+        "exactDateStart": "2026-09-27T10:00:00+00:00"
+      },
+      {
+        "id": "jackpot|READY_09|specimen_fd_11",
+        "name": "Иши-но-Оками",
+        "image": "textures_by_mutant/fd_11/specimen_fd_11_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "amount": 200,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "27 сентября — ?",
+        "exactDateStart": "2026-09-27T10:00:00+00:00"
+      },
+      {
+        "id": "event|READY_04|specimen_fa_10",
+        "name": "Часовщица Мими",
+        "image": "textures_by_mutant/fa_10/specimen_fa_10_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 40,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "event|READY_07|specimen_eb_08",
+        "name": "Доктор Нуклеус",
+        "image": "textures_by_mutant/eb_08/specimen_eb_08_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 100,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "event|READY_09|specimen_dc_14",
+        "name": "Ужас юрского периода",
+        "image": "textures_by_mutant/dc_14/specimen_dc_14_normal.webp",
+        "hall": "event",
+        "cost": {
+          "amount": 180,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_01|Specimen_AC_08|3|kings",
+        "name": "Шнайдер — 3⭐ · скин: Короли",
+        "image": "textures_by_mutant/ac_08/specimen_ac_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "kings",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_02|Specimen_BE_03|3|summer",
+        "name": "Огромнус — 3⭐ · скин: Summer",
+        "image": "textures_by_mutant/be_03/specimen_be_03_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "summer",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_03|Specimen_FC_08|3|europe",
+        "name": "Кудамоно — 3⭐ · скин: Europe",
+        "image": "textures_by_mutant/fc_08/specimen_fc_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "europe",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_04|Specimen_EB_10|3|aprilfools",
+        "name": "Гакарианец — 3⭐ · скин: 1 апреля",
+        "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2026",
+          "image": "/materials/Material_Mystery26_Token.png"
+        },
+        "star": "gold",
+        "skin": "aprilfools",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_05|Specimen_DD_08|3|school",
+        "name": "Ринотавр — 3⭐ · скин: School",
+        "image": "textures_by_mutant/dd_08/specimen_dd_08_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2025",
+          "image": "/materials/Material_Mystery25_Token.png"
+        },
+        "star": "gold",
+        "skin": "school",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      },
+      {
+        "id": "mystery|READY_06|Specimen_AB_11|3|honeybee",
+        "name": "Энвайро 3.0 — 3⭐ · скин: Honeybee",
+        "image": "textures_by_mutant/ab_11/specimen_ab_11_normal.webp",
+        "hall": "mystery",
+        "cost": {
+          "amount": 10,
+          "name": "Таинственный жетон 2026",
+          "image": "/materials/Material_Mystery26_Token.png"
+        },
+        "star": "gold",
+        "skin": "honeybee",
+        "exactDateLabel": null,
+        "exactDateStart": null
+      }
+    ],
+    "link": "/mutants"
   }
 ]
