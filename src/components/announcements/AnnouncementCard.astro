@@ -480,6 +480,11 @@ const forecastOffers =
   }
   .card-category {
     display: inline-block;
+    /* .exchange-card - flex-direction:column, дефолтный align-items:stretch
+       растягивал этот бейдж на всю ширину карточки вместо обводки по тексту
+       (юзер поймал живьём 2026-09-16). align-self перебивает stretch везде,
+       где .card-category - прямой ребёнок flex-column контейнера. */
+    align-self: flex-start;
     margin-bottom: 0.6rem;
     font-size: 0.7rem;
     font-weight: 700;
