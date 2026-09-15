@@ -22,7 +22,7 @@ import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './kartel-filter-dates'
-import { formatExactRangeRu, currentSprint } from '../src/lib/sprint-calendar'
+import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
@@ -430,20 +430,42 @@ async function exactDateFor(
 // Building_Jackpot_2026_09 сосуществуют, а kartel ещё не проиндексировал
 // свежее сентябрьское имя (exactDateFor вернул null для него). Без даты
 // сортировка "новые сверху" на карточке ошибочно держала августовскую
-// тройку наверху. YYYY_MM в хвосте имени фильтра - единственный сигнал
-// свежести, который не зависит от kartel и известен сразу из XML - парсим
-// его как запасной вариант ТОЛЬКО когда живая дата не резолвилась.
-function monthFallbackFromFilterName(filterName: string): { label: string; start: string } | null {
-  const m = filterName.match(/_(\d{4})_(\d{2})$/)
+// тройку наверху.
+//
+// Юзер подсказал точную логику (2026-09-15): kartel ЗНАЕТ конец ПРЕДЫДУЩЕЙ
+// ротации (26 августа — 27 сентября для Building_Jackpot_2026_08) - раз
+// новый фильтр уже появился в XML, значит новая ротация стартует ровно там,
+// где кончается старая. Начало берём из конца предыдущего периода-соседа по
+// тому же префиксу (Building_Jackpot_2026_08 -> _2026_09), конец - "?" (не
+// известен, kartel ещё не подтвердил). Если у предыдущего периода тоже нет
+// живой даты (например, самый первый прогон без всякой истории) - тихо
+// возвращаем null, карточка просто останется без даты, как и было раньше.
+function parsePeriodFilter(filterName: string): { prefix: string; period: string } | null {
+  const m = filterName.match(/^(.*)_(\d{4}_\d{2})$/)
   if (!m) return null
-  const [, year, month] = m
-  const start = new Date(Date.UTC(Number(year), Number(month) - 1, 1))
-  if (Number.isNaN(start.getTime())) return null
-  // "1 сентября" читалось бы как точный день начала, а мы знаем только
-  // месяц/год из имени фильтра - показываем месяц текстом, без выдуманного дня.
-  const monthLabel = start.toLocaleDateString('ru-RU', { month: 'long', timeZone: 'UTC' })
-  const label = monthLabel.charAt(0).toUpperCase() + monthLabel.slice(1) + ' ' + year
-  return { label, start: start.toISOString() }
+  return { prefix: m[1], period: m[2] }
+}
+
+async function inferStartFromPreviousRotation(
+  filterName: string,
+  siblingFilterNames: string[],
+): Promise<{ label: string; start: string } | null> {
+  const parsed = parsePeriodFilter(filterName)
+  if (!parsed) return null
+  const prevPeriod = siblingFilterNames
+    .map(parsePeriodFilter)
+    .filter(
+      (p): p is NonNullable<typeof p> =>
+        !!p && p.prefix === parsed.prefix && p.period < parsed.period,
+    )
+    .sort((a, b) => b.period.localeCompare(a.period))[0]
+  if (!prevPeriod) return null
+  const dates = await loadFilterDates()
+  const range = pickFilterDateRange(dates, `${prevPeriod.prefix}_${prevPeriod.period}`)
+  if (!range?.end) return null
+  const endDate = new Date(range.end)
+  if (Number.isNaN(endDate.getTime())) return null
+  return { label: `${formatDateRu(endDate)} — ?`, start: range.end }
 }
 
 async function detectBoxes(seen: string[]): Promise<DetectResult> {
@@ -667,6 +689,16 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   const hallKey = (c: (typeof hallContracts)[number]) => `${c.hall}|${c.contractId}|${c.specimenId}`
   const hallFresh = hallContracts.filter((c) => !seenSet.has(hallKey(c)))
   for (const c of hallContracts) allKeys.push(hallKey(c))
+  // Полный (не только "свежий") список имён фильтров по залу - нужен, чтобы
+  // найти ПРЕДЫДУЩУЮ ротацию для inferStartFromPreviousRotation() ниже, даже
+  // если её контракты уже были объявлены раньше и не попали в hallFresh.
+  const filterNamesByHall = new Map<'jackpot' | 'event', string[]>()
+  for (const c of hallContracts) {
+    if (!c.filterName) continue
+    const list = filterNamesByHall.get(c.hall) ?? []
+    if (!list.includes(c.filterName)) list.push(c.filterName)
+    filterNamesByHall.set(c.hall, list)
+  }
 
   // Даты ротации (2026-09-16) - fetch-filters.py теперь точечно сканит
   // Filter-теги Building_Tokens_Jackpot/Building_Event_1/Building_Mystery в
@@ -682,7 +714,12 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       const token = materialsById.get(c.costTokenId)
       const exact =
         (await exactDateFor(c.filterName ?? undefined)) ??
-        (c.filterName ? monthFallbackFromFilterName(c.filterName) : null)
+        (c.filterName
+          ? await inferStartFromPreviousRotation(
+              c.filterName,
+              filterNamesByHall.get(c.hall) ?? [],
+            )
+          : null)
       return {
         id: hallKey(c),
         name: m?.name ?? c.specimenId,
