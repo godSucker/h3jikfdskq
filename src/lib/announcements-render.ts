@@ -24,7 +24,6 @@ import {
 } from '@/lib/guides-resolve'
 import boxesData from '@/data/boxes.json'
 import { getMutantTexturePath } from '@/lib/bingo-textures'
-import { baseMutantId } from '@/lib/utils'
 
 export interface AnnouncementItem {
   id: string
@@ -355,9 +354,18 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
 // не совпадают. Резолвит тайл прогноза в клик-цель модалки: мутант (+звезда,
 // если суффикс её нёс) или бокс. Бандлы/паки - ни то ни другое, null
 // (тайл остаётся некликабельным, открывать нечего).
-const STAR_SUFFIX_RE = /_+(normal|bronze|silver|gold|platinum|plat)$/i
 export type ForecastClickTarget =
   { type: 'mutant'; id: string; star: string | null } | { type: 'box'; id: string } | null
+
+// itemId в shopitems.xml несёт МАССУ хвостов помимо звезды - валютные/офферные
+// коды (_sc/_rc/_hc/_lc), событийные теги (_xmas/_halloween/_aprilfools/...),
+// комбинации (_silver_sc_xmas) - НАЙДЕНО 2026-09-16 живьём ("Хранитель Ключей"/
+// "Левиафан" не кликались: суффикс _sc не входил в старый список звёзд).
+// Пытаться перечислить все хвосты - бесконечная игра в догонялки с новым
+// ивент-контентом. Вместо этого - вырезаем ТОЛЬКО префикс specimen_<ген>_<номер>
+// целиком, что бы за ним ни следовало; звезда (если это первый сегмент хвоста) -
+// отдельно, best-effort, не блокирует резолв мутанта если её там нет/незнакома.
+const STAR_NAMES = new Set(['normal', 'bronze', 'silver', 'gold', 'platinum', 'plat'])
 
 export function resolveForecastTarget(
   itemId: string,
@@ -374,14 +382,12 @@ export function resolveForecastTarget(
     .replace(/^-+/, '')
     .replace(/^#/, '')
     .replace(/^shop_/i, '')
-  if (/^specimen_/i.test(cleaned)) {
-    const suffixMatch = cleaned.match(STAR_SUFFIX_RE)
-    const star = suffixMatch
-      ? suffixMatch[1].toLowerCase() === 'plat'
-        ? 'platinum'
-        : suffixMatch[1].toLowerCase()
-      : null
-    const base = baseMutantId(cleaned)
+  const baseMatch = cleaned.match(/^specimen_[a-z]+_\d+/i)
+  if (baseMatch) {
+    const base = baseMatch[0].toLowerCase()
+    const rest = cleaned.slice(baseMatch[0].length).replace(/^_+/, '')
+    const firstSeg = rest.split('_')[0]?.toLowerCase()
+    const star = firstSeg && STAR_NAMES.has(firstSeg) ? (firstSeg === 'plat' ? 'platinum' : firstSeg) : null
     if (mutantsById.has(base)) return { type: 'mutant', id: base, star }
   }
   const box = findBox(cleaned)

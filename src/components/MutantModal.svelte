@@ -232,9 +232,10 @@
 
   // ===== helpers =====
 
-  // Bingo from mutant data directly
+  // Bingo from mutant data directly - НЕ displayMutant: skins.json не несёт
+  // поля bingo вообще (скин не участвует в бинго отдельно от база-мутанта).
   let displayBingo = $derived((() => {
-    const raw = displayMutant?.bingo;
+    const raw = mutant?.bingo;
     let arr: string[] = [];
     if (Array.isArray(raw)) {
       arr = raw.map((x: any) =>
@@ -271,7 +272,11 @@
     const nm = namesFor(m?.id);
     const translated = nm ? (which === 1 ? nm.atk1Name : nm.atk2Name) : '';
     if (translated) return translated;
-    const local = which === 1 ? m?.name_attack1 : m?.name_attack2;
+    // m обычно displayMutant (скин) - у него нет своих name_attack1/2
+    // (skins.json их не несёт), фолбэк на базового mutant.
+    const local =
+      (which === 1 ? m?.name_attack1 : m?.name_attack2) ??
+      (which === 1 ? mutant?.name_attack1 : mutant?.name_attack2);
     if (local) return String(local);
     return t(`modal.attack${which}`, locale);
   };
@@ -281,7 +286,14 @@
       .replace('{rank}', String(b.rank)).replace('{label}', b.label);
 
   // Base fields — reactive to skin selection
-  let baseStats = $derived(displayMutant?.base_stats ?? {});
+  // НЕ displayMutant - skins.json несёт только {id,name,genes,base_stats(hp/
+  // atk1/atk2 по уровням),star,skin,image}. Все механические поля (гены атак,
+  // AOE-флаги, тип, способности, инкубация, бинго - см. ниже по файлу) живут
+  // ТОЛЬКО на базовом mutant (mutants.json), скин их физически не несёт -
+  // НАЙДЕНО 2026-09-16 живьём (юзер): диплинк на скин открывал модалку с
+  // наполовину пустыми атрибутами (тип мутанта, вторая атака, имена атак и
+  // т.д.), т.к. код читал их с displayMutant вместо mutant.
+  let baseStats = $derived(mutant?.base_stats ?? {});
 
   // Для скинов: hp/atk1/atk2 из skins.json, остальное (speed, silver и т.д.) из mutants.json
   // Скины уже содержат финальные значения на нужном уровне, не нужно применять level scaling
@@ -289,7 +301,7 @@
     const lvl = level === 1 ? 'lvl1' : 'lvl30';
     const skinStats = skin?.base_stats?.[lvl] ?? {};
     const mutantStats = mutantBaseStats?.[lvl] ?? {};
-    const abilities = displayMutant?.abilities ?? [];
+    const abilities = mutant?.abilities ?? [];
     const abilityPct = level < 25
       ? (abilities[0]?.pct ?? 0)
       : (abilities[abilities.length > 1 ? 1 : 0]?.pct ?? 0);
@@ -302,9 +314,9 @@
       silver: mutantStats.silver ?? 0,
     };
   }
-  let genes = $derived(Array.isArray(displayMutant?.genes) ? displayMutant.genes[0] : '');
+  let genes = $derived(Array.isArray(mutant?.genes) ? mutant.genes[0] : '');
 
-  let displayType = $derived(displayMutant?.type);
+  let displayType = $derived(mutant?.type);
 
   // Reactive stats — recalculated when displayMutant or displayMultiplier change
   // For skins: values are already final in skins.json, no scaling needed
@@ -328,7 +340,7 @@
   // масштабировало статы, но не абилку (звезда всегда показывала способность как на
   // обычной/normal), несмотря на то что калькулятор статов считает её правильно.
   const getAbilityValue = (level: number, tierIndex: number, atkSlot: 1 | 2, s1: any, s30: any): number => {
-    const abilities = displayMutant?.abilities ?? [];
+    const abilities = mutant?.abilities ?? [];
     const ability = abilities[tierIndex];
     if (!ability) return 0;
     // retaliate работает только через ATK1 - ATK2-слот всегда 0, чтобы вторая строка
@@ -436,7 +448,22 @@
     const aoe1 = baseLvl30?.atk1_AOE ?? baseLvl?.atk1_AOE ?? false;
     const aoe2 = baseLvl30?.atk2_AOE ?? baseLvl?.atk2_AOE ?? false;
 
-    const list = (Array.isArray(displayMutant?.abilities) ? displayMutant.abilities : []) as any[];
+    // НАЙДЕНО 2026-09-16 (обменник "Анализатор тайны" - юзер поймал живьём,
+    // модалка открывается СРАЗУ на скине по диплинку, баг стал заметен):
+    // skins.json несёт только {hp,atk1,atk2}, БЕЗ поля abilities вообще -
+    // при выбранном скине displayMutant.abilities === undefined, весь список
+    // пуст -> ПЕРВАЯ строка атаки (ab1) пропускалась целиком, вторая
+    // показывала голое число без иконки/названия способности. Скин -
+    // косметика, способности те же, что у база-мутанта - фолбэк на
+    // mutant.abilities. Баг был не только в этом фиче, а в любом открытии
+    // модалки на скине (клик по вкладке скина внутри модалки тоже страдал).
+    const list = (
+      Array.isArray(displayMutant?.abilities)
+        ? displayMutant.abilities
+        : Array.isArray(mutant?.abilities)
+          ? mutant.abilities
+          : []
+    ) as any[];
     const rows: Row[] = [];
 
     // Тир выбирается один раз по уровню и применяется к обеим строкам (атака1/атака2) —
@@ -478,14 +505,14 @@
   let rowsLvl1 = $derived(getRows(1, statsLvl1, statsLvl30));
   let rowsLvl30 = $derived(getRows(30, statsLvl1, statsLvl30));
 
-  // Misc
+  // Misc - НЕ displayMutant, см. комментарий у baseStats выше.
   let incubTime = $derived(
-    displayMutant?.incub_time ??
-    displayMutant?.incubation ??
-    displayMutant?.incubation_time ??
-    displayMutant?.incubationTime ??
-    displayMutant?.incubation_hours ??
-    displayMutant?.hatch_time ??
+    mutant?.incub_time ??
+    mutant?.incubation ??
+    mutant?.incubation_time ??
+    mutant?.incubationTime ??
+    mutant?.incubation_hours ??
+    mutant?.hatch_time ??
     null
   );
 
