@@ -387,7 +387,8 @@ export function resolveForecastTarget(
     const base = baseMatch[0].toLowerCase()
     const rest = cleaned.slice(baseMatch[0].length).replace(/^_+/, '')
     const firstSeg = rest.split('_')[0]?.toLowerCase()
-    const star = firstSeg && STAR_NAMES.has(firstSeg) ? (firstSeg === 'plat' ? 'platinum' : firstSeg) : null
+    const star =
+      firstSeg && STAR_NAMES.has(firstSeg) ? (firstSeg === 'plat' ? 'platinum' : firstSeg) : null
     if (mutantsById.has(base)) return { type: 'mutant', id: base, star }
   }
   const box = findBox(cleaned)
