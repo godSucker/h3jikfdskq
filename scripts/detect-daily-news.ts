@@ -257,7 +257,8 @@ export async function fetchDailyNewsForecast(
         : inheritedMs != null
           ? `≈ ${formatDateRu(new Date(inheritedMs))}`
           : null,
-      exactDateStart: exactRange?.start ?? (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
+      exactDateStart:
+        exactRange?.start ?? (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
     })
   }
 
@@ -269,7 +270,9 @@ export async function fetchDailyNewsForecast(
   // расстоянии сверху/снизу - середину, округляя к более поздней дате.
   // На спринте 257 таких офферов 6 (зал обмена, оба 24h-баннера, tech, зодиак-
   // мутант, paywall) - все 6 легли день-в-день против внешней хронологии.
-  const known = items.map((it) => (it.exactDateStart ? new Date(it.exactDateStart).getTime() : null))
+  const known = items.map((it) =>
+    it.exactDateStart ? new Date(it.exactDateStart).getTime() : null,
+  )
   for (let i = 0; i < items.length; i++) {
     if (known[i] != null) continue
     let up: { dist: number; ms: number } | null = null
