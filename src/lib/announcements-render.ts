@@ -370,7 +370,10 @@ export function resolveForecastTarget(
   // несёт свой rawItemId с префиксом "Shop_" (напр. "Shop_Specimen_FC_04") -
   // shopForecast его не несёт, срезаем на всякий случай в обоих случаях.
   const withoutSprint = itemId.includes('|') ? itemId.slice(itemId.indexOf('|') + 1) : itemId
-  const cleaned = withoutSprint.replace(/^-+/, '').replace(/^#/, '').replace(/^shop_/i, '')
+  const cleaned = withoutSprint
+    .replace(/^-+/, '')
+    .replace(/^#/, '')
+    .replace(/^shop_/i, '')
   if (/^specimen_/i.test(cleaned)) {
     const suffixMatch = cleaned.match(STAR_SUFFIX_RE)
     const star = suffixMatch

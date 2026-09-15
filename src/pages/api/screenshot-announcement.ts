@@ -23,7 +23,16 @@ export const GET: APIRoute = async ({ url }) => {
   // page.screenshot({clip}) НЕ выходит за viewport, а доска высокая (~1300+)
   // и раньше её резало и справа, и снизу (фидбек 2026-09-05).
   const isForecast = id.startsWith('shopForecast-') || id.startsWith('dailyNews-')
-  const viewport = isForecast ? { width: 1400, height: 5000 } : { width: 800, height: 1000 }
+  // Обменник (2026-09-16): 3 зала × до 3 записей + шапки - карточка выше
+  // дефолтных 1000px (юзер поймал живьём - блок Анализатора тайны не влезал
+  // и обрезался). Запас с той же логикой, что у forecast - клип клампится
+  // по viewport в обе стороны, лучше с запасом, чем резать снизу молча.
+  const isExchange = id.startsWith('exchange-')
+  const viewport = isForecast
+    ? { width: 1400, height: 5000 }
+    : isExchange
+      ? { width: 900, height: 1800 }
+      : { width: 800, height: 1000 }
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
   const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`

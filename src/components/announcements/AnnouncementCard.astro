@@ -52,10 +52,33 @@ const sprint = kind === 'forecast' && a.items ? forecastSprint(a.items) : null
 // Обменники - один Announcement с items из ДО ТРЁХ залов сразу (jackpot/
 // event/mystery, см. detectExchange) - группируем по hall в порядке
 // EXCHANGE_HALL_META, а не плоским списком (фидбек юзера 2026-09-15).
+// Юзер подтвердил (2026-09-16): в джекпот/ивент-зале одновременно актуальны
+// только последние 3 позиции, а не все живые слоты разом (их 20+ в
+// джекпот-зале) - XML несёт полный пул слотов, но зал "ощущается" игроком
+// как ротация тройками. Анализатор тайны - ИСКЛЮЧЕНИЕ (юзер уточнил отдельно
+// 2026-09-16): там нет ограничения на 3 активных оффера, cap только на
+// jackpot/event. Сортировка по exactDateStart (новые сверху, без даты - в
+// конец) - до первого реального прогона с живыми kartel-датами по факту не
+// меняет порядок (все null), сработает сама, как только появятся.
+const EXCHANGE_HALL_CAP: Record<'jackpot' | 'event' | 'mystery', number | null> = {
+  jackpot: 3,
+  event: 3,
+  mystery: null,
+}
 const exchangeGroups =
   kind === 'exchange' && a.items
     ? (['jackpot', 'event', 'mystery'] as const)
-        .map((hall) => ({ hall, meta: EXCHANGE_HALL_META[hall], items: a.items!.filter((i) => i.hall === hall) }))
+        .map((hall) => {
+          const sorted = a.items!
+            .filter((i) => i.hall === hall)
+            .sort((x, y) => (y.exactDateStart ?? '').localeCompare(x.exactDateStart ?? ''))
+          const cap = EXCHANGE_HALL_CAP[hall]
+          return {
+            hall,
+            meta: EXCHANGE_HALL_META[hall],
+            items: cap ? sorted.slice(0, cap) : sorted,
+          }
+        })
         .filter((g) => g.items.length > 0)
     : []
 // dailyNews-офферы несут ГОТОВЫЙ игровой баннер (assets/hud/daily_news/ -
@@ -544,6 +567,7 @@ const forecastOffers =
     width: 100%;
     height: 100%;
     background: none;
+    position: relative;
   }
   .dg-hero-art {
     width: 100%;
@@ -795,6 +819,7 @@ const forecastOffers =
     gap: 0.5rem;
   }
   .exchange-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -1113,6 +1138,38 @@ const forecastOffers =
     background: radial-gradient(circle at 50% 30%, rgba(96, 165, 250, 0.14), transparent 70%);
     overflow: hidden;
     text-decoration: none;
+    position: relative;
+  }
+  /* Явный признак кликабельности (фидбек юзера 2026-09-16) - hover-курсор
+     не работает на тач-устройствах (62.6% трафика сайта - мобилки), значок
+     виден ВСЕГДА, не только по наведению. Один общий стиль на все
+     интерактивные тайлы страницы анонсов - мутант/скин/данж-герой, тайл
+     прогноза, запись обменника. */
+  .hero-art-btn::after,
+  .dg-hero-btn::after,
+  .forecast-tile-clickable .forecast-tile-media::after,
+  .exchange-item[data-open-mutant]::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(15, 23, 42, 0.75);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='16.5' y1='16.5' x2='21' y2='21'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+  }
+  .exchange-item[data-open-mutant]::after {
+    bottom: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    background-size: 9px;
   }
   .hero-art {
     max-width: 88%;
