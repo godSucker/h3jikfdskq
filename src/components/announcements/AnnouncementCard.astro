@@ -294,13 +294,16 @@ const forecastOffers =
                 data-open-mutant-skin={gi.skin ?? undefined}
               >
                 {gi.image && <img class="exchange-item-img" src={textureUrl(gi.image)} alt="" loading="lazy" decoding="async" />}
-                <span class="exchange-item-name">{gi.name}</span>
-                {gi.cost && (
-                  <span class="exchange-item-cost">
-                    {gi.cost.image && <img src={textureUrl(gi.cost.image)} alt="" loading="lazy" decoding="async" />}
-                    {gi.cost.amount}× {gi.cost.name}
-                  </span>
-                )}
+                <div class="exchange-item-info">
+                  <span class="exchange-item-name">{gi.name}</span>
+                  {gi.cost && (
+                    <span class="exchange-item-cost">
+                      {gi.cost.image && <img src={textureUrl(gi.cost.image)} alt="" loading="lazy" decoding="async" />}
+                      {gi.cost.amount}× {gi.cost.name}
+                    </span>
+                  )}
+                  {gi.exactDateLabel && <span class="exchange-item-date">{gi.exactDateLabel}</span>}
+                </div>
               </div>
             ))}
           </div>
@@ -826,6 +829,17 @@ const forecastOffers =
     width: 16px;
     height: 16px;
     object-fit: contain;
+  }
+  .exchange-item-date {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgb(96, 165, 250);
+  }
+  .exchange-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
   }
   .box-drop-grid {
     display: grid;

@@ -467,6 +467,7 @@ async function fetchMysteryContracts(): Promise<
     skin: string | null
     costAmount: number
     costTokenId: string
+    filterName: string | null
   }[]
 > {
   const { data: xml } = await axios.get<string>(
@@ -478,13 +479,19 @@ async function fetchMysteryContracts(): Promise<
   )
   if (!block) return []
   const inner = block[1]
-  const costByNum = new Map<string, { amount: number; tokenId: string }>()
+  const costByNum = new Map<string, { amount: number; tokenId: string; filterName: string | null }>()
   for (const m of inner.matchAll(
     /<InteractiveAction[^>]*target="WORKING_(\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
   )) {
     const [, num, body] = m
     const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
-    if (cost) costByNum.set(num, { amount: Number(cost[1]), tokenId: cost[2] })
+    const filter = body.match(/<Filter>([^<]*)<\/Filter>/)
+    if (cost)
+      costByNum.set(num, {
+        amount: Number(cost[1]),
+        tokenId: cost[2],
+        filterName: filter?.[1] || null,
+      })
   }
   const out: {
     contractId: string
@@ -493,6 +500,7 @@ async function fetchMysteryContracts(): Promise<
     skin: string | null
     costAmount: number
     costTokenId: string
+    filterName: string | null
   }[] = []
   for (const m of inner.matchAll(/<State[^>]*id="(READY_(\d+))"[^>]*>([\s\S]*?)<\/State>/g)) {
     const [, readyId, num, body] = m
@@ -501,7 +509,7 @@ async function fetchMysteryContracts(): Promise<
     const [, specimenId, tags] = reward
     const stars = tags.match(/<Tag key="stars" value="(\d+)"/)?.[1] ?? null
     const skin = tags.match(/<Tag key="skin" value="([^"]+)"/)?.[1] ?? null
-    const cost = costByNum.get(num) ?? { amount: 10, tokenId: '' }
+    const cost = costByNum.get(num) ?? { amount: 10, tokenId: '', filterName: null }
     out.push({
       contractId: readyId,
       specimenId,
@@ -509,6 +517,7 @@ async function fetchMysteryContracts(): Promise<
       skin,
       costAmount: cost.amount,
       costTokenId: cost.tokenId,
+      filterName: cost.filterName,
     })
   }
   return out
@@ -533,6 +542,7 @@ async function fetchHallContracts(): Promise<
     specimenId: string
     costAmount: number
     costTokenId: string
+    filterName: string | null
   }[]
 > {
   const { data: xml } = await axios.get<string>(
@@ -549,6 +559,7 @@ async function fetchHallContracts(): Promise<
     specimenId: string
     costAmount: number
     costTokenId: string
+    filterName: string | null
   }[] = []
   for (const { entityId, hall } of HALLS) {
     const block = xml.match(
@@ -556,13 +567,22 @@ async function fetchHallContracts(): Promise<
     )
     if (!block) continue
     const inner = block[1]
-    const costByWorking = new Map<string, { amount: number; tokenId: string }>()
+    const costByWorking = new Map<
+      string,
+      { amount: number; tokenId: string; filterName: string | null }
+    >()
     for (const m of inner.matchAll(
       /<InteractiveAction[^>]*target="(WORKING_\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
     )) {
       const [, working, body] = m
       const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
-      if (cost) costByWorking.set(working, { amount: Number(cost[1]), tokenId: cost[2] })
+      const filter = body.match(/<Filter>([^<]*)<\/Filter>/)
+      if (cost)
+        costByWorking.set(working, {
+          amount: Number(cost[1]),
+          tokenId: cost[2],
+          filterName: filter?.[1] || null,
+        })
     }
     const workingByReady = new Map<string, string>()
     for (const m of inner.matchAll(
@@ -587,6 +607,7 @@ async function fetchHallContracts(): Promise<
         specimenId: idMatch[1].toLowerCase(),
         costAmount: cost?.amount ?? 0,
         costTokenId: cost?.tokenId ?? '',
+        filterName: cost?.filterName ?? null,
       })
     }
   }
@@ -612,24 +633,37 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   const hallFresh = hallContracts.filter((c) => !seenSet.has(hallKey(c)))
   for (const c of hallContracts) allKeys.push(hallKey(c))
 
-  const items: AnnouncementItem[] = hallFresh.map((c) => {
-    const m = nameById.get(c.specimenId)
-    const token = materialsById.get(c.costTokenId)
-    return {
-      id: hallKey(c),
-      name: m?.name ?? c.specimenId,
-      image: firstMutantImage(m?.stars),
-      hall: c.hall,
-      cost:
-        c.costAmount > 0
-          ? {
-              amount: c.costAmount,
-              name: token?.name ?? c.costTokenId,
-              image: token?.texture ?? null,
-            }
-          : null,
-    }
-  })
+  // Даты ротации (2026-09-16) - fetch-filters.py теперь точечно сканит
+  // Filter-теги Building_Tokens_Jackpot/Building_Event_1/Building_Mystery в
+  // gamedefinitions.xml (см. комментарий GAMEDEFS_EXCHANGE_ENTITIES там) -
+  // 9 конкретных имён, не блинд-скан всего файла (тот приём уже дал 3 волны
+  // регрессий на shopitems/dungeons/dailypopup, см. память
+  // auto-announcements-architecture). exactDateFor - тот же джойн, что уже
+  // использует detectBoxes/detectDungeons, со всеми теми же защитами
+  // (протухшие/чужие даты).
+  const items: AnnouncementItem[] = await Promise.all(
+    hallFresh.map(async (c) => {
+      const m = nameById.get(c.specimenId)
+      const token = materialsById.get(c.costTokenId)
+      const exact = await exactDateFor(c.filterName ?? undefined)
+      return {
+        id: hallKey(c),
+        name: m?.name ?? c.specimenId,
+        image: firstMutantImage(m?.stars),
+        hall: c.hall,
+        cost:
+          c.costAmount > 0
+            ? {
+                amount: c.costAmount,
+                name: token?.name ?? c.costTokenId,
+                image: token?.texture ?? null,
+              }
+            : null,
+        exactDateLabel: exact?.label ?? null,
+        exactDateStart: exact?.start ?? null,
+      }
+    }),
+  )
 
   // Юзер подтвердил (2026-09-15): содержимое слотов Анализатора тайны
   // РОТИРУЕТСЯ во времени (не разовый статичный каталог, как я предположил
@@ -638,8 +672,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   // номер слота - тот же приём, что уже чинил raid/ladder (`id@startDate`,
   // см. секцию "Дневные мутанты" в памяти auto-announcements-architecture):
   // "новый id один раз навсегда" терял ПЕРЕЗАПУСК того же слота с ДРУГИМ
-  // содержимым. Точные даты ротации намеренно не считаем (см. комментарий
-  // у fetchMysteryContracts) - это отдельная гейтед-задача.
+  // содержимым.
   const mysteryContracts = await fetchMysteryContracts().catch(() => [])
   const mysteryKey = (c: (typeof mysteryContracts)[number]) =>
     `mystery|${c.contractId}|${c.specimenId}|${c.stars ?? ''}|${c.skin ?? ''}`
@@ -663,6 +696,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
     const starName = c.stars ? (STAR_NUM_TO_NAME[c.stars] ?? null) : null
     const starLabel = c.stars ? `${c.stars}⭐` : ''
     const skinLabel = c.skin ? `скин: ${skinDisplayName(c.skin)}` : ''
+    const exact = await exactDateFor(c.filterName ?? undefined)
     items.push({
       id: mysteryKey(c),
       name: [m?.name ?? c.specimenId, [starLabel, skinLabel].filter(Boolean).join(' · ')]
@@ -677,6 +711,8 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       },
       star: starName,
       skin: c.skin,
+      exactDateLabel: exact?.label ?? null,
+      exactDateStart: exact?.start ?? null,
     })
   }
 
