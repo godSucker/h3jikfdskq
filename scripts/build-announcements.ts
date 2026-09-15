@@ -460,13 +460,22 @@ async function detectBoxes(seen: string[]): Promise<DetectResult> {
 // расширение списка фильтров в прошлый раз дало 3 волны регрессий, см.
 // память auto-announcements-architecture - отдельная гейтед-задача на потом).
 async function fetchMysteryContracts(): Promise<
-  { contractId: string; specimenId: string; stars: string | null; skin: string | null; costAmount: number; costTokenId: string }[]
+  {
+    contractId: string
+    specimenId: string
+    stars: string | null
+    skin: string | null
+    costAmount: number
+    costTokenId: string
+  }[]
 > {
   const { data: xml } = await axios.get<string>(
     'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
     { responseType: 'text', timeout: 20000 },
   )
-  const block = xml.match(/<EntityDescriptor id="Building_Mystery"[^>]*>([\s\S]*?)<\/EntityDescriptor>/)
+  const block = xml.match(
+    /<EntityDescriptor id="Building_Mystery"[^>]*>([\s\S]*?)<\/EntityDescriptor>/,
+  )
   if (!block) return []
   const inner = block[1]
   const costByNum = new Map<string, { amount: number; tokenId: string }>()
@@ -477,7 +486,14 @@ async function fetchMysteryContracts(): Promise<
     const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
     if (cost) costByNum.set(num, { amount: Number(cost[1]), tokenId: cost[2] })
   }
-  const out: { contractId: string; specimenId: string; stars: string | null; skin: string | null; costAmount: number; costTokenId: string }[] = []
+  const out: {
+    contractId: string
+    specimenId: string
+    stars: string | null
+    skin: string | null
+    costAmount: number
+    costTokenId: string
+  }[] = []
   for (const m of inner.matchAll(/<State[^>]*id="(READY_(\d+))"[^>]*>([\s\S]*?)<\/State>/g)) {
     const [, readyId, num, body] = m
     const reward = body.match(/<Reward id="([^"]+)">([\s\S]*?)<\/Reward>/)
@@ -486,7 +502,14 @@ async function fetchMysteryContracts(): Promise<
     const stars = tags.match(/<Tag key="stars" value="(\d+)"/)?.[1] ?? null
     const skin = tags.match(/<Tag key="skin" value="([^"]+)"/)?.[1] ?? null
     const cost = costByNum.get(num) ?? { amount: 10, tokenId: '' }
-    out.push({ contractId: readyId, specimenId, stars, skin, costAmount: cost.amount, costTokenId: cost.tokenId })
+    out.push({
+      contractId: readyId,
+      specimenId,
+      stars,
+      skin,
+      costAmount: cost.amount,
+      costTokenId: cost.tokenId,
+    })
   }
   return out
 }
@@ -504,7 +527,13 @@ async function fetchMysteryContracts(): Promise<
 // номеру слота) - повторный показ ТОГО ЖЕ мутанта в ТОМ ЖЕ слоте не
 // анонсится снова, а смена содержимого слота (реальная ротация) - да.
 async function fetchHallContracts(): Promise<
-  { hall: 'jackpot' | 'event'; contractId: string; specimenId: string; costAmount: number; costTokenId: string }[]
+  {
+    hall: 'jackpot' | 'event'
+    contractId: string
+    specimenId: string
+    costAmount: number
+    costTokenId: string
+  }[]
 > {
   const { data: xml } = await axios.get<string>(
     'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
@@ -514,7 +543,13 @@ async function fetchHallContracts(): Promise<
     { entityId: 'Building_Tokens_Jackpot', hall: 'jackpot' },
     { entityId: 'Building_Event_1', hall: 'event' },
   ]
-  const out: { hall: 'jackpot' | 'event'; contractId: string; specimenId: string; costAmount: number; costTokenId: string }[] = []
+  const out: {
+    hall: 'jackpot' | 'event'
+    contractId: string
+    specimenId: string
+    costAmount: number
+    costTokenId: string
+  }[] = []
   for (const { entityId, hall } of HALLS) {
     const block = xml.match(
       new RegExp(`<EntityDescriptor id="${entityId}"[^>]*>([\\s\\S]*?)<\\/EntityDescriptor>`),
@@ -585,7 +620,14 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       name: m?.name ?? c.specimenId,
       image: firstMutantImage(m?.stars),
       hall: c.hall,
-      cost: c.costAmount > 0 ? { amount: c.costAmount, name: token?.name ?? c.costTokenId, image: token?.texture ?? null } : null,
+      cost:
+        c.costAmount > 0
+          ? {
+              amount: c.costAmount,
+              name: token?.name ?? c.costTokenId,
+              image: token?.texture ?? null,
+            }
+          : null,
     }
   })
 
@@ -612,16 +654,27 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
     // "star": "gold" для этой пары) - остальные значения (1/2/4) не
     // встретились ни разу во всём файле, ординальное сопоставление
     // (бронза/серебро/золото/платина) - единственная разумная экстраполяция.
-    const STAR_NUM_TO_NAME: Record<string, string> = { '1': 'bronze', '2': 'silver', '3': 'gold', '4': 'platinum' }
-    const starName = c.stars ? STAR_NUM_TO_NAME[c.stars] ?? null : null
+    const STAR_NUM_TO_NAME: Record<string, string> = {
+      '1': 'bronze',
+      '2': 'silver',
+      '3': 'gold',
+      '4': 'platinum',
+    }
+    const starName = c.stars ? (STAR_NUM_TO_NAME[c.stars] ?? null) : null
     const starLabel = c.stars ? `${c.stars}⭐` : ''
     const skinLabel = c.skin ? `скин: ${skinDisplayName(c.skin)}` : ''
     items.push({
       id: mysteryKey(c),
-      name: [m?.name ?? c.specimenId, [starLabel, skinLabel].filter(Boolean).join(' · ')].filter(Boolean).join(' — '),
+      name: [m?.name ?? c.specimenId, [starLabel, skinLabel].filter(Boolean).join(' · ')]
+        .filter(Boolean)
+        .join(' — '),
       image: firstMutantImage(m?.stars),
       hall: 'mystery',
-      cost: { amount: c.costAmount, name: token?.name ?? c.costTokenId, image: token?.texture ?? null },
+      cost: {
+        amount: c.costAmount,
+        name: token?.name ?? c.costTokenId,
+        image: token?.texture ?? null,
+      },
       star: starName,
       skin: c.skin,
     })

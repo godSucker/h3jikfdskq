@@ -357,19 +357,27 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
 // (тайл остаётся некликабельным, открывать нечего).
 const STAR_SUFFIX_RE = /_+(normal|bronze|silver|gold|platinum|plat)$/i
 export type ForecastClickTarget =
-  | { type: 'mutant'; id: string; star: string | null }
-  | { type: 'box'; id: string }
-  | null
+  { type: 'mutant'; id: string; star: string | null } | { type: 'box'; id: string } | null
 
 export function resolveForecastTarget(
   itemId: string,
   mutantsById: Map<string, MutantRaw>,
   findBox: (itemId: string) => BoxEntry | undefined,
 ): ForecastClickTarget {
-  const cleaned = itemId.replace(/^-+/, '').replace(/^#/, '')
+  // offer.id = "<sprint>|<rawItemId>" (см. forecastSprint) - НАЙДЕНО
+  // 2026-09-16: забыл срезать префикс спринта, поэтому /^specimen_/i никогда
+  // не матчился и тайлы прогноза не кликались вообще. dailyNews вдобавок
+  // несёт свой rawItemId с префиксом "Shop_" (напр. "Shop_Specimen_FC_04") -
+  // shopForecast его не несёт, срезаем на всякий случай в обоих случаях.
+  const withoutSprint = itemId.includes('|') ? itemId.slice(itemId.indexOf('|') + 1) : itemId
+  const cleaned = withoutSprint.replace(/^-+/, '').replace(/^#/, '').replace(/^shop_/i, '')
   if (/^specimen_/i.test(cleaned)) {
     const suffixMatch = cleaned.match(STAR_SUFFIX_RE)
-    const star = suffixMatch ? (suffixMatch[1].toLowerCase() === 'plat' ? 'platinum' : suffixMatch[1].toLowerCase()) : null
+    const star = suffixMatch
+      ? suffixMatch[1].toLowerCase() === 'plat'
+        ? 'platinum'
+        : suffixMatch[1].toLowerCase()
+      : null
     const base = baseMutantId(cleaned)
     if (mutantsById.has(base)) return { type: 'mutant', id: base, star }
   }
