@@ -1,9 +1,11 @@
 name: Auto-Sync Mutants
 
+# 'schedule:' убран 2026-09-15 - GitHub придерживает schedule-триггеры под
+# нагрузкой платформы (см. announcements-hourly.yml/admin-screenshot-bot.yml,
+# тот же диагноз). Триггерится теперь внешним cron'ом с VPS-ретранслятора
+# (93.183.71.143, /root/mgg-cron/trigger.sh) через workflow_dispatch API,
+# по-прежнему раз в день в 16:30 МСК (13:30 UTC).
 on:
-  schedule:
-    # Запуск каждый день в 16:30 МСК (13:30 UTC)
-    - cron: '30 13 * * *'
   workflow_dispatch:
 
 permissions:
