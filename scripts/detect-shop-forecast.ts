@@ -260,9 +260,23 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   // и тот же daily-оффер мог бы попасть и в fetchShopForecast(cs), и в
   // fetchShopForecast(cs+1) (оба вызова парсят один и тот же xml целиком).
   const beforeDaily = items.length
-  await appendDailyMutantOffers(xml, target, filterDates, buildItem, items)
+  const ladder = await appendDailyMutantOffers(xml, target, filterDates, buildItem, items)
   console.log(
     `[forecast] shopForecast спринт ${target}: дневных офферов (мутанты+орбы+паки) ${items.length - beforeDaily}`,
+  )
+
+  // Датируем ВЕСЬ спринт-блок (боксы/паки/бандлы/банки), а не только дневных
+  // мутантов: специмены дневной лестницы работают якорями дня, соседи по
+  // группе наследуют их дату. Порядок items[0..beforeDaily) - ровно порядок
+  // <ShopItem> в блоке, на нём и держится вся логика групп.
+  inheritDatesFromAnchors(
+    items.slice(0, beforeDaily),
+    ladder,
+    sprintStartDate(target).getTime(),
+    sprintStartDate(target + 1).getTime(),
+  )
+  console.log(
+    `[forecast] shopForecast спринт ${target}: с датой ${items.filter((i) => i.exactDateStart).length}/${items.length}`,
   )
 
   return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items: dedupeByItemId(items) }
@@ -301,7 +315,11 @@ function dedupeByItemId(items: ForecastItem[]): ForecastItem[] {
 const DAY_MS = 86_400_000
 
 interface DailyPoolEntry {
+  // Позиция в ДНЕВНОЙ лестнице: инкрементится только для specimen_ (см.
+  // комментарий у appendDailyMutantOffers). У bundle_orbs_/pack_daily_ тут -1
+  // - они в лестнице не участвуют ни как якорь, ни как цель экстраполяции.
   position: number
+  isSpecimen: boolean
   itemXml: string
   filterTag: string | null
 }
@@ -343,7 +361,75 @@ interface DailyPoolEntry {
 // молча отбрасывается (лучше не показать прогноз вообще, чем показать
 // уверенно неверный - тот же принцип, что уже применяется к "чужим датам"
 // в exactDateFor() у build-announcements.ts).
-const MAX_NEIGHBOR_DISTANCE = 5
+// Поднят 5 -> 14 (2026-09-16): кэп ставился при ГРЯЗНОЙ лестнице, где шум от
+// bundle/pack давал до 3 дней ошибки уже на пятой позиции. На чистой
+// specimen-лестнице (33/40 попаданий ровно в ноль на 6 недель) держать
+// консервативный кэп смысла нет, 14 = длина спринта.
+const MAX_NEIGHBOR_DISTANCE = 14
+
+// Спринт-блок shopitems.xml идёт СТРОГО обратной хронологией ДНЕВНЫМИ
+// ГРУППАМИ - ровно одна группа на день (проверено на спринте 256: 38 офферов
+// -> 14 групп -> 14 календарных дней 18.09..05.09 без единого пропуска), и в
+// каждой группе ровно один специмен дневной лестницы. Отсюда правило: специмен
+// = якорь дня, а стоящие рядом боксы/паки/бандлы/банки наследуют его дату.
+// Это то, чего не хватало, чтобы датировать ВЕСЬ спринт сразу, а не только
+// дневных мутантов.
+//
+// Бэктест на kartel-истине (спринт 256, 19 не-специменов с адекватной датой):
+//   "дата следующего якоря вниз"  - 14/19 точных
+//   "ближайший якорь"             -  7/21
+//   "предыдущий якорь"            -  5/20
+// Все 5 промахов "следующего" - ОДНА однородная пачка (bank_* из 5 номиналов
+// одного оффера), которая относится к ПРЕДЫДУЩЕМУ дню; промах ровно 1 день.
+// Спец-правило "пачка липнет к предыдущему якорю" пробовал - на спринте 256
+// оно эти 5 чинит, но на 257 ломает больше, чем чинит (там bank_e_14_* как
+// раз относится к следующему якорю, а Pack_Medieval/pack_daily_* склеиваются
+// в одну ложную пачку по общему префиксу "pack"). Поэтому оставлено ОДНО
+// простое правило без эвристик: предсказуемая ошибка максимум в сутки.
+function inheritDatesFromAnchors(
+  blockItems: ForecastItem[],
+  ladder: Map<string, number>,
+  windowStart: number,
+  windowEnd: number,
+): void {
+  const isSpec = (id: string) => /^-*#?specimen_/i.test(id)
+
+  // Якорь дня - только специмен дневной лестницы. Своя kartel-дата приоритетнее
+  // расчётной; если её нет - берём из лестницы пула.
+  const anchor: (number | null)[] = blockItems.map((it) => {
+    if (!isSpec(it.itemId)) return null
+    if (it.exactDateStart) {
+      const ms = new Date(it.exactDateStart).getTime()
+      if (!Number.isNaN(ms)) return ms
+    }
+    return ladder.get(it.itemId.toLowerCase()) ?? null
+  })
+
+  // Специмену без живой даты проставляем расчётную из лестницы.
+  for (let i = 0; i < blockItems.length; i++) {
+    const it = blockItems[i]
+    if (it.exactDateStart || anchor[i] == null) continue
+    const ms = anchor[i]!
+    if (ms < windowStart || ms >= windowEnd) continue
+    it.exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
+    it.exactDateStart = new Date(ms).toISOString()
+  }
+
+  for (let i = 0; i < blockItems.length; i++) {
+    const it = blockItems[i]
+    if (it.exactDateStart || anchor[i] != null) continue
+    let ms: number | null = null
+    for (let j = i + 1; j < blockItems.length; j++) {
+      if (anchor[j] != null) {
+        ms = anchor[j]!
+        break
+      }
+    }
+    if (ms == null || ms < windowStart || ms >= windowEnd) continue
+    it.exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
+    it.exactDateStart = new Date(ms).toISOString()
+  }
+}
 
 function pickNearestConfirmed(
   position: number,
@@ -444,9 +530,11 @@ async function appendDailyMutantOffers(
     forceFeatured?: 'day',
   ) => Promise<{ item: ForecastItem; exactRange: FilterDateRange | null } | null>,
   items: ForecastItem[],
-): Promise<void> {
+): Promise<Map<string, number>> {
   const windowStart = sprintStartDate(sprint).getTime()
   const windowEnd = sprintStartDate(sprint + 1).getTime()
+  // itemId (lower) -> dayMs, только специмены дневной лестницы.
+  const ladderByItemId = new Map<string, number>()
 
   // НАХОДКА 2026-09-08: фильтр по атрибуту category="specimen" пропускает
   // Specimen_CA_06 - тот же специмен, но с ОШИБОЧНОЙ разметкой в игре
@@ -457,6 +545,18 @@ async function appendDailyMutantOffers(
   // его правильно, независимо от того, что написано в category. С этим
   // фиксом позиции 0-7 спринта 256 легли ИДЕАЛЬНО день-в-день без единого
   // расхождения (проверено на живых данных + посте @KaiserZ).
+  // ПОЗИЦИЯ СЧИТАЕТСЯ ТОЛЬКО ПО specimen_ (найдено 2026-09-16, доказано
+  // бэктестом на 40 kartel-подтверждённых точках за 6 недель): "один день =
+  // один специмен" держится идеально (33/40 попаданий ровно в ноль, между
+  // крайними якорями 41 специмен = 41 день), а вот расширение счётчика на
+  // bundle_orbs_/pack_daily_ (2026-09-11) эту лестницу ломало - те офферы
+  // многодневные, своего дня в ротации не занимают, и каждый из них сдвигал
+  // все последующие даты на +1. На той же выборке RAW-лестница давала 1/40
+  // попаданий с накопительной ошибкой -1 -> -6 дней по мере удаления от
+  // якоря. Именно это видели как "наши даты опережают график".
+  // bundle/pack из пула остаются в выдаче, но дату получают ТОЛЬКО от kartel
+  // (ниже) - позиционно их датировать нельзя. Их настоящая дата приезжает из
+  // спринт-блока через наследование от якоря (см. inheritDatesFromAnchors).
   const pool: DailyPoolEntry[] = []
   let position = 0
   for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
@@ -464,7 +564,8 @@ async function appendDailyMutantOffers(
     const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
     if (!itemId || !/^-*#?(specimen_|bundle_orbs_|pack_daily_)/i.test(itemId)) continue
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1] ?? null
-    pool.push({ position: position++, itemXml, filterTag })
+    const isSpecimen = /^-*#?specimen_/i.test(itemId)
+    pool.push({ position: isSpecimen ? position++ : -1, isSpecimen, itemXml, filterTag })
   }
 
   // Проход 1 - подтверждённые точки: живой снэпшот kartel этого прогона
@@ -478,6 +579,8 @@ async function appendDailyMutantOffers(
   const dateLedger = await loadDateLedger()
   const confirmed: { position: number; dayMs: number }[] = []
   for (const entry of pool) {
+    // Якорем лестницы может быть только специмен - у bundle/pack позиции нет.
+    if (!entry.isSpecimen) continue
     const range = pickFilterDateRange(filterDates, entry.filterTag)
     if (range?.start && range.end) {
       const startMs = new Date(range.start).getTime()
@@ -511,6 +614,11 @@ async function appendDailyMutantOffers(
     let dayMs: number
     if (isConfirmed) {
       dayMs = new Date(range!.start).getTime()
+    } else if (!entry.isSpecimen) {
+      // Не-специмен без живой даты: позиции в лестнице у него нет, гадать по
+      // соседям нельзя (именно это давало ошибку в 1-3 дня на bundle/pack).
+      // Его дату поставит наследование от якоря в спринт-блоке.
+      continue
     } else {
       const waveAnchor = pickWaveAnchor(entry.position, waves)
       if (waveAnchor) {
@@ -524,10 +632,14 @@ async function appendDailyMutantOffers(
         dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
       }
     }
+    const itemId = entry.itemXml.match(/itemId="([^"]+)"/)?.[1] ?? ''
+    const isSpecimen = entry.isSpecimen
+    // Лестница отдаётся наружу ДО фильтра по окну спринта - спринт-блок
+    // датируется наследованием от этих же якорей (inheritDatesFromAnchors),
+    // и ему нужны в том числе специмены у самой границы окна.
+    if (isSpecimen && itemId) ladderByItemId.set(itemId.toLowerCase(), dayMs)
     if (dayMs < windowStart || dayMs >= windowEnd) continue
 
-    const itemId = entry.itemXml.match(/itemId="([^"]+)"/)?.[1] ?? ''
-    const isSpecimen = /^-*#?specimen_/i.test(itemId)
     const built = await buildItem(entry.itemXml, isSpecimen ? 'day' : undefined)
     if (!built) continue
     if (!isConfirmed) {
@@ -545,8 +657,8 @@ async function appendDailyMutantOffers(
   // frontEdge перевалит за конец текущего спринта, следующий прогон сам
   // начнёт покрывать начало следующего - никакого доп. кода не нужно,
   // просто нужно видеть момент сдвига в логах.
-  if (pool.length > 0 && confirmed.length > 0) {
-    const frontEntry = pool[0]
+  const frontEntry = pool.find((p) => p.isSpecimen)
+  if (frontEntry && confirmed.length > 0) {
     const frontNeighbor = pickNearestConfirmed(frontEntry.position, confirmed)
     if (frontNeighbor) {
       const frontDayMs =
@@ -556,4 +668,5 @@ async function appendDailyMutantOffers(
       )
     }
   }
+  return ladderByItemId
 }
