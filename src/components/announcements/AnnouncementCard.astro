@@ -95,11 +95,18 @@ const forecastOffers =
         // Офферы БЕЗ точной даты (live-данных для них ещё/уже нет) - в самый
         // конец, а не вперемешку (иначе непонятно, почему соседние тайлы
         // "прыгают" без видимой причины).
+        // "Скоро в игре" (dailyNews, isBoard) - юзер поймал порядок
+        // перевёрнутым относительно живой хронологии игры (2026-09-16):
+        // дальние даты сверху, ближние снизу - обратное направление
+        // sort() ниже для этой категории. shopForecast не трогаем - там
+        // порядок подтверждён верным.
         .sort((a2, b2) => {
           if (!a2.exactDateStart && !b2.exactDateStart) return 0
           if (!a2.exactDateStart) return 1
           if (!b2.exactDateStart) return -1
-          return a2.exactDateStart.localeCompare(b2.exactDateStart)
+          return isBoard
+            ? b2.exactDateStart.localeCompare(a2.exactDateStart)
+            : a2.exactDateStart.localeCompare(b2.exactDateStart)
         })
         // НАЙДЕНО 2026-09-08: старый лимит 18 тихо резал офферы БЕЗ точной
         // даты (см. сортировку выше - они уходят в конец списка), а спринт
