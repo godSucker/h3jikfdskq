@@ -257,6 +257,20 @@ def main():
             continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
         out[name] = {'start': start, 'end': decode_ms(f.get('endDate'))}
 
+    # ВРЕМЕННАЯ диагностика (2026-09-16, убрать после проверки) - юзер
+    # попросил лично проверить, отдаёт ли kartel даты по 9 новым
+    # обменник-фильтрам из gamedefinitions.xml. stderr, не портит stdout=JSON.
+    diag_targets = [
+        'Building_Jackpot_2026_08', 'Building_Jackpot_Anniversary26', 'Building_Jackpot_Core',
+        'Building_Jackpot_2026_09', 'Building_Jackpot_xmas23_2', 'Building_Jackpot_xmas23_3',
+        'Building_Jackpot_Anniversary26_2', 'Building_Challenge_Deactivable', 'Building_Mystery_2025_01',
+    ]
+    print('DIAG exchange filters:', file=sys.stderr)
+    for t in diag_targets:
+        requested = t in filter_names
+        resolved = out.get(t)
+        print(f'  {t}: requested={requested} resolved={resolved}', file=sys.stderr)
+
     print(json.dumps({'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out}, ensure_ascii=False))
 
 
