@@ -242,7 +242,7 @@
 {/if}
 
 <style>
-  .box-icon { width: 100px; height: 100px; object-fit: contain; border-radius: 10px; background: rgba(255,255,255,0.04); padding: 6px; }
+  .box-icon { width: 64px; height: 64px; object-fit: contain; border-radius: 10px; background: rgba(255,255,255,0.04); padding: 6px; }
   .close-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.06); color: #cbd5f5; font-size: 1.4rem; line-height: 1; border: none; cursor: pointer; }
   .close-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
@@ -277,7 +277,7 @@
 
   @media (min-width: 1440px) {
     .modal-panel { max-width: 48rem; }
-    .box-icon { width: 120px; height: 120px; }
+    .box-icon { width: 80px; height: 80px; }
     .mutant-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.75rem; }
     .mutant-cell-img { width: 54px; height: 54px; }
     .mutant-cell-name { font-size: 12.5px; }
@@ -285,7 +285,7 @@
   }
   @media (min-width: 1921px) {
     .modal-panel { max-width: 58rem; }
-    .box-icon { width: 140px; height: 140px; }
+    .box-icon { width: 96px; height: 96px; }
     .mutant-grid { grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 0.9rem; }
     .mutant-cell-img { width: 62px; height: 62px; }
     .mutant-cell-name { font-size: 14px; }
