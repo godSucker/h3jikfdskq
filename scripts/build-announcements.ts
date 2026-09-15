@@ -479,7 +479,10 @@ async function fetchMysteryContracts(): Promise<
   )
   if (!block) return []
   const inner = block[1]
-  const costByNum = new Map<string, { amount: number; tokenId: string; filterName: string | null }>()
+  const costByNum = new Map<
+    string,
+    { amount: number; tokenId: string; filterName: string | null }
+  >()
   for (const m of inner.matchAll(
     /<InteractiveAction[^>]*target="WORKING_(\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
   )) {
