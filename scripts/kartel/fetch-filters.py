@@ -64,6 +64,16 @@ KARTEL = 'https://service-mutants.kobojo.com/kartel.ashx'
 SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 DUNGEONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml'
 DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
+GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
+# Обменники (см. scripts/build-announcements.ts::fetchHallContracts/
+# fetchMysteryContracts) - ТОЛЬКО эти 3 EntityDescriptor, не весь
+# gamedefinitions.xml (1.2МБ, сотни EntityDescriptor со своими Filter,
+# в основном не про даты - блин расширение списка на "вообще все Filter из
+# файла" в прошлый раз (9->201 имён из shopitems/dungeons/dailypopup) дало
+# 3 волны регрессий, см. память auto-announcements-architecture). Точечный
+# список - тот же принцип, что уже применён здесь ко всем остальным
+# источникам (конкретные структурные контексты, не слепой скан).
+GAMEDEFS_EXCHANGE_ENTITIES = ['Building_Tokens_Jackpot', 'Building_Event_1', 'Building_Mystery']
 PSEUDO_DOTNET_EPOCH = datetime(1, 1, 1, tzinfo=timezone.utc)
 
 
@@ -178,6 +188,18 @@ def fetch_all_filter_names() -> list:
     for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', r.text):
         if m_filter.group(1):
             names.append(m_filter.group(1))
+
+    r = requests.get(GAMEDEFS_URL, timeout=30)
+    r.raise_for_status()
+    for entity_id in GAMEDEFS_EXCHANGE_ENTITIES:
+        m_block = re.search(
+            rf'<EntityDescriptor id="{entity_id}"[^>]*>([\s\S]*?)</EntityDescriptor>', r.text
+        )
+        if not m_block:
+            continue
+        for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', m_block.group(1)):
+            if m_filter.group(1):
+                names.append(m_filter.group(1))
 
     # dedup, сохраняя порядок - дубли не проблема для сервера, но зачем слать лишнее
     seen = set()
