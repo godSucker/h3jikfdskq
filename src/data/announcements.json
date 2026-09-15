@@ -2881,7 +2881,7 @@
       },
       {
         "id": "mystery|READY_01|Specimen_AC_08|3|kings",
-        "name": "Шнайдер — 3⭐ · скин: Короли",
+        "name": "Шнайдер — скин: Короли",
         "image": "textures_by_mutant/ac_08/specimen_ac_08_normal.webp",
         "hall": "mystery",
         "cost": {
@@ -2896,7 +2896,7 @@
       },
       {
         "id": "mystery|READY_02|Specimen_BE_03|3|summer",
-        "name": "Огромнус — 3⭐ · скин: Summer",
+        "name": "Огромнус — скин: Summer",
         "image": "textures_by_mutant/be_03/specimen_be_03_normal.webp",
         "hall": "mystery",
         "cost": {
@@ -2911,7 +2911,7 @@
       },
       {
         "id": "mystery|READY_03|Specimen_FC_08|3|europe",
-        "name": "Кудамоно — 3⭐ · скин: Europe",
+        "name": "Кудамоно — скин: Europe",
         "image": "textures_by_mutant/fc_08/specimen_fc_08_normal.webp",
         "hall": "mystery",
         "cost": {
@@ -2926,7 +2926,7 @@
       },
       {
         "id": "mystery|READY_04|Specimen_EB_10|3|aprilfools",
-        "name": "Гакарианец — 3⭐ · скин: 1 апреля",
+        "name": "Гакарианец — скин: 1 апреля",
         "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
         "hall": "mystery",
         "cost": {
@@ -2941,7 +2941,7 @@
       },
       {
         "id": "mystery|READY_05|Specimen_DD_08|3|school",
-        "name": "Ринотавр — 3⭐ · скин: School",
+        "name": "Ринотавр — скин: School",
         "image": "textures_by_mutant/dd_08/specimen_dd_08_normal.webp",
         "hall": "mystery",
         "cost": {
@@ -2956,7 +2956,7 @@
       },
       {
         "id": "mystery|READY_06|Specimen_AB_11|3|honeybee",
-        "name": "Энвайро 3.0 — 3⭐ · скин: Honeybee",
+        "name": "Энвайро 3.0 — скин: Honeybee",
         "image": "textures_by_mutant/ab_11/specimen_ab_11_normal.webp",
         "hall": "mystery",
         "cost": {
