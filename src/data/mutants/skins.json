@@ -4987,6 +4987,32 @@
       ]
     },
     {
+      "id": "Specimen_DF_03",
+      "name": "Абсолем",
+      "genes": [
+        "D",
+        "F"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 2888,
+          "atk1": 942,
+          "atk2": 942
+        },
+        "lvl30": {
+          "hp": 11263,
+          "atk1": 5507,
+          "atk2": 5507
+        }
+      },
+      "star": "gold",
+      "skin": "autumn",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_df_03_autumn.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_df_03_autumn.webp"
+      ]
+    },
+    {
       "id": "Specimen_DF_04",
       "name": "Кон-Тики",
       "genes": [
