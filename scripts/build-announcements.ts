@@ -1532,6 +1532,23 @@ async function main() {
             `[forecast] ${d.category} спринт ${upd.sprintKey}: точных дат ${datedBefore} -> ${datedAfter} ` +
               `(live-fetch отдал ${datedFresh}/${upd.items.length})`,
           )
+          if (datedAfter < datedFresh) {
+            const afterById = new Map(existing.items.map((it) => [it.id, it]))
+            const lost = upd.items.filter(
+              (it) => it.exactDateLabel && afterById.get(it.id)?.exactDateLabel !== it.exactDateLabel,
+            )
+            console.error(
+              `DIAG-LOST ${d.category}/${upd.sprintKey}: ${lost.length} потеряно ->`,
+              JSON.stringify(
+                lost.map((it) => ({
+                  id: it.id,
+                  freshLabel: it.exactDateLabel,
+                  inOld: !!oldById.get(it.id),
+                  afterLabel: afterById.get(it.id)?.exactDateLabel ?? null,
+                })),
+              ),
+            )
+          }
         }
       }
       // Ledger обновляется ТОЛЬКО при успехе: если детектор упал, оставляем
