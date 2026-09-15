@@ -59238,5 +59238,116 @@
     "name_attack2": "Жираф-пушка",
     "name_attack3": "",
     "name_lore": "Флипфлоп была обычной жирафом, жившей в саванне. Однажды вертолёт пролетел слишком близко к ней, и — ФЛИПФЛОП! — они слились в одно морфическое существо, способное по желанию превращаться то в вертолёт, то в огромную пушку."
+  },
+  {
+    "id": "specimen_df_14",
+    "name": "DF_14",
+    "genes": [
+      "D",
+      "F"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 1130,
+        "atk1": 312,
+        "atk2": 312,
+        "ability": 62,
+        "speed": 5,
+        "silver": 42,
+        "atk1_gene": "d",
+        "atk2_gene": "f",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "lvl30": {
+        "hp": 4407,
+        "atk1": 1825,
+        "atk2": 1825,
+        "ability": 548,
+        "speed": 5,
+        "silver": 1260,
+        "atk1_gene": "d",
+        "atk2_gene": "f",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "hp_base": 1130,
+      "atk1_base": 312,
+      "atk1p_base": 468,
+      "atk2_base": 312,
+      "atk2p_base": 468,
+      "speed_base": 5,
+      "bank_base": 42,
+      "abilityPct1": -20,
+      "abilityPct2": -30
+    },
+    "abilities": [
+      {
+        "name": "ability_slash",
+        "pct": 20,
+        "value_atk1_lvl1": 62,
+        "value_atk2_lvl1": 62,
+        "value_atk1_lvl30": 365,
+        "value_atk2_lvl30": 365
+      },
+      {
+        "name": "ability_slash_plus",
+        "pct": 30,
+        "value_atk1_lvl1": 94,
+        "value_atk2_lvl1": 94,
+        "value_atk1_lvl30": 548,
+        "value_atk2_lvl30": 548
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/df_14/specimen_df_14_normal.webp",
+          "textures_by_mutant/df_14/larva_df_14.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/df_14/specimen_df_14_bronze.webp",
+          "textures_by_mutant/df_14/larva_df_14.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/df_14/specimen_df_14_silver.webp",
+          "textures_by_mutant/df_14/larva_df_14.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/df_14/specimen_df_14_gold.webp",
+          "textures_by_mutant/df_14/larva_df_14.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+          "textures_by_mutant/df_14/larva_df_14.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 0,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Атака 1",
+    "name_attack2": "Атака 2",
+    "name_attack3": "",
+    "name_lore": "Описание для DF_14"
   }
 ]

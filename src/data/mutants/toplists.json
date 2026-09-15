@@ -3275,6 +3275,13 @@
             "value": 626
           },
           {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 624
+          },
+          {
             "id": "specimen_ed_06",
             "name": "Китти Перри",
             "star": "platinum",
@@ -8592,6 +8599,13 @@
             "value": 2274
           },
           {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 2260
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -10761,6 +10775,13 @@
             "name": "Жиганто-Моаи",
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 5
           },
           {
@@ -16637,6 +16658,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -19438,6 +19466,14 @@
               "icon": "/textures_by_mutant/bb_04/specimen_bb_04_platinum.webp",
               "pct": 40,
               "value": 204
+            },
+            {
+              "id": "specimen_df_14",
+              "name": "DF_14",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+              "pct": 30,
+              "value": 187
             },
             {
               "id": "specimen_df_99",
@@ -24541,6 +24577,13 @@
             "name": "Марв",
             "star": "platinum",
             "icon": "/textures_by_mutant/ae_06/specimen_ae_06_platinum.webp",
+            "value": 3650
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 3650
           },
           {
@@ -29707,6 +29750,13 @@
             "value": 8868
           },
           {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 8814
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -31876,6 +31926,13 @@
             "name": "Жиганто-Моаи",
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 5
           },
           {
@@ -37752,6 +37809,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -40561,6 +40625,14 @@
               "icon": "/textures_by_mutant/bb_04/specimen_bb_04_platinum.webp",
               "pct": 40,
               "value": 1198
+            },
+            {
+              "id": "specimen_df_14",
+              "name": "DF_14",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+              "pct": 30,
+              "value": 1096
             },
             {
               "id": "specimen_bc_11",
@@ -45912,6 +45984,13 @@
             "value": 2260
           },
           {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 2260
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -48088,6 +48167,13 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 5
           },
           {
@@ -53964,6 +54050,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -57377,6 +57470,13 @@
             "name": "Марв",
             "star": "platinum",
             "icon": "/textures_by_mutant/ae_06/specimen_ae_06_platinum.webp",
+            "value": 3650
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 3650
           },
           {
@@ -62557,6 +62657,13 @@
             "value": 8814
           },
           {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 8814
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -64733,6 +64840,13 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 5
           },
           {
@@ -70609,6 +70723,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/da_15/specimen_da_15_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_df_14",
+            "name": "DF_14",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -73402,6 +73523,14 @@
               "icon": "/textures_by_mutant/bb_04/specimen_bb_04_platinum.webp",
               "pct": 40,
               "value": 1198
+            },
+            {
+              "id": "specimen_df_14",
+              "name": "DF_14",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+              "pct": 30,
+              "value": 1096
             },
             {
               "id": "specimen_ad_11",

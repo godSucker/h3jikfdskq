@@ -557,7 +557,8 @@
     "specimen_ef_15",
     "specimen_fa_15",
     "specimen_bb_14",
-    "specimen_da_15"
+    "specimen_da_15",
+    "specimen_df_14"
   ],
   "skin": [
     "Specimen_A_01|japan",
@@ -752,6 +753,7 @@
     "Specimen_DE_11|tcg",
     "Specimen_DF_01|japan",
     "Specimen_DF_02|spring",
+    "Specimen_DF_03|autumn",
     "Specimen_DF_04|elements",
     "Specimen_DF_04|winter",
     "Specimen_DF_05|winter",

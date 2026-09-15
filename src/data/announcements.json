@@ -1059,8 +1059,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256a-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": "5 — 12 сентября",
-        "exactDateStart": "2026-09-05T10:00:00+00:00"
+        "exactDateLabel": null,
+        "exactDateStart": null
       },
       {
         "id": "256|Daily_news_challenge_hall_block_5_2026",
@@ -1068,8 +1068,8 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_challenge_hall_2026_05-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 — 22 сентября",
+        "exactDateStart": "2026-09-15T10:00:00+00:00"
       }
     ],
     "link": "/announcements",
@@ -2265,9 +2265,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 28 сентября",
+        "exactDateStart": "2026-09-28T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|Pack_Medieval",
@@ -2291,8 +2291,8 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 27 сентября",
+        "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2304,9 +2304,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 26 сентября",
+        "exactDateStart": "2026-09-26T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|Specimen_EC_09_Gold",
@@ -2317,9 +2317,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 25 сентября",
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|Specimen_AE_02",
@@ -2356,8 +2356,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
+        "exactDateLabel": "≈ 24 сентября",
+        "exactDateStart": "2026-09-24T10:00:00.000Z",
         "featuredMutant": null
       },
       {
@@ -2369,9 +2369,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 23 сентября",
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|LuckyBox_Zoo_Prime",
@@ -2395,9 +2395,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 22 сентября",
+        "exactDateStart": "2026-09-22T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|bank_e_14_10ct",
@@ -2473,9 +2473,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 21 сентября",
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|Mystery_Autumn_2026",
@@ -2525,9 +2525,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
+        "exactDateLabel": "≈ 20 сентября",
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
+        "featuredMutant": "day"
       },
       {
         "id": "257|LuckyBox_Galactic_Elite",
@@ -2541,136 +2541,6 @@
         "exactDateLabel": null,
         "exactDateStart": null,
         "featuredMutant": null
-      },
-      {
-        "id": "257|Specimen_AB_03_Gold",
-        "name": "Золотой Ксенарахнид",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ab_03_gold.png",
-        "price": {
-          "amount": 1080,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "featuredMutant": null
-      },
-      {
-        "id": "257|Specimen_CE_08_Bronze",
-        "name": "Бронзовый Безымянный король",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ce_08_bronze.png",
-        "price": {
-          "amount": 1140,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 28 сентября",
-        "exactDateStart": "2026-09-28T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|pack_daily_6_gacha_53",
-        "name": "Предложение «Реактор»",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_6_gacha.png",
-        "price": {
-          "amount": 9.99,
-          "type": "usd"
-        },
-        "ribbon": "limited",
-        "exactDateLabel": "≈ 27 сентября",
-        "exactDateStart": "2026-09-27T10:00:00.000Z",
-        "featuredMutant": null
-      },
-      {
-        "id": "257|Specimen_DE_04_Silver",
-        "name": "Серебряный Генсириоку",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_de_04_silver.png",
-        "price": {
-          "amount": 1050,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 26 сентября",
-        "exactDateStart": "2026-09-26T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|Specimen_EC_09_Gold",
-        "name": "Золотой Щиткалибур",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ec_09_gold.png",
-        "price": {
-          "amount": 1800,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 25 сентября",
-        "exactDateStart": "2026-09-25T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|bundle_orbs_attack_5_39",
-        "name": "Aтаки пакет",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bundle_orbs_attack_5-ru.png",
-        "price": {
-          "amount": 600,
-          "type": "hardcurrency"
-        },
-        "ribbon": "limited",
-        "exactDateLabel": "≈ 24 сентября",
-        "exactDateStart": "2026-09-24T10:00:00.000Z",
-        "featuredMutant": null
-      },
-      {
-        "id": "257|Specimen_BD_09_Gold",
-        "name": "Золотая Гиена огненная",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_bd_09_gold.png",
-        "price": {
-          "amount": 1800,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 23 сентября",
-        "exactDateStart": "2026-09-23T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|Specimen_BE_09_Silver_sc",
-        "name": "Серебряный Пиротроп",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_be_09_silver.png",
-        "price": {
-          "amount": 14000000,
-          "type": "softcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 22 сентября",
-        "exactDateStart": "2026-09-22T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|Specimen_CF_04",
-        "name": "Азог",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cf_04.png",
-        "price": {
-          "amount": 750,
-          "type": "hardcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 21 сентября",
-        "exactDateStart": "2026-09-21T10:00:00.000Z",
-        "featuredMutant": "day"
-      },
-      {
-        "id": "257|Specimen_BC_08_Bronze_sc",
-        "name": "Бронзовый Транн",
-        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_bc_08_bronze.png",
-        "price": {
-          "amount": 13300000,
-          "type": "softcurrency"
-        },
-        "ribbon": "legendary",
-        "exactDateLabel": "≈ 20 сентября",
-        "exactDateStart": "2026-09-20T10:00:00.000Z",
-        "featuredMutant": "day"
       },
       {
         "id": "257|Specimen_AB_03_Gold",
@@ -2944,5 +2814,33 @@
     ],
     "link": "/announcements",
     "sprintKey": "257"
+  },
+  {
+    "id": "mutant-1789480416684-0",
+    "date": "2026-09-15T13:53:36.033Z",
+    "category": "mutant",
+    "title": "DF_14",
+    "items": [
+      {
+        "id": "specimen_df_14",
+        "name": "DF_14",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_df_14_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1789480416686-0",
+    "date": "2026-09-15T13:53:36.033Z",
+    "category": "skin",
+    "title": "Абсолем — Autumn",
+    "items": [
+      {
+        "id": "Specimen_DF_03|autumn",
+        "name": "Абсолем — Autumn",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_df_03_autumn.png"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
