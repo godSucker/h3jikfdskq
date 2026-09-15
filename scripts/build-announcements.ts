@@ -95,6 +95,20 @@ interface AnnouncementItem {
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
   // из пула daily-offer ("мутант дня", см. fetchDailyMutantOffers).
   featuredMutant?: 'day' | 'week' | 'month' | null
+  // Только exchange - какой из 3 залов (джекпот/испытания/анализатор тайны),
+  // см. detectExchange. Страница группирует один Announcement по этому полю
+  // на 3 подблока вместо плоского списка (фидбек юзера 2026-09-15).
+  hall?: 'jackpot' | 'event' | 'mystery' | null
+  // Только hall==='mystery' - цена контракта (см. fetchMysteryContracts).
+  cost?: { amount: number; name: string; image: string | null } | null
+  // Только hall==='mystery' - награда несёт конкретную звезду/скин (в
+  // отличие от jackpot/event, где Reward голый, без Tag). Нужно открыть
+  // модалку СРАЗУ на этом скине по клику (фидбек юзера 2026-09-15), не на
+  // дефолтной звезде. specimenId для клика во всех 3 залах - id.split('|')[2]
+  // (совпадает по позиции что у jackpot|READY_03|specimenId, что у
+  // mystery|READY_01|specimenId|stars|skin).
+  star?: string | null
+  skin?: string | null
 }
 
 interface Announcement {
@@ -435,43 +449,185 @@ async function detectBoxes(seen: string[]): Promise<DetectResult> {
   }
 }
 
-async function detectExchange(seen: string[]): Promise<DetectResult> {
-  const obtain = await loadJson<Record<string, { type: string; where: string }[]>>(
-    'src/data/mutants/obtain.json',
-    {},
+// Рецепты Анализатора тайны (Building_Mystery) - фиксированный набор из 6
+// слотов-контрактов в gamedefinitions.xml (не ротация по датам, как у
+// обменников - см. описание в buildings.json: "по завершении даёт скин
+// прошедшего ивента", это каталог, не текущий оффер). Каждый слот CONTRACT_NN
+// стоит фикс. 10 жетонов одного из 2 типов (Material_MysteryNN_Token) и
+// вручает READY_NN один и тот же Reward (мутант+звезда+скин) всегда - меняется
+// только когда Kobojo обновит сам XML. Точные даты намеренно НЕ считаем
+// (fetch-filters.py их источники не сканит gamedefinitions.xml вообще -
+// расширение списка фильтров в прошлый раз дало 3 волны регрессий, см.
+// память auto-announcements-architecture - отдельная гейтед-задача на потом).
+async function fetchMysteryContracts(): Promise<
+  { contractId: string; specimenId: string; stars: string | null; skin: string | null; costAmount: number; costTokenId: string }[]
+> {
+  const { data: xml } = await axios.get<string>(
+    'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
+    { responseType: 'text', timeout: 20000 },
   )
+  const block = xml.match(/<EntityDescriptor id="Building_Mystery"[^>]*>([\s\S]*?)<\/EntityDescriptor>/)
+  if (!block) return []
+  const inner = block[1]
+  const costByNum = new Map<string, { amount: number; tokenId: string }>()
+  for (const m of inner.matchAll(
+    /<InteractiveAction[^>]*target="WORKING_(\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
+  )) {
+    const [, num, body] = m
+    const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
+    if (cost) costByNum.set(num, { amount: Number(cost[1]), tokenId: cost[2] })
+  }
+  const out: { contractId: string; specimenId: string; stars: string | null; skin: string | null; costAmount: number; costTokenId: string }[] = []
+  for (const m of inner.matchAll(/<State[^>]*id="(READY_(\d+))"[^>]*>([\s\S]*?)<\/State>/g)) {
+    const [, readyId, num, body] = m
+    const reward = body.match(/<Reward id="([^"]+)">([\s\S]*?)<\/Reward>/)
+    if (!reward) continue
+    const [, specimenId, tags] = reward
+    const stars = tags.match(/<Tag key="stars" value="(\d+)"/)?.[1] ?? null
+    const skin = tags.match(/<Tag key="skin" value="([^"]+)"/)?.[1] ?? null
+    const cost = costByNum.get(num) ?? { amount: 10, tokenId: '' }
+    out.push({ contractId: readyId, specimenId, stars, skin, costAmount: cost.amount, costTokenId: cost.tokenId })
+  }
+  return out
+}
+
+// Джекпот/ивент-залы (Building_Tokens_Jackpot / Building_Event_1) - те же
+// 25+9 фиксированных слотов, что уже разобраны в detect-exchange-rotation.ts
+// (см. комментарий там) - контент КАЖДОГО слота перезаписывается при
+// ротации, не накапливается. НАЙДЕНО 2026-09-15 (юзер поймал живьём): раньше
+// detectExchange читал не живой XML, а obtain.json - additive-only историю
+// ВСЕХ мутантов, когда-либо занимавших любой слот (нужна для страницы
+// мутанта "как получить", не для "что сейчас в зале"). Из-за этого лента
+// анонсов копила десятки записей разом вместо "только свежая ротация".
+// Здесь - та же техника живого чтения XML, что уже у fetchMysteryContracts,
+// применённая к обоим залам разом; дедуп по слот+содержимое (не только
+// номеру слота) - повторный показ ТОГО ЖЕ мутанта в ТОМ ЖЕ слоте не
+// анонсится снова, а смена содержимого слота (реальная ротация) - да.
+async function fetchHallContracts(): Promise<
+  { hall: 'jackpot' | 'event'; contractId: string; specimenId: string; costAmount: number; costTokenId: string }[]
+> {
+  const { data: xml } = await axios.get<string>(
+    'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
+    { responseType: 'text', timeout: 20000 },
+  )
+  const HALLS: { entityId: string; hall: 'jackpot' | 'event' }[] = [
+    { entityId: 'Building_Tokens_Jackpot', hall: 'jackpot' },
+    { entityId: 'Building_Event_1', hall: 'event' },
+  ]
+  const out: { hall: 'jackpot' | 'event'; contractId: string; specimenId: string; costAmount: number; costTokenId: string }[] = []
+  for (const { entityId, hall } of HALLS) {
+    const block = xml.match(
+      new RegExp(`<EntityDescriptor id="${entityId}"[^>]*>([\\s\\S]*?)<\\/EntityDescriptor>`),
+    )
+    if (!block) continue
+    const inner = block[1]
+    const costByWorking = new Map<string, { amount: number; tokenId: string }>()
+    for (const m of inner.matchAll(
+      /<InteractiveAction[^>]*target="(WORKING_\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
+    )) {
+      const [, working, body] = m
+      const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
+      if (cost) costByWorking.set(working, { amount: Number(cost[1]), tokenId: cost[2] })
+    }
+    const workingByReady = new Map<string, string>()
+    for (const m of inner.matchAll(
+      /<State[^>]*id="(WORKING_\d+)"[^>]*>\s*<TimeAction[^>]*target="(READY_\d+)"/g,
+    )) {
+      workingByReady.set(m[2], m[1])
+    }
+    // Награда самозакрывающимся тегом без детей (в отличие от Building_Mystery) -
+    // только материалы/мутанты, без звезды/скина, тот же паттерн что уже
+    // проверен в detect-exchange-rotation.ts::parseReadyRewards.
+    for (const m of inner.matchAll(
+      /<State[^>]*id="(READY_\d+)"[^>]*>\s*<InteractiveAction[^>]*id="RECOLT"[^>]*>\s*<Reward\b([^/>]*)\/?>/g,
+    )) {
+      const [, readyId, attrs] = m
+      const idMatch = attrs.match(/id="([^"]+)"/)
+      if (!idMatch || !/^Specimen_/i.test(idMatch[1])) continue
+      const working = workingByReady.get(readyId)
+      const cost = working ? costByWorking.get(working) : undefined
+      out.push({
+        hall,
+        contractId: readyId,
+        specimenId: idMatch[1].toLowerCase(),
+        costAmount: cost?.amount ?? 0,
+        costTokenId: cost?.tokenId ?? '',
+      })
+    }
+  }
+  return out
+}
+
+async function detectExchange(seen: string[]): Promise<DetectResult> {
   const mutants = await loadJson<{ id: string; name: string; stars?: StarsMap }[]>(
     'src/data/mutants/mutants.json',
     [],
   )
+  const materials = await loadJson<{ id: string; name?: string; texture?: string }[]>(
+    'src/data/materials/material.json',
+    [],
+  )
+  const materialsById = new Map(materials.map((m) => [m.id, m]))
   const nameById = new Map(mutants.map((m) => [m.id, m]))
   const seenSet = new Set(seen)
   const allKeys: string[] = []
-  const fresh: { key: string; specimenId: string; where: string }[] = []
-  // detect-exchange-rotation.ts пишет ОБА обменника (jackpot_hall для
-  // Building_Tokens_Jackpot, event_hall для Building_Event_1) - раньше тут
-  // фильтровался только jackpot_hall, и ротация ивент-обменника никогда не
-  // анонсировалась (см. код-ревью 2026-08-08, найдено при аудите анонс-пайплайна).
-  const EXCHANGE_TYPES = new Set(['jackpot_hall', 'event_hall'])
-  for (const [specimenId, entries] of Object.entries(obtain)) {
-    for (const e of entries) {
-      if (!EXCHANGE_TYPES.has(e.type)) continue
-      const key = `${specimenId}|${e.where}`
-      allKeys.push(key)
-      if (!seenSet.has(key)) fresh.push({ key, specimenId, where: e.where })
+
+  const hallContracts = await fetchHallContracts().catch(() => [])
+  const hallKey = (c: (typeof hallContracts)[number]) => `${c.hall}|${c.contractId}|${c.specimenId}`
+  const hallFresh = hallContracts.filter((c) => !seenSet.has(hallKey(c)))
+  for (const c of hallContracts) allKeys.push(hallKey(c))
+
+  const items: AnnouncementItem[] = hallFresh.map((c) => {
+    const m = nameById.get(c.specimenId)
+    const token = materialsById.get(c.costTokenId)
+    return {
+      id: hallKey(c),
+      name: m?.name ?? c.specimenId,
+      image: firstMutantImage(m?.stars),
+      hall: c.hall,
+      cost: c.costAmount > 0 ? { amount: c.costAmount, name: token?.name ?? c.costTokenId, image: token?.texture ?? null } : null,
     }
+  })
+
+  // Юзер подтвердил (2026-09-15): содержимое слотов Анализатора тайны
+  // РОТИРУЕТСЯ во времени (не разовый статичный каталог, как я предположил
+  // сначала) - Kobojo периодически меняет, какая награда сидит в READY_NN.
+  // Ключ поэтому включает содержимое (specimenId+stars+skin), не только
+  // номер слота - тот же приём, что уже чинил raid/ladder (`id@startDate`,
+  // см. секцию "Дневные мутанты" в памяти auto-announcements-architecture):
+  // "новый id один раз навсегда" терял ПЕРЕЗАПУСК того же слота с ДРУГИМ
+  // содержимым. Точные даты ротации намеренно не считаем (см. комментарий
+  // у fetchMysteryContracts) - это отдельная гейтед-задача.
+  const mysteryContracts = await fetchMysteryContracts().catch(() => [])
+  const mysteryKey = (c: (typeof mysteryContracts)[number]) =>
+    `mystery|${c.contractId}|${c.specimenId}|${c.stars ?? ''}|${c.skin ?? ''}`
+  const mysteryFresh = mysteryContracts.filter((c) => !seenSet.has(mysteryKey(c)))
+  for (const c of mysteryContracts) allKeys.push(mysteryKey(c))
+
+  for (const c of mysteryFresh) {
+    const m = nameById.get(c.specimenId.toLowerCase())
+    const token = materialsById.get(c.costTokenId)
+    // Числовой Tag "stars" -> именованная звезда. Проверено на живом примере
+    // (Specimen_AC_08 + skin kings, stars=3 -> mutants.json/skins.json несёт
+    // "star": "gold" для этой пары) - остальные значения (1/2/4) не
+    // встретились ни разу во всём файле, ординальное сопоставление
+    // (бронза/серебро/золото/платина) - единственная разумная экстраполяция.
+    const STAR_NUM_TO_NAME: Record<string, string> = { '1': 'bronze', '2': 'silver', '3': 'gold', '4': 'platinum' }
+    const starName = c.stars ? STAR_NUM_TO_NAME[c.stars] ?? null : null
+    const starLabel = c.stars ? `${c.stars}⭐` : ''
+    const skinLabel = c.skin ? `скин: ${skinDisplayName(c.skin)}` : ''
+    items.push({
+      id: mysteryKey(c),
+      name: [m?.name ?? c.specimenId, [starLabel, skinLabel].filter(Boolean).join(' · ')].filter(Boolean).join(' — '),
+      image: firstMutantImage(m?.stars),
+      hall: 'mystery',
+      cost: { amount: c.costAmount, name: token?.name ?? c.costTokenId, image: token?.texture ?? null },
+      star: starName,
+      skin: c.skin,
+    })
   }
-  return {
-    newIds: allKeys,
-    items: fresh.map((f) => {
-      const m = nameById.get(f.specimenId)
-      return {
-        id: f.key,
-        name: m ? `${m.name} — ${f.where}` : `${f.specimenId} — ${f.where}`,
-        image: firstMutantImage(m?.stars),
-      }
-    }),
-  }
+
+  return { newIds: allKeys, items }
 }
 
 // Полноценный resolveReward из src/lib/guides-resolve.ts требует craft-simulator.ts/

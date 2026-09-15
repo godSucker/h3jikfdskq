@@ -14,6 +14,9 @@ import {
   cardKind,
   forecastSprint,
   formatBingoTitle,
+  bingoAddedNames,
+  resolveForecastTarget,
+  EXCHANGE_HALL_META,
   formatPrice,
   boxMutantIcon,
   uniqueBoxMutants,
@@ -46,6 +49,15 @@ const box = kind === 'box' && it ? ctx.findBox(it.id) : null
 const boxMutantCount = box ? uniqueBoxMutants(box).length : 0
 const boxOutcomes = box ? boxGroupedOutcomes(box) : null
 const sprint = kind === 'forecast' && a.items ? forecastSprint(a.items) : null
+// Обменники - один Announcement с items из ДО ТРЁХ залов сразу (jackpot/
+// event/mystery, см. detectExchange) - группируем по hall в порядке
+// EXCHANGE_HALL_META, а не плоским списком (фидбек юзера 2026-09-15).
+const exchangeGroups =
+  kind === 'exchange' && a.items
+    ? (['jackpot', 'event', 'mystery'] as const)
+        .map((hall) => ({ hall, meta: EXCHANGE_HALL_META[hall], items: a.items!.filter((i) => i.hall === hall) }))
+        .filter((g) => g.items.length > 0)
+    : []
 // dailyNews-офферы несут ГОТОВЫЙ игровой баннер (assets/hud/daily_news/ -
 // хекс-рамка/название/кнопка уже впаяны в картинку, см. detect-daily-news.ts) -
 // рендерим их крупнее и без своей подписи-дубликата под картинкой (board-вид,
@@ -250,12 +262,48 @@ const forecastOffers =
         <span class="card-category">{CATEGORY_RU.bingo}</span>
         <div class="dg-name">{formatBingoTitle(ctx.bingosById.get(it.id) ?? it.name, it.id)}</div>
         {it.addedNames && it.addedNames.length > 0 ? (
-          <div class="dg-secondary">Добавлен{it.addedNames.length > 1 ? 'ы' : ''}: {it.addedNames.join(', ')}</div>
+          <div class="dg-secondary">Добавлен{it.addedNames.length > 1 ? 'ы' : ''}: {bingoAddedNames(it.addedNames, ctx.mutantsById).join(', ')}</div>
         ) : (
           <div class="dg-secondary">Новое бинго</div>
         )}
         {showCta && <a class="card-source" href={a.link ?? '/bingo'}>Подробнее →</a>}
       </div>
+    </div>
+  ) : kind === 'exchange' && exchangeGroups.length > 0 ? (
+    <div class="exchange-card">
+      <span class="card-category">{CATEGORY_RU.exchange}</span>
+      {exchangeGroups.map((group) => (
+        <div class="exchange-hall">
+          <div class="exchange-hall-head">
+            <img class="exchange-hall-icon" src={textureUrl(group.meta.texture)} alt="" loading="lazy" decoding="async" />
+            <span class="exchange-hall-title">{group.meta.title}</span>
+          </div>
+          <div class="exchange-hall-items">
+            {group.items.map((gi) => (
+              // id = "<hall>|<contractId>|<specimenId>[|stars|skin]" (см.
+              // detectExchange) - specimenId всегда 3-й сегмент, во всех 3
+              // залах. mystery несёт свою звезду/скин - модалка должна
+              // открыться сразу на них, не на дефолтной звезде мутанта.
+              <div
+                class="exchange-item"
+                data-open-mutant={gi.id.split('|')[2]}
+                data-open-mutant-star={gi.star ?? undefined}
+                data-open-mutant-skin={gi.skin ?? undefined}
+              >
+                {gi.image && <img class="exchange-item-img" src={textureUrl(gi.image)} alt="" loading="lazy" decoding="async" />}
+                <span class="exchange-item-name">{gi.name}</span>
+                {gi.cost && (
+                  <span class="exchange-item-cost">
+                    {gi.cost.image && <img src={textureUrl(gi.cost.image)} alt="" loading="lazy" decoding="async" />}
+                    {gi.cost.amount}× {gi.cost.name}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+      {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
     </div>
   ) : kind === 'forecast' && a.items && a.items.length > 0 ? (
     <div class="forecast-card">
@@ -278,8 +326,22 @@ const forecastOffers =
           // но точная дата - НОВАЯ информация, которой в баннере нет, поэтому
           // показываем её отдельной строкой, даже когда skipCaption=true.
           const dateLabel = offer.exactDateLabel ?? (sprint !== null ? sprintRangeLabel(sprint) : null)
+          // Клик по тайлу прогноза - открыть модалку мутанта/бокса (2026-09-15,
+          // фидбек юзера). offer.id - сырой itemId из shopitems.xml, ни mutants.json
+          // id, ни boxes.json itemId напрямую не совпадают - resolveForecastTarget
+          // разбирает суффикс звезды (specimen_*_Gold и т.п.) или матчит бокс.
+          // Бандлы/паки (null) остаются некликабельными - открывать нечего.
+          // Только mode="feed" - на статичном render-скриншоте для бота кликать
+          // всё равно некуда, курсор-стилизация там будет вводить в заблуждение.
+          const target = mode === 'feed' ? resolveForecastTarget(offer.id, ctx.mutantsById, ctx.findBox) : null
           return (
-            <div class:list={['forecast-tile', { 'forecast-tile-board': isBoard }]}>
+            <div
+              class:list={['forecast-tile', { 'forecast-tile-board': isBoard, 'forecast-tile-clickable': !!target }]}
+              data-open-mutant={target?.type === 'mutant' ? target.id : undefined}
+              data-open-mutant-star={target?.type === 'mutant' && target.star ? target.star : undefined}
+              data-open-box={target?.type === 'box' ? target.id : undefined}
+              title={target ? `Открыть ${offer.name}` : undefined}
+            >
               <div class="forecast-tile-media">
                 {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
                 {ribbonLabel(offer.ribbon) && (
@@ -686,6 +748,78 @@ const forecastOffers =
     height: 20px;
     object-fit: contain;
   }
+  .exchange-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+  .exchange-hall {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 0.7rem;
+  }
+  .exchange-hall-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+  .exchange-hall-icon {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 4px;
+  }
+  .exchange-hall-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+  }
+  .exchange-hall-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .exchange-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.35rem 0.6rem 0.35rem 0.35rem;
+    font-size: 0.78rem;
+  }
+  .exchange-item[data-open-mutant] {
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .exchange-item[data-open-mutant]:hover {
+    background: rgba(255, 255, 255, 0.09);
+  }
+  .exchange-item-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+  }
+  .exchange-item-cost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #94a3b8;
+    font-size: 0.7rem;
+  }
+  .exchange-item-cost img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
   .box-drop-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
@@ -820,6 +954,14 @@ const forecastOffers =
        overflow:hidden режет крайнюю колонку без правого отступа (фидбек
        2026-09-06). min-width:0 заставляет тайл уважать трек. */
     min-width: 0;
+  }
+  .forecast-tile-clickable {
+    cursor: pointer;
+    transition: background-color 0.15s, transform 0.15s;
+  }
+  .forecast-tile-clickable:hover {
+    background: rgba(255, 255, 255, 0.09);
+    transform: translateY(-1px);
   }
   .forecast-tile-media {
     position: relative;

@@ -5,15 +5,28 @@ import announcementsData from '@/data/announcements.json';
 import BoxModal from '@/components/boxes/BoxModal.svelte';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import AnnouncementCard from '@/components/announcements/AnnouncementCard.astro';
-import { CATEGORY_RU, buildAnnouncementContext, type Announcement } from '@/lib/announcements-render';
+import { CATEGORY_RU, buildAnnouncementContext, boxHasSkin, type Announcement } from '@/lib/announcements-render';
 
 const ctx = buildAnnouncementContext();
 
 // Жетоны исключены со страницы анонсов по просьбе юзера 2026-08-08 -
 // категория осталась в детекторе/леджере (build-announcements.ts), просто не
 // показывается здесь.
+//
+// Боксы без скин-дропов (LuckyBox_Stars_22 и подобные старые лаки-боксы) тоже
+// скрыты по фидбеку юзера 2026-09-15 - "по сути они старые, со скинами -
+// новые". Фильтр на РЕНДЕРЕ, не в детекторе (build-announcements.ts::
+// detectBoxes не трогали) - так уже опубликованный "пустой" бокс сам
+// появится здесь, если однажды получит скин-дроп, без бэкфилла. Бокс, для
+// которого lookup не нашёлся (не должно случаться, но на всякий) - не
+// прячем, показываем как есть.
 const announcements = ((announcementsData as Announcement[]) ?? [])
   .filter((a) => a.category !== 'token')
+  .filter((a) => {
+    if (a.category !== 'box') return true;
+    const box = a.items?.[0]?.id ? ctx.findBox(a.items[0].id) : undefined;
+    return !box || boxHasSkin(box);
+  })
   .slice()
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -87,7 +100,18 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
   document.querySelectorAll<HTMLElement>('[data-open-mutant]').forEach((el) => {
     el.addEventListener('click', () => {
       window.dispatchEvent(
-        new CustomEvent('archivist:open-mutant', { detail: { specimenId: el.dataset.openMutant } }),
+        new CustomEvent('archivist:open-mutant', {
+          // star/skin - опционально: star у тайлов прогноза магазина
+          // (суффикс _Gold/_Silver/... в itemId) и у обменника «Анализатор
+          // тайны», skin - только у обменника. BingoMutantModal подставляет
+          // свой авто-выбор, если поля не пришли - остальные страницы их
+          // никогда не шлют.
+          detail: {
+            specimenId: el.dataset.openMutant,
+            star: el.dataset.openMutantStar,
+            skin: el.dataset.openMutantSkin,
+          },
+        }),
       );
     });
   });
