@@ -172,7 +172,10 @@ const forecastOffers =
       </div>
     </div>
   ) : kind === 'box' && it && box && boxOutcomes ? (
-    <div class="box-drop" data-open-box={box.itemId} title={`Открыть ${box.name}`}>
+    <!-- Некликабельна намеренно (фидбек юзера 2026-09-16) - в отличие от
+         тайла прогноза (где видно только название+цена), тут и так весь
+         дроп-лист уже развёрнут на карточке, модалка была бы дублем. -->
+    <div class="box-drop">
       <div class="box-drop-head">
         {box.icon && <img class="box-drop-icon" src={textureUrl(box.icon)} alt="" loading="lazy" decoding="async" />}
         <div class="box-drop-head-main">
