@@ -983,11 +983,9 @@
     color: #fceabb;
   }
 
-  /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит): было 36×36px - унифицируем
-     close-кнопки по сайту на 44px (тот же паттерн в Lucky Slots). */
   .modal-close {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;

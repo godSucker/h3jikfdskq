@@ -341,11 +341,8 @@
     display: none;
     align-items: center;
     justify-content: center;
-    /* НАЙДЕНО 2026-09-10 (мобильный UX-аудит хедера): было 40×40px, чуть
-       ниже рекомендованных 44×44. Кнопка видна только на мобиле (см.
-       @media ниже). */
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: none;
     border: none;
     color: #58a6ff;
