@@ -1,1 +1,152 @@
-[]
+[
+  {
+    "id": "bingo-1789475550029-0",
+    "category": "bingo",
+    "title": "Скины 2026: добавлен(ы) Абсолем",
+    "itemIds": [
+      "2026_skins"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "box-1789475551709-0",
+    "category": "box",
+    "title": "Осенний таинственный контейнер",
+    "itemIds": [
+      "Mystery_Autumn_2026"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "box-1789475551709-1",
+    "category": "box",
+    "title": "Серебряный контейнер «Зодиак»",
+    "itemIds": [
+      "Luckybox_Zodiac_Silver_18"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "box-1789475551709-2",
+    "category": "box",
+    "title": "Контейнер звезд",
+    "itemIds": [
+      "LuckyBox_Stars_23"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "exchange-1789475551743",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 6",
+    "itemIds": [
+      "specimen_cb_09|Зал обмена — 50 жетонов джекпота",
+      "specimen_dc_14|Зал обмена — 180 жетонов ивента",
+      "specimen_de_10|Зал обмена — 150 жетонов джекпота",
+      "specimen_eb_08|Зал обмена — 100 жетонов ивента",
+      "specimen_fa_10|Зал обмена — 40 жетонов ивента",
+      "specimen_fd_11|Зал обмена — 200 жетонов джекпота"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "shopForecast-1789475554234",
+    "category": "shopForecast",
+    "title": "Прогноз магазина: 48",
+    "itemIds": [
+      "257|Mysterybox_Ability_Strengthen",
+      "257|Specimen_FF_06",
+      "257|Pack_Dino",
+      "257|Specimen_CF_09_sc",
+      "257|Specimen_AE_07_Silver",
+      "257|LuckyBox_Stars_23",
+      "257|Luckybox_Zodiac_Silver_18",
+      "257|Specimen_FA_02_Gold",
+      "257|bundle_orbs_experimental_hyper_05",
+      "257|Specimen_DE_12_rc",
+      "257|Specimen_DD_03",
+      "257|pack_conversion_sep_2026_1",
+      "257|pack_conversion_sep_2026_2",
+      "257|Specimen_DE_05",
+      "257|Luckybox_Hyperspeed",
+      "257|Specimen_CE_08_Bronze",
+      "257|Pack_Medieval",
+      "257|pack_daily_6_gacha_53",
+      "257|Specimen_DE_04_Silver",
+      "257|Specimen_EC_09_Gold",
+      "257|Specimen_AE_02",
+      "257|Specimen_AE_02_Silver",
+      "257|bundle_orbs_attack_5_39",
+      "257|Specimen_BD_09_Gold",
+      "257|LuckyBox_Zoo_Prime",
+      "257|Specimen_BE_09_Silver_sc",
+      "257|bank_e_14_10ct",
+      "257|bank_e_14_25ct",
+      "257|bank_e_14_60ct",
+      "257|promo_muto_pack",
+      "257|Specimen_AD_12_Gold",
+      "257|Specimen_CF_04",
+      "257|Mystery_Autumn_2026",
+      "257|Specimen_FC_02",
+      "257|Pack_Flying",
+      "257|Specimen_BC_08_Bronze_sc",
+      "257|LuckyBox_Galactic_Elite",
+      "257|Specimen_AB_03_Gold",
+      "257|Specimen_CE_08_Bronze",
+      "257|pack_daily_6_gacha_53",
+      "257|Specimen_DE_04_Silver",
+      "257|Specimen_EC_09_Gold",
+      "257|bundle_orbs_attack_5_39",
+      "257|Specimen_BD_09_Gold",
+      "257|Specimen_BE_09_Silver_sc",
+      "257|Specimen_CF_04",
+      "257|Specimen_BC_08_Bronze_sc",
+      "257|Specimen_AB_03_Gold"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  },
+  {
+    "id": "dailyNews-1789475558606",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 22",
+    "itemIds": [
+      "257|Shop_Mysterybox_Ability_Strengthen",
+      "257|Shop_Pack_Dino",
+      "257|Shop_LuckyBox_Stars_23",
+      "257|Shop_Luckybox_Zodiac_Silver_18",
+      "257|Shop_bundle_orbs_experimental_hyper_05",
+      "257|Daily_news_exchange_office_block_9_2026",
+      "257|Shop_Luckybox_Hyperspeed",
+      "257|Daily_news_shop_24h_2026_257b",
+      "257|Shop_Pack_Medieval",
+      "257|shop_pack_daily_6_gacha_53",
+      "257|Shop_bundle_orbs_attack_5_39",
+      "257|Daily_news_shop_zodiac_ae_02",
+      "257|Daily_news_tech_V2",
+      "257|Shop_LuckyBox_Zoo_Prime",
+      "257|Shop_Mystery_Autumn_2026",
+      "257|PayWall_2026_E_14_CT",
+      "257|Shop_promo_muto_pack",
+      "257|Shop_Pack_Flying",
+      "257|Shop_Specimen_FC_02",
+      "257|Shop_LuckyBox_Galactic_Elite",
+      "257|Daily_news_shop_24h_2026_257a",
+      "257|Building_Mystery"
+    ],
+    "createdAt": "2026-09-15T12:32:38.610Z",
+    "attempts": 0,
+    "date": "2026-09-15T12:32:30.011Z"
+  }
+]
