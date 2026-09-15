@@ -424,6 +424,28 @@ async function exactDateFor(
   }
 }
 
+// Джекпот-зал держит СРАЗУ несколько сезонных Filter-имён одновременно в XML
+// (найдено 2026-09-15, юзер поймал живьём): старая ротация не удаляется из
+// gamedefinitions.xml, когда приходит новая - Building_Jackpot_2026_08 и
+// Building_Jackpot_2026_09 сосуществуют, а kartel ещё не проиндексировал
+// свежее сентябрьское имя (exactDateFor вернул null для него). Без даты
+// сортировка "новые сверху" на карточке ошибочно держала августовскую
+// тройку наверху. YYYY_MM в хвосте имени фильтра - единственный сигнал
+// свежести, который не зависит от kartel и известен сразу из XML - парсим
+// его как запасной вариант ТОЛЬКО когда живая дата не резолвилась.
+function monthFallbackFromFilterName(filterName: string): { label: string; start: string } | null {
+  const m = filterName.match(/_(\d{4})_(\d{2})$/)
+  if (!m) return null
+  const [, year, month] = m
+  const start = new Date(Date.UTC(Number(year), Number(month) - 1, 1))
+  if (Number.isNaN(start.getTime())) return null
+  // "1 сентября" читалось бы как точный день начала, а мы знаем только
+  // месяц/год из имени фильтра - показываем месяц текстом, без выдуманного дня.
+  const monthLabel = start.toLocaleDateString('ru-RU', { month: 'long', timeZone: 'UTC' })
+  const label = monthLabel.charAt(0).toUpperCase() + monthLabel.slice(1) + ' ' + year
+  return { label, start: start.toISOString() }
+}
+
 async function detectBoxes(seen: string[]): Promise<DetectResult> {
   const boxes = await loadJson<{ itemId: string; name: string; icon?: string }[]>(
     'src/data/boxes.json',
@@ -552,9 +574,18 @@ async function fetchHallContracts(): Promise<
     'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
     { responseType: 'text', timeout: 20000 },
   )
-  const HALLS: { entityId: string; hall: 'jackpot' | 'event' }[] = [
-    { entityId: 'Building_Tokens_Jackpot', hall: 'jackpot' },
-    { entityId: 'Building_Event_1', hall: 'event' },
+  // tokenId - Building_Tokens_Jackpot оказался ОБЩИМ "зданием обмена жетонов"
+  // (найдено 2026-09-15, юзер поймал живьём "джекпот выдал 20 офферов вместо
+  // 3"): под одним EntityDescriptor вперемешку контракты за Жетон джекпота
+  // (Material_Jackpot_Token, 3 шт.) И за 6 других несвязанных валют (Hex
+  // City, закатный, капсульный, ящик игрушек, апельсин, уголь - разные
+  // сезонные ивенты, переиспользующие тот же building-шаблон). Без фильтра
+  // по токену hall="jackpot" ловил все 20. Building_Event_1 пока чистый
+  // (все 3 контракта на Жетон испытаний), но фильтр по токену добавлен и
+  // сюда защитно - на случай если Kobojo так же подмешает туда что-то ещё.
+  const HALLS: { entityId: string; hall: 'jackpot' | 'event'; tokenId: string }[] = [
+    { entityId: 'Building_Tokens_Jackpot', hall: 'jackpot', tokenId: 'Material_Jackpot_Token' },
+    { entityId: 'Building_Event_1', hall: 'event', tokenId: 'Material_Event_Token' },
   ]
   const out: {
     hall: 'jackpot' | 'event'
@@ -564,7 +595,7 @@ async function fetchHallContracts(): Promise<
     costTokenId: string
     filterName: string | null
   }[] = []
-  for (const { entityId, hall } of HALLS) {
+  for (const { entityId, hall, tokenId } of HALLS) {
     const block = xml.match(
       new RegExp(`<EntityDescriptor id="${entityId}"[^>]*>([\\s\\S]*?)<\\/EntityDescriptor>`),
     )
@@ -604,6 +635,7 @@ async function fetchHallContracts(): Promise<
       if (!idMatch || !/^Specimen_/i.test(idMatch[1])) continue
       const working = workingByReady.get(readyId)
       const cost = working ? costByWorking.get(working) : undefined
+      if (cost?.tokenId !== tokenId) continue
       out.push({
         hall,
         contractId: readyId,
@@ -648,7 +680,9 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
     hallFresh.map(async (c) => {
       const m = nameById.get(c.specimenId)
       const token = materialsById.get(c.costTokenId)
-      const exact = await exactDateFor(c.filterName ?? undefined)
+      const exact =
+        (await exactDateFor(c.filterName ?? undefined)) ??
+        (c.filterName ? monthFallbackFromFilterName(c.filterName) : null)
       return {
         id: hallKey(c),
         name: m?.name ?? c.specimenId,
