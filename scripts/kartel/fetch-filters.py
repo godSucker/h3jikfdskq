@@ -257,9 +257,6 @@ def main():
             continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
         out[name] = {'start': start, 'end': decode_ms(f.get('endDate'))}
 
-    for diag_name in ('Building_Challenge_Deactivable', 'Building_Jackpot_2026_08', 'Building_Jackpot_2026_09', 'Building_Mystery_2025_01'):
-        print(f'DIAG {diag_name}: {out.get(diag_name)}', file=sys.stderr)
-
     print(json.dumps({'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out}, ensure_ascii=False))
 
 
