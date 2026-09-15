@@ -279,6 +279,14 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     `[forecast] shopForecast спринт ${target}: с датой ${items.filter((i) => i.exactDateStart).length}/${items.length}`,
   )
 
+  const dayByItemId = new Map<string, number>()
+  for (const it of items) {
+    if (!it.exactDateStart) continue
+    const ms = new Date(it.exactDateStart).getTime()
+    if (!Number.isNaN(ms)) dayByItemId.set(it.itemId.toLowerCase(), ms)
+  }
+  sprintDayMapCache.set(target, dayByItemId)
+
   return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items: dedupeByItemId(items) }
 }
 
@@ -429,6 +437,20 @@ function inheritDatesFromAnchors(
     it.exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
     it.exactDateStart = new Date(ms).toISOString()
   }
+}
+
+// Карта "itemId -> день спринта", заполняется fetchShopForecast. Нужна
+// detect-daily-news.ts: у баннеров "Скоро в игре" в dailypopup.xml своих дат
+// нет ВООБЩЕ, но 17 из 22 несут <Tag key="entity"> со ссылкой ровно на те
+// shopitems, которым мы дату уже посчитали (якоря + наследование). Читается
+// через getSprintDayMap() после того, как shopForecast отработал - в
+// build-announcements.ts его детектор стоит раньше dailyNews. Если порядок
+// когда-нибудь изменят, карты просто не будет и даты останутся пустыми, как
+// было раньше - тихая деградация, не падение.
+const sprintDayMapCache = new Map<number, Map<string, number>>()
+
+export function getSprintDayMap(sprint: number): Map<string, number> | undefined {
+  return sprintDayMapCache.get(sprint)
 }
 
 function pickNearestConfirmed(

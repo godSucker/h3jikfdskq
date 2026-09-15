@@ -17,9 +17,11 @@ import {
   sprintRangeLabel,
   sprintStartDate,
   formatExactRangeRu,
+  formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { getSprintDayMap } from './detect-shop-forecast'
 
 const DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
@@ -219,6 +221,14 @@ export async function fetchDailyNewsForecast(
   const sprintWindowStart = sprintStartDate(target).getTime() - 3 * DAY_MS
   const sprintWindowEnd = sprintStartDate(target + 1).getTime() + 3 * DAY_MS
 
+  // У <Offer> в dailypopup.xml дат нет в принципе - только принадлежность к
+  // спринту. Но 17 из 22 несут <Tag key="entity"> со ссылкой на shopitem, а
+  // тем даты уже посчитаны (specimen-якоря + наследование по дневным группам,
+  // см. detect-shop-forecast.ts). Берём день оттуда, когда живого kartel-окна
+  // на сам баннер нет - иначе весь блок "Скоро в игре" на новый спринт стоит
+  // без дат, пока kartel до него не дотянется (спринт 257: было 0 из 22).
+  const dayMap = getSprintDayMap(target)
+
   const items: DailyNewsItem[] = []
   for (const it of rawItems) {
     const image = it.imageRaw ? await resolveOfferBanner(it.imageRaw) : null
@@ -230,6 +240,8 @@ export async function fetchDailyNewsForecast(
       new Date(rawExactRange.start).getTime() < sprintWindowEnd
         ? rawExactRange
         : null
+    const inheritedMs =
+      !exactRange && it.entity ? (dayMap?.get(it.entity.toLowerCase()) ?? null) : null
     items.push({
       filter: it.filter,
       name: shopInfo?.name ?? prettifyFilter(it.filter),
@@ -242,9 +254,52 @@ export async function fetchDailyNewsForecast(
             new Date(exactRange.start),
             exactRange.end ? new Date(exactRange.end) : null,
           )
-        : null,
-      exactDateStart: exactRange?.start ?? null,
+        : inheritedMs != null
+          ? `≈ ${formatDateRu(new Date(inheritedMs))}`
+          : null,
+      exactDateStart: exactRange?.start ?? (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
     })
+  }
+
+  // Офферы БЕЗ entity - это чистые ивент-анонсы (смена зала обмена, 24h-
+  // баннер, будущая скидка на эво и т.п.), у них связи с shopitems нет вообще.
+  // Датируем по соседям: блок dailypopup идёт той же обратной хронологией, что
+  // и спринт-блок shopitems (проверено сверкой порядка с внешней хронологией -
+  // совпал 1-в-1). Берём ближайший по позиции датированный оффер, при равном
+  // расстоянии сверху/снизу - середину, округляя к более поздней дате.
+  // На спринте 257 таких офферов 6 (зал обмена, оба 24h-баннера, tech, зодиак-
+  // мутант, paywall) - все 6 легли день-в-день против внешней хронологии.
+  const known = items.map((it) => (it.exactDateStart ? new Date(it.exactDateStart).getTime() : null))
+  for (let i = 0; i < items.length; i++) {
+    if (known[i] != null) continue
+    let up: { dist: number; ms: number } | null = null
+    for (let j = i - 1; j >= 0; j--) {
+      if (known[j] != null) {
+        up = { dist: i - j, ms: known[j]! }
+        break
+      }
+    }
+    let down: { dist: number; ms: number } | null = null
+    for (let j = i + 1; j < items.length; j++) {
+      if (known[j] != null) {
+        down = { dist: j - i, ms: known[j]! }
+        break
+      }
+    }
+    let ms: number | null = null
+    if (up && down) {
+      if (up.dist === down.dist) {
+        const diffDays = Math.round((up.ms - down.ms) / DAY_MS)
+        ms = down.ms + Math.ceil(diffDays / 2) * DAY_MS
+      } else {
+        ms = up.dist < down.dist ? up.ms : down.ms
+      }
+    } else {
+      ms = up?.ms ?? down?.ms ?? null
+    }
+    if (ms == null || ms < sprintWindowStart || ms >= sprintWindowEnd) continue
+    items[i].exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
+    items[i].exactDateStart = new Date(ms).toISOString()
   }
 
   const year = sprintStartDate(target).getUTCFullYear()
