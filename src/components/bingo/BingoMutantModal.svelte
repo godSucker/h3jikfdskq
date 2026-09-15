@@ -50,16 +50,32 @@
   let selectedMutant: any = $state(null)
   let selectedStar = $state('normal')
   let selectedSkins: any[] = $state([])
+  let requestedSkin: string | null = $state(null)
 
   async function onOpen(e: Event) {
-    const specimenId = (e as CustomEvent).detail?.specimenId as string | undefined
+    const detail = (e as CustomEvent).detail as { specimenId?: string; star?: string; skin?: string } | undefined
+    const specimenId = detail?.specimenId
     if (!specimenId) return
     const { byId, skinLookup } = await loadData()
     const m = byId.get(specimenId.toLowerCase())
     if (!m) return
     selectedMutant = m
-    selectedStar = m.stars ? STAR_ORDER.find((s) => m.stars[s]) || 'normal' : 'normal'
+    // Явно переданная звезда (тайлы прогноза магазина/обменник "Анализатор
+    // тайны" на /announcements) - если её нет у мутанта в stars{}, фолбэк на
+    // старый авто-выбор лучшей доступной.
+    const requestedStar = detail?.star
+    selectedStar =
+      requestedStar && m.stars?.[requestedStar]
+        ? requestedStar
+        : m.stars
+          ? STAR_ORDER.find((s) => m.stars[s]) || 'normal'
+          : 'normal'
     selectedSkins = skinLookup.get(baseId(m.id)) ?? []
+    // Явно переданный скин (сейчас только обменник "Анализатор тайны" -
+    // награда там ВСЕГДА конкретный скин, не базовый мутант) - MutantModal
+    // сам ищет совпадение в skins/initialSkin (см. её $effect), тот же
+    // механизм что у диплинка ?skin=.
+    requestedSkin = detail?.skin ?? null
     modalOpen = true
   }
 
@@ -67,6 +83,7 @@
     modalOpen = false
     selectedMutant = null
     selectedSkins = []
+    requestedSkin = null
   }
 
   $effect(() => {
@@ -81,6 +98,7 @@
     mutant={selectedMutant}
     star={selectedStar}
     skins={selectedSkins}
+    initialSkin={requestedSkin}
     onclose={closeModal}
     locale={locale}
     names={names}

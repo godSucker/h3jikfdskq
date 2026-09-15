@@ -24,6 +24,7 @@ import {
 } from '@/lib/guides-resolve'
 import boxesData from '@/data/boxes.json'
 import { getMutantTexturePath } from '@/lib/bingo-textures'
+import { baseMutantId } from '@/lib/utils'
 
 export interface AnnouncementItem {
   id: string
@@ -52,6 +53,15 @@ export interface AnnouncementItem {
   // "мутант дня" из календаря MUTODEX/@KaiserZ, см.
   // scripts/detect-shop-forecast.ts::fetchDailyMutantOffers.
   featuredMutant?: 'day' | 'week' | 'month' | null
+  // Только exchange - какой из 3 залов (см. scripts/build-announcements.ts::
+  // detectExchange). Карточка группирует items по этому полю на 3 подблока.
+  hall?: 'jackpot' | 'event' | 'mystery' | null
+  // Только hall==='mystery' - цена контракта (жетон + количество).
+  cost?: { amount: number; name: string; image: string | null } | null
+  // Только hall==='mystery' - клик должен открыть модалку СРАЗУ на этой
+  // звезде/скине (jackpot/event Reward'ы их не несут вообще).
+  star?: string | null
+  skin?: string | null
 }
 
 export function featuredMutantLabel(v: string | null | undefined): string | null {
@@ -114,7 +124,7 @@ export const CATEGORY_RU: Record<string, string> = {
 }
 
 export type CardKind =
-  'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'generic'
+  'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'exchange' | 'generic'
 
 export function cardKind(category: string | undefined): CardKind {
   if (category === 'raid' || category === 'ladder' || category === 'eventLadder') return 'dungeon'
@@ -124,7 +134,17 @@ export function cardKind(category: string | undefined): CardKind {
   if (category === 'box') return 'box'
   if (category === 'bingo') return 'bingo'
   if (category === 'shopForecast' || category === 'dailyNews') return 'forecast'
+  if (category === 'exchange') return 'exchange'
   return 'generic'
+}
+
+export const EXCHANGE_HALL_META: Record<
+  'jackpot' | 'event' | 'mystery',
+  { title: string; texture: string }
+> = {
+  jackpot: { title: 'Зал джекпота', texture: '/buildings/jackpot_sink_global.png' },
+  event: { title: 'Зал испытаний', texture: '/buildings/item_maker.png' },
+  mystery: { title: 'Анализатор тайны', texture: '/buildings/building_mystery.png' },
 }
 
 // id оффера внутри прогноза = "<sprint>|<filter>" (см. detectShopForecast/
@@ -169,6 +189,14 @@ export function formatPrice(
   if (price.type === 'usd') return `USD ${price.amount.toFixed(2)}`
   const label = price.type === 'hardcurrency' ? 'золота' : 'серебра'
   return `${price.amount.toLocaleString('ru-RU')} ${label}`
+}
+
+// "Показывать только боксы со скинами" (фидбек юзера 2026-09-15) - старые
+// боксы (LuckyBox_Stars_22 и т.п.) не несут ни одного скин-дропа, только
+// голых мутантов/звёзды; актуальные ивент-боксы 2025-2026 все со скинами.
+// Данные, не имя - хардкодить список "старых" названий было бы хрупко.
+export function boxHasSkin(box: BoxEntry): boolean {
+  return box.groups.some((g) => g.mutants.some((m) => !!m.skin))
 }
 
 export function boxMutantIcon(m: BoxMutantRef): string {
@@ -258,6 +286,19 @@ export function formatBingoTitle(title: string, id: string): string {
     .join(' ')
 }
 
+// Бинго-анонсы, записанные ДО фикса 2026-09-09 (build-announcements.ts::
+// detectBingo), хранят addedNames сырыми ("Specimen_DA_15") - тогдашний код
+// ещё не резолвил их через mutantNames. Живёт как ДАННЫЕ в announcements.json
+// навсегда (JSON не бэкфиллили), поэтому чиним на рендере, а не миграцией:
+// покрывает и старые записи, и любую будущую подобную протечку разом.
+const RAW_SPECIMEN_ID_RE = /^Specimen_[A-Za-z]+_\d+$/i
+export function bingoAddedNames(names: string[], mutantsById: Map<string, MutantRaw>): string[] {
+  return names.map((name) => {
+    if (!RAW_SPECIMEN_ID_RE.test(name)) return name
+    return mutantsById.get(name.toLowerCase())?.name ?? name
+  })
+}
+
 export interface AnnouncementRenderContext {
   mutantsById: Map<string, MutantRaw>
   dungeonById: Map<string, ResolvedDungeon>
@@ -306,6 +347,35 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
     bingosById,
     findBox: (itemId: string) => boxesById.get(itemId) ?? boxesByIdLower.get(itemId.toLowerCase()),
   }
+}
+
+// Прогноз магазина (shopForecast) несёт сырые itemId из shopitems.xml
+// (Specimen_CC_12_Gold, bundle_orbs_crafting_master, Mystery_School_2026...) -
+// ни mutants.json id (base-форма, без звезды), ни boxes.json itemId напрямую
+// не совпадают. Резолвит тайл прогноза в клик-цель модалки: мутант (+звезда,
+// если суффикс её нёс) или бокс. Бандлы/паки - ни то ни другое, null
+// (тайл остаётся некликабельным, открывать нечего).
+const STAR_SUFFIX_RE = /_+(normal|bronze|silver|gold|platinum|plat)$/i
+export type ForecastClickTarget =
+  | { type: 'mutant'; id: string; star: string | null }
+  | { type: 'box'; id: string }
+  | null
+
+export function resolveForecastTarget(
+  itemId: string,
+  mutantsById: Map<string, MutantRaw>,
+  findBox: (itemId: string) => BoxEntry | undefined,
+): ForecastClickTarget {
+  const cleaned = itemId.replace(/^-+/, '').replace(/^#/, '')
+  if (/^specimen_/i.test(cleaned)) {
+    const suffixMatch = cleaned.match(STAR_SUFFIX_RE)
+    const star = suffixMatch ? (suffixMatch[1].toLowerCase() === 'plat' ? 'platinum' : suffixMatch[1].toLowerCase()) : null
+    const base = baseMutantId(cleaned)
+    if (mutantsById.has(base)) return { type: 'mutant', id: base, star }
+  }
+  const box = findBox(cleaned)
+  if (box) return { type: 'box', id: box.itemId }
+  return null
 }
 
 export const fmtDate = (iso: string) =>
