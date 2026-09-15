@@ -26,6 +26,7 @@ import {
   formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
+import { fetchGameXml } from './game-xml-cache'
 import {
   loadFilterDates,
   loadDateLedger,
@@ -126,10 +127,7 @@ export interface ShopForecast {
 // автоматический пайплайн (build-announcements.ts) его не передаёт - там
 // всегда currentSprint()+1, как было.
 export async function fetchShopForecast(sprintOverride?: number): Promise<ShopForecast | null> {
-  const [{ data: xml }, { data: locRaw }] = await Promise.all([
-    axios.get<string>(SHOPITEMS_URL, { responseType: 'text', timeout: 20000 }),
-    axios.get<string>(LOC_RU_URL, { responseType: 'text', timeout: 20000 }),
-  ])
+  const [xml, locRaw] = await Promise.all([fetchGameXml(SHOPITEMS_URL), fetchGameXml(LOC_RU_URL)])
 
   const loc = new Map<string, string>()
   const locLower = new Map<string, string>()

@@ -122,20 +122,10 @@ export const CATEGORY_RU: Record<string, string> = {
   rebalance: 'Ребаланс',
 }
 
-export type CardKind =
-  'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'exchange' | 'generic'
-
-export function cardKind(category: string | undefined): CardKind {
-  if (category === 'raid' || category === 'ladder' || category === 'eventLadder') return 'dungeon'
-  if (category === 'mutant') return 'mutant'
-  if (category === 'skin') return 'skin'
-  if (category === 'reactor') return 'reactor'
-  if (category === 'box') return 'box'
-  if (category === 'bingo') return 'bingo'
-  if (category === 'shopForecast' || category === 'dailyNews') return 'forecast'
-  if (category === 'exchange') return 'exchange'
-  return 'generic'
-}
+// Переехало в announcement-categories.ts - тот же маппинг нужен и публикации
+// (build-announcements.ts), а её голый tsx этот модуль импортировать не может.
+// Реэкспорт, чтобы не трогать существующие импорты из компонентов.
+export { cardKind, isSingleItemCategory, type CardKind } from './announcement-categories'
 
 export const EXCHANGE_HALL_META: Record<
   'jackpot' | 'event' | 'mystery',

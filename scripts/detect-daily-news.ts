@@ -21,7 +21,8 @@ import {
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
-import { getSprintDayMap } from './detect-shop-forecast'
+import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
+import { fetchGameXml } from './game-xml-cache'
 
 const DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
@@ -118,10 +119,7 @@ interface ShopItemInfo {
 }
 
 async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
-  const [{ data: xml }, { data: locRaw }] = await Promise.all([
-    axios.get<string>(SHOPITEMS_URL, { responseType: 'text', timeout: 20000 }),
-    axios.get<string>(LOC_RU_URL, { responseType: 'text', timeout: 20000 }),
-  ])
+  const [xml, locRaw] = await Promise.all([fetchGameXml(SHOPITEMS_URL), fetchGameXml(LOC_RU_URL)])
 
   const loc = new Map<string, string>()
   const locLower = new Map<string, string>()
@@ -227,7 +225,17 @@ export async function fetchDailyNewsForecast(
   // см. detect-shop-forecast.ts). Берём день оттуда, когда живого kartel-окна
   // на сам баннер нет - иначе весь блок "Скоро в игре" на новый спринт стоит
   // без дат, пока kartel до него не дотянется (спринт 257: было 0 из 22).
-  const dayMap = getSprintDayMap(target)
+  // Карту дней считает fetchShopForecast. Раньше тут был просто
+  // getSprintDayMap(target) в расчёте на то, что детектор shopForecast в
+  // build-announcements.ts стоит РАНЬШЕ dailyNews - переставили бы местами, и
+  // даты молча пропали бы. Теперь зависимость явная: если карты нет, считаем
+  // её сами. Повторный вызов дешёвый - shopitems.xml и локализация лежат в
+  // кеше прогона (game-xml-cache.ts), сеть не трогается.
+  let dayMap = getSprintDayMap(target)
+  if (!dayMap) {
+    await fetchShopForecast(target).catch(() => null)
+    dayMap = getSprintDayMap(target)
+  }
 
   const items: DailyNewsItem[] = []
   for (const it of rawItems) {

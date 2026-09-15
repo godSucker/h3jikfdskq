@@ -25,6 +25,8 @@ import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './karte
 import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
+import { isSingleItemCategory } from '../src/lib/announcement-categories'
+import { fetchGameXml } from './game-xml-cache'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
 
 // Причёсанное имя (для бинго-заголовков и фолбэков в подписях бота): убрать
@@ -358,10 +360,7 @@ async function detectBingo(seen: string[]): Promise<DetectResult> {
 // тега из живого XML, угадывать нельзя. gacha.xml <Filter> вообще не несёт -
 // реакторы этим путём не датируются (проверено 2026-09-04).
 async function buildShopFilterMap(): Promise<Map<string, string>> {
-  const { data: xml } = await axios.get<string>(
-    'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml',
-    { responseType: 'text', timeout: 20000 },
-  )
+  const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml')
   const map = new Map<string, string>()
   for (const itemXml of xml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
     const itemId = itemXml.match(/itemId="([^"]+)"/)?.[1]
@@ -372,10 +371,7 @@ async function buildShopFilterMap(): Promise<Map<string, string>> {
 }
 
 async function buildDungeonFilterMap(): Promise<Map<string, string>> {
-  const { data: xml } = await axios.get<string>(
-    'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml',
-    { responseType: 'text', timeout: 20000 },
-  )
+  const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml')
   const map = new Map<string, string>()
   for (const m of xml.matchAll(
     /<Dungeon id="([^"]+)"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)<\/Filter>/g,
@@ -514,10 +510,7 @@ async function fetchMysteryContracts(): Promise<
     filterName: string | null
   }[]
 > {
-  const { data: xml } = await axios.get<string>(
-    'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
-    { responseType: 'text', timeout: 20000 },
-  )
+  const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml')
   const block = xml.match(
     /<EntityDescriptor id="Building_Mystery"[^>]*>([\s\S]*?)<\/EntityDescriptor>/,
   )
@@ -592,10 +585,7 @@ async function fetchHallContracts(): Promise<
     filterName: string | null
   }[]
 > {
-  const { data: xml } = await axios.get<string>(
-    'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml',
-    { responseType: 'text', timeout: 20000 },
-  )
+  const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml')
   // tokenId - Building_Tokens_Jackpot оказался ОБЩИМ "зданием обмена жетонов"
   // (найдено 2026-09-15, юзер поймал живьём "джекпот выдал 20 офферов вместо
   // 3"): под одним EntityDescriptor вперемешку контракты за Жетон джекпота
@@ -768,14 +758,18 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       '4': 'platinum',
     }
     const starName = c.stars ? (STAR_NUM_TO_NAME[c.stars] ?? null) : null
-    const starLabel = c.stars ? `${c.stars}⭐` : ''
     const skinLabel = c.skin ? `скин: ${skinDisplayName(c.skin)}` : ''
     const exact = await exactDateFor(c.filterName ?? undefined)
+    // Звезда НЕ пишется в name текстом. Раньше тут было `${c.stars}⭐` - эмодзи
+    // U+2B50, которого нет ни в одном шрифте headless-Chromium (@sparticuz/
+    // chromium идёт с минимальным набором), и бот-скриншотер слал в админку
+    // карточку с пустыми квадратиками-tofu вместо звёзд (юзер поймал живьём
+    // 2026-09-16). Звезда уезжает в поле `star` ниже, а карточка рендерит её
+    // картинкой из /stars/ - растр виден в скриншоте так же, как и все
+    // остальные иконки.
     items.push({
       id: mysteryKey(c),
-      name: [m?.name ?? c.specimenId, [starLabel, skinLabel].filter(Boolean).join(' · ')]
-        .filter(Boolean)
-        .join(' — '),
+      name: [m?.name ?? c.specimenId, skinLabel].filter(Boolean).join(' — '),
       image: firstMutantImage(m?.stars),
       hall: 'mystery',
       cost: {
@@ -1390,22 +1384,12 @@ async function main() {
   // cardKind() маппит на dungeon/mutant/skin/reactor/box/bingo, продублировано
   // вручную как плоский список категорий (не kind), синхронизировать руками
   // при изменении cardKind() в announcements-render.ts.
-  const SINGLE_ITEM_CATEGORIES = new Set([
-    'raid',
-    'ladder',
-    'eventLadder',
-    'mutant',
-    'skin',
-    'reactor',
-    'box',
-    'bingo',
-  ])
 
   for (const d of DETECTORS) {
     try {
       const { newIds, items, updateExisting, sprintKey } = await d.run(ledger[d.category])
       if (items.length > 0) {
-        if (SINGLE_ITEM_CATEGORIES.has(d.category)) {
+        if (isSingleItemCategory(d.category)) {
           items.forEach((item, i) => {
             const a: Announcement = {
               id: `${d.category}-${Date.now()}-${i}`,

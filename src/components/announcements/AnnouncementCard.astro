@@ -328,7 +328,18 @@ const forecastOffers =
               >
                 {gi.image && <img class="exchange-item-img" src={textureUrl(gi.image)} alt="" loading="lazy" decoding="async" />}
                 <div class="exchange-item-info">
-                  <span class="exchange-item-name">{gi.name}</span>
+                  <span class="exchange-item-name">
+                    {gi.star && (
+                      <img
+                        class="exchange-item-star"
+                        src={textureUrl(`/stars/star_${gi.star}.webp`)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
+                    {gi.name}
+                  </span>
                   {gi.cost && (
                     <span class="exchange-item-cost">
                       {gi.cost.image && <img src={textureUrl(gi.cost.image)} alt="" loading="lazy" decoding="async" />}
@@ -711,8 +722,8 @@ const forecastOffers =
     gap: 0.6rem;
   }
   .box-drop-icon {
-    width: clamp(160px, 45vw, 280px);
-    height: clamp(160px, 45vw, 280px);
+    width: clamp(128px, 36vw, 224px);
+    height: clamp(128px, 36vw, 224px);
     object-fit: contain;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.04);
@@ -876,6 +887,19 @@ const forecastOffers =
     flex-direction: column;
     gap: 1px;
     min-width: 0;
+  }
+  .exchange-item-name {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  /* Звезда картинкой, а не символом: в headless-Chromium у скриншот-бота нет
+     шрифта ни с эмодзи, ни с ★ - текстом выходили пустые квадратики. */
+  .exchange-item-star {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    flex-shrink: 0;
   }
   .box-drop-grid {
     display: grid;
