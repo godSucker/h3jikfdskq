@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "id": "exchange-1789504214471",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 29",
+    "itemIds": [
+      "jackpot|READY_04|specimen_aa_09",
+      "jackpot|READY_05|specimen_db_10",
+      "jackpot|READY_06|specimen_f_12",
+      "jackpot|READY_07|specimen_cb_09",
+      "jackpot|READY_08|specimen_de_10",
+      "jackpot|READY_09|specimen_fd_11",
+      "jackpot|READY_11|specimen_da_11",
+      "jackpot|READY_12|specimen_aa_04",
+      "jackpot|READY_13|specimen_ff_99",
+      "jackpot|READY_14|specimen_cd_09",
+      "jackpot|READY_15|specimen_fe_03",
+      "jackpot|READY_16|specimen_eb_07",
+      "jackpot|READY_17|specimen_fa_15",
+      "jackpot|READY_19|specimen_af_12",
+      "jackpot|READY_20|specimen_ac_13",
+      "jackpot|READY_21|specimen_fe_09",
+      "jackpot|READY_25|specimen_af_12",
+      "jackpot|READY_23|specimen_bd_08",
+      "jackpot|READY_22|specimen_ee_08",
+      "jackpot|READY_24|specimen_fe_12",
+      "event|READY_04|specimen_fa_10",
+      "event|READY_07|specimen_eb_08",
+      "event|READY_09|specimen_dc_14",
+      "mystery|READY_01|Specimen_AC_08|3|kings",
+      "mystery|READY_02|Specimen_BE_03|3|summer",
+      "mystery|READY_03|Specimen_FC_08|3|europe",
+      "mystery|READY_04|Specimen_EB_10|3|aprilfools",
+      "mystery|READY_05|Specimen_DD_08|3|school",
+      "mystery|READY_06|Specimen_AB_11|3|honeybee"
+    ],
+    "createdAt": "2026-09-15T20:30:23.974Z",
+    "attempts": 0,
+    "date": "2026-09-15T20:30:12.647Z"
+  }
+]
