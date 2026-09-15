@@ -169,7 +169,6 @@ const forecastOffers =
             ))}
           </div>
         )}
-        {showCta && <a class="card-source" href={a.link ?? '/guides'}>Подробнее →</a>}
       </div>
     </div>
   ) : kind === 'mutant' && mutantLite ? (
@@ -181,7 +180,6 @@ const forecastOffers =
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.mutant}</span>
         <button class="hero-name-btn" data-open-mutant={mutantLite.id}>{mutantLite.name}</button>
-        {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
       </div>
     </div>
   ) : kind === 'skin' && it && skinBaseId ? (
@@ -193,7 +191,6 @@ const forecastOffers =
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
         <span class="card-category">{CATEGORY_RU.skin}</span>
         <button class="hero-name-btn" data-open-mutant={skinBaseId}>{it.name}</button>
-        {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
       </div>
     </div>
   ) : kind === 'reactor' && it ? (
@@ -306,7 +303,6 @@ const forecastOffers =
         ) : (
           <div class="dg-secondary">Новое бинго</div>
         )}
-        {showCta && <a class="card-source" href={a.link ?? '/bingo'}>Подробнее →</a>}
       </div>
     </div>
   ) : kind === 'exchange' && exchangeGroups.length > 0 ? (
@@ -346,7 +342,6 @@ const forecastOffers =
           </div>
         </div>
       ))}
-      {showCta && <a class="card-source" href={a.link ?? '/mutants'}>Подробнее →</a>}
     </div>
   ) : kind === 'forecast' && a.items && a.items.length > 0 ? (
     <div class="forecast-card">
@@ -440,9 +435,6 @@ const forecastOffers =
               </li>
             ))}
           </ul>
-        )}
-        {showCta && a.link && (
-          <a class="card-source" href={a.link}>Подробнее →</a>
         )}
         {showCta && a.sourceUrl && (
           <a class="card-source" href={a.sourceUrl} target="_blank" rel="noopener noreferrer">Источник →</a>
