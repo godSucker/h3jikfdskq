@@ -265,7 +265,37 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     `[forecast] shopForecast спринт ${target}: дневных офферов (мутанты+орбы+паки) ${items.length - beforeDaily}`,
   )
 
-  return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items }
+  return { sprint: target, dateRangeLabel: sprintRangeLabel(target), items: dedupeByItemId(items) }
+}
+
+// НАЙДЕНО 2026-09-16 (юзер поймал "теряются даты при мердже"): один и тот же
+// itemId нередко попадает в items ДВАЖДЫ - один раз как обычный спринтовый
+// оффер (буллит выше, дата из его собственного <Filter>), второй раз как
+// запись daily-offer пула (appendDailyMutantOffers, дата confirmed-kartel
+// ИЛИ "≈"-экстраполяция по позиции). build-announcements.ts дальше строит
+// `id = sprint|itemId` и схлопывает по этому id Map'ом - при дубле выживает
+// ПОСЛЕДНИЙ (пул всегда после спринтового блока), даже если у него даты нет
+// или она хуже - конкретно так потерялось 16 из 52 живых дат на спринте 256.
+// Дедуп здесь, на выходе fetchShopForecast, чтобы дальше по пайплайну шёл
+// уже один айтем на id (detectDailyNews берёт офферы из отдельного файла
+// dailypopup.xml без daily-offer пула - этот конкретный дубль-паттерн там
+// не воспроизводится). Приоритет: подтверждённая дата > "≈"-прогноз > без
+// даты; при равенстве -
+// первое вхождение (обычно спринтовый оффер, он "первичнее" пула).
+function dateRank(label: string | null): number {
+  if (!label) return 0
+  return label.startsWith('≈') ? 1 : 2
+}
+
+function dedupeByItemId(items: ForecastItem[]): ForecastItem[] {
+  const byId = new Map<string, ForecastItem>()
+  for (const it of items) {
+    const existing = byId.get(it.itemId)
+    if (!existing || dateRank(it.exactDateLabel) > dateRank(existing.exactDateLabel)) {
+      byId.set(it.itemId, it)
+    }
+  }
+  return [...byId.values()]
 }
 
 const DAY_MS = 86_400_000
