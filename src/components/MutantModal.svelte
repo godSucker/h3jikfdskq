@@ -688,6 +688,18 @@
             loading="lazy"
             decoding="async"
           />
+          <!-- Только preview-ветка: экспорт текущей текстуры (звезда+скин учтены
+               через heroSrcs/heroIdx, тот же источник что у самого арта выше) в
+               новой вкладке для админов, готовящих посты. Не для прод-пользователей. -->
+          <button
+            type="button"
+            class="absolute top-2 right-2 z-20 flex items-center gap-1 rounded-lg bg-black/55 hover:bg-black/75 backdrop-blur-sm px-2 py-1.5 text-[11px] font-medium text-white/90 transition-colors"
+            title="Открыть текущую текстуру в новой вкладке"
+            onclick={() => window.open(textureUrl(heroSrcs[Math.min(heroIdx, heroSrcs.length - 1)]), '_blank', 'noopener')}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Текстура
+          </button>
       </div>
     </div>
 
