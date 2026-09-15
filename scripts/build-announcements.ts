@@ -1467,6 +1467,14 @@ async function main() {
           const freshById = new Map(upd.items.map((it) => [it.id, it]))
           const datedBefore = existing.items.filter((it) => it.exactDateLabel).length
           const datedFresh = upd.items.filter((it) => it.exactDateLabel).length
+          if (d.category === 'shopForecast') {
+            const datedFreshById = [...freshById.values()].filter((it) => it.exactDateLabel).length
+            console.error(
+              `DIAG-SIZES ${d.category}/${upd.sprintKey}: upd.items.length=${upd.items.length} ` +
+                `freshById.size=${freshById.size} datedFreshById=${datedFreshById} ` +
+                `oldById.size=${oldById.size} mergedIds=${new Set([...oldById.keys(), ...freshById.keys()]).size}`,
+            )
+          }
           // Union по id (старые ∪ свежие), не только "map по свежим" - для
           // обычных спринтовых офферов список itemId стабилен (весь спринт
           // целиком лежит в статичном XML независимо от live-видимости), но
