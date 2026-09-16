@@ -26,7 +26,7 @@ import { geneLabelL } from '@/lib/mutant-dicts';
 import { calculateFinalStats } from '@/lib/stats/unified-calculator';
 import { t, localeFromAstro, type Locale } from '@/lib/i18n';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
-import { getFarmerText, getLocationText, getQuestText, getDungeonName, getSpecialOfferName } from '@/lib/guides-content-i18n';
+import { getFarmerText, getLocationText, getDungeonName, getSpecialOfferName } from '@/lib/guides-content-i18n';
 import divisionFightsData from '@/data/guides/division-fights.json';
 import GuidesBrowser from '@/components/guides/GuidesBrowser.svelte';
 import dungeonCovers from '@/data/guides/dungeon-covers.json';
@@ -278,27 +278,52 @@ type QuestTriggerCategory =
   | 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation'
   | 'building' | 'level' | 'collection' | 'social' | 'misc';
 
+// Тексты квестов лежат в данных сразу на 9 языках (scripts/build-quests.ts,
+// официальная локализация Kobojo) - берём нужную локаль.
+type I18nText = Record<string, string>;
+const pick = (tx: I18nText) => tx[locale] || tx.ru || tx.en || '';
+
+type QuestUnlockRaw =
+  | { type: 'specimen'; id: string }
+  | { type: 'techCenter'; level: number; name: I18nText }
+  | { type: 'building'; id: string };
+
 interface QuestRaw {
   id: string;
-  title: string;
-  caption: string;
+  title: I18nText;
+  caption: I18nText;
   rewards: RewardRaw[];
   chainType: 'story' | 'achievement';
   prevId: string | null;
   trigger: { category: QuestTriggerCategory; amount: string | null };
+  requiredLevel: number | null;
+  unlock: QuestUnlockRaw[];
   icon: string | null;
 }
 
-const quests = (questsData as QuestRaw[]).map((q) => {
-  const text = getQuestText(q.title, q.caption, locale);
+const quests = (questsData as unknown as QuestRaw[]).map((q) => {
+  const caption = pick(q.caption);
+  const amount = q.trigger.amount != null ? Number(q.trigger.amount) : null;
   return {
     id: q.id,
-    title: text.title,
-    caption: text.caption,
+    title: pick(q.title),
+    caption,
     rewards: q.rewards.map(resolveReward),
     chainType: q.chainType,
     prevId: q.prevId,
-    trigger: { category: q.trigger.category, amount: q.trigger.amount != null ? Number(q.trigger.amount) : null },
+    trigger: { category: q.trigger.category, amount },
+    // xN у сюжетного условия - как у ивентовых этапов. У ачивок порог уже
+    // написан в тексте (см. achievementTiers в QuestsTab), там не показываем.
+    showAmount: q.chainType === 'story' && shouldShowAmount(caption, amount),
+    amountText: amount !== null ? formatNumber(amount) : '',
+    requiredLevel: q.requiredLevel,
+    // Условия открытия как чипы: мутант - кликабельный (тот же resolveReward,
+    // что у наград), здание - его имя, Эволюционный центр - имя и уровень.
+    unlock: q.unlock.map((u) =>
+      u.type === 'techCenter'
+        ? { label: t('guides.quests.unlockBuildingLevel', locale).replace('{name}', pick(u.name)).replace('{level}', String(u.level)), icon: null }
+        : resolveReward({ type: 'entity', id: u.id, amount: '1' }),
+    ),
     icon: q.icon,
   };
 });
@@ -306,16 +331,17 @@ const quests = (questsData as QuestRaw[]).map((q) => {
 // Ивентовые задания (scripts/build-event-quests.ts). Имена, заголовки и
 // условия уже лежат в данных на всех 9 языках - берём нужную локаль, а
 // награды прогоняем через тот же resolveReward, что и обычные квесты.
-type I18nText = Record<string, string>;
 interface EventQuestRaw {
   filter: string;
   name: I18nText;
   requiredLevel: number | null;
   icon: string | null;
+  permanent: boolean;
   steps: { id: string; line: number; condition: I18nText; amount: number | null; rewards: RewardRaw[] }[];
 }
-const pick = (tx: I18nText) => tx[locale] || tx.ru || tx.en || '';
-const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).map((c) => ({
+// Постоянные цепочки (Анализатор тайны, сюжетные обновления) показываются в
+// "Сюжете" из quests.json - в "Ивентах" их не дублируем.
+const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).filter((c) => !c.permanent).map((c) => ({
   filter: c.filter,
   name: pick(c.name),
   requiredLevel: c.requiredLevel,

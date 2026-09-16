@@ -740,6 +740,8 @@
   "guides.quests.triggerCategory.level": "Level",
   "guides.quests.triggerCategory.collection": "Sammlung",
   "guides.quests.triggerCategory.social": "Sozial",
+  "guides.quests.unlockNeeds": "Benötigt:",
+  "guides.quests.unlockBuildingLevel": "{name} Stufe {level}",
   "guides.division.recommendedLevel": "Empfohlenes Evo zum Abschließen: „{level}“",
   "guides.division.mapNumber": "Karte {n}",
   "guides.division.fightsCount": "Kämpfe:",

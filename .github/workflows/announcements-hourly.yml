@@ -158,6 +158,13 @@ jobs:
         if: always()
         run: npx tsx scripts/build-event-quests.ts
 
+      - name: 9.8 Сюжетные квесты и достижения (missions.xml) -> src/data/guides/quests.json
+        # Постоянные цепочки (новое здание, сюжетное обновление) появляются в
+        # "Сюжете" на /guides сами, без ручного прогона. Файл не перезаписывается,
+        # если квестов стало на 20%+ меньше (битая выгрузка).
+        if: always()
+        run: npx tsx scripts/build-quests.ts
+
       - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news) + кросс-пост в канал
         # Прогноз магазина и daily_news не пишут отдельных файлов - тянут
         # shopitems.xml/dailypopup.xml прямо внутри build-announcements.ts
@@ -186,6 +193,7 @@ jobs:
           file_pattern: >-
             src/data/bingos.json
             src/data/guides/event-quests.json
+            src/data/guides/quests.json
             src/data/boxes.json
             public/boxes/**
             public/materials/**

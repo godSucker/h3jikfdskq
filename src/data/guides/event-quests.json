@@ -13,6 +13,7 @@
       "nl": "Mysteries Analysator"
     },
     "nameSource": "localisation",
+    "permanent": true,
     "requiredLevel": 8,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
     "dateStart": "2026-09-15T14:00:00+00:00",
@@ -270,6 +271,7 @@
       "nl": "Jubileum 2026, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
     "dateStart": "2026-08-10T10:00:00+00:00",
@@ -554,7 +556,7 @@
           "nl": "Plaats bestellingen in het medisch lab"
         },
         "amount": 5,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Hexcity_Token",
@@ -867,7 +869,7 @@
           "nl": "Hypermeetkunde"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -975,7 +977,7 @@
           "nl": "Fractale oneindigheid"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -1119,6 +1121,7 @@
       "nl": "Jubileum 2026, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
     "dateStart": null,
@@ -1428,7 +1431,7 @@
           "nl": "De regels overtreden"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -1500,7 +1503,7 @@
           "nl": "De wetten van de fysica overtreden"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -1752,6 +1755,7 @@
       "nl": "Pasen 2026"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -2133,7 +2137,7 @@
           "nl": "Vlakdrukken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -2205,7 +2209,7 @@
           "nl": "Anti-seismische golven"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -2349,6 +2353,7 @@
       "nl": "Valentijnsdag 2026"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "dateStart": null,
@@ -2766,7 +2771,7 @@
           "nl": "Pixelvervaging"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -2838,7 +2843,7 @@
           "nl": "Pixels of Voxels?"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -2982,6 +2987,7 @@
       "nl": "Kerstmis 2025, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -3399,7 +3405,7 @@
           "nl": ""
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -3471,7 +3477,7 @@
           "nl": ""
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -3543,7 +3549,7 @@
           "nl": ""
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -3723,6 +3729,7 @@
       "nl": "Kerstmis 2025, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -3960,7 +3967,7 @@
           "nl": "Sterrenkijkers"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -4284,6 +4291,7 @@
       "nl": "Halloween Nightmare 2025"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -4712,7 +4720,7 @@
           "nl": "Plaats bestellingen in het medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Signal_Token",
@@ -4953,7 +4961,7 @@
           "nl": "Sloten openbreken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -5061,6 +5069,7 @@
       "nl": "Jubileum 2025, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks_2.png",
     "dateStart": null,
@@ -5381,7 +5390,7 @@
           "nl": "Plaats bestellingen in het medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Masks_Token",
@@ -5694,7 +5703,7 @@
           "nl": "Merkteken van Angst"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -5874,6 +5883,7 @@
       "nl": "Jubileum 2025, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks.png",
     "dateStart": null,
@@ -6255,7 +6265,7 @@
           "nl": "Vernietigende woede"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -6327,7 +6337,7 @@
           "nl": "Verwoestende woede"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -6446,7 +6456,7 @@
           "nl": "Plaats bestellingen in het medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Masks_Token",
@@ -6651,6 +6661,7 @@
       "nl": "Uitdaging #76"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -6842,7 +6853,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -7231,6 +7242,7 @@
       "nl": "Pasen 2025"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -7684,7 +7696,7 @@
           "nl": "Bijkomende schade"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -7756,7 +7768,7 @@
           "nl": "Architecturale stabiliteit"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -7900,6 +7912,7 @@
       "nl": "Valentijnsdag 2025"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "dateStart": null,
@@ -8065,7 +8078,7 @@
           "nl": "Het begin van een cyclus"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -8137,7 +8150,7 @@
           "nl": "De cyclus van vernietiging"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -8569,6 +8582,7 @@
       "nl": "Kerstmis 2024, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -8734,7 +8748,7 @@
           "nl": "Explosie van kracht"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -8806,7 +8820,7 @@
           "nl": "Mystieke deflagratie"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -9166,6 +9180,7 @@
       "nl": "Kerstmis 2024, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -9619,6 +9634,7 @@
       "nl": "Halloween Nightmare 2024"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -9892,7 +9908,7 @@
           "nl": "Vliegenafweermiddel"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -9928,7 +9944,7 @@
           "nl": "Insecticide spray"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -9964,7 +9980,7 @@
           "nl": "Grote problemen, grote oplossingen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -10180,6 +10196,7 @@
       "nl": "Jubileum 2024, deel 4"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "dateStart": null,
@@ -10237,6 +10254,7 @@
       "nl": "Jubileum 2024, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "dateStart": null,
@@ -10834,7 +10852,7 @@
           "nl": "Keten van vernietiging"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -10942,6 +10960,7 @@
       "nl": "Jubileum 2024, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "dateStart": null,
@@ -11287,7 +11306,7 @@
           "nl": "De politiek van getallen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -11611,6 +11630,7 @@
       "nl": "Uitdaging #75"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -11931,7 +11951,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -12141,6 +12161,7 @@
       "nl": "Pasen 2024"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -12353,7 +12374,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 15,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Moai_Token",
@@ -12522,7 +12543,7 @@
           "nl": "De aandacht afleiden"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -12666,6 +12687,7 @@
       "nl": "Uitdaging #74"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -12986,7 +13008,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -13196,6 +13218,7 @@
       "nl": "Valentijnsdag 2024"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "dateStart": null,
@@ -13397,7 +13420,7 @@
           "nl": "Wow-effect!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -13721,6 +13744,7 @@
       "nl": "Kerstmis 2023, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -14210,7 +14234,7 @@
           "nl": "De machines afbreken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -14246,6 +14270,7 @@
       "nl": "Kerstmis 2023, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -14530,7 +14555,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Capsule_Token",
@@ -14627,7 +14652,7 @@
           "nl": "Zet je stempel!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -14771,6 +14796,7 @@
       "nl": "Halloween Nightmare 2023"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -15044,7 +15070,7 @@
           "nl": "Zombie woede"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -15224,6 +15250,7 @@
       "nl": "Jubileum 2023 — verhaal, deel 3"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -15281,6 +15308,7 @@
       "nl": "Jubileum 2023, deel 3"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -15518,7 +15546,7 @@
           "nl": "Gebroken realiteit"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -15626,7 +15654,7 @@
           "nl": "Gebroken realiteit"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -15770,6 +15798,7 @@
       "nl": "Jubileum 2023 — verhaal, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -15899,6 +15928,7 @@
       "nl": "Jubileum 2023, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -16172,7 +16202,7 @@
           "nl": "Een flinke klapper maken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -16280,6 +16310,7 @@
       "nl": "Jubileum 2023 — verhaal, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -16409,6 +16440,7 @@
       "nl": "Jubileum 2023, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "dateStart": null,
@@ -16729,7 +16761,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 35,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Overlay_Token",
@@ -16790,6 +16822,7 @@
       "nl": "Vreemde technologie"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mutodex.png",
     "dateStart": null,
@@ -17002,7 +17035,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 5,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Weirdtech_Token",
@@ -17074,7 +17107,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Weirdtech_Token",
@@ -17279,7 +17312,7 @@
           "nl": "Kinetisch pantser"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -17351,6 +17384,7 @@
       "nl": "Pasen 2023"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_purple.png",
     "dateStart": null,
@@ -17588,7 +17622,7 @@
           "nl": "De ervaring van Darwin"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -17732,6 +17766,7 @@
       "nl": "Valentijnsdag 2023"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "dateStart": null,
@@ -17897,7 +17932,7 @@
           "nl": "De ijver van Cupido"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -18113,6 +18148,7 @@
       "nl": "Kerstmis 2022, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -18361,7 +18397,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 5,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Snowstorm_Token",
@@ -18566,6 +18602,7 @@
       "nl": "Kerstmis 2022 — PvP"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -18659,6 +18696,7 @@
       "nl": "Kerstmis 2022, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -18788,6 +18826,7 @@
       "nl": "Kerstmis 2022"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -18881,7 +18920,7 @@
           "nl": "Het ijs breken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -18989,6 +19028,7 @@
       "nl": "Halloween Nightmare 2022"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -19370,7 +19410,7 @@
           "nl": "Maximale kracht"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -19442,6 +19482,7 @@
       "nl": "Uitdaging #72"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -19618,7 +19659,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Star_Bronze",
@@ -19967,6 +20008,7 @@
       "nl": "Uitdaging #71"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -20287,7 +20329,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -20497,6 +20539,7 @@
       "nl": "Uitdaging #70"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -21022,6 +21065,7 @@
       "nl": "Jubileum 2022, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
     "dateStart": null,
@@ -21331,7 +21375,7 @@
           "nl": "Pixelaansturing"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -21403,6 +21447,7 @@
       "nl": "Jubileum 2022, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
     "dateStart": null,
@@ -21651,7 +21696,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Data_Token",
@@ -21676,7 +21721,7 @@
           "nl": "De verwoesting aanschouwen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -21748,6 +21793,7 @@
       "nl": "Uitdaging #69"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
     "dateStart": null,
@@ -21960,7 +22006,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_xp",
@@ -22278,6 +22324,7 @@
       "nl": "Verhaalupdate, deel 1"
     },
     "nameSource": "authored",
+    "permanent": true,
     "requiredLevel": 15,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_storypatch.png",
     "dateStart": "2022-05-03T12:00:00+00:00",
@@ -22418,7 +22465,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 100,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_attack_01",
@@ -22562,7 +22609,7 @@
           "nl": "25 HaatGen-specimen verkopen"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "collection",
         "rewards": [
           {
             "id": "orb_special_speed_01",
@@ -22875,7 +22922,7 @@
           "nl": "Buitenaardse materialen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -23271,6 +23318,7 @@
       "nl": "Pasen 2022"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_rabbithole.png",
     "dateStart": null,
@@ -23472,7 +23520,7 @@
           "nl": "De wortels zijn gekookt"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -23627,7 +23675,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 30,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Easter22_Token",
@@ -23652,6 +23700,7 @@
       "nl": "Uitdaging #68"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -23828,7 +23877,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Star_Bronze",
@@ -24177,6 +24226,7 @@
       "nl": "Valentijnsdag 2022"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -24342,7 +24392,7 @@
           "nl": "Dichter van de arena"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -24486,6 +24536,7 @@
       "nl": "Uitdaging #67"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -25011,6 +25062,7 @@
       "nl": "Kerstmis 2021, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -25428,6 +25480,7 @@
       "nl": "Uitdaging #66"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -25748,7 +25801,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -25958,6 +26011,7 @@
       "nl": "Kerstmis 2021"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -25979,7 +26033,7 @@
           "nl": "Opwarmen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -26015,7 +26069,7 @@
           "nl": "Vat geen kou"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -26170,7 +26224,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 15,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Rime_Token",
@@ -26195,6 +26249,7 @@
       "nl": "Kerstmis 2021, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -26360,6 +26415,7 @@
       "nl": "Halloween Nightmare 2021"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_stygian.png",
     "dateStart": null,
@@ -26680,7 +26736,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Stygian_Token",
@@ -26705,7 +26761,7 @@
           "nl": "De zielen van de doden"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -26741,7 +26797,7 @@
           "nl": "Ontelbaar veel zielen"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -26921,6 +26977,7 @@
       "nl": "Uitdaging #65"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
     "dateStart": null,
@@ -27133,7 +27190,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_xp",
@@ -27451,6 +27508,7 @@
       "nl": "Uitdaging #64"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -27976,6 +28034,7 @@
       "nl": "Jubileum 2021, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "dateStart": null,
@@ -28285,6 +28344,7 @@
       "nl": "Jubileum 2021"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_pvp_event.png",
     "dateStart": null,
@@ -28425,7 +28485,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 30,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Pyramid_Token",
@@ -28522,7 +28582,7 @@
           "nl": "Het gevecht barst los"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -28594,7 +28654,7 @@
           "nl": "Barstende mutanten"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -28630,6 +28690,7 @@
       "nl": "Jubileum 2021, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "dateStart": null,
@@ -28795,6 +28856,7 @@
       "nl": "Uitdaging #63"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": "2021-07-23T10:00:00+00:00",
@@ -29115,7 +29177,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -29325,6 +29387,7 @@
       "nl": "Pasen 2021"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -29465,7 +29528,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Easter21_Token",
@@ -29778,6 +29841,7 @@
       "nl": "Uitdaging #61"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -29969,7 +30033,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -30358,6 +30422,7 @@
       "nl": "Kerstmis 2020, deel 3"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -30390,7 +30455,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Toybox_Token",
@@ -30631,6 +30696,7 @@
       "nl": "Kerstmis 2020, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -30904,6 +30970,7 @@
       "nl": "Kerstmis 2020, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -31141,7 +31208,7 @@
           "nl": "Sneeuwballen!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -31213,6 +31280,7 @@
       "nl": "Kerstmis — dag 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -31270,6 +31338,7 @@
       "nl": "Kerstmis — dag 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -31327,6 +31396,7 @@
       "nl": "Uitdaging #60"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -31852,6 +31922,7 @@
       "nl": "Halloween Nightmare 2020"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -32136,7 +32207,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Plague_Token",
@@ -32233,6 +32304,7 @@
       "nl": "Uitdaging #59"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -32409,7 +32481,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_01",
@@ -32578,7 +32650,7 @@
           "nl": "Meer bloed!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -32758,6 +32830,7 @@
       "nl": "Uitdaging #58"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -33078,7 +33151,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_life_03",
@@ -33288,6 +33361,7 @@
       "nl": "Jubileum 2020, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -33392,7 +33466,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_7th_Anniversary_Token",
@@ -33561,7 +33635,7 @@
           "nl": "Absolute afslachting"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -33669,6 +33743,7 @@
       "nl": "Jubileum 2020, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -33737,7 +33812,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_7th_Anniversary_Token",
@@ -33762,7 +33837,7 @@
           "nl": "Pleiaden van schoppen en stoten"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -33834,7 +33909,7 @@
           "nl": "Publiek vermaken"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -34050,6 +34125,7 @@
       "nl": "Uitdaging #57"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -34370,7 +34446,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "orb_basic_retaliate_01",
@@ -34575,6 +34651,7 @@
       "nl": "Uitdaging #56"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -35110,6 +35187,7 @@
       "nl": "Uitdaging #55"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -35301,7 +35379,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -35690,6 +35768,7 @@
       "nl": "Pasen 2020"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -35747,7 +35826,7 @@
           "nl": "Daar slaan waar het pijn doet"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -35830,7 +35909,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 15,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Easter_Token",
@@ -36071,6 +36150,7 @@
       "nl": "Uitdaging #54"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -36596,6 +36676,7 @@
       "nl": "Testmissies: Intro Dungeons"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "dateStart": null,
@@ -36766,6 +36847,7 @@
       "nl": "Uitdaging #53"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -36957,7 +37039,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -37146,7 +37228,7 @@
           "nl": "Meer bloed!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -37346,6 +37428,7 @@
       "nl": "Kerstmis 2019"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -37979,7 +38062,7 @@
           "nl": "1382400 seconden om de feestdagen te redden"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -38015,6 +38098,7 @@
       "nl": "Halloween Nightmare 2019"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -38083,7 +38167,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Star_Bronze",
@@ -38407,7 +38491,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 15,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Banshee_Veil",
@@ -38468,7 +38552,7 @@
           "nl": "De Vermogensproef"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -38720,6 +38804,7 @@
       "nl": "Uitdaging #52"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -39070,7 +39155,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -39300,6 +39385,7 @@
       "nl": "Jubileum 2019, deel 3"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "dateStart": null,
@@ -39512,7 +39598,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Dark_Matter",
@@ -39681,6 +39767,7 @@
       "nl": "Jubileum 2019, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "dateStart": null,
@@ -39713,7 +39800,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 20,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Dark_Matter",
@@ -40062,6 +40149,7 @@
       "nl": "Jubileum 2019, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "dateStart": null,
@@ -40443,6 +40531,7 @@
       "nl": "Uitdaging #50"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -40978,6 +41067,7 @@
       "nl": "Uitdaging #49"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -41169,7 +41259,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -41558,6 +41648,7 @@
       "nl": "Uitdaging #48"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -41749,7 +41840,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -42138,6 +42229,7 @@
       "nl": "Evenement #64"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -42329,7 +42421,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -42518,7 +42610,7 @@
           "nl": "Meer bloed!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -42718,6 +42810,7 @@
       "nl": "Pasen 2019"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "dateStart": null,
@@ -43171,6 +43264,7 @@
       "nl": "Evenement #44"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -43362,7 +43456,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -43751,6 +43845,7 @@
       "nl": "Evenement #43"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -44101,7 +44196,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -44331,6 +44426,7 @@
       "nl": "Kerstmis 2018"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -44640,6 +44736,7 @@
       "nl": "Kerstmis 2018, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -44805,7 +44902,7 @@
           "nl": "Countdown"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -44877,6 +44974,7 @@
       "nl": "Kerstmis 2018, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "dateStart": null,
@@ -45042,7 +45140,7 @@
           "nl": "Mathemagica"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -45114,6 +45212,7 @@
       "nl": "Evenement #42"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "dateStart": null,
@@ -45182,7 +45281,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 3,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -45649,6 +45748,7 @@
       "nl": "Halloween Nightmare 2018"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -45850,7 +45950,7 @@
           "nl": "Zilveren kogels"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -45922,7 +46022,7 @@
           "nl": "Zilveren hagel"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -46210,6 +46310,7 @@
       "nl": "Halloween Nightmare 2018, deel 2"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -46339,6 +46440,7 @@
       "nl": "Halloween Nightmare 2018, deel 1"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
     "dateStart": null,
@@ -46468,6 +46570,7 @@
       "nl": "Uitdaging #42"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -46659,7 +46762,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -47048,6 +47151,7 @@
       "nl": "Evenement #41"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -47239,7 +47343,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -47628,6 +47732,7 @@
       "nl": "Jubileum, deel 6"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph.png",
     "dateStart": null,
@@ -47844,6 +47949,7 @@
       "nl": "Jubileum, deel 5"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_saber.png",
     "dateStart": null,
@@ -48060,6 +48166,7 @@
       "nl": "Jubileum, deel 4"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_mystic.png",
     "dateStart": null,
@@ -48276,6 +48383,7 @@
       "nl": "Testmissies: ladderStep"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "dateStart": null,
@@ -48333,6 +48441,7 @@
       "nl": "Jubileum, deel 3"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_undead.png",
     "dateStart": null,
@@ -48549,6 +48658,7 @@
       "nl": "Jubileum, deel 2"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "dateStart": null,
@@ -48765,6 +48875,7 @@
       "nl": "Jubileum, deel 1"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_techno.png",
     "dateStart": null,
@@ -48838,7 +48949,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -48981,6 +49092,7 @@
       "nl": "Evenement #40"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -49172,7 +49284,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -49561,6 +49673,7 @@
       "nl": "Evenement #38"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -49911,7 +50024,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -50141,6 +50254,7 @@
       "nl": "Pasen 2018"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph_easter.png",
     "dateStart": null,
@@ -50634,6 +50748,7 @@
       "nl": "Evenement #37"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -50825,7 +50940,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -51214,6 +51329,7 @@
       "nl": "Evenement #36"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "dateStart": null,
@@ -51282,7 +51398,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 3,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -51749,6 +51865,7 @@
       "nl": "Evenement #35"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "dateStart": null,
@@ -51817,7 +51934,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 3,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -52284,6 +52401,7 @@
       "nl": "Evenement #34"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -52475,7 +52593,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -52664,7 +52782,7 @@
           "nl": "Meer bloed!"
         },
         "condition": {
-          "ru": "Больше крови!",
+          "ru": "Нанесите урон!",
           "en": "Inflict damage!",
           "es": "¡Inflige daños!",
           "fr": "Inflige des dommages !",
@@ -52864,6 +52982,7 @@
       "nl": "Jungle Bells 2017"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
     "dateStart": null,
@@ -52896,7 +53015,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 20,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -53444,6 +53563,7 @@
       "nl": "Kerstmis 2017"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_xmas_red.png",
     "dateStart": null,
@@ -53629,6 +53749,7 @@
       "nl": "Evenement #33"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -54164,6 +54285,7 @@
       "nl": "Pasen"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_red.png",
     "dateStart": null,
@@ -54349,6 +54471,7 @@
       "nl": "Evenement #32"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -54540,7 +54663,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -54929,6 +55052,7 @@
       "nl": "Evenement #31"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -55120,7 +55244,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -55509,6 +55633,7 @@
       "nl": "Uitdaging #30"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -55700,7 +55825,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -56089,6 +56214,7 @@
       "nl": "Uitdaging #29"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -56280,7 +56406,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -56669,6 +56795,7 @@
       "nl": "Jungle Bells"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
     "dateStart": null,
@@ -56701,7 +56828,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 20,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -57249,6 +57376,7 @@
       "nl": "Kerstmis 2016"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_xmas_red.png",
     "dateStart": null,
@@ -57414,6 +57542,7 @@
       "nl": "Evenement #27"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -57994,6 +58123,7 @@
       "nl": "Halloween Nightmare"
     },
     "nameSource": "localisation",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_candy_red.png",
     "dateStart": null,
@@ -58211,7 +58341,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 20,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Charm_Critical_98",
@@ -58651,6 +58781,7 @@
       "nl": "Evenement #26"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -58842,7 +58973,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -59231,6 +59362,7 @@
       "nl": "Evenement #25"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "dateStart": null,
@@ -59299,7 +59431,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 3,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -59766,6 +59898,7 @@
       "nl": "Evenement #23"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "dateStart": null,
@@ -60301,6 +60434,7 @@
       "nl": "Afgelopen evenementen"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "dateStart": null,
@@ -60482,7 +60616,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -60955,7 +61089,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 3,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Charm_Xpx2_1",
@@ -61530,7 +61664,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 25,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -61930,7 +62064,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -63212,7 +63346,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -63812,7 +63946,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -64930,7 +65064,7 @@
           "nl": "Start contracten in het Medisch lab"
         },
         "amount": 10,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",
@@ -65278,6 +65412,7 @@
       "nl": "Nieuwe functies"
     },
     "nameSource": "authored",
+    "permanent": false,
     "requiredLevel": 7,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png",
     "dateStart": null,
@@ -65382,7 +65517,7 @@
           "nl": "Start je eerste contract van de Challenge Hall"
         },
         "amount": 1,
-        "category": "misc",
+        "category": "building",
         "rewards": [
           {
             "id": "Material_Event_Token",

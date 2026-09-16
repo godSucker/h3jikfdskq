@@ -740,6 +740,8 @@
   "guides.quests.triggerCategory.level": "Level",
   "guides.quests.triggerCategory.collection": "Collection",
   "guides.quests.triggerCategory.social": "Social",
+  "guides.quests.unlockNeeds": "Requires:",
+  "guides.quests.unlockBuildingLevel": "{name} level {level}",
   "guides.division.recommendedLevel": "Recommended evo to clear: «{level}»",
   "guides.division.mapNumber": "Map {n}",
   "guides.division.fightsCount": "Fights:",

@@ -740,6 +740,8 @@
   "guides.quests.triggerCategory.level": "Seviye",
   "guides.quests.triggerCategory.collection": "Koleksiyon",
   "guides.quests.triggerCategory.social": "Sosyal",
+  "guides.quests.unlockNeeds": "Gerekli:",
+  "guides.quests.unlockBuildingLevel": "{name} seviye {level}",
   "guides.division.recommendedLevel": "Tamamlamak için önerilen evo: «{level}»",
   "guides.division.mapNumber": "Harita {n}",
   "guides.division.fightsCount": "Dövüş:",
