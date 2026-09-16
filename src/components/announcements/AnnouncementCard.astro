@@ -210,7 +210,11 @@ const forecastWeeks =
       </button>
       <div class="card-body">
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
-        <span class="card-category">{CATEGORY_RU.mutant}</span>
+        <!-- Бейдж говорит о СОБЫТИИ, а не о разделе: "Мутанты" отвечал только на
+             "что это за категория", но не на "что произошло" (юзер 2026-09-16).
+             Вкладки фильтров вверху ленты остаются во множественном числе -
+             там это название раздела. -->
+        <span class="card-category">Новый мутант</span>
         <button class="hero-name-btn" data-open-mutant={mutantLite.id}>{mutantLite.name}</button>
       </div>
     </div>
@@ -221,7 +225,7 @@ const forecastWeeks =
       </button>
       <div class="card-body">
         <time class="card-date" datetime={a.date}>{fmtDate(a.date)}</time>
-        <span class="card-category">{CATEGORY_RU.skin}</span>
+        <span class="card-category">Новый скин</span>
         <button class="hero-name-btn" data-open-mutant={skinBaseId}>{it.name}</button>
       </div>
     </div>
