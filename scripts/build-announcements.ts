@@ -232,6 +232,10 @@ interface DetectResult {
   // спринт (currentSprint - точные даты открываются сервером ещё ~2 недели
   // после старта), И следующий, если он уже был опубликован как "прогноз".
   updateExisting?: { sprintKey: string; items: AnnouncementItem[] }[]
+  // Рейды/лесенки: объект УЖЕ был опубликован, но без даты, а теперь kartel
+  // её впервые отдал. Это дозаполнение старой карточки, а не новый пост -
+  // main() дописывает дату в существующий item с тем же id.
+  patchDates?: { id: string; exactDateLabel: string; exactDateStart: string }[]
   // Только shopForecast/dailyNews, только при СОЗДАНИИ новой записи (items
   // непустой, updateExisting не задан) - записывается в Announcement.sprintKey.
   sprintKey?: string
@@ -862,7 +866,22 @@ async function detectDungeons(
     if (!exact) continue
     dated.push({ entry: d, key: `${d.id}@${exact.start}`, exact })
   }
-  const fresh = dated.filter((d) => !seenSet.has(d.key))
+  // Ключ id@startDate задуман ловить ПЕРЕЗАПУСКИ данжа - тот же id в новом окне.
+  // Но он не отличал перезапуск от случая "запись была опубликована без даты,
+  // а теперь kartel дату впервые отдал": голый ключ "jungle_17" лежал в ledger
+  // с 04.09, 16.09 пришла дата -> ключ стал "jungle_17@2026-10-02" -> детектор
+  // счёл это новым запуском и опубликовал "Амазонку", "Майами" и "Тёмный
+  // город" второй раз. Отличаем по наличию в seen хоть одного датированного
+  // ключа этого id: нет ни одного, а голый есть - значит дата появилась
+  // впервые, это патч старой карточки. Следующая смена даты (уже есть
+  // "id@старая") - честный перезапуск, публикуется как раньше.
+  const hasDatedKey = (id: string) => seen.some((k) => k.startsWith(`${id}@`))
+  const isFirstDate = (d: (typeof dated)[number]) =>
+    seenSet.has(d.entry.id) && !hasDatedKey(d.entry.id)
+  const fresh = dated.filter((d) => !seenSet.has(d.key) && !isFirstDate(d))
+  const patchDates = dated
+    .filter((d) => !seenSet.has(d.key) && isFirstDate(d))
+    .map((d) => ({ id: d.entry.id, exactDateLabel: d.exact.label, exactDateStart: d.exact.start }))
 
   const items = await Promise.all(
     fresh.map(async ({ entry: d, exact }) => {
@@ -892,7 +911,7 @@ async function detectDungeons(
   )
 
   const newIds = [...new Set([...seen, ...dated.map((d) => d.key)])]
-  return { newIds, items }
+  return { newIds, items, patchDates }
 }
 
 async function detectRaids(seen: string[]): Promise<DetectResult> {
@@ -954,6 +973,22 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
   const filterMap = await buildDungeonFilterMap().catch(() => new Map())
   const dungeonIds = [...filterMap.keys()]
 
+  // НАЙДЕНО 2026-09-16 (юзер поймал на первом же живом срабатывании): резолвер
+  // превращает season_jungle в jungle_17 - а это ОБЫЧНАЯ лесенка "Амазонка",
+  // которую уже публикует detectLadders. Идея "ивент-лесенка - отдельная
+  // сущность" не подтвердилась: season_X в event-ladders.json - архивный
+  // шаблон той же тематической лесенки, со своим старым mutantId (отсюда на
+  // карточке и появлялся мутант как главная награда, которого у живого данжа
+  // нет). До 16.09 этот путь ни разу не срабатывал - kartel не отдавал даты, и
+  // детектор молчал на `if (!exact) continue`. Данжи обычных лесенок здесь
+  // пропускаем; если придёт настоящий ивент, которого в них нет, он
+  // опубликуется как раньше.
+  const special = await loadJson<{ experiment: DungeonRawShape[]; challenge: DungeonRawShape[] }>(
+    'src/data/guides/special-ladders.json',
+    { experiment: [], challenge: [] },
+  )
+  const coveredByLadders = new Set([...special.experiment, ...special.challenge].map((d) => d.id))
+
   const dated: {
     entry: EventLadderRawShape
     key: string
@@ -962,6 +997,7 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
   for (const e of entries) {
     const dungeonId = resolveEventLadderDungeonId(e.id, dungeonIds)
     if (!dungeonId) continue
+    if (coveredByLadders.has(dungeonId)) continue
     const exact = await exactDateFor(filterMap.get(dungeonId))
     if (!exact) continue
     dated.push({ entry: e, key: `${e.id}@${exact.start}`, exact })
@@ -1390,7 +1426,22 @@ async function main() {
 
   for (const d of DETECTORS) {
     try {
-      const { newIds, items, updateExisting, sprintKey } = await d.run(ledger[d.category])
+      const { newIds, items, updateExisting, sprintKey, patchDates } = await d.run(
+        ledger[d.category],
+      )
+      // Дата появилась у уже опубликованного рейда/лесенки - дописываем её в
+      // старую карточку, а не плодим новый пост (см. detectDungeons).
+      for (const pd of patchDates ?? []) {
+        for (const a of announcements) {
+          if (a.category !== d.category) continue
+          for (const it of a.items ?? []) {
+            if (it.id !== pd.id || it.exactDateLabel) continue
+            it.exactDateLabel = pd.exactDateLabel
+            it.exactDateStart = pd.exactDateStart
+            console.log(`[ANNOUNCE] ${d.category}: дата дописана в старую карточку ${pd.id} -> ${pd.exactDateLabel}`)
+          }
+        }
+      }
       if (items.length > 0) {
         if (isSingleItemCategory(d.category)) {
           items.forEach((item, i) => {
