@@ -14,15 +14,7 @@
 // падает на ERR_UNKNOWN_FILE_EXTENSION.
 
 export type CardKind =
-  | 'dungeon'
-  | 'mutant'
-  | 'skin'
-  | 'reactor'
-  | 'box'
-  | 'bingo'
-  | 'forecast'
-  | 'exchange'
-  | 'generic'
+  'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'exchange' | 'generic'
 
 export function cardKind(category: string | undefined): CardKind {
   if (category === 'raid' || category === 'ladder' || category === 'eventLadder') return 'dungeon'

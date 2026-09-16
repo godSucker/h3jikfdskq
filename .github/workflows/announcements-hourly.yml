@@ -37,6 +37,14 @@ jobs:
     steps:
       - name: 1. Клонирование репозитория
         uses: actions/checkout@v4
+        # ref: main ОБЯЗАТЕЛЕН. По умолчанию checkout берёт github.sha - коммит
+        # на момент ТРИГГЕРА, а не свежий HEAD. Все воркфлоу этой concurrency-
+        # группы пишут в один pending-screenshots.json, и второй в очереди
+        # дожидался первого, но выкачивал УСТАРЕВШУЮ очередь и слал скриншоты
+        # повторно (найдено 2026-09-16: юзер получил 3 карточки, затем ещё 2
+        # дублем, а сам прогон упал на push с non-fast-forward).
+        with:
+          ref: main
 
       - name: 2. Установка Node.js
         uses: actions/setup-node@v4
