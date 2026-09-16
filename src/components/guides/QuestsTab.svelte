@@ -21,6 +21,8 @@
     line: number
     condition: string
     amount: number | null
+    // amount с разрядами по локали: "500 000", а не "500000".
+    amountText: string
     showAmount: boolean
     rewards: EventQuestReward[]
   }
@@ -328,7 +330,7 @@
             {#each line as step, i (step.id)}
               <div class="tier-row">
                 <span class="tier-index">{i + 1}</span>
-                <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amount}</span>{/if}</span>
+                <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amountText}</span>{/if}</span>
                 {@render rewardChips(step.rewards)}
               </div>
             {/each}

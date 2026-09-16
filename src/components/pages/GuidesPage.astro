@@ -326,6 +326,7 @@ const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).map((c) => (
     condition: pick(st.condition),
     amount: st.amount,
     showAmount: shouldShowAmount(pick(st.condition), st.amount),
+    amountText: st.amount !== null ? formatNumber(st.amount) : '',
     rewards: st.rewards.map(resolveReward),
   })),
 }));

@@ -323,6 +323,7 @@ export interface ResolvedEventQuestStep {
   id: string
   condition: string
   amount: number | null
+  amountText: string
   showAmount: boolean
   rewards: { label: string; name?: string; count?: string; icon: string | null }[]
 }
@@ -387,6 +388,7 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
             condition: st.condition.ru,
             amount: st.amount,
             showAmount: shouldShowAmount(st.condition.ru, st.amount),
+            amountText: st.amount !== null ? st.amount.toLocaleString('ru-RU') : '',
             rewards: st.rewards.map((r) => {
               const res = resolveReward(r as never, rewardCtx)
               return { label: res.label, name: res.name, count: res.count, icon: res.icon ?? null }
