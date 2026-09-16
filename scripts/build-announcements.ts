@@ -841,6 +841,24 @@ interface DungeonRawShape {
 // - бэкфилл 16 старых рейдов решается сам собой: они появятся ровно тогда,
 //   когда kartel реально покажет для них активное/ближайшее окно, а не
 //   разовым дампом всех разом
+// Фильтр данжа должен быть ОТ ЭТОГО ЖЕ эдишна. Kobojo иногда не переименовывает
+// Filter-тег при выпуске нового номера: у mars_16 в dungeons.xml стоит
+// filter_dungeon_challenge_mars_15. kartel честно отдаёт дату mars_15 - то
+// есть когда шёл ПРОШЛЫЙ Марс, а мы приписывали её новому. Юзер поймал
+// 2026-09-16: на ленте висел "Марс 4-18 сентября", хотя в игре в это время
+// шла лесенка с Чунь Ли. Из 104 данжей с фильтром так рассинхронено 5 (mars_16,
+// neon_14, pit_cyber_12, pit_zoo_12, pit_mystic_12) - все получали бы чужие
+// даты. Номер эдишна в фильтре != номеру данжа -> дате не верим: лучше без
+// даты, чем с чужой. Тот же класс, что "чужие даты" LuckyBox_Research_IX и
+// Specimen_BB_08 - переиспользованный тег.
+function filterMatchesEdition(dungeonId: string, filterName: string | undefined): boolean {
+  if (!filterName) return true
+  const idEdition = dungeonId.match(/_(\d+)$/)?.[1]
+  const filterEdition = filterName.match(/_(\d+)$/)?.[1]
+  if (!idEdition || !filterEdition) return true
+  return idEdition === filterEdition
+}
+
 async function detectDungeons(
   seen: string[],
   entries: DungeonRawShape[],
@@ -862,7 +880,9 @@ async function detectDungeons(
   const dated: { entry: DungeonRawShape; key: string; exact: { label: string; start: string } }[] =
     []
   for (const d of entries) {
-    const exact = await exactDateFor(filterMap.get(d.id))
+    const filterName = filterMap.get(d.id)
+    if (!filterMatchesEdition(d.id, filterName)) continue
+    const exact = await exactDateFor(filterName)
     if (!exact) continue
     dated.push({ entry: d, key: `${d.id}@${exact.start}`, exact })
   }
@@ -998,6 +1018,7 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
     const dungeonId = resolveEventLadderDungeonId(e.id, dungeonIds)
     if (!dungeonId) continue
     if (coveredByLadders.has(dungeonId)) continue
+    if (!filterMatchesEdition(dungeonId, filterMap.get(dungeonId))) continue
     const exact = await exactDateFor(filterMap.get(dungeonId))
     if (!exact) continue
     dated.push({ entry: e, key: `${e.id}@${exact.start}`, exact })
