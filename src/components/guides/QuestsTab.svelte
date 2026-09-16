@@ -13,7 +13,16 @@
     name: string
     requiredLevel: number | null
     icon: string | null
-    steps: { id: string; condition: string; amount: number | null; showAmount: boolean; rewards: EventQuestReward[] }[]
+    steps: EventQuestStep[]
+  }
+  export interface EventQuestStep {
+    id: string
+    // Параллельная линия внутри цепочки: нумерация этапов своя в каждой.
+    line: number
+    condition: string
+    amount: number | null
+    showAmount: boolean
+    rewards: EventQuestReward[]
   }
 </script>
 
@@ -105,6 +114,13 @@
 
   function isExpanded(chain: QuestChain<Quest>): boolean {
     return normalizedQuery.length > 0 || expandedIds.has(chain.roots[0].quest.id)
+  }
+
+  // steps приходят уже упорядоченными по линиям (build-event-quests.ts).
+  function chainLines(chain: EventQuestChain): EventQuestStep[][] {
+    const lines: EventQuestStep[][] = []
+    for (const st of chain.steps) (lines[st.line] ??= []).push(st)
+    return lines
   }
 
   function stageCount(n: number): string {
@@ -307,11 +323,15 @@
         </div>
       </div>
       <div class="tier-list">
-        {#each chain.steps as step, i (step.id)}
-          <div class="tier-row">
-            <span class="tier-index">{i + 1}</span>
-            <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amount}</span>{/if}</span>
-            {@render rewardChips(step.rewards)}
+        {#each chainLines(chain) as line, li (li)}
+          <div class="event-line">
+            {#each line as step, i (step.id)}
+              <div class="tier-row">
+                <span class="tier-index">{i + 1}</span>
+                <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amount}</span>{/if}</span>
+                {@render rewardChips(step.rewards)}
+              </div>
+            {/each}
           </div>
         {/each}
       </div>
@@ -362,6 +382,8 @@
   .trigger-icon svg { width: 100%; height: 100%; }
 
   .tier-list { display: flex; flex-direction: column; gap: 4px; padding: 0 14px 12px; }
+  .event-line { display: flex; flex-direction: column; gap: 4px; }
+  .event-line + .event-line { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255, 255, 255, 0.14); }
   .tier-row { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); flex-wrap: wrap; }
   .tier-index {
     display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; flex-shrink: 0;

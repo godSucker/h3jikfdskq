@@ -312,7 +312,7 @@ interface EventQuestRaw {
   name: I18nText;
   requiredLevel: number | null;
   icon: string | null;
-  steps: { id: string; condition: I18nText; amount: number | null; rewards: RewardRaw[] }[];
+  steps: { id: string; line: number; condition: I18nText; amount: number | null; rewards: RewardRaw[] }[];
 }
 const pick = (tx: I18nText) => tx[locale] || tx.ru || tx.en || '';
 const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).map((c) => ({
@@ -322,6 +322,7 @@ const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).map((c) => (
   icon: c.icon,
   steps: c.steps.map((st) => ({
     id: st.id,
+    line: st.line,
     condition: pick(st.condition),
     amount: st.amount,
     showAmount: shouldShowAmount(pick(st.condition), st.amount),

@@ -26,6 +26,7 @@ import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/spri
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 import { isSingleItemCategory } from '../src/lib/announcement-categories'
+import { pluralize } from '../src/lib/utils'
 import { fetchGameXml } from './game-xml-cache'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
 
@@ -77,6 +78,9 @@ interface AnnouncementItem {
   // Только для bingo: если задано - это НЕ новая доска, а список мутантов,
   // добавленных в уже существующую (см. detectBingo).
   addedNames?: string[]
+  // Только eventQuests: этапы, добавленные в уже анонсированную цепочку. Нет
+  // поля - анонс всей новой цепочки.
+  addedStepIds?: string[]
   // Только для shopForecast/dailyNews.
   price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
   // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
@@ -1205,31 +1209,85 @@ async function detectRebalance(seen: string[]): Promise<DetectResult> {
   }
 }
 
-// Новые цепочки ивентовых заданий. Phase-1-детектор: сам XML не качает, читает
-// уже собранный scripts/build-event-quests.ts файл (шаг воркфлоу стоит раньше).
-// Ключ - filter цепочки в нижнем регистре: у Kobojo один и тот же ивент бывает
-// записан в двух регистрах. Этапы и награды карточка берёт при рендере из того
-// же event-quests.json (награды - тем же resolveReward, что на /guides), поэтому
-// в announcements.json лежит только ссылка на цепочку.
-async function detectEventQuests(seen: string[]): Promise<DetectResult> {
+// Новые цепочки ивентовых заданий и новые этапы в уже анонсированных.
+// Phase-1-детектор: сам XML не качает, читает уже собранный
+// scripts/build-event-quests.ts файл (шаг воркфлоу стоит раньше). Этапы и
+// награды карточка берёт при рендере из того же event-quests.json (награды -
+// тем же resolveReward, что на /guides), поэтому в announcements.json лежит
+// только ссылка на цепочку.
+// Ключи в ledger.eventQuests двух видов, оба в нижнем регистре (у Kobojo один
+// ивент бывает записан в двух регистрах): голый фильтр (цепочка анонсирована)
+// и "фильтр|id задания" (этап известен). Сравнение по этапам, а не по их
+// числу: Kobojo может и добавить этап в идущий ивент, и убрать - по одному
+// счётчику "убрали 1, добавили 2" выглядело бы как +1.
+const EVENT_QUEST_SILENT = /^(missions_event_ended|missions_test_)/
+
+export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
   const chains = await loadJson<
-    { filter: string; name: { ru: string }; icon: string | null; dateStart: string | null; dateEnd: string | null }[]
+    {
+      filter: string
+      name: { ru: string }
+      icon: string | null
+      dateStart: string | null
+      dateEnd: string | null
+      steps: { id: string }[]
+    }[]
   >('src/data/guides/event-quests.json', [])
   const seenSet = new Set(seen)
-  const fresh = chains.filter((c) => !seenSet.has(c.filter.toLowerCase()))
-  return {
-    newIds: [...new Set([...seen, ...chains.map((c) => c.filter.toLowerCase())])],
-    items: fresh.map((c) => ({
+  const stepKey = (filter: string, id: string) => `${filter.toLowerCase()}|${id}`
+
+  // Миграция: до 2026-09-17 ledger хранил только фильтры. Первый прогон после
+  // перехода молча записывает этапы уже анонсированных цепочек как известные,
+  // иначе 1600+ этапов выстрелили бы "добавленными" разом.
+  const migrate = !seen.some((k) => k.includes('|'))
+
+  const dateLabel = (c: { dateStart: string | null; dateEnd: string | null }) =>
+    c.dateStart ? formatExactRangeRu(new Date(c.dateStart), c.dateEnd ? new Date(c.dateEnd) : null) : null
+  const nowMs = Date.now()
+
+  const items: AnnouncementItem[] = []
+  const patchDates: NonNullable<DetectResult['patchDates']> = []
+  const allKeys: string[] = []
+  for (const c of chains) {
+    const filterKey = c.filter.toLowerCase()
+    const keys = c.steps.map((st) => stepKey(c.filter, st.id))
+    allKeys.push(filterKey, ...keys)
+    const label = dateLabel(c)
+
+    if (seenSet.has(filterKey) && c.dateStart && label) {
+      patchDates.push({ id: c.filter, exactDateLabel: label, exactDateStart: c.dateStart })
+    }
+    // Архив завершённых заданий и тестовые цепочки игроку не анонсируем: в
+    // архив Kobojo регулярно переносит старые этапы, и каждый перенос выглядел
+    // бы "новыми заданиями".
+    if (EVENT_QUEST_SILENT.test(filterKey) || migrate) continue
+    // Цепочка уже закончившегося ивента - игроку её анонс не нужен, будь она
+    // новой для нас или с добавленными этапами.
+    if (c.dateEnd && new Date(c.dateEnd).getTime() < nowMs) continue
+
+    if (!seenSet.has(filterKey)) {
+      items.push({ id: c.filter, name: c.name.ru, image: c.icon, exactDateLabel: label, exactDateStart: c.dateStart })
+      continue
+    }
+    const added = c.steps.filter((st) => !seenSet.has(stepKey(c.filter, st.id))).map((st) => st.id)
+    if (added.length === 0) continue
+    items.push({
       id: c.filter,
-      name: c.name.ru,
+      name: `${c.name.ru}: +${added.length} ${pluralize(added.length, 'этап', 'этапа', 'этапов')}`,
       image: c.icon,
-      exactDateLabel: c.dateStart
-        ? formatExactRangeRu(new Date(c.dateStart), c.dateEnd ? new Date(c.dateEnd) : null)
-        : null,
+      exactDateLabel: label,
       exactDateStart: c.dateStart,
-    })),
+      addedStepIds: added,
+    })
+  }
+
+  return {
+    newIds: [...new Set([...seen, ...allKeys])],
+    items,
+    patchDates,
   }
 }
+
 
 const DETECTORS: {
   category: keyof Ledger

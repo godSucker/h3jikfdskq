@@ -14,11 +14,19 @@ import { numbersIn, hasNumber } from '../src/lib/event-quest-text'
 //
 // Устройство missions.xml, от которого тут всё пляшет:
 // - ивентовая цепочка = миссии с одним <Filter> (это и есть привязка к ивенту);
-// - настоящее задание помечено <Tag key="missionStyle" value="events"/>;
+// - настоящее задание помечено <Tag key="missionStyle" value="events"/> (у
+//   ивентов 2016-2017 - "hard", в архиве встречается "repeat"). Тег Kobojo
+//   иногда забывает: у Хеллоуина 2025 без него остались этапы 8/15, 12/15 и
+//   14/15, поэтому заданием считаем и миссию без тега, если она лежит в
+//   фильтре ивента и у неё есть objectives и title (см. isQuestStep);
 // - между заданиями в той же цепочке prevMissions стоят ДЕСЯТКИ диалоговых
 //   реплик (caption="DialogPVE_Story_*", title="", без objectives) - у
-//   Анализатора тайны 38 записей и только 6 заданий. Диалоги тег events не
-//   несут, поэтому фильтр по нему их уже отсекает;
+//   Анализатора тайны 38 записей и только 6 заданий. Их отсекает отсутствие
+//   objectives;
+// - в одном фильтре обычно НЕСКОЛЬКО параллельных линий заданий со своей
+//   нумерацией в <Tag key="part">: у годовщины 2026 (часть 2) это линии на 5,
+//   4, 3, 5 и 6 этапов, и вторая открывается после 1-го этапа первой. Линии
+//   восстанавливает splitIntoLines;
 // - текст условия лежит в caption ОБЪЕКТИВА (caption_win_pve_obj1 = "Победить
 //   в PvE-сражениях"), а caption самой миссии - флейвор-реплика персонажа;
 // - требуемый уровень ("Required fame") лежит в <Condition type="level"> в
@@ -60,6 +68,9 @@ const CONDITION_CATEGORY: Record<string, string> = { level: 'level', custom: 'co
 export interface EventQuestStep {
   id: string
   part: string | null
+  // Номер линии внутри цепочки (0, 1, ...). steps идут подряд по линиям, внутри
+  // линии - в порядке прохождения; нумерация этапов на сайте своя в каждой линии.
+  line: number
   title: I18nText
   condition: I18nText
   amount: number | null
@@ -200,13 +211,15 @@ interface ObjectiveInfo {
 
 function objectiveOf(m: Record<string, any>): ObjectiveInfo {
   const objectives = m.objectives ?? {}
-  const objs = [
-    ...arr(objectives.ClientObjective),
-    ...arr(objectives.ConditionObjective),
-    ...arr(objectives.ActionObjective),
-    ...arr(objectives.SellObjective),
-  ] as Record<string, any>[]
-  const o = objs[0] ?? {}
+  // Любой вид объектива: помимо Client/Condition/Action/Sell встречается
+  // BuyObjective (архивное "купи 2 пропуска").
+  const objs = Object.entries(objectives).flatMap(([kind, v]) =>
+    arr(v as any)
+      .filter((x) => x && typeof x === 'object')
+      .map((x) => ({ kind, o: x as Record<string, any> })),
+  )
+  const kind = objs[0]?.kind ?? ''
+  const o = objs[0]?.o ?? {}
   const action = arr(o.clientAction)[0] as string | undefined
   const cond = o.Condition as Record<string, any> | undefined
   const category = action
@@ -216,7 +229,13 @@ function objectiveOf(m: Record<string, any>): ObjectiveInfo {
       : 'misc'
   const amountRaw = (o.amount as string | undefined) ?? (cond?.amount as string | undefined)
   return {
-    sig: action ? `client:${action}` : cond?.type ? `cond:${cond.type}:${cond.id ?? ''}` : 'other',
+    // Для прочих видов в сигнатуру идёт сам вид и предмет: иначе "купи 2
+    // пропуска" (BuyObjective) взял бы образец у "сделай 2 заказа" (ActionObjective).
+    sig: action
+      ? `client:${action}`
+      : cond?.type
+        ? `cond:${cond.type}:${cond.id ?? ''}`
+        : `${kind}:${arr(o.entity)[0] ?? arr(o.action)[0] ?? ''}`,
     captionKey: typeof o.caption === 'string' ? o.caption : '',
     amount: amountRaw ? Number(amountRaw) : null,
     category,
@@ -414,6 +433,131 @@ function prettifyFilter(filter: string): string {
     .trim()
 }
 
+const QUEST_STYLES = new Set(['events', 'hard', 'repeat'])
+// Архив завершённых заданий: 229 миссий без тега там - это старые обычные
+// квесты, перенесённые Kobojo, а не этапы ивентов. В архиве берём только
+// помеченные.
+const ARCHIVE_FILTER = 'missions_event_ended'
+
+function filterKey(m: Record<string, any>): string | null {
+  const f = arr(m.Filter)[0]
+  return typeof f === 'string' && f ? f.toLowerCase() : null
+}
+
+function hasObjectives(m: Record<string, any>): boolean {
+  return !!m.objectives && typeof m.objectives === 'object' && Object.keys(m.objectives).length > 0
+}
+
+function isQuestStep(m: Record<string, any>, eventFilters: Set<string>, style: string | undefined): boolean {
+  const f = filterKey(m)
+  if (!f || !hasObjectives(m) || !m.title) return false
+  if (style && QUEST_STYLES.has(style)) return true
+  return eventFilters.has(f) && f !== ARCHIVE_FILTER
+}
+
+interface PartTag {
+  i: number
+  // "?" - Kobojo не указал общее число ("3/?").
+  n: string
+}
+
+function parsePart(raw: string | null | undefined): PartTag | null {
+  const m = /^(\d+)\/(\d+|\?)$/.exec(raw ?? '')
+  return m ? { i: Number(m[1]), n: m[2] } : null
+}
+
+// Раскладывает задания одного фильтра по параллельным линиям. Опора - связи
+// prevMissions (через диалоговые реплики до ближайшего задания) и тег part.
+// Kobojo в part ошибается ("1/4 -> 2/3 -> 3/4", дважды "3/4", "1/8 -> 2/10"),
+// поэтому правила терпимые:
+// - шаг с part i>1 продолжает линию родителя, если у них одно общее число и
+//   i не меньше, либо общее число разное, но i ровно на 1 больше (опечатка);
+// - "1/N" всегда начинает новую линию;
+// - шаг без part идёт в линию родителя (старые ивенты part не несут вовсе);
+// - связь потеряна (родитель в другом фильтре) - ищем единственную линию с тем
+//   же общим числом, где уже есть предыдущий номер.
+// Внутри линии порядок по part, затем по id; линии - по первому id.
+function splitIntoLines(
+  list: Record<string, any>[],
+  prevQuestsOf: (m: Record<string, any>) => string[],
+  tagOf: (m: Record<string, any>, key: string) => string | undefined,
+): Record<string, any>[][] {
+  const ids = new Set(list.map((m) => String(m.id)))
+  const byId = new Map(list.map((m) => [String(m.id), m]))
+  const partOf = (m: Record<string, any>) => parsePart(tagOf(m, 'part'))
+  const root = new Map(list.map((m) => [String(m.id), String(m.id)]))
+  const find = (x: string): string => {
+    while (root.get(x) !== x) {
+      root.set(x, root.get(root.get(x)!)!)
+      x = root.get(x)!
+    }
+    return x
+  }
+  const union = (a: string, b: string) => {
+    const ra = find(a)
+    const rb = find(b)
+    if (ra !== rb) root.set(rb, ra)
+  }
+
+  const sorted = [...list].sort((a, b) => Number(a.id) - Number(b.id))
+  for (const m of sorted) {
+    const id = String(m.id)
+    const s = partOf(m)
+    const parents = prevQuestsOf(m).filter((x) => ids.has(x))
+    let linked = false
+    for (const pid of parents) {
+      const q = partOf(byId.get(pid)!)
+      if (!s) {
+        union(pid, id)
+        linked = true
+        continue
+      }
+      if (s.i === 1) continue
+      if (!q) {
+        union(pid, id)
+        linked = true
+        continue
+      }
+      const sameTotal = s.n === q.n && s.i >= q.i
+      const typo = s.n !== q.n && s.n !== '?' && q.n !== '?' && s.i === q.i + 1
+      if (sameTotal || typo) {
+        union(pid, id)
+        linked = true
+      }
+    }
+    if (s && s.i > 1 && !linked) {
+      const lower = sorted.filter((o) => {
+        const p = partOf(o)
+        return Number(o.id) < Number(id) && p?.n === s.n && p.i < s.i
+      })
+      const lines = new Map<string, Record<string, any>[]>()
+      for (const o of lower) {
+        const r = find(String(o.id))
+        const taken = sorted.some(
+          (x) => Number(x.id) < Number(id) && find(String(x.id)) === r && partOf(x)?.i === s.i,
+        )
+        if (!taken) lines.set(r, [...(lines.get(r) ?? []), o])
+      }
+      if (lines.size === 1) union([...lines.keys()][0], id)
+    }
+  }
+
+  const groups = new Map<string, Record<string, any>[]>()
+  for (const m of sorted) {
+    const r = find(String(m.id))
+    groups.set(r, [...(groups.get(r) ?? []), m])
+  }
+  return [...groups.values()]
+    .map((g) =>
+      g.sort(
+        (a, b) =>
+          (partOf(a)?.i ?? Number.MAX_SAFE_INTEGER) - (partOf(b)?.i ?? Number.MAX_SAFE_INTEGER) ||
+          Number(a.id) - Number(b.id),
+      ),
+    )
+    .sort((a, b) => Math.min(...a.map((m) => Number(m.id))) - Math.min(...b.map((m) => Number(m.id))))
+}
+
 async function main() {
   const [{ data: xml }, locs] = await Promise.all([
     axios.get<string>(MISSIONS_URL, { responseType: 'text', timeout: 60000 }),
@@ -460,14 +604,40 @@ async function main() {
   // бывает записан в двух регистрах (Missions_Event_Challenge_48 - 1 задание,
   // Missions_Event_challenge_48 - ещё 13), и иначе он разваливался на две
   // карточки с одинаковым именем "Испытание #48".
+  const eventFilters = new Set(
+    missions
+      .filter((m) => QUEST_STYLES.has(tagOf(m, 'missionStyle') ?? ''))
+      .map(filterKey)
+      .filter((f): f is string => !!f),
+  )
+  const questIds = new Set<string>()
   const groups = new Map<string, { filter: string; list: Record<string, any>[] }>()
   for (const m of missions) {
-    if (tagOf(m, 'missionStyle') !== 'events') continue
-    const filter = arr(m.Filter)[0]
-    if (!filter || typeof filter !== 'string') continue
+    if (!isQuestStep(m, eventFilters, tagOf(m, 'missionStyle'))) continue
+    const filter = arr(m.Filter)[0] as string
     const key = filter.toLowerCase()
+    questIds.add(String(m.id))
     if (!groups.has(key)) groups.set(key, { filter, list: [] })
     groups.get(key)!.list.push(m)
+  }
+
+  // Ближайшие предыдущие ЗАДАНИЯ: идём по prevMissions через диалоговые реплики.
+  const prevQuestsOf = (m: Record<string, any>): string[] => {
+    const found = new Set<string>()
+    const seen = new Set<string>()
+    const queue = String(m.prevMissions ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+    while (queue.length) {
+      const id = queue.shift()!
+      if (seen.has(id)) continue
+      seen.add(id)
+      if (questIds.has(id)) {
+        found.add(id)
+        continue
+      }
+      const prev = byId.get(id)
+      if (prev) queue.push(...String(prev.prevMissions ?? '').split(',').map((x) => x.trim()).filter(Boolean))
+    }
+    return [...found]
   }
 
   const chains: EventQuestChain[] = []
@@ -480,15 +650,21 @@ async function main() {
   }
 
   for (const { filter, list } of groups.values()) {
-    list.sort((a, b) => Number(a.id) - Number(b.id))
+    const lines = splitIntoLines(list, prevQuestsOf, tagOf)
+    const lineOf = new Map(lines.flatMap((l, i) => l.map((m) => [String(m.id), i] as const)))
 
-    const steps: EventQuestStep[] = list.map((m) => {
+    const steps: EventQuestStep[] = lines.flat().map((m) => {
       const info = objectiveOf(m)
-      const { text: condition, fix } = fixCondition(info, translate(locs, info.captionKey), donorPool)
+      const fixed = fixCondition(info, translate(locs, info.captionKey), donorPool)
+      const fix = fixed.fix
+      // Текста условия нет вовсе и собрать не из чего - показываем название
+      // задания, а не пустую строку с одним "×N".
+      const condition = isEmpty(fixed.text) ? translate(locs, m.title) : fixed.text
       if (fix) fixes[fix].push(`${m.id} [${info.sig} ${info.amount}] ${condition.ru}`)
       return {
         id: String(m.id),
         part: tagOf(m, 'part') ?? null,
+        line: lineOf.get(String(m.id))!,
         title: translate(locs, m.title),
         condition,
         amount: info.amount,
@@ -547,7 +723,7 @@ async function main() {
       filter,
       name,
       nameSource,
-      requiredLevel: requiredLevelFor(String(list[0].id)),
+      requiredLevel: requiredLevelFor(String(lines[0][0].id)),
       icon: icon ? `${ICON_BASE}${icon}.png` : null,
       dateStart: null,
       dateEnd: null,
@@ -592,7 +768,24 @@ async function main() {
 
   // Свежие ивенты сверху: у цепочек нет дат в самом файле, но id миссий
   // монотонно растут со временем добавления - этого достаточно для порядка.
-  chains.sort((a, b) => Number(b.steps[0].id) - Number(a.steps[0].id))
+  const firstId = (c: EventQuestChain) => Math.min(...c.steps.map((st) => Number(st.id)))
+  chains.sort((a, b) => firstId(b) - firstId(a))
+
+  // Страховка от битой выгрузки: обрезанный missions.xml или пустая
+  // локализация дали бы валидный, но почти пустой JSON - и /guides молча
+  // потерял бы задания, а детектор анонсов принял бы это за норму. Прошлый
+  // файл в таком случае не трогаем.
+  const prevSteps = [...prevByFilter.values()].reduce((sum, c) => sum + c.steps.length, 0)
+  const newSteps = chains.reduce((sum, c) => sum + c.steps.length, 0)
+  if (prevByFilter.size > 0 && (chains.length < prevByFilter.size * 0.8 || newSteps < prevSteps * 0.8)) {
+    throw new Error(
+      `подозрительно мало данных: цепочек ${chains.length} (было ${prevByFilter.size}), ` +
+        `заданий ${newSteps} (было ${prevSteps}) - файл не перезаписан`,
+    )
+  }
+  if (locs.ru.size < 10000 || locs.en.size < 10000) {
+    throw new Error(`локализация неполная (ru ${locs.ru.size}, en ${locs.en.size} ключей) - файл не перезаписан`)
+  }
 
   await fs.writeFile(OUT_PATH, JSON.stringify(chains, null, 2) + '\n')
   const stepsTotal = chains.reduce((s, c) => s + c.steps.length, 0)
@@ -601,6 +794,11 @@ async function main() {
     return acc
   }, {})
   console.log(`[EVENT-QUESTS] цепочек: ${chains.length}, заданий: ${stepsTotal}, имена: ${JSON.stringify(bySource)}`)
+  const multiLine = chains.filter((c) => c.steps.some((st) => st.line > 0))
+  console.log(
+    `[EVENT-QUESTS] линий: ${chains.reduce((sum, c) => sum + new Set(c.steps.map((st) => st.line)).size, 0)}, ` +
+      `цепочек из нескольких линий: ${multiLine.length}`,
+  )
   console.log(
     `[EVENT-QUESTS] условия: восстановлено пустых ${fixes.missing.length}, исправлено число ${fixes.renumbered.length}, подставлено вместо X ${fixes.placeholder.length}`,
   )
