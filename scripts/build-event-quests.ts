@@ -2,6 +2,7 @@ import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
 import { XMLParser } from 'fast-xml-parser'
+import { loadFilterDates, loadDateLedger, hasLiveFilterData } from './kartel-filter-dates'
 
 // Ивентовые задания для /guides (таб "Квесты", секция "Ивентовые задания") и для
 // авто-анонсов. Отдельный скрипт, а НЕ расширение build-quests.ts: тот держит
@@ -74,6 +75,11 @@ export interface EventQuestChain {
   nameSource: 'localisation' | 'authored' | 'fallback'
   requiredLevel: number | null
   icon: string | null
+  // Окно ивента по Filter-тегу цепочки (kartel через live-filter-dates.json,
+  // либо только старт из date-ledger.json). null - kartel про ивент не знает:
+  // у старых цепочек это норма, дат за прошлые годы сервер не отдаёт.
+  dateStart: string | null
+  dateEnd: string | null
   steps: EventQuestStep[]
 }
 
@@ -361,9 +367,46 @@ async function main() {
       nameSource,
       requiredLevel: requiredLevelFor(String(list[0].id)),
       icon: icon ? `${ICON_BASE}${icon}.png` : null,
+      dateStart: null,
+      dateEnd: null,
       steps,
     })
   }
+
+  // Даты. Missions_Event_Ended - не ивент, а архивная "свалка" завершённых
+  // заданий под общим тегом: его окно у kartel к конкретным заданиям отношения
+  // не имеет, поэтому дату ему не ставим вообще.
+  // Если в этом прогоне живых kartel-данных нет совсем (шаг fetch-filters.py
+  // упал или не запускался) - уже известную дату НЕ стираем: ровно так
+  // однажды молча обнулились даты прогноза магазина (см. hasLiveFilterData).
+  const [live, ledger, liveOk] = await Promise.all([loadFilterDates(), loadDateLedger(), hasLiveFilterData()])
+  const liveLower = new Map(Object.entries(live).map(([k, v]) => [k.toLowerCase(), v]))
+  const ledgerLower = new Map(Object.entries(ledger).map(([k, v]) => [k.toLowerCase(), v]))
+  let prevByFilter = new Map<string, EventQuestChain>()
+  try {
+    const prev = JSON.parse(await fs.readFile(OUT_PATH, 'utf-8')) as EventQuestChain[]
+    prevByFilter = new Map(prev.map((c) => [c.filter.toLowerCase(), c]))
+  } catch {
+    // первый прогон - файла ещё нет
+  }
+  let dated = 0
+  for (const c of chains) {
+    const key = c.filter.toLowerCase()
+    if (key === 'missions_event_ended') continue
+    const range = liveLower.get(key)
+    if (range?.start) {
+      c.dateStart = range.start
+      c.dateEnd = range.end ?? null
+    } else if (ledgerLower.get(key)) {
+      c.dateStart = ledgerLower.get(key)!
+    } else if (!liveOk) {
+      const prev = prevByFilter.get(key)
+      c.dateStart = prev?.dateStart ?? null
+      c.dateEnd = prev?.dateEnd ?? null
+    }
+    if (c.dateStart) dated++
+  }
+  console.log(`[EVENT-QUESTS] с датой: ${dated}${liveOk ? '' : ' (живых kartel-данных нет - старые даты сохранены)'}`)
 
   // Свежие ивенты сверху: у цепочек нет дат в самом файле, но id миссий
   // монотонно растут со временем добавления - этого достаточно для порядка.

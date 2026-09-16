@@ -15,6 +15,8 @@
     "nameSource": "localisation",
     "requiredLevel": 8,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5367",
@@ -264,6 +266,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5260",
@@ -1088,6 +1092,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5175",
@@ -1702,6 +1708,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5095",
@@ -2281,6 +2289,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5019",
@@ -2860,6 +2870,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4923",
@@ -3544,6 +3556,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4852",
@@ -4053,6 +4067,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4728",
@@ -4702,6 +4718,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks_2.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4617",
@@ -5491,6 +5509,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4525",
@@ -6245,6 +6265,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4386",
@@ -6809,6 +6831,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4325",
@@ -7458,6 +7482,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4244",
@@ -8107,6 +8133,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4147",
@@ -8686,6 +8714,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4084",
@@ -9125,6 +9155,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4007",
@@ -9669,6 +9701,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3916",
@@ -9723,6 +9757,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3875",
@@ -10407,6 +10443,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3752",
@@ -11056,6 +11094,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3726",
@@ -11570,6 +11610,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3668",
@@ -12079,6 +12121,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3643",
@@ -12593,6 +12637,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3587",
@@ -13102,6 +13148,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3492",
@@ -13611,6 +13659,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3425",
@@ -14120,6 +14170,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3363",
@@ -14559,6 +14611,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3351",
@@ -14613,6 +14667,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3272",
@@ -15087,6 +15143,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3257",
@@ -15211,6 +15269,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3201",
@@ -15580,6 +15640,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3187",
@@ -15704,6 +15766,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3130",
@@ -16073,6 +16137,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mutodex.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3060",
@@ -16617,6 +16683,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_purple.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3004",
@@ -16986,6 +17054,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2962",
@@ -17355,6 +17425,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2888",
@@ -17794,6 +17866,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2870",
@@ -17883,6 +17957,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2840",
@@ -18007,6 +18083,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2829",
@@ -18201,6 +18279,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2753",
@@ -18640,6 +18720,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2728",
@@ -19149,6 +19231,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2714",
@@ -19663,6 +19747,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2700",
@@ -20172,6 +20258,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2620",
@@ -20541,6 +20629,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2552",
@@ -20875,6 +20965,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2526",
@@ -21389,6 +21481,8 @@
     "nameSource": "authored",
     "requiredLevel": 15,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_storypatch.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2393",
@@ -22353,6 +22447,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_rabbithole.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2345",
@@ -22722,6 +22818,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2325",
@@ -23231,6 +23329,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2295",
@@ -23495,6 +23595,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2272",
@@ -24004,6 +24106,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2226",
@@ -24408,6 +24512,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2204",
@@ -24922,6 +25028,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2198",
@@ -25151,6 +25259,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2166",
@@ -25310,6 +25420,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_stygian.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2098",
@@ -25854,6 +25966,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2075",
@@ -26368,6 +26482,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2061",
@@ -26877,6 +26993,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1999",
@@ -27176,6 +27294,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_pvp_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1980",
@@ -27510,6 +27630,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1942",
@@ -27669,6 +27791,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1919",
@@ -28183,6 +28307,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1871",
@@ -28622,6 +28748,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1831",
@@ -29186,6 +29314,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1796",
@@ -29450,6 +29580,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1760",
@@ -29714,6 +29846,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1730",
@@ -30013,6 +30147,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1718",
@@ -30067,6 +30203,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1717",
@@ -30121,6 +30259,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1703",
@@ -30630,6 +30770,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1668",
@@ -30999,6 +31141,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1644",
@@ -31508,6 +31652,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1630",
@@ -32022,6 +32168,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1584",
@@ -32391,6 +32539,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1544",
@@ -32760,6 +32910,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1519",
@@ -33269,6 +33421,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1505",
@@ -33788,6 +33942,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1491",
@@ -34352,6 +34508,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1473",
@@ -34721,6 +34879,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1452",
@@ -35230,6 +35390,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1440",
@@ -35394,6 +35556,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1426",
@@ -35958,6 +36122,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1378",
@@ -36607,6 +36773,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1332",
@@ -37291,6 +37459,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1313",
@@ -37855,6 +38025,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1278",
@@ -38224,6 +38396,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1249",
@@ -38593,6 +38767,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1224",
@@ -38962,6 +39138,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1207",
@@ -39481,6 +39659,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1193",
@@ -40045,6 +40225,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1179",
@@ -40609,6 +40791,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1165",
@@ -41173,6 +41357,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1147",
@@ -41612,6 +41798,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1120",
@@ -42176,6 +42364,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1106",
@@ -42740,6 +42930,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1092",
@@ -43004,6 +43196,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1088",
@@ -43233,6 +43427,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1081",
@@ -43462,6 +43658,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1059",
@@ -43981,6 +44179,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1044",
@@ -44455,6 +44655,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1039",
@@ -44579,6 +44781,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1033",
@@ -44703,6 +44907,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1011",
@@ -45267,6 +45473,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "997",
@@ -45831,6 +46039,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "991",
@@ -46040,6 +46250,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_saber.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "986",
@@ -46249,6 +46461,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_mystic.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "981",
@@ -46458,6 +46672,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "953",
@@ -46512,6 +46728,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_undead.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "929",
@@ -46721,6 +46939,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "924",
@@ -46930,6 +47150,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_techno.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "919",
@@ -47139,6 +47361,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "905",
@@ -47703,6 +47927,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "877",
@@ -48267,6 +48493,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "865",
@@ -48746,6 +48974,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "851",
@@ -49310,6 +49540,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "837",
@@ -49829,6 +50061,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "823",
@@ -50348,6 +50582,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "808",
@@ -50912,6 +51148,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "794",
@@ -51476,6 +51714,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "776",
@@ -51995,6 +52235,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "758",
@@ -52559,6 +52801,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "744",
@@ -53123,6 +53367,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "730",
@@ -53687,6 +53933,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "716",
@@ -54251,6 +54499,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "701",
@@ -54815,6 +55065,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "683",
@@ -55379,6 +55631,8 @@
     "nameSource": "localisation",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_candy_red.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "667",
@@ -56018,6 +56272,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "653",
@@ -56582,6 +56838,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "639",
@@ -57101,6 +57359,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "619",
@@ -57620,6 +57880,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "470",
@@ -61954,6 +62216,8 @@
     "nameSource": "authored",
     "requiredLevel": 7,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "183",
