@@ -302,7 +302,7 @@
         <div class="chain-card-heading">
           <span class="chain-card-title">{chain.name}</span>
           <span class="chain-card-meta">
-            {stageCount(chain.steps.length)}{#if chain.requiredLevel} · {t('guides.quests.fromLevel', locale).replace('{level}', String(chain.requiredLevel))}{/if}
+            {stageCount(chain.steps.length)}{#if chain.requiredLevel}{' · '}{t('guides.quests.fromLevel', locale).replace('{level}', String(chain.requiredLevel))}{/if}
           </span>
         </div>
       </div>
