@@ -153,14 +153,19 @@ const RU_COUNTED: [string, string, string][] = [
   ['подарок', 'подарка', 'подарков'],
 ]
 
-// Заменяет каждое вхождение числа from на to во всех языках. null - если хоть
-// в одном языке числа from нет (текст переведён иначе, подставлять некуда).
+// Плейсхолдер вместо числа: caption_hybridize_hours = "Потратить X часа на
+// скрещивание" на всех 9 языках - игра подставляет amount сама.
+const PLACEHOLDER = '(?<![\\p{L}\\d])X(?![\\p{L}\\d])'
+
+// Заменяет каждое вхождение числа from (или PLACEHOLDER) на to во всех языках.
+// null - если хоть в одном языке его нет (текст переведён иначе, подставлять
+// некуда).
 // Английский порядковый суффикс пересчитывается ("80th" -> "3rd"); в остальных
 // языках он от числа не зависит ("80-е", "80ème", "80.").
 function renumber(text: I18nText, from: string, to: number): I18nText | null {
   const out = {} as I18nText
   for (const l of LOCALES) {
-    const re = new RegExp(`(?<!\\d)${from}(?!\\d)`, 'g')
+    const re = from === PLACEHOLDER ? new RegExp(PLACEHOLDER, 'gu') : new RegExp(`(?<!\\d)${from}(?!\\d)`, 'g')
     if (!re.test(text[l])) return null
     let s = text[l].replace(re, String(to))
     if (l === 'en') s = s.replace(new RegExp(`(?<!\\d)${to}(st|nd|rd|th)\\b`, 'g'), `${to}${enOrdinal(to)}`)
@@ -280,8 +285,12 @@ function fixCondition(
   info: ObjectiveInfo,
   raw: I18nText,
   { donors, trusted }: ReturnType<typeof buildDonors>,
-): { text: I18nText; fix: 'missing' | 'renumbered' | null } {
+): { text: I18nText; fix: 'missing' | 'renumbered' | 'placeholder' | null } {
   const amount = info.amount
+  if (amount && !isEmpty(raw)) {
+    const filled = renumber(raw, PLACEHOLDER, amount)
+    if (filled) return { text: filled, fix: 'placeholder' }
+  }
   if (!amount || amount <= 1 || !trusted(info.sig)) return { text: raw, fix: null }
   const missing = isEmpty(raw)
   if (!missing) {
@@ -464,7 +473,11 @@ async function main() {
   const chains: EventQuestChain[] = []
   const unnamed: string[] = []
   const donorPool = buildDonors(missions, locs)
-  const fixes: Record<'missing' | 'renumbered', string[]> = { missing: [], renumbered: [] }
+  const fixes: Record<'missing' | 'renumbered' | 'placeholder', string[]> = {
+    missing: [],
+    renumbered: [],
+    placeholder: [],
+  }
 
   for (const { filter, list } of groups.values()) {
     list.sort((a, b) => Number(a.id) - Number(b.id))
@@ -589,7 +602,7 @@ async function main() {
   }, {})
   console.log(`[EVENT-QUESTS] цепочек: ${chains.length}, заданий: ${stepsTotal}, имена: ${JSON.stringify(bySource)}`)
   console.log(
-    `[EVENT-QUESTS] условия: восстановлено пустых ${fixes.missing.length}, исправлено число ${fixes.renumbered.length}`,
+    `[EVENT-QUESTS] условия: восстановлено пустых ${fixes.missing.length}, исправлено число ${fixes.renumbered.length}, подставлено вместо X ${fixes.placeholder.length}`,
   )
   const stillEmpty = chains.flatMap((c) => c.steps.filter((st) => isEmpty(st.condition)).map((st) => st.id))
   if (stillEmpty.length) console.log(`[EVENT-QUESTS] без текста условия: ${stillEmpty.join(', ')}`)

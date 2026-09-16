@@ -984,15 +984,15 @@
           "nl": "Genetische recombinatie"
         },
         "condition": {
-          "ru": "Потратить X часа на скрещивание",
-          "en": "Spend X hours Cross-Breeding",
-          "es": "Pasa X horas hibridando",
-          "fr": "Passer X heures à hybrider",
-          "de": "X Stunden mit Hybridisieren verbringen",
-          "pt": "Passar X horas fazendo hibridizações",
-          "it": "Passa X ore a ibridare",
-          "tr": "Melezlemede X saat harca",
-          "nl": "X uur doorbrengen met kruisen"
+          "ru": "Потратить 5 часов на скрещивание",
+          "en": "Spend 5 hours Cross-Breeding",
+          "es": "Pasa 5 horas hibridando",
+          "fr": "Passer 5 heures à hybrider",
+          "de": "5 Stunden mit Hybridisieren verbringen",
+          "pt": "Passar 5 horas fazendo hibridizações",
+          "it": "Passa 5 ore a ibridare",
+          "tr": "Melezlemede 5 saat harca",
+          "nl": "5 uur doorbrengen met kruisen"
         },
         "amount": 5,
         "category": "breeding",
