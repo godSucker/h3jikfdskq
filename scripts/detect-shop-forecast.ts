@@ -519,6 +519,41 @@ const WAVE_MAX_POSITION_GAP = 20
 // Дальше края волны работает консервативный MAX_NEIGHBOR_DISTANCE.
 const WAVE_EDGE_MARGIN = 20
 
+// Отбраковка выбросов среди подтверждённых точек.
+//
+// При идеальной лестнице "один специмен = один день" величина
+// dayMs + position*DAY одинакова для всех точек волны - это её "база".
+// Значит выброс виден сразу: у "Чумной Ведьмы" (Specimen_BB_08, спринт 256)
+// kartel отдаёт 18.09, а соседи слева и справа дают 17.09 и 15.09, то есть
+// по лестнице должно быть 16.09 - база расходится ровно на 2 дня. Такое
+// бывает от переиспользованного Filter-тега: kartel возвращает дату
+// ПОСЛЕДНЕГО известного ему включения фильтра, а не текущего (та же природа,
+// что у регрессии LuckyBox_Research_IX 2026-09-08).
+//
+// Вредит это дважды: неверная дата и на своей плитке, и в роли якоря - волна
+// вокруг неё едет. Поэтому сверяем базу каждой точки с медианой по её
+// окрестности (+-3 соседа по позиции, чтобы не смешивать разные волны) и
+// выкидываем всё, что расходится больше чем на сутки с запасом.
+function dropOutliers(confirmed: { position: number; dayMs: number }[]): {
+  kept: { position: number; dayMs: number }[]
+  outlierPositions: Set<number>
+} {
+  const sorted = [...confirmed].sort((a, b) => a.position - b.position)
+  const base = (p: { position: number; dayMs: number }) => p.dayMs + p.position * DAY_MS
+  const kept: { position: number; dayMs: number }[] = []
+  const outlierPositions = new Set<number>()
+  for (let i = 0; i < sorted.length; i++) {
+    const window = sorted
+      .slice(Math.max(0, i - 3), i + 4)
+      .map(base)
+      .sort((a, b) => a - b)
+    const median = window[Math.floor(window.length / 2)]
+    if (Math.abs(base(sorted[i]) - median) <= 1.5 * DAY_MS) kept.push(sorted[i])
+    else outlierPositions.add(sorted[i].position)
+  }
+  return { kept, outlierPositions }
+}
+
 function buildWaves(
   confirmed: { position: number; dayMs: number }[],
 ): { position: number; dayMs: number }[][] {
@@ -640,7 +675,13 @@ async function appendDailyMutantOffers(
     }
   }
 
-  const waves = buildWaves(confirmed)
+  const { kept: confirmedClean, outlierPositions } = dropOutliers(confirmed)
+  if (outlierPositions.size > 0) {
+    console.log(
+      `[forecast] дневной пул: отброшено выбивающихся kartel-дат: ${outlierPositions.size} (позиции ${[...outlierPositions].join(', ')})`,
+    )
+  }
+  const waves = buildWaves(confirmedClean)
 
   // Проход 2 - для каждой записи пула решаем, подтверждена дата или её
   // нужно прогнозировать; отбрасываем всё, что не попадает в окно текущего
@@ -655,7 +696,8 @@ async function appendDailyMutantOffers(
       (new Date(range.end).getTime() - new Date(range.start).getTime()) / DAY_MS <= 3
     )
     let dayMs: number
-    if (isConfirmed) {
+    // Выброс не доверяем даже на его собственной плитке - считаем по лестнице.
+    if (isConfirmed && !outlierPositions.has(entry.position)) {
       dayMs = new Date(range!.start).getTime()
     } else if (!entry.isSpecimen) {
       // Не-специмен без живой даты: позиции в лестнице у него нет, гадать по
@@ -670,7 +712,7 @@ async function appendDailyMutantOffers(
         // Фоллбек для позиций без "доверенной" волны (одиночный
         // неподтверждённый вторым соседом якорь) - консервативный
         // MAX_NEIGHBOR_DISTANCE, как было раньше.
-        const neighbor = pickNearestConfirmed(entry.position, confirmed)
+        const neighbor = pickNearestConfirmed(entry.position, confirmedClean)
         if (!neighbor || neighbor.dist > MAX_NEIGHBOR_DISTANCE) continue
         dayMs = neighbor.dayMs - (entry.position - neighbor.position) * DAY_MS
       }
@@ -685,7 +727,9 @@ async function appendDailyMutantOffers(
 
     const built = await buildItem(entry.itemXml, isSpecimen ? 'day' : undefined)
     if (!built) continue
-    if (!isConfirmed) {
+    // Выброс тоже перезаписываем: buildItem уже проставил ему kartel-овский
+    // exactDateLabel, а мы этой дате как раз не верим.
+    if (!isConfirmed || outlierPositions.has(entry.position)) {
       built.item.exactDateLabel = `≈ ${formatDateRu(new Date(dayMs))}`
       built.item.exactDateStart = new Date(dayMs).toISOString()
     }
@@ -701,8 +745,8 @@ async function appendDailyMutantOffers(
   // начнёт покрывать начало следующего - никакого доп. кода не нужно,
   // просто нужно видеть момент сдвига в логах.
   const frontEntry = pool.find((p) => p.isSpecimen)
-  if (frontEntry && confirmed.length > 0) {
-    const frontNeighbor = pickNearestConfirmed(frontEntry.position, confirmed)
+  if (frontEntry && confirmedClean.length > 0) {
+    const frontNeighbor = pickNearestConfirmed(frontEntry.position, confirmedClean)
     if (frontNeighbor) {
       const frontDayMs =
         frontNeighbor.dayMs - (frontEntry.position - frontNeighbor.position) * DAY_MS
