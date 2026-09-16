@@ -1185,6 +1185,8 @@ const forecastWeeks =
   .forecast-tile-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 0.15rem;
     padding: 0.4rem 0.5rem 0.5rem;
   }
@@ -1194,11 +1196,14 @@ const forecastWeeks =
     color: #f1f5f9;
     line-height: 1.25;
   }
+  /* Цена и дата - столбиком, каждая на своей строке. Раньше стояли в одну
+     строку с переносом и на узких тайлах сливались в "1 000 золота 19 — 25
+     сентября" (юзер 2026-09-16). */
   .forecast-tile-meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
   }
   .forecast-tile-price {
     font-size: 0.72rem;
