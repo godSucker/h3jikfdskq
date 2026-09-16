@@ -149,6 +149,12 @@ jobs:
             -d parse_mode="Markdown" \
             -d text="🔴 *Kartel-фильтры*: не удалось получить живые точные даты офферов. Скорее всего истёк \`auth_request_fresh.bin\` (~60 дней) - нужно обновить и перезалить секрет \`KARTEL_AUTH_BLOB_B64\`. Прогноз магазина продолжит работать на диапазоне всего спринта (без точных дат), ничего не сломано."
 
+      - name: 9.7 Ивентовые задания (missions.xml) -> src/data/guides/event-quests.json
+        # После 9.5: даты цепочек берутся из live-filter-dates.json этого же
+        # прогона. До 10: detectEventQuests в build-announcements.ts читает уже
+        # собранный файл и анонсирует новые цепочки.
+        run: npx tsx scripts/build-event-quests.ts
+
       - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news) + кросс-пост в канал
         # Прогноз магазина и daily_news не пишут отдельных файлов - тянут
         # shopitems.xml/dailypopup.xml прямо внутри build-announcements.ts
@@ -176,6 +182,7 @@ jobs:
           branch: main
           file_pattern: >-
             src/data/bingos.json
+            src/data/guides/event-quests.json
             src/data/boxes.json
             public/boxes/**
             public/materials/**

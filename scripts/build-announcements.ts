@@ -146,6 +146,7 @@ interface Ledger {
   reactor: string[]
   shopForecast: string[]
   dailyNews: string[]
+  eventQuests: string[]
 }
 
 const EMPTY_LEDGER: Ledger = {
@@ -162,6 +163,7 @@ const EMPTY_LEDGER: Ledger = {
   reactor: [],
   shopForecast: [],
   dailyNews: [],
+  eventQuests: [],
 }
 
 async function loadJson<T>(relPath: string, fallback: T): Promise<T> {
@@ -1203,6 +1205,32 @@ async function detectRebalance(seen: string[]): Promise<DetectResult> {
   }
 }
 
+// Новые цепочки ивентовых заданий. Phase-1-детектор: сам XML не качает, читает
+// уже собранный scripts/build-event-quests.ts файл (шаг воркфлоу стоит раньше).
+// Ключ - filter цепочки в нижнем регистре: у Kobojo один и тот же ивент бывает
+// записан в двух регистрах. Этапы и награды карточка берёт при рендере из того
+// же event-quests.json (награды - тем же resolveReward, что на /guides), поэтому
+// в announcements.json лежит только ссылка на цепочку.
+async function detectEventQuests(seen: string[]): Promise<DetectResult> {
+  const chains = await loadJson<
+    { filter: string; name: { ru: string }; icon: string | null; dateStart: string | null; dateEnd: string | null }[]
+  >('src/data/guides/event-quests.json', [])
+  const seenSet = new Set(seen)
+  const fresh = chains.filter((c) => !seenSet.has(c.filter.toLowerCase()))
+  return {
+    newIds: [...new Set([...seen, ...chains.map((c) => c.filter.toLowerCase())])],
+    items: fresh.map((c) => ({
+      id: c.filter,
+      name: c.name.ru,
+      image: c.icon,
+      exactDateLabel: c.dateStart
+        ? formatExactRangeRu(new Date(c.dateStart), c.dateEnd ? new Date(c.dateEnd) : null)
+        : null,
+      exactDateStart: c.dateStart,
+    })),
+  }
+}
+
 const DETECTORS: {
   category: keyof Ledger
   title: string
@@ -1236,6 +1264,7 @@ const DETECTORS: {
     run: detectShopForecast,
   },
   { category: 'dailyNews', title: 'Скоро в игре', link: '/announcements', run: detectDailyNews },
+  { category: 'eventQuests', title: 'Новые задания', link: '/guides#quests', run: detectEventQuests },
   { category: 'rebalance', title: 'Ребаланс статов', link: '/rebalance', run: detectRebalance },
 ]
 
@@ -1277,6 +1306,7 @@ const CATEGORY_ICON: Record<string, string> = {
   reactor: '🎰',
   shopForecast: '🛒',
   dailyNews: '📰',
+  eventQuests: '📜',
   rebalance: '⚖️',
 }
 

@@ -48,6 +48,7 @@ const SCREENSHOT_CATEGORIES = new Set([
   'exchange',
   'shopForecast',
   'dailyNews',
+  'eventQuests',
 ])
 
 interface AnnouncementLike {

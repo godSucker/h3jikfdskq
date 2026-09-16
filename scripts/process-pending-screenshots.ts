@@ -29,6 +29,7 @@ const CATEGORY_ICON: Record<string, string> = {
   exchange: '🔁',
   shopForecast: '🛒',
   dailyNews: '📰',
+  eventQuests: '📜',
 }
 
 const CATEGORY_LINK: Record<string, string> = {
@@ -43,6 +44,7 @@ const CATEGORY_LINK: Record<string, string> = {
   exchange: '/mutants',
   shopForecast: '/announcements',
   dailyNews: '/announcements',
+  eventQuests: '/guides#quests',
 }
 
 // mutant/skin - ТОЛЬКО содержимое (модалка), без карточки анонса вообще:

@@ -14,7 +14,16 @@
 // падает на ERR_UNKNOWN_FILE_EXTENSION.
 
 export type CardKind =
-  'dungeon' | 'mutant' | 'skin' | 'reactor' | 'box' | 'bingo' | 'forecast' | 'exchange' | 'generic'
+  | 'dungeon'
+  | 'mutant'
+  | 'skin'
+  | 'reactor'
+  | 'box'
+  | 'bingo'
+  | 'forecast'
+  | 'exchange'
+  | 'quests'
+  | 'generic'
 
 export function cardKind(category: string | undefined): CardKind {
   if (category === 'raid' || category === 'ladder' || category === 'eventLadder') return 'dungeon'
@@ -25,6 +34,7 @@ export function cardKind(category: string | undefined): CardKind {
   if (category === 'bingo') return 'bingo'
   if (category === 'shopForecast' || category === 'dailyNews') return 'forecast'
   if (category === 'exchange') return 'exchange'
+  if (category === 'eventQuests') return 'quests'
   return 'generic'
 }
 
@@ -37,6 +47,8 @@ const SINGLE_ITEM_KINDS = new Set<CardKind>([
   'reactor',
   'box',
   'bingo',
+  // Одна цепочка заданий = одна карточка со своими этапами.
+  'quests',
 ])
 
 // true -> публиковать каждый найденный объект ОТДЕЛЬНЫМ анонсом, иначе

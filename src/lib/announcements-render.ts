@@ -14,8 +14,10 @@ import { getLocalisedName } from '@/lib/localisation'
 import { getGeneIcon } from '@/lib/mutant-icons'
 import { GENE_RU, bingoLabel } from '@/lib/mutant-dicts'
 import bingosData from '@/data/bingos.json'
+import eventQuestsData from '@/data/guides/event-quests.json'
 import {
   resolveDungeon,
+  resolveReward,
   type DungeonRaw,
   type MutantRaw,
   type MaterialEntry,
@@ -120,6 +122,7 @@ export const CATEGORY_RU: Record<string, string> = {
   token: 'Жетоны',
   shopForecast: 'Прогноз магазина',
   dailyNews: 'Скоро в игре',
+  eventQuests: 'Задания',
   rebalance: 'Ребаланс',
 }
 
@@ -297,6 +300,17 @@ export interface AnnouncementRenderContext {
   boxesByIdLower: Map<string, BoxEntry>
   bingosById: Map<string, string>
   findBox: (itemId: string) => BoxEntry | undefined
+  // Цепочки ивентовых заданий по filter (lowercase), награды уже
+  // зарезолвлены тем же resolveReward, что на /guides.
+  eventQuestByFilter: Map<string, ResolvedEventQuest>
+}
+
+export interface ResolvedEventQuest {
+  filter: string
+  name: string
+  icon: string | null
+  requiredLevel: number | null
+  steps: { id: string; condition: string; amount: number | null; rewards: { label: string; icon: string | null }[] }[]
 }
 
 // Строится один раз за модуль (ESM-кэш) - каждый .astro файл, что импортирует
@@ -328,7 +342,44 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
     (bingosData as { id: string; title: string }[]).map((b) => [b.id, b.title]),
   )
 
+  // Страница анонсов пока только на русском - берём ru.
+  type EvI18n = Record<string, string>
+  const eventQuestByFilter = new Map<string, ResolvedEventQuest>(
+    (
+      eventQuestsData as unknown as {
+        filter: string
+        name: EvI18n
+        icon: string | null
+        requiredLevel: number | null
+        steps: {
+          id: string
+          condition: EvI18n
+          amount: number | null
+          rewards: { id: string | null; type: string | null; amount: number }[]
+        }[]
+      }[]
+    ).map((c) => [
+      c.filter.toLowerCase(),
+      {
+        filter: c.filter,
+        name: c.name.ru,
+        icon: c.icon,
+        requiredLevel: c.requiredLevel,
+        steps: c.steps.map((st) => ({
+          id: st.id,
+          condition: st.condition.ru,
+          amount: st.amount,
+          rewards: st.rewards.map((r) => {
+            const res = resolveReward(r as never, rewardCtx)
+            return { label: res.label, icon: res.icon ?? null }
+          }),
+        })),
+      },
+    ]),
+  )
+
   return {
+    eventQuestByFilter,
     mutantsById,
     dungeonById,
     dungeonCoversMap,
