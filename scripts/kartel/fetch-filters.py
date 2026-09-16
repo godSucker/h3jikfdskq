@@ -65,6 +65,7 @@ SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 DUNGEONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml'
 DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
+MISSIONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/missions.xml'
 # Обменники (см. scripts/build-announcements.ts::fetchHallContracts/
 # fetchMysteryContracts) - ТОЛЬКО эти 3 EntityDescriptor, не весь
 # gamedefinitions.xml (1.2МБ, сотни EntityDescriptor со своими Filter,
@@ -200,6 +201,20 @@ def fetch_all_filter_names() -> list:
         for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', m_block.group(1)):
             if m_filter.group(1):
                 names.append(m_filter.group(1))
+
+    # Ивентовые цепочки заданий (scripts/build-event-quests.ts): по Filter-тегу
+    # цепочки kartel отдаёт окно ивента. Точечно - только миссии с
+    # <Tag key="missionStyle" value="events"/>, а не слепой скан всех 5400+
+    # миссий: слепое расширение списка уже давало три волны регрессий из-за
+    # переиспользованных тегов (см. память auto-announcements-architecture).
+    r = requests.get(MISSIONS_URL, timeout=60)
+    r.raise_for_status()
+    for mission in re.findall(r'<Mission [^>]*>[\s\S]*?</Mission>', r.text):
+        if 'key="missionStyle" value="events"' not in mission:
+            continue
+        m_filter = re.search(r'<Filter>([^<]*)</Filter>', mission)
+        if m_filter and m_filter.group(1):
+            names.append(m_filter.group(1))
 
     # dedup, сохраняя порядок - дубли не проблема для сервера, но зачем слать лишнее
     seen = set()

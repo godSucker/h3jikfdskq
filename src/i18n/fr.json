@@ -919,7 +919,7 @@
   "guides.intro.farmers.p3": "Il n'est pas nécessaire de faire évoluer Midas, Chasseur de Primes ou D.A.B. en étoile pour le farm — quelle que soit l'étoile, ils rapporteront la même quantité d'argent.",
   "guides.intro.speedOrbs.p1": "Un tableau du gain de vitesse exact des sphères de vitesse de niveau 3 à 5. Lorsque vous donnez une sphère de vitesse à un mutant, le % de gain ne correspond pas toujours aux 15 %, 18 % et 20 % indiqués sur la sphère elle-même — le gain réel pour chaque vitesse de base précise est indiqué entre parenthèses.",
   "guides.intro.speedOrbs.p2": "Comme on peut le constater, le gain de la sphère est presque toujours supérieur à la valeur nominale, surtout à haute vitesse, où il peut ajouter 1 à 2 % supplémentaires. Il semble que chaque bonus de sphère ait été réglé à la main par les développeurs plutôt que calculé selon une formule unique — la vitesse avec telle sphère correspond parfois à la vitesse de base d'un autre mutant, ou à la vitesse du même mutant avec un autre niveau de sphère.",
-  "guides.intro.quests.p1": "Les quêtes principales (hors événements) du jeu avec récompense — succès, quêtes scénarisées et tâches système. Le jeu stocke plus de 5300 missions, mais la plupart n'ont ni nom ni récompense distincte — seules celles qui ressemblent vraiment à une quête ont été retenues ici : nom → condition → récompense.",
+  "guides.intro.quests.p1": "Les quêtes du jeu avec récompense — succès, quêtes scénarisées, tâches système et missions d'événement de toute l'histoire du jeu, regroupées par événement. Le jeu stocke plus de 5400 missions, mais la plupart n'ont ni nom ni récompense distincte — seules celles qui ressemblent vraiment à une quête ont été retenues ici : nom → condition → récompense.",
   "guides.intro.divisions.p1": "7 divisions de campagne (Alpha → Giga), chacune avec 9 cartes — les 9 mêmes lieux, mais avec des niveaux d'ennemis et des récompenses croissants. Les recommandations de niveau d'Evo et de composition d'équipe sont notre propre estimation ; le jeu ne donne aucune indication de ce genre.",
   "guides.intro.ladders.p1": "Voici pratiquement toutes les échelles qui ont existé dans le jeu.",
   "guides.intro.raids.p1": "Les raids sont les « échelles » les plus difficiles du jeu, mais chacun donne un mutant unique (qui se joue plutôt bien). Certains raids n'ont pas de nom propre dans le jeu — ces noms ont été inventés par nos soins selon le thème du visuel et sont indiqués en italique.",
@@ -971,5 +971,7 @@
   "tierPoster.updatedOn": "à jour au {date}",
   "tierPoster.disclaimer": "Ce tier list a été élaboré par l'équipe d'Archivist-Library à partir de notre propre analyse de la méta et de l'expérience des joueurs. Ce n'est pas une vérité absolue — les avis sur certains mutants peuvent diverger au sein de la communauté, considérez-le comme un repère général plutôt qu'un classement strict.",
   "tierPoster.legendUp": "mutants plus forts au sein du tier",
-  "tierPoster.legendDown": "mutants plus faibles au sein du tier"
+  "tierPoster.legendDown": "mutants plus faibles au sein du tier",
+  "guides.quests.filterEvents": "Événements",
+  "guides.quests.fromLevel": "dès le niveau {level}"
 }

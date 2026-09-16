@@ -5,7 +5,7 @@
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
   import { geneLabelL } from '@/lib/mutant-dicts'
-  import QuestsTab from './QuestsTab.svelte'
+  import QuestsTab, { type EventQuestChain } from './QuestsTab.svelte'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
@@ -96,6 +96,7 @@
     speedOrbs = [],
     divisions = [],
     quests = [],
+    eventQuests = [],
     raids = [],
     eventLadders = [],
     specialLadders = { experiment: [], challenge: [] },
@@ -111,6 +112,7 @@
     speedOrbs: SpeedOrbRow[]
     divisions: Division[]
     quests: Quest[]
+    eventQuests: EventQuestChain[]
     raids: DungeonEntry[]
     eventLadders: EventLadderEntry[]
     specialLadders: SpecialLadders
@@ -571,7 +573,7 @@
       </table>
     </div>
   {:else if activeTab === 'quests'}
-    <QuestsTab {locale} {quests} />
+    <QuestsTab {locale} {quests} {eventQuests} />
   {:else if activeTab === 'divisions'}
     <div class="text-block">
       <p>{t('guides.intro.divisions.p1', locale)}</p>

@@ -15,6 +15,8 @@
     "nameSource": "localisation",
     "requiredLevel": 8,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
+    "dateStart": "2026-09-15T14:00:00+00:00",
+    "dateEnd": null,
     "steps": [
       {
         "id": "5367",
@@ -264,6 +266,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
+    "dateStart": "2026-08-10T10:00:00+00:00",
+    "dateEnd": "2026-08-23T10:00:00+00:00",
     "steps": [
       {
         "id": "5260",
@@ -385,15 +389,15 @@
           "nl": ""
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -980,15 +984,15 @@
           "nl": "Genetische recombinatie"
         },
         "condition": {
-          "ru": "Потратить X часа на скрещивание",
-          "en": "Spend X hours Cross-Breeding",
-          "es": "Pasa X horas hibridando",
-          "fr": "Passer X heures à hybrider",
-          "de": "X Stunden mit Hybridisieren verbringen",
-          "pt": "Passar X horas fazendo hibridizações",
-          "it": "Passa X ore a ibridare",
-          "tr": "Melezlemede X saat harca",
-          "nl": "X uur doorbrengen met kruisen"
+          "ru": "Потратить 5 часов на скрещивание",
+          "en": "Spend 5 hours Cross-Breeding",
+          "es": "Pasa 5 horas hibridando",
+          "fr": "Passer 5 heures à hybrider",
+          "de": "5 Stunden mit Hybridisieren verbringen",
+          "pt": "Passar 5 horas fazendo hibridizações",
+          "it": "Passa 5 ore a ibridare",
+          "tr": "Melezlemede 5 saat harca",
+          "nl": "5 uur doorbrengen met kruisen"
         },
         "amount": 5,
         "category": "breeding",
@@ -1088,6 +1092,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5175",
@@ -1209,15 +1215,15 @@
           "nl": "Transdimensionale radioactiviteit"
         },
         "condition": {
-          "ru": "Выиграть 80-е сражение текущего события",
-          "en": "Win the 80th fight of the current Event",
-          "es": "Gana el 80º combate del Evento en curso",
-          "fr": "Remporte le 80ème combat de l'événement en cours",
-          "de": "Gewinne den 80. Kampf des aktuellen Events",
-          "pt": "Ganhe o 80° combate do evento atual",
-          "it": "Vinci il 80° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
-          "nl": "Win het 80e gevecht van het huidige Evenement"
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -1702,6 +1708,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5095",
@@ -2281,6 +2289,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5019",
@@ -2860,6 +2870,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4923",
@@ -3544,6 +3556,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4852",
@@ -4053,6 +4067,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4728",
@@ -4174,15 +4190,15 @@
           "nl": "Krachtpatsers"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 80-е сражение текущего события",
+          "en": "Win the 80th fight of the current Experiment",
+          "es": "Gana el 80º combate del Experimento en curso",
+          "fr": "Remporte le 80ème combat de l’Experience en cours",
+          "de": "Gewinne den 80. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 80° combate do Experimento atual",
+          "it": "Vinci il 80° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
+          "nl": "Win het 80e gevecht van het huidige Ervaring"
         },
         "amount": 80,
         "category": "collection",
@@ -4384,15 +4400,15 @@
           "nl": "De omgeving verkennen"
         },
         "condition": {
-          "ru": "Завершить 10 скрещивания (или 10 слияние)",
-          "en": "Finish 10 Cross-Breedings (or 10 fusions)",
-          "es": "Finaliza 10 hibridaciones (o 10 fusión)",
-          "fr": "Finis 10 Hybridations (ou 10 fusions)",
-          "de": "Beende 10 Hybridisierungen (oder 10 Fusion)",
-          "pt": "Acabe 10º Hibridações (ou 10 fusão)",
-          "it": "Termina 10 ibridazioni (o 10 fusione)",
-          "tr": "10 Melezlemeyi bitir (ya da 10 füzyon)",
-          "nl": "Voltooi 10 Kruisingen (of 10 fusie)"
+          "ru": "Завершить 5 скрещивания (или 5 слияние)",
+          "en": "Finish 5 Cross-Breedings (or 5 fusions)",
+          "es": "Finaliza 5 hibridaciones (o 5 fusión)",
+          "fr": "Finis 5 Hybridations (ou 5 fusions)",
+          "de": "Beende 5 Hybridisierungen (oder 5 Fusion)",
+          "pt": "Acabe 5º Hibridações (ou 5 fusão)",
+          "it": "Termina 5 ibridazioni  (o 5 fusione)",
+          "tr": "5 Melezlemeyi bitir (ya da 5 füzyon)",
+          "nl": "Voltooi 5 Kruisingen  (of 5 fusie)"
         },
         "amount": 5,
         "category": "breeding",
@@ -4702,6 +4718,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks_2.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4617",
@@ -4823,15 +4841,15 @@
           "nl": "Het epicentrum van chaos?"
         },
         "condition": {
-          "ru": "Выиграть 80-е сражение текущего события",
-          "en": "Win the 80th fight of the current Event",
-          "es": "Gana el 80º combate del Evento en curso",
-          "fr": "Remporte le 80ème combat de l'événement en cours",
-          "de": "Gewinne den 80. Kampf des aktuellen Events",
-          "pt": "Ganhe o 80° combate do evento atual",
-          "it": "Vinci il 80° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
-          "nl": "Win het 80e gevecht van het huidige Evenement"
+          "ru": "Выиграть 40-е сражение текущего события",
+          "en": "Win the 40th fight of the current Event",
+          "es": "Gana el 40º combate del Evento en curso",
+          "fr": "Remporte le 40ème combat de l'événement en cours",
+          "de": "Gewinne den 40. Kampf des aktuellen Events",
+          "pt": "Ganhe o 40° combate do evento atual",
+          "it": "Vinci il 40° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 40. dövüşü kazan",
+          "nl": "Win het 40e gevecht van het huidige Evenement"
         },
         "amount": 40,
         "category": "collection",
@@ -4893,15 +4911,15 @@
           "nl": "Alleen in de wereld"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -5033,15 +5051,15 @@
           "nl": "Merkteken van Verhevenheid"
         },
         "condition": {
-          "ru": "Завершить 10 скрещивания (или 10 слияние)",
-          "en": "Finish 10 Cross-Breedings (or 10 fusions)",
-          "es": "Finaliza 10 hibridaciones (o 10 fusión)",
-          "fr": "Finis 10 Hybridations (ou 10 fusions)",
-          "de": "Beende 10 Hybridisierungen (oder 10 Fusion)",
-          "pt": "Acabe 10º Hibridações (ou 10 fusão)",
-          "it": "Termina 10 ibridazioni (o 10 fusione)",
-          "tr": "10 Melezlemeyi bitir (ya da 10 füzyon)",
-          "nl": "Voltooi 10 Kruisingen (of 10 fusie)"
+          "ru": "Завершить 15 скрещивания (или 15 слияние)",
+          "en": "Finish 15 Cross-Breedings (or 15 fusions)",
+          "es": "Finaliza 15 hibridaciones (o 15 fusión)",
+          "fr": "Finis 15 Hybridations (ou 15 fusions)",
+          "de": "Beende 15 Hybridisierungen (oder 15 Fusion)",
+          "pt": "Acabe 15º Hibridações (ou 15 fusão)",
+          "it": "Termina 15 ibridazioni  (o 15 fusione)",
+          "tr": "15 Melezlemeyi bitir (ya da 15 füzyon)",
+          "nl": "Voltooi 15 Kruisingen  (of 15 fusie)"
         },
         "amount": 15,
         "category": "breeding",
@@ -5491,6 +5509,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4525",
@@ -5612,15 +5632,15 @@
           "nl": "Verbazingwekkende verrassing"
         },
         "condition": {
-          "ru": "Выиграть 80-е сражение текущего события",
-          "en": "Win the 80th fight of the current Event",
-          "es": "Gana el 80º combate del Evento en curso",
-          "fr": "Remporte le 80ème combat de l'événement en cours",
-          "de": "Gewinne den 80. Kampf des aktuellen Events",
-          "pt": "Ganhe o 80° combate do evento atual",
-          "it": "Vinci il 80° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
-          "nl": "Win het 80e gevecht van het huidige Evenement"
+          "ru": "Выиграть 40-е сражение текущего события",
+          "en": "Win the 40th fight of the current Event",
+          "es": "Gana el 40º combate del Evento en curso",
+          "fr": "Remporte le 40ème combat de l'événement en cours",
+          "de": "Gewinne den 40. Kampf des aktuellen Events",
+          "pt": "Ganhe o 40° combate do evento atual",
+          "it": "Vinci il 40° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 40. dövüşü kazan",
+          "nl": "Win het 40e gevecht van het huidige Evenement"
         },
         "amount": 40,
         "category": "collection",
@@ -5682,15 +5702,15 @@
           "nl": "Emotionele alliantie"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -6245,6 +6265,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4386",
@@ -6809,6 +6831,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4325",
@@ -7175,15 +7199,15 @@
           "nl": "Liftmuziek"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Потратьте 6 часов на гибридизацию",
+          "en": "Spend 6 hours hybridizing",
+          "es": "Pasa 6 horas hibridando",
+          "fr": "Passer 6 heures à hybrider",
+          "de": "6 Stunden mit Hybridisierung verbringen",
+          "pt": "Passar 6 horas a hibridar",
+          "it": "Passare 6 ore a ibridare",
+          "tr": "Melezleme için 6 saat harcayın",
+          "nl": "Besteed 6 uur aan hybridiseren"
         },
         "amount": 6,
         "category": "breeding",
@@ -7458,6 +7482,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4244",
@@ -7789,15 +7815,15 @@
           "nl": "Een tijd van vernieuwing"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Потратьте 6 часов на гибридизацию",
+          "en": "Spend 6 hours hybridizing",
+          "es": "Pasa 6 horas hibridando",
+          "fr": "Passer 6 heures à hybrider",
+          "de": "6 Stunden mit Hybridisierung verbringen",
+          "pt": "Passar 6 horas a hibridar",
+          "it": "Passare 6 ore a ibridare",
+          "tr": "Melezleme için 6 saat harcayın",
+          "nl": "Besteed 6 uur aan hybridiseren"
         },
         "amount": 6,
         "category": "breeding",
@@ -8107,6 +8133,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4147",
@@ -8298,15 +8326,15 @@
           "nl": "Schemer Profetie"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 150-е сражение текущего события",
+          "en": "Win the 150th fight of the current Experiment",
+          "es": "Gana el 150º combate del Experimento en curso",
+          "fr": "Remporte le 150ème combat de l’Experience en cours",
+          "de": "Gewinne den 150. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 150° combate do Experimento atual",
+          "it": "Vinci il 150° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 150. dövüşü kazan",
+          "nl": "Win het 150e gevecht van het huidige Ervaring"
         },
         "amount": 150,
         "category": "collection",
@@ -8508,15 +8536,15 @@
           "nl": "Schemer Infusie"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Потратьте 6 часов на гибридизацию",
+          "en": "Spend 6 hours hybridizing",
+          "es": "Pasa 6 horas hibridando",
+          "fr": "Passer 6 heures à hybrider",
+          "de": "6 Stunden mit Hybridisierung verbringen",
+          "pt": "Passar 6 horas a hibridar",
+          "it": "Passare 6 ore a ibridare",
+          "tr": "Melezleme için 6 saat harcayın",
+          "nl": "Besteed 6 uur aan hybridiseren"
         },
         "amount": 6,
         "category": "breeding",
@@ -8543,15 +8571,15 @@
           "nl": "Schemer Infusie"
         },
         "condition": {
-          "ru": "Потратить 10 часов на выращивание личинок",
-          "en": "Spend 10 hours Incubating",
-          "es": "Pasa 10 horas incubando",
-          "fr": "Passer 10 heures à incuber",
-          "de": "10 Stunden im Inkubator verbringen",
-          "pt": "Passe 10 horas incubando",
-          "it": "Passa 10 ore a incubare",
-          "tr": "Kuluçkalamada 10 saat harca",
-          "nl": "10 uur doorbrengen met uitbroeden"
+          "ru": "Потратить 12 часов на выращивание личинок",
+          "en": "Spend 12 hours Incubating",
+          "es": "Pasa 12 horas incubando",
+          "fr": "Passer 12 heures à incuber",
+          "de": "12 Stunden im Inkubator verbringen",
+          "pt": "Passe 12 horas incubando",
+          "it": "Passa 12 ore a incubare",
+          "tr": "Kuluçkalamada 12 saat harca",
+          "nl": "12 uur doorbrengen met Uitbroeden"
         },
         "amount": 12,
         "category": "incubation",
@@ -8686,6 +8714,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4084",
@@ -8772,15 +8802,15 @@
           "nl": "De cocktailmeester"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 80-е сражение текущего события",
+          "en": "Win the 80th fight of the current Experiment",
+          "es": "Gana el 80º combate del Experimento en curso",
+          "fr": "Remporte le 80ème combat de l’Experience en cours",
+          "de": "Gewinne den 80. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 80° combate do Experimento atual",
+          "it": "Vinci il 80° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
+          "nl": "Win het 80e gevecht van het huidige Ervaring"
         },
         "amount": 80,
         "category": "collection",
@@ -9052,15 +9082,15 @@
           "nl": "Zonnebank bij zonsondergang"
         },
         "condition": {
-          "ru": "Потратить 10 часов на выращивание личинок",
-          "en": "Spend 10 hours Incubating",
-          "es": "Pasa 10 horas incubando",
-          "fr": "Passer 10 heures à incuber",
-          "de": "10 Stunden im Inkubator verbringen",
-          "pt": "Passe 10 horas incubando",
-          "it": "Passa 10 ore a incubare",
-          "tr": "Kuluçkalamada 10 saat harca",
-          "nl": "10 uur doorbrengen met uitbroeden"
+          "ru": "Потратить 8 часов на выращивание личинок",
+          "en": "Spend 8 hours Incubating",
+          "es": "Pasa 8 horas incubando",
+          "fr": "Passer 8 heures à incuber",
+          "de": "8 Stunden im Inkubator verbringen",
+          "pt": "Passe 8 horas incubando",
+          "it": "Passa 8 ore a incubare",
+          "tr": "Kuluçkalamada 8 saat harca",
+          "nl": "8 uur doorbrengen met Uitbroeden"
         },
         "amount": 8,
         "category": "incubation",
@@ -9125,6 +9155,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "4007",
@@ -9246,15 +9278,15 @@
           "nl": "Het hart van de korf"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -9669,6 +9701,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3916",
@@ -9723,6 +9757,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3875",
@@ -9914,15 +9950,15 @@
           "nl": "Een ideale dader"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -10407,6 +10443,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3752",
@@ -10668,15 +10706,15 @@
           "nl": "Een moeilijke oplossing"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -11056,6 +11094,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3726",
@@ -11570,6 +11610,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3668",
@@ -11971,15 +12013,15 @@
           "nl": "Een welverdiende pauze"
         },
         "condition": {
-          "ru": "Потратить 10 часов на выращивание личинок",
-          "en": "Spend 10 hours Incubating",
-          "es": "Pasa 10 horas incubando",
-          "fr": "Passer 10 heures à incuber",
-          "de": "10 Stunden im Inkubator verbringen",
-          "pt": "Passe 10 horas incubando",
-          "it": "Passa 10 ore a incubare",
-          "tr": "Kuluçkalamada 10 saat harca",
-          "nl": "10 uur doorbrengen met uitbroeden"
+          "ru": "Потратить 8 часов на выращивание личинок",
+          "en": "Spend 8 hours Incubating",
+          "es": "Pasa 8 horas incubando",
+          "fr": "Passer 8 heures à incuber",
+          "de": "8 Stunden im Inkubator verbringen",
+          "pt": "Passe 8 horas incubando",
+          "it": "Passa 8 ore a incubare",
+          "tr": "Kuluçkalamada 8 saat harca",
+          "nl": "8 uur doorbrengen met Uitbroeden"
         },
         "amount": 8,
         "category": "incubation",
@@ -12079,6 +12121,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3643",
@@ -12593,6 +12637,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3587",
@@ -12609,15 +12655,15 @@
           "nl": "Gesponsord door Mutenstein"
         },
         "condition": {
-          "ru": "Выиграть 40-е сражение текущего события",
-          "en": "Win the 40th fight of the current Event",
-          "es": "Gana el 40º combate del Evento en curso",
-          "fr": "Remporte le 40ème combat de l'événement en cours",
-          "de": "Gewinne den 40. Kampf des aktuellen Events",
-          "pt": "Ganhe o 40° combate do evento atual",
-          "it": "Vinci il 40° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 40. dövüşü kazan",
-          "nl": "Win het 40e gevecht van het huidige Evenement"
+          "ru": "Выиграть 10-е сражение текущего события",
+          "en": "Win the 10th fight of the current Experiment",
+          "es": "Gana el 10º combate del Experimento en curso",
+          "fr": "Remporte le 10ème combat de l’Experience en cours",
+          "de": "Gewinne den 10. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 10° combate do Experimento atual",
+          "it": "Vinci il 10° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 10. dövüşü kazan",
+          "nl": "Win het 10e gevecht van het huidige Ervaring"
         },
         "amount": 10,
         "category": "collection",
@@ -12679,15 +12725,15 @@
           "nl": "Orders gehoorzamen"
         },
         "condition": {
-          "ru": "Выиграть 40-е сражение текущего события",
-          "en": "Win the 40th fight of the current Event",
-          "es": "Gana el 40º combate del Evento en curso",
-          "fr": "Remporte le 40ème combat de l'événement en cours",
-          "de": "Gewinne den 40. Kampf des aktuellen Events",
-          "pt": "Ganhe o 40° combate do evento atual",
-          "it": "Vinci il 40° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 40. dövüşü kazan",
-          "nl": "Win het 40e gevecht van het huidige Evenement"
+          "ru": "Выиграть 70-е сражение текущего события",
+          "en": "Win the 70th fight of the current Experiment",
+          "es": "Gana el 70º combate del Experimento en curso",
+          "fr": "Remporte le 70ème combat de l’Experience en cours",
+          "de": "Gewinne den 70. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 70° combate do Experimento atual",
+          "it": "Vinci il 70° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 70. dövüşü kazan",
+          "nl": "Win het 70e gevecht van het huidige Ervaring"
         },
         "amount": 70,
         "category": "collection",
@@ -12854,15 +12900,15 @@
           "nl": "Kleine cadeautjes"
         },
         "condition": {
-          "ru": "Отправь 20 подарков друзьям",
-          "en": "Send 20 Gifts to your Friends",
-          "es": "Envía 20 Regalos a tus Amigos",
-          "fr": "Envoie 20 cadeaux à tes amis",
-          "de": "20 Geschenke an deine Freunde versenden",
-          "pt": "Envie 20 presentes aos seus amigos",
-          "it": "Invia 20 regali ai tuoi amici",
-          "tr": "Arkadaşlarına 20 Hediye gönder",
-          "nl": "Stuur 20 cadeaus naar je vrienden"
+          "ru": "Отправь 10 подарков друзьям",
+          "en": "Send 10 Gifts to your Friends",
+          "es": "Envía 10 Regalos a tus Amigos",
+          "fr": "Envoie 10 cadeaux à tes amis",
+          "de": "10 Geschenke an deine Freunde versenden",
+          "pt": "Envie 10 presentes aos seus amigos",
+          "it": "Invia 10 regali ai tuoi amici",
+          "tr": "Arkadaşlarına 10 Hediye gönder",
+          "nl": "Stuur 10 cadeaus naar je vrienden"
         },
         "amount": 10,
         "category": "social",
@@ -13029,15 +13075,15 @@
           "nl": "Tips van Mutenstein (2)"
         },
         "condition": {
-          "ru": "Потратить 10 часов на выращивание личинок",
-          "en": "Spend 10 hours Incubating",
-          "es": "Pasa 10 horas incubando",
-          "fr": "Passer 10 heures à incuber",
-          "de": "10 Stunden im Inkubator verbringen",
-          "pt": "Passe 10 horas incubando",
-          "it": "Passa 10 ore a incubare",
-          "tr": "Kuluçkalamada 10 saat harca",
-          "nl": "10 uur doorbrengen met uitbroeden"
+          "ru": "Потратить 5 часов на выращивание личинок",
+          "en": "Spend 5 hours Incubating",
+          "es": "Pasa 5 horas incubando",
+          "fr": "Passer 5 heures à incuber",
+          "de": "5 Stunden im Inkubator verbringen",
+          "pt": "Passe 5 horas incubando",
+          "it": "Passa 5 ore a incubare",
+          "tr": "Kuluçkalamada 5 saat harca",
+          "nl": "5 uur doorbrengen met Uitbroeden"
         },
         "amount": 5,
         "category": "incubation",
@@ -13102,6 +13148,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3492",
@@ -13223,15 +13271,15 @@
           "nl": "Speelgoedkamer"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 80-е сражение текущего события",
+          "en": "Win the 80th fight of the current Experiment",
+          "es": "Gana el 80º combate del Experimento en curso",
+          "fr": "Remporte le 80ème combat de l’Experience en cours",
+          "de": "Gewinne den 80. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 80° combate do Experimento atual",
+          "it": "Vinci il 80° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 80. dövüşü kazan",
+          "nl": "Win het 80e gevecht van het huidige Ervaring"
         },
         "amount": 80,
         "category": "collection",
@@ -13611,6 +13659,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3425",
@@ -14120,6 +14170,8 @@
     "nameSource": "localisation",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3363",
@@ -14346,15 +14398,15 @@
           "nl": "Hekserige charmes"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 5 предметов",
+          "en": "Do 5 Crafts",
+          "es": "Completa 5 Fabricaciones",
+          "fr": "Fais 5 Crafts",
+          "de": "Erstelle 5 Handwerke",
+          "pt": "Realize 5 Fabricações",
+          "it": "Effettua 5 Fabbricazioni",
+          "tr": "5 İşleme yap",
+          "nl": "Maak 5 Fabricages"
         },
         "amount": 5,
         "category": "craft",
@@ -14451,15 +14503,15 @@
           "nl": "Broeden!"
         },
         "condition": {
-          "ru": "Потратить 10 часов на выращивание личинок",
-          "en": "Spend 10 hours Incubating",
-          "es": "Pasa 10 horas incubando",
-          "fr": "Passer 10 heures à incuber",
-          "de": "10 Stunden im Inkubator verbringen",
-          "pt": "Passe 10 horas incubando",
-          "it": "Passa 10 ore a incubare",
-          "tr": "Kuluçkalamada 10 saat harca",
-          "nl": "10 uur doorbrengen met uitbroeden"
+          "ru": "Потратить 5 часов на выращивание личинок",
+          "en": "Spend 5 hours Incubating",
+          "es": "Pasa 5 horas incubando",
+          "fr": "Passer 5 heures à incuber",
+          "de": "5 Stunden im Inkubator verbringen",
+          "pt": "Passe 5 horas incubando",
+          "it": "Passa 5 ore a incubare",
+          "tr": "Kuluçkalamada 5 saat harca",
+          "nl": "5 uur doorbrengen met Uitbroeden"
         },
         "amount": 5,
         "category": "incubation",
@@ -14486,15 +14538,15 @@
           "nl": "Drankjes en filtres"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 15 предметов",
+          "en": "Do 15 Crafts",
+          "es": "Completa 15 Fabricaciones",
+          "fr": "Fais 15 Crafts",
+          "de": "Erstelle 15 Handwerke",
+          "pt": "Realize 15 Fabricações",
+          "it": "Effettua 15 Fabbricazioni",
+          "tr": "15 İşleme yap",
+          "nl": "Maak 15 Fabricages"
         },
         "amount": 15,
         "category": "craft",
@@ -14559,6 +14611,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3351",
@@ -14575,15 +14629,15 @@
           "nl": "Terugkeer naar de realiteit"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Потратить 24 часа на скрещивание",
+          "en": "Spend 24 hours Cross-Breeding",
+          "es": "Pasa 24 horas hibridando",
+          "fr": "Passer 24 heures à hybrider",
+          "de": "24 Stunden mit Hybridisieren verbringen",
+          "pt": "Passar 24 horas fazendo hibridizações",
+          "it": "Passa 24 ore a ibridare",
+          "tr": "Melezlemede 24 saat harca",
+          "nl": "24 uur doorbrengen met kruisen"
         },
         "amount": 24,
         "category": "breeding",
@@ -14613,6 +14667,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3272",
@@ -15087,6 +15143,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3257",
@@ -15211,6 +15269,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3201",
@@ -15580,6 +15640,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3187",
@@ -15666,15 +15728,15 @@
           "nl": "Eerste conclusies"
         },
         "condition": {
-          "ru": "Потратить 10 часа на скрещивание",
-          "en": "Spend 10 hours Cross-Breeding",
-          "es": "Pasa 10 horas hibridando",
-          "fr": "Passer 10 heures à hybrider",
-          "de": "10 Stunden mit Hybridisieren verbringen",
-          "pt": "Passar 10 horas fazendo hibridizações",
-          "it": "Passa 10 ore a ibridare",
-          "tr": "Melezlemede 10 saat harca",
-          "nl": "10 uur doorbrengen met kruisen"
+          "ru": "Потратьте 15 часов на гибридизацию",
+          "en": "Spend 15 hours hybridizing",
+          "es": "Pasa 15 horas hibridando",
+          "fr": "Passer 15 heures à hybrider",
+          "de": "15 Stunden mit Hybridisierung verbringen",
+          "pt": "Passar 15 horas a hibridar",
+          "it": "Passare 15 ore a ibridare",
+          "tr": "Melezleme için 15 saat harcayın",
+          "nl": "Besteed 15 uur aan hybridiseren"
         },
         "amount": 15,
         "category": "breeding",
@@ -15704,6 +15766,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3130",
@@ -15860,15 +15924,15 @@
           "nl": "De (niet zo) nieuwe uitvinding"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 10 предметов",
+          "en": "Do 10 Crafts",
+          "es": "Completa 10 Fabricaciones",
+          "fr": "Fais 10 Crafts",
+          "de": "Erstelle 10 Handwerke",
+          "pt": "Realize 10 Fabricações",
+          "it": "Effettua 10 Fabbricazioni",
+          "tr": "10 İşleme yap",
+          "nl": "Maak 10 Fabricages"
         },
         "amount": 10,
         "category": "craft",
@@ -16073,6 +16137,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mutodex.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3060",
@@ -16089,15 +16155,15 @@
           "nl": "Ondergrondse rapportage"
         },
         "condition": {
-          "ru": "Выиграть 50-е сражение текущего события",
-          "en": "Win the 50th fight of the current Event",
-          "es": "Gana el 50º combate del Evento en curso",
-          "fr": "Remporte le 50ème combat de l'événement en cours",
-          "de": "Gewinne den 50. Kampf des aktuellen Events",
-          "pt": "Ganhe o 50° combate do evento atual",
-          "it": "Vinci il 50° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 50. dövüşü kazan",
-          "nl": "Win het 50e gevecht van het huidige Evenement"
+          "ru": "Выиграть 20-е сражение текущего события",
+          "en": "Win the 20th fight of the current Experiment",
+          "es": "Gana el 20º combate del Experimento en curso",
+          "fr": "Remporte le 20ème combat de l’Experience en cours",
+          "de": "Gewinne den 20. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 20° combate do Experimento atual",
+          "it": "Vinci il 20° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 20. dövüşü kazan",
+          "nl": "Win het 20e gevecht van het huidige Ervaring"
         },
         "amount": 20,
         "category": "collection",
@@ -16299,15 +16365,15 @@
           "nl": "Technologisch prutsen"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 5 предметов",
+          "en": "Do 5 Crafts",
+          "es": "Completa 5 Fabricaciones",
+          "fr": "Fais 5 Crafts",
+          "de": "Erstelle 5 Handwerke",
+          "pt": "Realize 5 Fabricações",
+          "it": "Effettua 5 Fabbricazioni",
+          "tr": "5 İşleme yap",
+          "nl": "Maak 5 Fabricages"
         },
         "amount": 5,
         "category": "craft",
@@ -16509,15 +16575,15 @@
           "nl": "Verbeterde apparatuur"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 25 предметов",
+          "en": "Do 25 Crafts",
+          "es": "Completa 25 Fabricaciones",
+          "fr": "Fais 25 Crafts",
+          "de": "Erstelle 25 Handwerke",
+          "pt": "Realize 25 Fabricações",
+          "it": "Effettua 25 Fabbricazioni",
+          "tr": "25 İşleme yap",
+          "nl": "Maak 25 Fabricages"
         },
         "amount": 25,
         "category": "craft",
@@ -16544,15 +16610,15 @@
           "nl": "High-Tech incubatoren"
         },
         "condition": {
-          "ru": "Потратить 5 часов на выращивание личинок",
-          "en": "Spend 5 hours Incubating",
-          "es": "Pasa 5 horas incubando",
-          "fr": "Passer 5 heures à incuber",
-          "de": "5 Stunden im Inkubator verbringen",
-          "pt": "Passe 5 horas incubando",
-          "it": "Passa 5 ore a incubare",
-          "tr": "Kuluçkalamada 5 saat harca",
-          "nl": "5 uur doorbrengen met Uitbroeden"
+          "ru": "Потратить 8 часов на выращивание личинок",
+          "en": "Spend 8 hours Incubating",
+          "es": "Pasa 8 horas incubando",
+          "fr": "Passer 8 heures à incuber",
+          "de": "8 Stunden im Inkubator verbringen",
+          "pt": "Passe 8 horas incubando",
+          "it": "Passa 8 ore a incubare",
+          "tr": "Kuluçkalamada 8 saat harca",
+          "nl": "8 uur doorbrengen met Uitbroeden"
         },
         "amount": 8,
         "category": "incubation",
@@ -16617,6 +16683,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_purple.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "3004",
@@ -16878,15 +16946,15 @@
           "nl": "De klusjes van Urban"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 10 предметов",
+          "en": "Do 10 Crafts",
+          "es": "Completa 10 Fabricaciones",
+          "fr": "Fais 10 Crafts",
+          "de": "Erstelle 10 Handwerke",
+          "pt": "Realize 10 Fabricações",
+          "it": "Effettua 10 Fabbricazioni",
+          "tr": "10 İşleme yap",
+          "nl": "Maak 10 Fabricages"
         },
         "amount": 10,
         "category": "craft",
@@ -16986,6 +17054,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2962",
@@ -17177,15 +17247,15 @@
           "nl": "Talent voor pijlen"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 10 предметов",
+          "en": "Do 10 Crafts",
+          "es": "Completa 10 Fabricaciones",
+          "fr": "Fais 10 Crafts",
+          "de": "Erstelle 10 Handwerke",
+          "pt": "Realize 10 Fabricações",
+          "it": "Effettua 10 Fabbricazioni",
+          "tr": "10 İşleme yap",
+          "nl": "Maak 10 Fabricages"
         },
         "amount": 10,
         "category": "craft",
@@ -17282,15 +17352,15 @@
           "nl": "Pijl in de knie"
         },
         "condition": {
-          "ru": "Потратить 5 часов на выращивание личинок",
-          "en": "Spend 5 hours Incubating",
-          "es": "Pasa 5 horas incubando",
-          "fr": "Passer 5 heures à incuber",
-          "de": "5 Stunden im Inkubator verbringen",
-          "pt": "Passe 5 horas incubando",
-          "it": "Passa 5 ore a incubare",
-          "tr": "Kuluçkalamada 5 saat harca",
-          "nl": "5 uur doorbrengen met Uitbroeden"
+          "ru": "Потратить 8 часов на выращивание личинок",
+          "en": "Spend 8 hours Incubating",
+          "es": "Pasa 8 horas incubando",
+          "fr": "Passer 8 heures à incuber",
+          "de": "8 Stunden im Inkubator verbringen",
+          "pt": "Passe 8 horas incubando",
+          "it": "Passa 8 ore a incubare",
+          "tr": "Kuluçkalamada 8 saat harca",
+          "nl": "8 uur doorbrengen met Uitbroeden"
         },
         "amount": 8,
         "category": "incubation",
@@ -17355,6 +17425,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2888",
@@ -17406,15 +17478,15 @@
           "nl": "Het Oog"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 50-е сражение текущего события",
+          "en": "Win the 50th fight of the current Experiment",
+          "es": "Gana el 50º combate del Experimento en curso",
+          "fr": "Remporte le 50ème combat de l’Experience en cours",
+          "de": "Gewinne den 50. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 50° combate do Experimento atual",
+          "it": "Vinci il 50° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 50. dövüşü kazan",
+          "nl": "Win het 50e gevecht van het huidige Ervaring"
         },
         "amount": 50,
         "category": "collection",
@@ -17441,15 +17513,15 @@
           "nl": "Hinderlaag!"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 70-е сражение текущего события",
+          "en": "Win the 70th fight of the current Experiment",
+          "es": "Gana el 70º combate del Experimento en curso",
+          "fr": "Remporte le 70ème combat de l’Experience en cours",
+          "de": "Gewinne den 70. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 70° combate do Experimento atual",
+          "it": "Vinci il 70° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 70. dövüşü kazan",
+          "nl": "Win het 70e gevecht van het huidige Ervaring"
         },
         "amount": 70,
         "category": "collection",
@@ -17794,6 +17866,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2870",
@@ -17883,6 +17957,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2840",
@@ -17899,15 +17975,15 @@
           "nl": "Overal sneeuw"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 40-е сражение текущего события",
+          "en": "Win the 40th fight of the current Experiment",
+          "es": "Gana el 40º combate del Experimento en curso",
+          "fr": "Remporte le 40ème combat de l’Experience en cours",
+          "de": "Gewinne den 40. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 40° combate do Experimento atual",
+          "it": "Vinci il 40° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 40. dövüşü kazan",
+          "nl": "Win het 40e gevecht van het huidige Ervaring"
         },
         "amount": 40,
         "category": "collection",
@@ -17934,15 +18010,15 @@
           "nl": "De stad doorkruisen"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 70-е сражение текущего события",
+          "en": "Win the 70th fight of the current Experiment",
+          "es": "Gana el 70º combate del Experimento en curso",
+          "fr": "Remporte le 70ème combat de l’Experience en cours",
+          "de": "Gewinne den 70. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 70° combate do Experimento atual",
+          "it": "Vinci il 70° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 70. dövüşü kazan",
+          "nl": "Win het 70e gevecht van het huidige Ervaring"
         },
         "amount": 70,
         "category": "collection",
@@ -17969,15 +18045,15 @@
           "nl": "gps-verstoringen"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 100-е сражение текущего события",
+          "en": "Win the 100th fight of the current Experiment",
+          "es": "Gana el 100º combate del Experimento en curso",
+          "fr": "Remporte le 100ème combat de l’Experience en cours",
+          "de": "Gewinne den 100. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 100° combate do Experimento atual",
+          "it": "Vinci il 100° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 100. dövüşü kazan",
+          "nl": "Win het 100e gevecht van het huidige Ervaring"
         },
         "amount": 100,
         "category": "collection",
@@ -18007,6 +18083,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2829",
@@ -18023,15 +18101,15 @@
           "nl": "Storm in de stad"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 10-е сражение текущего события",
+          "en": "Win the 10th fight of the current Experiment",
+          "es": "Gana el 10º combate del Experimento en curso",
+          "fr": "Remporte le 10ème combat de l’Experience en cours",
+          "de": "Gewinne den 10. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 10° combate do Experimento atual",
+          "it": "Vinci il 10° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 10. dövüşü kazan",
+          "nl": "Win het 10e gevecht van het huidige Ervaring"
         },
         "amount": 10,
         "category": "collection",
@@ -18128,15 +18206,15 @@
           "nl": "Kwijtgeraakte oriëntatiepunten"
         },
         "condition": {
-          "ru": "Потратить 5 часов на выращивание личинок",
-          "en": "Spend 5 hours Incubating",
-          "es": "Pasa 5 horas incubando",
-          "fr": "Passer 5 heures à incuber",
-          "de": "5 Stunden im Inkubator verbringen",
-          "pt": "Passe 5 horas incubando",
-          "it": "Passa 5 ore a incubare",
-          "tr": "Kuluçkalamada 5 saat harca",
-          "nl": "5 uur doorbrengen met Uitbroeden"
+          "ru": "Потратить 8 часов на выращивание личинок",
+          "en": "Spend 8 hours Incubating",
+          "es": "Pasa 8 horas incubando",
+          "fr": "Passer 8 heures à incuber",
+          "de": "8 Stunden im Inkubator verbringen",
+          "pt": "Passe 8 horas incubando",
+          "it": "Passa 8 ore a incubare",
+          "tr": "Kuluçkalamada 8 saat harca",
+          "nl": "8 uur doorbrengen met Uitbroeden"
         },
         "amount": 8,
         "category": "incubation",
@@ -18163,15 +18241,15 @@
           "nl": "De voorraad van Urban"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 25 предметов",
+          "en": "Do 25 Crafts",
+          "es": "Completa 25 Fabricaciones",
+          "fr": "Fais 25 Crafts",
+          "de": "Erstelle 25 Handwerke",
+          "pt": "Realize 25 Fabricações",
+          "it": "Effettua 25 Fabbricazioni",
+          "tr": "25 İşleme yap",
+          "nl": "Maak 25 Fabricages"
         },
         "amount": 25,
         "category": "craft",
@@ -18201,6 +18279,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2753",
@@ -18532,15 +18612,15 @@
           "nl": "Seismische mix"
         },
         "condition": {
-          "ru": "Создать 50 предметов",
-          "en": "Do 50 Crafts",
-          "es": "Completa 50 Fabricaciones",
-          "fr": "Fais 50 Crafts",
-          "de": "Erstelle 50 Handwerke",
-          "pt": "Realize 50 Fabricações",
-          "it": "Effettua 50 Fabbricazioni",
-          "tr": "50 İşleme yap",
-          "nl": "Maak 50 Fabricages"
+          "ru": "Создать 10 предметов",
+          "en": "Do 10 Crafts",
+          "es": "Completa 10 Fabricaciones",
+          "fr": "Fais 10 Crafts",
+          "de": "Erstelle 10 Handwerke",
+          "pt": "Realize 10 Fabricações",
+          "it": "Effettua 10 Fabbricazioni",
+          "tr": "10 İşleme yap",
+          "nl": "Maak 10 Fabricages"
         },
         "amount": 10,
         "category": "craft",
@@ -18640,6 +18720,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2728",
@@ -19149,6 +19231,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2714",
@@ -19663,6 +19747,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2700",
@@ -20172,6 +20258,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2620",
@@ -20503,15 +20591,15 @@
           "nl": "Het geheim van Urban"
         },
         "condition": {
-          "ru": "Потратить 96 часа на скрещивание",
-          "en": "Spend 96 hours Cross-Breeding",
-          "es": "Pasar 96 horas hibridando",
-          "fr": "Passer 96 heures à hybrider",
-          "de": "96 Stunden mit Hybridisieren verbringen",
-          "pt": "Passar 96 horas cruzando espécies",
-          "it": "Passa 96 ore a ibridare",
-          "tr": "Melezlemede 96 saat harca",
-          "nl": "96 uur doorbrengen met kruisen"
+          "ru": "Потратьте 10 часов на гибридизацию",
+          "en": "Spend 10 hours hybridizing",
+          "es": "Pasa 10 horas hibridando",
+          "fr": "Passer 10 heures à hybrider",
+          "de": "10 Stunden mit Hybridisierung verbringen",
+          "pt": "Passar 10 horas a hibridar",
+          "it": "Passare 10 ore a ibridare",
+          "tr": "Melezleme için 10 saat harcayın",
+          "nl": "Besteed 10 uur aan hybridiseren"
         },
         "amount": 10,
         "category": "breeding",
@@ -20541,6 +20629,8 @@
     "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2552",
@@ -20662,15 +20752,15 @@
           "nl": "Het signaal herstellen"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -20875,6 +20965,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2526",
@@ -21389,6 +21481,8 @@
     "nameSource": "authored",
     "requiredLevel": 15,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_storypatch.png",
+    "dateStart": "2022-05-03T12:00:00+00:00",
+    "dateEnd": null,
     "steps": [
       {
         "id": "2393",
@@ -22315,15 +22409,15 @@
           "nl": "Nee is nee! Tenzij …"
         },
         "condition": {
-          "ru": "Потратить 5 часов на выращивание личинок",
-          "en": "Spend 5 hours Incubating",
-          "es": "Pasa 5 horas incubando",
-          "fr": "Passer 5 heures à incuber",
-          "de": "5 Stunden im Inkubator verbringen",
-          "pt": "Passe 5 horas incubando",
-          "it": "Passa 5 ore a incubare",
-          "tr": "Kuluçkalamada 5 saat harca",
-          "nl": "5 uur doorbrengen met Uitbroeden"
+          "ru": "Потратить 20 часов на выращивание личинок",
+          "en": "Spend 20 hours Incubating",
+          "es": "Pasa 20 horas incubando",
+          "fr": "Passer 20 heures à incuber",
+          "de": "20 Stunden im Inkubator verbringen",
+          "pt": "Passe 20 horas incubando",
+          "it": "Passa 20 ore a incubare",
+          "tr": "Kuluçkalamada 20 saat harca",
+          "nl": "20 uur doorbrengen met Uitbroeden"
         },
         "amount": 20,
         "category": "incubation",
@@ -22353,6 +22447,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_rabbithole.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2345",
@@ -22439,15 +22535,15 @@
           "nl": "Konijnen-invasie"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 110-е сражение текущего события",
+          "en": "Win the 110th fight of the current Event",
+          "es": "Gana el 110º combate del Evento en curso",
+          "fr": "Remporte le 110ème combat de l'événement en cours",
+          "de": "Gewinne den 110. Kampf des aktuellen Events",
+          "pt": "Ganhe o 110° combate do evento atual",
+          "it": "Vinci il 110° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 110. dövüşü kazan",
+          "nl": "Win het 110e gevecht van het huidige Evenement"
         },
         "amount": 110,
         "category": "collection",
@@ -22474,15 +22570,15 @@
           "nl": "Mijn? Konijn?"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -22722,6 +22818,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2325",
@@ -23231,6 +23329,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2295",
@@ -23352,15 +23452,15 @@
           "nl": "Liefde of haat?"
         },
         "condition": {
-          "ru": "Завершить 2 скрещивания (или 2 слияние)",
-          "en": "Finish 2 Cross-Breedings (or 2 fusions)",
-          "es": "Finaliza 2 hibridaciones (o 2 fusión)",
-          "fr": "Finis 2 Hybridations (ou 2 fusions)",
-          "de": "Beende 2 Hybridisierungen (oder 2 Fusion)",
-          "pt": "Acabe 2º Hibridações (ou 2 fusão)",
-          "it": "Termina 2 ibridazioni  (o 2 fusione)",
-          "tr": "2 Melezlemeyi bitir (ya da 2 füzyon)",
-          "nl": "Voltooi 2 Kruisingen  (of 2 fusie)"
+          "ru": "Завершить 10 скрещивания (или 10 слияние)",
+          "en": "Finish 10 Cross-Breedings (or 10 fusions)",
+          "es": "Finaliza 10 hibridaciones (o 10 fusión)",
+          "fr": "Finis 10 Hybridations (ou 10 fusions)",
+          "de": "Beende 10 Hybridisierungen (oder 10 Fusion)",
+          "pt": "Acabe 10º Hibridações (ou 10 fusão)",
+          "it": "Termina 10 ibridazioni  (o 10 fusione)",
+          "tr": "10 Melezlemeyi bitir (ya da 10 füzyon)",
+          "nl": "Voltooi 10 Kruisingen  (of 10 fusie)"
         },
         "amount": 10,
         "category": "breeding",
@@ -23495,6 +23595,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2272",
@@ -24004,6 +24106,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2226",
@@ -24125,15 +24229,15 @@
           "nl": "Overweldigende aanwijzingen"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Event",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikte 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
         },
         "amount": 120,
         "category": "collection",
@@ -24370,15 +24474,15 @@
           "nl": "Absoluut nul"
         },
         "condition": {
-          "ru": "Завершить 2 скрещивания (или 2 слияние)",
-          "en": "Finish 2 Cross-Breedings (or 2 fusions)",
-          "es": "Finaliza 2 hibridaciones (o 2 fusión)",
-          "fr": "Finis 2 Hybridations (ou 2 fusions)",
-          "de": "Beende 2 Hybridisierungen (oder 2 Fusion)",
-          "pt": "Acabe 2º Hibridações (ou 2 fusão)",
-          "it": "Termina 2 ibridazioni  (o 2 fusione)",
-          "tr": "2 Melezlemeyi bitir (ya da 2 füzyon)",
-          "nl": "Voltooi 2 Kruisingen  (of 2 fusie)"
+          "ru": "Завершить 10 скрещивания (или 10 слияние)",
+          "en": "Finish 10 Cross-Breedings (or 10 fusions)",
+          "es": "Finaliza 10 hibridaciones (o 10 fusión)",
+          "fr": "Finis 10 Hybridations (ou 10 fusions)",
+          "de": "Beende 10 Hybridisierungen (oder 10 Fusion)",
+          "pt": "Acabe 10º Hibridações (ou 10 fusão)",
+          "it": "Termina 10 ibridazioni  (o 10 fusione)",
+          "tr": "10 Melezlemeyi bitir (ya da 10 füzyon)",
+          "nl": "Voltooi 10 Kruisingen  (of 10 fusie)"
         },
         "amount": 10,
         "category": "breeding",
@@ -24408,6 +24512,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2204",
@@ -24922,6 +25028,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2198",
@@ -25151,6 +25259,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2166",
@@ -25310,6 +25420,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_stygian.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2098",
@@ -25854,6 +25966,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2075",
@@ -26368,6 +26482,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "2061",
@@ -26877,6 +26993,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1999",
@@ -27176,6 +27294,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_pvp_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1980",
@@ -27332,15 +27452,15 @@
           "nl": "Genetische hulpmiddelen"
         },
         "condition": {
-          "ru": "Завершить 2 скрещивания (или 2 слияние)",
-          "en": "Finish 2 Cross-Breedings (or 2 fusions)",
-          "es": "Finaliza 2 hibridaciones (o 2 fusión)",
-          "fr": "Finis 2 Hybridations (ou 2 fusions)",
-          "de": "Beende 2 Hybridisierungen (oder 2 Fusion)",
-          "pt": "Acabe 2º Hibridações (ou 2 fusão)",
-          "it": "Termina 2 ibridazioni  (o 2 fusione)",
-          "tr": "2 Melezlemeyi bitir (ya da 2 füzyon)",
-          "nl": "Voltooi 2 Kruisingen  (of 2 fusie)"
+          "ru": "Завершить 10 скрещивания (или 10 слияние)",
+          "en": "Finish 10 Cross-Breedings (or 10 fusions)",
+          "es": "Finaliza 10 hibridaciones (o 10 fusión)",
+          "fr": "Finis 10 Hybridations (ou 10 fusions)",
+          "de": "Beende 10 Hybridisierungen (oder 10 Fusion)",
+          "pt": "Acabe 10º Hibridações (ou 10 fusão)",
+          "it": "Termina 10 ibridazioni  (o 10 fusione)",
+          "tr": "10 Melezlemeyi bitir (ya da 10 füzyon)",
+          "nl": "Voltooi 10 Kruisingen  (of 10 fusie)"
         },
         "amount": 10,
         "category": "breeding",
@@ -27510,6 +27630,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1942",
@@ -27669,6 +27791,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": "2021-07-23T10:00:00+00:00",
+    "dateEnd": "2021-08-06T10:00:00+00:00",
     "steps": [
       {
         "id": "1919",
@@ -28183,6 +28307,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1871",
@@ -28234,15 +28360,15 @@
           "nl": "Zoete Verkenning"
         },
         "condition": {
-          "ru": "Потратить 5 часов на выращивание личинок",
-          "en": "Spend 5 hours Incubating",
-          "es": "Pasa 5 horas incubando",
-          "fr": "Passer 5 heures à incuber",
-          "de": "5 Stunden im Inkubator verbringen",
-          "pt": "Passe 5 horas incubando",
-          "it": "Passa 5 ore a incubare",
-          "tr": "Kuluçkalamada 5 saat harca",
-          "nl": "5 uur doorbrengen met Uitbroeden"
+          "ru": "Потратить 2 часа на выращивание личинок",
+          "en": "Spend 2 hours Incubating",
+          "es": "Pasa 2 horas incubando",
+          "fr": "Passer 2 heures à incuber",
+          "de": "2 Stunden im Inkubator verbringen",
+          "pt": "Passe 2 horas incubando",
+          "it": "Passa 2 ore a incubare",
+          "tr": "Kuluçkalamada 2 saat harca",
+          "nl": "2 uur doorbrengen met Uitbroeden"
         },
         "amount": 2,
         "category": "incubation",
@@ -28269,15 +28395,15 @@
           "nl": "Droefheidssignaal"
         },
         "condition": {
-          "ru": "Выиграть 15-е сражение текущего события",
-          "en": "Win the 15th fight of the current Experiment",
-          "es": "Gana el 15º combate del Evento en curso",
-          "fr": "Remporte le 15ème combat de l'événement en cours",
-          "de": "Gewinne den 15. Kampf des aktuellen Events",
-          "pt": "Ganhe o 15° combate do evento atual",
-          "it": "Vinci il 15° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 15. dövüşü kazan",
-          "nl": "Win het 15e gevecht van het huidige Evenement"
+          "ru": "Выиграть 20-е сражение текущего события",
+          "en": "Win the 20th fight of the current Experiment",
+          "es": "Gana el 20º combate del Experimento en curso",
+          "fr": "Remporte le 20ème combat de l’Experience en cours",
+          "de": "Gewinne den 20. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 20° combate do Experimento atual",
+          "it": "Vinci il 20° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 20. dövüşü kazan",
+          "nl": "Win het 20e gevecht van het huidige Ervaring"
         },
         "amount": 20,
         "category": "collection",
@@ -28374,15 +28500,15 @@
           "nl": "De Stukjesoger"
         },
         "condition": {
-          "ru": "Выиграть 15-е сражение текущего события",
-          "en": "Win the 15th fight of the current Experiment",
-          "es": "Gana el 15º combate del Evento en curso",
-          "fr": "Remporte le 15ème combat de l'événement en cours",
-          "de": "Gewinne den 15. Kampf des aktuellen Events",
-          "pt": "Ganhe o 15° combate do evento atual",
-          "it": "Vinci il 15° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 15. dövüşü kazan",
-          "nl": "Win het 15e gevecht van het huidige Evenement"
+          "ru": "Выиграть 50-е сражение текущего события",
+          "en": "Win the 50th fight of the current Experiment",
+          "es": "Gana el 50º combate del Experimento en curso",
+          "fr": "Remporte le 50ème combat de l’Experience en cours",
+          "de": "Gewinne den 50. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 50° combate do Experimento atual",
+          "it": "Vinci il 50° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 50. dövüşü kazan",
+          "nl": "Win het 50e gevecht van het huidige Ervaring"
         },
         "amount": 50,
         "category": "collection",
@@ -28479,15 +28605,15 @@
           "nl": "De terugkeer van de Reuzehaas"
         },
         "condition": {
-          "ru": "Выиграть 15-е сражение текущего события",
-          "en": "Win the 15th fight of the current Experiment",
-          "es": "Gana el 15º combate del Evento en curso",
-          "fr": "Remporte le 15ème combat de l'événement en cours",
-          "de": "Gewinne den 15. Kampf des aktuellen Events",
-          "pt": "Ganhe o 15° combate do evento atual",
-          "it": "Vinci il 15° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 15. dövüşü kazan",
-          "nl": "Win het 15e gevecht van het huidige Evenement"
+          "ru": "Выиграть 90-е сражение текущего события",
+          "en": "Win the 90th fight of the current Experiment",
+          "es": "Gana el 90º combate del Experimento en curso",
+          "fr": "Remporte le 90ème combat de l’Experience en cours",
+          "de": "Gewinne den 90. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 90° combate do Experimento atual",
+          "it": "Vinci il 90° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 90. dövüşü kazan",
+          "nl": "Win het 90e gevecht van het huidige Ervaring"
         },
         "amount": 90,
         "category": "collection",
@@ -28514,15 +28640,15 @@
           "nl": "Het grote verraad"
         },
         "condition": {
-          "ru": "Завершить 2 скрещивания",
-          "en": "Finish 2 Cross-Breedings",
-          "es": "Finaliza 2 hibridaciones",
-          "fr": "Finis 2 Hybridations",
-          "de": "Beende 2 Hybridisierungen",
-          "pt": "Termine 2 hibridizações",
-          "it": "Termina 2 ibridazioni",
-          "tr": "2 Melezlemeyi bitir",
-          "nl": "Voltooi 2 Kruisingen"
+          "ru": "Завершить 5 скрещивания (или 5 слияние)",
+          "en": "Finish 5 Cross-Breedings (or 5 fusions)",
+          "es": "Finaliza 5 hibridaciones (o 5 fusión)",
+          "fr": "Finis 5 Hybridations (ou 5 fusions)",
+          "de": "Beende 5 Hybridisierungen (oder 5 Fusion)",
+          "pt": "Acabe 5º Hibridações (ou 5 fusão)",
+          "it": "Termina 5 ibridazioni  (o 5 fusione)",
+          "tr": "5 Melezlemeyi bitir (ya da 5 füzyon)",
+          "nl": "Voltooi 5 Kruisingen  (of 5 fusie)"
         },
         "amount": 5,
         "category": "breeding",
@@ -28584,15 +28710,15 @@
           "nl": "De Generalissimo ten val brengen"
         },
         "condition": {
-          "ru": "Выиграть 15-е сражение текущего события",
-          "en": "Win the 15th fight of the current Experiment",
-          "es": "Gana el 15º combate del Evento en curso",
-          "fr": "Remporte le 15ème combat de l'événement en cours",
-          "de": "Gewinne den 15. Kampf des aktuellen Events",
-          "pt": "Ganhe o 15° combate do evento atual",
-          "it": "Vinci il 15° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 15. dövüşü kazan",
-          "nl": "Win het 15e gevecht van het huidige Evenement"
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Experiment",
+          "es": "Gana el 120º combate del Experimento en curso",
+          "fr": "Remporte le 120ème combat de l’Experience en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Ehrfahrungs",
+          "pt": "Ganhe o 120° combate do Experimento atual",
+          "it": "Vinci il 120° combattimento dell’Esperimento in corso",
+          "tr": "Mevcut Etkinlikteki 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Ervaring"
         },
         "amount": 120,
         "category": "collection",
@@ -28622,6 +28748,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1831",
@@ -29186,6 +29314,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1796",
@@ -29307,15 +29437,15 @@
           "nl": "De boodschap van Mutenstein"
         },
         "condition": {
-          "ru": "Начать 5 процедур гибридизации (или слияния)",
+          "ru": "Потратить 3 часа на выращивание личинок",
           "en": "Spend 3 hours Incubating",
-          "es": "Inicia 5 hibridaciones (o fusiones)",
-          "fr": "Passe 3 heures à incuber",
-          "de": "Leite 5 Hybridisierungen (oder Fusionen) ein",
-          "pt": "Lance 5 hibridizações (ou fusões)",
-          "it": "Lancia 5 ibridazioni (o fusioni)",
-          "tr": "5 melezleşme başlat (ya da füzyon)",
-          "nl": "Lanceer 5 kruisingen (of fusies)"
+          "es": "Pasa 3 horas incubando",
+          "fr": "Passer 3 heures à incuber",
+          "de": "3 Stunden im Inkubator verbringen",
+          "pt": "Passe 3 horas incubando",
+          "it": "Passa 3 ore a incubare",
+          "tr": "Kuluçkalamada 3 saat harca",
+          "nl": "3 uur doorbrengen met Uitbroeden"
         },
         "amount": 3,
         "category": "incubation",
@@ -29450,6 +29580,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1760",
@@ -29714,6 +29846,8 @@
     "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1730",
@@ -30013,6 +30147,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1718",
@@ -30067,6 +30203,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1717",
@@ -30121,6 +30259,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1703",
@@ -30630,6 +30770,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1668",
@@ -30999,6 +31141,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1644",
@@ -31508,6 +31652,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1630",
@@ -32022,6 +32168,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1584",
@@ -32391,6 +32539,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1544",
@@ -32760,6 +32910,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1519",
@@ -33269,6 +33421,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1505",
@@ -33788,6 +33942,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1491",
@@ -34352,6 +34508,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1473",
@@ -34721,6 +34879,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1452",
@@ -35230,6 +35390,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1440",
@@ -35394,6 +35556,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1426",
@@ -35958,6 +36122,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1378",
@@ -36607,6 +36773,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1332",
@@ -37291,6 +37459,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1313",
@@ -37855,6 +38025,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1278",
@@ -38224,6 +38396,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1249",
@@ -38593,6 +38767,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1224",
@@ -38962,6 +39138,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1207",
@@ -39481,6 +39659,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1193",
@@ -40045,6 +40225,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1179",
@@ -40609,6 +40791,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1165",
@@ -41173,6 +41357,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1147",
@@ -41612,6 +41798,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1120",
@@ -42176,6 +42364,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1106",
@@ -42740,6 +42930,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1092",
@@ -43004,6 +43196,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1088",
@@ -43233,6 +43427,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1081",
@@ -43462,6 +43658,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1059",
@@ -43981,6 +44179,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1044",
@@ -44312,15 +44512,15 @@
           "nl": "Kruisen"
         },
         "condition": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Завершить 5 скрещивания (или 5 слияние)",
+          "en": "Finish 5 Cross-Breedings (or 5 fusions)",
+          "es": "Finaliza 5 hibridaciones (o 5 fusión)",
+          "fr": "Finis 5 Hybridations (ou 5 fusions)",
+          "de": "Beende 5 Hybridisierungen (oder 5 Fusion)",
+          "pt": "Acabe 5º Hibridações (ou 5 fusão)",
+          "it": "Termina 5 ibridazioni  (o 5 fusione)",
+          "tr": "5 Melezlemeyi bitir (ya da 5 füzyon)",
+          "nl": "Voltooi 5 Kruisingen  (of 5 fusie)"
         },
         "amount": 5,
         "category": "breeding",
@@ -44455,6 +44655,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1039",
@@ -44579,6 +44781,8 @@
     "nameSource": "localisation",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1033",
@@ -44703,6 +44907,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "1011",
@@ -45267,6 +45473,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "997",
@@ -45831,6 +46039,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "991",
@@ -46040,6 +46250,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_saber.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "986",
@@ -46249,6 +46461,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_mystic.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "981",
@@ -46458,6 +46672,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "953",
@@ -46474,15 +46690,15 @@
           "nl": "Trojaans paard"
         },
         "condition": {
-          "ru": "Выиграть 50-е сражение текущего события",
-          "en": "Win the 50th fight of the current Event",
-          "es": "Gana el 50º combate del Evento en curso",
-          "fr": "Remporte le 50ème combat de l'événement en cours",
-          "de": "Gewinne den 50. Kampf des aktuellen Events",
-          "pt": "Ganhe o 50° combate do evento atual",
-          "it": "Vinci il 50° combattimento dell’evento in corso",
-          "tr": "Mevcut Etkinlikteki 50. dövüşü kazan",
-          "nl": "Win het 50e gevecht van het huidige Evenement"
+          "ru": "Выиграть 3-е сражение текущего события",
+          "en": "Win the 3rd fight of the current Event",
+          "es": "Gana el 3º combate del Evento en curso",
+          "fr": "Remporte le 3ème combat de l'événement en cours",
+          "de": "Gewinne den 3. Kampf des aktuellen Events",
+          "pt": "Ganhe o 3° combate do evento atual",
+          "it": "Vinci il 3° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikteki 3. dövüşü kazan",
+          "nl": "Win het 3e gevecht van het huidige Evenement"
         },
         "amount": 3,
         "category": "collection",
@@ -46512,6 +46728,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_undead.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "929",
@@ -46721,6 +46939,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "924",
@@ -46930,6 +47150,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_techno.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "919",
@@ -47139,6 +47361,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "905",
@@ -47703,6 +47927,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "877",
@@ -48267,6 +48493,8 @@
     "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph_easter.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "865",
@@ -48746,6 +48974,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "851",
@@ -49310,6 +49540,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "837",
@@ -49829,6 +50061,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "823",
@@ -50348,6 +50582,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "808",
@@ -50912,6 +51148,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "794",
@@ -51476,6 +51714,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "776",
@@ -51995,6 +52235,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "758",
@@ -52559,6 +52801,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "744",
@@ -53123,6 +53367,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "730",
@@ -53687,6 +53933,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "716",
@@ -54251,6 +54499,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "701",
@@ -54815,6 +55065,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "683",
@@ -55379,6 +55631,8 @@
     "nameSource": "localisation",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_candy_red.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "667",
@@ -56018,6 +56272,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "653",
@@ -56582,6 +56838,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "639",
@@ -57101,6 +57359,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "619",
@@ -57620,6 +57880,8 @@
     "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "470",
@@ -61954,6 +62216,8 @@
     "nameSource": "authored",
     "requiredLevel": 7,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "183",

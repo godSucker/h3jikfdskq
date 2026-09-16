@@ -919,7 +919,7 @@
   "guides.intro.farmers.p3": "Não é necessário evoluir Midas, Caçador de Recompensas ou D.A.B. para uma estrela para farmar — em qualquer estrela, eles renderão a mesma quantidade de prata.",
   "guides.intro.speedOrbs.p1": "Uma tabela do ganho exato de velocidade das esferas de velocidade de nível 3–5. Quando você dá a um mutante uma esfera de velocidade, o % de ganho nem sempre corresponde aos 15%, 18% e 20% indicados na própria esfera — o ganho real para cada velocidade base específica é mostrado entre parênteses.",
   "guides.intro.speedOrbs.p2": "Como se pode observar, o ganho da esfera quase sempre fica acima do nominal, especialmente em velocidades altas, onde pode chegar a 1–2% extras. Parece que cada bônus de esfera foi ajustado manualmente pelos desenvolvedores em vez de calculado por uma fórmula única — a velocidade com determinada esfera às vezes coincide com a velocidade base de outro mutante, ou com a velocidade do mesmo mutante com outro nível de esfera.",
-  "guides.intro.quests.p1": "As missões principais (não de evento) do jogo com recompensa — conquistas, missões de história e tarefas de sistema. O jogo armazena mais de 5300 missões, mas a maioria não tem nem nome nem recompensa própria — aqui entraram apenas aquelas que realmente parecem uma missão de verdade: nome → condição → recompensa.",
+  "guides.intro.quests.p1": "As missões do jogo com recompensa — conquistas, missões de história, tarefas de sistema e missões de evento de toda a história do jogo, agrupadas por evento. O jogo armazena mais de 5400 missões, mas a maioria não tem nem nome nem recompensa própria — aqui entraram apenas aquelas que realmente parecem uma missão de verdade: nome → condição → recompensa.",
   "guides.intro.divisions.p1": "7 divisões da campanha (Alfa → Giga), cada uma com 9 mapas — os mesmos 9 locais, mas com nível de inimigos e recompensas crescentes. As recomendações de nível de Evo e composição de equipe são nossa própria estimativa; o próprio jogo não oferece esse tipo de dica.",
   "guides.intro.ladders.p1": "Aqui estão listadas praticamente todas as escadas que já existiram no jogo.",
   "guides.intro.raids.p1": "As incursões são as \"escadas\" mais difíceis do jogo, mas cada uma dá um mutante único (que joga bastante bem). Algumas incursões não têm um nome próprio no jogo — esses nomes foram inventados por nós com base no tema da arte e aparecem em itálico.",
@@ -971,5 +971,7 @@
   "tierPoster.updatedOn": "atualizado em {date}",
   "tierPoster.disclaimer": "Este tier list foi montado pela equipe da Archivist-Library com base em nossa própria análise da meta e experiência dos jogadores. Não é a palavra final — as opiniões sobre mutantes específicos podem divergir na comunidade, então encare como uma referência geral, não um ranking rígido.",
   "tierPoster.legendUp": "mutantes mais fortes dentro do tier",
-  "tierPoster.legendDown": "mutantes mais fracos dentro do tier"
+  "tierPoster.legendDown": "mutantes mais fracos dentro do tier",
+  "guides.quests.filterEvents": "Eventos",
+  "guides.quests.fromLevel": "a partir do nível {level}"
 }

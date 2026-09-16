@@ -919,7 +919,7 @@
   "guides.intro.farmers.p3": "You don't need to level up Midas, Bounty Hunter, or D.A.B. to a star for farming — at any star, they'll bring in the same amount of silver.",
   "guides.intro.speedOrbs.p1": "A table of the exact speed gain from level 3–5 speed orbs. When you give a mutant a speed orb, the % gain doesn't always match the 15%, 18%, and 20% printed on the orb itself — the actual gain for each specific base speed is shown in parentheses.",
   "guides.intro.speedOrbs.p2": "As you can see, the gain from the orb is almost always above nominal, especially at high speeds, where it can add up to 1–2 extra percent. It looks like each orb bonus was hand-tuned by the developers rather than calculated from a single formula — the speed with a given orb sometimes matches another mutant's base speed, or the same mutant's speed with a different orb level.",
-  "guides.intro.quests.p1": "The game's main (non-event) quests with rewards — achievements, story quests, and system tasks. The game stores 5300+ missions, but most of them have neither a name nor a distinct reward — only the ones that actually look like a proper quest made it here: name → condition → reward.",
+  "guides.intro.quests.p1": "The game's quests with rewards — achievements, story quests, system tasks, and event missions from the whole history of the game, grouped by event. The game stores 5400+ missions, but most of them have neither a name nor a distinct reward — only the ones that actually look like a proper quest made it here: name → condition → reward.",
   "guides.intro.divisions.p1": "7 campaign divisions (Alpha → Giga), each with 9 maps — the same 9 locations, but with rising enemy levels and rewards. The Evo-level and team-composition recommendations are our own estimate; the game itself gives no such hints.",
   "guides.intro.ladders.p1": "This lists practically every ladder that has ever existed in the game.",
   "guides.intro.raids.p1": "Raids are the hardest \"ladders\" in the game, but each one gives a unique mutant (that plays pretty well). Some raids don't have a proper in-game name — those names were invented by us based on the art's theme and are marked in italics.",
@@ -971,5 +971,7 @@
   "tierPoster.updatedOn": "up to date as of {date}",
   "tierPoster.disclaimer": "This tier list was put together by the Archivist-Library team based on our own analysis of the meta and player experience. It's not the final word — opinions on individual mutants can differ across the community, so treat it as a general guide rather than a strict ranking.",
   "tierPoster.legendUp": "stronger mutants within the tier",
-  "tierPoster.legendDown": "weaker mutants within the tier"
+  "tierPoster.legendDown": "weaker mutants within the tier",
+  "guides.quests.filterEvents": "Events",
+  "guides.quests.fromLevel": "from level {level}"
 }

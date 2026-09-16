@@ -919,7 +919,7 @@
   "guides.intro.farmers.p3": "Non è necessario portare Midas, Cacciatore di Taglie o D.A.B. a stella per il farming — a qualsiasi stella porteranno la stessa quantità d'argento.",
   "guides.intro.speedOrbs.p1": "Una tabella del guadagno di velocità esatto delle sfere di velocità di livello 3–5. Quando dai a un mutante una sfera di velocità, la % di guadagno non sempre corrisponde al 15%, 18% e 20% indicati sulla sfera stessa — il guadagno reale per ogni specifica velocità base è indicato tra parentesi.",
   "guides.intro.speedOrbs.p2": "Come si può notare, il guadagno della sfera è quasi sempre superiore al valore nominale, specialmente alle alte velocità, dove può aggiungere 1–2 punti percentuali extra. Sembra che ogni bonus della sfera sia stato regolato a mano dagli sviluppatori invece di essere calcolato con un'unica formula — la velocità con una data sfera a volte coincide con la velocità base di un altro mutante, o con la velocità dello stesso mutante con un diverso livello di sfera.",
-  "guides.intro.quests.p1": "Le missioni principali (non da evento) del gioco con ricompensa — obiettivi, missioni di trama e compiti di sistema. Il gioco memorizza oltre 5300 missioni, ma la maggior parte di esse non ha né un nome né una ricompensa distinta — qui sono incluse solo quelle che sembrano davvero una missione vera e propria: nome → condizione → ricompensa.",
+  "guides.intro.quests.p1": "Le missioni del gioco con ricompensa — obiettivi, missioni di trama, compiti di sistema e missioni evento di tutta la storia del gioco, raggruppate per evento. Il gioco memorizza oltre 5400 missioni, ma la maggior parte di esse non ha né un nome né una ricompensa distinta — qui sono incluse solo quelle che sembrano davvero una missione vera e propria: nome → condizione → ricompensa.",
   "guides.intro.divisions.p1": "7 divisioni della campagna (Alfa → Giga), ognuna con 9 mappe — le stesse 9 località, ma con livello dei nemici e ricompense crescenti. I consigli su livello Evo e composizione della squadra sono una nostra stima personale; il gioco stesso non fornisce alcun suggerimento del genere.",
   "guides.intro.ladders.p1": "Qui sono elencate praticamente tutte le scale mai esistite nel gioco.",
   "guides.intro.raids.p1": "I raid sono le \"scale\" più difficili del gioco, ma ognuno dà un mutante unico (che si gioca piuttosto bene). Alcuni raid non hanno un nome proprio nel gioco — questi nomi sono stati inventati da noi in base al tema dell'illustrazione e sono indicati in corsivo.",
@@ -971,5 +971,7 @@
   "tierPoster.updatedOn": "aggiornato al {date}",
   "tierPoster.disclaimer": "Questa tier list è stata realizzata dal team di Archivist-Library sulla base della nostra analisi del meta e dell'esperienza di gioco. Non è una verità assoluta: le opinioni sui singoli mutanti possono differire nella community, consideratela come un riferimento generale e non una classifica rigida.",
   "tierPoster.legendUp": "mutanti più forti all'interno del tier",
-  "tierPoster.legendDown": "mutanti più deboli all'interno del tier"
+  "tierPoster.legendDown": "mutanti più deboli all'interno del tier",
+  "guides.quests.filterEvents": "Eventi",
+  "guides.quests.fromLevel": "dal livello {level}"
 }

@@ -1,3 +1,22 @@
+<script lang="ts" module>
+  // Ивентовая цепочка заданий, уже приведённая к локали (см. GuidesPage.astro
+  // и scripts/build-event-quests.ts). Экспорт типа - для GuidesBrowser.
+  export interface EventQuestReward {
+    label: string
+    name?: string
+    count?: string
+    icon: string | null
+    mutant?: { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
+  }
+  export interface EventQuestChain {
+    filter: string
+    name: string
+    requiredLevel: number | null
+    icon: string | null
+    steps: { id: string; condition: string; amount: number | null; showAmount: boolean; rewards: EventQuestReward[] }[]
+  }
+</script>
+
 <script lang="ts">
   import { textureUrl } from '@/lib/texture-cdn'
   import { normalizeSearch } from '@/lib/search-normalize'
@@ -5,7 +24,7 @@
   import { buildQuestChains, type QuestNode, type QuestChain } from '@/lib/guides-chains'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
-  interface QuestReward { label: string; icon: string | null; mutant?: MutantLite }
+  interface QuestReward { label: string; name?: string; count?: string; icon: string | null; mutant?: MutantLite }
   type TriggerCategory = 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation' | 'building' | 'level' | 'collection' | 'social' | 'misc'
   interface Quest {
     id: string
@@ -33,14 +52,18 @@
     failedStoryIcons = new Set(failedStoryIcons).add(icon)
   }
 
-  let { locale = 'ru' as Locale, quests = [] }: { locale?: Locale; quests: Quest[] } = $props()
+  let {
+    locale = 'ru' as Locale,
+    quests = [],
+    eventQuests = [],
+  }: { locale?: Locale; quests: Quest[]; eventQuests?: EventQuestChain[] } = $props()
 
   function openMutant(specimenId: string) {
     window.dispatchEvent(new CustomEvent('archivist:open-mutant', { detail: { specimenId } }))
   }
 
   let query = $state('')
-  let filterType = $state<'all' | 'story' | 'achievement'>('all')
+  let filterType = $state<'all' | 'story' | 'achievement' | 'events'>('all')
   let expandedIds = $state<Set<string>>(new Set())
 
   function toggleChain(rootId: string) {
@@ -59,8 +82,21 @@
     return node.children.some(nodeMatches)
   }
 
+  // Ивентовые цепочки показываются на "Все" и "Ивенты"; поиск идёт и по имени
+  // ивента, и по условиям этапов.
+  const visibleEventChains = $derived(
+    filterType === 'all' || filterType === 'events'
+      ? eventQuests.filter((c) => {
+          if (!normalizedQuery) return true
+          if (normalizeSearch(c.name).includes(normalizedQuery)) return true
+          return c.steps.some((st) => normalizeSearch(st.condition).includes(normalizedQuery))
+        })
+      : [],
+  )
+
   const visibleChains = $derived(
     chains.filter((c) => {
+      if (filterType === 'events') return false
       if (filterType !== 'all' && c.chainType !== filterType) return false
       if (!normalizedQuery) return true
       return c.roots.some(nodeMatches)
@@ -146,7 +182,7 @@
       {:else}
         <span class="reward-inline">
           {#if r.icon}<img src={textureUrl(r.icon)} alt="" loading="lazy" decoding="async" />{/if}
-          {r.label}
+          {r.name ?? r.label}{#if r.count}<span class="reward-count">{r.count}</span>{/if}
         </span>
       {/if}
     {/each}
@@ -194,6 +230,7 @@
     <button class="filter-chip" class:active={filterType === 'all'} onclick={() => (filterType = 'all')}>{t('guides.quests.filterAll', locale)}</button>
     <button class="filter-chip" class:active={filterType === 'story'} onclick={() => (filterType = 'story')}>{t('guides.quests.filterStory', locale)}</button>
     <button class="filter-chip" class:active={filterType === 'achievement'} onclick={() => (filterType = 'achievement')}>{t('guides.quests.filterAchievements', locale)}</button>
+    <button class="filter-chip" class:active={filterType === 'events'} onclick={() => (filterType = 'events')}>{t('guides.quests.filterEvents', locale)}</button>
   </div>
 </div>
 
@@ -256,7 +293,32 @@
     {/if}
   {/each}
 
-  {#if !visibleChains.length}
+  {#each visibleEventChains as chain (chain.filter)}
+    <div class="chain-card achievement-chain event-chain">
+      <div class="chain-card-header">
+        {#if chain.icon}
+          <img src={textureUrl(chain.icon)} alt="" class="achievement-chain-icon" loading="lazy" decoding="async" />
+        {/if}
+        <div class="chain-card-heading">
+          <span class="chain-card-title">{chain.name}</span>
+          <span class="chain-card-meta">
+            {stageCount(chain.steps.length)}{#if chain.requiredLevel} · {t('guides.quests.fromLevel', locale).replace('{level}', String(chain.requiredLevel))}{/if}
+          </span>
+        </div>
+      </div>
+      <div class="tier-list">
+        {#each chain.steps as step, i (step.id)}
+          <div class="tier-row">
+            <span class="tier-index">{i + 1}</span>
+            <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amount}</span>{/if}</span>
+            {@render rewardChips(step.rewards)}
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/each}
+
+  {#if !visibleChains.length && !visibleEventChains.length}
     <p class="soon-block">{t('guides.emptyState', locale)}</p>
   {/if}
 </div>
@@ -320,7 +382,9 @@
   .farmer-chip img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; }
   .reward-inline { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; color: #86efac; }
   .reward-inline img { width: 18px; height: 18px; object-fit: contain; }
+  .reward-count { color: #fbbf24; font-weight: 700; white-space: nowrap; }
   .soon-block { color: #64748b; padding: 2rem 0; text-align: center; font-size: 0.9rem; }
+  .event-amount { margin-left: 0.35em; color: #fbbf24; font-weight: 700; white-space: nowrap; }
 
   /* Отступ/линия-коннектор растут ТОЛЬКО в реальных точках ветвления (5 из 297
      квестов) - без .forked это просто следующий шаг линейной цепочки, без

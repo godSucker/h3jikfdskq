@@ -3557,5 +3557,21 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "eventQuests-1789597989940-0",
+    "date": "2026-09-16T22:33:04.670Z",
+    "category": "eventQuests",
+    "title": "Анализатор тайны",
+    "items": [
+      {
+        "id": "Patch_Building_Mystery",
+        "name": "Анализатор тайны",
+        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
+        "exactDateLabel": "15 сентября",
+        "exactDateStart": "2026-09-15T14:00:00+00:00"
+      }
+    ],
+    "link": "/guides#quests"
   }
 ]
