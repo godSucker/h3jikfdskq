@@ -914,8 +914,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "6 — 8 сентября",
-        "exactDateStart": "2026-09-06T10:00:00+00:00",
+        "exactDateLabel": "≈ 6 сентября",
+        "exactDateStart": "2026-09-06T10:00:00.000Z",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -1275,8 +1275,8 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "6 — 8 сентября",
-        "exactDateStart": "2026-09-06T10:00:00+00:00"
+        "exactDateLabel": "≈ 6 сентября",
+        "exactDateStart": "2026-09-06T10:00:00.000Z"
       },
       {
         "id": "256|Shop_LuckyBox_Cyber_Elite",
