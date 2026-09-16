@@ -97,6 +97,9 @@ interface AnnouncementItem {
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
   // из пула daily-offer ("мутант дня", см. fetchDailyMutantOffers).
   featuredMutant?: 'day' | 'week' | 'month' | null
+  // Мутанты внутри пакета - чтобы тайл прогноза был кликабельным даже когда
+  // сам itemId мутанта не содержит (см. detect-shop-forecast.ts).
+  packMutants?: string[]
   // Только exchange - какой из 3 залов (джекпот/испытания/анализатор тайны),
   // см. detectExchange. Страница группирует один Announcement по этому полю
   // на 3 подблока вместо плоского списка (фидбек юзера 2026-09-15).
@@ -1102,6 +1105,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
       exactDateLabel: it.exactDateLabel,
       exactDateStart: it.exactDateStart,
       featuredMutant: it.featuredMutant,
+      packMutants: it.packMutants,
     })),
   )
 }

@@ -52,6 +52,7 @@ export interface AnnouncementItem {
   // "мутант дня" из календаря MUTODEX/@KaiserZ, см.
   // scripts/detect-shop-forecast.ts::fetchDailyMutantOffers.
   featuredMutant?: 'day' | 'week' | 'month' | null
+  packMutants?: string[]
   // Только exchange - какой из 3 залов (см. scripts/build-announcements.ts::
   // detectExchange). Карточка группирует items по этому полю на 3 подблока.
   hall?: 'jackpot' | 'event' | 'mystery' | null
@@ -384,6 +385,47 @@ export function resolveForecastTarget(
   const box = findBox(cleaned)
   if (box) return { type: 'box', id: box.itemId }
   return null
+}
+
+// Мутанты ВНУТРИ пакета (packMutants), уже резолвнутые в имя/иконку/звезду.
+// Пакеты вроде "Пакет «Спираксия»" (bank_e_14_*) мутанта в itemId не несут -
+// он лежит только в <ArticleItems>, поэтому тайл выглядел некликабельным
+// (юзер поймал 2026-09-16). Один мутант -> тайл открывает его модалку сразу;
+// несколько -> открывается лист состава (см. announcements.astro).
+export interface PackMutantRef {
+  id: string
+  star: string | null
+  name: string
+  image: string
+}
+
+export function resolvePackMutants(
+  ids: string[] | null | undefined,
+  mutantsById: Map<string, MutantRaw>,
+): PackMutantRef[] {
+  const out: PackMutantRef[] = []
+  const seen = new Set<string>()
+  for (const raw of ids ?? []) {
+    const target = resolveForecastTarget(raw, mutantsById, () => undefined)
+    if (!target || target.type !== 'mutant') continue
+    const key = `${target.id}|${target.star ?? ''}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    const m = mutantsById.get(target.id)
+    if (!m) continue
+    const tier = target.star
+      ? ({ bronze: 'бронза', silver: 'серебро', gold: 'золото', platinum: 'платина' }[
+          target.star
+        ] ?? null)
+      : null
+    out.push({
+      id: target.id,
+      star: target.star,
+      name: m.name,
+      image: boxMutantIcon({ id: target.id, name: m.name, tier, skin: null }),
+    })
+  }
+  return out
 }
 
 export const fmtDate = (iso: string) =>
