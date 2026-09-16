@@ -127,6 +127,91 @@ function filterTheme(filter: string): string {
     .replace(/_\d+$/, '')
 }
 
+
+// ИМЕНА ИВЕНТОВ ПО КОНТЕКСТУ ФИЛЬТРА. Официального имени у большинства цепочек
+// нет (event_name_* в локализации есть только у тематических лесенок), и юзер
+// 2026-09-16 разрешил писать их самим по смыслу фильтра - пример юзера:
+// filter_missions_anniversary26_2 -> "Годовщина 2026, часть 2". Шаблоны, а не
+// ручной список на 121 запись: новый ивент того же вида (скажем,
+// filter_dungeon_halloween26) получит имя сам. Точечные правки - через
+// event-quest-names.json, он приоритетнее.
+type Words = Record<Locale, string>
+const W = {
+  event: { ru: 'Ивент', en: 'Event', es: 'Evento', fr: 'Événement', de: 'Event', pt: 'Evento', it: 'Evento', tr: 'Etkinlik', nl: 'Evenement' },
+  challenge: { ru: 'Испытание', en: 'Challenge', es: 'Desafío', fr: 'Défi', de: 'Herausforderung', pt: 'Desafio', it: 'Sfida', tr: 'Meydan okuma', nl: 'Uitdaging' },
+  anniversary: { ru: 'Годовщина', en: 'Anniversary', es: 'Aniversario', fr: 'Anniversaire', de: 'Jubiläum', pt: 'Aniversário', it: 'Anniversario', tr: 'Yıl dönümü', nl: 'Jubileum' },
+  xmas: { ru: 'Рождество', en: 'Christmas', es: 'Navidad', fr: 'Noël', de: 'Weihnachten', pt: 'Natal', it: 'Natale', tr: 'Noel', nl: 'Kerstmis' },
+  easter: { ru: 'Пасха', en: 'Easter', es: 'Pascua', fr: 'Pâques', de: 'Ostern', pt: 'Páscoa', it: 'Pasqua', tr: 'Paskalya', nl: 'Pasen' },
+  valentines: { ru: 'День святого Валентина', en: "Valentine's Day", es: 'San Valentín', fr: 'Saint-Valentin', de: 'Valentinstag', pt: 'Dia dos Namorados', it: 'San Valentino', tr: 'Sevgililer Günü', nl: 'Valentijnsdag' },
+  halloween: { ru: 'Хеллоуин', en: 'Halloween', es: 'Halloween', fr: 'Halloween', de: 'Halloween', pt: 'Halloween', it: 'Halloween', tr: 'Cadılar Bayramı', nl: 'Halloween' },
+  weirdtech: { ru: 'Странные технологии', en: 'Weird Tech', es: 'Tecnología extraña', fr: 'Technologie étrange', de: 'Seltsame Technik', pt: 'Tecnologia estranha', it: 'Tecnologia strana', tr: 'Tuhaf teknoloji', nl: 'Vreemde technologie' },
+  part: { ru: 'часть', en: 'part', es: 'parte', fr: 'partie', de: 'Teil', pt: 'parte', it: 'parte', tr: 'bölüm', nl: 'deel' },
+  day: { ru: 'день', en: 'day', es: 'día', fr: 'jour', de: 'Tag', pt: 'dia', it: 'giorno', tr: 'gün', nl: 'dag' },
+  story: { ru: 'сюжет', en: 'story', es: 'historia', fr: 'histoire', de: 'Story', pt: 'história', it: 'storia', tr: 'hikaye', nl: 'verhaal' },
+  storyUpdate: { ru: 'Сюжетное обновление', en: 'Story update', es: 'Actualización de la historia', fr: "Mise à jour de l'histoire", de: 'Story-Update', pt: 'Atualização da história', it: 'Aggiornamento della storia', tr: 'Hikaye güncellemesi', nl: 'Verhaalupdate' },
+  ended: { ru: 'Завершённые ивенты', en: 'Ended events', es: 'Eventos finalizados', fr: 'Événements terminés', de: 'Beendete Events', pt: 'Eventos encerrados', it: 'Eventi conclusi', tr: 'Sona eren etkinlikler', nl: 'Afgelopen evenementen' },
+  feature: { ru: 'Новые функции', en: 'New features', es: 'Nuevas funciones', fr: 'Nouvelles fonctionnalités', de: 'Neue Funktionen', pt: 'Novos recursos', it: 'Nuove funzionalità', tr: 'Yeni özellikler', nl: 'Nieuwe functies' },
+  test: { ru: 'Тестовые задания', en: 'Test missions', es: 'Misiones de prueba', fr: 'Missions de test', de: 'Testmissionen', pt: 'Missões de teste', it: 'Missioni di prova', tr: 'Test görevleri', nl: 'Testmissies' },
+} satisfies Record<string, Words>
+
+const join = (fn: (l: Locale) => string): I18nText =>
+  Object.fromEntries(LOCALES.map((l) => [l, fn(l)])) as I18nText
+
+function authoredName(filter: string): I18nText | null {
+  const f = filter.toLowerCase()
+  if (f === 'missions_event_ended') return join((l) => W.ended[l])
+  if (f === 'missions_event_feature') return join((l) => W.feature[l])
+  if (f.startsWith('missions_test_')) {
+    const tail = filter.slice('Missions_Test_'.length).replace(/_/g, ' ')
+    return join((l) => `${W.test[l]}: ${tail}`)
+  }
+
+  let m = f.match(/storypatch_(\d+)/)
+  if (m) return join((l) => `${W.storyUpdate[l]}, ${W.part[l]} ${m![1]}`)
+
+  if (f.includes('jungle_bells')) {
+    const y = f.match(/(20\d\d)/)?.[1]
+    return join(() => (y ? `Jungle Bells ${y}` : 'Jungle Bells'))
+  }
+
+  m = f.match(/event_challenge_(\d+)$/)
+  if (m) return join((l) => `${W.challenge[l]} #${m![1]}`)
+  m = f.match(/^missions_event_(\d+)$/)
+  if (m) return join((l) => `${W.event[l]} #${m![1]}`)
+
+  const theme = (['anniversary', 'valentines', 'halloween', 'weirdtech', 'easter', 'xmas'] as const).find((t) =>
+    f.includes(t),
+  )
+  if (!theme) return null
+
+  // Хвост после темы: "26_2", "_24_1", "_2018_pt1", "20_1", "_day_1".
+  const tail = f.slice(f.indexOf(theme) + theme.length)
+  const nums = [...tail.matchAll(/\d+/g)].map((x) => x[0])
+  let year: string | null = null
+  let part: string | null = null
+  if (nums[0] && (nums[0].length === 4 || nums[0].length === 2)) {
+    year = nums[0].length === 4 ? nums[0] : `20${nums[0]}`
+    part = nums[1] ?? null
+  } else if (nums[0]) {
+    part = nums[0]
+  }
+  const isDay = /_day_/.test(tail)
+  const suffix = f.includes('_story_') || f.startsWith('filter_story_')
+    ? 'story'
+    : f.includes('pvp')
+      ? 'pvp'
+      : null
+
+  return join((l) => {
+    let s = W[theme][l]
+    if (year) s += ` ${year}`
+    if (suffix === 'story') s += ` — ${W.story[l]}`
+    if (suffix === 'pvp') s += ' — PvP'
+    if (part) s += isDay ? ` — ${W.day[l]} ${part}` : `, ${W.part[l]} ${part}`
+    return s
+  })
+}
+
 function prettifyFilter(filter: string): string {
   return filter
     .replace(/^(filter_dungeon_|filter_missions_|filter_mission_|filter_quests_|Missions_|Patch_)/i, '')
@@ -176,19 +261,24 @@ async function main() {
     return null
   }
 
-  const groups = new Map<string, Record<string, any>[]>()
+  // Группируем по фильтру БЕЗ учёта регистра: у Kobojo один и тот же ивент
+  // бывает записан в двух регистрах (Missions_Event_Challenge_48 - 1 задание,
+  // Missions_Event_challenge_48 - ещё 13), и иначе он разваливался на две
+  // карточки с одинаковым именем "Испытание #48".
+  const groups = new Map<string, { filter: string; list: Record<string, any>[] }>()
   for (const m of missions) {
     if (tagOf(m, 'missionStyle') !== 'events') continue
     const filter = arr(m.Filter)[0]
     if (!filter || typeof filter !== 'string') continue
-    if (!groups.has(filter)) groups.set(filter, [])
-    groups.get(filter)!.push(m)
+    const key = filter.toLowerCase()
+    if (!groups.has(key)) groups.set(key, { filter, list: [] })
+    groups.get(key)!.list.push(m)
   }
 
   const chains: EventQuestChain[] = []
   const unnamed: string[] = []
 
-  for (const [filter, list] of groups) {
+  for (const { filter, list } of groups.values()) {
     list.sort((a, b) => Number(a.id) - Number(b.id))
 
     const steps: EventQuestStep[] = list.map((m) => {
@@ -226,6 +316,22 @@ async function main() {
     const theme = filterTheme(filter)
     let name = translate(locs, `event_name_${theme}`)
     let nameSource: EventQuestChain['nameSource'] = 'localisation'
+    // Официальное имя темы у ежегодных ивентов одно на все годы
+    // ("Кошмар Хеллоуина" для 2020..2025) - без года шесть карточек подряд
+    // неразличимы. Год берём из фильтра, если он там есть.
+    if (!isEmpty(name)) {
+      const yearTail = filter.toLowerCase().slice(filter.toLowerCase().indexOf(theme) + theme.length)
+      const yy = yearTail.match(/^_?(\d{4}|\d{2})(?!\d)/)?.[1]
+      if (yy) {
+        const year = yy.length === 4 ? yy : `20${yy}`
+        name = Object.fromEntries(LOCALES.map((l) => [l, `${name[l]} ${year}`])) as I18nText
+      }
+      // Missions_Halloween_2018_Pt1 / _Pt2 - иначе обе части сливаются в одно имя.
+      const pt = yearTail.match(/_pt(\d+)$/)?.[1]
+      if (pt) {
+        name = Object.fromEntries(LOCALES.map((l) => [l, `${name[l]}, ${W.part[l]} ${pt}`])) as I18nText
+      }
+    }
     if (isEmpty(name)) name = translate(locs, `building_${theme}`)
     if (isEmpty(name)) {
       const a = authored[filter]
@@ -235,10 +341,16 @@ async function main() {
         name = out
         nameSource = 'authored'
       } else {
-        const p = prettifyFilter(filter)
-        name = Object.fromEntries(LOCALES.map((l) => [l, p])) as I18nText
-        nameSource = 'fallback'
-        unnamed.push(filter)
+        const generated = authoredName(filter)
+        if (generated) {
+          name = generated
+          nameSource = 'authored'
+        } else {
+          const p = prettifyFilter(filter)
+          name = Object.fromEntries(LOCALES.map((l) => [l, p])) as I18nText
+          nameSource = 'fallback'
+          unnamed.push(filter)
+        }
       }
     }
 

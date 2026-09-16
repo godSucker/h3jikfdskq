@@ -251,17 +251,17 @@
   {
     "filter": "filter_missions_anniversary26_2",
     "name": {
-      "ru": "anniversary26 2",
-      "en": "anniversary26 2",
-      "es": "anniversary26 2",
-      "fr": "anniversary26 2",
-      "de": "anniversary26 2",
-      "pt": "anniversary26 2",
-      "it": "anniversary26 2",
-      "tr": "anniversary26 2",
-      "nl": "anniversary26 2"
+      "ru": "Годовщина 2026, часть 2",
+      "en": "Anniversary 2026, part 2",
+      "es": "Aniversario 2026, parte 2",
+      "fr": "Anniversaire 2026, partie 2",
+      "de": "Jubiläum 2026, Teil 2",
+      "pt": "Aniversário 2026, parte 2",
+      "it": "Anniversario 2026, parte 2",
+      "tr": "Yıl dönümü 2026, bölüm 2",
+      "nl": "Jubileum 2026, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
     "steps": [
@@ -1075,17 +1075,17 @@
   {
     "filter": "filter_missions_anniversary26_1",
     "name": {
-      "ru": "anniversary26 1",
-      "en": "anniversary26 1",
-      "es": "anniversary26 1",
-      "fr": "anniversary26 1",
-      "de": "anniversary26 1",
-      "pt": "anniversary26 1",
-      "it": "anniversary26 1",
-      "tr": "anniversary26 1",
-      "nl": "anniversary26 1"
+      "ru": "Годовщина 2026, часть 1",
+      "en": "Anniversary 2026, part 1",
+      "es": "Aniversario 2026, parte 1",
+      "fr": "Anniversaire 2026, partie 1",
+      "de": "Jubiläum 2026, Teil 1",
+      "pt": "Aniversário 2026, parte 1",
+      "it": "Anniversario 2026, parte 1",
+      "tr": "Yıl dönümü 2026, bölüm 1",
+      "nl": "Jubileum 2026, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
     "steps": [
@@ -1689,17 +1689,17 @@
   {
     "filter": "filter_dungeon_easter26",
     "name": {
-      "ru": "easter26",
-      "en": "easter26",
-      "es": "easter26",
-      "fr": "easter26",
-      "de": "easter26",
-      "pt": "easter26",
-      "it": "easter26",
-      "tr": "easter26",
-      "nl": "easter26"
+      "ru": "Пасха 2026",
+      "en": "Easter 2026",
+      "es": "Pascua 2026",
+      "fr": "Pâques 2026",
+      "de": "Ostern 2026",
+      "pt": "Páscoa 2026",
+      "it": "Pasqua 2026",
+      "tr": "Paskalya 2026",
+      "nl": "Pasen 2026"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -2268,17 +2268,17 @@
   {
     "filter": "filter_dungeon_valentines26",
     "name": {
-      "ru": "valentines26",
-      "en": "valentines26",
-      "es": "valentines26",
-      "fr": "valentines26",
-      "de": "valentines26",
-      "pt": "valentines26",
-      "it": "valentines26",
-      "tr": "valentines26",
-      "nl": "valentines26"
+      "ru": "День святого Валентина 2026",
+      "en": "Valentine's Day 2026",
+      "es": "San Valentín 2026",
+      "fr": "Saint-Valentin 2026",
+      "de": "Valentinstag 2026",
+      "pt": "Dia dos Namorados 2026",
+      "it": "San Valentino 2026",
+      "tr": "Sevgililer Günü 2026",
+      "nl": "Valentijnsdag 2026"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "steps": [
@@ -2847,17 +2847,17 @@
   {
     "filter": "filter_dungeon_xmas25_2",
     "name": {
-      "ru": "xmas25 2",
-      "en": "xmas25 2",
-      "es": "xmas25 2",
-      "fr": "xmas25 2",
-      "de": "xmas25 2",
-      "pt": "xmas25 2",
-      "it": "xmas25 2",
-      "tr": "xmas25 2",
-      "nl": "xmas25 2"
+      "ru": "Рождество 2025, часть 2",
+      "en": "Christmas 2025, part 2",
+      "es": "Navidad 2025, parte 2",
+      "fr": "Noël 2025, partie 2",
+      "de": "Weihnachten 2025, Teil 2",
+      "pt": "Natal 2025, parte 2",
+      "it": "Natale 2025, parte 2",
+      "tr": "Noel 2025, bölüm 2",
+      "nl": "Kerstmis 2025, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -3531,17 +3531,17 @@
   {
     "filter": "filter_dungeon_xmas25_1",
     "name": {
-      "ru": "xmas25 1",
-      "en": "xmas25 1",
-      "es": "xmas25 1",
-      "fr": "xmas25 1",
-      "de": "xmas25 1",
-      "pt": "xmas25 1",
-      "it": "xmas25 1",
-      "tr": "xmas25 1",
-      "nl": "xmas25 1"
+      "ru": "Рождество 2025, часть 1",
+      "en": "Christmas 2025, part 1",
+      "es": "Navidad 2025, parte 1",
+      "fr": "Noël 2025, partie 1",
+      "de": "Weihnachten 2025, Teil 1",
+      "pt": "Natal 2025, parte 1",
+      "it": "Natale 2025, parte 1",
+      "tr": "Noel 2025, bölüm 1",
+      "nl": "Kerstmis 2025, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -4040,15 +4040,15 @@
   {
     "filter": "filter_dungeon_halloween25",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2025",
+      "en": "Halloween Nightmare 2025",
+      "es": "Halloween Nightmare 2025",
+      "fr": "Halloween Nightmare 2025",
+      "de": "Halloween Nightmare 2025",
+      "pt": "Pesadelo de Halloween 2025",
+      "it": "Halloween Nightmare 2025",
+      "tr": "Cadılar Bayramı Kabusu 2025",
+      "nl": "Halloween Nightmare 2025"
     },
     "nameSource": "localisation",
     "requiredLevel": 5,
@@ -4689,17 +4689,17 @@
   {
     "filter": "filter_missions_anniversary25_2",
     "name": {
-      "ru": "anniversary25 2",
-      "en": "anniversary25 2",
-      "es": "anniversary25 2",
-      "fr": "anniversary25 2",
-      "de": "anniversary25 2",
-      "pt": "anniversary25 2",
-      "it": "anniversary25 2",
-      "tr": "anniversary25 2",
-      "nl": "anniversary25 2"
+      "ru": "Годовщина 2025, часть 2",
+      "en": "Anniversary 2025, part 2",
+      "es": "Aniversario 2025, parte 2",
+      "fr": "Anniversaire 2025, partie 2",
+      "de": "Jubiläum 2025, Teil 2",
+      "pt": "Aniversário 2025, parte 2",
+      "it": "Anniversario 2025, parte 2",
+      "tr": "Yıl dönümü 2025, bölüm 2",
+      "nl": "Jubileum 2025, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks_2.png",
     "steps": [
@@ -5478,17 +5478,17 @@
   {
     "filter": "filter_missions_anniversary25_1",
     "name": {
-      "ru": "anniversary25 1",
-      "en": "anniversary25 1",
-      "es": "anniversary25 1",
-      "fr": "anniversary25 1",
-      "de": "anniversary25 1",
-      "pt": "anniversary25 1",
-      "it": "anniversary25 1",
-      "tr": "anniversary25 1",
-      "nl": "anniversary25 1"
+      "ru": "Годовщина 2025, часть 1",
+      "en": "Anniversary 2025, part 1",
+      "es": "Aniversario 2025, parte 1",
+      "fr": "Anniversaire 2025, partie 1",
+      "de": "Jubiläum 2025, Teil 1",
+      "pt": "Aniversário 2025, parte 1",
+      "it": "Anniversario 2025, parte 1",
+      "tr": "Yıl dönümü 2025, bölüm 1",
+      "nl": "Jubileum 2025, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_masks.png",
     "steps": [
@@ -6232,17 +6232,17 @@
   {
     "filter": "Missions_Event_Challenge_76",
     "name": {
-      "ru": "Event Challenge 76",
-      "en": "Event Challenge 76",
-      "es": "Event Challenge 76",
-      "fr": "Event Challenge 76",
-      "de": "Event Challenge 76",
-      "pt": "Event Challenge 76",
-      "it": "Event Challenge 76",
-      "tr": "Event Challenge 76",
-      "nl": "Event Challenge 76"
+      "ru": "Испытание #76",
+      "en": "Challenge #76",
+      "es": "Desafío #76",
+      "fr": "Défi #76",
+      "de": "Herausforderung #76",
+      "pt": "Desafio #76",
+      "it": "Sfida #76",
+      "tr": "Meydan okuma #76",
+      "nl": "Uitdaging #76"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -6796,17 +6796,17 @@
   {
     "filter": "filter_dungeon_easter25",
     "name": {
-      "ru": "easter25",
-      "en": "easter25",
-      "es": "easter25",
-      "fr": "easter25",
-      "de": "easter25",
-      "pt": "easter25",
-      "it": "easter25",
-      "tr": "easter25",
-      "nl": "easter25"
+      "ru": "Пасха 2025",
+      "en": "Easter 2025",
+      "es": "Pascua 2025",
+      "fr": "Pâques 2025",
+      "de": "Ostern 2025",
+      "pt": "Páscoa 2025",
+      "it": "Pasqua 2025",
+      "tr": "Paskalya 2025",
+      "nl": "Pasen 2025"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -7445,17 +7445,17 @@
   {
     "filter": "filter_dungeon_valentines25",
     "name": {
-      "ru": "valentines25",
-      "en": "valentines25",
-      "es": "valentines25",
-      "fr": "valentines25",
-      "de": "valentines25",
-      "pt": "valentines25",
-      "it": "valentines25",
-      "tr": "valentines25",
-      "nl": "valentines25"
+      "ru": "День святого Валентина 2025",
+      "en": "Valentine's Day 2025",
+      "es": "San Valentín 2025",
+      "fr": "Saint-Valentin 2025",
+      "de": "Valentinstag 2025",
+      "pt": "Dia dos Namorados 2025",
+      "it": "San Valentino 2025",
+      "tr": "Sevgililer Günü 2025",
+      "nl": "Valentijnsdag 2025"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "steps": [
@@ -8094,17 +8094,17 @@
   {
     "filter": "filter_dungeon_xmas24_2",
     "name": {
-      "ru": "xmas24 2",
-      "en": "xmas24 2",
-      "es": "xmas24 2",
-      "fr": "xmas24 2",
-      "de": "xmas24 2",
-      "pt": "xmas24 2",
-      "it": "xmas24 2",
-      "tr": "xmas24 2",
-      "nl": "xmas24 2"
+      "ru": "Рождество 2024, часть 2",
+      "en": "Christmas 2024, part 2",
+      "es": "Navidad 2024, parte 2",
+      "fr": "Noël 2024, partie 2",
+      "de": "Weihnachten 2024, Teil 2",
+      "pt": "Natal 2024, parte 2",
+      "it": "Natale 2024, parte 2",
+      "tr": "Noel 2024, bölüm 2",
+      "nl": "Kerstmis 2024, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -8673,17 +8673,17 @@
   {
     "filter": "filter_dungeon_xmas24_1",
     "name": {
-      "ru": "xmas24 1",
-      "en": "xmas24 1",
-      "es": "xmas24 1",
-      "fr": "xmas24 1",
-      "de": "xmas24 1",
-      "pt": "xmas24 1",
-      "it": "xmas24 1",
-      "tr": "xmas24 1",
-      "nl": "xmas24 1"
+      "ru": "Рождество 2024, часть 1",
+      "en": "Christmas 2024, part 1",
+      "es": "Navidad 2024, parte 1",
+      "fr": "Noël 2024, partie 1",
+      "de": "Weihnachten 2024, Teil 1",
+      "pt": "Natal 2024, parte 1",
+      "it": "Natale 2024, parte 1",
+      "tr": "Noel 2024, bölüm 1",
+      "nl": "Kerstmis 2024, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -9112,15 +9112,15 @@
   {
     "filter": "filter_dungeon_halloween24",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2024",
+      "en": "Halloween Nightmare 2024",
+      "es": "Halloween Nightmare 2024",
+      "fr": "Halloween Nightmare 2024",
+      "de": "Halloween Nightmare 2024",
+      "pt": "Pesadelo de Halloween 2024",
+      "it": "Halloween Nightmare 2024",
+      "tr": "Cadılar Bayramı Kabusu 2024",
+      "nl": "Halloween Nightmare 2024"
     },
     "nameSource": "localisation",
     "requiredLevel": 5,
@@ -9656,17 +9656,17 @@
   {
     "filter": "filter_missions_anniversary_24_4",
     "name": {
-      "ru": "anniversary 24 4",
-      "en": "anniversary 24 4",
-      "es": "anniversary 24 4",
-      "fr": "anniversary 24 4",
-      "de": "anniversary 24 4",
-      "pt": "anniversary 24 4",
-      "it": "anniversary 24 4",
-      "tr": "anniversary 24 4",
-      "nl": "anniversary 24 4"
+      "ru": "Годовщина 2024, часть 4",
+      "en": "Anniversary 2024, part 4",
+      "es": "Aniversario 2024, parte 4",
+      "fr": "Anniversaire 2024, partie 4",
+      "de": "Jubiläum 2024, Teil 4",
+      "pt": "Aniversário 2024, parte 4",
+      "it": "Anniversario 2024, parte 4",
+      "tr": "Yıl dönümü 2024, bölüm 4",
+      "nl": "Jubileum 2024, deel 4"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "steps": [
@@ -9710,17 +9710,17 @@
   {
     "filter": "filter_missions_anniversary_24_2",
     "name": {
-      "ru": "anniversary 24 2",
-      "en": "anniversary 24 2",
-      "es": "anniversary 24 2",
-      "fr": "anniversary 24 2",
-      "de": "anniversary 24 2",
-      "pt": "anniversary 24 2",
-      "it": "anniversary 24 2",
-      "tr": "anniversary 24 2",
-      "nl": "anniversary 24 2"
+      "ru": "Годовщина 2024, часть 2",
+      "en": "Anniversary 2024, part 2",
+      "es": "Aniversario 2024, parte 2",
+      "fr": "Anniversaire 2024, partie 2",
+      "de": "Jubiläum 2024, Teil 2",
+      "pt": "Aniversário 2024, parte 2",
+      "it": "Anniversario 2024, parte 2",
+      "tr": "Yıl dönümü 2024, bölüm 2",
+      "nl": "Jubileum 2024, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "steps": [
@@ -10394,17 +10394,17 @@
   {
     "filter": "filter_missions_anniversary_24_1",
     "name": {
-      "ru": "anniversary 24 1",
-      "en": "anniversary 24 1",
-      "es": "anniversary 24 1",
-      "fr": "anniversary 24 1",
-      "de": "anniversary 24 1",
-      "pt": "anniversary 24 1",
-      "it": "anniversary 24 1",
-      "tr": "anniversary 24 1",
-      "nl": "anniversary 24 1"
+      "ru": "Годовщина 2024, часть 1",
+      "en": "Anniversary 2024, part 1",
+      "es": "Aniversario 2024, parte 1",
+      "fr": "Anniversaire 2024, partie 1",
+      "de": "Jubiläum 2024, Teil 1",
+      "pt": "Aniversário 2024, parte 1",
+      "it": "Anniversario 2024, parte 1",
+      "tr": "Yıl dönümü 2024, bölüm 1",
+      "nl": "Jubileum 2024, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_conspiracy.png",
     "steps": [
@@ -11043,17 +11043,17 @@
   {
     "filter": "Missions_Event_Challenge_75",
     "name": {
-      "ru": "Event Challenge 75",
-      "en": "Event Challenge 75",
-      "es": "Event Challenge 75",
-      "fr": "Event Challenge 75",
-      "de": "Event Challenge 75",
-      "pt": "Event Challenge 75",
-      "it": "Event Challenge 75",
-      "tr": "Event Challenge 75",
-      "nl": "Event Challenge 75"
+      "ru": "Испытание #75",
+      "en": "Challenge #75",
+      "es": "Desafío #75",
+      "fr": "Défi #75",
+      "de": "Herausforderung #75",
+      "pt": "Desafio #75",
+      "it": "Sfida #75",
+      "tr": "Meydan okuma #75",
+      "nl": "Uitdaging #75"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -11557,17 +11557,17 @@
   {
     "filter": "filter_dungeon_easter24",
     "name": {
-      "ru": "easter24",
-      "en": "easter24",
-      "es": "easter24",
-      "fr": "easter24",
-      "de": "easter24",
-      "pt": "easter24",
-      "it": "easter24",
-      "tr": "easter24",
-      "nl": "easter24"
+      "ru": "Пасха 2024",
+      "en": "Easter 2024",
+      "es": "Pascua 2024",
+      "fr": "Pâques 2024",
+      "de": "Ostern 2024",
+      "pt": "Páscoa 2024",
+      "it": "Pasqua 2024",
+      "tr": "Paskalya 2024",
+      "nl": "Pasen 2024"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -12066,17 +12066,17 @@
   {
     "filter": "Missions_Event_Challenge_74",
     "name": {
-      "ru": "Event Challenge 74",
-      "en": "Event Challenge 74",
-      "es": "Event Challenge 74",
-      "fr": "Event Challenge 74",
-      "de": "Event Challenge 74",
-      "pt": "Event Challenge 74",
-      "it": "Event Challenge 74",
-      "tr": "Event Challenge 74",
-      "nl": "Event Challenge 74"
+      "ru": "Испытание #74",
+      "en": "Challenge #74",
+      "es": "Desafío #74",
+      "fr": "Défi #74",
+      "de": "Herausforderung #74",
+      "pt": "Desafio #74",
+      "it": "Sfida #74",
+      "tr": "Meydan okuma #74",
+      "nl": "Uitdaging #74"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -12580,17 +12580,17 @@
   {
     "filter": "filter_dungeon_valentines24",
     "name": {
-      "ru": "valentines24",
-      "en": "valentines24",
-      "es": "valentines24",
-      "fr": "valentines24",
-      "de": "valentines24",
-      "pt": "valentines24",
-      "it": "valentines24",
-      "tr": "valentines24",
-      "nl": "valentines24"
+      "ru": "День святого Валентина 2024",
+      "en": "Valentine's Day 2024",
+      "es": "San Valentín 2024",
+      "fr": "Saint-Valentin 2024",
+      "de": "Valentinstag 2024",
+      "pt": "Dia dos Namorados 2024",
+      "it": "San Valentino 2024",
+      "tr": "Sevgililer Günü 2024",
+      "nl": "Valentijnsdag 2024"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "steps": [
@@ -13089,17 +13089,17 @@
   {
     "filter": "filter_dungeon_xmas23_2",
     "name": {
-      "ru": "xmas23 2",
-      "en": "xmas23 2",
-      "es": "xmas23 2",
-      "fr": "xmas23 2",
-      "de": "xmas23 2",
-      "pt": "xmas23 2",
-      "it": "xmas23 2",
-      "tr": "xmas23 2",
-      "nl": "xmas23 2"
+      "ru": "Рождество 2023, часть 2",
+      "en": "Christmas 2023, part 2",
+      "es": "Navidad 2023, parte 2",
+      "fr": "Noël 2023, partie 2",
+      "de": "Weihnachten 2023, Teil 2",
+      "pt": "Natal 2023, parte 2",
+      "it": "Natale 2023, parte 2",
+      "tr": "Noel 2023, bölüm 2",
+      "nl": "Kerstmis 2023, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -13598,17 +13598,17 @@
   {
     "filter": "filter_dungeon_xmas23_1",
     "name": {
-      "ru": "xmas23 1",
-      "en": "xmas23 1",
-      "es": "xmas23 1",
-      "fr": "xmas23 1",
-      "de": "xmas23 1",
-      "pt": "xmas23 1",
-      "it": "xmas23 1",
-      "tr": "xmas23 1",
-      "nl": "xmas23 1"
+      "ru": "Рождество 2023, часть 1",
+      "en": "Christmas 2023, part 1",
+      "es": "Navidad 2023, parte 1",
+      "fr": "Noël 2023, partie 1",
+      "de": "Weihnachten 2023, Teil 1",
+      "pt": "Natal 2023, parte 1",
+      "it": "Natale 2023, parte 1",
+      "tr": "Noel 2023, bölüm 1",
+      "nl": "Kerstmis 2023, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -14107,15 +14107,15 @@
   {
     "filter": "filter_dungeon_halloween23",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2023",
+      "en": "Halloween Nightmare 2023",
+      "es": "Halloween Nightmare 2023",
+      "fr": "Halloween Nightmare 2023",
+      "de": "Halloween Nightmare 2023",
+      "pt": "Pesadelo de Halloween 2023",
+      "it": "Halloween Nightmare 2023",
+      "tr": "Cadılar Bayramı Kabusu 2023",
+      "nl": "Halloween Nightmare 2023"
     },
     "nameSource": "localisation",
     "requiredLevel": 5,
@@ -14546,17 +14546,17 @@
   {
     "filter": "filter_story_anniversary23_3",
     "name": {
-      "ru": "filter story anniversary23 3",
-      "en": "filter story anniversary23 3",
-      "es": "filter story anniversary23 3",
-      "fr": "filter story anniversary23 3",
-      "de": "filter story anniversary23 3",
-      "pt": "filter story anniversary23 3",
-      "it": "filter story anniversary23 3",
-      "tr": "filter story anniversary23 3",
-      "nl": "filter story anniversary23 3"
+      "ru": "Годовщина 2023 — сюжет, часть 3",
+      "en": "Anniversary 2023 — story, part 3",
+      "es": "Aniversario 2023 — historia, parte 3",
+      "fr": "Anniversaire 2023 — histoire, partie 3",
+      "de": "Jubiläum 2023 — Story, Teil 3",
+      "pt": "Aniversário 2023 — história, parte 3",
+      "it": "Anniversario 2023 — storia, parte 3",
+      "tr": "Yıl dönümü 2023 — hikaye, bölüm 3",
+      "nl": "Jubileum 2023 — verhaal, deel 3"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -14600,17 +14600,17 @@
   {
     "filter": "filter_dungeon_anniversary23_3",
     "name": {
-      "ru": "anniversary23 3",
-      "en": "anniversary23 3",
-      "es": "anniversary23 3",
-      "fr": "anniversary23 3",
-      "de": "anniversary23 3",
-      "pt": "anniversary23 3",
-      "it": "anniversary23 3",
-      "tr": "anniversary23 3",
-      "nl": "anniversary23 3"
+      "ru": "Годовщина 2023, часть 3",
+      "en": "Anniversary 2023, part 3",
+      "es": "Aniversario 2023, parte 3",
+      "fr": "Anniversaire 2023, partie 3",
+      "de": "Jubiläum 2023, Teil 3",
+      "pt": "Aniversário 2023, parte 3",
+      "it": "Anniversario 2023, parte 3",
+      "tr": "Yıl dönümü 2023, bölüm 3",
+      "nl": "Jubileum 2023, deel 3"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -15074,17 +15074,17 @@
   {
     "filter": "filter_story_anniversary23_2",
     "name": {
-      "ru": "filter story anniversary23 2",
-      "en": "filter story anniversary23 2",
-      "es": "filter story anniversary23 2",
-      "fr": "filter story anniversary23 2",
-      "de": "filter story anniversary23 2",
-      "pt": "filter story anniversary23 2",
-      "it": "filter story anniversary23 2",
-      "tr": "filter story anniversary23 2",
-      "nl": "filter story anniversary23 2"
+      "ru": "Годовщина 2023 — сюжет, часть 2",
+      "en": "Anniversary 2023 — story, part 2",
+      "es": "Aniversario 2023 — historia, parte 2",
+      "fr": "Anniversaire 2023 — histoire, partie 2",
+      "de": "Jubiläum 2023 — Story, Teil 2",
+      "pt": "Aniversário 2023 — história, parte 2",
+      "it": "Anniversario 2023 — storia, parte 2",
+      "tr": "Yıl dönümü 2023 — hikaye, bölüm 2",
+      "nl": "Jubileum 2023 — verhaal, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -15198,17 +15198,17 @@
   {
     "filter": "filter_dungeon_anniversary23_2",
     "name": {
-      "ru": "anniversary23 2",
-      "en": "anniversary23 2",
-      "es": "anniversary23 2",
-      "fr": "anniversary23 2",
-      "de": "anniversary23 2",
-      "pt": "anniversary23 2",
-      "it": "anniversary23 2",
-      "tr": "anniversary23 2",
-      "nl": "anniversary23 2"
+      "ru": "Годовщина 2023, часть 2",
+      "en": "Anniversary 2023, part 2",
+      "es": "Aniversario 2023, parte 2",
+      "fr": "Anniversaire 2023, partie 2",
+      "de": "Jubiläum 2023, Teil 2",
+      "pt": "Aniversário 2023, parte 2",
+      "it": "Anniversario 2023, parte 2",
+      "tr": "Yıl dönümü 2023, bölüm 2",
+      "nl": "Jubileum 2023, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -15567,17 +15567,17 @@
   {
     "filter": "filter_story_anniversary23_1",
     "name": {
-      "ru": "filter story anniversary23 1",
-      "en": "filter story anniversary23 1",
-      "es": "filter story anniversary23 1",
-      "fr": "filter story anniversary23 1",
-      "de": "filter story anniversary23 1",
-      "pt": "filter story anniversary23 1",
-      "it": "filter story anniversary23 1",
-      "tr": "filter story anniversary23 1",
-      "nl": "filter story anniversary23 1"
+      "ru": "Годовщина 2023 — сюжет, часть 1",
+      "en": "Anniversary 2023 — story, part 1",
+      "es": "Aniversario 2023 — historia, parte 1",
+      "fr": "Anniversaire 2023 — histoire, partie 1",
+      "de": "Jubiläum 2023 — Story, Teil 1",
+      "pt": "Aniversário 2023 — história, parte 1",
+      "it": "Anniversario 2023 — storia, parte 1",
+      "tr": "Yıl dönümü 2023 — hikaye, bölüm 1",
+      "nl": "Jubileum 2023 — verhaal, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -15691,17 +15691,17 @@
   {
     "filter": "filter_dungeon_anniversary23_1",
     "name": {
-      "ru": "anniversary23 1",
-      "en": "anniversary23 1",
-      "es": "anniversary23 1",
-      "fr": "anniversary23 1",
-      "de": "anniversary23 1",
-      "pt": "anniversary23 1",
-      "it": "anniversary23 1",
-      "tr": "anniversary23 1",
-      "nl": "anniversary23 1"
+      "ru": "Годовщина 2023, часть 1",
+      "en": "Anniversary 2023, part 1",
+      "es": "Aniversario 2023, parte 1",
+      "fr": "Anniversaire 2023, partie 1",
+      "de": "Jubiläum 2023, Teil 1",
+      "pt": "Aniversário 2023, parte 1",
+      "it": "Anniversario 2023, parte 1",
+      "tr": "Yıl dönümü 2023, bölüm 1",
+      "nl": "Jubileum 2023, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_10years.png",
     "steps": [
@@ -16060,17 +16060,17 @@
   {
     "filter": "filter_dungeon_weirdtech",
     "name": {
-      "ru": "weirdtech",
-      "en": "weirdtech",
-      "es": "weirdtech",
-      "fr": "weirdtech",
-      "de": "weirdtech",
-      "pt": "weirdtech",
-      "it": "weirdtech",
-      "tr": "weirdtech",
-      "nl": "weirdtech"
+      "ru": "Странные технологии",
+      "en": "Weird Tech",
+      "es": "Tecnología extraña",
+      "fr": "Technologie étrange",
+      "de": "Seltsame Technik",
+      "pt": "Tecnologia estranha",
+      "it": "Tecnologia strana",
+      "tr": "Tuhaf teknoloji",
+      "nl": "Vreemde technologie"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mutodex.png",
     "steps": [
@@ -16604,17 +16604,17 @@
   {
     "filter": "filter_dungeon_easter23",
     "name": {
-      "ru": "easter23",
-      "en": "easter23",
-      "es": "easter23",
-      "fr": "easter23",
-      "de": "easter23",
-      "pt": "easter23",
-      "it": "easter23",
-      "tr": "easter23",
-      "nl": "easter23"
+      "ru": "Пасха 2023",
+      "en": "Easter 2023",
+      "es": "Pascua 2023",
+      "fr": "Pâques 2023",
+      "de": "Ostern 2023",
+      "pt": "Páscoa 2023",
+      "it": "Pasqua 2023",
+      "tr": "Paskalya 2023",
+      "nl": "Pasen 2023"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_purple.png",
     "steps": [
@@ -16973,17 +16973,17 @@
   {
     "filter": "filter_dungeon_valentines23",
     "name": {
-      "ru": "valentines23",
-      "en": "valentines23",
-      "es": "valentines23",
-      "fr": "valentines23",
-      "de": "valentines23",
-      "pt": "valentines23",
-      "it": "valentines23",
-      "tr": "valentines23",
-      "nl": "valentines23"
+      "ru": "День святого Валентина 2023",
+      "en": "Valentine's Day 2023",
+      "es": "San Valentín 2023",
+      "fr": "Saint-Valentin 2023",
+      "de": "Valentinstag 2023",
+      "pt": "Dia dos Namorados 2023",
+      "it": "San Valentino 2023",
+      "tr": "Sevgililer Günü 2023",
+      "nl": "Valentijnsdag 2023"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_valentines.png",
     "steps": [
@@ -17342,17 +17342,17 @@
   {
     "filter": "filter_dungeon_xmas22_2",
     "name": {
-      "ru": "xmas22 2",
-      "en": "xmas22 2",
-      "es": "xmas22 2",
-      "fr": "xmas22 2",
-      "de": "xmas22 2",
-      "pt": "xmas22 2",
-      "it": "xmas22 2",
-      "tr": "xmas22 2",
-      "nl": "xmas22 2"
+      "ru": "Рождество 2022, часть 2",
+      "en": "Christmas 2022, part 2",
+      "es": "Navidad 2022, parte 2",
+      "fr": "Noël 2022, partie 2",
+      "de": "Weihnachten 2022, Teil 2",
+      "pt": "Natal 2022, parte 2",
+      "it": "Natale 2022, parte 2",
+      "tr": "Noel 2022, bölüm 2",
+      "nl": "Kerstmis 2022, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -17781,17 +17781,17 @@
   {
     "filter": "filter_pvp_xmas22",
     "name": {
-      "ru": "filter pvp xmas22",
-      "en": "filter pvp xmas22",
-      "es": "filter pvp xmas22",
-      "fr": "filter pvp xmas22",
-      "de": "filter pvp xmas22",
-      "pt": "filter pvp xmas22",
-      "it": "filter pvp xmas22",
-      "tr": "filter pvp xmas22",
-      "nl": "filter pvp xmas22"
+      "ru": "Рождество 2022 — PvP",
+      "en": "Christmas 2022 — PvP",
+      "es": "Navidad 2022 — PvP",
+      "fr": "Noël 2022 — PvP",
+      "de": "Weihnachten 2022 — PvP",
+      "pt": "Natal 2022 — PvP",
+      "it": "Natale 2022 — PvP",
+      "tr": "Noel 2022 — PvP",
+      "nl": "Kerstmis 2022 — PvP"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -17870,17 +17870,17 @@
   {
     "filter": "filter_dungeon_xmas22_1",
     "name": {
-      "ru": "xmas22 1",
-      "en": "xmas22 1",
-      "es": "xmas22 1",
-      "fr": "xmas22 1",
-      "de": "xmas22 1",
-      "pt": "xmas22 1",
-      "it": "xmas22 1",
-      "tr": "xmas22 1",
-      "nl": "xmas22 1"
+      "ru": "Рождество 2022, часть 1",
+      "en": "Christmas 2022, part 1",
+      "es": "Navidad 2022, parte 1",
+      "fr": "Noël 2022, partie 1",
+      "de": "Weihnachten 2022, Teil 1",
+      "pt": "Natal 2022, parte 1",
+      "it": "Natale 2022, parte 1",
+      "tr": "Noel 2022, bölüm 1",
+      "nl": "Kerstmis 2022, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -17994,17 +17994,17 @@
   {
     "filter": "filter_dungeon_xmas22",
     "name": {
-      "ru": "xmas22",
-      "en": "xmas22",
-      "es": "xmas22",
-      "fr": "xmas22",
-      "de": "xmas22",
-      "pt": "xmas22",
-      "it": "xmas22",
-      "tr": "xmas22",
-      "nl": "xmas22"
+      "ru": "Рождество 2022",
+      "en": "Christmas 2022",
+      "es": "Navidad 2022",
+      "fr": "Noël 2022",
+      "de": "Weihnachten 2022",
+      "pt": "Natal 2022",
+      "it": "Natale 2022",
+      "tr": "Noel 2022",
+      "nl": "Kerstmis 2022"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -18188,15 +18188,15 @@
   {
     "filter": "filter_dungeon_halloween22",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2022",
+      "en": "Halloween Nightmare 2022",
+      "es": "Halloween Nightmare 2022",
+      "fr": "Halloween Nightmare 2022",
+      "de": "Halloween Nightmare 2022",
+      "pt": "Pesadelo de Halloween 2022",
+      "it": "Halloween Nightmare 2022",
+      "tr": "Cadılar Bayramı Kabusu 2022",
+      "nl": "Halloween Nightmare 2022"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -18627,17 +18627,17 @@
   {
     "filter": "Missions_Event_Challenge_72",
     "name": {
-      "ru": "Event Challenge 72",
-      "en": "Event Challenge 72",
-      "es": "Event Challenge 72",
-      "fr": "Event Challenge 72",
-      "de": "Event Challenge 72",
-      "pt": "Event Challenge 72",
-      "it": "Event Challenge 72",
-      "tr": "Event Challenge 72",
-      "nl": "Event Challenge 72"
+      "ru": "Испытание #72",
+      "en": "Challenge #72",
+      "es": "Desafío #72",
+      "fr": "Défi #72",
+      "de": "Herausforderung #72",
+      "pt": "Desafio #72",
+      "it": "Sfida #72",
+      "tr": "Meydan okuma #72",
+      "nl": "Uitdaging #72"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -19136,17 +19136,17 @@
   {
     "filter": "missions_event_challenge_71",
     "name": {
-      "ru": "event challenge 71",
-      "en": "event challenge 71",
-      "es": "event challenge 71",
-      "fr": "event challenge 71",
-      "de": "event challenge 71",
-      "pt": "event challenge 71",
-      "it": "event challenge 71",
-      "tr": "event challenge 71",
-      "nl": "event challenge 71"
+      "ru": "Испытание #71",
+      "en": "Challenge #71",
+      "es": "Desafío #71",
+      "fr": "Défi #71",
+      "de": "Herausforderung #71",
+      "pt": "Desafio #71",
+      "it": "Sfida #71",
+      "tr": "Meydan okuma #71",
+      "nl": "Uitdaging #71"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -19650,17 +19650,17 @@
   {
     "filter": "Missions_Event_Challenge_70",
     "name": {
-      "ru": "Event Challenge 70",
-      "en": "Event Challenge 70",
-      "es": "Event Challenge 70",
-      "fr": "Event Challenge 70",
-      "de": "Event Challenge 70",
-      "pt": "Event Challenge 70",
-      "it": "Event Challenge 70",
-      "tr": "Event Challenge 70",
-      "nl": "Event Challenge 70"
+      "ru": "Испытание #70",
+      "en": "Challenge #70",
+      "es": "Desafío #70",
+      "fr": "Défi #70",
+      "de": "Herausforderung #70",
+      "pt": "Desafio #70",
+      "it": "Sfida #70",
+      "tr": "Meydan okuma #70",
+      "nl": "Uitdaging #70"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -20159,17 +20159,17 @@
   {
     "filter": "filter_dungeon_anniversary22_2",
     "name": {
-      "ru": "anniversary22 2",
-      "en": "anniversary22 2",
-      "es": "anniversary22 2",
-      "fr": "anniversary22 2",
-      "de": "anniversary22 2",
-      "pt": "anniversary22 2",
-      "it": "anniversary22 2",
-      "tr": "anniversary22 2",
-      "nl": "anniversary22 2"
+      "ru": "Годовщина 2022, часть 2",
+      "en": "Anniversary 2022, part 2",
+      "es": "Aniversario 2022, parte 2",
+      "fr": "Anniversaire 2022, partie 2",
+      "de": "Jubiläum 2022, Teil 2",
+      "pt": "Aniversário 2022, parte 2",
+      "it": "Anniversario 2022, parte 2",
+      "tr": "Yıl dönümü 2022, bölüm 2",
+      "nl": "Jubileum 2022, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
     "steps": [
@@ -20528,17 +20528,17 @@
   {
     "filter": "filter_dungeon_anniversary22_1",
     "name": {
-      "ru": "anniversary22 1",
-      "en": "anniversary22 1",
-      "es": "anniversary22 1",
-      "fr": "anniversary22 1",
-      "de": "anniversary22 1",
-      "pt": "anniversary22 1",
-      "it": "anniversary22 1",
-      "tr": "anniversary22 1",
-      "nl": "anniversary22 1"
+      "ru": "Годовщина 2022, часть 1",
+      "en": "Anniversary 2022, part 1",
+      "es": "Aniversario 2022, parte 1",
+      "fr": "Anniversaire 2022, partie 1",
+      "de": "Jubiläum 2022, Teil 1",
+      "pt": "Aniversário 2022, parte 1",
+      "it": "Anniversario 2022, parte 1",
+      "tr": "Yıl dönümü 2022, bölüm 1",
+      "nl": "Jubileum 2022, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_data.png",
     "steps": [
@@ -20862,17 +20862,17 @@
   {
     "filter": "Missions_Event_Challenge_69",
     "name": {
-      "ru": "Event Challenge 69",
-      "en": "Event Challenge 69",
-      "es": "Event Challenge 69",
-      "fr": "Event Challenge 69",
-      "de": "Event Challenge 69",
-      "pt": "Event Challenge 69",
-      "it": "Event Challenge 69",
-      "tr": "Event Challenge 69",
-      "nl": "Event Challenge 69"
+      "ru": "Испытание #69",
+      "en": "Challenge #69",
+      "es": "Desafío #69",
+      "fr": "Défi #69",
+      "de": "Herausforderung #69",
+      "pt": "Desafio #69",
+      "it": "Sfida #69",
+      "tr": "Meydan okuma #69",
+      "nl": "Uitdaging #69"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
     "steps": [
@@ -21376,17 +21376,17 @@
   {
     "filter": "Missions_storypatch_1",
     "name": {
-      "ru": "storypatch 1",
-      "en": "storypatch 1",
-      "es": "storypatch 1",
-      "fr": "storypatch 1",
-      "de": "storypatch 1",
-      "pt": "storypatch 1",
-      "it": "storypatch 1",
-      "tr": "storypatch 1",
-      "nl": "storypatch 1"
+      "ru": "Сюжетное обновление, часть 1",
+      "en": "Story update, part 1",
+      "es": "Actualización de la historia, parte 1",
+      "fr": "Mise à jour de l'histoire, partie 1",
+      "de": "Story-Update, Teil 1",
+      "pt": "Atualização da história, parte 1",
+      "it": "Aggiornamento della storia, parte 1",
+      "tr": "Hikaye güncellemesi, bölüm 1",
+      "nl": "Verhaalupdate, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 15,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_storypatch.png",
     "steps": [
@@ -22340,17 +22340,17 @@
   {
     "filter": "Missions_easter22",
     "name": {
-      "ru": "easter22",
-      "en": "easter22",
-      "es": "easter22",
-      "fr": "easter22",
-      "de": "easter22",
-      "pt": "easter22",
-      "it": "easter22",
-      "tr": "easter22",
-      "nl": "easter22"
+      "ru": "Пасха 2022",
+      "en": "Easter 2022",
+      "es": "Pascua 2022",
+      "fr": "Pâques 2022",
+      "de": "Ostern 2022",
+      "pt": "Páscoa 2022",
+      "it": "Pasqua 2022",
+      "tr": "Paskalya 2022",
+      "nl": "Pasen 2022"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter_rabbithole.png",
     "steps": [
@@ -22709,17 +22709,17 @@
   {
     "filter": "Missions_Event_Challenge_68",
     "name": {
-      "ru": "Event Challenge 68",
-      "en": "Event Challenge 68",
-      "es": "Event Challenge 68",
-      "fr": "Event Challenge 68",
-      "de": "Event Challenge 68",
-      "pt": "Event Challenge 68",
-      "it": "Event Challenge 68",
-      "tr": "Event Challenge 68",
-      "nl": "Event Challenge 68"
+      "ru": "Испытание #68",
+      "en": "Challenge #68",
+      "es": "Desafío #68",
+      "fr": "Défi #68",
+      "de": "Herausforderung #68",
+      "pt": "Desafio #68",
+      "it": "Sfida #68",
+      "tr": "Meydan okuma #68",
+      "nl": "Uitdaging #68"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -23218,17 +23218,17 @@
   {
     "filter": "Missions_valentines22",
     "name": {
-      "ru": "valentines22",
-      "en": "valentines22",
-      "es": "valentines22",
-      "fr": "valentines22",
-      "de": "valentines22",
-      "pt": "valentines22",
-      "it": "valentines22",
-      "tr": "valentines22",
-      "nl": "valentines22"
+      "ru": "День святого Валентина 2022",
+      "en": "Valentine's Day 2022",
+      "es": "San Valentín 2022",
+      "fr": "Saint-Valentin 2022",
+      "de": "Valentinstag 2022",
+      "pt": "Dia dos Namorados 2022",
+      "it": "San Valentino 2022",
+      "tr": "Sevgililer Günü 2022",
+      "nl": "Valentijnsdag 2022"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -23482,17 +23482,17 @@
   {
     "filter": "Missions_Event_Challenge_67",
     "name": {
-      "ru": "Event Challenge 67",
-      "en": "Event Challenge 67",
-      "es": "Event Challenge 67",
-      "fr": "Event Challenge 67",
-      "de": "Event Challenge 67",
-      "pt": "Event Challenge 67",
-      "it": "Event Challenge 67",
-      "tr": "Event Challenge 67",
-      "nl": "Event Challenge 67"
+      "ru": "Испытание #67",
+      "en": "Challenge #67",
+      "es": "Desafío #67",
+      "fr": "Défi #67",
+      "de": "Herausforderung #67",
+      "pt": "Desafio #67",
+      "it": "Sfida #67",
+      "tr": "Meydan okuma #67",
+      "nl": "Uitdaging #67"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -23991,17 +23991,17 @@
   {
     "filter": "filter_dungeon_xmas21_2",
     "name": {
-      "ru": "xmas21 2",
-      "en": "xmas21 2",
-      "es": "xmas21 2",
-      "fr": "xmas21 2",
-      "de": "xmas21 2",
-      "pt": "xmas21 2",
-      "it": "xmas21 2",
-      "tr": "xmas21 2",
-      "nl": "xmas21 2"
+      "ru": "Рождество 2021, часть 2",
+      "en": "Christmas 2021, part 2",
+      "es": "Navidad 2021, parte 2",
+      "fr": "Noël 2021, partie 2",
+      "de": "Weihnachten 2021, Teil 2",
+      "pt": "Natal 2021, parte 2",
+      "it": "Natale 2021, parte 2",
+      "tr": "Noel 2021, bölüm 2",
+      "nl": "Kerstmis 2021, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -24395,17 +24395,17 @@
   {
     "filter": "Missions_Event_Challenge_66",
     "name": {
-      "ru": "Event Challenge 66",
-      "en": "Event Challenge 66",
-      "es": "Event Challenge 66",
-      "fr": "Event Challenge 66",
-      "de": "Event Challenge 66",
-      "pt": "Event Challenge 66",
-      "it": "Event Challenge 66",
-      "tr": "Event Challenge 66",
-      "nl": "Event Challenge 66"
+      "ru": "Испытание #66",
+      "en": "Challenge #66",
+      "es": "Desafío #66",
+      "fr": "Défi #66",
+      "de": "Herausforderung #66",
+      "pt": "Desafio #66",
+      "it": "Sfida #66",
+      "tr": "Meydan okuma #66",
+      "nl": "Uitdaging #66"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -24909,17 +24909,17 @@
   {
     "filter": "filter_quests_xmas21",
     "name": {
-      "ru": "xmas21",
-      "en": "xmas21",
-      "es": "xmas21",
-      "fr": "xmas21",
-      "de": "xmas21",
-      "pt": "xmas21",
-      "it": "xmas21",
-      "tr": "xmas21",
-      "nl": "xmas21"
+      "ru": "Рождество 2021",
+      "en": "Christmas 2021",
+      "es": "Navidad 2021",
+      "fr": "Noël 2021",
+      "de": "Weihnachten 2021",
+      "pt": "Natal 2021",
+      "it": "Natale 2021",
+      "tr": "Noel 2021",
+      "nl": "Kerstmis 2021"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -25138,17 +25138,17 @@
   {
     "filter": "filter_dungeon_xmas21_1",
     "name": {
-      "ru": "xmas21 1",
-      "en": "xmas21 1",
-      "es": "xmas21 1",
-      "fr": "xmas21 1",
-      "de": "xmas21 1",
-      "pt": "xmas21 1",
-      "it": "xmas21 1",
-      "tr": "xmas21 1",
-      "nl": "xmas21 1"
+      "ru": "Рождество 2021, часть 1",
+      "en": "Christmas 2021, part 1",
+      "es": "Navidad 2021, parte 1",
+      "fr": "Noël 2021, partie 1",
+      "de": "Weihnachten 2021, Teil 1",
+      "pt": "Natal 2021, parte 1",
+      "it": "Natale 2021, parte 1",
+      "tr": "Noel 2021, bölüm 1",
+      "nl": "Kerstmis 2021, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -25297,15 +25297,15 @@
   {
     "filter": "filter_dungeon_halloween21",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2021",
+      "en": "Halloween Nightmare 2021",
+      "es": "Halloween Nightmare 2021",
+      "fr": "Halloween Nightmare 2021",
+      "de": "Halloween Nightmare 2021",
+      "pt": "Pesadelo de Halloween 2021",
+      "it": "Halloween Nightmare 2021",
+      "tr": "Cadılar Bayramı Kabusu 2021",
+      "nl": "Halloween Nightmare 2021"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -25841,17 +25841,17 @@
   {
     "filter": "Missions_Event_Challenge_65",
     "name": {
-      "ru": "Event Challenge 65",
-      "en": "Event Challenge 65",
-      "es": "Event Challenge 65",
-      "fr": "Event Challenge 65",
-      "de": "Event Challenge 65",
-      "pt": "Event Challenge 65",
-      "it": "Event Challenge 65",
-      "tr": "Event Challenge 65",
-      "nl": "Event Challenge 65"
+      "ru": "Испытание #65",
+      "en": "Challenge #65",
+      "es": "Desafío #65",
+      "fr": "Défi #65",
+      "de": "Herausforderung #65",
+      "pt": "Desafio #65",
+      "it": "Sfida #65",
+      "tr": "Meydan okuma #65",
+      "nl": "Uitdaging #65"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
     "steps": [
@@ -26355,17 +26355,17 @@
   {
     "filter": "Missions_Event_Challenge_64",
     "name": {
-      "ru": "Event Challenge 64",
-      "en": "Event Challenge 64",
-      "es": "Event Challenge 64",
-      "fr": "Event Challenge 64",
-      "de": "Event Challenge 64",
-      "pt": "Event Challenge 64",
-      "it": "Event Challenge 64",
-      "tr": "Event Challenge 64",
-      "nl": "Event Challenge 64"
+      "ru": "Испытание #64",
+      "en": "Challenge #64",
+      "es": "Desafío #64",
+      "fr": "Défi #64",
+      "de": "Herausforderung #64",
+      "pt": "Desafio #64",
+      "it": "Sfida #64",
+      "tr": "Meydan okuma #64",
+      "nl": "Uitdaging #64"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -26864,17 +26864,17 @@
   {
     "filter": "filter_dungeon_anniversary21_2",
     "name": {
-      "ru": "anniversary21 2",
-      "en": "anniversary21 2",
-      "es": "anniversary21 2",
-      "fr": "anniversary21 2",
-      "de": "anniversary21 2",
-      "pt": "anniversary21 2",
-      "it": "anniversary21 2",
-      "tr": "anniversary21 2",
-      "nl": "anniversary21 2"
+      "ru": "Годовщина 2021, часть 2",
+      "en": "Anniversary 2021, part 2",
+      "es": "Aniversario 2021, parte 2",
+      "fr": "Anniversaire 2021, partie 2",
+      "de": "Jubiläum 2021, Teil 2",
+      "pt": "Aniversário 2021, parte 2",
+      "it": "Anniversario 2021, parte 2",
+      "tr": "Yıl dönümü 2021, bölüm 2",
+      "nl": "Jubileum 2021, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "steps": [
@@ -27163,17 +27163,17 @@
   {
     "filter": "Missions_anniversary21",
     "name": {
-      "ru": "anniversary21",
-      "en": "anniversary21",
-      "es": "anniversary21",
-      "fr": "anniversary21",
-      "de": "anniversary21",
-      "pt": "anniversary21",
-      "it": "anniversary21",
-      "tr": "anniversary21",
-      "nl": "anniversary21"
+      "ru": "Годовщина 2021",
+      "en": "Anniversary 2021",
+      "es": "Aniversario 2021",
+      "fr": "Anniversaire 2021",
+      "de": "Jubiläum 2021",
+      "pt": "Aniversário 2021",
+      "it": "Anniversario 2021",
+      "tr": "Yıl dönümü 2021",
+      "nl": "Jubileum 2021"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_pvp_event.png",
     "steps": [
@@ -27497,17 +27497,17 @@
   {
     "filter": "filter_dungeon_anniversary21_1",
     "name": {
-      "ru": "anniversary21 1",
-      "en": "anniversary21 1",
-      "es": "anniversary21 1",
-      "fr": "anniversary21 1",
-      "de": "anniversary21 1",
-      "pt": "anniversary21 1",
-      "it": "anniversary21 1",
-      "tr": "anniversary21 1",
-      "nl": "anniversary21 1"
+      "ru": "Годовщина 2021, часть 1",
+      "en": "Anniversary 2021, part 1",
+      "es": "Aniversario 2021, parte 1",
+      "fr": "Anniversaire 2021, partie 1",
+      "de": "Jubiläum 2021, Teil 1",
+      "pt": "Aniversário 2021, parte 1",
+      "it": "Anniversario 2021, parte 1",
+      "tr": "Yıl dönümü 2021, bölüm 1",
+      "nl": "Jubileum 2021, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "steps": [
@@ -27656,17 +27656,17 @@
   {
     "filter": "Missions_Event_Challenge_63",
     "name": {
-      "ru": "Event Challenge 63",
-      "en": "Event Challenge 63",
-      "es": "Event Challenge 63",
-      "fr": "Event Challenge 63",
-      "de": "Event Challenge 63",
-      "pt": "Event Challenge 63",
-      "it": "Event Challenge 63",
-      "tr": "Event Challenge 63",
-      "nl": "Event Challenge 63"
+      "ru": "Испытание #63",
+      "en": "Challenge #63",
+      "es": "Desafío #63",
+      "fr": "Défi #63",
+      "de": "Herausforderung #63",
+      "pt": "Desafio #63",
+      "it": "Sfida #63",
+      "tr": "Meydan okuma #63",
+      "nl": "Uitdaging #63"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -28170,17 +28170,17 @@
   {
     "filter": "Missions_easter21",
     "name": {
-      "ru": "easter21",
-      "en": "easter21",
-      "es": "easter21",
-      "fr": "easter21",
-      "de": "easter21",
-      "pt": "easter21",
-      "it": "easter21",
-      "tr": "easter21",
-      "nl": "easter21"
+      "ru": "Пасха 2021",
+      "en": "Easter 2021",
+      "es": "Pascua 2021",
+      "fr": "Pâques 2021",
+      "de": "Ostern 2021",
+      "pt": "Páscoa 2021",
+      "it": "Pasqua 2021",
+      "tr": "Paskalya 2021",
+      "nl": "Pasen 2021"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -28609,17 +28609,17 @@
   {
     "filter": "Missions_Event_Challenge_61",
     "name": {
-      "ru": "Event Challenge 61",
-      "en": "Event Challenge 61",
-      "es": "Event Challenge 61",
-      "fr": "Event Challenge 61",
-      "de": "Event Challenge 61",
-      "pt": "Event Challenge 61",
-      "it": "Event Challenge 61",
-      "tr": "Event Challenge 61",
-      "nl": "Event Challenge 61"
+      "ru": "Испытание #61",
+      "en": "Challenge #61",
+      "es": "Desafío #61",
+      "fr": "Défi #61",
+      "de": "Herausforderung #61",
+      "pt": "Desafio #61",
+      "it": "Sfida #61",
+      "tr": "Meydan okuma #61",
+      "nl": "Uitdaging #61"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -29173,17 +29173,17 @@
   {
     "filter": "filter_dungeon_xmas20_3",
     "name": {
-      "ru": "xmas20 3",
-      "en": "xmas20 3",
-      "es": "xmas20 3",
-      "fr": "xmas20 3",
-      "de": "xmas20 3",
-      "pt": "xmas20 3",
-      "it": "xmas20 3",
-      "tr": "xmas20 3",
-      "nl": "xmas20 3"
+      "ru": "Рождество 2020, часть 3",
+      "en": "Christmas 2020, part 3",
+      "es": "Navidad 2020, parte 3",
+      "fr": "Noël 2020, partie 3",
+      "de": "Weihnachten 2020, Teil 3",
+      "pt": "Natal 2020, parte 3",
+      "it": "Natale 2020, parte 3",
+      "tr": "Noel 2020, bölüm 3",
+      "nl": "Kerstmis 2020, deel 3"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -29437,17 +29437,17 @@
   {
     "filter": "filter_dungeon_xmas20_2",
     "name": {
-      "ru": "xmas20 2",
-      "en": "xmas20 2",
-      "es": "xmas20 2",
-      "fr": "xmas20 2",
-      "de": "xmas20 2",
-      "pt": "xmas20 2",
-      "it": "xmas20 2",
-      "tr": "xmas20 2",
-      "nl": "xmas20 2"
+      "ru": "Рождество 2020, часть 2",
+      "en": "Christmas 2020, part 2",
+      "es": "Navidad 2020, parte 2",
+      "fr": "Noël 2020, partie 2",
+      "de": "Weihnachten 2020, Teil 2",
+      "pt": "Natal 2020, parte 2",
+      "it": "Natale 2020, parte 2",
+      "tr": "Noel 2020, bölüm 2",
+      "nl": "Kerstmis 2020, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -29701,17 +29701,17 @@
   {
     "filter": "filter_dungeon_xmas20_1",
     "name": {
-      "ru": "xmas20 1",
-      "en": "xmas20 1",
-      "es": "xmas20 1",
-      "fr": "xmas20 1",
-      "de": "xmas20 1",
-      "pt": "xmas20 1",
-      "it": "xmas20 1",
-      "tr": "xmas20 1",
-      "nl": "xmas20 1"
+      "ru": "Рождество 2020, часть 1",
+      "en": "Christmas 2020, part 1",
+      "es": "Navidad 2020, parte 1",
+      "fr": "Noël 2020, partie 1",
+      "de": "Weihnachten 2020, Teil 1",
+      "pt": "Natal 2020, parte 1",
+      "it": "Natale 2020, parte 1",
+      "tr": "Noel 2020, bölüm 1",
+      "nl": "Kerstmis 2020, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 4,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -30000,17 +30000,17 @@
   {
     "filter": "filter_mission_xmas_day_2",
     "name": {
-      "ru": "xmas day 2",
-      "en": "xmas day 2",
-      "es": "xmas day 2",
-      "fr": "xmas day 2",
-      "de": "xmas day 2",
-      "pt": "xmas day 2",
-      "it": "xmas day 2",
-      "tr": "xmas day 2",
-      "nl": "xmas day 2"
+      "ru": "Рождество — день 2",
+      "en": "Christmas — day 2",
+      "es": "Navidad — día 2",
+      "fr": "Noël — jour 2",
+      "de": "Weihnachten — Tag 2",
+      "pt": "Natal — dia 2",
+      "it": "Natale — giorno 2",
+      "tr": "Noel — gün 2",
+      "nl": "Kerstmis — dag 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -30054,17 +30054,17 @@
   {
     "filter": "filter_mission_xmas_day_1",
     "name": {
-      "ru": "xmas day 1",
-      "en": "xmas day 1",
-      "es": "xmas day 1",
-      "fr": "xmas day 1",
-      "de": "xmas day 1",
-      "pt": "xmas day 1",
-      "it": "xmas day 1",
-      "tr": "xmas day 1",
-      "nl": "xmas day 1"
+      "ru": "Рождество — день 1",
+      "en": "Christmas — day 1",
+      "es": "Navidad — día 1",
+      "fr": "Noël — jour 1",
+      "de": "Weihnachten — Tag 1",
+      "pt": "Natal — dia 1",
+      "it": "Natale — giorno 1",
+      "tr": "Noel — gün 1",
+      "nl": "Kerstmis — dag 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -30108,17 +30108,17 @@
   {
     "filter": "Missions_Event_Challenge_60",
     "name": {
-      "ru": "Event Challenge 60",
-      "en": "Event Challenge 60",
-      "es": "Event Challenge 60",
-      "fr": "Event Challenge 60",
-      "de": "Event Challenge 60",
-      "pt": "Event Challenge 60",
-      "it": "Event Challenge 60",
-      "tr": "Event Challenge 60",
-      "nl": "Event Challenge 60"
+      "ru": "Испытание #60",
+      "en": "Challenge #60",
+      "es": "Desafío #60",
+      "fr": "Défi #60",
+      "de": "Herausforderung #60",
+      "pt": "Desafio #60",
+      "it": "Sfida #60",
+      "tr": "Meydan okuma #60",
+      "nl": "Uitdaging #60"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -30617,15 +30617,15 @@
   {
     "filter": "filter_dungeon_halloween20",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2020",
+      "en": "Halloween Nightmare 2020",
+      "es": "Halloween Nightmare 2020",
+      "fr": "Halloween Nightmare 2020",
+      "de": "Halloween Nightmare 2020",
+      "pt": "Pesadelo de Halloween 2020",
+      "it": "Halloween Nightmare 2020",
+      "tr": "Cadılar Bayramı Kabusu 2020",
+      "nl": "Halloween Nightmare 2020"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -30986,17 +30986,17 @@
   {
     "filter": "Missions_Event_Challenge_59",
     "name": {
-      "ru": "Event Challenge 59",
-      "en": "Event Challenge 59",
-      "es": "Event Challenge 59",
-      "fr": "Event Challenge 59",
-      "de": "Event Challenge 59",
-      "pt": "Event Challenge 59",
-      "it": "Event Challenge 59",
-      "tr": "Event Challenge 59",
-      "nl": "Event Challenge 59"
+      "ru": "Испытание #59",
+      "en": "Challenge #59",
+      "es": "Desafío #59",
+      "fr": "Défi #59",
+      "de": "Herausforderung #59",
+      "pt": "Desafio #59",
+      "it": "Sfida #59",
+      "tr": "Meydan okuma #59",
+      "nl": "Uitdaging #59"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -31495,17 +31495,17 @@
   {
     "filter": "Missions_Event_Challenge_58",
     "name": {
-      "ru": "Event Challenge 58",
-      "en": "Event Challenge 58",
-      "es": "Event Challenge 58",
-      "fr": "Event Challenge 58",
-      "de": "Event Challenge 58",
-      "pt": "Event Challenge 58",
-      "it": "Event Challenge 58",
-      "tr": "Event Challenge 58",
-      "nl": "Event Challenge 58"
+      "ru": "Испытание #58",
+      "en": "Challenge #58",
+      "es": "Desafío #58",
+      "fr": "Défi #58",
+      "de": "Herausforderung #58",
+      "pt": "Desafio #58",
+      "it": "Sfida #58",
+      "tr": "Meydan okuma #58",
+      "nl": "Uitdaging #58"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -32009,17 +32009,17 @@
   {
     "filter": "filter_dungeon_anniversary_20_2",
     "name": {
-      "ru": "anniversary 20 2",
-      "en": "anniversary 20 2",
-      "es": "anniversary 20 2",
-      "fr": "anniversary 20 2",
-      "de": "anniversary 20 2",
-      "pt": "anniversary 20 2",
-      "it": "anniversary 20 2",
-      "tr": "anniversary 20 2",
-      "nl": "anniversary 20 2"
+      "ru": "Годовщина 2020, часть 2",
+      "en": "Anniversary 2020, part 2",
+      "es": "Aniversario 2020, parte 2",
+      "fr": "Anniversaire 2020, partie 2",
+      "de": "Jubiläum 2020, Teil 2",
+      "pt": "Aniversário 2020, parte 2",
+      "it": "Anniversario 2020, parte 2",
+      "tr": "Yıl dönümü 2020, bölüm 2",
+      "nl": "Jubileum 2020, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -32378,17 +32378,17 @@
   {
     "filter": "filter_dungeon_anniversary_20_1",
     "name": {
-      "ru": "anniversary 20 1",
-      "en": "anniversary 20 1",
-      "es": "anniversary 20 1",
-      "fr": "anniversary 20 1",
-      "de": "anniversary 20 1",
-      "pt": "anniversary 20 1",
-      "it": "anniversary 20 1",
-      "tr": "anniversary 20 1",
-      "nl": "anniversary 20 1"
+      "ru": "Годовщина 2020, часть 1",
+      "en": "Anniversary 2020, part 1",
+      "es": "Aniversario 2020, parte 1",
+      "fr": "Anniversaire 2020, partie 1",
+      "de": "Jubiläum 2020, Teil 1",
+      "pt": "Aniversário 2020, parte 1",
+      "it": "Anniversario 2020, parte 1",
+      "tr": "Yıl dönümü 2020, bölüm 1",
+      "nl": "Jubileum 2020, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -32747,17 +32747,17 @@
   {
     "filter": "Missions_Event_Challenge_57",
     "name": {
-      "ru": "Event Challenge 57",
-      "en": "Event Challenge 57",
-      "es": "Event Challenge 57",
-      "fr": "Event Challenge 57",
-      "de": "Event Challenge 57",
-      "pt": "Event Challenge 57",
-      "it": "Event Challenge 57",
-      "tr": "Event Challenge 57",
-      "nl": "Event Challenge 57"
+      "ru": "Испытание #57",
+      "en": "Challenge #57",
+      "es": "Desafío #57",
+      "fr": "Défi #57",
+      "de": "Herausforderung #57",
+      "pt": "Desafio #57",
+      "it": "Sfida #57",
+      "tr": "Meydan okuma #57",
+      "nl": "Uitdaging #57"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -33256,17 +33256,17 @@
   {
     "filter": "Missions_Event_Challenge_56",
     "name": {
-      "ru": "Event Challenge 56",
-      "en": "Event Challenge 56",
-      "es": "Event Challenge 56",
-      "fr": "Event Challenge 56",
-      "de": "Event Challenge 56",
-      "pt": "Event Challenge 56",
-      "it": "Event Challenge 56",
-      "tr": "Event Challenge 56",
-      "nl": "Event Challenge 56"
+      "ru": "Испытание #56",
+      "en": "Challenge #56",
+      "es": "Desafío #56",
+      "fr": "Défi #56",
+      "de": "Herausforderung #56",
+      "pt": "Desafio #56",
+      "it": "Sfida #56",
+      "tr": "Meydan okuma #56",
+      "nl": "Uitdaging #56"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -33775,17 +33775,17 @@
   {
     "filter": "Missions_Event_Challenge_55",
     "name": {
-      "ru": "Event Challenge 55",
-      "en": "Event Challenge 55",
-      "es": "Event Challenge 55",
-      "fr": "Event Challenge 55",
-      "de": "Event Challenge 55",
-      "pt": "Event Challenge 55",
-      "it": "Event Challenge 55",
-      "tr": "Event Challenge 55",
-      "nl": "Event Challenge 55"
+      "ru": "Испытание #55",
+      "en": "Challenge #55",
+      "es": "Desafío #55",
+      "fr": "Défi #55",
+      "de": "Herausforderung #55",
+      "pt": "Desafio #55",
+      "it": "Sfida #55",
+      "tr": "Meydan okuma #55",
+      "nl": "Uitdaging #55"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -34339,17 +34339,17 @@
   {
     "filter": "Missions_easter20",
     "name": {
-      "ru": "easter20",
-      "en": "easter20",
-      "es": "easter20",
-      "fr": "easter20",
-      "de": "easter20",
-      "pt": "easter20",
-      "it": "easter20",
-      "tr": "easter20",
-      "nl": "easter20"
+      "ru": "Пасха 2020",
+      "en": "Easter 2020",
+      "es": "Pascua 2020",
+      "fr": "Pâques 2020",
+      "de": "Ostern 2020",
+      "pt": "Páscoa 2020",
+      "it": "Pasqua 2020",
+      "tr": "Paskalya 2020",
+      "nl": "Pasen 2020"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -34708,17 +34708,17 @@
   {
     "filter": "Missions_Event_Challenge_54",
     "name": {
-      "ru": "Event Challenge 54",
-      "en": "Event Challenge 54",
-      "es": "Event Challenge 54",
-      "fr": "Event Challenge 54",
-      "de": "Event Challenge 54",
-      "pt": "Event Challenge 54",
-      "it": "Event Challenge 54",
-      "tr": "Event Challenge 54",
-      "nl": "Event Challenge 54"
+      "ru": "Испытание #54",
+      "en": "Challenge #54",
+      "es": "Desafío #54",
+      "fr": "Défi #54",
+      "de": "Herausforderung #54",
+      "pt": "Desafio #54",
+      "it": "Sfida #54",
+      "tr": "Meydan okuma #54",
+      "nl": "Uitdaging #54"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -35217,17 +35217,17 @@
   {
     "filter": "Missions_Test_Intro_Dungeons",
     "name": {
-      "ru": "Test Intro Dungeons",
-      "en": "Test Intro Dungeons",
-      "es": "Test Intro Dungeons",
-      "fr": "Test Intro Dungeons",
-      "de": "Test Intro Dungeons",
-      "pt": "Test Intro Dungeons",
-      "it": "Test Intro Dungeons",
-      "tr": "Test Intro Dungeons",
-      "nl": "Test Intro Dungeons"
+      "ru": "Тестовые задания: Intro Dungeons",
+      "en": "Test missions: Intro Dungeons",
+      "es": "Misiones de prueba: Intro Dungeons",
+      "fr": "Missions de test: Intro Dungeons",
+      "de": "Testmissionen: Intro Dungeons",
+      "pt": "Missões de teste: Intro Dungeons",
+      "it": "Missioni di prova: Intro Dungeons",
+      "tr": "Test görevleri: Intro Dungeons",
+      "nl": "Testmissies: Intro Dungeons"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "steps": [
@@ -35381,17 +35381,17 @@
   {
     "filter": "Missions_Event_Challenge_53",
     "name": {
-      "ru": "Event Challenge 53",
-      "en": "Event Challenge 53",
-      "es": "Event Challenge 53",
-      "fr": "Event Challenge 53",
-      "de": "Event Challenge 53",
-      "pt": "Event Challenge 53",
-      "it": "Event Challenge 53",
-      "tr": "Event Challenge 53",
-      "nl": "Event Challenge 53"
+      "ru": "Испытание #53",
+      "en": "Challenge #53",
+      "es": "Desafío #53",
+      "fr": "Défi #53",
+      "de": "Herausforderung #53",
+      "pt": "Desafio #53",
+      "it": "Sfida #53",
+      "tr": "Meydan okuma #53",
+      "nl": "Uitdaging #53"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -35945,17 +35945,17 @@
   {
     "filter": "Missions_xmas_19",
     "name": {
-      "ru": "xmas 19",
-      "en": "xmas 19",
-      "es": "xmas 19",
-      "fr": "xmas 19",
-      "de": "xmas 19",
-      "pt": "xmas 19",
-      "it": "xmas 19",
-      "tr": "xmas 19",
-      "nl": "xmas 19"
+      "ru": "Рождество 2019",
+      "en": "Christmas 2019",
+      "es": "Navidad 2019",
+      "fr": "Noël 2019",
+      "de": "Weihnachten 2019",
+      "pt": "Natal 2019",
+      "it": "Natale 2019",
+      "tr": "Noel 2019",
+      "nl": "Kerstmis 2019"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -36594,15 +36594,15 @@
   {
     "filter": "Missions_Halloween_19",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2019",
+      "en": "Halloween Nightmare 2019",
+      "es": "Halloween Nightmare 2019",
+      "fr": "Halloween Nightmare 2019",
+      "de": "Halloween Nightmare 2019",
+      "pt": "Pesadelo de Halloween 2019",
+      "it": "Halloween Nightmare 2019",
+      "tr": "Cadılar Bayramı Kabusu 2019",
+      "nl": "Halloween Nightmare 2019"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -37278,17 +37278,17 @@
   {
     "filter": "Missions_Event_Challenge_52",
     "name": {
-      "ru": "Event Challenge 52",
-      "en": "Event Challenge 52",
-      "es": "Event Challenge 52",
-      "fr": "Event Challenge 52",
-      "de": "Event Challenge 52",
-      "pt": "Event Challenge 52",
-      "it": "Event Challenge 52",
-      "tr": "Event Challenge 52",
-      "nl": "Event Challenge 52"
+      "ru": "Испытание #52",
+      "en": "Challenge #52",
+      "es": "Desafío #52",
+      "fr": "Défi #52",
+      "de": "Herausforderung #52",
+      "pt": "Desafio #52",
+      "it": "Sfida #52",
+      "tr": "Meydan okuma #52",
+      "nl": "Uitdaging #52"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -37842,17 +37842,17 @@
   {
     "filter": "Missions_Event_Anniversary_19_3",
     "name": {
-      "ru": "Event Anniversary 19 3",
-      "en": "Event Anniversary 19 3",
-      "es": "Event Anniversary 19 3",
-      "fr": "Event Anniversary 19 3",
-      "de": "Event Anniversary 19 3",
-      "pt": "Event Anniversary 19 3",
-      "it": "Event Anniversary 19 3",
-      "tr": "Event Anniversary 19 3",
-      "nl": "Event Anniversary 19 3"
+      "ru": "Годовщина 2019, часть 3",
+      "en": "Anniversary 2019, part 3",
+      "es": "Aniversario 2019, parte 3",
+      "fr": "Anniversaire 2019, partie 3",
+      "de": "Jubiläum 2019, Teil 3",
+      "pt": "Aniversário 2019, parte 3",
+      "it": "Anniversario 2019, parte 3",
+      "tr": "Yıl dönümü 2019, bölüm 3",
+      "nl": "Jubileum 2019, deel 3"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "steps": [
@@ -38211,17 +38211,17 @@
   {
     "filter": "Missions_Event_Anniversary_19_2",
     "name": {
-      "ru": "Event Anniversary 19 2",
-      "en": "Event Anniversary 19 2",
-      "es": "Event Anniversary 19 2",
-      "fr": "Event Anniversary 19 2",
-      "de": "Event Anniversary 19 2",
-      "pt": "Event Anniversary 19 2",
-      "it": "Event Anniversary 19 2",
-      "tr": "Event Anniversary 19 2",
-      "nl": "Event Anniversary 19 2"
+      "ru": "Годовщина 2019, часть 2",
+      "en": "Anniversary 2019, part 2",
+      "es": "Aniversario 2019, parte 2",
+      "fr": "Anniversaire 2019, partie 2",
+      "de": "Jubiläum 2019, Teil 2",
+      "pt": "Aniversário 2019, parte 2",
+      "it": "Anniversario 2019, parte 2",
+      "tr": "Yıl dönümü 2019, bölüm 2",
+      "nl": "Jubileum 2019, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "steps": [
@@ -38580,17 +38580,17 @@
   {
     "filter": "Missions_Event_Anniversary_19_1",
     "name": {
-      "ru": "Event Anniversary 19 1",
-      "en": "Event Anniversary 19 1",
-      "es": "Event Anniversary 19 1",
-      "fr": "Event Anniversary 19 1",
-      "de": "Event Anniversary 19 1",
-      "pt": "Event Anniversary 19 1",
-      "it": "Event Anniversary 19 1",
-      "tr": "Event Anniversary 19 1",
-      "nl": "Event Anniversary 19 1"
+      "ru": "Годовщина 2019, часть 1",
+      "en": "Anniversary 2019, part 1",
+      "es": "Aniversario 2019, parte 1",
+      "fr": "Anniversaire 2019, partie 1",
+      "de": "Jubiläum 2019, Teil 1",
+      "pt": "Aniversário 2019, parte 1",
+      "it": "Anniversario 2019, parte 1",
+      "tr": "Yıl dönümü 2019, bölüm 1",
+      "nl": "Jubileum 2019, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_darkmatter.png",
     "steps": [
@@ -38949,17 +38949,17 @@
   {
     "filter": "Missions_Event_Challenge_50",
     "name": {
-      "ru": "Event Challenge 50",
-      "en": "Event Challenge 50",
-      "es": "Event Challenge 50",
-      "fr": "Event Challenge 50",
-      "de": "Event Challenge 50",
-      "pt": "Event Challenge 50",
-      "it": "Event Challenge 50",
-      "tr": "Event Challenge 50",
-      "nl": "Event Challenge 50"
+      "ru": "Испытание #50",
+      "en": "Challenge #50",
+      "es": "Desafío #50",
+      "fr": "Défi #50",
+      "de": "Herausforderung #50",
+      "pt": "Desafio #50",
+      "it": "Sfida #50",
+      "tr": "Meydan okuma #50",
+      "nl": "Uitdaging #50"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -39468,17 +39468,17 @@
   {
     "filter": "Missions_Event_Challenge_49",
     "name": {
-      "ru": "Event Challenge 49",
-      "en": "Event Challenge 49",
-      "es": "Event Challenge 49",
-      "fr": "Event Challenge 49",
-      "de": "Event Challenge 49",
-      "pt": "Event Challenge 49",
-      "it": "Event Challenge 49",
-      "tr": "Event Challenge 49",
-      "nl": "Event Challenge 49"
+      "ru": "Испытание #49",
+      "en": "Challenge #49",
+      "es": "Desafío #49",
+      "fr": "Défi #49",
+      "de": "Herausforderung #49",
+      "pt": "Desafio #49",
+      "it": "Sfida #49",
+      "tr": "Meydan okuma #49",
+      "nl": "Uitdaging #49"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -40030,22 +40030,57 @@
     ]
   },
   {
-    "filter": "Missions_Event_challenge_48",
+    "filter": "Missions_Event_Challenge_48",
     "name": {
-      "ru": "Event challenge 48",
-      "en": "Event challenge 48",
-      "es": "Event challenge 48",
-      "fr": "Event challenge 48",
-      "de": "Event challenge 48",
-      "pt": "Event challenge 48",
-      "it": "Event challenge 48",
-      "tr": "Event challenge 48",
-      "nl": "Event challenge 48"
+      "ru": "Испытание #48",
+      "en": "Challenge #48",
+      "es": "Desafío #48",
+      "fr": "Défi #48",
+      "de": "Herausforderung #48",
+      "pt": "Desafio #48",
+      "it": "Sfida #48",
+      "tr": "Meydan okuma #48",
+      "nl": "Uitdaging #48"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
-    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hours_breeding.png",
+    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
+      {
+        "id": "1179",
+        "part": "1/14",
+        "title": {
+          "ru": "Друзья",
+          "en": "Friends",
+          "es": "Amigos",
+          "fr": "Amis",
+          "de": "Freunde",
+          "pt": "Amigos",
+          "it": "Amici",
+          "tr": "Arkadaşlar",
+          "nl": "Vrienden"
+        },
+        "condition": {
+          "ru": "Использовать тандемные атаки",
+          "en": "Launch Tag Team attacks",
+          "es": "Lanza Ataques en Pareja",
+          "fr": "Lance des Combos",
+          "de": "Starte Kombo-Angriffe",
+          "pt": "Lance Ataques Combos",
+          "it": "Effettua attacchi Combo",
+          "tr": "Takım Saldırısı'nı başlat",
+          "nl": "Start de Combo-aanvallen"
+        },
+        "amount": 1,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Event_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
+      },
       {
         "id": "1180",
         "part": "2/14",
@@ -40559,73 +40594,19 @@
     ]
   },
   {
-    "filter": "Missions_Event_Challenge_48",
-    "name": {
-      "ru": "Event Challenge 48",
-      "en": "Event Challenge 48",
-      "es": "Event Challenge 48",
-      "fr": "Event Challenge 48",
-      "de": "Event Challenge 48",
-      "pt": "Event Challenge 48",
-      "it": "Event Challenge 48",
-      "tr": "Event Challenge 48",
-      "nl": "Event Challenge 48"
-    },
-    "nameSource": "fallback",
-    "requiredLevel": null,
-    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
-    "steps": [
-      {
-        "id": "1179",
-        "part": "1/14",
-        "title": {
-          "ru": "Друзья",
-          "en": "Friends",
-          "es": "Amigos",
-          "fr": "Amis",
-          "de": "Freunde",
-          "pt": "Amigos",
-          "it": "Amici",
-          "tr": "Arkadaşlar",
-          "nl": "Vrienden"
-        },
-        "condition": {
-          "ru": "Использовать тандемные атаки",
-          "en": "Launch Tag Team attacks",
-          "es": "Lanza Ataques en Pareja",
-          "fr": "Lance des Combos",
-          "de": "Starte Kombo-Angriffe",
-          "pt": "Lance Ataques Combos",
-          "it": "Effettua attacchi Combo",
-          "tr": "Takım Saldırısı'nı başlat",
-          "nl": "Start de Combo-aanvallen"
-        },
-        "amount": 1,
-        "category": "battle",
-        "rewards": [
-          {
-            "id": "Material_Event_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      }
-    ]
-  },
-  {
     "filter": "Missions_Event_64",
     "name": {
-      "ru": "Event 64",
-      "en": "Event 64",
-      "es": "Event 64",
-      "fr": "Event 64",
-      "de": "Event 64",
-      "pt": "Event 64",
-      "it": "Event 64",
-      "tr": "Event 64",
-      "nl": "Event 64"
+      "ru": "Ивент #64",
+      "en": "Event #64",
+      "es": "Evento #64",
+      "fr": "Événement #64",
+      "de": "Event #64",
+      "pt": "Evento #64",
+      "it": "Evento #64",
+      "tr": "Etkinlik #64",
+      "nl": "Evenement #64"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -41179,17 +41160,17 @@
   {
     "filter": "Missions_Easter_2019",
     "name": {
-      "ru": "Easter 2019",
+      "ru": "Пасха 2019",
       "en": "Easter 2019",
-      "es": "Easter 2019",
-      "fr": "Easter 2019",
-      "de": "Easter 2019",
-      "pt": "Easter 2019",
-      "it": "Easter 2019",
-      "tr": "Easter 2019",
-      "nl": "Easter 2019"
+      "es": "Pascua 2019",
+      "fr": "Pâques 2019",
+      "de": "Ostern 2019",
+      "pt": "Páscoa 2019",
+      "it": "Pasqua 2019",
+      "tr": "Paskalya 2019",
+      "nl": "Pasen 2019"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_easter.png",
     "steps": [
@@ -41618,17 +41599,17 @@
   {
     "filter": "Missions_Event_44",
     "name": {
-      "ru": "Event 44",
-      "en": "Event 44",
-      "es": "Event 44",
-      "fr": "Event 44",
-      "de": "Event 44",
-      "pt": "Event 44",
-      "it": "Event 44",
-      "tr": "Event 44",
-      "nl": "Event 44"
+      "ru": "Ивент #44",
+      "en": "Event #44",
+      "es": "Evento #44",
+      "fr": "Événement #44",
+      "de": "Event #44",
+      "pt": "Evento #44",
+      "it": "Evento #44",
+      "tr": "Etkinlik #44",
+      "nl": "Evenement #44"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -42182,17 +42163,17 @@
   {
     "filter": "Missions_Event_43",
     "name": {
-      "ru": "Event 43",
-      "en": "Event 43",
-      "es": "Event 43",
-      "fr": "Event 43",
-      "de": "Event 43",
-      "pt": "Event 43",
-      "it": "Event 43",
-      "tr": "Event 43",
-      "nl": "Event 43"
+      "ru": "Ивент #43",
+      "en": "Event #43",
+      "es": "Evento #43",
+      "fr": "Événement #43",
+      "de": "Event #43",
+      "pt": "Evento #43",
+      "it": "Evento #43",
+      "tr": "Etkinlik #43",
+      "nl": "Evenement #43"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -42746,17 +42727,17 @@
   {
     "filter": "Missions_Xmas_2018",
     "name": {
-      "ru": "Xmas 2018",
-      "en": "Xmas 2018",
-      "es": "Xmas 2018",
-      "fr": "Xmas 2018",
-      "de": "Xmas 2018",
-      "pt": "Xmas 2018",
-      "it": "Xmas 2018",
-      "tr": "Xmas 2018",
-      "nl": "Xmas 2018"
+      "ru": "Рождество 2018",
+      "en": "Christmas 2018",
+      "es": "Navidad 2018",
+      "fr": "Noël 2018",
+      "de": "Weihnachten 2018",
+      "pt": "Natal 2018",
+      "it": "Natale 2018",
+      "tr": "Noel 2018",
+      "nl": "Kerstmis 2018"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -43010,17 +42991,17 @@
   {
     "filter": "Missions_Xmas_2018_Pt2",
     "name": {
-      "ru": "Xmas 2018 Pt2",
-      "en": "Xmas 2018 Pt2",
-      "es": "Xmas 2018 Pt2",
-      "fr": "Xmas 2018 Pt2",
-      "de": "Xmas 2018 Pt2",
-      "pt": "Xmas 2018 Pt2",
-      "it": "Xmas 2018 Pt2",
-      "tr": "Xmas 2018 Pt2",
-      "nl": "Xmas 2018 Pt2"
+      "ru": "Рождество 2018, часть 2",
+      "en": "Christmas 2018, part 2",
+      "es": "Navidad 2018, parte 2",
+      "fr": "Noël 2018, partie 2",
+      "de": "Weihnachten 2018, Teil 2",
+      "pt": "Natal 2018, parte 2",
+      "it": "Natale 2018, parte 2",
+      "tr": "Noel 2018, bölüm 2",
+      "nl": "Kerstmis 2018, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -43239,17 +43220,17 @@
   {
     "filter": "Missions_Xmas_2018_Pt1",
     "name": {
-      "ru": "Xmas 2018 Pt1",
-      "en": "Xmas 2018 Pt1",
-      "es": "Xmas 2018 Pt1",
-      "fr": "Xmas 2018 Pt1",
-      "de": "Xmas 2018 Pt1",
-      "pt": "Xmas 2018 Pt1",
-      "it": "Xmas 2018 Pt1",
-      "tr": "Xmas 2018 Pt1",
-      "nl": "Xmas 2018 Pt1"
+      "ru": "Рождество 2018, часть 1",
+      "en": "Christmas 2018, part 1",
+      "es": "Navidad 2018, parte 1",
+      "fr": "Noël 2018, partie 1",
+      "de": "Weihnachten 2018, Teil 1",
+      "pt": "Natal 2018, parte 1",
+      "it": "Natale 2018, parte 1",
+      "tr": "Noel 2018, bölüm 1",
+      "nl": "Kerstmis 2018, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_winter.png",
     "steps": [
@@ -43468,17 +43449,17 @@
   {
     "filter": "Missions_Event_42",
     "name": {
-      "ru": "Event 42",
-      "en": "Event 42",
-      "es": "Event 42",
-      "fr": "Event 42",
-      "de": "Event 42",
-      "pt": "Event 42",
-      "it": "Event 42",
-      "tr": "Event 42",
-      "nl": "Event 42"
+      "ru": "Ивент #42",
+      "en": "Event #42",
+      "es": "Evento #42",
+      "fr": "Événement #42",
+      "de": "Event #42",
+      "pt": "Evento #42",
+      "it": "Evento #42",
+      "tr": "Etkinlik #42",
+      "nl": "Evenement #42"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "steps": [
@@ -43987,15 +43968,15 @@
   {
     "filter": "Missions_Halloween_2018",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2018",
+      "en": "Halloween Nightmare 2018",
+      "es": "Halloween Nightmare 2018",
+      "fr": "Halloween Nightmare 2018",
+      "de": "Halloween Nightmare 2018",
+      "pt": "Pesadelo de Halloween 2018",
+      "it": "Halloween Nightmare 2018",
+      "tr": "Cadılar Bayramı Kabusu 2018",
+      "nl": "Halloween Nightmare 2018"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -44461,15 +44442,15 @@
   {
     "filter": "Missions_Halloween_2018_Pt2",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2018, часть 2",
+      "en": "Halloween Nightmare 2018, part 2",
+      "es": "Halloween Nightmare 2018, parte 2",
+      "fr": "Halloween Nightmare 2018, partie 2",
+      "de": "Halloween Nightmare 2018, Teil 2",
+      "pt": "Pesadelo de Halloween 2018, parte 2",
+      "it": "Halloween Nightmare 2018, parte 2",
+      "tr": "Cadılar Bayramı Kabusu 2018, bölüm 2",
+      "nl": "Halloween Nightmare 2018, deel 2"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -44585,15 +44566,15 @@
   {
     "filter": "Missions_Halloween_2018_Pt1",
     "name": {
-      "ru": "Кошмар Хеллоуина",
-      "en": "Halloween Nightmare",
-      "es": "Halloween Nightmare",
-      "fr": "Halloween Nightmare",
-      "de": "Halloween Nightmare",
-      "pt": "Pesadelo de Halloween",
-      "it": "Halloween Nightmare",
-      "tr": "Cadılar Bayramı Kabusu",
-      "nl": "Halloween Nightmare"
+      "ru": "Кошмар Хеллоуина 2018, часть 1",
+      "en": "Halloween Nightmare 2018, part 1",
+      "es": "Halloween Nightmare 2018, parte 1",
+      "fr": "Halloween Nightmare 2018, partie 1",
+      "de": "Halloween Nightmare 2018, Teil 1",
+      "pt": "Pesadelo de Halloween 2018, parte 1",
+      "it": "Halloween Nightmare 2018, parte 1",
+      "tr": "Cadılar Bayramı Kabusu 2018, bölüm 1",
+      "nl": "Halloween Nightmare 2018, deel 1"
     },
     "nameSource": "localisation",
     "requiredLevel": 10,
@@ -44709,17 +44690,17 @@
   {
     "filter": "Missions_Event_Challenge_42",
     "name": {
-      "ru": "Event Challenge 42",
-      "en": "Event Challenge 42",
-      "es": "Event Challenge 42",
-      "fr": "Event Challenge 42",
-      "de": "Event Challenge 42",
-      "pt": "Event Challenge 42",
-      "it": "Event Challenge 42",
-      "tr": "Event Challenge 42",
-      "nl": "Event Challenge 42"
+      "ru": "Испытание #42",
+      "en": "Challenge #42",
+      "es": "Desafío #42",
+      "fr": "Défi #42",
+      "de": "Herausforderung #42",
+      "pt": "Desafio #42",
+      "it": "Sfida #42",
+      "tr": "Meydan okuma #42",
+      "nl": "Uitdaging #42"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -45273,17 +45254,17 @@
   {
     "filter": "Missions_Event_41",
     "name": {
-      "ru": "Event 41",
-      "en": "Event 41",
-      "es": "Event 41",
-      "fr": "Event 41",
-      "de": "Event 41",
-      "pt": "Event 41",
-      "it": "Event 41",
-      "tr": "Event 41",
-      "nl": "Event 41"
+      "ru": "Ивент #41",
+      "en": "Event #41",
+      "es": "Evento #41",
+      "fr": "Événement #41",
+      "de": "Event #41",
+      "pt": "Evento #41",
+      "it": "Evento #41",
+      "tr": "Etkinlik #41",
+      "nl": "Evenement #41"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -45837,17 +45818,17 @@
   {
     "filter": "Missions_Anniversary_6",
     "name": {
-      "ru": "Anniversary 6",
-      "en": "Anniversary 6",
-      "es": "Anniversary 6",
-      "fr": "Anniversary 6",
-      "de": "Anniversary 6",
-      "pt": "Anniversary 6",
-      "it": "Anniversary 6",
-      "tr": "Anniversary 6",
-      "nl": "Anniversary 6"
+      "ru": "Годовщина, часть 6",
+      "en": "Anniversary, part 6",
+      "es": "Aniversario, parte 6",
+      "fr": "Anniversaire, partie 6",
+      "de": "Jubiläum, Teil 6",
+      "pt": "Aniversário, parte 6",
+      "it": "Anniversario, parte 6",
+      "tr": "Yıl dönümü, bölüm 6",
+      "nl": "Jubileum, deel 6"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph.png",
     "steps": [
@@ -46046,17 +46027,17 @@
   {
     "filter": "Missions_Anniversary_5",
     "name": {
-      "ru": "Anniversary 5",
-      "en": "Anniversary 5",
-      "es": "Anniversary 5",
-      "fr": "Anniversary 5",
-      "de": "Anniversary 5",
-      "pt": "Anniversary 5",
-      "it": "Anniversary 5",
-      "tr": "Anniversary 5",
-      "nl": "Anniversary 5"
+      "ru": "Годовщина, часть 5",
+      "en": "Anniversary, part 5",
+      "es": "Aniversario, parte 5",
+      "fr": "Anniversaire, partie 5",
+      "de": "Jubiläum, Teil 5",
+      "pt": "Aniversário, parte 5",
+      "it": "Anniversario, parte 5",
+      "tr": "Yıl dönümü, bölüm 5",
+      "nl": "Jubileum, deel 5"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_saber.png",
     "steps": [
@@ -46255,17 +46236,17 @@
   {
     "filter": "Missions_Anniversary_4",
     "name": {
-      "ru": "Anniversary 4",
-      "en": "Anniversary 4",
-      "es": "Anniversary 4",
-      "fr": "Anniversary 4",
-      "de": "Anniversary 4",
-      "pt": "Anniversary 4",
-      "it": "Anniversary 4",
-      "tr": "Anniversary 4",
-      "nl": "Anniversary 4"
+      "ru": "Годовщина, часть 4",
+      "en": "Anniversary, part 4",
+      "es": "Aniversario, parte 4",
+      "fr": "Anniversaire, partie 4",
+      "de": "Jubiläum, Teil 4",
+      "pt": "Aniversário, parte 4",
+      "it": "Anniversario, parte 4",
+      "tr": "Yıl dönümü, bölüm 4",
+      "nl": "Jubileum, deel 4"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_mystic.png",
     "steps": [
@@ -46464,17 +46445,17 @@
   {
     "filter": "Missions_Test_ladderStep",
     "name": {
-      "ru": "Test ladderStep",
-      "en": "Test ladderStep",
-      "es": "Test ladderStep",
-      "fr": "Test ladderStep",
-      "de": "Test ladderStep",
-      "pt": "Test ladderStep",
-      "it": "Test ladderStep",
-      "tr": "Test ladderStep",
-      "nl": "Test ladderStep"
+      "ru": "Тестовые задания: ladderStep",
+      "en": "Test missions: ladderStep",
+      "es": "Misiones de prueba: ladderStep",
+      "fr": "Missions de test: ladderStep",
+      "de": "Testmissionen: ladderStep",
+      "pt": "Missões de teste: ladderStep",
+      "it": "Missioni di prova: ladderStep",
+      "tr": "Test görevleri: ladderStep",
+      "nl": "Testmissies: ladderStep"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_event_ladder.png",
     "steps": [
@@ -46518,17 +46499,17 @@
   {
     "filter": "Missions_Anniversary_3",
     "name": {
-      "ru": "Anniversary 3",
-      "en": "Anniversary 3",
-      "es": "Anniversary 3",
-      "fr": "Anniversary 3",
-      "de": "Anniversary 3",
-      "pt": "Anniversary 3",
-      "it": "Anniversary 3",
-      "tr": "Anniversary 3",
-      "nl": "Anniversary 3"
+      "ru": "Годовщина, часть 3",
+      "en": "Anniversary, part 3",
+      "es": "Aniversario, parte 3",
+      "fr": "Anniversaire, partie 3",
+      "de": "Jubiläum, Teil 3",
+      "pt": "Aniversário, parte 3",
+      "it": "Anniversario, parte 3",
+      "tr": "Yıl dönümü, bölüm 3",
+      "nl": "Jubileum, deel 3"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_undead.png",
     "steps": [
@@ -46727,17 +46708,17 @@
   {
     "filter": "Missions_Anniversary_2",
     "name": {
-      "ru": "Anniversary 2",
-      "en": "Anniversary 2",
-      "es": "Anniversary 2",
-      "fr": "Anniversary 2",
-      "de": "Anniversary 2",
-      "pt": "Anniversary 2",
-      "it": "Anniversary 2",
-      "tr": "Anniversary 2",
-      "nl": "Anniversary 2"
+      "ru": "Годовщина, часть 2",
+      "en": "Anniversary, part 2",
+      "es": "Aniversario, parte 2",
+      "fr": "Anniversaire, partie 2",
+      "de": "Jubiläum, Teil 2",
+      "pt": "Aniversário, parte 2",
+      "it": "Anniversario, parte 2",
+      "tr": "Yıl dönümü, bölüm 2",
+      "nl": "Jubileum, deel 2"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "steps": [
@@ -46936,17 +46917,17 @@
   {
     "filter": "Missions_Anniversary_1",
     "name": {
-      "ru": "Anniversary 1",
-      "en": "Anniversary 1",
-      "es": "Anniversary 1",
-      "fr": "Anniversary 1",
-      "de": "Anniversary 1",
-      "pt": "Anniversary 1",
-      "it": "Anniversary 1",
-      "tr": "Anniversary 1",
-      "nl": "Anniversary 1"
+      "ru": "Годовщина, часть 1",
+      "en": "Anniversary, part 1",
+      "es": "Aniversario, parte 1",
+      "fr": "Anniversaire, partie 1",
+      "de": "Jubiläum, Teil 1",
+      "pt": "Aniversário, parte 1",
+      "it": "Anniversario, parte 1",
+      "tr": "Yıl dönümü, bölüm 1",
+      "nl": "Jubileum, deel 1"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_techno.png",
     "steps": [
@@ -47145,17 +47126,17 @@
   {
     "filter": "Missions_Event_40",
     "name": {
-      "ru": "Event 40",
-      "en": "Event 40",
-      "es": "Event 40",
-      "fr": "Event 40",
-      "de": "Event 40",
-      "pt": "Event 40",
-      "it": "Event 40",
-      "tr": "Event 40",
-      "nl": "Event 40"
+      "ru": "Ивент #40",
+      "en": "Event #40",
+      "es": "Evento #40",
+      "fr": "Événement #40",
+      "de": "Event #40",
+      "pt": "Evento #40",
+      "it": "Evento #40",
+      "tr": "Etkinlik #40",
+      "nl": "Evenement #40"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -47709,17 +47690,17 @@
   {
     "filter": "Missions_Event_38",
     "name": {
-      "ru": "Event 38",
-      "en": "Event 38",
-      "es": "Event 38",
-      "fr": "Event 38",
-      "de": "Event 38",
-      "pt": "Event 38",
-      "it": "Event 38",
-      "tr": "Event 38",
-      "nl": "Event 38"
+      "ru": "Ивент #38",
+      "en": "Event #38",
+      "es": "Evento #38",
+      "fr": "Événement #38",
+      "de": "Event #38",
+      "pt": "Evento #38",
+      "it": "Evento #38",
+      "tr": "Etkinlik #38",
+      "nl": "Evenement #38"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -48273,17 +48254,17 @@
   {
     "filter": "Missions_Event_Easter_2018",
     "name": {
-      "ru": "Event Easter 2018",
-      "en": "Event Easter 2018",
-      "es": "Event Easter 2018",
-      "fr": "Event Easter 2018",
-      "de": "Event Easter 2018",
-      "pt": "Event Easter 2018",
-      "it": "Event Easter 2018",
-      "tr": "Event Easter 2018",
-      "nl": "Event Easter 2018"
+      "ru": "Пасха 2018",
+      "en": "Easter 2018",
+      "es": "Pascua 2018",
+      "fr": "Pâques 2018",
+      "de": "Ostern 2018",
+      "pt": "Páscoa 2018",
+      "it": "Pasqua 2018",
+      "tr": "Paskalya 2018",
+      "nl": "Pasen 2018"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 10,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_zoomorph_easter.png",
     "steps": [
@@ -48752,17 +48733,17 @@
   {
     "filter": "Missions_Event_37",
     "name": {
-      "ru": "Event 37",
-      "en": "Event 37",
-      "es": "Event 37",
-      "fr": "Event 37",
-      "de": "Event 37",
-      "pt": "Event 37",
-      "it": "Event 37",
-      "tr": "Event 37",
-      "nl": "Event 37"
+      "ru": "Ивент #37",
+      "en": "Event #37",
+      "es": "Evento #37",
+      "fr": "Événement #37",
+      "de": "Event #37",
+      "pt": "Evento #37",
+      "it": "Evento #37",
+      "tr": "Etkinlik #37",
+      "nl": "Evenement #37"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -49316,17 +49297,17 @@
   {
     "filter": "Missions_Event_36",
     "name": {
-      "ru": "Event 36",
-      "en": "Event 36",
-      "es": "Event 36",
-      "fr": "Event 36",
-      "de": "Event 36",
-      "pt": "Event 36",
-      "it": "Event 36",
-      "tr": "Event 36",
-      "nl": "Event 36"
+      "ru": "Ивент #36",
+      "en": "Event #36",
+      "es": "Evento #36",
+      "fr": "Événement #36",
+      "de": "Event #36",
+      "pt": "Evento #36",
+      "it": "Evento #36",
+      "tr": "Etkinlik #36",
+      "nl": "Evenement #36"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "steps": [
@@ -49835,17 +49816,17 @@
   {
     "filter": "Missions_Event_35",
     "name": {
-      "ru": "Event 35",
-      "en": "Event 35",
-      "es": "Event 35",
-      "fr": "Event 35",
-      "de": "Event 35",
-      "pt": "Event 35",
-      "it": "Event 35",
-      "tr": "Event 35",
-      "nl": "Event 35"
+      "ru": "Ивент #35",
+      "en": "Event #35",
+      "es": "Evento #35",
+      "fr": "Événement #35",
+      "de": "Event #35",
+      "pt": "Evento #35",
+      "it": "Evento #35",
+      "tr": "Etkinlik #35",
+      "nl": "Evenement #35"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "steps": [
@@ -50354,17 +50335,17 @@
   {
     "filter": "Missions_Event_34",
     "name": {
-      "ru": "Event 34",
-      "en": "Event 34",
-      "es": "Event 34",
-      "fr": "Event 34",
-      "de": "Event 34",
-      "pt": "Event 34",
-      "it": "Event 34",
-      "tr": "Event 34",
-      "nl": "Event 34"
+      "ru": "Ивент #34",
+      "en": "Event #34",
+      "es": "Evento #34",
+      "fr": "Événement #34",
+      "de": "Event #34",
+      "pt": "Evento #34",
+      "it": "Evento #34",
+      "tr": "Etkinlik #34",
+      "nl": "Evenement #34"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -50918,17 +50899,17 @@
   {
     "filter": "Missions_Event_Jungle_Bells_2017",
     "name": {
-      "ru": "Event Jungle Bells 2017",
-      "en": "Event Jungle Bells 2017",
-      "es": "Event Jungle Bells 2017",
-      "fr": "Event Jungle Bells 2017",
-      "de": "Event Jungle Bells 2017",
-      "pt": "Event Jungle Bells 2017",
-      "it": "Event Jungle Bells 2017",
-      "tr": "Event Jungle Bells 2017",
-      "nl": "Event Jungle Bells 2017"
+      "ru": "Jungle Bells 2017",
+      "en": "Jungle Bells 2017",
+      "es": "Jungle Bells 2017",
+      "fr": "Jungle Bells 2017",
+      "de": "Jungle Bells 2017",
+      "pt": "Jungle Bells 2017",
+      "it": "Jungle Bells 2017",
+      "tr": "Jungle Bells 2017",
+      "nl": "Jungle Bells 2017"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
     "steps": [
@@ -51482,17 +51463,17 @@
   {
     "filter": "Missions_Event_33",
     "name": {
-      "ru": "Event 33",
-      "en": "Event 33",
-      "es": "Event 33",
-      "fr": "Event 33",
-      "de": "Event 33",
-      "pt": "Event 33",
-      "it": "Event 33",
-      "tr": "Event 33",
-      "nl": "Event 33"
+      "ru": "Ивент #33",
+      "en": "Event #33",
+      "es": "Evento #33",
+      "fr": "Événement #33",
+      "de": "Event #33",
+      "pt": "Evento #33",
+      "it": "Evento #33",
+      "tr": "Etkinlik #33",
+      "nl": "Evenement #33"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -52001,17 +51982,17 @@
   {
     "filter": "Missions_Event_32",
     "name": {
-      "ru": "Event 32",
-      "en": "Event 32",
-      "es": "Event 32",
-      "fr": "Event 32",
-      "de": "Event 32",
-      "pt": "Event 32",
-      "it": "Event 32",
-      "tr": "Event 32",
-      "nl": "Event 32"
+      "ru": "Ивент #32",
+      "en": "Event #32",
+      "es": "Evento #32",
+      "fr": "Événement #32",
+      "de": "Event #32",
+      "pt": "Evento #32",
+      "it": "Evento #32",
+      "tr": "Etkinlik #32",
+      "nl": "Evenement #32"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -52565,17 +52546,17 @@
   {
     "filter": "Missions_Event_31",
     "name": {
-      "ru": "Event 31",
-      "en": "Event 31",
-      "es": "Event 31",
-      "fr": "Event 31",
-      "de": "Event 31",
-      "pt": "Event 31",
-      "it": "Event 31",
-      "tr": "Event 31",
-      "nl": "Event 31"
+      "ru": "Ивент #31",
+      "en": "Event #31",
+      "es": "Evento #31",
+      "fr": "Événement #31",
+      "de": "Event #31",
+      "pt": "Evento #31",
+      "it": "Evento #31",
+      "tr": "Etkinlik #31",
+      "nl": "Evenement #31"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -53129,17 +53110,17 @@
   {
     "filter": "Missions_Event_Challenge_30",
     "name": {
-      "ru": "Event Challenge 30",
-      "en": "Event Challenge 30",
-      "es": "Event Challenge 30",
-      "fr": "Event Challenge 30",
-      "de": "Event Challenge 30",
-      "pt": "Event Challenge 30",
-      "it": "Event Challenge 30",
-      "tr": "Event Challenge 30",
-      "nl": "Event Challenge 30"
+      "ru": "Испытание #30",
+      "en": "Challenge #30",
+      "es": "Desafío #30",
+      "fr": "Défi #30",
+      "de": "Herausforderung #30",
+      "pt": "Desafio #30",
+      "it": "Sfida #30",
+      "tr": "Meydan okuma #30",
+      "nl": "Uitdaging #30"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -53693,17 +53674,17 @@
   {
     "filter": "Missions_Event_Challenge_29",
     "name": {
-      "ru": "Event Challenge 29",
-      "en": "Event Challenge 29",
-      "es": "Event Challenge 29",
-      "fr": "Event Challenge 29",
-      "de": "Event Challenge 29",
-      "pt": "Event Challenge 29",
-      "it": "Event Challenge 29",
-      "tr": "Event Challenge 29",
-      "nl": "Event Challenge 29"
+      "ru": "Испытание #29",
+      "en": "Challenge #29",
+      "es": "Desafío #29",
+      "fr": "Défi #29",
+      "de": "Herausforderung #29",
+      "pt": "Desafio #29",
+      "it": "Sfida #29",
+      "tr": "Meydan okuma #29",
+      "nl": "Uitdaging #29"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -54257,17 +54238,17 @@
   {
     "filter": "Missions_Event_Jungle_Bells",
     "name": {
-      "ru": "Event Jungle Bells",
-      "en": "Event Jungle Bells",
-      "es": "Event Jungle Bells",
-      "fr": "Event Jungle Bells",
-      "de": "Event Jungle Bells",
-      "pt": "Event Jungle Bells",
-      "it": "Event Jungle Bells",
-      "tr": "Event Jungle Bells",
-      "nl": "Event Jungle Bells"
+      "ru": "Jungle Bells",
+      "en": "Jungle Bells",
+      "es": "Jungle Bells",
+      "fr": "Jungle Bells",
+      "de": "Jungle Bells",
+      "pt": "Jungle Bells",
+      "it": "Jungle Bells",
+      "tr": "Jungle Bells",
+      "nl": "Jungle Bells"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract_event.png",
     "steps": [
@@ -54821,17 +54802,17 @@
   {
     "filter": "Missions_Event_27",
     "name": {
-      "ru": "Event 27",
-      "en": "Event 27",
-      "es": "Event 27",
-      "fr": "Event 27",
-      "de": "Event 27",
-      "pt": "Event 27",
-      "it": "Event 27",
-      "tr": "Event 27",
-      "nl": "Event 27"
+      "ru": "Ивент #27",
+      "en": "Event #27",
+      "es": "Evento #27",
+      "fr": "Événement #27",
+      "de": "Event #27",
+      "pt": "Evento #27",
+      "it": "Evento #27",
+      "tr": "Etkinlik #27",
+      "nl": "Evenement #27"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -56024,17 +56005,17 @@
   {
     "filter": "Missions_Event_26",
     "name": {
-      "ru": "Event 26",
-      "en": "Event 26",
-      "es": "Event 26",
-      "fr": "Event 26",
-      "de": "Event 26",
-      "pt": "Event 26",
-      "it": "Event 26",
-      "tr": "Event 26",
-      "nl": "Event 26"
+      "ru": "Ивент #26",
+      "en": "Event #26",
+      "es": "Evento #26",
+      "fr": "Événement #26",
+      "de": "Event #26",
+      "pt": "Evento #26",
+      "it": "Evento #26",
+      "tr": "Etkinlik #26",
+      "nl": "Evenement #26"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -56588,17 +56569,17 @@
   {
     "filter": "Missions_Event_25",
     "name": {
-      "ru": "Event 25",
-      "en": "Event 25",
-      "es": "Event 25",
-      "fr": "Event 25",
-      "de": "Event 25",
-      "pt": "Event 25",
-      "it": "Event 25",
-      "tr": "Event 25",
-      "nl": "Event 25"
+      "ru": "Ивент #25",
+      "en": "Event #25",
+      "es": "Evento #25",
+      "fr": "Événement #25",
+      "de": "Event #25",
+      "pt": "Evento #25",
+      "it": "Evento #25",
+      "tr": "Etkinlik #25",
+      "nl": "Evenement #25"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_kill_space.png",
     "steps": [
@@ -57107,17 +57088,17 @@
   {
     "filter": "Missions_Event_23",
     "name": {
-      "ru": "Event 23",
-      "en": "Event 23",
-      "es": "Event 23",
-      "fr": "Event 23",
-      "de": "Event 23",
-      "pt": "Event 23",
-      "it": "Event 23",
-      "tr": "Event 23",
-      "nl": "Event 23"
+      "ru": "Ивент #23",
+      "en": "Event #23",
+      "es": "Evento #23",
+      "fr": "Événement #23",
+      "de": "Event #23",
+      "pt": "Evento #23",
+      "it": "Evento #23",
+      "tr": "Etkinlik #23",
+      "nl": "Evenement #23"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_win_pve.png",
     "steps": [
@@ -57626,17 +57607,17 @@
   {
     "filter": "Missions_Event_Ended",
     "name": {
-      "ru": "Event Ended",
-      "en": "Event Ended",
-      "es": "Event Ended",
-      "fr": "Event Ended",
-      "de": "Event Ended",
-      "pt": "Event Ended",
-      "it": "Event Ended",
-      "tr": "Event Ended",
-      "nl": "Event Ended"
+      "ru": "Завершённые ивенты",
+      "en": "Ended events",
+      "es": "Eventos finalizados",
+      "fr": "Événements terminés",
+      "de": "Beendete Events",
+      "pt": "Eventos encerrados",
+      "it": "Eventi conclusi",
+      "tr": "Sona eren etkinlikler",
+      "nl": "Afgelopen evenementen"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": null,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_assist.png",
     "steps": [
@@ -61960,17 +61941,17 @@
   {
     "filter": "Missions_Event_Feature",
     "name": {
-      "ru": "Event Feature",
-      "en": "Event Feature",
-      "es": "Event Feature",
-      "fr": "Event Feature",
-      "de": "Event Feature",
-      "pt": "Event Feature",
-      "it": "Event Feature",
-      "tr": "Event Feature",
-      "nl": "Event Feature"
+      "ru": "Новые функции",
+      "en": "New features",
+      "es": "Nuevas funciones",
+      "fr": "Nouvelles fonctionnalités",
+      "de": "Neue Funktionen",
+      "pt": "Novos recursos",
+      "it": "Nuove funzionalità",
+      "tr": "Yeni özellikler",
+      "nl": "Nieuwe functies"
     },
-    "nameSource": "fallback",
+    "nameSource": "authored",
     "requiredLevel": 7,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png",
     "steps": [
