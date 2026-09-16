@@ -371,7 +371,9 @@ async function buildShopFilterMap(): Promise<Map<string, string>> {
 }
 
 async function buildDungeonFilterMap(): Promise<Map<string, string>> {
-  const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml')
+  const xml = await fetchGameXml(
+    'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml',
+  )
   const map = new Map<string, string>()
   for (const m of xml.matchAll(
     /<Dungeon id="([^"]+)"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)<\/Filter>/g,
@@ -705,10 +707,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       const exact =
         (await exactDateFor(c.filterName ?? undefined)) ??
         (c.filterName
-          ? await inferStartFromPreviousRotation(
-              c.filterName,
-              filterNamesByHall.get(c.hall) ?? [],
-            )
+          ? await inferStartFromPreviousRotation(c.filterName, filterNamesByHall.get(c.hall) ?? [])
           : null)
       return {
         id: hallKey(c),
