@@ -6,6 +6,7 @@
 // там всё равно некуда, а висящая синяя ссылка выглядит как незаконченная
 // вёрстка (фидбек 2026-08-07).
 import { textureUrl } from '@/lib/texture-cdn'
+import { pluralize } from '@/lib/utils'
 import { resolveMutantLite } from '@/lib/guides-resolve'
 import { sprintRangeLabel, sprintStartDate } from '@/lib/sprint-calendar'
 import { getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures'
@@ -171,7 +172,7 @@ const forecastWeeks =
           <span class="card-category">Новые задания</span>
           <div class="dg-name">{questChain.name}</div>
           <div class="dg-secondary">
-            {questChain.steps.length} этап(ов){questChain.requiredLevel ? ` · с ${questChain.requiredLevel} уровня` : ''}
+            {questChain.steps.length} {pluralize(questChain.steps.length, 'этап', 'этапа', 'этапов')}{questChain.requiredLevel ? ` · с ${questChain.requiredLevel} уровня` : ''}
           </div>
           {it?.exactDateLabel && <div class="dg-exact-date">{it.exactDateLabel}</div>}
         </div>
