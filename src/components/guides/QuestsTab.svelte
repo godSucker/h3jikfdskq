@@ -3,6 +3,8 @@
   // и scripts/build-event-quests.ts). Экспорт типа - для GuidesBrowser.
   export interface EventQuestReward {
     label: string
+    name?: string
+    count?: string
     icon: string | null
     mutant?: { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   }
@@ -11,7 +13,7 @@
     name: string
     requiredLevel: number | null
     icon: string | null
-    steps: { id: string; condition: string; amount: number | null; rewards: EventQuestReward[] }[]
+    steps: { id: string; condition: string; amount: number | null; showAmount: boolean; rewards: EventQuestReward[] }[]
   }
 </script>
 
@@ -22,7 +24,7 @@
   import { buildQuestChains, type QuestNode, type QuestChain } from '@/lib/guides-chains'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
-  interface QuestReward { label: string; icon: string | null; mutant?: MutantLite }
+  interface QuestReward { label: string; name?: string; count?: string; icon: string | null; mutant?: MutantLite }
   type TriggerCategory = 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation' | 'building' | 'level' | 'collection' | 'social' | 'misc'
   interface Quest {
     id: string
@@ -180,7 +182,7 @@
       {:else}
         <span class="reward-inline">
           {#if r.icon}<img src={textureUrl(r.icon)} alt="" loading="lazy" decoding="async" />{/if}
-          {r.label}
+          {r.name ?? r.label}{#if r.count}<span class="reward-count">{r.count}</span>{/if}
         </span>
       {/if}
     {/each}
@@ -308,7 +310,7 @@
         {#each chain.steps as step, i (step.id)}
           <div class="tier-row">
             <span class="tier-index">{i + 1}</span>
-            <span class="tier-caption">{step.condition}{#if step.amount && step.amount > 1} <span class="event-amount">×{step.amount}</span>{/if}</span>
+            <span class="tier-caption">{step.condition}{#if step.showAmount}<span class="event-amount">×{step.amount}</span>{/if}</span>
             {@render rewardChips(step.rewards)}
           </div>
         {/each}
@@ -380,8 +382,9 @@
   .farmer-chip img { width: 20px; height: 20px; border-radius: 4px; object-fit: cover; }
   .reward-inline { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; color: #86efac; }
   .reward-inline img { width: 18px; height: 18px; object-fit: contain; }
+  .reward-count { color: #fbbf24; font-weight: 700; white-space: nowrap; }
   .soon-block { color: #64748b; padding: 2rem 0; text-align: center; font-size: 0.9rem; }
-  .event-amount { color: #fbbf24; font-weight: 700; white-space: nowrap; }
+  .event-amount { margin-left: 0.35em; color: #fbbf24; font-weight: 700; white-space: nowrap; }
 
   /* Отступ/линия-коннектор растут ТОЛЬКО в реальных точках ветвления (5 из 297
      квестов) - без .forked это просто следующий шаг линейной цепочки, без

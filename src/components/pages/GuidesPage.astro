@@ -11,6 +11,7 @@ import divisionsData from '@/data/guides/divisions.json';
 import divisionLocations from '@/data/guides/division-locations.json';
 import questsData from '@/data/guides/quests.json';
 import eventQuestsData from '@/data/guides/event-quests.json';
+import { shouldShowAmount } from '@/lib/event-quest-text';
 import raidsData from '@/data/guides/raids.json';
 import eventLaddersData from '@/data/guides/event-ladders.json';
 import specialLaddersData from '@/data/guides/special-ladders.json';
@@ -323,6 +324,7 @@ const eventQuests = (eventQuestsData as unknown as EventQuestRaw[]).map((c) => (
     id: st.id,
     condition: pick(st.condition),
     amount: st.amount,
+    showAmount: shouldShowAmount(pick(st.condition), st.amount),
     rewards: st.rewards.map(resolveReward),
   })),
 }));

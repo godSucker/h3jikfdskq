@@ -15,6 +15,7 @@ import { getGeneIcon } from '@/lib/mutant-icons'
 import { GENE_RU, bingoLabel } from '@/lib/mutant-dicts'
 import bingosData from '@/data/bingos.json'
 import eventQuestsData from '@/data/guides/event-quests.json'
+import { shouldShowAmount } from '@/lib/event-quest-text'
 import {
   resolveDungeon,
   resolveReward,
@@ -310,7 +311,13 @@ export interface ResolvedEventQuest {
   name: string
   icon: string | null
   requiredLevel: number | null
-  steps: { id: string; condition: string; amount: number | null; rewards: { label: string; icon: string | null }[] }[]
+  steps: {
+    id: string
+    condition: string
+    amount: number | null
+    showAmount: boolean
+    rewards: { label: string; name?: string; count?: string; icon: string | null }[]
+  }[]
 }
 
 // Строится один раз за модуль (ESM-кэш) - каждый .astro файл, что импортирует
@@ -369,9 +376,10 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
           id: st.id,
           condition: st.condition.ru,
           amount: st.amount,
+          showAmount: shouldShowAmount(st.condition.ru, st.amount),
           rewards: st.rewards.map((r) => {
             const res = resolveReward(r as never, rewardCtx)
-            return { label: res.label, icon: res.icon ?? null }
+            return { label: res.label, name: res.name, count: res.count, icon: res.icon ?? null }
           }),
         })),
       },

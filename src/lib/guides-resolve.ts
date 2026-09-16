@@ -38,6 +38,11 @@ export interface ResolvedReward {
   label: string
   icon: string | null
   mutant?: MutantLite
+  // Для наград с количеством: label = "Здоровье +10% ×10", name = "Здоровье
+  // +10%", count = "×10". Нужны, чтобы рендер мог выделить количество цветом;
+  // кто их не читает, видит прежний label.
+  name?: string
+  count?: string
 }
 
 export interface DungeonRaw {
@@ -131,6 +136,10 @@ export interface RewardResolveCtx {
   formatNumber?: (n: number) => string
 }
 
+function withCount(name: string, suffix: string): Pick<ResolvedReward, 'label' | 'name' | 'count'> {
+  return suffix ? { label: `${name}${suffix}`, name, count: suffix.trim() } : { label: name }
+}
+
 export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): ResolvedReward {
   if (!reward) return { label: '—', icon: null }
   const amount = reward.amount ? String(reward.amount) : ''
@@ -201,12 +210,15 @@ export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): 
         getMaterialName(baseId) ??
         ctx.translateItemId(baseId)
       return {
-        label: `${baseName} ${tr('guides.reward.chargeSuffix', '(заряд {n})', { n: charges })}${amountSuffix}`,
+        ...withCount(`${baseName} ${tr('guides.reward.chargeSuffix', '(заряд {n})', { n: charges })}`, amountSuffix),
         icon: ctx.getItemTexture(baseId) ?? getMaterialTexture(baseId),
       }
     }
     return {
-      label: `${ctx.getLocalisedName(reward.id) ?? getMaterialName(reward.id) ?? ctx.translateItemId(reward.id)}${amountSuffix}`,
+      ...withCount(
+        ctx.getLocalisedName(reward.id) ?? getMaterialName(reward.id) ?? ctx.translateItemId(reward.id),
+        amountSuffix,
+      ),
       icon: ctx.getItemTexture(reward.id) ?? getMaterialTexture(reward.id),
     }
   }

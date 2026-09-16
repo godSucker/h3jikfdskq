@@ -182,13 +182,14 @@ const forecastWeeks =
             <span class="quest-step-index">{i + 1}</span>
             <span class="quest-step-caption">
               {st.condition}
-              {st.amount && st.amount > 1 ? <span class="quest-step-amount"> ×{st.amount}</span> : null}
+              {st.showAmount && <span class="quest-step-amount">×{st.amount}</span>}
             </span>
             <span class="quest-step-rewards">
               {st.rewards.map((r) => (
                 <span class="quest-reward">
                   {r.icon && <img src={textureUrl(r.icon)} alt="" loading="lazy" decoding="async" />}
-                  {r.label}
+                  {r.name ?? r.label}
+                  {r.count && <span class="quest-reward-count">{r.count}</span>}
                 </span>
               ))}
             </span>
@@ -762,6 +763,8 @@ const forecastWeeks =
     color: #e2e8f0;
   }
   .quest-step-amount {
+    margin-left: 0.35em;
+    white-space: nowrap;
     color: #fbbf24;
     font-weight: 700;
   }
@@ -779,6 +782,10 @@ const forecastWeeks =
     font-size: 0.78rem;
     color: #86efac;
     white-space: nowrap;
+  }
+  .quest-reward-count {
+    color: #fbbf24;
+    font-weight: 700;
   }
   .quest-reward img {
     width: 18px;
