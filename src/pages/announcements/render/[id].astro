@@ -22,6 +22,13 @@ const ctx = buildAnnouncementContext();
 // 2026-09-05). 900px: shopForecast (minmax 200px) -> ~4 кол., dailyNews
 // (minmax 150px) -> ~5. Остальным категориям 760px.
 const isForecast = a?.category === 'shopForecast' || a?.category === 'dailyNews';
+
+// ?week=1|2 - отрендерить ОДНУ неделю спринта вместо обеих. Доска прогноза на
+// 38 офферов в один кадр читается плохо, поэтому скриншот-бот снимает две
+// карточки по неделе (см. process-pending-screenshots.ts). Без параметра -
+// обе недели, как на живой ленте.
+const weekRaw = Astro.url.searchParams.get('week');
+const week = weekRaw === '1' ? 1 : weekRaw === '2' ? 2 : null;
 ---
 
 <!DOCTYPE html>
@@ -44,7 +51,7 @@ const isForecast = a?.category === 'shopForecast' || a?.category === 'dailyNews'
 </head>
 <body>
   <div class="wrap">
-    {a ? <AnnouncementCard a={a} ctx={ctx} mode="render" /> : <div class="missing">Анонс не найден: {id}</div>}
+    {a ? <AnnouncementCard a={a} week={week} ctx={ctx} mode="render" /> : <div class="missing">Анонс не найден: {id}</div>}
   </div>
 </body>
 </html>

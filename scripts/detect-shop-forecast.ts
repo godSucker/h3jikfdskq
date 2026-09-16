@@ -113,6 +113,10 @@ interface ForecastItem {
   // оффера ничего не значит - тут источник уже точно известен по Path).
   // null для не-мутантов и обычных коротких окон.
   featuredMutant: 'day' | 'week' | 'month' | null
+  // Мутанты ВНУТРИ пакета (<ArticleItems> в shopitems.xml). Без этого пакеты
+  // вроде "Пакет «Спираксия»" (bank_e_14_*) выглядели некликабельными: сам
+  // itemId мутанта не содержит, а мутант внутри есть (юзер поймал 2026-09-16).
+  packMutants: string[]
 }
 
 export interface ShopForecast {
@@ -209,6 +213,11 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     const costMatch = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
     const usd = costMatch ? null : parseRealPriceUSD(itemXml)
     const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
+    const packMutants = [
+      ...new Set(
+        [...itemXml.matchAll(/<ArticleItem[^>]*typeId="(Specimen_[^"]+)"/gi)].map((m) => m[1]),
+      ),
+    ]
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
     const rawExactRange = pickFilterDateRange(filterDates, filterTag)
     const exactRange =
@@ -239,6 +248,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
         featuredMutant:
           forceFeatured ??
           classifyFeaturedMutant(itemId, exactRange?.start ?? null, exactRange?.end ?? null),
+        packMutants,
       },
     }
   }

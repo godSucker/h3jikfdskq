@@ -154,6 +154,26 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   // - reactor/token/exchange/forecast: у них и так одна карточка.
   // screenshot-dungeon.ts / screenshot-box.ts остаются рабочими, просто не
   // зовутся отсюда.
+  // Прогноз магазина режется на две недели спринта: 38 офферов в один кадр
+  // читаются плохо, поэтому в админку уходят два снимка - "неделя 1" и
+  // "неделя 2" (юзер, 2026-09-16). Остальные категории - один кадр, как было.
+  if (job.category === 'shopForecast') {
+    let anySent = false
+    for (const week of [1, 2] as const) {
+      const shot = await fetchPhoto(
+        `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}&week=${week}`,
+      )
+      if (!shot.ok) return anySent ? 'sent' : 'retry'
+      const ok = await sendAdminPhoto(
+        shot.buffer,
+        `${caption}\nНеделя ${week}`,
+        `${job.category}-${job.id}-w${week}.png`,
+      )
+      if (ok) anySent = true
+    }
+    return anySent ? 'sent' : 'retry'
+  }
+
   const primary = await fetchPhoto(
     `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}`,
   )

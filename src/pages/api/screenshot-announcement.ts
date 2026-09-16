@@ -17,6 +17,10 @@ export const GET: APIRoute = async ({ url }) => {
   if (!id) {
     return new Response('Missing id param', { status: 400 })
   }
+  // week=1|2 - снять одну неделю спринта вместо всей доски (см.
+  // AnnouncementCard week-проп). Прокидывается в render-страницу как есть.
+  const weekParam = url.searchParams.get('week')
+  const week = weekParam === '1' || weekParam === '2' ? weekParam : null
   // Прогноз магазина/«скоро в игре» - доска офферов. Юзер: FHD-ширина (8
   // мелких колонок) хуже, чем «крупные плитки» на телефоне - вернули к
   // ~900px (render-страница). Viewport с БОЛЬШИМ запасом по обеим осям:
@@ -35,7 +39,7 @@ export const GET: APIRoute = async ({ url }) => {
       : { width: 800, height: 1000 }
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}`
+  const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}${week ? `?week=${week}` : ''}`
 
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {

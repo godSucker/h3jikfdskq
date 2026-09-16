@@ -77,6 +77,16 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
     )}
   </main>
 
+  <div class="pack-sheet" id="pack-sheet" role="dialog" aria-modal="true">
+    <div class="pack-sheet-panel">
+      <div class="pack-sheet-head">
+        <span id="pack-sheet-title">Что внутри</span>
+        <button type="button" class="pack-sheet-close" data-pack-close aria-label="Закрыть">×</button>
+      </div>
+      <div class="pack-sheet-list" id="pack-sheet-list"></div>
+    </div>
+  </div>
+
   <BoxModal client:load />
   <BingoMutantModal client:load />
 </BaseLayout>
@@ -116,6 +126,52 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
     });
   });
 
+  // Пакет с НЕСКОЛЬКИМИ мутантами: показываем лист состава, тап по строке
+  // открывает обычную модалку мутанта. Не карусель и не аккордеон - 60%
+  // трафика мобильный, тут нужны крупные тап-цели и никакого точного свайпа
+  // по мелкой плитке (обсуждено с юзером 2026-09-16).
+  const packSheet = document.getElementById('pack-sheet');
+  const packList = document.getElementById('pack-sheet-list');
+  const packTitle = document.getElementById('pack-sheet-title');
+  const closePack = () => packSheet?.classList.remove('is-open');
+  packSheet?.addEventListener('click', (e) => {
+    if (e.target === packSheet || (e.target as HTMLElement).closest('[data-pack-close]')) closePack();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePack();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-open-pack]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (!packSheet || !packList) return;
+      let items: { id: string; star: string | null; name: string; image: string }[] = [];
+      try {
+        items = JSON.parse(el.dataset.openPack ?? '[]');
+      } catch {
+        return;
+      }
+      if (packTitle) packTitle.textContent = el.dataset.packTitle ?? 'Что внутри';
+      packList.innerHTML = '';
+      for (const m of items) {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'pack-row';
+        row.innerHTML =
+          `<img src="${m.image}" alt="" loading="lazy" decoding="async" /><span>${m.name}</span>`;
+        row.addEventListener('click', () => {
+          closePack();
+          window.dispatchEvent(
+            new CustomEvent('archivist:open-mutant', {
+              detail: { specimenId: m.id, star: m.star ?? undefined },
+            }),
+          );
+        });
+        packList.appendChild(row);
+      }
+      packSheet.classList.add('is-open');
+    });
+  });
+
   document.querySelectorAll<HTMLElement>('[data-open-box]').forEach((el) => {
     el.addEventListener('click', () => {
       window.dispatchEvent(
@@ -126,6 +182,82 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
 </script>
 
 <style>
+  /* Лист состава пакета. Крупные строки - основной трафик мобильный. */
+  .pack-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(2, 6, 23, 0.72);
+    backdrop-filter: blur(2px);
+  }
+  .pack-sheet.is-open { display: flex; }
+  .pack-sheet-panel {
+    width: min(520px, 100%);
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px 16px 0 0;
+    padding: 0.9rem;
+  }
+  @media (min-width: 640px) {
+    .pack-sheet { align-items: center; }
+    .pack-sheet-panel { border-radius: 16px; }
+  }
+  .pack-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: #fceabb;
+    margin-bottom: 0.7rem;
+  }
+  .pack-sheet-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5f5;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .pack-sheet-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .pack-sheet-list :global(.pack-row) {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    /* >=48px по высоте - комфортная тап-цель на телефоне */
+    min-height: 56px;
+    padding: 0.4rem 0.6rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font: inherit;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .pack-sheet-list :global(.pack-row:hover) {
+    background: rgba(96, 165, 250, 0.12);
+    border-color: rgba(96, 165, 250, 0.35);
+  }
+  .pack-sheet-list :global(.pack-row img) {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+  }
+
   .announcements-page {
     /* Раньше 760px (узкая лента) - под board-грид (dailyNews) и плотный
        прогноз магазина маловато, тайлы жались в 2-3 колонки. Пошире, чтобы

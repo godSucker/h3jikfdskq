@@ -7,7 +7,7 @@
 // вёрстка (фидбек 2026-08-07).
 import { textureUrl } from '@/lib/texture-cdn'
 import { resolveMutantLite } from '@/lib/guides-resolve'
-import { sprintRangeLabel } from '@/lib/sprint-calendar'
+import { sprintRangeLabel, sprintStartDate } from '@/lib/sprint-calendar'
 import { getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures'
 import {
   CATEGORY_RU,
@@ -16,6 +16,7 @@ import {
   formatBingoTitle,
   bingoAddedNames,
   resolveForecastTarget,
+  resolvePackMutants,
   EXCHANGE_HALL_META,
   formatPrice,
   boxMutantIcon,
@@ -34,9 +35,14 @@ interface Props {
   a: Announcement
   ctx: AnnouncementRenderContext
   mode: 'feed' | 'render'
+  // Только для прогноза магазина: 1 или 2 - отрендерить ОДНУ неделю спринта
+  // вместо обеих. Нужно скриншот-боту: доска на 38 офферов в один кадр
+  // читается плохо, поэтому в админку уходят два снимка по неделе.
+  // На живой ленте проп не задаётся - там показываются обе недели подряд.
+  week?: 1 | 2 | null
 }
 
-const { a, ctx, mode } = Astro.props as Props
+const { a, ctx, mode, week = null } = Astro.props as Props
 const kind = cardKind(a.category)
 const showCta = mode === 'feed'
 
@@ -123,6 +129,32 @@ const forecastOffers =
         // просто улетели за обрез. Грид - auto-fill без фиксированной
         // высоты, оверфлоу не проблема - поднимаем с запасом.
         .slice(0, isBoard ? 24 : 50)
+    : []
+
+// Спринт = 14 дней = две недели. Доска на 38 офферов в один кадр читается
+// плохо, поэтому режем её на две недели прямо в вёрстке: на ленте видно оба
+// блока подряд, а скриншот-бот запрашивает по одной неделе за раз (проп week).
+// Граница считается от точного старта спринта, а не от "середины списка" -
+// офферы распределены по дням неравномерно.
+const WEEK_MS = 7 * 86_400_000
+const sprintStartMs = sprint !== null ? sprintStartDate(sprint).getTime() : null
+const fmtWeekDay = (ms: number) =>
+  new Date(ms).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', timeZone: 'UTC' })
+const forecastWeeks =
+  kind === 'forecast' && sprintStartMs !== null && forecastOffers.length > 0
+    ? ([1, 2] as const)
+        .map((w) => ({
+          week: w,
+          // Оффер без точной даты кладём в первую неделю: сортировка уже
+          // отправила такие в конец списка, и там они хотя бы не выпадают
+          // из кадра совсем.
+          offers: forecastOffers.filter((o) => {
+            if (!o.exactDateStart) return w === 1
+            return (new Date(o.exactDateStart).getTime() - sprintStartMs < WEEK_MS ? 1 : 2) === w
+          }),
+          label: `${fmtWeekDay(sprintStartMs + (w - 1) * WEEK_MS)} — ${fmtWeekDay(sprintStartMs + w * WEEK_MS - 86_400_000)}`,
+        }))
+        .filter((g) => g.offers.length > 0 && (week === null || week === g.week))
     : []
 ---
 
@@ -362,8 +394,11 @@ const forecastOffers =
       {sprint !== null && (
         <div class="forecast-range">Сезон {sprint} · {sprintRangeLabel(sprint)}</div>
       )}
+      {forecastWeeks.map((wk) => (
+      <div class="forecast-week">
+      <div class="forecast-week-head">Неделя {wk.week} · {wk.label}</div>
       <div class:list={['forecast-grid', { 'forecast-grid-board': isBoard }]}>
-        {forecastOffers.map((offer) => {
+        {wk.offers.map((offer) => {
           // Баннер dailyNews несёт название/кнопку УЖЕ впаянными в картинку
           // (реальный игровой ассет) - подпись под ним была бы дублем. Если
           // баннер конкретного оффера не нашёлся (404, редкий старый ивент),
@@ -383,13 +418,21 @@ const forecastOffers =
           // Только mode="feed" - на статичном render-скриншоте для бота кликать
           // всё равно некуда, курсор-стилизация там будет вводить в заблуждение.
           const target = mode === 'feed' ? resolveForecastTarget(offer.id, ctx.mutantsById, ctx.findBox) : null
+          // Пакет: мутант лежит не в itemId, а в составе (<ArticleItems>).
+          // Один мутант - открываем его сразу, несколько - лист состава.
+          const pack =
+            mode === 'feed' && !target ? resolvePackMutants(offer.packMutants, ctx.mutantsById) : []
+          const packSingle = pack.length === 1 ? pack[0] : null
+          const clickable = !!target || pack.length > 0
           return (
             <div
-              class:list={['forecast-tile', { 'forecast-tile-board': isBoard, 'forecast-tile-clickable': !!target }]}
-              data-open-mutant={target?.type === 'mutant' ? target.id : undefined}
-              data-open-mutant-star={target?.type === 'mutant' && target.star ? target.star : undefined}
+              class:list={['forecast-tile', { 'forecast-tile-board': isBoard, 'forecast-tile-clickable': clickable }]}
+              data-open-mutant={target?.type === 'mutant' ? target.id : (packSingle?.id ?? undefined)}
+              data-open-mutant-star={target?.type === 'mutant' && target.star ? target.star : (packSingle?.star ?? undefined)}
               data-open-box={target?.type === 'box' ? target.id : undefined}
-              title={target ? `Открыть ${offer.name}` : undefined}
+              data-open-pack={pack.length > 1 ? JSON.stringify(pack) : undefined}
+              data-pack-title={pack.length > 1 ? offer.name : undefined}
+              title={clickable ? `Открыть ${offer.name}` : undefined}
             >
               <div class="forecast-tile-media">
                 {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
@@ -418,6 +461,8 @@ const forecastOffers =
           )
         })}
       </div>
+      </div>
+      ))}
       <div class="forecast-watermark">
         <img src="/favicon.png" alt="" loading="lazy" decoding="async" />
         <span>archivist-library.com/announcements</span>
@@ -512,6 +557,22 @@ const forecastOffers =
     border: 1px solid rgba(250, 204, 21, 0.35);
     border-radius: 999px;
     padding: 0.2rem 0.6rem;
+  }
+  .forecast-week {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .forecast-week-head {
+    align-self: flex-start;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: rgb(125, 211, 252);
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 999px;
+    padding: 0.22rem 0.7rem;
   }
   .card-title {
     margin: 0.6rem 0 0.3rem;
@@ -1060,8 +1121,9 @@ const forecastOffers =
     aspect-ratio: 1 / 1;
   }
   .forecast-tile-date-board {
-    font-size: 0.64rem;
-    color: #94a3b8;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #cbd5e1;
     text-align: center;
     padding: 0.25rem 0.3rem;
   }
@@ -1144,8 +1206,11 @@ const forecastOffers =
     color: #fbbf24;
   }
   .forecast-tile-date {
-    font-size: 0.66rem;
-    color: #94a3b8;
+    /* +15% и ярче - на доске из 38 тайлов дата была самым мелким и самым
+       тусклым элементом, в скриншоте бота читалась хуже всего (юзер 2026-09-16). */
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #cbd5e1;
   }
   .forecast-watermark {
     display: flex;
