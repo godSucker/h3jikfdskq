@@ -57,6 +57,12 @@ const boxMutantCount = box ? uniqueBoxMutants(box).length : 0
 const boxOutcomes = box ? boxGroupedOutcomes(box) : null
 const sprint = kind === 'forecast' && a.items ? forecastSprint(a.items) : null
 const questChain = kind === 'quests' && it ? ctx.eventQuestByFilter.get(it.id.toLowerCase()) : null
+// Анонс добавленных этапов показывает только линии, где они есть, и
+// подсвечивает сами новые этапы; анонс новой цепочки - все линии.
+const addedSteps = it?.addedStepIds?.length ? new Set(it.addedStepIds) : null
+const questLines = questChain
+  ? questChain.lines.filter((line) => !addedSteps || line.some((st) => addedSteps.has(st.id)))
+  : []
 // Обменники - один Announcement с items из ДО ТРЁХ залов сразу (jackpot/
 // event/mystery, см. detectExchange) - группируем по hall в порядке
 // EXCHANGE_HALL_META, а не плоским списком (фидбек юзера 2026-09-15).
@@ -169,17 +175,19 @@ const forecastWeeks =
       <div class="quest-head">
         {questChain.icon && <img class="quest-icon" src={textureUrl(questChain.icon)} alt="" loading="lazy" decoding="async" />}
         <div class="quest-heading">
-          <span class="card-category">Новые задания</span>
+          <span class="card-category">{addedSteps ? 'Новые этапы' : 'Новые задания'}</span>
           <div class="dg-name">{questChain.name}</div>
           <div class="dg-secondary">
-            {questChain.steps.length} {pluralize(questChain.steps.length, 'этап', 'этапа', 'этапов')}{questChain.requiredLevel ? ` · с ${questChain.requiredLevel} уровня` : ''}
+            {questChain.stepCount} {pluralize(questChain.stepCount, 'этап', 'этапа', 'этапов')}{questChain.requiredLevel ? ` · с ${questChain.requiredLevel} уровня` : ''}
           </div>
           {it?.exactDateLabel && <div class="dg-exact-date">{it.exactDateLabel}</div>}
         </div>
       </div>
       <div class="quest-steps">
-        {questChain.steps.map((st, i) => (
-          <div class="quest-step">
+        {questLines.map((line) => (
+          <div class="quest-line">
+        {line.map((st, i) => (
+          <div class:list={['quest-step', { 'is-new': addedSteps?.has(st.id) }]}>
             <span class="quest-step-index">{i + 1}</span>
             <span class="quest-step-caption">
               {st.condition}
@@ -194,6 +202,8 @@ const forecastWeeks =
                 </span>
               ))}
             </span>
+          </div>
+        ))}
           </div>
         ))}
       </div>
@@ -734,6 +744,21 @@ const forecastWeeks =
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+  }
+  /* Параллельные линии заданий: нумерация в каждой своя, между ними - разделитель. */
+  .quest-line {
+    display: flex;
+    flex-direction: column;
+    gap: inherit;
+  }
+  .quest-line + .quest-line {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.14);
+  }
+  .quest-step.is-new {
+    border-color: rgba(251, 191, 36, 0.55);
+    background: rgba(251, 191, 36, 0.07);
   }
   .quest-step {
     display: flex;

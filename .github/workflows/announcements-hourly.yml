@@ -153,6 +153,9 @@ jobs:
         # После 9.5: даты цепочек берутся из live-filter-dates.json этого же
         # прогона. До 10: detectEventQuests в build-announcements.ts читает уже
         # собранный файл и анонсирует новые цепочки.
+        # if: always() - как у шагов 4-9: без него сбой любого предыдущего
+        # шага молча пропускал пересборку заданий.
+        if: always()
         run: npx tsx scripts/build-event-quests.ts
 
       - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news) + кросс-пост в канал

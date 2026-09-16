@@ -33,6 +33,8 @@ export interface AnnouncementItem {
   name: string
   image?: string | null
   addedNames?: string[]
+  // Только eventQuests: этапы, добавленные в уже анонсированную цепочку.
+  addedStepIds?: string[]
   // Только для shopForecast/dailyNews - реальная цена оффера, если она есть
   // (не у всех, часть daily_news - чисто событийные анонсы без покупки).
   // 'usd' - донат-паки за реальные деньги (<RealPrices Currency="USD">),
@@ -311,13 +313,18 @@ export interface ResolvedEventQuest {
   name: string
   icon: string | null
   requiredLevel: number | null
-  steps: {
-    id: string
-    condition: string
-    amount: number | null
-    showAmount: boolean
-    rewards: { label: string; name?: string; count?: string; icon: string | null }[]
-  }[]
+  // Параллельные линии заданий цепочки, у каждой своя нумерация этапов (см.
+  // splitIntoLines в scripts/build-event-quests.ts).
+  lines: ResolvedEventQuestStep[][]
+  stepCount: number
+}
+
+export interface ResolvedEventQuestStep {
+  id: string
+  condition: string
+  amount: number | null
+  showAmount: boolean
+  rewards: { label: string; name?: string; count?: string; icon: string | null }[]
 }
 
 // Строится один раз за модуль (ESM-кэш) - каждый .astro файл, что импортирует
@@ -360,6 +367,7 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
         requiredLevel: number | null
         steps: {
           id: string
+          line: number
           condition: EvI18n
           amount: number | null
           rewards: { id: string | null; type: string | null; amount: number }[]
@@ -372,16 +380,20 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
         name: c.name.ru,
         icon: c.icon,
         requiredLevel: c.requiredLevel,
-        steps: c.steps.map((st) => ({
-          id: st.id,
-          condition: st.condition.ru,
-          amount: st.amount,
-          showAmount: shouldShowAmount(st.condition.ru, st.amount),
-          rewards: st.rewards.map((r) => {
-            const res = resolveReward(r as never, rewardCtx)
-            return { label: res.label, name: res.name, count: res.count, icon: res.icon ?? null }
-          }),
-        })),
+        stepCount: c.steps.length,
+        lines: c.steps.reduce<ResolvedEventQuestStep[][]>((lines, st) => {
+          ;(lines[st.line] ??= []).push({
+            id: st.id,
+            condition: st.condition.ru,
+            amount: st.amount,
+            showAmount: shouldShowAmount(st.condition.ru, st.amount),
+            rewards: st.rewards.map((r) => {
+              const res = resolveReward(r as never, rewardCtx)
+              return { label: res.label, name: res.name, count: res.count, icon: res.icon ?? null }
+            }),
+          })
+          return lines
+        }, []),
       },
     ]),
   )
