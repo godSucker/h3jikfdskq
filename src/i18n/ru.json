@@ -744,6 +744,8 @@
   "guides.quests.triggerCategory.level": "Уровень",
   "guides.quests.triggerCategory.collection": "Коллекция",
   "guides.quests.triggerCategory.social": "Социальное",
+  "guides.quests.unlockNeeds": "Нужно:",
+  "guides.quests.unlockBuildingLevel": "{name} {level} уровня",
   "guides.division.recommendedLevel": "Рекомендуемый эво для прохождения: «{level}»",
   "guides.division.mapNumber": "Карта {n}",
   "guides.division.fightsCount": "Боёв:",

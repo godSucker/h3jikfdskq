@@ -45,18 +45,22 @@
     chainType: 'story' | 'achievement'
     prevId: string | null
     trigger: { category: TriggerCategory; amount: number | null }
+    // "xN" после условия: только когда текст сам число не называет.
+    showAmount: boolean
+    amountText: string
+    // С какого уровня квест открывается (с самой миссии или ближайшего предка).
+    requiredLevel: number | null
+    // Прочие условия открытия: нужный мутант, здание, Эволюционный центр N уровня.
+    unlock: QuestReward[]
+    // Полный URL иконки на CDN Kobojo (scripts/build-quests.ts).
     icon: string | null
   }
 
-  // Реальные quest_*-иконки (s-ak.kobojo.com/assets/mobile/icon-quest/, найдено
-  // живым Frida-захватом 2026-08-25 - см. build-quests.ts) - скачаны и залиты
-  // на CDN, полное покрытие подтверждено (97/97 нужных на момент захвата).
-  // Не allowlist - просто пробуем файл, onerror молча переключает на
-  // SVG-иконку категории триггера (страхует будущие новые квесты с ещё
-  // недокачанной иконкой, не ломает вёрстку битой картинкой).
+  // Иконка упала (новый квест, файла на CDN Kobojo ещё нет) - молча показываем
+  // SVG-иконку категории триггера вместо битой картинки.
   let failedStoryIcons = $state<Set<string>>(new Set())
   function storyIconUrl(icon: string | null): string | null {
-    return icon && !failedStoryIcons.has(icon) ? `/quests/story/${icon}.png` : null
+    return icon && !failedStoryIcons.has(icon) ? icon : null
   }
   function onStoryIconError(icon: string | null) {
     if (!icon) return
@@ -129,18 +133,8 @@
     return `${n} ${pluralizeCount(n, locale, 'guides.count.stage')}`
   }
 
-  // Локализация Kobojo для части сюжетных квестов (44 из 68 с amount>1) не
-  // называет число в тексте вообще ("Заключить контракты в медлаборатории"
-  // без "100") - живой фидбек в Telegram поймал именно это. trigger.amount
-  // уже распаршен в build-quests.ts, просто раньше не выводился, когда текст
-  // сам его не содержит. Ачивок это не касается - там абсолютный порог всегда
-  // уже есть в caption (см. achievementTiers выше).
-  function captionAmountSuffix(q: Quest): string {
-    const amt = q.trigger.amount
-    if (amt == null || amt <= 1 || !q.caption) return ''
-    const alreadyShown = new RegExp(`(^|\\D)${amt}(\\D|$)`).test(q.caption)
-    if (alreadyShown) return ''
-    return ` (${amt.toLocaleString('ru-RU')})`
+  function levelLabel(level: number): string {
+    return t('guides.quests.fromLevel', locale).replace('{level}', String(level))
   }
 
   // Тиры ачивки берутся в порядке дерева (prevMissions уже кодирует верную
@@ -225,7 +219,13 @@
         {/if}
         <span class="quest-node-title">{node.quest.title}</span>
       </div>
-      {#if node.quest.caption}<div class="quest-node-caption">{node.quest.caption}{captionAmountSuffix(node.quest)}</div>{/if}
+      {#if node.quest.caption}<div class="quest-node-caption">{node.quest.caption}{#if node.quest.showAmount}<span class="event-amount">×{node.quest.amountText}</span>{/if}</div>{/if}
+      {#if node.quest.unlock.length > 0}
+        <div class="quest-node-unlock">
+          <span class="quest-node-unlock-label">{t('guides.quests.unlockNeeds', locale)}</span>
+          {@render rewardChips(node.quest.unlock)}
+        </div>
+      {/if}
       {@render rewardChips(node.quest.rewards)}
     </div>
     {#if node.children.length > 0}
@@ -259,7 +259,7 @@
       <div class="chain-card achievement-chain">
         <div class="chain-card-header">
           {#if root.icon}
-            <img src={textureUrl(`/quests/achievements/${root.icon}.png`)} alt="" class="achievement-chain-icon" loading="lazy" decoding="async" />
+            <img src={textureUrl(root.icon)} alt="" class="achievement-chain-icon" loading="lazy" decoding="async" />
           {:else}
             {@render triggerIcon(root.trigger.category)}
           {/if}
@@ -296,7 +296,7 @@
           {/if}
           <div class="chain-card-heading">
             <span class="chain-card-title">{root.title}</span>
-            <span class="chain-card-meta">{stageCount(chain.size)}</span>
+            <span class="chain-card-meta">{stageCount(chain.size)}{#if root.requiredLevel}{' · '}{levelLabel(root.requiredLevel)}{/if}</span>
           </div>
           <span class="chain-toggle" class:open={isExpanded(chain)}>▾</span>
         </button>
@@ -320,7 +320,7 @@
         <div class="chain-card-heading">
           <span class="chain-card-title">{chain.name}</span>
           <span class="chain-card-meta">
-            {stageCount(chain.steps.length)}{#if chain.requiredLevel}{' · '}{t('guides.quests.fromLevel', locale).replace('{level}', String(chain.requiredLevel))}{/if}
+            {stageCount(chain.steps.length)}{#if chain.requiredLevel}{' · '}{levelLabel(chain.requiredLevel)}{/if}
           </span>
         </div>
       </div>
@@ -400,6 +400,9 @@
   .quest-node-title { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; }
   .quest-node-caption { font-size: 0.78rem; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
   .quest-node-rewards { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-top: 8px; }
+  .quest-node-unlock { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 6px; }
+  .quest-node-unlock .quest-node-rewards { margin-top: 0; }
+  .quest-node-unlock-label { font-size: 0.72rem; color: #94a3b8; }
 
   .farmer-chip { display: inline-flex; align-items: center; gap: 0.35rem; background: transparent; border: none; color: #e2e8f0; font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 1px 0; text-align: left; }
   .farmer-chip:hover { color: #60a5fa; }
