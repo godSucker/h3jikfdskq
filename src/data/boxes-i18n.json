@@ -1209,26 +1209,6 @@
     "tr": "12. yıl dönümü Gizemli Kutu - Bölüm 2",
     "nl": "12e verjaardag Mystery Box - Deel 2"
   },
-  "Luckybox_School_2025": {
-    "en": "Back to School Mystery Box",
-    "es": "Caja Misteriosa Vuelta al Cole",
-    "fr": "Boîte Mystère Rentrée des classes",
-    "de": "Schulstart Mystery-Box",
-    "pt": "Caixa Mistério da Volta às Aulas",
-    "it": "Scatola Misteriosa Ritorno a scuola",
-    "tr": "Gizemli Okula Dönüş Kutusu",
-    "nl": "Geheime Doos terug naar school"
-  },
-  "Luckybox_Autumn_2025": {
-    "en": "Autumn Mystery Box",
-    "es": "Caja Misteriosa Otoño",
-    "fr": "Boïte Mystère d'automne",
-    "de": "Herbst-Mystery-Box",
-    "pt": "Caixa Mistério de Outono",
-    "it": "Scatola Misteriosa dell’autunno",
-    "tr": "Gizemli Güz Kutusu",
-    "nl": "Geheime doos herfst"
-  },
   "Luckybox_Oktoberfest_2025": {
     "en": "Oktoberfest Mystery Box",
     "es": "Caja Misteriosa Oktoberfest",
@@ -1358,16 +1338,6 @@
     "tr": "Aziz Patrick Gizemli Kutusu",
     "nl": "St. Patrick Mysteriedoos"
   },
-  "Luckybox_Zodiac_Silver_17": {
-    "en": "Silver Zodiac Mystery Box",
-    "es": "Caja Misteriosa Zodiaco Plata",
-    "fr": "Boîte Mystère Zodiaque Argent",
-    "de": "Zodiakus Mystery-Box Silber",
-    "pt": "Caixa Misteriosa do Zodíaco Prateado",
-    "it": "Scatola Misteriosa Zodiaco Argento",
-    "tr": "Gümüş Burç Gizem Kutusu",
-    "nl": "Zilveren Zodiak Geheime Doos"
-  },
   "Mystery_Spring_2026": {
     "en": "Spring Mystery Box",
     "es": "Caja Misteriosa Primavera",
@@ -1428,16 +1398,6 @@
     "tr": "Arılar Gizem Kutusu",
     "nl": "Bijen Mystery Box"
   },
-  "Luckybox_Hyperspeed": {
-    "en": "Hyperspeed Mutants Box",
-    "es": "Cofre de Mutantes Muy Rápidos",
-    "fr": "Coffre Vitesse Extrême",
-    "de": "Speed Mutanten-Box",
-    "pt": "Cofre de Mutantes Velozes",
-    "it": "Scatola Mutanti Molto Veloci",
-    "tr": "Yıldırım Mutantlar Kutusu",
-    "nl": "Snelle Mutanten Doos"
-  },
   "Mystery_BluePlanet_2026": {
     "en": "Blue Planet Mystery Box",
     "es": "Caja misteriosa Planeta Azul",
@@ -1447,16 +1407,6 @@
     "it": "Scatola misteriosa del Pianeta Blu",
     "tr": "Mavi Gezegen Gizemli Kutu",
     "nl": "Blauwe planeet mysteriedoos"
-  },
-  "LuckyBox_Zodiac_v3": {
-    "en": "Zodiac Mystery Box",
-    "es": "Caja Misteriosa Zodiaco",
-    "fr": "Boîte Mystère Zodiaque",
-    "de": "Zodiakus Mystery-Box",
-    "pt": "Caixa Mistério Zodíaco",
-    "it": "Scatola Misteriosa Zodiaco",
-    "tr": "Burç Gizem Kutusu",
-    "nl": "Zodiak Geheime Doos"
   },
   "Luckybox_Summer_2026": {
     "en": "Summer Mystery Box",
@@ -1478,16 +1428,6 @@
     "tr": "Bağımsızlık Günü Gizemli Kutusu",
     "nl": "Geheime doos Independence Day"
   },
-  "LuckyBox_Stars_22": {
-    "en": "Star Box",
-    "es": "Caja Estrella",
-    "fr": "Boite Etoiles",
-    "de": "Sternentruhe",
-    "pt": "Caixa Estrelas",
-    "it": "Scatola delle stelle",
-    "tr": "Yıldız Kutusu",
-    "nl": "Sterrendoos"
-  },
   "Mystery_Revolution26": {
     "en": "Revolution Mystery Box",
     "es": "Caja misteriosa Revolución",
@@ -1497,36 +1437,6 @@
     "it": "Scatola misteriosa della Rivoluzione",
     "tr": "Devrim Gizemli Kutu",
     "nl": "Revolution Geheimedoos"
-  },
-  "Luckybox_Hyperheavy": {
-    "en": "Supermassive Mystery Box",
-    "es": "Caja Misteriosa Supermasiva",
-    "fr": "Boite Mystère Supermassive",
-    "de": "Supermassive Mystery-Box",
-    "pt": "Caixa Mistério Supermassiva",
-    "it": "Scatola Misteriosa Supermassiccia",
-    "tr": "Süper Büyük Gizemli Kutu",
-    "nl": "Supermassieve Geheime doos"
-  },
-  "LuckyBox_Zoo_Prime": {
-    "en": "Legendary Zoomorph Box",
-    "es": "Caja Zoomorfo Legendaria",
-    "fr": "Boîte Zoomorph Légendaire",
-    "de": "Legendäre Zoomorph-Box",
-    "pt": "Caixa Zoomorfo Lendária",
-    "it": "Scatola Zoomorfo Leggendario",
-    "tr": "Efsanevi Hayvansı Kutusu",
-    "nl": "Legendarische Zoömorfbox"
-  },
-  "LuckyBox_Mythic_Prime": {
-    "en": "Legendary Mythic Box",
-    "es": "Caja Mítico Legendaria",
-    "fr": "Boîte Mythique Légendaire",
-    "de": "Legendäre Mythic-Box",
-    "pt": "Caixa Mítico Lendária",
-    "it": "Scatola Mitico Leggendario",
-    "tr": "Efsanevi Mitik Kutusu",
-    "nl": "Legendarische Mythischbox"
   },
   "LuckyBox_Necro_Prime": {
     "en": "Legendary Necro Box",
@@ -1558,16 +1468,6 @@
     "tr": "Efsanevi Siber Kutusu",
     "nl": "Legendarische Cyberbox"
   },
-  "LuckyBox_Galactic_Prime": {
-    "en": "Legendary Galactic Box",
-    "es": "Caja Galáctico Legendaria",
-    "fr": "Boîte Galactique Légendaire",
-    "de": "Legendäre Galactic-Box",
-    "pt": "Caixa Galáctico Lendária",
-    "it": "Scatola Galattico Leggendario",
-    "tr": "Efsanevi Galaktik Kutusu",
-    "nl": "Legendarische Galactischbox"
-  },
   "LuckyBox_Research_VII": {
     "en": "Research VII Chest",
     "es": "Cofre Investigación VII",
@@ -1577,16 +1477,6 @@
     "it": "Scrigno Ricerca VII",
     "tr": "Araştırma VII Sandığı",
     "nl": "Onderzoek VII Koffer"
-  },
-  "LuckyBox_Research_IX": {
-    "en": "Research IX Chest",
-    "es": "Cofre Investigación IX",
-    "fr": "Coffre Recherche IX",
-    "de": "Suche IX Truhe",
-    "pt": "Arca da Pesquisa IX",
-    "it": "Scrigno Ricerca IX",
-    "tr": "Araştırma IX Sandığı",
-    "nl": "Onderzoek IX Koffer"
   },
   "lucky_box_research_viii": {
     "en": "Research VIII Chest",
@@ -1618,16 +1508,6 @@
     "tr": "13. yıl dönümü Gizemli Kutu - Bölüm 1",
     "nl": "13e verjaardag Mystery Box - Deel 1"
   },
-  "LuckyBox_Research_VI_v3": {
-    "en": "Research VI Chest",
-    "es": "Cofre Investigación VI",
-    "fr": "Coffre Recherche VI",
-    "de": "Suche VI Truhe",
-    "pt": "Arca de Pesquisa VI",
-    "it": "Scrigno Ricerca VI",
-    "tr": "Araştırma VI Sandığı",
-    "nl": "Onderzoek VI Kist"
-  },
   "LuckyBox_Research_IV": {
     "en": "Research IV Chest",
     "es": "Cofre Investigación IV",
@@ -1647,26 +1527,6 @@
     "it": "Scatola Misteriosa Zoomorfa Élite",
     "tr": "Elit Gizem Kutusu Hayvansı ",
     "nl": "Elite Zoömorf Geheime Doos"
-  },
-  "LuckyBox_Cyber_Elite": {
-    "en": "Elite Mystery Box Cyber ",
-    "es": "Caja Misteriosa Ciber Élite",
-    "fr": "Boite Mystère Cyber Elite",
-    "de": "Elite Cyber-Mystery-Box",
-    "pt": "Caixa Misteriosa Ciber Elite",
-    "it": "Scatola Misteriosa Cyber Élite",
-    "tr": "Elit Gizem Kutusu Hayvansı ",
-    "nl": "Elite Cyber Geheime Doos"
-  },
-  "LuckyBox_Galactic_Elite": {
-    "en": "Elite Mystery Box Galactic ",
-    "es": "Caja Misteriosa Galáctico Élite",
-    "fr": "Boite Mystère Galactique Elite",
-    "de": "Elite Galaktisch-Mystery-Box",
-    "pt": "Caixa Misteriosa Galáctica Elite",
-    "it": "Scatola Misteriosa Galattica Élite",
-    "tr": "Elit Gizem Kutusu Galaktik ",
-    "nl": "Elite Galactische Geheime Doos"
   },
   "LuckyBox_Mystic_Elite": {
     "en": "Elite Mystery Box Mythic ",
@@ -1698,16 +1558,6 @@
     "tr": "Elit Gizem Kutusu Nekro",
     "nl": "Elite Necro Geheime Doos"
   },
-  "Mysterybox_Ability_Strengthen": {
-    "en": "Boost Mystery Box",
-    "es": "Caja Misteriosa Fortalecimiento",
-    "fr": "Boîte Mystère Boost",
-    "de": "Booster-Mystery-Box ",
-    "pt": "Caixa Mistério Boost",
-    "it": "Scatola Misteriosa Miglioramento",
-    "tr": "Gizemli Kutu  Artırma",
-    "nl": "Boost Geheime Doos"
-  },
   "Mysterybox_Ability_Shield": {
     "en": "Shield Mystery Box",
     "es": "Caja Misteriosa Escudo",
@@ -1717,16 +1567,6 @@
     "it": "Scatola Misteriosa Scudo",
     "tr": "Gizemli Kutu  Kalkan",
     "nl": "Schild Geheime Doos"
-  },
-  "Mysterybox_Ability_Slash": {
-    "en": "Wound Mystery Box",
-    "es": "Caja Misteriosa Herida",
-    "fr": "Boîte Mystère Blessure",
-    "de": "Blessur-Mystery-Box ",
-    "pt": "Caixa Mistério Ferida",
-    "it": "Scatola Misteriosa Ferita",
-    "tr": "Gizemli Kutu Yara",
-    "nl": "Wond Geheime Doos"
   },
   "Mysterybox_Ability_Regenerate": {
     "en": "Drain life Mystery Box",
@@ -1757,5 +1597,165 @@
     "it": "Mystery Box del 13° anniversario - Parte 2",
     "tr": "13. yıl dönümü Gizemli Kutu - Bölüm 2",
     "nl": "13e verjaardag Mystery Box - Deel 2"
+  },
+  "LuckyBox_Research_VI_v3": {
+    "en": "Research VI Chest",
+    "es": "Cofre Investigación VI",
+    "fr": "Coffre Recherche VI",
+    "de": "Suche VI Truhe",
+    "pt": "Arca de Pesquisa VI",
+    "it": "Scrigno Ricerca VI",
+    "tr": "Araştırma VI Sandığı",
+    "nl": "Onderzoek VI Kist"
+  },
+  "LuckyBox_Zodiac_v3": {
+    "en": "Zodiac Mystery Box",
+    "es": "Caja Misteriosa Zodiaco",
+    "fr": "Boîte Mystère Zodiaque",
+    "de": "Zodiakus Mystery-Box",
+    "pt": "Caixa Mistério Zodíaco",
+    "it": "Scatola Misteriosa Zodiaco",
+    "tr": "Burç Gizem Kutusu",
+    "nl": "Zodiak Geheime Doos"
+  },
+  "Luckybox_Hyperheavy": {
+    "en": "Supermassive Mystery Box",
+    "es": "Caja Misteriosa Supermasiva",
+    "fr": "Boite Mystère Supermassive",
+    "de": "Supermassive Mystery-Box",
+    "pt": "Caixa Mistério Supermassiva",
+    "it": "Scatola Misteriosa Supermassiccia",
+    "tr": "Süper Büyük Gizemli Kutu",
+    "nl": "Supermassieve Geheime doos"
+  },
+  "LuckyBox_Galactic_Prime": {
+    "en": "Legendary Galactic Box",
+    "es": "Caja Galáctico Legendaria",
+    "fr": "Boîte Galactique Légendaire",
+    "de": "Legendäre Galactic-Box",
+    "pt": "Caixa Galáctico Lendária",
+    "it": "Scatola Galattico Leggendario",
+    "tr": "Efsanevi Galaktik Kutusu",
+    "nl": "Legendarische Galactischbox"
+  },
+  "Mystery_School_2026": {
+    "en": "Back to School Mystery Box",
+    "es": "Caja Misteriosa Vuelta al Cole",
+    "fr": "Boîte Mystère Rentrée des classes",
+    "de": "Schulstart Mystery-Box",
+    "pt": "Caixa Mistério da Volta às Aulas",
+    "it": "Scatola Misteriosa Ritorno a scuola",
+    "tr": "Gizemli Okula Dönüş Kutusu",
+    "nl": "Geheime Doos terug naar school"
+  },
+  "LuckyBox_Cyber_Elite": {
+    "en": "Elite Mystery Box Cyber ",
+    "es": "Caja Misteriosa Ciber Élite",
+    "fr": "Boite Mystère Cyber Elite",
+    "de": "Elite Cyber-Mystery-Box",
+    "pt": "Caixa Misteriosa Ciber Elite",
+    "it": "Scatola Misteriosa Cyber Élite",
+    "tr": "Elit Gizem Kutusu Hayvansı ",
+    "nl": "Elite Cyber Geheime Doos"
+  },
+  "Mysterybox_Ability_Slash": {
+    "en": "Wound Mystery Box",
+    "es": "Caja Misteriosa Herida",
+    "fr": "Boîte Mystère Blessure",
+    "de": "Blessur-Mystery-Box ",
+    "pt": "Caixa Mistério Ferida",
+    "it": "Scatola Misteriosa Ferita",
+    "tr": "Gizemli Kutu Yara",
+    "nl": "Wond Geheime Doos"
+  },
+  "LuckyBox_Mythic_Prime": {
+    "en": "Legendary Mythic Box",
+    "es": "Caja Mítico Legendaria",
+    "fr": "Boîte Mythique Légendaire",
+    "de": "Legendäre Mythic-Box",
+    "pt": "Caixa Mítico Lendária",
+    "it": "Scatola Mitico Leggendario",
+    "tr": "Efsanevi Mitik Kutusu",
+    "nl": "Legendarische Mythischbox"
+  },
+  "LuckyBox_Research_IX": {
+    "en": "Research IX Chest",
+    "es": "Cofre Investigación IX",
+    "fr": "Coffre Recherche IX",
+    "de": "Suche IX Truhe",
+    "pt": "Arca da Pesquisa IX",
+    "it": "Scrigno Ricerca IX",
+    "tr": "Araştırma IX Sandığı",
+    "nl": "Onderzoek IX Koffer"
+  },
+  "LuckyBox_Galactic_Elite": {
+    "en": "Elite Mystery Box Galactic ",
+    "es": "Caja Misteriosa Galáctico Élite",
+    "fr": "Boite Mystère Galactique Elite",
+    "de": "Elite Galaktisch-Mystery-Box",
+    "pt": "Caixa Misteriosa Galáctica Elite",
+    "it": "Scatola Misteriosa Galattica Élite",
+    "tr": "Elit Gizem Kutusu Galaktik ",
+    "nl": "Elite Galactische Geheime Doos"
+  },
+  "Mystery_Autumn_2026": {
+    "en": "Autumn Mystery Box",
+    "es": "Caja Misteriosa Otoño",
+    "fr": "Boïte Mystère d'automne",
+    "de": "Herbst-Mystery-Box",
+    "pt": "Caixa Mistério de Outono",
+    "it": "Scatola Misteriosa dell’autunno",
+    "tr": "Gizemli Güz Kutusu",
+    "nl": "Geheime doos herfst"
+  },
+  "LuckyBox_Zoo_Prime": {
+    "en": "Legendary Zoomorph Box",
+    "es": "Caja Zoomorfo Legendaria",
+    "fr": "Boîte Zoomorph Légendaire",
+    "de": "Legendäre Zoomorph-Box",
+    "pt": "Caixa Zoomorfo Lendária",
+    "it": "Scatola Zoomorfo Leggendario",
+    "tr": "Efsanevi Hayvansı Kutusu",
+    "nl": "Legendarische Zoömorfbox"
+  },
+  "Luckybox_Hyperspeed": {
+    "en": "Hyperspeed Mutants Box",
+    "es": "Cofre de Mutantes Muy Rápidos",
+    "fr": "Coffre Vitesse Extrême",
+    "de": "Speed Mutanten-Box",
+    "pt": "Cofre de Mutantes Velozes",
+    "it": "Scatola Mutanti Molto Veloci",
+    "tr": "Yıldırım Mutantlar Kutusu",
+    "nl": "Snelle Mutanten Doos"
+  },
+  "Luckybox_Zodiac_Silver_18": {
+    "en": "Silver Zodiac Mystery Box",
+    "es": "Caja Misteriosa Zodiaco Plata",
+    "fr": "Boîte Mystère Zodiaque Argent",
+    "de": "Zodiakus Mystery-Box Silber",
+    "pt": "Caixa Misteriosa do Zodíaco Prateado",
+    "it": "Scatola Misteriosa Zodiaco Argento",
+    "tr": "Gümüş Burç Gizem Kutusu",
+    "nl": "Zilveren Zodiak Geheime Doos"
+  },
+  "LuckyBox_Stars_23": {
+    "en": "Star Box",
+    "es": "Caja Estrella",
+    "fr": "Boite Etoiles",
+    "de": "Sternentruhe",
+    "pt": "Caixa Estrelas",
+    "it": "Scatola delle stelle",
+    "tr": "Yıldız Kutusu",
+    "nl": "Sterrendoos"
+  },
+  "Mysterybox_Ability_Strengthen": {
+    "en": "Boost Mystery Box",
+    "es": "Caja Misteriosa Fortalecimiento",
+    "fr": "Boîte Mystère Boost",
+    "de": "Booster-Mystery-Box ",
+    "pt": "Caixa Mistério Boost",
+    "it": "Scatola Misteriosa Miglioramento",
+    "tr": "Gizemli Kutu  Artırma",
+    "nl": "Boost Geheime Doos"
   }
 }

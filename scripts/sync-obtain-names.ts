@@ -1,7 +1,9 @@
 // Батч 11 (3): резолвит названия bundle/box товаров (itemId, проставлен
 // backfill-obtain-itemid.ts) на все 8 не-RU локалей через тот же приём, что
 // build-boxes.ts/detect-shop-forecast.ts - itemId как ключ в
-// localisation_{lang}.txt. RU не резолвится - obtain.json's "where" уже
+// localisation_{lang}.txt. С 2026-09-18 сюда же добавлены офферы со страницы
+// анонсов (прогноз магазина и "скоро в игре"): там те же itemId, и словарь
+// нужен тот же - отдельный дубликат заводить незачем. RU не резолвится - obtain.json's "where" уже
 // RU-канон (7 коммитов ручной курации), эта миграция его не трогает.
 //
 // Покрытие ключей itemId в localisation_{lang}.txt НЕ гарантировано таким же,
@@ -19,6 +21,7 @@ const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 const LOC_URL = (locale: string) =>
   `https://s-beta.kobojo.com/mutants/gameconfig/localisation_${locale}.txt`
 const OBTAIN_PATH = path.join(process.cwd(), 'src/data/mutants/obtain.json')
+const ANNOUNCEMENTS_PATH = path.join(process.cwd(), 'src/data/announcements.json')
 const MUTANTS_PATH = path.join(process.cwd(), 'src/data/mutants/mutants.json')
 const NAMES_PATH = (locale: string) =>
   path.join(process.cwd(), `src/data/mutants/names.${locale}.json`)
@@ -69,11 +72,14 @@ function lookup(
 }
 
 async function main() {
-  const [obtainRaw, mutantsRaw] = await Promise.all([
+  const [obtainRaw, mutantsRaw, announcementsRaw] = await Promise.all([
     fs.readFile(OBTAIN_PATH, 'utf-8'),
     fs.readFile(MUTANTS_PATH, 'utf-8'),
+    fs.readFile(ANNOUNCEMENTS_PATH, 'utf-8').catch(() => '[]'),
   ])
   const obtain: Record<string, ObtainEntry[]> = JSON.parse(obtainRaw)
+  const announcements: { category?: string; items?: { id: string }[] | null }[] =
+    JSON.parse(announcementsRaw)
   const mutants: Array<{ id: string; name: string }> = JSON.parse(mutantsRaw)
   const mutantIdSet = new Set(mutants.map((m) => m.id))
 
@@ -86,6 +92,23 @@ async function main() {
     for (const e of entries) if (e.itemId) itemIds.add(e.itemId)
   }
   console.log(`[SETUP] ${itemIds.size} уникальных itemId в obtain.json`)
+
+  // Офферы страницы анонсов. Сырой id там - "<спринт>|<itemId>", у "скоро в
+  // игре" ещё и с префиксом Shop_ (та же чистка, что в resolveForecastTarget).
+  // Мутантов пропускаем: их имя берётся из names.{locale}.json, а не отсюда.
+  const beforeAnnouncements = itemIds.size
+  for (const a of announcements) {
+    if (a.category !== 'shopForecast' && a.category !== 'dailyNews') continue
+    for (const it of a.items ?? []) {
+      const clean = (it.id.includes('|') ? it.id.slice(it.id.indexOf('|') + 1) : it.id)
+        .replace(/^-+/, '')
+        .replace(/^#/, '')
+        .replace(/^shop_/i, '')
+      if (!clean || /^specimen_/i.test(clean)) continue
+      itemIds.add(clean)
+    }
+  }
+  console.log(`[SETUP] +${itemIds.size - beforeAnnouncements} itemId из анонсов магазина`)
 
   for (const locale of LOCALES) {
     console.log(`[${locale}] Загрузка localisation_${locale}.txt...`)

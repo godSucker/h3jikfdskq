@@ -12,7 +12,7 @@ import dungeonCovers from '@/data/guides/dungeon-covers.json'
 import { translateItemId, getItemTexture } from '@/lib/craft-simulator'
 import { getLocalisedName } from '@/lib/localisation'
 import { getGeneIcon } from '@/lib/mutant-icons'
-import { GENE_RU, bingoLabel } from '@/lib/mutant-dicts'
+import { GENE_RU, bingoLabelL } from '@/lib/mutant-dicts'
 import bingosData from '@/data/bingos.json'
 import eventQuestsData from '@/data/guides/event-quests.json'
 import { shouldShowAmount } from '@/lib/event-quest-text'
@@ -293,10 +293,11 @@ export function boxDescription(box: BoxEntry, locale: Locale = 'ru'): string {
     .toUpperCase()
 }
 
-export function formatBingoTitle(title: string, id: string): string {
-  const labelById = bingoLabel(id)
+export function formatBingoTitle(title: string, id: string, locale: Locale = 'ru'): string {
+  // Тот же словарь названий досок, что на /bingo (bingoLabelL).
+  const labelById = bingoLabelL(id, locale)
   if (labelById && labelById !== id) return labelById
-  const labelByTitle = bingoLabel(title)
+  const labelByTitle = bingoLabelL(title, locale)
   if (labelByTitle && labelByTitle !== title) return labelByTitle
   return title
     .replace(/^--------/, '')
@@ -389,7 +390,13 @@ function buildContext(locale: Locale): AnnouncementRenderContext {
   // на /guides и /materials (см. GuidesPage.astro: RU-источники Kobojo не
   // принимают локаль, поэтому на не-RU их отключаем, чтобы русский текст не
   // утекал в другие языки).
-  const { names } = getLocalizedMutantNames(locale)
+  // obtainNames - словарь имён товаров магазина (пакеты, бандлы, контейнеры)
+  // из официальной локализации Kobojo, тот же, что в модалке мутанта в разделе
+  // "как получить" (scripts/sync-obtain-names.ts).
+  const { names, obtainNames } = getLocalizedMutantNames(locale)
+  const obtainNamesLower = new Map(
+    Object.entries(obtainNames).map(([k, v]) => [k.toLowerCase(), v]),
+  )
   const mutantsById = new Map(
     (mutantsData as MutantRaw[]).map((m) => [m.id, { ...m, name: names[m.id]?.name ?? m.name }]),
   )
@@ -506,8 +513,18 @@ function buildContext(locale: Locale): AnnouncementRenderContext {
     boxName: (box: BoxEntry) => getBoxName(box.itemId, locale, box.name),
     offerName: (rawItemId: string, fallback: string) => {
       if (locale === 'ru' || !rawItemId) return fallback
-      const clean = rawItemId.includes('|') ? rawItemId.slice(rawItemId.indexOf('|') + 1) : rawItemId
-      return getBoxName(clean, locale, '') || getItemName(clean, locale, '') || fallback
+      const clean = (
+        rawItemId.includes('|') ? rawItemId.slice(rawItemId.indexOf('|') + 1) : rawItemId
+      )
+        .replace(/^-+/, '')
+        .replace(/^#/, '')
+        .replace(/^shop_/i, '')
+      const key = clean.toLowerCase()
+      return (
+        obtainNamesLower.get(key) ??
+        obtainNamesLower.get(key.replace(/\d+$/, '')) ??
+        (getBoxName(clean, locale, '') || getItemName(clean, locale, '') || fallback)
+      )
     },
     eventQuestByFilter,
     mutantsById,
