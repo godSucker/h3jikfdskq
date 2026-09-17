@@ -15,7 +15,9 @@ import { buildAnnouncementContext, type Announcement } from '@/lib/announcements
 const id = Astro.params.id;
 const announcements = (announcementsData as Announcement[]) ?? [];
 const a = announcements.find((x) => x.id === id);
-const ctx = buildAnnouncementContext();
+// Скриншот-бот снимает только русскую версию карточки (в админку уходит
+// русский пост) - страница анонсов для игроков переведена, а этот рендер нет.
+const ctx = buildAnnouncementContext('ru');
 
 // Прогноз магазина/«скоро в игре» - доска офферов. Юзеру FHD-ширина (8
 // мелких колонок) не зашла - вернули к «крупным плиткам» ~4 в ряд (фидбек

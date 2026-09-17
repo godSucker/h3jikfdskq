@@ -2053,6 +2053,96 @@
       "it": "Jungle Bells 3",
       "tr": "Jungle Bells 3",
       "nl": "Jungle Bells 3"
+    },
+    "experiment/celestial_13": {
+      "en": "Celestial Body",
+      "es": "Cuerpo celeste",
+      "fr": "Corps céleste",
+      "de": "Himmelskörper",
+      "pt": "Corpo celeste",
+      "it": "Corpo celeste",
+      "tr": "Gök cismi",
+      "nl": "Hemellichaam"
+    },
+    "experiment/pit_saber_12": {
+      "en": "The Pit: Saber",
+      "es": "El Foso: Sable",
+      "fr": "La Fosse : Sabre",
+      "de": "Die Grube: Säbel",
+      "pt": "O Fosso: Sabre",
+      "it": "La Fossa: Sciabola",
+      "tr": "Çukur: Kılıç",
+      "nl": "De Kuil: Saber"
+    },
+    "experiment/pit_galactic_12": {
+      "en": "The Pit: Galactic",
+      "es": "El Foso: Galáctico",
+      "fr": "La Fosse : Galactique",
+      "de": "Die Grube: Galaktisch",
+      "pt": "O Fosso: Galáctico",
+      "it": "La Fossa: Galattico",
+      "tr": "Çukur: Galaktik",
+      "nl": "De Kuil: Galactic"
+    },
+    "challenge/rapanui_17": {
+      "en": "Rapa Nui",
+      "es": "Rapa Nui",
+      "fr": "Rapa Nui",
+      "de": "Rapa Nui",
+      "pt": "Rapa Nui",
+      "it": "Rapa Nui",
+      "tr": "Rapa Nui",
+      "nl": "Rapa Nui"
+    },
+    "challenge/gotham_17": {
+      "en": "Dark City",
+      "es": "Ciudad oscura",
+      "fr": "Ville sombre",
+      "de": "Dunkle Stadt",
+      "pt": "Cidade sombria",
+      "it": "Città oscura",
+      "tr": "Karanlık şehir",
+      "nl": "Donkere stad"
+    },
+    "challenge/jungle_17": {
+      "en": "Amazon",
+      "es": "Amazonas",
+      "fr": "Amazonie",
+      "de": "Amazonas",
+      "pt": "Amazônia",
+      "it": "Amazzonia",
+      "tr": "Amazon",
+      "nl": "Amazone"
+    },
+    "challenge/miami_17": {
+      "en": "Miami Beach Fights",
+      "es": "Combates en la playa de Miami",
+      "fr": "Combats de plage à Miami",
+      "de": "Strandkämpfe in Miami",
+      "pt": "Lutas na praia de Miami",
+      "it": "Scontri sulla spiaggia di Miami",
+      "tr": "Miami sahil dövüşleri",
+      "nl": "Strandgevechten in Miami"
+    },
+    "challenge/olympus_17": {
+      "en": "Mount Olympus",
+      "es": "Monte Olimpo",
+      "fr": "Mont Olympe",
+      "de": "Olymp",
+      "pt": "Monte Olimpo",
+      "it": "Monte Olimpo",
+      "tr": "Olimpos Dağı",
+      "nl": "Olympus"
+    },
+    "challenge/space_17": {
+      "en": "Spaceport",
+      "es": "Puerto espacial",
+      "fr": "Spatioport",
+      "de": "Raumhafen",
+      "pt": "Porto espacial",
+      "it": "Porto spaziale",
+      "tr": "Uzay limanı",
+      "nl": "Ruimtehaven"
     }
   },
   "specialOfferNames": {

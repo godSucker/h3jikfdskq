@@ -55,12 +55,61 @@ export function currentSprint(now: Date = new Date()): number {
   return SPRINT_ANCHOR.sprint + Math.floor(diffDays / DAYS_PER_SPRINT)
 }
 
+// Форматирование дат анонсов. RU-функции остались отдельными: ими собираются
+// строки, которые ЛОЖАТСЯ В ДАННЫЕ (announcements.json) и уходят в
+// скриншот-бота, а страница с 2026-09-18 рисует подпись сама по ISO-датам на
+// языке посетителя (см. formatExactRange/formatSprintRange).
+const INTL_LOCALE: Record<string, string> = {
+  ru: 'ru-RU',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  it: 'it-IT',
+  tr: 'tr-TR',
+  nl: 'nl-NL',
+}
+
+export function formatDateIn(d: Date, locale: string): string {
+  return d.toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    timeZone: 'UTC',
+  })
+}
+
 export function formatDateRu(d: Date): string {
-  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', timeZone: 'UTC' })
+  return formatDateIn(d, 'ru')
+}
+
+// Диапазон одним куском. По-русски собираем вручную ("2 — 22 октября"): ровно
+// этот вид уходит в данные и на скриншоты бота, менять его нельзя. Остальные
+// языки отдаём Intl.formatRange - он сам знает, что по-английски правильно
+// "October 2 – 22", а не "2 — October 22".
+export function formatExactRange(start: Date, end: Date | null, locale: string): string {
+  if (!end) return formatDateIn(start, locale)
+  if (locale !== 'ru') {
+    return new Intl.DateTimeFormat(INTL_LOCALE[locale] ?? 'en-US', {
+      day: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    }).formatRange(start, end)
+  }
+  const sameMonth =
+    start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()
+  const startLabel = sameMonth
+    ? start.toLocaleDateString('ru-RU', { day: 'numeric', timeZone: 'UTC' })
+    : formatDateIn(start, 'ru')
+  return `${startLabel} — ${formatDateIn(end, 'ru')}`
+}
+
+export function sprintRangeLabelIn(sprint: number, locale: string): string {
+  return formatExactRange(sprintStartDate(sprint), sprintEndDate(sprint), locale)
 }
 
 export function sprintRangeLabel(sprint: number): string {
-  return `${formatDateRu(sprintStartDate(sprint))} — ${formatDateRu(sprintEndDate(sprint))}`
+  return sprintRangeLabelIn(sprint, 'ru')
 }
 
 // Точный диапазон ОДНОГО оффера (не всего спринта) - из живого kartel-запроса
@@ -69,11 +118,5 @@ export function sprintRangeLabel(sprint: number): string {
 // auto-announcements-architecture). end опционален - часть фильтров (долгие
 // "фичи", не ротации) endDate не несут вообще (-1 в живых данных).
 export function formatExactRangeRu(start: Date, end: Date | null): string {
-  if (!end) return formatDateRu(start)
-  const sameMonth =
-    start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()
-  const startLabel = sameMonth
-    ? start.toLocaleDateString('ru-RU', { day: 'numeric', timeZone: 'UTC' })
-    : formatDateRu(start)
-  return `${startLabel} — ${formatDateRu(end)}`
+  return formatExactRange(start, end, 'ru')
 }

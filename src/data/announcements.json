@@ -55,7 +55,8 @@
         "name": "Таинственный контейнер «Снова в школу»",
         "image": "/boxes/mystery_school.png",
         "exactDateLabel": "31 августа — 7 сентября",
-        "exactDateStart": "2026-08-31T10:00:00+00:00"
+        "exactDateStart": "2026-08-31T10:00:00+00:00",
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       }
     ],
     "link": "/boxes"
@@ -131,7 +132,8 @@
         "name": "Лесенка «Небесное тело» (50 боёв)",
         "image": "textures_by_mutant/ce_11/specimen_ce_11_normal.webp",
         "exactDateLabel": "12 сентября — 2 октября",
-        "exactDateStart": "2026-09-12T10:00:00+00:00"
+        "exactDateStart": "2026-09-12T10:00:00+00:00",
+        "exactDateEnd": "2026-10-02T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -147,7 +149,8 @@
         "name": "Лесенка «Яма: Рубака» (45 боёв)",
         "image": "textures_by_mutant/cc_10/specimen_cc_10_normal.webp",
         "exactDateLabel": "2 — 22 октября",
-        "exactDateStart": "2026-10-02T10:00:00+00:00"
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-22T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -163,7 +166,8 @@
         "name": "Лесенка «Яма: Галактик» (45 боёв)",
         "image": "textures_by_mutant/eb_10/specimen_eb_10_normal.webp",
         "exactDateLabel": "23 августа — 12 сентября",
-        "exactDateStart": "2026-08-23T10:00:00+00:00"
+        "exactDateStart": "2026-08-23T10:00:00+00:00",
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -193,7 +197,8 @@
         "name": "Лесенка «Темный город» (100 боёв)",
         "image": null,
         "exactDateLabel": "16 — 30 октября",
-        "exactDateStart": "2026-10-16T10:00:00+00:00"
+        "exactDateStart": "2026-10-16T10:00:00+00:00",
+        "exactDateEnd": "2026-10-30T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -209,7 +214,8 @@
         "name": "Лесенка «Амазонка» (101 боёв)",
         "image": null,
         "exactDateLabel": "2 — 16 октября",
-        "exactDateStart": "2026-10-02T10:00:00+00:00"
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-16T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -225,7 +231,8 @@
         "name": "Лесенка «Пляжные бои Майами» (100 боёв)",
         "image": null,
         "exactDateLabel": "18 сентября — 2 октября",
-        "exactDateStart": "2026-09-18T10:00:00+00:00"
+        "exactDateStart": "2026-09-18T10:00:00+00:00",
+        "exactDateEnd": "2026-10-02T00:00:00.000Z"
       }
     ],
     "link": "/guides"
@@ -276,7 +283,8 @@
         "exactDateLabel": "18 — 21 сентября",
         "exactDateStart": "2026-09-18T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-21T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_EA_06_Bronze",
@@ -292,7 +300,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EA_06"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|bundle_orbs_crafting_master",
@@ -306,7 +315,8 @@
         "exactDateLabel": "17 — 19 сентября",
         "exactDateStart": "2026-09-17T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_FC_08_sc",
@@ -322,7 +332,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_08"
-        ]
+        ],
+        "exactDateEnd": "2026-09-18T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_FC_04",
@@ -338,7 +349,8 @@
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_FC_04"
-        ]
+        ],
+        "exactDateEnd": "2026-09-23T00:00:00.000Z"
       },
       {
         "id": "256|pack_be_13_1000_hc",
@@ -354,7 +366,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BE_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|pack_be_13_4000_hc",
@@ -370,7 +383,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BE_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|pack_be_13_10000_hc",
@@ -386,7 +400,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BE_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_BB_08",
@@ -402,7 +417,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_08"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|LuckyBox_Research_IX",
@@ -451,7 +467,8 @@
           "Specimen_FC_10",
           "Specimen_FE_10",
           "Specimen_FF_10"
-        ]
+        ],
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_BA_05_Gold",
@@ -467,7 +484,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_05"
-        ]
+        ],
+        "exactDateEnd": "2026-09-16T00:00:00.000Z"
       },
       {
         "id": "256|Pack_Dieselpunk",
@@ -485,7 +503,8 @@
           "Specimen_BA_09",
           "Specimen_AD_07",
           "Specimen_BA_11"
-        ]
+        ],
+        "exactDateEnd": "2026-09-17T00:00:00.000Z"
       },
       {
         "id": "256|pack_daily_3_gold_68",
@@ -499,7 +518,8 @@
         "exactDateLabel": "14 — 16 сентября",
         "exactDateStart": "2026-09-14T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-16T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_BC_13_rc",
@@ -515,7 +535,8 @@
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_BC_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-21T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_EA_09_sc",
@@ -531,7 +552,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EA_09"
-        ]
+        ],
+        "exactDateEnd": "2026-09-15T00:00:00.000Z"
       },
       {
         "id": "256|bundle_orbs_experimental_growth_11",
@@ -545,7 +567,8 @@
         "exactDateLabel": "13 — 16 сентября",
         "exactDateStart": "2026-09-13T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-16T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_DC_06_Bronze_sc",
@@ -561,7 +584,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DC_06"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_AA_06_Gold",
@@ -577,7 +601,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_06"
-        ]
+        ],
+        "exactDateEnd": "2026-09-13T00:00:00.000Z"
       },
       {
         "id": "256|LuckyBox_Mythic_Prime",
@@ -632,7 +657,8 @@
           "Specimen_FC_10",
           "Specimen_FE_10",
           "Specimen_FF_10"
-        ]
+        ],
+        "exactDateEnd": "2026-09-15T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_CA_06",
@@ -648,7 +674,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_06"
-        ]
+        ],
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       },
       {
         "id": "256|bank_ca_12_t1",
@@ -664,7 +691,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_12"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|bank_bd_99_10jp",
@@ -680,7 +708,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BD_99"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|bank_bc_13_20jp",
@@ -696,7 +725,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BC_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|bank_da_13_45jp",
@@ -712,7 +742,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DA_13"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|bank_fb_14_100jp",
@@ -728,7 +759,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|pack_daily_50_jt_59",
@@ -742,7 +774,8 @@
         "exactDateLabel": "10 — 12 сентября",
         "exactDateStart": "2026-09-10T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_EC_07_Bronze",
@@ -758,7 +791,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EC_07"
-        ]
+        ],
+        "exactDateEnd": "2026-09-11T00:00:00.000Z"
       },
       {
         "id": "256|Pack_Nightmare",
@@ -776,7 +810,8 @@
           "Specimen_FB_11",
           "Specimen_BE_12",
           "Specimen_BA_07"
-        ]
+        ],
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_AC_09_Bronze",
@@ -792,7 +827,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AC_09"
-        ]
+        ],
+        "exactDateEnd": "2026-09-10T00:00:00.000Z"
       },
       {
         "id": "256|Mysterybox_Ability_Slash",
@@ -847,7 +883,9 @@
           "Specimen_DF_02",
           "Specimen_DB_02",
           "Specimen_DE_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Specimen_EE_04",
@@ -863,7 +901,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_04"
-        ]
+        ],
+        "exactDateEnd": "2026-09-09T00:00:00.000Z"
       },
       {
         "id": "256|bundle_orbs_life_5_38",
@@ -877,7 +916,8 @@
         "exactDateLabel": "7 — 10 сентября",
         "exactDateStart": "2026-09-07T10:00:00+00:00",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": "2026-09-10T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_CC_12_Gold",
@@ -893,7 +933,8 @@
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_CC_12"
-        ]
+        ],
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|Specimen_AC_08_sc",
@@ -909,7 +950,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AC_08"
-        ]
+        ],
+        "exactDateEnd": "2026-09-08T00:00:00.000Z"
       },
       {
         "id": "256|pack_powerlevel_90",
@@ -923,7 +965,9 @@
         "exactDateLabel": "≈ 6 сентября",
         "exactDateStart": "2026-09-06T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Specimen_EE_07_Bronze",
@@ -939,7 +983,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_07"
-        ]
+        ],
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "256|LuckyBox_Cyber_Elite",
@@ -1025,7 +1070,9 @@
           "Specimen_DA_06",
           "Specimen_DA_07",
           "Specimen_DA_10"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Specimen_EB_05_Bronze",
@@ -1041,7 +1088,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EB_05"
-        ]
+        ],
+        "exactDateEnd": "2026-09-06T00:00:00.000Z"
       }
     ],
     "link": "/materials",
@@ -1063,7 +1111,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "18 — 21 сентября",
-        "exactDateStart": "2026-09-18T10:00:00+00:00"
+        "exactDateStart": "2026-09-18T10:00:00+00:00",
+        "exactDateEnd": "2026-09-21T00:00:00.000Z"
       },
       {
         "id": "256|Shop_bundle_orbs_retaliate_5_27",
@@ -1075,7 +1124,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 18 сентября",
-        "exactDateStart": "2026-09-18T10:00:00.000Z"
+        "exactDateStart": "2026-09-18T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Shop_bundle_orbs_crafting_master",
@@ -1087,7 +1138,8 @@
         },
         "ribbon": "discount-75",
         "exactDateLabel": "17 — 19 сентября",
-        "exactDateStart": "2026-09-17T10:00:00+00:00"
+        "exactDateStart": "2026-09-17T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Shop_pack_be_13_1000_hc",
@@ -1099,7 +1151,8 @@
         },
         "ribbon": "new",
         "exactDateLabel": "16 — 19 сентября",
-        "exactDateStart": "2026-09-16T10:00:00+00:00"
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Shop_pack_be_13_4000_hc",
@@ -1111,7 +1164,8 @@
         },
         "ribbon": "new",
         "exactDateLabel": "16 — 19 сентября",
-        "exactDateStart": "2026-09-16T10:00:00+00:00"
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Shop_pack_be_13_10000_hc",
@@ -1123,7 +1177,8 @@
         },
         "ribbon": "new",
         "exactDateLabel": "16 — 19 сентября",
-        "exactDateStart": "2026-09-16T10:00:00+00:00"
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Shop_Specimen_FC_04",
@@ -1135,7 +1190,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "16 — 23 сентября",
-        "exactDateStart": "2026-09-16T10:00:00+00:00"
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-09-23T00:00:00.000Z"
       },
       {
         "id": "256|Shop_LuckyBox_Research_IX",
@@ -1147,7 +1203,8 @@
         },
         "ribbon": "new",
         "exactDateLabel": "15 — 19 сентября",
-        "exactDateStart": "2026-09-15T10:00:00+00:00"
+        "exactDateStart": "2026-09-15T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|Shop_Pack_Dieselpunk",
@@ -1159,7 +1216,8 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": "14 — 17 сентября",
-        "exactDateStart": "2026-09-14T10:00:00+00:00"
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
+        "exactDateEnd": "2026-09-17T00:00:00.000Z"
       },
       {
         "id": "256|Shop_pack_daily_3_gold_68",
@@ -1171,7 +1229,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "14 — 16 сентября",
-        "exactDateStart": "2026-09-14T10:00:00+00:00"
+        "exactDateStart": "2026-09-14T10:00:00+00:00",
+        "exactDateEnd": "2026-09-16T00:00:00.000Z"
       },
       {
         "id": "256|Shop_bundle_orbs_experimental_growth_11",
@@ -1183,7 +1242,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "13 — 16 сентября",
-        "exactDateStart": "2026-09-13T10:00:00+00:00"
+        "exactDateStart": "2026-09-13T10:00:00+00:00",
+        "exactDateEnd": "2026-09-16T00:00:00.000Z"
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256b",
@@ -1192,7 +1252,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "12 — 19 сентября",
-        "exactDateStart": "2026-09-12T10:00:00+00:00"
+        "exactDateStart": "2026-09-12T10:00:00+00:00",
+        "exactDateEnd": "2026-09-19T00:00:00.000Z"
       },
       {
         "id": "256|daily_news_jackpot_madness_weekend_50",
@@ -1201,7 +1262,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "11 — 14 сентября",
-        "exactDateStart": "2026-09-11T10:00:00+00:00"
+        "exactDateStart": "2026-09-11T10:00:00+00:00",
+        "exactDateEnd": "2026-09-14T00:00:00.000Z"
       },
       {
         "id": "256|Shop_LuckyBox_Mythic_Prime",
@@ -1213,7 +1275,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "11 — 15 сентября",
-        "exactDateStart": "2026-09-11T10:00:00+00:00"
+        "exactDateStart": "2026-09-11T10:00:00+00:00",
+        "exactDateEnd": "2026-09-15T00:00:00.000Z"
       },
       {
         "id": "256|PayWall_Sprint_247",
@@ -1222,7 +1285,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "10 — 13 сентября",
-        "exactDateStart": "2026-09-10T10:00:00+00:00"
+        "exactDateStart": "2026-09-10T10:00:00+00:00",
+        "exactDateEnd": "2026-09-13T00:00:00.000Z"
       },
       {
         "id": "256|shop_pack_daily_50_jt_59",
@@ -1234,7 +1298,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "10 — 12 сентября",
-        "exactDateStart": "2026-09-10T10:00:00+00:00"
+        "exactDateStart": "2026-09-10T10:00:00+00:00",
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       },
       {
         "id": "256|Shop_Pack_Nightmare",
@@ -1246,7 +1311,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "9 — 12 сентября",
-        "exactDateStart": "2026-09-09T10:00:00+00:00"
+        "exactDateStart": "2026-09-09T10:00:00+00:00",
+        "exactDateEnd": "2026-09-12T00:00:00.000Z"
       },
       {
         "id": "256|Shop_Mysterybox_Ability_Slash",
@@ -1258,7 +1324,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 8 сентября",
-        "exactDateStart": "2026-09-08T10:00:00.000Z"
+        "exactDateStart": "2026-09-08T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Shop_bundle_orbs_life_5_38",
@@ -1270,7 +1338,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "7 — 10 сентября",
-        "exactDateStart": "2026-09-07T10:00:00+00:00"
+        "exactDateStart": "2026-09-07T10:00:00+00:00",
+        "exactDateEnd": "2026-09-10T00:00:00.000Z"
       },
       {
         "id": "256|Shop_pack_powerlevel_90",
@@ -1282,7 +1351,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 6 сентября",
-        "exactDateStart": "2026-09-06T10:00:00.000Z"
+        "exactDateStart": "2026-09-06T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Shop_LuckyBox_Cyber_Elite",
@@ -1294,7 +1365,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 5 сентября",
-        "exactDateStart": "2026-09-05T10:00:00.000Z"
+        "exactDateStart": "2026-09-05T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Daily_news_shop_24h_2026_256a",
@@ -1303,7 +1376,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 5 сентября",
-        "exactDateStart": "2026-09-05T10:00:00.000Z"
+        "exactDateStart": "2026-09-05T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "256|Daily_news_challenge_hall_block_5_2026",
@@ -1312,7 +1387,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "15 — 22 сентября",
-        "exactDateStart": "2026-09-15T10:00:00+00:00"
+        "exactDateStart": "2026-09-15T10:00:00+00:00",
+        "exactDateEnd": "2026-09-22T00:00:00.000Z"
       }
     ],
     "link": "/announcements",
@@ -1335,7 +1411,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|bank_fc_11_ex_t4",
@@ -1348,7 +1425,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|bank_ba_12_ex_t3",
@@ -1361,7 +1439,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|bank_ca_09_ex_t2",
@@ -1374,7 +1453,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|bank_fb_14_ex_t1",
@@ -1387,7 +1467,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Mystery_School_2026",
@@ -1400,7 +1481,8 @@
         "ribbon": "limited",
         "exactDateLabel": "31 августа — 7 сентября",
         "exactDateStart": "2026-08-31T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Bundle_Mutants_BTG",
@@ -1413,7 +1495,8 @@
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_BA_06_Bronze",
@@ -1426,7 +1509,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "4 — 5 сентября",
         "exactDateStart": "2026-09-04T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-09-05T00:00:00.000Z"
       },
       {
         "id": "255|bundle_orbs_strengthen_5_28",
@@ -1439,7 +1523,8 @@
         "ribbon": "limited",
         "exactDateLabel": "3 — 6 сентября",
         "exactDateStart": "2026-09-03T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-06T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_B_01_Platinum",
@@ -1452,7 +1537,8 @@
         "ribbon": "limited",
         "exactDateLabel": "3 — 4 сентября",
         "exactDateStart": "2026-09-03T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-09-04T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DA_15_Gold",
@@ -1465,7 +1551,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "2 — 30 сентября",
         "exactDateStart": "2026-09-02T10:00:00+00:00",
-        "featuredMutant": "month"
+        "featuredMutant": "month",
+        "exactDateEnd": "2026-09-30T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DA_15_rc",
@@ -1478,7 +1565,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "2 — 30 сентября",
         "exactDateStart": "2026-09-02T10:00:00+00:00",
-        "featuredMutant": "month"
+        "featuredMutant": "month",
+        "exactDateEnd": "2026-09-30T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DC_05_Silver",
@@ -1491,7 +1579,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "2 — 3 сентября",
         "exactDateStart": "2026-09-02T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-09-03T00:00:00.000Z"
       },
       {
         "id": "255|pack_daily_10_challenge_44",
@@ -1504,7 +1593,8 @@
         "ribbon": "limited",
         "exactDateLabel": "1 — 3 сентября",
         "exactDateStart": "2026-09-01T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-03T00:00:00.000Z"
       },
       {
         "id": "255|LuckyBox_Galactic_Prime",
@@ -1517,7 +1607,8 @@
         "ribbon": "limited",
         "exactDateLabel": "1 — 5 сентября",
         "exactDateStart": "2026-09-01T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-05T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DF_04_Bronze",
@@ -1530,7 +1621,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "1 — 2 сентября",
         "exactDateStart": "2026-09-01T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_ED_13_rc",
@@ -1543,7 +1635,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "31 августа — 7 сентября",
         "exactDateStart": "2026-08-31T10:00:00+00:00",
-        "featuredMutant": "week"
+        "featuredMutant": "week",
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_EA_04_Bronze",
@@ -1556,7 +1649,8 @@
         "ribbon": "limited",
         "exactDateLabel": "31 августа — 1 сентября",
         "exactDateStart": "2026-08-31T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-09-01T00:00:00.000Z"
       },
       {
         "id": "255|Pack_Toxic",
@@ -1569,7 +1663,8 @@
         "ribbon": "discount-20",
         "exactDateLabel": "30 августа — 2 сентября",
         "exactDateStart": "2026-08-30T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|bank_b_14_10ct",
@@ -1582,7 +1677,8 @@
         "ribbon": null,
         "exactDateLabel": "30 августа — 2 сентября",
         "exactDateStart": "2026-08-30T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|bank_b_14_25ct",
@@ -1595,7 +1691,8 @@
         "ribbon": null,
         "exactDateLabel": "30 августа — 2 сентября",
         "exactDateStart": "2026-08-30T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|bank_b_14_60ct",
@@ -1608,7 +1705,8 @@
         "ribbon": null,
         "exactDateLabel": "30 августа — 2 сентября",
         "exactDateStart": "2026-08-30T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_CB_04_Bronze",
@@ -1621,7 +1719,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "30 — 31 августа",
         "exactDateStart": "2026-08-30T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-31T00:00:00.000Z"
       },
       {
         "id": "255|Luckybox_Hyperheavy",
@@ -1634,7 +1733,8 @@
         "ribbon": "limited",
         "exactDateLabel": "29 августа — 1 сентября",
         "exactDateStart": "2026-08-29T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-09-01T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DE_06",
@@ -1647,7 +1747,8 @@
         "ribbon": "limited",
         "exactDateLabel": "29 — 30 августа",
         "exactDateStart": "2026-08-29T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-30T00:00:00.000Z"
       },
       {
         "id": "255|bundle_orbs_experimental_tank_11",
@@ -1660,7 +1761,8 @@
         "ribbon": "limited",
         "exactDateLabel": "28 — 30 августа",
         "exactDateStart": "2026-08-28T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-30T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_AE_09_Bronze",
@@ -1673,7 +1775,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "28 — 29 августа",
         "exactDateStart": "2026-08-28T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|promo_muto_pack",
@@ -1686,7 +1789,8 @@
         "ribbon": "discount-50",
         "exactDateLabel": "27 — 29 августа",
         "exactDateStart": "2026-08-27T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_FA_03_Bronze_sc",
@@ -1699,7 +1803,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "27 — 28 августа",
         "exactDateStart": "2026-08-27T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-28T00:00:00.000Z"
       },
       {
         "id": "255|LuckyBox_Zodiac_v3",
@@ -1712,7 +1817,8 @@
         "ribbon": "limited",
         "exactDateLabel": "26 — 29 августа",
         "exactDateStart": "2026-08-26T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_DE_07_sc",
@@ -1725,7 +1831,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "26 — 27 августа",
         "exactDateStart": "2026-08-26T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-27T00:00:00.000Z"
       },
       {
         "id": "255|Pack_GreenFire",
@@ -1738,7 +1845,8 @@
         "ribbon": "discount-30",
         "exactDateLabel": "25 — 28 августа",
         "exactDateStart": "2026-08-25T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-28T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_CC_08_Bronze",
@@ -1751,7 +1859,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "25 — 26 августа",
         "exactDateStart": "2026-08-25T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|pack_gold_1000_hc_82",
@@ -1764,7 +1873,8 @@
         "ribbon": "limited",
         "exactDateLabel": "25 — 26 августа",
         "exactDateStart": "2026-08-25T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|pack_gold_4000_hc_82",
@@ -1777,7 +1887,8 @@
         "ribbon": "limited",
         "exactDateLabel": "25 — 26 августа",
         "exactDateStart": "2026-08-25T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|pack_gold_10000_hc_82",
@@ -1790,7 +1901,8 @@
         "ribbon": "limited",
         "exactDateLabel": "25 — 26 августа",
         "exactDateStart": "2026-08-25T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|pack_daily_5m_credit_68",
@@ -1803,7 +1915,8 @@
         "ribbon": "limited",
         "exactDateLabel": "24 — 26 августа",
         "exactDateStart": "2026-08-24T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_EE_13_Gold",
@@ -1816,7 +1929,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "24 — 31 августа",
         "exactDateStart": "2026-08-24T10:00:00+00:00",
-        "featuredMutant": "week"
+        "featuredMutant": "week",
+        "exactDateEnd": "2026-08-31T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_AA_05",
@@ -1829,7 +1943,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "24 — 25 августа",
         "exactDateStart": "2026-08-24T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-25T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_AF_02",
@@ -1842,7 +1957,8 @@
         "ribbon": "seasonal",
         "exactDateLabel": "23 августа — 23 сентября",
         "exactDateStart": "2026-08-23T10:00:00+00:00",
-        "featuredMutant": "month"
+        "featuredMutant": "month",
+        "exactDateEnd": "2026-09-23T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_AF_02_Silver",
@@ -1855,7 +1971,8 @@
         "ribbon": "seasonal",
         "exactDateLabel": "23 августа — 23 сентября",
         "exactDateStart": "2026-08-23T10:00:00+00:00",
-        "featuredMutant": "month"
+        "featuredMutant": "month",
+        "exactDateEnd": "2026-09-23T00:00:00.000Z"
       },
       {
         "id": "255|bundle_orbs_adaptive_slash_12",
@@ -1868,7 +1985,8 @@
         "ribbon": "limited",
         "exactDateLabel": "23 — 26 августа",
         "exactDateStart": "2026-08-23T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_BB_04",
@@ -1881,7 +1999,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "23 — 24 августа",
         "exactDateStart": "2026-08-23T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-24T00:00:00.000Z"
       },
       {
         "id": "255|LuckyBox_Research_VI_v3",
@@ -1894,7 +2013,8 @@
         "ribbon": "limited",
         "exactDateLabel": "22 — 26 августа",
         "exactDateStart": "2026-08-22T10:00:00+00:00",
-        "featuredMutant": null
+        "featuredMutant": null,
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Specimen_CD_04",
@@ -1907,7 +2027,9 @@
         "ribbon": "legendary",
         "exactDateLabel": "≈ 22 августа",
         "exactDateStart": "2026-08-22T10:00:00.000Z",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "255|Specimen_DC_04",
@@ -1920,7 +2042,8 @@
         "ribbon": "legendary",
         "exactDateLabel": "22 — 23 августа",
         "exactDateStart": "2026-08-22T10:00:00+00:00",
-        "featuredMutant": "day"
+        "featuredMutant": "day",
+        "exactDateEnd": "2026-08-23T00:00:00.000Z"
       }
     ],
     "link": "/materials",
@@ -1939,7 +2062,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "4 — 7 сентября",
-        "exactDateStart": "2026-09-04T10:00:00+00:00"
+        "exactDateStart": "2026-09-04T10:00:00+00:00",
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Mutants_Bundle_BTG",
@@ -1951,7 +2075,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "4 — 7 сентября",
-        "exactDateStart": "2026-09-04T10:00:00+00:00"
+        "exactDateStart": "2026-09-04T10:00:00+00:00",
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Shop_bundle_orbs_strengthen_5_28",
@@ -1963,7 +2088,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "3 — 6 сентября",
-        "exactDateStart": "2026-09-03T10:00:00+00:00"
+        "exactDateStart": "2026-09-03T10:00:00+00:00",
+        "exactDateEnd": "2026-09-06T00:00:00.000Z"
       },
       {
         "id": "255|Daily_News_Specimen_DA_15_release",
@@ -1975,7 +2101,8 @@
         },
         "ribbon": "legendary",
         "exactDateLabel": "2 — 30 сентября",
-        "exactDateStart": "2026-09-02T10:00:00+00:00"
+        "exactDateStart": "2026-09-02T10:00:00+00:00",
+        "exactDateEnd": "2026-09-30T00:00:00.000Z"
       },
       {
         "id": "255|News_release_pvp_bb_14",
@@ -1984,7 +2111,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "1 — 15 сентября",
-        "exactDateStart": "2026-09-01T10:00:00+00:00"
+        "exactDateStart": "2026-09-01T10:00:00+00:00",
+        "exactDateEnd": "2026-09-15T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Pack_daily_10_challenge_44",
@@ -1996,7 +2124,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "1 — 3 сентября",
-        "exactDateStart": "2026-09-01T10:00:00+00:00"
+        "exactDateStart": "2026-09-01T10:00:00+00:00",
+        "exactDateEnd": "2026-09-03T00:00:00.000Z"
       },
       {
         "id": "255|Shop_LuckyBox_Galactic_Prime",
@@ -2008,7 +2137,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "1 — 5 сентября",
-        "exactDateStart": "2026-09-01T10:00:00+00:00"
+        "exactDateStart": "2026-09-01T10:00:00+00:00",
+        "exactDateEnd": "2026-09-05T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Mystery_School_2026",
@@ -2020,7 +2150,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "31 августа — 7 сентября",
-        "exactDateStart": "2026-08-31T10:00:00+00:00"
+        "exactDateStart": "2026-08-31T10:00:00+00:00",
+        "exactDateEnd": "2026-09-07T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Pack_Toxic",
@@ -2032,7 +2163,8 @@
         },
         "ribbon": "discount-20",
         "exactDateLabel": "30 августа — 2 сентября",
-        "exactDateStart": "2026-08-30T10:00:00+00:00"
+        "exactDateStart": "2026-08-30T10:00:00+00:00",
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|PayWall_2026_B_14_CT",
@@ -2041,7 +2173,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "30 августа — 2 сентября",
-        "exactDateStart": "2026-08-30T10:00:00+00:00"
+        "exactDateStart": "2026-08-30T10:00:00+00:00",
+        "exactDateEnd": "2026-09-02T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Luckybox_Hyperheavy",
@@ -2053,7 +2186,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "29 августа — 1 сентября",
-        "exactDateStart": "2026-08-29T10:00:00+00:00"
+        "exactDateStart": "2026-08-29T10:00:00+00:00",
+        "exactDateEnd": "2026-09-01T00:00:00.000Z"
       },
       {
         "id": "255|Daily_news_shop_24h_2026_255b",
@@ -2062,7 +2196,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "22 — 29 августа",
-        "exactDateStart": "2026-08-22T10:00:00+00:00"
+        "exactDateStart": "2026-08-22T10:00:00+00:00",
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|Shop_bundle_orbs_experimental_tank_11",
@@ -2074,7 +2209,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "28 — 30 августа",
-        "exactDateStart": "2026-08-28T10:00:00+00:00"
+        "exactDateStart": "2026-08-28T10:00:00+00:00",
+        "exactDateEnd": "2026-08-30T00:00:00.000Z"
       },
       {
         "id": "255|Shop_promo_muto_pack",
@@ -2086,7 +2222,8 @@
         },
         "ribbon": "discount-50",
         "exactDateLabel": "27 — 29 августа",
-        "exactDateStart": "2026-08-27T10:00:00+00:00"
+        "exactDateStart": "2026-08-27T10:00:00+00:00",
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|Daily_news_exchange_office_block_8_2026",
@@ -2095,7 +2232,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "26 августа — 27 сентября",
-        "exactDateStart": "2026-08-26T10:00:00+00:00"
+        "exactDateStart": "2026-08-26T10:00:00+00:00",
+        "exactDateEnd": "2026-09-27T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Mystery_Zodiac_v3",
@@ -2107,7 +2245,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "26 — 29 августа",
-        "exactDateStart": "2026-08-26T10:00:00+00:00"
+        "exactDateStart": "2026-08-26T10:00:00+00:00",
+        "exactDateEnd": "2026-08-29T00:00:00.000Z"
       },
       {
         "id": "255|Shop_Pack_GreenFire",
@@ -2119,7 +2258,8 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": "25 — 28 августа",
-        "exactDateStart": "2026-08-25T10:00:00+00:00"
+        "exactDateStart": "2026-08-25T10:00:00+00:00",
+        "exactDateEnd": "2026-08-28T00:00:00.000Z"
       },
       {
         "id": "255|Shop_pack_gold_hc_82",
@@ -2131,7 +2271,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "25 — 26 августа",
-        "exactDateStart": "2026-08-25T10:00:00+00:00"
+        "exactDateStart": "2026-08-25T10:00:00+00:00",
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Shop_pack_daily_5m_credit_68",
@@ -2143,7 +2284,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "24 — 26 августа",
-        "exactDateStart": "2026-08-24T10:00:00+00:00"
+        "exactDateStart": "2026-08-24T10:00:00+00:00",
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Shop_bundle_orbs_adaptive_slash_12",
@@ -2155,7 +2297,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "23 — 26 августа",
-        "exactDateStart": "2026-08-23T10:00:00+00:00"
+        "exactDateStart": "2026-08-23T10:00:00+00:00",
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Daily_news_shop_zodiac_af_02",
@@ -2167,7 +2310,8 @@
         },
         "ribbon": "seasonal",
         "exactDateLabel": "23 августа — 23 сентября",
-        "exactDateStart": "2026-08-23T10:00:00+00:00"
+        "exactDateStart": "2026-08-23T10:00:00+00:00",
+        "exactDateEnd": "2026-09-23T00:00:00.000Z"
       },
       {
         "id": "255|Shop_LuckyBox_Research_VI_v3",
@@ -2179,7 +2323,8 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "22 — 26 августа",
-        "exactDateStart": "2026-08-22T10:00:00+00:00"
+        "exactDateStart": "2026-08-22T10:00:00+00:00",
+        "exactDateEnd": "2026-08-26T00:00:00.000Z"
       },
       {
         "id": "255|Daily_news_shop_24h_2026_255a",
@@ -2188,7 +2333,8 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "29 августа — 5 сентября",
-        "exactDateStart": "2026-08-29T10:00:00+00:00"
+        "exactDateStart": "2026-08-29T10:00:00+00:00",
+        "exactDateEnd": "2026-09-05T00:00:00.000Z"
       }
     ],
     "link": "/announcements",
@@ -2318,7 +2464,9 @@
           "Specimen_EA_02",
           "Specimen_BC_02",
           "Specimen_EB_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_FF_06",
@@ -2334,7 +2482,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_06"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Pack_Dino",
@@ -2352,7 +2502,9 @@
           "Specimen_DD_05",
           "Specimen_DA_06",
           "Specimen_D_12"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_CF_09_sc",
@@ -2368,7 +2520,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CF_09"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_AE_07_Silver",
@@ -2384,7 +2538,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_07"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|LuckyBox_Stars_23",
@@ -2398,7 +2554,9 @@
         "exactDateLabel": "≈ 29 сентября",
         "exactDateStart": "2026-09-29T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Luckybox_Zodiac_Silver_18",
@@ -2425,7 +2583,9 @@
           "Specimen_AE_02",
           "Specimen_CE_02",
           "Specimen_EF_03"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_FA_02_Gold",
@@ -2441,7 +2601,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|bundle_orbs_experimental_hyper_05",
@@ -2455,7 +2617,9 @@
         "exactDateLabel": "≈ 28 сентября",
         "exactDateStart": "2026-09-28T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_DE_12_rc",
@@ -2471,7 +2635,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DE_12"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_DD_03",
@@ -2487,7 +2653,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_03"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|pack_conversion_sep_2026_1",
@@ -2501,7 +2669,9 @@
         "exactDateLabel": "≈ 27 сентября",
         "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|pack_conversion_sep_2026_2",
@@ -2515,7 +2685,9 @@
         "exactDateLabel": "≈ 27 сентября",
         "exactDateStart": "2026-09-27T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_DE_05",
@@ -2531,7 +2703,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DE_05"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Luckybox_Hyperspeed",
@@ -2563,7 +2737,9 @@
           "Specimen_FC_06",
           "Specimen_DA_07",
           "Specimen_FA_10"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_CE_08_Bronze",
@@ -2579,7 +2755,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CE_08"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Pack_Medieval",
@@ -2597,7 +2775,9 @@
           "Specimen_CB_12",
           "Specimen_BF_12",
           "Specimen_CC_09"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|pack_daily_6_gacha_53",
@@ -2611,7 +2791,9 @@
         "exactDateLabel": "≈ 25 сентября",
         "exactDateStart": "2026-09-25T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_DE_04_Silver",
@@ -2627,7 +2809,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DE_04"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_EC_09_Gold",
@@ -2643,7 +2827,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EC_09"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_AE_02",
@@ -2659,7 +2845,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_AE_02_Silver",
@@ -2675,7 +2863,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|bundle_orbs_attack_5_39",
@@ -2689,7 +2879,9 @@
         "exactDateLabel": "≈ 23 сентября",
         "exactDateStart": "2026-09-23T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_BD_09_Gold",
@@ -2705,7 +2897,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BD_09"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|LuckyBox_Zoo_Prime",
@@ -2762,7 +2956,9 @@
           "Specimen_DC_10",
           "Specimen_DD_10",
           "Specimen_DF_10"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_BE_09_Silver_sc",
@@ -2778,7 +2974,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BE_09"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|bank_e_14_10ct",
@@ -2794,7 +2992,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_E_14"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|bank_e_14_25ct",
@@ -2810,7 +3010,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_E_14"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|bank_e_14_60ct",
@@ -2826,7 +3028,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_E_14"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|promo_muto_pack",
@@ -2840,7 +3044,9 @@
         "exactDateLabel": "≈ 21 сентября",
         "exactDateStart": "2026-09-21T10:00:00.000Z",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_AD_12_Gold",
@@ -2856,7 +3062,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AD_12"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_CF_04",
@@ -2872,7 +3080,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CF_04"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Mystery_Autumn_2026",
@@ -2893,7 +3103,9 @@
           "Specimen_DD_10",
           "Specimen_CE_06",
           "Specimen_CB_08"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_FC_02",
@@ -2909,7 +3121,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_02"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Pack_Flying",
@@ -2927,7 +3141,9 @@
           "Specimen_FD_12",
           "Specimen_DA_10",
           "Specimen_DD_07"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_BC_08_Bronze_sc",
@@ -2943,7 +3159,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BC_08"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|LuckyBox_Galactic_Elite",
@@ -3036,7 +3254,9 @@
           "Specimen_EE_10",
           "Specimen_EF_10",
           "Specimen_FE_10"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Specimen_AB_03_Gold",
@@ -3052,7 +3272,9 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_03"
-        ]
+        ],
+        "exactDateEnd": null,
+        "exactDateApprox": true
       }
     ],
     "link": "/materials",
@@ -3074,7 +3296,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 2 октября",
-        "exactDateStart": "2026-10-02T10:00:00.000Z"
+        "exactDateStart": "2026-10-02T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Pack_Dino",
@@ -3086,7 +3310,9 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": "≈ 1 октября",
-        "exactDateStart": "2026-10-01T10:00:00.000Z"
+        "exactDateStart": "2026-10-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_LuckyBox_Stars_23",
@@ -3098,7 +3324,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 29 сентября",
-        "exactDateStart": "2026-09-29T10:00:00.000Z"
+        "exactDateStart": "2026-09-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Luckybox_Zodiac_Silver_18",
@@ -3110,7 +3338,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 29 сентября",
-        "exactDateStart": "2026-09-29T10:00:00.000Z"
+        "exactDateStart": "2026-09-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_bundle_orbs_experimental_hyper_05",
@@ -3122,7 +3352,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 28 сентября",
-        "exactDateStart": "2026-09-28T10:00:00.000Z"
+        "exactDateStart": "2026-09-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Daily_news_exchange_office_block_9_2026",
@@ -3131,7 +3363,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 27 сентября",
-        "exactDateStart": "2026-09-27T10:00:00.000Z"
+        "exactDateStart": "2026-09-27T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Luckybox_Hyperspeed",
@@ -3143,7 +3377,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 26 сентября",
-        "exactDateStart": "2026-09-26T10:00:00.000Z"
+        "exactDateStart": "2026-09-26T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Daily_news_shop_24h_2026_257b",
@@ -3152,7 +3388,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 26 сентября",
-        "exactDateStart": "2026-09-26T10:00:00.000Z"
+        "exactDateStart": "2026-09-26T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Pack_Medieval",
@@ -3164,7 +3402,9 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": "≈ 25 сентября",
-        "exactDateStart": "2026-09-25T10:00:00.000Z"
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|shop_pack_daily_6_gacha_53",
@@ -3176,7 +3416,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 25 сентября",
-        "exactDateStart": "2026-09-25T10:00:00.000Z"
+        "exactDateStart": "2026-09-25T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_bundle_orbs_attack_5_39",
@@ -3188,7 +3430,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 23 сентября",
-        "exactDateStart": "2026-09-23T10:00:00.000Z"
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Daily_news_shop_zodiac_ae_02",
@@ -3200,7 +3444,9 @@
         },
         "ribbon": "seasonal",
         "exactDateLabel": "≈ 23 сентября",
-        "exactDateStart": "2026-09-23T10:00:00.000Z"
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Daily_news_tech_V2",
@@ -3209,7 +3455,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 23 сентября",
-        "exactDateStart": "2026-09-23T10:00:00.000Z"
+        "exactDateStart": "2026-09-23T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_LuckyBox_Zoo_Prime",
@@ -3221,7 +3469,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 22 сентября",
-        "exactDateStart": "2026-09-22T10:00:00.000Z"
+        "exactDateStart": "2026-09-22T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Mystery_Autumn_2026",
@@ -3233,7 +3483,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 20 сентября",
-        "exactDateStart": "2026-09-20T10:00:00.000Z"
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|PayWall_2026_E_14_CT",
@@ -3242,7 +3494,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 21 сентября",
-        "exactDateStart": "2026-09-21T10:00:00.000Z"
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_promo_muto_pack",
@@ -3254,7 +3508,9 @@
         },
         "ribbon": "discount-50",
         "exactDateLabel": "≈ 21 сентября",
-        "exactDateStart": "2026-09-21T10:00:00.000Z"
+        "exactDateStart": "2026-09-21T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Pack_Flying",
@@ -3266,7 +3522,9 @@
         },
         "ribbon": "discount-30",
         "exactDateLabel": "≈ 20 сентября",
-        "exactDateStart": "2026-09-20T10:00:00.000Z"
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_Specimen_FC_02",
@@ -3278,7 +3536,9 @@
         },
         "ribbon": null,
         "exactDateLabel": "≈ 20 сентября",
-        "exactDateStart": "2026-09-20T10:00:00.000Z"
+        "exactDateStart": "2026-09-20T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Shop_LuckyBox_Galactic_Elite",
@@ -3290,7 +3550,9 @@
         },
         "ribbon": "limited",
         "exactDateLabel": "≈ 19 сентября",
-        "exactDateStart": "2026-09-19T10:00:00.000Z"
+        "exactDateStart": "2026-09-19T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Daily_news_shop_24h_2026_257a",
@@ -3299,7 +3561,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 19 сентября",
-        "exactDateStart": "2026-09-19T10:00:00.000Z"
+        "exactDateStart": "2026-09-19T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       },
       {
         "id": "257|Building_Mystery",
@@ -3308,7 +3572,9 @@
         "price": null,
         "ribbon": null,
         "exactDateLabel": "≈ 19 сентября",
-        "exactDateStart": "2026-09-19T10:00:00.000Z"
+        "exactDateStart": "2026-09-19T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true
       }
     ],
     "link": "/announcements",
@@ -3359,7 +3625,8 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "26 августа — 27 сентября",
-        "exactDateStart": "2026-08-26T10:00:00+00:00"
+        "exactDateStart": "2026-08-26T10:00:00+00:00",
+        "exactDateEnd": "2026-09-27T00:00:00.000Z"
       },
       {
         "id": "jackpot|READY_05|specimen_db_10",
@@ -3372,7 +3639,8 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "26 августа — 27 сентября",
-        "exactDateStart": "2026-08-26T10:00:00+00:00"
+        "exactDateStart": "2026-08-26T10:00:00+00:00",
+        "exactDateEnd": "2026-09-27T00:00:00.000Z"
       },
       {
         "id": "jackpot|READY_06|specimen_f_12",
@@ -3385,7 +3653,8 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "26 августа — 27 сентября",
-        "exactDateStart": "2026-08-26T10:00:00+00:00"
+        "exactDateStart": "2026-08-26T10:00:00+00:00",
+        "exactDateEnd": "2026-09-27T00:00:00.000Z"
       },
       {
         "id": "jackpot|READY_07|specimen_cb_09",
@@ -3398,7 +3667,9 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "27 сентября — ?",
-        "exactDateStart": "2026-09-27T10:00:00+00:00"
+        "exactDateStart": "2026-09-27T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true
       },
       {
         "id": "jackpot|READY_08|specimen_de_10",
@@ -3411,7 +3682,9 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "27 сентября — ?",
-        "exactDateStart": "2026-09-27T10:00:00+00:00"
+        "exactDateStart": "2026-09-27T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true
       },
       {
         "id": "jackpot|READY_09|specimen_fd_11",
@@ -3424,7 +3697,9 @@
           "image": "/materials/Material_Jackpot_Token.png"
         },
         "exactDateLabel": "27 сентября — ?",
-        "exactDateStart": "2026-09-27T10:00:00+00:00"
+        "exactDateStart": "2026-09-27T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true
       },
       {
         "id": "event|READY_04|specimen_fa_10",
@@ -3569,7 +3844,8 @@
         "name": "Анализатор тайны",
         "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
         "exactDateLabel": "15 сентября",
-        "exactDateStart": "2026-09-15T14:00:00+00:00"
+        "exactDateStart": "2026-09-15T14:00:00+00:00",
+        "exactDateEnd": null
       }
     ],
     "link": "/guides#quests"
