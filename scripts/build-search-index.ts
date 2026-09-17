@@ -55,9 +55,9 @@ async function readJson<T>(relPath: string): Promise<T> {
 }
 
 // Страницы без locale-обёртки (src/pages/{locale}/...) - НЕ добавлять
-// префикс, иначе ссылка ведёт на несуществующий маршрут (404). /announcements
-// не входит в i18n-эпик (не выяснено, публичная ли это страница вообще).
-const NO_PREFIX_PATHS = new Set(['/announcements'])
+// префикс, иначе ссылка ведёт на несуществующий маршрут (404). Страница
+// анонсов переведена и обёрнута 2026-09-18, поэтому список пуст.
+const NO_PREFIX_PATHS = new Set<string>()
 
 function withLocale(href: string, locale: Locale): string {
   if (locale === 'ru') return href
