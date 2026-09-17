@@ -142,7 +142,12 @@ function withCount(name: string, suffix: string): Pick<ResolvedReward, 'label' |
 
 export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): ResolvedReward {
   if (!reward) return { label: '—', icon: null }
-  const amount = reward.amount ? String(reward.amount) : ''
+  // Награда без amount (или с amount="0") - это ОДНА штука, не ноль: клиент
+  // читает её как `if (amount == 0) amount = 1`
+  // (TBMM::CurrenciesAndConditions::loadFromElement, разобрано 2026-09-18).
+  // В missions.xml так записаны 23 награды - первые тиры ачивок и "Твой первый
+  // «Злобоген»" давали на сайте "0 золота".
+  const amount = reward.amount && Number(reward.amount) !== 0 ? String(reward.amount) : '1'
   const amountSuffix = amount && amount !== '1' ? ` ×${amount}` : ''
   const getMaterialName = (id: string) => ctx.materialsById.get(id)?.name ?? null
   const getMaterialTexture = (id: string) => ctx.materialsById.get(id)?.texture ?? null
@@ -153,21 +158,29 @@ export function resolveReward(reward: RewardRaw | null, ctx: RewardResolveCtx): 
     return s
   }
 
+  // У единицы в русском другая форма ("1 золото", не "1 золота") - отдельный ключ.
+  const one = Number(amount) === 1
   if (reward.type === 'softcurrency') {
     return {
-      label: tr('guides.reward.silver', '{n} серебра', { n: fmtN(Number(amount)) }),
+      label: one
+        ? tr('guides.reward.silverOne', '1 серебро')
+        : tr('guides.reward.silver', '{n} серебра', { n: fmtN(Number(amount)) }),
       icon: '/cash/softcurrency.webp',
     }
   }
   if (reward.type === 'hardcurrency') {
     return {
-      label: tr('guides.reward.gold', '{n} золота', { n: fmtN(Number(amount)) }),
+      label: one
+        ? tr('guides.reward.goldOne', '1 золото')
+        : tr('guides.reward.gold', '{n} золота', { n: fmtN(Number(amount)) }),
       icon: '/cash/hardcurrency.webp',
     }
   }
   if (reward.type === 'experience') {
     return {
-      label: tr('guides.reward.experience', '{n} опыта', { n: fmtN(Number(amount)) }),
+      label: one
+        ? tr('guides.reward.experienceOne', '1 опыт')
+        : tr('guides.reward.experience', '{n} опыта', { n: fmtN(Number(amount)) }),
       icon: ctx.getItemTexture('Material_XP1000'),
     }
   }
