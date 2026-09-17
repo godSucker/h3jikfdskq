@@ -286,7 +286,8 @@ const pick = (tx: I18nText) => tx[locale] || tx.ru || tx.en || '';
 type QuestUnlockRaw =
   | { type: 'specimen'; id: string }
   | { type: 'techCenter'; level: number; name: I18nText }
-  | { type: 'building'; id: string };
+  | { type: 'building'; id: string }
+  | { type: 'afterQuest'; id: string; title: I18nText };
 
 interface QuestRaw {
   id: string;
@@ -318,11 +319,14 @@ const quests = (questsData as unknown as QuestRaw[]).map((q) => {
     amountText: amount !== null ? formatNumber(amount) : '',
     requiredLevel: q.requiredLevel,
     // Условия открытия как чипы: мутант - кликабельный (тот же resolveReward,
-    // что у наград), здание - его имя, Эволюционный центр - имя и уровень.
+    // что у наград), здание - его имя, Эволюционный центр - имя и уровень,
+    // отдельный пакет заданий - квест другой цепочки, после которого он открыт.
     unlock: q.unlock.map((u) =>
       u.type === 'techCenter'
         ? { label: t('guides.quests.unlockBuildingLevel', locale).replace('{name}', pick(u.name)).replace('{level}', String(u.level)), icon: null }
-        : resolveReward({ type: 'entity', id: u.id, amount: '1' }),
+        : u.type === 'afterQuest'
+          ? { label: t('guides.quests.unlockAfterQuest', locale).replace('{title}', pick(u.title)), icon: null }
+          : resolveReward({ type: 'entity', id: u.id, amount: '1' }),
     ),
     icon: q.icon,
   };

@@ -742,6 +742,7 @@
   "guides.quests.triggerCategory.social": "Sozial",
   "guides.quests.unlockNeeds": "Benötigt:",
   "guides.quests.unlockBuildingLevel": "{name} Stufe {level}",
+  "guides.quests.unlockAfterQuest": "nach der Quest „{title}“",
   "guides.division.recommendedLevel": "Empfohlenes Evo zum Abschließen: „{level}“",
   "guides.division.mapNumber": "Karte {n}",
   "guides.division.fightsCount": "Kämpfe:",

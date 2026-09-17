@@ -5202,7 +5202,7 @@
       "category": "level",
       "amount": "3"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_level3.png"
   },
@@ -5243,7 +5243,7 @@
       "category": "building",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_extension.png"
   },
@@ -5284,7 +5284,7 @@
       "category": "collection",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_ha_hb_hc.png"
   },
@@ -5325,7 +5325,7 @@
       "category": "building",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_accelerate_compound.png"
   },
@@ -5366,7 +5366,7 @@
       "category": "building",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_clichabitat.png"
   },
@@ -5412,7 +5412,7 @@
       "category": "collection",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_sa_sb_sc.png"
   },
@@ -5453,7 +5453,7 @@
       "category": "incubation",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_accelerate_incubation.png"
   },
@@ -5494,7 +5494,7 @@
       "category": "collection",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital.png"
   },
@@ -5535,7 +5535,7 @@
       "category": "building",
       "amount": "1"
     },
-    "requiredLevel": -1,
+    "requiredLevel": null,
     "unlock": [],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hospital_contract.png"
   },
@@ -8763,13 +8763,29 @@
       }
     ],
     "chainType": "story",
-    "prevId": "457",
+    "prevId": null,
     "trigger": {
       "category": "craft",
       "amount": "1"
     },
     "requiredLevel": null,
-    "unlock": [],
+    "unlock": [
+      {
+        "type": "afterQuest",
+        "id": "457",
+        "title": {
+          "ru": "Повысь свои шансы!",
+          "en": "Multiply your chances!",
+          "es": "¡Multiplica tus posibilidades!",
+          "fr": "Démultiplie tes chances !",
+          "de": "Erhöhe deine Chancen!",
+          "pt": "Multiplique suas chances!",
+          "it": "Moltiplica le tue possibilità!",
+          "tr": "Şansını katla!",
+          "nl": "Vermenigvuldig je kansen!"
+        }
+      }
+    ],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_blackhole_1.png"
   },
   {
@@ -12298,13 +12314,29 @@
       }
     ],
     "chainType": "story",
-    "prevId": "564",
+    "prevId": null,
     "trigger": {
       "category": "battle",
       "amount": "10"
     },
     "requiredLevel": 8,
-    "unlock": [],
+    "unlock": [
+      {
+        "type": "afterQuest",
+        "id": "564",
+        "title": {
+          "ru": "Доступны тысячи вариантов!",
+          "en": "Thousands of solutions possible!",
+          "es": "¡Hay miles de posibilidades!",
+          "fr": "Des milliers de possibilités !",
+          "de": "Es gibt Tausende Möglichkeiten!",
+          "pt": "Milhares de possibilidades!",
+          "it": "Migliaia di possibilità!",
+          "tr": "Binlerce çözüm mümkün!",
+          "nl": "Duizenden mogelijkheden!"
+        }
+      }
+    ],
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png"
   },
   {

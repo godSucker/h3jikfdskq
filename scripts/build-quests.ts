@@ -66,6 +66,9 @@ type Unlock =
   // techCenterLevel - это Эволюционный центр (Building_Tech), имя - официальное.
   | { type: 'techCenter'; level: number; name: I18nText }
   | { type: 'building'; id: string }
+  // Цепочка - отдельный пакет заданий, который открывается после квеста другой
+  // цепочки (см. разрыв связей в resolveVisibleAncestor).
+  | { type: 'afterQuest'; id: string; title: I18nText }
 
 interface QuestOut {
   id: string
@@ -119,7 +122,8 @@ async function main() {
     while (cur && !seen.has(cur)) {
       seen.add(cur)
       const level = arr(byId.get(cur)?.Condition).find((c: any) => c?.type === 'level')
-      if (level?.amount) return Number(level.amount)
+      // amount="-1" у стартовых квестов = без ограничения, как и 1-й уровень.
+      if (level?.amount) return Number(level.amount) > 1 ? Number(level.amount) : null
       cur = prevOf(cur)
     }
     return null
@@ -212,7 +216,23 @@ async function main() {
     }
     return cur
   }
-  for (const q of quests) q.prevId = resolveVisibleAncestor(q.id)
+  // Отдельный пакет заданий (Patch_Building_Mystery, Missions_Craft_Blackhole)
+  // Kobojo открывает после квеста ДРУГОЙ цепочки. Связь по prevMissions
+  // прицепляла его хвостом к чужому дереву - Анализатор тайны терялся внутри
+  // крафтовой ветки. Такой пакет - своя цепочка с условием "после квеста X".
+  // Feature_* не отрываем: это гейты основной сюжетки (Feature_Hospital).
+  const filterOf = (id: string) => arr(byId.get(id)?.Filter).join(',')
+  const byQuestId = new Map(quests.map((q) => [q.id, q]))
+  for (const q of quests) {
+    const parent = resolveVisibleAncestor(q.id)
+    const own = filterOf(q.id)
+    if (parent && own && !/^Feature_/i.test(own) && own !== filterOf(parent)) {
+      q.prevId = null
+      q.unlock.push({ type: 'afterQuest', id: parent, title: byQuestId.get(parent)!.title })
+    } else {
+      q.prevId = parent
+    }
+  }
 
   // Сверка с прошлым файлом: новые и пропавшие id - в лог, а резкая потеря
   // (обрезанный missions.xml) - отказ перезаписывать файл.
