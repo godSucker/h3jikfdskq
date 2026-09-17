@@ -848,21 +848,24 @@
   "specimen_cf_12": {
     "rows": [
       [
-        "basic/orb_basic_attack_04.webp",
-        "basic/orb_basic_strengthen_04.webp",
-        "basic/orb_basic_life_04.webp",
+        "basic/orb_basic_life_05.webp",
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
+        "basic/orb_basic_strengthen_05.webp",
         "special/orb_special_speed_04.webp"
       ],
       [
         "basic/orb_basic_life_04.webp",
-        "basic/orb_basic_life_04.webp",
-        "basic/orb_basic_strengthen_04.webp",
-        "special/orb_special_speed_04.webp"
+        "basic/orb_basic_strengthen_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addshield_03.webp"
       ],
       [
         "basic/orb_basic_life_04.webp",
-        "basic/orb_basic_attack_04.webp",
-        "basic/orb_basic_attack_04.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
         "special/orb_special_addretaliate_04.webp"
       ]
     ]
@@ -1007,14 +1010,14 @@
         "special/orb_special_addstrengthen_04.webp"
       ],
       [
-        "basic/orb_basic_attack_04.webp",
-        "basic/orb_basic_strengthen_04.webp",
-        "special/orb_special_addstrengthen_04.webp"
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
       ],
       [
-        "basic/orb_basic_attack_04.webp",
-        "basic/orb_basic_life_04.webp",
-        "special/orb_special_speed_04.webp"
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
       ]
     ]
   },
@@ -1064,7 +1067,10 @@
         "special/orb_special_speed_04.webp"
       ],
       [
-        "basic/orb_basic_attack_04.webp",
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_attack_05.webp"
+        ],
         "basic/orb_basic_strengthen_04.webp",
         "special/orb_special_addstrengthen_04.webp"
       ]
@@ -1136,7 +1142,7 @@
         "special/orb_special_speed_04.webp"
       ],
       [
-        "basic/orb_basic_attack_04.webp",
+        "basic/orb_basic_life_05.webp",
         "basic/orb_basic_strengthen_04.webp",
         "special/orb_special_addstrengthen_04.webp"
       ]
@@ -1174,15 +1180,27 @@
     "rows": [
       [
         "basic/orb_basic_life_04.webp",
-        "basic/orb_basic_strengthen_04.webp",
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
         "basic/orb_basic_strengthen_04.webp",
         "special/orb_special_speed_04.webp"
       ],
       [
         "basic/orb_basic_life_04.webp",
-        "basic/orb_basic_life_04.webp",
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
         "basic/orb_basic_strengthen_04.webp",
         "special/orb_special_addshield_04.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addshield_03.webp"
       ]
     ]
   },
@@ -1194,8 +1212,8 @@
         "special/orb_special_speed_04.webp"
       ],
       [
-        "basic/orb_basic_attack_04.webp",
-        "basic/orb_basic_life_04.webp",
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
         "special/orb_special_speed_04.webp"
       ]
     ]
@@ -1529,6 +1547,263 @@
         "basic/orb_basic_attack_05.webp",
         "basic/orb_basic_shield_05.webp",
         "special/orb_special_addshield_03.webp"
+      ]
+    ]
+  },
+  "specimen_da_12": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "special/orb_special_addretaliate_03.webp"
+      ]
+    ]
+  },
+  "specimen_dd_11": {
+    "rows": [
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_ec_06": {
+    "rows": [
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addshield_03.webp"
+      ]
+    ]
+  },
+  "specimen_ec_12": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_ef_13": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_ef_15": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_life_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "special/orb_special_addretaliate_03.webp"
+      ]
+    ]
+  },
+  "specimen_c_14": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        [
+          "basic/orb_basic_shield_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        [
+          "basic/orb_basic_attack_05.webp",
+          "basic/orb_basic_shield_05.webp"
+        ],
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_life_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_cc_12": {
+    "rows": [
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ]
+    ]
+  },
+  "specimen_ce_14": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_life_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_attack_05.webp"
+        ],
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ]
+    ]
+  },
+  "specimen_cf_13": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_dd_14": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_life_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_e_13": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_ea_99": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        [
+          "basic/orb_basic_attack_05.webp",
+          "basic/orb_basic_strengthen_05.webp"
+        ],
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addshield_03.webp"
+      ]
+    ]
+  },
+  "specimen_fb_12": {
+    "rows": [
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "basic/orb_basic_retaliate_05.webp",
+        "special/orb_special_addretaliate_03.webp"
+      ],
+      [
+        "basic/orb_basic_life_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
+      ]
+    ]
+  },
+  "specimen_ff_05": {
+    "rows": [
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        [
+          "basic/orb_basic_life_05.webp",
+          "basic/orb_basic_attack_05.webp"
+        ],
+        "basic/orb_basic_strengthen_05.webp",
+        "special/orb_special_addstrengthen_03.webp"
       ]
     ]
   }
