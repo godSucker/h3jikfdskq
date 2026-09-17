@@ -742,6 +742,7 @@
   "guides.quests.triggerCategory.social": "Social",
   "guides.quests.unlockNeeds": "Requis :",
   "guides.quests.unlockBuildingLevel": "{name} niveau {level}",
+  "guides.quests.unlockAfterQuest": "après la quête « {title} »",
   "guides.division.recommendedLevel": "Évo recommandé pour finir : « {level} »",
   "guides.division.mapNumber": "Carte {n}",
   "guides.division.fightsCount": "Combats :",

@@ -742,6 +742,7 @@
   "guides.quests.triggerCategory.social": "Sociaal",
   "guides.quests.unlockNeeds": "Vereist:",
   "guides.quests.unlockBuildingLevel": "{name} niveau {level}",
+  "guides.quests.unlockAfterQuest": "na de missie ‘{title}’",
   "guides.division.recommendedLevel": "Aanbevolen evo om te voltooien: «{level}»",
   "guides.division.mapNumber": "Kaart {n}",
   "guides.division.fightsCount": "Gevechten:",
