@@ -1,0 +1,323 @@
+---
+export const prerender = true;
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import announcementsData from '@/data/announcements.json';
+import BoxModal from '@/components/boxes/BoxModal.svelte';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+import AnnouncementCard from '@/components/announcements/AnnouncementCard.astro';
+import { categoryLabel, buildAnnouncementContext, boxHasSkin, type Announcement } from '@/lib/announcements-render';
+import { t, localeFromAstro } from '@/lib/i18n';
+
+const locale = localeFromAstro(Astro.currentLocale);
+const tr = (key: string) => t(key, locale);
+const ctx = buildAnnouncementContext(locale);
+
+// Жетоны исключены со страницы анонсов по просьбе юзера 2026-08-08 -
+// категория осталась в детекторе/леджере (build-announcements.ts), просто не
+// показывается здесь.
+//
+// Боксы без скин-дропов (LuckyBox_Stars_22 и подобные старые лаки-боксы) тоже
+// скрыты по фидбеку юзера 2026-09-15 - "по сути они старые, со скинами -
+// новые". Фильтр на РЕНДЕРЕ, не в детекторе (build-announcements.ts::
+// detectBoxes не трогали) - так уже опубликованный "пустой" бокс сам
+// появится здесь, если однажды получит скин-дроп, без бэкфилла. Бокс, для
+// которого lookup не нашёлся (не должно случаться, но на всякий) - не
+// прячем, показываем как есть.
+const announcements = ((announcementsData as Announcement[]) ?? [])
+  .filter((a) => a.category !== 'token')
+  .filter((a) => {
+    if (a.category !== 'box') return true;
+    const box = a.items?.[0]?.id ? ctx.findBox(a.items[0].id) : undefined;
+    return !box || boxHasSkin(box);
+  })
+  .slice()
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// Порядок вкладок - по частоте/важности, не по алфавиту; "Все" всегда первая.
+const CATEGORY_ORDER = [
+  'dailyNews',
+  'shopForecast',
+  'mutant',
+  'skin',
+  'exchange',
+  'box',
+  'reactor',
+  'raid',
+  'ladder',
+  'eventLadder',
+  'token',
+  'bingo',
+  'rebalance',
+];
+const presentCategories = [...new Set(announcements.map((a) => a.category).filter((c): c is string => !!c))].sort(
+  (a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b),
+);
+---
+
+<BaseLayout title={`${tr('announcements.heading')} — Archivist-Library`}>
+  <main class="announcements-page">
+    <h1>{tr('announcements.heading')}</h1>
+    <p class="intro">{tr('announcements.intro')}</p>
+
+    {announcements.length === 0 ? (
+      <div class="empty">{tr('announcements.empty')}</div>
+    ) : (
+      <>
+        {presentCategories.length > 1 && (
+          <div class="filter-bar" role="tablist">
+            <button type="button" class="filter-pill is-active" data-filter="all">{tr('announcements.filterAll')}</button>
+            {presentCategories.map((c) => (
+              <button type="button" class="filter-pill" data-filter={c}>{categoryLabel(c, locale)}</button>
+            ))}
+          </div>
+        )}
+        <div class="feed">
+          {announcements.map((a) => (
+            <AnnouncementCard a={a} ctx={ctx} mode="feed" locale={locale} />
+          ))}
+        </div>
+      </>
+    )}
+  </main>
+
+  <div class="pack-sheet" id="pack-sheet" role="dialog" aria-modal="true">
+    <div class="pack-sheet-panel">
+      <div class="pack-sheet-head">
+        <span id="pack-sheet-title">{tr('announcements.packTitle')}</span>
+        <button type="button" class="pack-sheet-close" data-pack-close aria-label={tr('announcements.close')}>×</button>
+      </div>
+      <div class="pack-sheet-list" id="pack-sheet-list"></div>
+    </div>
+  </div>
+
+  <BoxModal client:load />
+  <BingoMutantModal client:load />
+</BaseLayout>
+
+<script>
+  const bar = document.querySelector<HTMLDivElement>('.filter-bar');
+  if (bar) {
+    const pills = Array.from(bar.querySelectorAll<HTMLButtonElement>('.filter-pill'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.card'));
+    bar.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.filter-pill');
+      if (!btn) return;
+      const filter = btn.dataset.filter ?? 'all';
+      pills.forEach((p) => p.classList.toggle('is-active', p === btn));
+      cards.forEach((card) => {
+        card.style.display = filter === 'all' || card.dataset.category === filter ? '' : 'none';
+      });
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-open-mutant]').forEach((el) => {
+    el.addEventListener('click', () => {
+      window.dispatchEvent(
+        new CustomEvent('archivist:open-mutant', {
+          // star/skin - опционально: star у тайлов прогноза магазина
+          // (суффикс _Gold/_Silver/... в itemId) и у обменника «Анализатор
+          // тайны», skin - только у обменника. BingoMutantModal подставляет
+          // свой авто-выбор, если поля не пришли - остальные страницы их
+          // никогда не шлют.
+          detail: {
+            specimenId: el.dataset.openMutant,
+            star: el.dataset.openMutantStar,
+            skin: el.dataset.openMutantSkin,
+          },
+        }),
+      );
+    });
+  });
+
+  // Пакет с НЕСКОЛЬКИМИ мутантами: показываем лист состава, тап по строке
+  // открывает обычную модалку мутанта. Не карусель и не аккордеон - 60%
+  // трафика мобильный, тут нужны крупные тап-цели и никакого точного свайпа
+  // по мелкой плитке (обсуждено с юзером 2026-09-16).
+  const packSheet = document.getElementById('pack-sheet');
+  const packList = document.getElementById('pack-sheet-list');
+  const packTitle = document.getElementById('pack-sheet-title');
+  // Заголовок листа приходит из data-pack-title (уже на языке страницы), а
+  // фолбэк снимаем ОДИН раз при загрузке: сервер отрендерил его на языке
+  // страницы, и он не должен затираться заголовком прошлого открытого пакета.
+  const defaultPackTitle = packTitle?.textContent ?? '';
+  const closePack = () => packSheet?.classList.remove('is-open');
+  packSheet?.addEventListener('click', (e) => {
+    if (e.target === packSheet || (e.target as HTMLElement).closest('[data-pack-close]')) closePack();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePack();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-open-pack]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (!packSheet || !packList) return;
+      let items: { id: string; star: string | null; name: string; image: string }[] = [];
+      try {
+        items = JSON.parse(el.dataset.openPack ?? '[]');
+      } catch {
+        return;
+      }
+      if (packTitle) packTitle.textContent = el.dataset.packTitle ?? defaultPackTitle;
+      packList.innerHTML = '';
+      for (const m of items) {
+        const row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'pack-row';
+        row.innerHTML =
+          `<img src="${m.image}" alt="" loading="lazy" decoding="async" /><span>${m.name}</span>`;
+        row.addEventListener('click', () => {
+          closePack();
+          window.dispatchEvent(
+            new CustomEvent('archivist:open-mutant', {
+              detail: { specimenId: m.id, star: m.star ?? undefined },
+            }),
+          );
+        });
+        packList.appendChild(row);
+      }
+      packSheet.classList.add('is-open');
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-open-box]').forEach((el) => {
+    el.addEventListener('click', () => {
+      window.dispatchEvent(
+        new CustomEvent('archivist:open-box', { detail: { boxId: el.dataset.openBox } }),
+      );
+    });
+  });
+</script>
+
+<style>
+  /* Лист состава пакета. Крупные строки - основной трафик мобильный. */
+  .pack-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    background: rgba(2, 6, 23, 0.72);
+    backdrop-filter: blur(2px);
+  }
+  .pack-sheet.is-open { display: flex; }
+  .pack-sheet-panel {
+    width: min(520px, 100%);
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px 16px 0 0;
+    padding: 0.9rem;
+  }
+  @media (min-width: 640px) {
+    .pack-sheet { align-items: center; }
+    .pack-sheet-panel { border-radius: 16px; }
+  }
+  .pack-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: #fceabb;
+    margin-bottom: 0.7rem;
+  }
+  .pack-sheet-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #cbd5f5;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .pack-sheet-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .pack-sheet-list :global(.pack-row) {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    /* >=48px по высоте - комфортная тап-цель на телефоне */
+    min-height: 56px;
+    padding: 0.4rem 0.6rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: #e2e8f0;
+    font: inherit;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .pack-sheet-list :global(.pack-row:hover) {
+    background: rgba(96, 165, 250, 0.12);
+    border-color: rgba(96, 165, 250, 0.35);
+  }
+  .pack-sheet-list :global(.pack-row img) {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+  }
+
+  .announcements-page {
+    /* Раньше 760px (узкая лента) - под board-грид (dailyNews) и плотный
+       прогноз магазина маловато, тайлы жались в 2-3 колонки. Пошире, чтобы
+       было удобно снимать скриншотом, как у референсов юзера. */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .intro {
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+  }
+  .empty {
+    padding: 2rem;
+    text-align: center;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+  }
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .filter-pill {
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+  .filter-pill:hover {
+    color: #e2e8f0;
+  }
+  .filter-pill.is-active {
+    color: rgb(96, 165, 250);
+    background: rgba(96, 165, 250, 0.12);
+    border-color: rgba(96, 165, 250, 0.35);
+  }
+  .feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+</style>

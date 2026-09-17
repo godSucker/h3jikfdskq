@@ -27,6 +27,12 @@ import {
 } from '@/lib/guides-resolve'
 import boxesData from '@/data/boxes.json'
 import { getMutantTexturePath } from '@/lib/bingo-textures'
+import { t, type Locale } from '@/lib/i18n'
+import { getItemName } from '@/lib/materials-i18n'
+import { getBoxName } from '@/lib/boxes-i18n'
+import { getLocalizedMutantNames, type MutantNameEntry } from '@/lib/mutant-names-i18n'
+import { getDungeonName } from '@/lib/guides-content-i18n'
+import { formatDateIn, formatExactRange } from '@/lib/sprint-calendar'
 
 export interface AnnouncementItem {
   id: string
@@ -62,36 +68,27 @@ export interface AnnouncementItem {
   // detectExchange). Карточка группирует items по этому полю на 3 подблока.
   hall?: 'jackpot' | 'event' | 'mystery' | null
   // Только hall==='mystery' - цена контракта (жетон + количество).
-  cost?: { amount: number; name: string; image: string | null } | null
+  cost?: { id?: string; amount: number; name: string; image: string | null } | null
   // Только hall==='mystery' - клик должен открыть модалку СРАЗУ на этой
   // звезде/скине (jackpot/event Reward'ы их не несут вообще).
   star?: string | null
   skin?: string | null
 }
 
-export function featuredMutantLabel(v: string | null | undefined): string | null {
-  if (v === 'day') return 'Мутант дня'
-  if (v === 'week') return 'Мутант недели'
-  if (v === 'month') return 'Мутант месяца'
-  return null
+export function featuredMutantLabel(v: string | null | undefined, locale: Locale = 'ru'): string | null {
+  if (v !== 'day' && v !== 'week' && v !== 'month') return null
+  return t(`announcements.featured.${v}`, locale)
 }
 
 // Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -
 // он тянет node-only axios/fs и живёт вне Vite-графа страницы).
-const RIBBON_LABEL: Record<string, string> = {
-  legendary: 'Легендарный',
-  limited: 'Ограничено',
-  new: 'Новинка',
-  heroic: 'Героический',
-  exclusive: 'Эксклюзив',
-  seasonal: 'Событие',
-}
+const RIBBONS = ['legendary', 'limited', 'new', 'heroic', 'exclusive', 'seasonal']
 
-export function ribbonLabel(ribbon: string | null | undefined): string | null {
+export function ribbonLabel(ribbon: string | null | undefined, locale: Locale = 'ru'): string | null {
   if (!ribbon) return null
   const discount = ribbon.match(/^discount-(\d+)$/)
   if (discount) return `-${discount[1]}%`
-  return RIBBON_LABEL[ribbon] ?? null
+  return RIBBONS.includes(ribbon) ? t(`announcements.ribbon.${ribbon}`, locale) : null
 }
 
 export function ribbonClass(ribbon: string | null | undefined): string {
@@ -112,21 +109,28 @@ export interface Announcement {
   link?: string | null
 }
 
-export const CATEGORY_RU: Record<string, string> = {
-  mutant: 'Мутанты',
-  skin: 'Скины',
-  bingo: 'Бинго',
-  box: 'Боксы',
-  exchange: 'Обменники',
-  raid: 'Рейды',
-  ladder: 'Лесенки',
-  eventLadder: 'Ивент-лесенки',
-  reactor: 'Реакторы',
-  token: 'Жетоны',
-  shopForecast: 'Прогноз магазина',
-  dailyNews: 'Скоро в игре',
-  eventQuests: 'Задания',
-  rebalance: 'Ребаланс',
+const CATEGORIES = [
+  'mutant',
+  'skin',
+  'bingo',
+  'box',
+  'exchange',
+  'raid',
+  'ladder',
+  'eventLadder',
+  'reactor',
+  'token',
+  'shopForecast',
+  'dailyNews',
+  'eventQuests',
+  'rebalance',
+]
+
+// Название категории (вкладки ленты и подпись на карточке). Неизвестная
+// категория отдаётся как есть - лучше сырой ключ, чем пустая подпись.
+export function categoryLabel(category: string | undefined, locale: Locale = 'ru'): string {
+  if (!category) return ''
+  return CATEGORIES.includes(category) ? t(`announcements.category.${category}`, locale) : category
 }
 
 // Переехало в announcement-categories.ts - тот же маппинг нужен и публикации
@@ -134,14 +138,21 @@ export const CATEGORY_RU: Record<string, string> = {
 // Реэкспорт, чтобы не трогать существующие импорты из компонентов.
 export { cardKind, isSingleItemCategory, type CardKind } from './announcement-categories'
 
-export const EXCHANGE_HALL_META: Record<
-  'jackpot' | 'event' | 'mystery',
-  { title: string; texture: string }
-> = {
-  jackpot: { title: 'Зал джекпота', texture: '/buildings/jackpot_sink_global.png' },
-  event: { title: 'Зал испытаний', texture: '/buildings/item_maker.png' },
-  mystery: { title: 'Анализатор тайны', texture: '/buildings/building_mystery.png' },
+export type ExchangeHall = 'jackpot' | 'event' | 'mystery'
+
+const HALL_TEXTURE: Record<ExchangeHall, string> = {
+  jackpot: '/buildings/jackpot_sink_global.png',
+  event: '/buildings/item_maker.png',
+  mystery: '/buildings/building_mystery.png',
 }
+
+export function exchangeHallMeta(
+  hall: ExchangeHall,
+  locale: Locale = 'ru',
+): { title: string; texture: string } {
+  return { title: t(`announcements.hall.${hall}`, locale), texture: HALL_TEXTURE[hall] }
+}
+
 
 // id оффера внутри прогноза = "<sprint>|<filter>" (см. detectShopForecast/
 // detectDailyNews в build-announcements.ts).
@@ -180,11 +191,24 @@ export const TIER_ICON: Record<string, string> = {
 
 export function formatPrice(
   price: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null | undefined,
+  locale: Locale = 'ru',
 ): string | null {
   if (!price) return null
   if (price.type === 'usd') return `USD ${price.amount.toFixed(2)}`
-  const label = price.type === 'hardcurrency' ? 'золота' : 'серебра'
-  return `${price.amount.toLocaleString('ru-RU')} ${label}`
+  const key = price.type === 'hardcurrency' ? 'announcements.price.gold' : 'announcements.price.silver'
+  return t(key, locale).replace('{n}', price.amount.toLocaleString(INTL_NUMBER[locale] ?? 'ru-RU'))
+}
+
+const INTL_NUMBER: Record<string, string> = {
+  ru: 'ru-RU',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  it: 'it-IT',
+  tr: 'tr-TR',
+  nl: 'nl-NL',
 }
 
 // "Показывать только боксы со скинами" (фидбек юзера 2026-09-15) - старые
@@ -258,14 +282,15 @@ export function uniqueBoxMutants(box: BoxEntry): BoxMutantRef[] {
   return out
 }
 
-export function boxDescription(box: BoxEntry): string {
+export function boxDescription(box: BoxEntry, locale: Locale = 'ru'): string {
   const pool = box.groups.filter((g) => g.chance != null)
-  if (pool.length === 0) return 'Гарантированное содержимое'
+  if (pool.length === 0) return t('announcements.box.guaranteedOnly', locale)
   const chances = new Set(pool.map((g) => g.chance!.toFixed(1)))
-  if (chances.size === 1) {
-    return `Случайный выбор · ${pool.length} равновероятных слотов, шанс ${pool[0].chance!.toFixed(1)}%`.toUpperCase()
-  }
-  return `Случайный выбор · ${pool.length} слотов с разным шансом`.toUpperCase()
+  const key = chances.size === 1 ? 'announcements.box.randomEqual' : 'announcements.box.randomVaried'
+  return t(key, locale)
+    .replace('{n}', String(pool.length))
+    .replace('{chance}', pool[0].chance!.toFixed(1))
+    .toUpperCase()
 }
 
 export function formatBingoTitle(title: string, id: string): string {
@@ -288,9 +313,13 @@ export function formatBingoTitle(title: string, id: string): string {
 // навсегда (JSON не бэкфиллили), поэтому чиним на рендере, а не миграцией:
 // покрывает и старые записи, и любую будущую подобную протечку разом.
 const RAW_SPECIMEN_ID_RE = /^Specimen_[A-Za-z]+_\d+$/i
-export function bingoAddedNames(names: string[], mutantsById: Map<string, MutantRaw>): string[] {
+export function bingoAddedNames(
+  names: string[],
+  mutantsById: Map<string, MutantRaw>,
+  localizedMutantName: (ruName: string) => string = (n) => n,
+): string[] {
   return names.map((name) => {
-    if (!RAW_SPECIMEN_ID_RE.test(name)) return name
+    if (!RAW_SPECIMEN_ID_RE.test(name)) return localizedMutantName(name)
     return mutantsById.get(name.toLowerCase())?.name ?? name
   })
 }
@@ -303,6 +332,20 @@ export interface AnnouncementRenderContext {
   boxesByIdLower: Map<string, BoxEntry>
   bingosById: Map<string, string>
   findBox: (itemId: string) => BoxEntry | undefined
+  // Имена на языке страницы по id - для мест, где в announcements.json лежит
+  // русское имя, записанное детектором (обменники, тайлы прогноза, боксы).
+  mutantName: (id: string) => string | null
+  materialName: (id: string) => string | null
+  boxName: (box: BoxEntry) => string
+  // Имя оффера прогноза по сырому itemId из shopitems.xml: пакеты и бандлы не
+  // резолвятся ни в мутанта, ни в бокс, но часть из них есть в словарях
+  // боксов/материалов. Не нашлось нигде - остаётся русское имя из данных.
+  offerName: (rawItemId: string, fallback: string) => string
+  // Русское имя мутанта -> имя на языке страницы. Нужно там, где в данных
+  // лежит готовая строка, а не id (bingo addedNames старых записей).
+  localizedMutantName: (ruName: string) => string
+  // Переводы имён мутантов для getRewardLabel (/bingo использует тот же словарь).
+  mutantNames: Record<string, MutantNameEntry>
   // Цепочки ивентовых заданий по filter (lowercase), награды уже
   // зарезолвлены тем же resolveReward, что на /guides.
   eventQuestByFilter: Map<string, ResolvedEventQuest>
@@ -328,28 +371,78 @@ export interface ResolvedEventQuestStep {
   rewards: { label: string; name?: string; count?: string; icon: string | null }[]
 }
 
-// Строится один раз за модуль (ESM-кэш) - каждый .astro файл, что импортирует
-// этот модуль, переиспользует ОДИН И ТОТ ЖЕ построенный контекст, не
-// пересобирает Map на каждый рендер карточки.
-export function buildAnnouncementContext(): AnnouncementRenderContext {
-  const mutantsById = new Map((mutantsData as MutantRaw[]).map((m) => [m.id, m]))
-  const materialsById = new Map((materialData as MaterialEntry[]).map((m) => [m.id, m]))
+// Контекст строится по одному на локаль и кэшируется в модуле (ESM-кэш):
+// каждый .astro, импортирующий этот модуль, переиспользует уже собранные
+// Map'ы, а не пересобирает их на каждую карточку.
+const CONTEXT_CACHE = new Map<Locale, AnnouncementRenderContext>()
+
+export function buildAnnouncementContext(locale: Locale = 'ru'): AnnouncementRenderContext {
+  const cached = CONTEXT_CACHE.get(locale)
+  if (cached) return cached
+  const ctx = buildContext(locale)
+  CONTEXT_CACHE.set(locale, ctx)
+  return ctx
+}
+
+function buildContext(locale: Locale): AnnouncementRenderContext {
+  // Имена мутантов, материалов и предметов - через те же locale-словари, что
+  // на /guides и /materials (см. GuidesPage.astro: RU-источники Kobojo не
+  // принимают локаль, поэтому на не-RU их отключаем, чтобы русский текст не
+  // утекал в другие языки).
+  const { names } = getLocalizedMutantNames(locale)
+  const mutantsById = new Map(
+    (mutantsData as MutantRaw[]).map((m) => [m.id, { ...m, name: names[m.id]?.name ?? m.name }]),
+  )
+  const materialsById = new Map(
+    (materialData as MaterialEntry[]).map((m) => [
+      m.id,
+      { ...m, name: m.name ? getItemName(m.id, locale, m.name) : m.name },
+    ]),
+  )
+  const formatNumber = (n: number) => n.toLocaleString(INTL_NUMBER[locale] ?? 'ru-RU')
   const rewardCtx: RewardResolveCtx = {
     mutantsById,
     materialsById,
-    translateItemId,
+    translateItemId: (id: string) => {
+      const ru = translateItemId(id)
+      return locale === 'ru' ? ru : getItemName(id, locale, ru)
+    },
     getItemTexture,
-    getLocalisedName,
+    getLocalisedName: (id: string) => (locale === 'ru' ? getLocalisedName(id) : null),
     getGeneIcon,
     geneRu: GENE_RU,
+    names,
+    t: (key: string) => t(key, locale),
+    formatNumber,
   }
-  const dungeonById = new Map<string, ResolvedDungeon>(
-    [
-      ...(raidsData as DungeonRaw[]),
-      ...(specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] }).experiment,
-      ...(specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] }).challenge,
-    ].map((d) => [d.id, resolveDungeon(d, rewardCtx)]),
-  )
+  // Имена рейдов/лесенок - тот же словарь и те же ключи ("<группа>/<id>"),
+  // что на /guides (guides-content-i18n.ts::getDungeonName).
+  const dungeonById = new Map<string, ResolvedDungeon>([
+    ...(raidsData as DungeonRaw[]).map(
+      (d) =>
+        [
+          d.id,
+          {
+            ...resolveDungeon(d, rewardCtx),
+            name: (d as DungeonRaw & { nameAuthored?: boolean }).nameAuthored
+              ? getDungeonName(d.id, locale, d.name)
+              : resolveDungeon(d, rewardCtx).name,
+          },
+        ] as const,
+    ),
+    ...(['experiment', 'challenge'] as const).flatMap((group) =>
+      (specialLaddersData as { experiment: DungeonRaw[]; challenge: DungeonRaw[] })[group].map(
+        (d) =>
+          [
+            d.id,
+            {
+              ...resolveDungeon(d, rewardCtx),
+              name: getDungeonName(`${group}/${d.id}`, locale, d.name),
+            },
+          ] as const,
+      ),
+    ),
+  ])
   const dungeonCoversMap = dungeonCovers as Record<string, string | null>
   const boxesById = new Map((boxesData as BoxEntry[]).map((b) => [b.itemId, b]))
   const boxesByIdLower = new Map((boxesData as BoxEntry[]).map((b) => [b.itemId.toLowerCase(), b]))
@@ -357,8 +450,8 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
     (bingosData as { id: string; title: string }[]).map((b) => [b.id, b.title]),
   )
 
-  // Страница анонсов пока только на русском - берём ru.
   type EvI18n = Record<string, string>
+  const pick = (tx: EvI18n) => tx[locale] || tx.ru || tx.en || ''
   const eventQuestByFilter = new Map<string, ResolvedEventQuest>(
     (
       eventQuestsData as unknown as {
@@ -378,17 +471,18 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
       c.filter.toLowerCase(),
       {
         filter: c.filter,
-        name: c.name.ru,
+        name: pick(c.name),
         icon: c.icon,
         requiredLevel: c.requiredLevel,
         stepCount: c.steps.length,
         lines: c.steps.reduce<ResolvedEventQuestStep[][]>((lines, st) => {
+          const condition = pick(st.condition)
           ;(lines[st.line] ??= []).push({
             id: st.id,
-            condition: st.condition.ru,
+            condition,
             amount: st.amount,
-            showAmount: shouldShowAmount(st.condition.ru, st.amount),
-            amountText: st.amount !== null ? st.amount.toLocaleString('ru-RU') : '',
+            showAmount: shouldShowAmount(condition, st.amount),
+            amountText: st.amount !== null ? formatNumber(st.amount) : '',
             rewards: st.rewards.map((r) => {
               const res = resolveReward(r as never, rewardCtx)
               return { label: res.label, name: res.name, count: res.count, icon: res.icon ?? null }
@@ -400,7 +494,21 @@ export function buildAnnouncementContext(): AnnouncementRenderContext {
     ]),
   )
 
+  const localizedByRu = new Map(
+    (mutantsData as MutantRaw[]).map((m) => [m.name, names[m.id]?.name ?? m.name]),
+  )
   return {
+    mutantName: (id: string) => mutantsById.get(id.toLowerCase())?.name ?? null,
+    localizedMutantName: (ruName: string) => localizedByRu.get(ruName) ?? ruName,
+    mutantNames: names,
+    materialName: (id: string) => materialsById.get(id)?.name ?? null,
+    // Тот же словарь имён боксов, что на /boxes (boxes-i18n.ts).
+    boxName: (box: BoxEntry) => getBoxName(box.itemId, locale, box.name),
+    offerName: (rawItemId: string, fallback: string) => {
+      if (locale === 'ru' || !rawItemId) return fallback
+      const clean = rawItemId.includes('|') ? rawItemId.slice(rawItemId.indexOf('|') + 1) : rawItemId
+      return getBoxName(clean, locale, '') || getItemName(clean, locale, '') || fallback
+    },
     eventQuestByFilter,
     mutantsById,
     dungeonById,
@@ -501,5 +609,35 @@ export function resolvePackMutants(
   return out
 }
 
-export const fmtDate = (iso: string) =>
-  new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
+export const fmtDate = (iso: string, locale: Locale = 'ru') =>
+  new Date(iso).toLocaleDateString(INTL_NUMBER[locale] ?? 'ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+
+// Подпись даты окна на языке страницы. Собирается из ISO-дат самого анонса, а
+// не из exactDateLabel: тот записан по-русски (его снимает скриншот-бот).
+// Старые записи без ISO-конца падают обратно на сохранённую строку.
+export function exactDateLabelIn(
+  it:
+    | {
+        exactDateLabel?: string | null
+        exactDateStart?: string | null
+        exactDateEnd?: string | null
+        exactDateApprox?: boolean
+        exactDateOpenEnd?: boolean
+      }
+    | null
+    | undefined,
+  locale: Locale = 'ru',
+): string | null {
+  if (!it?.exactDateLabel) return null
+  if (locale === 'ru' || !it.exactDateStart) return it.exactDateLabel
+  const start = new Date(it.exactDateStart)
+  if (Number.isNaN(start.getTime())) return it.exactDateLabel
+  if (it.exactDateApprox) return `≈ ${formatDateIn(start, locale)}`
+  if (it.exactDateOpenEnd) return `${formatDateIn(start, locale)} — ?`
+  const end = it.exactDateEnd ? new Date(it.exactDateEnd) : null
+  return formatExactRange(start, end && !Number.isNaN(end.getTime()) ? end : null, locale)
+}

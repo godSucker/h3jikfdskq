@@ -44,6 +44,10 @@ interface DailyNewsItem {
   // См. detect-shop-forecast.ts - тот же live-источник (kartel-filter-dates).
   exactDateLabel: string | null
   exactDateStart: string | null
+  // См. AnnouncementItem в build-announcements.ts: страница анонсов собирает
+  // подпись даты на языке посетителя по ISO-датам, а не по русской строке.
+  exactDateEnd: string | null
+  exactDateApprox?: boolean
 }
 
 function balanceQuotes(name: string): string {
@@ -267,6 +271,8 @@ export async function fetchDailyNewsForecast(
           : null,
       exactDateStart:
         exactRange?.start ?? (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
+      exactDateEnd: exactRange?.end ?? null,
+      exactDateApprox: !exactRange && inheritedMs != null,
     })
   }
 
@@ -311,6 +317,8 @@ export async function fetchDailyNewsForecast(
     if (ms == null || ms < sprintWindowStart || ms >= sprintWindowEnd) continue
     items[i].exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
     items[i].exactDateStart = new Date(ms).toISOString()
+    items[i].exactDateEnd = null
+    items[i].exactDateApprox = true
   }
 
   const year = sprintStartDate(target).getUTCFullYear()

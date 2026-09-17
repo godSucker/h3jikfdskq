@@ -96,6 +96,14 @@ interface AnnouncementItem {
   // ISO-дата начала (не форматированная) - для хронологической сортировки
   // на странице (ближайшие сверху), formatExactRangeRu() не сортируется.
   exactDateStart?: string | null
+  // ISO-конец окна и пометки вида подписи. exactDateLabel собран по-русски и
+  // уходит в скриншот-бота как есть, а страница анонсов с 2026-09-18 рисует
+  // дату на языке посетителя сама - для этого ей нужны сами даты, а не строка.
+  // approx - "≈ 5 сентября" (оффер датирован по соседям, а не живым окном),
+  // openEnd - "26 августа — ?" (начало известно, конец kartel ещё не отдал).
+  exactDateEnd?: string | null
+  exactDateApprox?: boolean
+  exactDateOpenEnd?: boolean
   // Только shopForecast - 'week'/'month', если оффер помечен игрой как
   // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
@@ -109,7 +117,7 @@ interface AnnouncementItem {
   // на 3 подблока вместо плоского списка (фидбек юзера 2026-09-15).
   hall?: 'jackpot' | 'event' | 'mystery' | null
   // Только hall==='mystery' - цена контракта (см. fetchMysteryContracts).
-  cost?: { amount: number; name: string; image: string | null } | null
+  cost?: { id?: string; amount: number; name: string; image: string | null } | null
   // Только hall==='mystery' - награда несёт конкретную звезду/скин (в
   // отличие от jackpot/event, где Reward голый, без Tag). Нужно открыть
   // модалку СРАЗУ на этом скине по клику (фидбек юзера 2026-09-15), не на
@@ -241,7 +249,7 @@ interface DetectResult {
   // Рейды/лесенки: объект УЖЕ был опубликован, но без даты, а теперь kartel
   // её впервые отдал. Это дозаполнение старой карточки, а не новый пост -
   // main() дописывает дату в существующий item с тем же id.
-  patchDates?: { id: string; exactDateLabel: string; exactDateStart: string }[]
+  patchDates?: { id: string; exactDateLabel: string; exactDateStart: string; exactDateEnd?: string | null }[]
   // Только shopForecast/dailyNews, только при СОЗДАНИИ новой записи (items
   // непустой, updateExisting не задан) - записывается в Announcement.sprintKey.
   sprintKey?: string
@@ -412,7 +420,7 @@ const STALE_PAST_DAYS = 30
 
 async function exactDateFor(
   filterName: string | undefined,
-): Promise<{ label: string; start: string } | null> {
+): Promise<{ label: string; start: string; end: string | null } | null> {
   if (!filterName) return null
   const dates = await loadFilterDates()
   const range = pickFilterDateRange(dates, filterName)
@@ -432,6 +440,7 @@ async function exactDateFor(
   return {
     label: formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null),
     start: range.start,
+    end: range.end ?? null,
   }
 }
 
@@ -460,7 +469,7 @@ function parsePeriodFilter(filterName: string): { prefix: string; period: string
 async function inferStartFromPreviousRotation(
   filterName: string,
   siblingFilterNames: string[],
-): Promise<{ label: string; start: string } | null> {
+): Promise<{ label: string; start: string; end: string | null; openEnd: true } | null> {
   const parsed = parsePeriodFilter(filterName)
   if (!parsed) return null
   const prevPeriod = siblingFilterNames
@@ -476,7 +485,7 @@ async function inferStartFromPreviousRotation(
   if (!range?.end) return null
   const endDate = new Date(range.end)
   if (Number.isNaN(endDate.getTime())) return null
-  return { label: `${formatDateRu(endDate)} — ?`, start: range.end }
+  return { label: `${formatDateRu(endDate)} — ?`, start: range.end, end: null, openEnd: true }
 }
 
 async function detectBoxes(seen: string[]): Promise<DetectResult> {
@@ -498,6 +507,7 @@ async function detectBoxes(seen: string[]): Promise<DetectResult> {
           image: b.icon ?? null,
           exactDateLabel: exact?.label ?? null,
           exactDateStart: exact?.start ?? null,
+          exactDateEnd: exact?.end ?? null,
         }
       }),
     ),
@@ -730,6 +740,8 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
         cost:
           c.costAmount > 0
             ? {
+                // id нужен странице: имя жетона она подставляет на своём языке.
+                id: c.costTokenId,
                 amount: c.costAmount,
                 name: token?.name ?? c.costTokenId,
                 image: token?.texture ?? null,
@@ -737,6 +749,8 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
             : null,
         exactDateLabel: exact?.label ?? null,
         exactDateStart: exact?.start ?? null,
+        exactDateEnd: exact?.end ?? null,
+        exactDateOpenEnd: exact && 'openEnd' in exact ? true : false,
       }
     }),
   )
@@ -785,6 +799,8 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       image: firstMutantImage(m?.stars),
       hall: 'mystery',
       cost: {
+        // id нужен странице: имя жетона она подставляет на своём языке.
+        id: c.costTokenId,
         amount: c.costAmount,
         name: token?.name ?? c.costTokenId,
         image: token?.texture ?? null,
@@ -793,6 +809,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       skin: c.skin,
       exactDateLabel: exact?.label ?? null,
       exactDateStart: exact?.start ?? null,
+      exactDateEnd: exact?.end ?? null,
     })
   }
 
@@ -883,7 +900,11 @@ async function detectDungeons(
   const seenSet = new Set(seen)
   const filterMap = await buildDungeonFilterMap().catch(() => new Map())
 
-  const dated: { entry: DungeonRawShape; key: string; exact: { label: string; start: string } }[] =
+  const dated: {
+    entry: DungeonRawShape
+    key: string
+    exact: { label: string; start: string; end: string | null }
+  }[] =
     []
   for (const d of entries) {
     const filterName = filterMap.get(d.id)
@@ -907,7 +928,12 @@ async function detectDungeons(
   const fresh = dated.filter((d) => !seenSet.has(d.key) && !isFirstDate(d))
   const patchDates = dated
     .filter((d) => !seenSet.has(d.key) && isFirstDate(d))
-    .map((d) => ({ id: d.entry.id, exactDateLabel: d.exact.label, exactDateStart: d.exact.start }))
+    .map((d) => ({
+      id: d.entry.id,
+      exactDateLabel: d.exact.label,
+      exactDateStart: d.exact.start,
+      exactDateEnd: d.exact.end,
+    }))
 
   const items = await Promise.all(
     fresh.map(async ({ entry: d, exact }) => {
@@ -932,6 +958,7 @@ async function detectDungeons(
         image,
         exactDateLabel: exact.label,
         exactDateStart: exact.start,
+        exactDateEnd: exact.end,
       }
     }),
   )
@@ -1018,7 +1045,7 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
   const dated: {
     entry: EventLadderRawShape
     key: string
-    exact: { label: string; start: string }
+    exact: { label: string; start: string; end: string | null }
   }[] = []
   for (const e of entries) {
     const dungeonId = resolveEventLadderDungeonId(e.id, dungeonIds)
@@ -1050,6 +1077,7 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
         image,
         exactDateLabel: exact.label,
         exactDateStart: exact.start,
+        exactDateEnd: exact.end,
       }
     }),
   )
@@ -1167,6 +1195,8 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
       ribbon: it.ribbon,
       exactDateLabel: it.exactDateLabel,
       exactDateStart: it.exactDateStart,
+      exactDateEnd: it.exactDateEnd,
+      exactDateApprox: it.exactDateApprox,
       featuredMutant: it.featuredMutant,
       packMutants: it.packMutants,
     })),
@@ -1188,6 +1218,8 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
       ribbon: it.ribbon,
       exactDateLabel: it.exactDateLabel,
       exactDateStart: it.exactDateStart,
+      exactDateEnd: it.exactDateEnd,
+      exactDateApprox: it.exactDateApprox,
     })),
   )
 }
@@ -1255,7 +1287,12 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
     const label = dateLabel(c)
 
     if (seenSet.has(filterKey) && c.dateStart && label) {
-      patchDates.push({ id: c.filter, exactDateLabel: label, exactDateStart: c.dateStart })
+      patchDates.push({
+        id: c.filter,
+        exactDateLabel: label,
+        exactDateStart: c.dateStart,
+        exactDateEnd: c.dateEnd,
+      })
     }
     // Архив завершённых заданий и тестовые цепочки игроку не анонсируем: в
     // архив Kobojo регулярно переносит старые этапы, и каждый перенос выглядел
@@ -1266,7 +1303,14 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
     if (c.dateEnd && new Date(c.dateEnd).getTime() < nowMs) continue
 
     if (!seenSet.has(filterKey)) {
-      items.push({ id: c.filter, name: c.name.ru, image: c.icon, exactDateLabel: label, exactDateStart: c.dateStart })
+      items.push({
+        id: c.filter,
+        name: c.name.ru,
+        image: c.icon,
+        exactDateLabel: label,
+        exactDateStart: c.dateStart,
+        exactDateEnd: c.dateEnd,
+      })
       continue
     }
     const added = c.steps.filter((st) => !seenSet.has(stepKey(c.filter, st.id))).map((st) => st.id)
@@ -1277,6 +1321,7 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
       image: c.icon,
       exactDateLabel: label,
       exactDateStart: c.dateStart,
+      exactDateEnd: c.dateEnd,
       addedStepIds: added,
     })
   }
@@ -1547,6 +1592,7 @@ async function main() {
             if (it.id !== pd.id || it.exactDateLabel) continue
             it.exactDateLabel = pd.exactDateLabel
             it.exactDateStart = pd.exactDateStart
+            it.exactDateEnd = pd.exactDateEnd ?? null
             console.log(`[ANNOUNCE] ${d.category}: дата дописана в старую карточку ${pd.id} -> ${pd.exactDateLabel}`)
           }
         }

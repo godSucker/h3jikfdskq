@@ -683,7 +683,7 @@ const structuredData = [
       </div>
       <nav>
         <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
-        {locale === 'ru' && <a href="/announcements">{t('nav.announcements', locale)}</a>}
+        <a href={`${localePrefix(locale)}/announcements`}>{t('nav.announcements', locale)}</a>
         <a href={navHref('/evolution/evotech-calculator')}>{t('nav.evoCalculator', locale)}</a>
         <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
         <a href={navHref('/materials')}>{t('nav.materials', locale)}</a>
@@ -743,7 +743,7 @@ const structuredData = [
       </div>
       <a href={navHref('/')}>{t('nav.home', locale)}</a>
       <a href={navHref('/mutants')}>{t('nav.mutants', locale)}</a>
-      {locale === 'ru' && <a href="/announcements">{t('nav.announcements', locale)}</a>}
+      <a href={`${localePrefix(locale)}/announcements`}>{t('nav.announcements', locale)}</a>
       <a href={navHref('/simulators/stats')}>{t('nav.statsCalculator', locale)}</a>
       <a href={navHref('/evolution/evotech-calculator')}>{t('nav.evoCalculator', locale)}</a>
       <a href={navHref('/materials')}>{t('nav.materials', locale)}</a>

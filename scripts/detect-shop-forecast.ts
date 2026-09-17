@@ -102,6 +102,10 @@ interface ForecastItem {
   // запускался/оффер не нашёлся среди фильтров) - card.astro в этом случае
   // падает обратно на sprintRangeLabel(sprint), как было раньше.
   exactDateLabel: string | null
+  // ISO-конец окна и признак приблизительной даты - страница анонсов рисует
+  // подпись на языке посетителя сама (см. AnnouncementItem в build-announcements.ts).
+  exactDateEnd: string | null
+  exactDateApprox?: boolean
   // ISO-дата начала (не форматированная) - нужна для хронологической
   // сортировки офферов на странице (ближайшие сверху), formatExactRangeRu()
   // теряет сортируемость (текст с названием месяца).
@@ -245,6 +249,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
             )
           : null,
         exactDateStart: exactRange?.start ?? null,
+        exactDateEnd: exactRange?.end ?? null,
         featuredMutant:
           forceFeatured ??
           classifyFeaturedMutant(itemId, exactRange?.start ?? null, exactRange?.end ?? null),
@@ -438,6 +443,8 @@ function inheritDatesFromAnchors(
     if (ms < windowStart || ms >= windowEnd) continue
     it.exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
     it.exactDateStart = new Date(ms).toISOString()
+    it.exactDateEnd = null
+    it.exactDateApprox = true
   }
 
   for (let i = 0; i < blockItems.length; i++) {
@@ -453,6 +460,8 @@ function inheritDatesFromAnchors(
     if (ms == null || ms < windowStart || ms >= windowEnd) continue
     it.exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
     it.exactDateStart = new Date(ms).toISOString()
+    it.exactDateEnd = null
+    it.exactDateApprox = true
   }
 }
 
@@ -732,6 +741,8 @@ async function appendDailyMutantOffers(
     if (!isConfirmed || outlierPositions.has(entry.position)) {
       built.item.exactDateLabel = `≈ ${formatDateRu(new Date(dayMs))}`
       built.item.exactDateStart = new Date(dayMs).toISOString()
+      built.item.exactDateEnd = null
+      built.item.exactDateApprox = true
     }
     items.push(built.item)
   }
