@@ -742,7 +742,7 @@
   "guides.quests.triggerCategory.social": "Social",
   "guides.quests.unlockNeeds": "Requiere:",
   "guides.quests.unlockBuildingLevel": "{name} nivel {level}",
-  "guides.quests.unlockAfterQuest": "tras la misión «{title}»",
+  "guides.quests.unlockAfterQuest": "completar la misión «{title}»",
   "guides.division.recommendedLevel": "Evo recomendado para completar: «{level}»",
   "guides.division.mapNumber": "Mapa {n}",
   "guides.division.fightsCount": "Combates:",

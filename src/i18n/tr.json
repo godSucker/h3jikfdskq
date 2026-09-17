@@ -742,7 +742,7 @@
   "guides.quests.triggerCategory.social": "Sosyal",
   "guides.quests.unlockNeeds": "Gerekli:",
   "guides.quests.unlockBuildingLevel": "{name} seviye {level}",
-  "guides.quests.unlockAfterQuest": "“{title}” görevinden sonra",
+  "guides.quests.unlockAfterQuest": "“{title}” görevini tamamlamak",
   "guides.division.recommendedLevel": "Tamamlamak için önerilen evo: «{level}»",
   "guides.division.mapNumber": "Harita {n}",
   "guides.division.fightsCount": "Dövüş:",
