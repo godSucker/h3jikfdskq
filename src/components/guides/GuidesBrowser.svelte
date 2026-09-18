@@ -231,13 +231,34 @@
   // уже на /guides.
   $effect(() => {
     if (typeof window === 'undefined') return
-    const onHashChange = () => {
+    const syncFromHash = () => {
       const key = window.location.hash.slice(1)
       if (TABS.some((t) => t.key === key)) activeTab = key
+      else if (!key) activeTab = TABS[0].key
     }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    window.addEventListener('hashchange', syncFromHash)
+    // pushState сам по себе hashchange не шлёт, но "назад"/"вперёд" по истории
+    // шлют popstate - без него кнопка "назад" меняла бы адрес, а вкладка
+    // оставалась прежней.
+    window.addEventListener('popstate', syncFromHash)
+    return () => {
+      window.removeEventListener('hashchange', syncFromHash)
+      window.removeEventListener('popstate', syncFromHash)
+    }
   })
+
+  // Клик по вкладке пишет её в адрес (#quests и т.п.) - иначе ссылку на
+  // конкретную вкладку нельзя было скопировать из строки браузера, хотя
+  // открывались такие ссылки давно (initialTab выше). pushState, а не
+  // replaceState: "назад" тогда возвращает на предыдущую вкладку, а не уводит
+  // со страницы. Пустой хэш (вернулись к самому первому состоянию) - это
+  // вкладка по умолчанию.
+  function selectTab(key: string) {
+    activeTab = key
+    if (typeof window === 'undefined') return
+    if (window.location.hash.slice(1) === key) return
+    window.history.pushState(null, '', `#${key}`)
+  }
 
   function openMutant(specimenId: string) {
     window.dispatchEvent(new CustomEvent('archivist:open-mutant', { detail: { specimenId } }))
@@ -286,7 +307,7 @@
 
 <div class="tab-bar" role="tablist">
   {#each TABS as tab (tab.key)}
-    <button class="tab-btn" class:active={activeTab === tab.key} class:soon={!tab.ready} onclick={() => (activeTab = tab.key)}>
+    <button class="tab-btn" class:active={activeTab === tab.key} class:soon={!tab.ready} onclick={() => selectTab(tab.key)}>
       {tabLabel(tab.key)}{#if !tab.ready}<span class="soon-badge">{t('guides.soon', locale)}</span>{/if}
     </button>
   {/each}

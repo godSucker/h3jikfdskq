@@ -900,6 +900,10 @@
           <div class="flex flex-col items-center gap-3 py-2">
             {#each orbingImages.rows as row}
               <div class="flex items-center justify-center gap-3">
+                <!-- Комбинированная сфера (две способности на одной) режется по
+                     диагонали, а не пополам: цифра уровня нарисована по центру,
+                     и вертикальный рез приходился ровно по ней. Тот же вид - в
+                     карточке бота статов (telegram-card-render.ts). -->
                 {#each row as orbFile}
                   <div class="w-12 h-12 md:w-16 md:h-16 flex-shrink-0 relative group">
                     {#if Array.isArray(orbFile)}
@@ -912,14 +916,14 @@
                         src={textureUrl(`/orbs/${orbFile[0]}`)}
                         alt="Orb"
                         class="absolute inset-0 z-10 w-full h-full drop-shadow-md transition-transform group-hover:scale-110"
-                        style="clip-path: inset(0 50% 0 0);"
+                        style="clip-path: polygon(0 0, 100% 0, 0 100%);"
                         loading="lazy"
                       />
                       <img
                         src={textureUrl(`/orbs/${orbFile[1]}`)}
                         alt="Orb"
                         class="absolute inset-0 z-10 w-full h-full drop-shadow-md transition-transform group-hover:scale-110"
-                        style="clip-path: inset(0 0 0 50%);"
+                        style="clip-path: polygon(100% 0, 100% 100%, 0 100%);"
                         loading="lazy"
                       />
                     {:else}

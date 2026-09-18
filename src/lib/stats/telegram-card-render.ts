@@ -81,6 +81,48 @@ async function loadImageDataUri(relPath: string, grayscale = false): Promise<str
   return uri
 }
 
+// Комбинированная сфера (одна физическая сфера с двумя эффектами) рисуется
+// половинками. Склеиваем их в ОДНУ картинку заранее, а не двумя обрезанными
+// <img> в Satori: там половинка - это контейнер в 2 раза уже картинки, и
+// движок не обрезает её, а сжимает по ширине, отчего иконка выглядела мыльной.
+// Режем по диагонали (из правого верхнего угла в левый нижний), а не пополам:
+// цифра уровня нарисована по центру сферы, и вертикальный рез приходился ровно
+// по ней. Тот же вид, что в модалке мутанта на сайте.
+async function loadSplitOrbDataUri(leftPath: string, rightPath: string): Promise<string> {
+  const key = `${leftPath}|${rightPath}#split`
+  const cached = imgCache.get(key)
+  if (cached) return cached
+  const SIZE = 128
+  const triangle = (side: 'left' | 'right') =>
+    Buffer.from(
+      `<svg width="${SIZE}" height="${SIZE}"><polygon points="${
+        side === 'left' ? `0,0 ${SIZE},0 0,${SIZE}` : `${SIZE},0 ${SIZE},${SIZE} 0,${SIZE}`
+      }" fill="#fff"/></svg>`,
+    )
+  const half = async (relPath: string, side: 'left' | 'right') => {
+    const res = await fetchWithRetry(CDN + relPath)
+    if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
+    const square = await sharp(Buffer.from(await res.arrayBuffer()))
+      .resize(SIZE, SIZE, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer()
+    return sharp(square)
+      .composite([{ input: triangle(side), blend: 'dest-in' }])
+      .png()
+      .toBuffer()
+  }
+  const [l, r] = await Promise.all([half(leftPath, 'left'), half(rightPath, 'right')])
+  const merged = await sharp({
+    create: { width: SIZE, height: SIZE, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  })
+    .composite([{ input: l }, { input: r }])
+    .png()
+    .toBuffer()
+  const uri = `data:image/png;base64,${merged.toString('base64')}`
+  imgCache.set(key, uri)
+  return uri
+}
+
 let fontsPromise: Promise<{ bold: Buffer; medium: Buffer; regular: Buffer }> | null = null
 function loadFonts() {
   if (!fontsPromise) {
@@ -152,16 +194,25 @@ async function buildPanelTree(input: CardInput) {
     ...(panel.specialOrb ? [panel.specialOrb.icon] : []),
     ...(panel.attackRows.some((r) => r.isAoe) ? [AOE_ICON] : []),
     // Рекомендованная сборка сфер (первая строка из orbing.json) - у неё свои
-    // иконки, в слотах мутанта их может не быть вовсе.
-    ...(panel.orbBuild?.cells ?? []).flatMap((cell) =>
-      (Array.isArray(cell) ? cell : [cell]).map((file) => `/orbs/${file}`),
-    ),
+    // иконки, в слотах мутанта их может не быть вовсе. Комбинированные ячейки
+    // грузятся отдельно, склейкой (см. splitUriByKey ниже).
+    ...(panel.orbBuild?.cells ?? [])
+      .filter((cell): cell is string => !Array.isArray(cell))
+      .map((file) => `/orbs/${file}`),
   ])
   const uriByPath: Record<string, string> = {}
   await Promise.all(
     Array.from(uniquePaths).map(async (p) => {
       uriByPath[p] = await loadImageDataUri(p)
     }),
+  )
+  const splitUriByKey: Record<string, string> = {}
+  await Promise.all(
+    (panel.orbBuild?.cells ?? [])
+      .filter((cell): cell is [string, string] => Array.isArray(cell))
+      .map(async (cell) => {
+        splitUriByKey[cell.join('|')] = await loadSplitOrbDataUri(`/orbs/${cell[0]}`, `/orbs/${cell[1]}`)
+      }),
   )
 
   const starColorUri: string[] = []
@@ -355,34 +406,13 @@ async function buildPanelTree(input: CardInput) {
       ),
     )
 
-  // Ячейка рекомендованной сборки. Обычная - иконка в слоте; комбинированная
-  // (одна физическая сфера с двумя эффектами, 39 таких на 342 сборки) - две
-  // половинки в одном слоте, как рисует модалка на сайте.
+  // Ячейка рекомендованной сборки: слот и одна иконка. Комбинированная сфера
+  // приходит уже склеенной картинкой (loadSplitOrbDataUri), поэтому рендер тут
+  // одинаковый и ничего не масштабируется по половинке.
   const buildCell = (cell: string | [string, string]) => {
-    const bg = (Array.isArray(cell) ? cell[0] : cell).startsWith('special/')
-      ? SLOT_BG_SPECIAL
-      : SLOT_BG_BASIC
-    const half = (file: string, side: 'left' | 'right') =>
-      h(
-        'div',
-        {
-          style: {
-            display: 'flex',
-            position: 'absolute',
-            top: 0,
-            left: side === 'left' ? 0 : 26,
-            width: 26,
-            height: 52,
-            overflow: 'hidden',
-          },
-        },
-        h('img', {
-          src: uriByPath[`/orbs/${file}`],
-          width: 48,
-          height: 48,
-          style: { objectFit: 'contain', position: 'absolute', top: 2, left: side === 'left' ? 2 : -22 },
-        }),
-      )
+    const first = Array.isArray(cell) ? cell[0] : cell
+    const bg = first.startsWith('special/') ? SLOT_BG_SPECIAL : SLOT_BG_BASIC
+    const iconUri = Array.isArray(cell) ? splitUriByKey[cell.join('|')] : uriByPath[`/orbs/${cell}`]
     return h(
       'div',
       {
@@ -401,16 +431,14 @@ async function buildPanelTree(input: CardInput) {
         height: 52,
         style: { objectFit: 'cover', position: 'absolute' },
       }),
-      ...(Array.isArray(cell)
-        ? [half(cell[0], 'left'), half(cell[1], 'right')]
-        : [
-            h('img', {
-              src: uriByPath[`/orbs/${cell}`],
-              width: 48,
-              height: 48,
-              style: { objectFit: 'contain', position: 'absolute', top: 2, left: 2 },
-            }),
-          ]),
+      iconUri
+        ? h('img', {
+            src: iconUri,
+            width: 48,
+            height: 48,
+            style: { objectFit: 'contain', position: 'absolute', top: 2, left: 2 },
+          })
+        : null,
     )
   }
 
