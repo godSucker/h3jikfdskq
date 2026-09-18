@@ -746,6 +746,8 @@
   "guides.quests.unlockAfterQuest": "completare la missione «{title}»",
   "announcements.heading": "Annunci",
   "announcements.intro": "Notizie e annunci su Mutants Genetic Gladiators.",
+  "announcements.pageDescription": "Notizie e annunci di Mutants Genetic Gladiators: nuovi mutanti e skin, casse, raid e scale, previsioni del negozio e missioni, con le date.",
+  "announcements.rebalance.item": "Ribilanciamento del {date}: {n} {word}",
   "announcements.empty": "Ancora nessun annuncio: torna più tardi.",
   "announcements.filterAll": "Tutti",
   "announcements.packTitle": "Cosa contiene",

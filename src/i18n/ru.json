@@ -749,6 +749,8 @@
   "guides.quests.unlockAfterQuest": "пройти квест «{title}»",
   "announcements.heading": "Анонсы",
   "announcements.intro": "Новости и анонсы по игре Mutants Genetic Gladiators.",
+  "announcements.pageDescription": "Новости и анонсы Mutants Genetic Gladiators: новые мутанты и скины, боксы, рейды и лесенки, прогноз магазина и задания - с датами.",
+  "announcements.rebalance.item": "Ребаланс от {date}: {n} {word}",
   "announcements.empty": "Анонсов пока нет — заглядывай позже.",
   "announcements.filterAll": "Все",
   "announcements.packTitle": "Что внутри",

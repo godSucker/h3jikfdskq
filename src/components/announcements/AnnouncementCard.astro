@@ -60,6 +60,17 @@ const boxCategoryLabel = (raw: string) =>
       ? tr('boxes.category.mystery')
       : raw
 
+// Подпись записи ребаланса: в данных она русская ("Ребаланс от 18.09.2026:
+// 12 мутант(ов)"), а id записи - это дата, и число мутантов лежит отдельным
+// полем, так что собираем строку на языке страницы.
+const itemLabel = (it2: { id: string; name: string; rebalanceCount?: number }) =>
+  a.category === 'rebalance' && it2.rebalanceCount !== undefined
+    ? tr('announcements.rebalance.item')
+        .replace('{date}', fmtDate(it2.id, locale))
+        .replace('{n}', String(it2.rebalanceCount))
+        .replace('{word}', pluralizeCount(it2.rebalanceCount, locale))
+    : it2.name
+
 const costTokenId = (cost: { id?: string; image?: string | null }) =>
   cost.id ?? cost.image?.split('/').pop()?.replace(/\.[a-z]+$/i, '') ?? ''
 const tr = (key: string) => t(key, locale)
@@ -580,7 +591,11 @@ const forecastWeeks =
       <div class="card-body">
         <time class="card-date" datetime={a.date}>{fmtDate(a.date, locale)}</time>
         {a.category && <span class="card-category">{categoryLabel(a.category, locale)}</span>}
-        {a.title && <h2 class="card-title">{a.title}</h2>}
+        {a.title && (
+          <h2 class="card-title">
+            {a.items?.length === 1 && a.items[0] ? itemLabel(a.items[0]) : a.title}
+          </h2>
+        )}
         {a.text && <p class="card-text">{a.text}</p>}
         {a.items && a.items.length > 0 && (
           <ul class:list={['item-grid', { 'item-grid-token': a.category === 'token' }]}>
@@ -589,7 +604,7 @@ const forecastWeeks =
                 {it2.image && (
                   <img class="item-image" src={textureUrl(it2.image)} alt={it2.name} loading="lazy" decoding="async" />
                 )}
-                <span class="item-name">{it2.name}</span>
+                <span class="item-name">{itemLabel(it2)}</span>
               </li>
             ))}
           </ul>

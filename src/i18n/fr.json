@@ -746,6 +746,8 @@
   "guides.quests.unlockAfterQuest": "terminer la quête « {title} »",
   "announcements.heading": "Annonces",
   "announcements.intro": "Actualités et annonces pour Mutants Genetic Gladiators.",
+  "announcements.pageDescription": "Actualités et annonces de Mutants Genetic Gladiators : nouveaux mutants et skins, coffres, raids et échelles, prévisions de la boutique et quêtes, avec les dates.",
+  "announcements.rebalance.item": "Rééquilibrage du {date} : {n} {word}",
   "announcements.empty": "Aucune annonce pour l’instant — reviens plus tard.",
   "announcements.filterAll": "Tout",
   "announcements.packTitle": "Contenu",

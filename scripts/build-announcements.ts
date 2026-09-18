@@ -81,6 +81,8 @@ interface AnnouncementItem {
   // Только eventQuests: этапы, добавленные в уже анонсированную цепочку. Нет
   // поля - анонс всей новой цепочки.
   addedStepIds?: string[]
+  // Только rebalance: сколько мутантов затронуто (id записи - дата ребаланса).
+  rebalanceCount?: number
   // Только для shopForecast/dailyNews.
   price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
   // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
@@ -1237,6 +1239,9 @@ async function detectRebalance(seen: string[]): Promise<DetectResult> {
       id: h.date,
       name: `Ребаланс от ${new Date(h.date).toLocaleDateString('ru-RU')}: ${h.entries.length} мутант(ов)`,
       image: null,
+      // Число мутантов отдельным полем: страница собирает подпись на своём
+      // языке, а не показывает эту русскую строку (см. AnnouncementCard).
+      rebalanceCount: h.entries.length,
     })),
   }
 }

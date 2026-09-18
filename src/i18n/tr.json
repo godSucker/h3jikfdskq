@@ -746,6 +746,8 @@
   "guides.quests.unlockAfterQuest": "“{title}” görevini tamamlamak",
   "announcements.heading": "Duyurular",
   "announcements.intro": "Mutants Genetic Gladiators haberleri ve duyuruları.",
+  "announcements.pageDescription": "Mutants Genetic Gladiators haberleri ve duyuruları: yeni mutantlar ve görünümler, kutular, baskınlar ve merdivenler, mağaza tahmini ve görevler - tarihleriyle.",
+  "announcements.rebalance.item": "{date} denge güncellemesi: {n} {word}",
   "announcements.empty": "Henüz duyuru yok — daha sonra tekrar bak.",
   "announcements.filterAll": "Tümü",
   "announcements.packTitle": "İçindekiler",
