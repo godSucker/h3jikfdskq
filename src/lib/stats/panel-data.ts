@@ -822,6 +822,32 @@ export function orbBuildFor(mutantId: string): OrbBuild | null {
   return { cells: rows[0], total: rows.length }
 }
 
+// Раскладывает сборку по слотам мутанта: id сферы = имя файла текстуры без
+// папки и расширения (совпадение проверено по всем 21 файлу в orbing.json).
+// Сдвоенная ячейка (одна сфера с двумя эффектами) в расчёт статов идёт первой
+// половиной - вторую калькулятор представить не умеет, у слота один эффект.
+// "orb_slot" в данных означает пустой слот.
+export function orbIdsFromBuild(
+  build: OrbBuild | null,
+  basicSlotCount: number,
+): { basicOrbIds: (string | null)[]; specialOrbId: string | null } {
+  const basicOrbIds: (string | null)[] = Array(Math.max(0, basicSlotCount)).fill(null)
+  let specialOrbId: string | null = null
+  if (!build) return { basicOrbIds, specialOrbId }
+  let basicIdx = 0
+  for (const cell of build.cells) {
+    const file = Array.isArray(cell) ? cell[0] : cell
+    const id = String(file).split('/').pop()?.replace(/\.webp$/i, '') ?? ''
+    if (!id || id === 'orb_slot' || id === 'orb_slot_spe') continue
+    if (String(file).startsWith('special/')) {
+      specialOrbId ??= id
+    } else if (basicIdx < basicOrbIds.length) {
+      basicOrbIds[basicIdx++] = id
+    }
+  }
+  return { basicOrbIds, specialOrbId }
+}
+
 export interface PanelData {
   name: string
   portraitPath: string
