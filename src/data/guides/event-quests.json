@@ -274,8 +274,8 @@
     "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
-    "dateStart": "2026-08-10T10:00:00+00:00",
-    "dateEnd": "2026-08-23T10:00:00+00:00",
+    "dateStart": null,
+    "dateEnd": null,
     "steps": [
       {
         "id": "5260",
