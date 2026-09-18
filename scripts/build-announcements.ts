@@ -106,9 +106,6 @@ interface AnnouncementItem {
   exactDateEnd?: string | null
   exactDateApprox?: boolean
   exactDateOpenEnd?: boolean
-  // Только Daily_news_shop_24h_* - окно показа баннера, когда подпись
-  // сдвинута на неделю нарисованного контента (см. detect-daily-news.ts).
-  showDateStart?: string | null
   // Только shopForecast - 'week'/'month', если оффер помечен игрой как
   // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
@@ -1274,11 +1271,6 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
       exactDateStart: it.exactDateStart,
       exactDateEnd: it.exactDateEnd,
       exactDateApprox: it.exactDateApprox,
-      // Только у баннера "BACK FOR 24H ONLY": подпись сдвинута на неделю
-      // нарисованных мутантов, а место в ленте спринта карточка считает по
-      // окну показа (см. detect-daily-news.ts и offerSortDate в
-      // AnnouncementCard.astro).
-      ...(it.showDateStart ? { showDateStart: it.showDateStart } : {}),
     })),
   )
 }
