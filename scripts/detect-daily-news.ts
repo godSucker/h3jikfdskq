@@ -48,6 +48,9 @@ interface DailyNewsItem {
   // подпись даты на языке посетителя по ISO-датам, а не по русской строке.
   exactDateEnd: string | null
   exactDateApprox?: boolean
+  // Окно показа баннера в игре - заполняется только у Daily_news_shop_24h_*,
+  // у которых подпись сдвинута на неделю контента (см. сдвиг в конце fetch).
+  showDateStart?: string | null
 }
 
 function balanceQuotes(name: string): string {
@@ -340,6 +343,7 @@ export async function fetchDailyNewsForecast(
     const start = new Date(new Date(it.exactDateStart).getTime() + BANNER_24H_SHIFT_MS)
     const endMs = it.exactDateEnd ? new Date(it.exactDateEnd).getTime() : null
     const end = endMs != null ? new Date(endMs + BANNER_24H_SHIFT_MS) : null
+    it.showDateStart = it.exactDateStart
     it.exactDateStart = start.toISOString()
     it.exactDateEnd = end ? end.toISOString() : null
     it.exactDateLabel = it.exactDateApprox
