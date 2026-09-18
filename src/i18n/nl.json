@@ -746,6 +746,8 @@
   "guides.quests.unlockAfterQuest": "de missie ‘{title}’ voltooien",
   "announcements.heading": "Aankondigingen",
   "announcements.intro": "Nieuws en aankondigingen voor Mutants Genetic Gladiators.",
+  "announcements.pageDescription": "Nieuws en aankondigingen voor Mutants Genetic Gladiators: nieuwe mutanten en skins, kisten, raids en ladders, winkelvoorspelling en missies, met datums.",
+  "announcements.rebalance.item": "Herbalancering van {date}: {n} {word}",
   "announcements.empty": "Nog geen aankondigingen — kom later terug.",
   "announcements.filterAll": "Alles",
   "announcements.packTitle": "Wat erin zit",

@@ -41,6 +41,8 @@ export interface AnnouncementItem {
   addedNames?: string[]
   // Только eventQuests: этапы, добавленные в уже анонсированную цепочку.
   addedStepIds?: string[]
+  // Только rebalance: сколько мутантов затронуто (id записи - дата ребаланса).
+  rebalanceCount?: number
   // Только для shopForecast/dailyNews - реальная цена оффера, если она есть
   // (не у всех, часть daily_news - чисто событийные анонсы без покупки).
   // 'usd' - донат-паки за реальные деньги (<RealPrices Currency="USD">),

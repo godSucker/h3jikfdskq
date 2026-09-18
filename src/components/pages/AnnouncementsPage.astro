@@ -7,10 +7,14 @@ import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import AnnouncementCard from '@/components/announcements/AnnouncementCard.astro';
 import { categoryLabel, buildAnnouncementContext, boxHasSkin, type Announcement } from '@/lib/announcements-render';
 import { t, localeFromAstro } from '@/lib/i18n';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
 const tr = (key: string) => t(key, locale);
 const ctx = buildAnnouncementContext(locale);
+// Модалкам мутанта/бокса нужны те же словари, что на /boxes и /bingo - без
+// них они открывались с русскими именами и лором поверх переведённой страницы.
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 
 // Жетоны исключены со страницы анонсов по просьбе юзера 2026-08-08 -
 // категория осталась в детекторе/леджере (build-announcements.ts), просто не
@@ -54,7 +58,10 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
 );
 ---
 
-<BaseLayout title={`${tr('announcements.heading')} — Archivist-Library`}>
+<BaseLayout
+  title={`${tr('announcements.heading')} — Archivist-Library`}
+  description={tr('announcements.pageDescription')}
+>
   <main class="announcements-page">
     <h1>{tr('announcements.heading')}</h1>
     <p class="intro">{tr('announcements.intro')}</p>
@@ -90,8 +97,8 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
     </div>
   </div>
 
-  <BoxModal client:load />
-  <BingoMutantModal client:load />
+  <BoxModal client:load locale={locale} names={names} />
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
 
 <script>
