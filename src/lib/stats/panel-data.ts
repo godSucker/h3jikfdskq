@@ -800,16 +800,15 @@ function buildAttackRows(
 // Рекомендованная сборка сфер - первая строка из orbing.json, та же, что
 // показывается первой в модалке мутанта на сайте. total - сколько сборок у
 // мутанта всего (карточка бота пишет "ещё N на сайте").
-export interface OrbBuild {
-  cells: OrbCell[]
-  total: number
-}
+// Сборки сфер мутанта - строки orbing.json в том же порядке, что на сайте
+// (первая строка = топ-1, она же первой показана в модалке мутанта).
+export type OrbBuild = OrbCell[]
 
 // Тот же поиск, что getOrbingImages() в MutantModal.svelte: точный id, затем
 // без учёта регистра, затем базовая форма id (specimen_xx_yy_gold -> _yy).
-export function orbBuildFor(mutantId: string): OrbBuild | null {
+export function orbBuildsFor(mutantId: string): OrbBuild[] {
   const id = String(mutantId || '')
-  if (!id) return null
+  if (!id) return []
   const direct = orbingMap[id]
   const ci = direct ?? Object.entries(orbingMap).find(([k]) => k.toLowerCase() === id.toLowerCase())?.[1]
   const base = baseMutantId(id)
@@ -817,9 +816,7 @@ export function orbBuildFor(mutantId: string): OrbBuild | null {
     ci ??
     orbingMap[base] ??
     Object.entries(orbingMap).find(([k]) => k.toLowerCase() === base.toLowerCase())?.[1]
-  const rows = byBase?.rows
-  if (!rows?.length) return null
-  return { cells: rows[0], total: rows.length }
+  return byBase?.rows ?? []
 }
 
 // Раскладывает сборку по слотам мутанта: id сферы = имя файла текстуры без
@@ -828,14 +825,14 @@ export function orbBuildFor(mutantId: string): OrbBuild | null {
 // половиной - вторую калькулятор представить не умеет, у слота один эффект.
 // "orb_slot" в данных означает пустой слот.
 export function orbIdsFromBuild(
-  build: OrbBuild | null,
+  build: OrbBuild | null | undefined,
   basicSlotCount: number,
 ): { basicOrbIds: (string | null)[]; specialOrbId: string | null } {
   const basicOrbIds: (string | null)[] = Array(Math.max(0, basicSlotCount)).fill(null)
   let specialOrbId: string | null = null
   if (!build) return { basicOrbIds, specialOrbId }
   let basicIdx = 0
-  for (const cell of build.cells) {
+  for (const cell of build) {
     const file = Array.isArray(cell) ? cell[0] : cell
     const id = String(file).split('/').pop()?.replace(/\.webp$/i, '') ?? ''
     if (!id || id === 'orb_slot' || id === 'orb_slot_spe') continue
@@ -864,7 +861,10 @@ export interface PanelData {
   basicOrbs: (EnrichedOrb | null)[]
   specialOrb: EnrichedOrb | null
   availableStars: number[]
-  orbBuild: OrbBuild | null
+  // Все сборки мутанта с сайта; activeOrbBuild - индекс той, что надета на
+  // карточке (через ".<мутант> сферовка N"), иначе null.
+  orbBuilds: OrbBuild[]
+  activeOrbBuild: number | null
 }
 
 const STAR_KEY_BY_INDEX = ['normal', 'bronze', 'silver', 'gold', 'platinum']
@@ -898,6 +898,9 @@ export function buildPanelData(
     names?: Record<string, any>
     basicOrbIds?: (string | null)[]
     specialOrbId?: string | null
+    // Какая из сборок надета - только для подсветки в карточке; сами сферы
+    // приходят уже разложенными в basicOrbIds/specialOrbId.
+    orbBuildIndex?: number | null
     atkMultipliers?: { 1: number; 2: number }
   },
 ): PanelData {
@@ -933,6 +936,7 @@ export function buildPanelData(
     basicOrbs,
     specialOrb,
     availableStars: Array.from(mutant.availableStars).sort((a, b) => a - b),
-    orbBuild: orbBuildFor(String(rawMutant?.id ?? '')),
+    orbBuilds: orbBuildsFor(String(rawMutant?.id ?? '')),
+    activeOrbBuild: opts.orbBuildIndex ?? null,
   }
 }

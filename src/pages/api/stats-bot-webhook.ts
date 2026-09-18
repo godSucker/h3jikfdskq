@@ -204,6 +204,7 @@ function cacheKeyFor(config: ParsedConfig): string {
     config.starIndex,
     config.basicOrbIds.join(','),
     config.specialOrbId ?? '',
+    config.orbBuildIndex ?? '',
     config.atkMultipliers[1],
     config.atkMultipliers[2],
   ].join('|')
@@ -219,6 +220,7 @@ function toCardInput(config: ParsedConfig): CardInput {
     starIndex: config.starIndex,
     basicOrbIds: config.basicOrbIds,
     specialOrbId: config.specialOrbId,
+    orbBuildIndex: config.orbBuildIndex,
     atkMultipliers,
   })
   return { panel, level: config.level, starIndex: config.starIndex, atkMultipliers }

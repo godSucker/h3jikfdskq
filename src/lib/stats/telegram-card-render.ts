@@ -193,10 +193,11 @@ async function buildPanelTree(input: CardInput) {
     ...panel.basicOrbs.filter((o): o is NonNullable<typeof o> => Boolean(o)).map((o) => o.icon),
     ...(panel.specialOrb ? [panel.specialOrb.icon] : []),
     ...(panel.attackRows.some((r) => r.isAoe) ? [AOE_ICON] : []),
-    // Рекомендованная сборка сфер (первая строка из orbing.json) - у неё свои
-    // иконки, в слотах мутанта их может не быть вовсе. Комбинированные ячейки
-    // грузятся отдельно, склейкой (см. splitUriByKey ниже).
-    ...(panel.orbBuild?.cells ?? [])
+    // Сборки сфер с сайта - у них свои иконки, в слотах мутанта их может не
+    // быть вовсе. Комбинированные ячейки грузятся отдельно, склейкой (см.
+    // splitUriByKey ниже).
+    ...panel.orbBuilds
+      .flat()
       .filter((cell): cell is string => !Array.isArray(cell))
       .map((file) => `/orbs/${file}`),
   ])
@@ -208,7 +209,8 @@ async function buildPanelTree(input: CardInput) {
   )
   const splitUriByKey: Record<string, string> = {}
   await Promise.all(
-    (panel.orbBuild?.cells ?? [])
+    panel.orbBuilds
+      .flat()
       .filter((cell): cell is [string, string] => Array.isArray(cell))
       .map(async (cell) => {
         splitUriByKey[cell.join('|')] = await loadSplitOrbDataUri(`/orbs/${cell[0]}`, `/orbs/${cell[1]}`)
@@ -442,12 +444,11 @@ async function buildPanelTree(input: CardInput) {
     )
   }
 
-  // Рекомендованная сборка сфер - та же, что первой идёт в модалке мутанта на
-  // сайте. Сборок у мутанта бывает несколько, в карточку кладём первую и
-  // подпись, сколько ещё есть.
+  // Сборки сфер с сайта - те же и в том же порядке, что в модалке мутанта.
+  // Надетая через ".<мутант> сферовка N" подсвечивается рамкой.
   const orbBuildBlock = () => {
-    if (!panel.orbBuild) return row(null, 'Сферовка', 'пока нет')
-    const { cells, total } = panel.orbBuild
+    if (panel.orbBuilds.length === 0) return row(null, 'Сферовка', 'пока нет')
+    const active = panel.activeOrbBuild
     return h(
       'div',
       {
@@ -455,7 +456,7 @@ async function buildPanelTree(input: CardInput) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 10,
+          gap: 8,
           background: '#1b212a',
           border: '1px solid #2e3948',
           borderRadius: 12,
@@ -466,12 +467,45 @@ async function buildPanelTree(input: CardInput) {
       h(
         'div',
         { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' } },
-        h('div', { style: { display: 'flex', color: '#aab6c8', fontSize: 15, fontWeight: 700 } }, 'Сферовка'),
-        total > 1
-          ? h('div', { style: { display: 'flex', color: '#637083', fontSize: 13 } }, `ещё ${total - 1} на сайте`)
+        h(
+          'div',
+          { style: { display: 'flex', color: '#aab6c8', fontSize: 15, fontWeight: 700 } },
+          panel.orbBuilds.length > 1 ? 'Сферовки' : 'Сферовка',
+        ),
+        active !== null
+          ? h('div', { style: { display: 'flex', color: '#fbbf24', fontSize: 13 } }, `надета №${active + 1}`)
           : h('div', { style: { display: 'flex' } }, ''),
       ),
-      h('div', { style: { display: 'flex', gap: 12, justifyContent: 'center' } }, ...cells.map(buildCell)),
+      ...panel.orbBuilds.map((cells, i) =>
+        h(
+          'div',
+          {
+            style: {
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '4px 10px',
+              borderRadius: 10,
+              border: `1px solid ${i === active ? 'rgba(251,191,36,0.55)' : 'transparent'}`,
+              background: i === active ? 'rgba(251,191,36,0.07)' : 'transparent',
+            },
+          },
+          h(
+            'div',
+            {
+              style: {
+                display: 'flex',
+                width: 18,
+                color: i === active ? '#fbbf24' : '#637083',
+                fontSize: 13,
+                fontWeight: 700,
+              },
+            },
+            String(i + 1),
+          ),
+          h('div', { style: { display: 'flex', gap: 12 } }, ...cells.map(buildCell)),
+        ),
+      ),
     )
   }
 
@@ -657,9 +691,12 @@ async function buildPanelTree(input: CardInput) {
   // (longest in mutants.json is ~30 chars, close enough to the header's
   // single-line budget at 28px bold to not risk it) - untested against the
   // actual extremes, so err generous rather than exact.
-  // +1 строка под сборку сфер (иконки делают её выше обычной, отсюда +40).
-  const rowCount = 5 + panel.attackRows.length
-  const estHeight = 90 + 8 * 14 + 150 + 60 + 12 + 52 + 60 + rowCount * 60 + 40 + 60 + 160
+  const rowCount = 4 + panel.attackRows.length
+  // Блок сборок сфер: шапка плюс строка на каждую сборку (иконки выше обычной
+  // строки, поэтому считается отдельно от rowCount).
+  const buildBlockHeight = panel.orbBuilds.length > 0 ? 46 + panel.orbBuilds.length * 62 : 60
+  const estHeight =
+    90 + 8 * 14 + 150 + 60 + 12 + 52 + 60 + rowCount * 60 + buildBlockHeight + 60 + 160
   return { tree, estHeight }
 }
 
