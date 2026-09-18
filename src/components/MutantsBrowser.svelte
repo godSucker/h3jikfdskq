@@ -7,6 +7,7 @@
   import { baseMutantId as baseId } from '@/lib/utils';
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
+  import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
   const normalizeForSearch = normalizeSearch;
@@ -288,12 +289,16 @@
         if (!m.bingoKeys.has(sBingo)) continue;
       }
 
+      // Клетка доски говорит, в каком виде мутант засчитывается: скин, звезда
+      // или "как есть" (см. bingo-entry-variant.ts). Звёздность берётся именно
+      // отсюда, а не угадывается по id доски.
       let fSkin = null;
+      let fStar = null;
       if (bingoData) {
         const entry = bingoData.mutants.find((bm: any) => bm.specimenId.toLowerCase() === m.id.toLowerCase());
-        if (entry && entry.skin && entry.skin !== '_any') {
-          fSkin = entry.skin;
-        }
+        const variant = bingoEntryVariant(entry?.skin);
+        fSkin = variant.skin;
+        fStar = variant.star;
       }
 
       if (!fSkin && isReactorSel) {
@@ -304,20 +309,7 @@
         }
       }
 
-      res.push(fSkin ? { ...it, forceSkin: fSkin } : it);
-    }
-
-    if (sBingo) {
-        let autoStar = '';
-        if (sBingo === 'reactor') autoStar = 'platinum';
-        else if (sBingo.includes('bronze') || sBingo.includes('research_1')) autoStar = 'bronze';
-        else if (sBingo.includes('silver') || sBingo.includes('research_2')) autoStar = 'silver';
-        else if (sBingo.includes('gold') || sBingo.includes('research_3')) autoStar = 'gold';
-        else if (sBingo.includes('platinum') || sBingo.includes('plat') || sBingo.includes('research_4')) autoStar = 'platinum';
-
-        if (autoStar) {
-            return res.map(it => ({ ...it, _displayStar: autoStar })).sort(sortMutantsByGene);
-        }
+      res.push(fSkin || fStar ? { ...it, ...(fSkin ? { forceSkin: fSkin } : {}), ...(fStar ? { _displayStar: fStar } : {}) } : it);
     }
 
     return res.sort(sortMutantsByGene);
@@ -400,7 +392,7 @@
   // baseId() не срезает префикс specimen_, поэтому нормализуем id здесь.
   // Не у каждого мутанта есть все 5 звёзд (зодиаки - только normal/silver,
   // реактор/сезонные/особые/видеоигры/сообщество - ещё уже) - принудительная
-  // звезда от бинго-фильтра (autoStar выше) может не существовать у конкретного
+  // звезда от бинго-фильтра (bingoEntryVariant выше) может не существовать у конкретного
   // мутанта. Раньше это тихо запрашивало заведомо несуществующий файл, и
   // onerror откатывал на портрет-иконку вместо полной текстуры (баг найден
   // 2026-08-13). Проверено по всему public/textures_by_mutant: у мутантов с
