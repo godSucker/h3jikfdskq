@@ -3,7 +3,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { XMLParser } from 'fast-xml-parser'
 import {
-  EVENT_FILTER_RE,
+  isEventFilter,
   LOCALES,
   TEST_FILTER_RE,
   arr,
@@ -135,7 +135,11 @@ async function main() {
       if (c?.type === 'custom' && typeof c.id === 'string' && /^Specimen_/.test(c.id)) {
         out.push({ type: 'specimen', id: c.id })
       } else if (c?.type === 'custom' && c.id === 'techCenterLevel' && c.amount) {
-        out.push({ type: 'techCenter', level: Number(c.amount), name: translate(locs, 'Building_Tech') })
+        out.push({
+          type: 'techCenter',
+          level: Number(c.amount),
+          name: translate(locs, 'Building_Tech'),
+        })
       } else if (c?.type === 'ownEntity' && typeof c.id === 'string' && !c.id.includes('*')) {
         // "Habitat_*" - любые 4 среды обитания, они есть у каждого к этому моменту.
         out.push({ type: 'building', id: c.id })
@@ -155,12 +159,16 @@ async function main() {
 
     const rewards = arr(m.reward).map((r: any) => {
       const rid = (r?.id as string) ?? null
-      return { type: (r?.type as string) ?? (rid ? 'entity' : null), id: rid, amount: (r?.amount as string) ?? null }
+      return {
+        type: (r?.type as string) ?? (rid ? 'entity' : null),
+        id: rid,
+        amount: (r?.amount as string) ?? null,
+      }
     })
     if (rewards.length === 0) continue
 
     const filterVal = arr(m.Filter).join(' ')
-    if (EVENT_FILTER_RE.test(filterVal) || TEST_FILTER_RE.test(filterVal)) continue
+    if (isEventFilter(filterVal) || TEST_FILTER_RE.test(filterVal)) continue
 
     const chainType: 'story' | 'achievement' = m.type === 'Achievement' ? 'achievement' : 'story'
     const objectives = objectivesOf(m)
@@ -180,7 +188,13 @@ async function main() {
         })
         .filter((t) => !isEmpty(t))
       caption = Object.fromEntries(
-        LOCALES.map((l) => [l, parts.map((t) => t[l]).filter(Boolean).join('; ')]),
+        LOCALES.map((l) => [
+          l,
+          parts
+            .map((t) => t[l])
+            .filter(Boolean)
+            .join('; '),
+        ]),
       ) as I18nText
     }
 
@@ -193,7 +207,7 @@ async function main() {
       chainType,
       prevId: prevOf(id),
       trigger: {
-        category: ((first?.category as TriggerCategory) ?? 'misc'),
+        category: (first?.category as TriggerCategory) ?? 'misc',
         amount: first?.amount != null ? String(first.amount) : null,
       },
       requiredLevel: requiredLevelFor(id),
@@ -203,7 +217,9 @@ async function main() {
         : null,
     })
   }
-  console.log(`[QUESTS] прошли фильтр: ${quests.length}, починено условий: ${JSON.stringify(fixes)}`)
+  console.log(
+    `[QUESTS] прошли фильтр: ${quests.length}, починено условий: ${JSON.stringify(fixes)}`,
+  )
 
   const includedIds = new Set(quests.map((q) => q.id))
   function resolveVisibleAncestor(startId: string): string | null {
@@ -241,9 +257,13 @@ async function main() {
     const prevIds = new Set(prev.map((q) => q.id))
     const added = [...includedIds].filter((x) => !prevIds.has(x))
     const missing = [...prevIds].filter((x) => !includedIds.has(x))
-    console.log(`[QUESTS] было ${prevIds.size}, стало ${includedIds.size}; новые: ${added.join(', ') || '-'}; пропали: ${missing.join(', ') || '-'}`)
+    console.log(
+      `[QUESTS] было ${prevIds.size}, стало ${includedIds.size}; новые: ${added.join(', ') || '-'}; пропали: ${missing.join(', ') || '-'}`,
+    )
     if (quests.length < prevIds.size * 0.8) {
-      throw new Error(`квестов стало подозрительно мало (${quests.length} против ${prevIds.size}) - файл не перезаписан`)
+      throw new Error(
+        `квестов стало подозрительно мало (${quests.length} против ${prevIds.size}) - файл не перезаписан`,
+      )
     }
   } catch (err) {
     if (err instanceof Error && err.message.includes('не перезаписан')) throw err
@@ -253,8 +273,12 @@ async function main() {
   await fs.writeFile(OUT_PATH, JSON.stringify(quests, null, 2) + '\n', 'utf-8')
   const byChain: Record<string, number> = {}
   for (const q of quests) byChain[q.chainType] = (byChain[q.chainType] ?? 0) + 1
-  const leveled = quests.filter((q) => q.chainType === 'story' && !q.prevId && q.requiredLevel).length
-  console.log(`[QUESTS] итого ${quests.length} (${JSON.stringify(byChain)}), корней сюжета с уровнем: ${leveled}`)
+  const leveled = quests.filter(
+    (q) => q.chainType === 'story' && !q.prevId && q.requiredLevel,
+  ).length
+  console.log(
+    `[QUESTS] итого ${quests.length} (${JSON.stringify(byChain)}), корней сюжета с уровнем: ${leveled}`,
+  )
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

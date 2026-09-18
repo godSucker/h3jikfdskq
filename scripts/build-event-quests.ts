@@ -4,7 +4,7 @@ import path from 'path'
 import { XMLParser } from 'fast-xml-parser'
 import { loadFilterDates, loadDateLedger, hasLiveFilterData } from './kartel-filter-dates'
 import {
-  EVENT_FILTER_RE,
+  isEventFilter,
   LOCALES,
   TEST_FILTER_RE,
   arr,
@@ -83,17 +83,18 @@ export interface EventQuestChain {
   steps: EventQuestStep[]
 }
 
-
 // Тема ивента из фильтра: filter_dungeon_halloween25 -> halloween,
 // Missions_Event_Jungle_Bells_2017 -> jungle_bells.
 function filterTheme(filter: string): string {
   return filter
     .toLowerCase()
-    .replace(/^(filter_dungeon_|filter_missions_|filter_mission_|filter_quests_|missions_event_challenge_|missions_event_|missions_|patch_building_|patch_)/, '')
+    .replace(
+      /^(filter_dungeon_|filter_missions_|filter_mission_|filter_quests_|missions_event_challenge_|missions_event_|missions_|patch_building_|patch_)/,
+      '',
+    )
     .replace(/_?(pt)?\d+(_\d+)*$/, '')
     .replace(/_\d+$/, '')
 }
-
 
 // ИМЕНА ИВЕНТОВ ПО КОНТЕКСТУ ФИЛЬТРА. Официального имени у большинства цепочек
 // нет (event_name_* в локализации есть только у тематических лесенок), и юзер
@@ -104,21 +105,171 @@ function filterTheme(filter: string): string {
 // event-quest-names.json, он приоритетнее.
 type Words = Record<Locale, string>
 const W = {
-  event: { ru: 'Ивент', en: 'Event', es: 'Evento', fr: 'Événement', de: 'Event', pt: 'Evento', it: 'Evento', tr: 'Etkinlik', nl: 'Evenement' },
-  challenge: { ru: 'Испытание', en: 'Challenge', es: 'Desafío', fr: 'Défi', de: 'Herausforderung', pt: 'Desafio', it: 'Sfida', tr: 'Meydan okuma', nl: 'Uitdaging' },
-  anniversary: { ru: 'Годовщина', en: 'Anniversary', es: 'Aniversario', fr: 'Anniversaire', de: 'Jubiläum', pt: 'Aniversário', it: 'Anniversario', tr: 'Yıl dönümü', nl: 'Jubileum' },
-  xmas: { ru: 'Рождество', en: 'Christmas', es: 'Navidad', fr: 'Noël', de: 'Weihnachten', pt: 'Natal', it: 'Natale', tr: 'Noel', nl: 'Kerstmis' },
-  easter: { ru: 'Пасха', en: 'Easter', es: 'Pascua', fr: 'Pâques', de: 'Ostern', pt: 'Páscoa', it: 'Pasqua', tr: 'Paskalya', nl: 'Pasen' },
-  valentines: { ru: 'День святого Валентина', en: "Valentine's Day", es: 'San Valentín', fr: 'Saint-Valentin', de: 'Valentinstag', pt: 'Dia dos Namorados', it: 'San Valentino', tr: 'Sevgililer Günü', nl: 'Valentijnsdag' },
-  halloween: { ru: 'Хеллоуин', en: 'Halloween', es: 'Halloween', fr: 'Halloween', de: 'Halloween', pt: 'Halloween', it: 'Halloween', tr: 'Cadılar Bayramı', nl: 'Halloween' },
-  weirdtech: { ru: 'Странные технологии', en: 'Weird Tech', es: 'Tecnología extraña', fr: 'Technologie étrange', de: 'Seltsame Technik', pt: 'Tecnologia estranha', it: 'Tecnologia strana', tr: 'Tuhaf teknoloji', nl: 'Vreemde technologie' },
-  part: { ru: 'часть', en: 'part', es: 'parte', fr: 'partie', de: 'Teil', pt: 'parte', it: 'parte', tr: 'bölüm', nl: 'deel' },
-  day: { ru: 'день', en: 'day', es: 'día', fr: 'jour', de: 'Tag', pt: 'dia', it: 'giorno', tr: 'gün', nl: 'dag' },
-  story: { ru: 'сюжет', en: 'story', es: 'historia', fr: 'histoire', de: 'Story', pt: 'história', it: 'storia', tr: 'hikaye', nl: 'verhaal' },
-  storyUpdate: { ru: 'Сюжетное обновление', en: 'Story update', es: 'Actualización de la historia', fr: "Mise à jour de l'histoire", de: 'Story-Update', pt: 'Atualização da história', it: 'Aggiornamento della storia', tr: 'Hikaye güncellemesi', nl: 'Verhaalupdate' },
-  ended: { ru: 'Завершённые ивенты', en: 'Ended events', es: 'Eventos finalizados', fr: 'Événements terminés', de: 'Beendete Events', pt: 'Eventos encerrados', it: 'Eventi conclusi', tr: 'Sona eren etkinlikler', nl: 'Afgelopen evenementen' },
-  feature: { ru: 'Новые функции', en: 'New features', es: 'Nuevas funciones', fr: 'Nouvelles fonctionnalités', de: 'Neue Funktionen', pt: 'Novos recursos', it: 'Nuove funzionalità', tr: 'Yeni özellikler', nl: 'Nieuwe functies' },
-  test: { ru: 'Тестовые задания', en: 'Test missions', es: 'Misiones de prueba', fr: 'Missions de test', de: 'Testmissionen', pt: 'Missões de teste', it: 'Missioni di prova', tr: 'Test görevleri', nl: 'Testmissies' },
+  event: {
+    ru: 'Ивент',
+    en: 'Event',
+    es: 'Evento',
+    fr: 'Événement',
+    de: 'Event',
+    pt: 'Evento',
+    it: 'Evento',
+    tr: 'Etkinlik',
+    nl: 'Evenement',
+  },
+  challenge: {
+    ru: 'Испытание',
+    en: 'Challenge',
+    es: 'Desafío',
+    fr: 'Défi',
+    de: 'Herausforderung',
+    pt: 'Desafio',
+    it: 'Sfida',
+    tr: 'Meydan okuma',
+    nl: 'Uitdaging',
+  },
+  anniversary: {
+    ru: 'Годовщина',
+    en: 'Anniversary',
+    es: 'Aniversario',
+    fr: 'Anniversaire',
+    de: 'Jubiläum',
+    pt: 'Aniversário',
+    it: 'Anniversario',
+    tr: 'Yıl dönümü',
+    nl: 'Jubileum',
+  },
+  xmas: {
+    ru: 'Рождество',
+    en: 'Christmas',
+    es: 'Navidad',
+    fr: 'Noël',
+    de: 'Weihnachten',
+    pt: 'Natal',
+    it: 'Natale',
+    tr: 'Noel',
+    nl: 'Kerstmis',
+  },
+  easter: {
+    ru: 'Пасха',
+    en: 'Easter',
+    es: 'Pascua',
+    fr: 'Pâques',
+    de: 'Ostern',
+    pt: 'Páscoa',
+    it: 'Pasqua',
+    tr: 'Paskalya',
+    nl: 'Pasen',
+  },
+  valentines: {
+    ru: 'День святого Валентина',
+    en: "Valentine's Day",
+    es: 'San Valentín',
+    fr: 'Saint-Valentin',
+    de: 'Valentinstag',
+    pt: 'Dia dos Namorados',
+    it: 'San Valentino',
+    tr: 'Sevgililer Günü',
+    nl: 'Valentijnsdag',
+  },
+  halloween: {
+    ru: 'Хеллоуин',
+    en: 'Halloween',
+    es: 'Halloween',
+    fr: 'Halloween',
+    de: 'Halloween',
+    pt: 'Halloween',
+    it: 'Halloween',
+    tr: 'Cadılar Bayramı',
+    nl: 'Halloween',
+  },
+  weirdtech: {
+    ru: 'Странные технологии',
+    en: 'Weird Tech',
+    es: 'Tecnología extraña',
+    fr: 'Technologie étrange',
+    de: 'Seltsame Technik',
+    pt: 'Tecnologia estranha',
+    it: 'Tecnologia strana',
+    tr: 'Tuhaf teknoloji',
+    nl: 'Vreemde technologie',
+  },
+  part: {
+    ru: 'часть',
+    en: 'part',
+    es: 'parte',
+    fr: 'partie',
+    de: 'Teil',
+    pt: 'parte',
+    it: 'parte',
+    tr: 'bölüm',
+    nl: 'deel',
+  },
+  day: {
+    ru: 'день',
+    en: 'day',
+    es: 'día',
+    fr: 'jour',
+    de: 'Tag',
+    pt: 'dia',
+    it: 'giorno',
+    tr: 'gün',
+    nl: 'dag',
+  },
+  story: {
+    ru: 'сюжет',
+    en: 'story',
+    es: 'historia',
+    fr: 'histoire',
+    de: 'Story',
+    pt: 'história',
+    it: 'storia',
+    tr: 'hikaye',
+    nl: 'verhaal',
+  },
+  storyUpdate: {
+    ru: 'Сюжетное обновление',
+    en: 'Story update',
+    es: 'Actualización de la historia',
+    fr: "Mise à jour de l'histoire",
+    de: 'Story-Update',
+    pt: 'Atualização da história',
+    it: 'Aggiornamento della storia',
+    tr: 'Hikaye güncellemesi',
+    nl: 'Verhaalupdate',
+  },
+  ended: {
+    ru: 'Завершённые ивенты',
+    en: 'Ended events',
+    es: 'Eventos finalizados',
+    fr: 'Événements terminés',
+    de: 'Beendete Events',
+    pt: 'Eventos encerrados',
+    it: 'Eventi conclusi',
+    tr: 'Sona eren etkinlikler',
+    nl: 'Afgelopen evenementen',
+  },
+  feature: {
+    ru: 'Новые функции',
+    en: 'New features',
+    es: 'Nuevas funciones',
+    fr: 'Nouvelles fonctionnalités',
+    de: 'Neue Funktionen',
+    pt: 'Novos recursos',
+    it: 'Nuove funzionalità',
+    tr: 'Yeni özellikler',
+    nl: 'Nieuwe functies',
+  },
+  test: {
+    ru: 'Тестовые задания',
+    en: 'Test missions',
+    es: 'Misiones de prueba',
+    fr: 'Missions de test',
+    de: 'Testmissionen',
+    pt: 'Missões de teste',
+    it: 'Missioni di prova',
+    tr: 'Test görevleri',
+    nl: 'Testmissies',
+  },
 } satisfies Record<string, Words>
 
 const join = (fn: (l: Locale) => string): I18nText =>
@@ -146,9 +297,9 @@ function authoredName(filter: string): I18nText | null {
   m = f.match(/^missions_event_(\d+)$/)
   if (m) return join((l) => `${W.event[l]} #${m![1]}`)
 
-  const theme = (['anniversary', 'valentines', 'halloween', 'weirdtech', 'easter', 'xmas'] as const).find((t) =>
-    f.includes(t),
-  )
+  const theme = (
+    ['anniversary', 'valentines', 'halloween', 'weirdtech', 'easter', 'xmas'] as const
+  ).find((t) => f.includes(t))
   if (!theme) return null
 
   // Хвост после темы: "26_2", "_24_1", "_2018_pt1", "20_1", "_day_1".
@@ -163,11 +314,12 @@ function authoredName(filter: string): I18nText | null {
     part = nums[0]
   }
   const isDay = /_day_/.test(tail)
-  const suffix = f.includes('_story_') || f.startsWith('filter_story_')
-    ? 'story'
-    : f.includes('pvp')
-      ? 'pvp'
-      : null
+  const suffix =
+    f.includes('_story_') || f.startsWith('filter_story_')
+      ? 'story'
+      : f.includes('pvp')
+        ? 'pvp'
+        : null
 
   return join((l) => {
     let s = W[theme][l]
@@ -181,7 +333,10 @@ function authoredName(filter: string): I18nText | null {
 
 function prettifyFilter(filter: string): string {
   return filter
-    .replace(/^(filter_dungeon_|filter_missions_|filter_mission_|filter_quests_|Missions_|Patch_)/i, '')
+    .replace(
+      /^(filter_dungeon_|filter_missions_|filter_mission_|filter_quests_|Missions_|Patch_)/i,
+      '',
+    )
     .replace(/_/g, ' ')
     .trim()
 }
@@ -201,7 +356,11 @@ function hasObjectives(m: Record<string, any>): boolean {
   return !!m.objectives && typeof m.objectives === 'object' && Object.keys(m.objectives).length > 0
 }
 
-function isQuestStep(m: Record<string, any>, eventFilters: Set<string>, style: string | undefined): boolean {
+function isQuestStep(
+  m: Record<string, any>,
+  eventFilters: Set<string>,
+  style: string | undefined,
+): boolean {
   const f = filterKey(m)
   if (!f || !hasObjectives(m) || !m.title) return false
   if (style && QUEST_STYLES.has(style)) return true
@@ -308,7 +467,9 @@ function splitIntoLines(
           Number(a.id) - Number(b.id),
       ),
     )
-    .sort((a, b) => Math.min(...a.map((m) => Number(m.id))) - Math.min(...b.map((m) => Number(m.id))))
+    .sort(
+      (a, b) => Math.min(...a.map((m) => Number(m.id))) - Math.min(...b.map((m) => Number(m.id))),
+    )
 }
 
 async function main() {
@@ -378,7 +539,10 @@ async function main() {
   const prevQuestsOf = (m: Record<string, any>): string[] => {
     const found = new Set<string>()
     const seen = new Set<string>()
-    const queue = String(m.prevMissions ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+    const queue = String(m.prevMissions ?? '')
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean)
     while (queue.length) {
       const id = queue.shift()!
       if (seen.has(id)) continue
@@ -388,7 +552,13 @@ async function main() {
         continue
       }
       const prev = byId.get(id)
-      if (prev) queue.push(...String(prev.prevMissions ?? '').split(',').map((x) => x.trim()).filter(Boolean))
+      if (prev)
+        queue.push(
+          ...String(prev.prevMissions ?? '')
+            .split(',')
+            .map((x) => x.trim())
+            .filter(Boolean),
+        )
     }
     return [...found]
   }
@@ -438,7 +608,9 @@ async function main() {
     // ("Кошмар Хеллоуина" для 2020..2025) - без года шесть карточек подряд
     // неразличимы. Год берём из фильтра, если он там есть.
     if (!isEmpty(name)) {
-      const yearTail = filter.toLowerCase().slice(filter.toLowerCase().indexOf(theme) + theme.length)
+      const yearTail = filter
+        .toLowerCase()
+        .slice(filter.toLowerCase().indexOf(theme) + theme.length)
       const yy = yearTail.match(/^_?(\d{4}|\d{2})(?!\d)/)?.[1]
       if (yy) {
         const year = yy.length === 4 ? yy : `20${yy}`
@@ -447,7 +619,9 @@ async function main() {
       // Missions_Halloween_2018_Pt1 / _Pt2 - иначе обе части сливаются в одно имя.
       const pt = yearTail.match(/_pt(\d+)$/)?.[1]
       if (pt) {
-        name = Object.fromEntries(LOCALES.map((l) => [l, `${name[l]}, ${W.part[l]} ${pt}`])) as I18nText
+        name = Object.fromEntries(
+          LOCALES.map((l) => [l, `${name[l]}, ${W.part[l]} ${pt}`]),
+        ) as I18nText
       }
     }
     if (isEmpty(name)) name = translate(locs, `building_${theme}`)
@@ -477,7 +651,7 @@ async function main() {
       filter,
       name,
       nameSource,
-      permanent: !EVENT_FILTER_RE.test(filter) && !TEST_FILTER_RE.test(filter),
+      permanent: !isEventFilter(filter) && !TEST_FILTER_RE.test(filter),
       requiredLevel: requiredLevelFor(String(lines[0][0].id)),
       icon: icon ? `${ICON_BASE}${icon}.png` : null,
       dateStart: null,
@@ -492,7 +666,11 @@ async function main() {
   // Если в этом прогоне живых kartel-данных нет совсем (шаг fetch-filters.py
   // упал или не запускался) - уже известную дату НЕ стираем: ровно так
   // однажды молча обнулились даты прогноза магазина (см. hasLiveFilterData).
-  const [live, ledger, liveOk] = await Promise.all([loadFilterDates(), loadDateLedger(), hasLiveFilterData()])
+  const [live, ledger, liveOk] = await Promise.all([
+    loadFilterDates(),
+    loadDateLedger(),
+    hasLiveFilterData(),
+  ])
   const liveLower = new Map(Object.entries(live).map(([k, v]) => [k.toLowerCase(), v]))
   const ledgerLower = new Map(Object.entries(ledger).map(([k, v]) => [k.toLowerCase(), v]))
   let prevByFilter = new Map<string, EventQuestChain>()
@@ -519,7 +697,9 @@ async function main() {
     }
     if (c.dateStart) dated++
   }
-  console.log(`[EVENT-QUESTS] с датой: ${dated}${liveOk ? '' : ' (живых kartel-данных нет - старые даты сохранены)'}`)
+  console.log(
+    `[EVENT-QUESTS] с датой: ${dated}${liveOk ? '' : ' (живых kartel-данных нет - старые даты сохранены)'}`,
+  )
 
   // Свежие ивенты сверху: у цепочек нет дат в самом файле, но id миссий
   // монотонно растут со временем добавления - этого достаточно для порядка.
@@ -532,14 +712,19 @@ async function main() {
   // файл в таком случае не трогаем.
   const prevSteps = [...prevByFilter.values()].reduce((sum, c) => sum + c.steps.length, 0)
   const newSteps = chains.reduce((sum, c) => sum + c.steps.length, 0)
-  if (prevByFilter.size > 0 && (chains.length < prevByFilter.size * 0.8 || newSteps < prevSteps * 0.8)) {
+  if (
+    prevByFilter.size > 0 &&
+    (chains.length < prevByFilter.size * 0.8 || newSteps < prevSteps * 0.8)
+  ) {
     throw new Error(
       `подозрительно мало данных: цепочек ${chains.length} (было ${prevByFilter.size}), ` +
         `заданий ${newSteps} (было ${prevSteps}) - файл не перезаписан`,
     )
   }
   if (locs.ru.size < 10000 || locs.en.size < 10000) {
-    throw new Error(`локализация неполная (ru ${locs.ru.size}, en ${locs.en.size} ключей) - файл не перезаписан`)
+    throw new Error(
+      `локализация неполная (ru ${locs.ru.size}, en ${locs.en.size} ключей) - файл не перезаписан`,
+    )
   }
 
   await fs.writeFile(OUT_PATH, JSON.stringify(chains, null, 2) + '\n')
@@ -548,7 +733,9 @@ async function main() {
     acc[c.nameSource] = (acc[c.nameSource] ?? 0) + 1
     return acc
   }, {})
-  console.log(`[EVENT-QUESTS] цепочек: ${chains.length}, заданий: ${stepsTotal}, имена: ${JSON.stringify(bySource)}`)
+  console.log(
+    `[EVENT-QUESTS] цепочек: ${chains.length}, заданий: ${stepsTotal}, имена: ${JSON.stringify(bySource)}`,
+  )
   const multiLine = chains.filter((c) => c.steps.some((st) => st.line > 0))
   console.log(
     `[EVENT-QUESTS] линий: ${chains.reduce((sum, c) => sum + new Set(c.steps.map((st) => st.line)).size, 0)}, ` +
@@ -557,12 +744,16 @@ async function main() {
   console.log(
     `[EVENT-QUESTS] условия: восстановлено пустых ${fixes.missing.length}, исправлено число ${fixes.renumbered.length}, подставлено вместо X ${fixes.placeholder.length}, название вместо условия ${fixes.titleLike.length}`,
   )
-  const stillEmpty = chains.flatMap((c) => c.steps.filter((st) => isEmpty(st.condition)).map((st) => st.id))
+  const stillEmpty = chains.flatMap((c) =>
+    c.steps.filter((st) => isEmpty(st.condition)).map((st) => st.id),
+  )
   if (stillEmpty.length) console.log(`[EVENT-QUESTS] без текста условия: ${stillEmpty.join(', ')}`)
   if (process.env.EVENT_QUESTS_VERBOSE) {
-    for (const [kind, list] of Object.entries(fixes)) for (const row of list) console.log(`  ${kind}: ${row}`)
+    for (const [kind, list] of Object.entries(fixes))
+      for (const row of list) console.log(`  ${kind}: ${row}`)
   }
-  if (unnamed.length) console.log(`[EVENT-QUESTS] без имени (нужен event-quest-names.json): ${unnamed.join(', ')}`)
+  if (unnamed.length)
+    console.log(`[EVENT-QUESTS] без имени (нужен event-quest-names.json): ${unnamed.join(', ')}`)
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

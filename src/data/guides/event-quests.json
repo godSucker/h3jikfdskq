@@ -65412,7 +65412,7 @@
       "nl": "Nieuwe functies"
     },
     "nameSource": "authored",
-    "permanent": false,
+    "permanent": true,
     "requiredLevel": 7,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png",
     "dateStart": null,
