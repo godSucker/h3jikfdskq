@@ -321,6 +321,32 @@ export async function fetchDailyNewsForecast(
     items[i].exactDateApprox = true
   }
 
+  // Баннер "BACK FOR 24H ONLY" (Daily_news_shop_24h_*) - единственный оффер
+  // dailypopup, у которого окно показа НЕ совпадает с тем, что на картинке.
+  // kartel честно отдаёт неделю показа самого баннера (у 257a это 19-26
+  // сентября - ровно СБ-ПТ и ровно 7 суточных офферов магазина той недели),
+  // но семёрка мутантов, нарисованная на баннере, относится к неделе на
+  // спринт позже. Юзер сверил живьём 2026-09-18: картинка 257a - это 3-10
+  // октября, 257b - 10-17 октября. Карточка показывает именно картинку,
+  // поэтому подпись двигаем к ней (+2 недели), а не наоборот.
+  //
+  // Сдвиг обязан идти ПОСЛЕ интерполяции по соседям выше: там бездатные
+  // офферы датируются по ближайшему датированному соседу, и сдвинутый баннер
+  // утащил бы за собой чужие даты на те же +2 недели.
+  const BANNER_24H_RE = /^Daily_news_shop_24h_/i
+  const BANNER_24H_SHIFT_MS = 14 * DAY_MS
+  for (const it of items) {
+    if (!BANNER_24H_RE.test(it.filter) || !it.exactDateStart) continue
+    const start = new Date(new Date(it.exactDateStart).getTime() + BANNER_24H_SHIFT_MS)
+    const endMs = it.exactDateEnd ? new Date(it.exactDateEnd).getTime() : null
+    const end = endMs != null ? new Date(endMs + BANNER_24H_SHIFT_MS) : null
+    it.exactDateStart = start.toISOString()
+    it.exactDateEnd = end ? end.toISOString() : null
+    it.exactDateLabel = it.exactDateApprox
+      ? `≈ ${formatDateRu(start)}`
+      : formatExactRangeRu(start, end)
+  }
+
   const year = sprintStartDate(target).getUTCFullYear()
   const coverImage = items.find((it) => it.image)?.image ?? (await findCoverImage(target, year))
 
