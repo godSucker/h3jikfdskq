@@ -10,6 +10,7 @@ import { applySpeedSphere } from './speed-sphere-table'
 import { TYPE_RU, typeLabelL, abilityLabelL } from '@/lib/mutant-dicts'
 import { baseMutantId } from '@/lib/utils'
 import orbsRaw from '@/data/materials/orbs.json'
+import { orbingMap, type OrbCell } from '@/lib/orbing-map'
 
 export type Locale = string
 
@@ -796,6 +797,31 @@ function buildAttackRows(
   return rows.filter((row) => row.label || row.damage || row.effects.length)
 }
 
+// Рекомендованная сборка сфер - первая строка из orbing.json, та же, что
+// показывается первой в модалке мутанта на сайте. total - сколько сборок у
+// мутанта всего (карточка бота пишет "ещё N на сайте").
+export interface OrbBuild {
+  cells: OrbCell[]
+  total: number
+}
+
+// Тот же поиск, что getOrbingImages() в MutantModal.svelte: точный id, затем
+// без учёта регистра, затем базовая форма id (specimen_xx_yy_gold -> _yy).
+export function orbBuildFor(mutantId: string): OrbBuild | null {
+  const id = String(mutantId || '')
+  if (!id) return null
+  const direct = orbingMap[id]
+  const ci = direct ?? Object.entries(orbingMap).find(([k]) => k.toLowerCase() === id.toLowerCase())?.[1]
+  const base = baseMutantId(id)
+  const byBase =
+    ci ??
+    orbingMap[base] ??
+    Object.entries(orbingMap).find(([k]) => k.toLowerCase() === base.toLowerCase())?.[1]
+  const rows = byBase?.rows
+  if (!rows?.length) return null
+  return { cells: rows[0], total: rows.length }
+}
+
 export interface PanelData {
   name: string
   portraitPath: string
@@ -812,6 +838,7 @@ export interface PanelData {
   basicOrbs: (EnrichedOrb | null)[]
   specialOrb: EnrichedOrb | null
   availableStars: number[]
+  orbBuild: OrbBuild | null
 }
 
 const STAR_KEY_BY_INDEX = ['normal', 'bronze', 'silver', 'gold', 'platinum']
@@ -880,5 +907,6 @@ export function buildPanelData(
     basicOrbs,
     specialOrb,
     availableStars: Array.from(mutant.availableStars).sort((a, b) => a - b),
+    orbBuild: orbBuildFor(String(rawMutant?.id ?? '')),
   }
 }
