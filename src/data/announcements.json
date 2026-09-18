@@ -1264,7 +1264,8 @@
         "exactDateLabel": "26 сентября — 3 октября",
         "exactDateStart": "2026-09-26T10:00:00.000Z",
         "exactDateEnd": "2026-10-03T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "showDateStart": "2026-09-12T10:00:00+00:00"
       },
       {
         "id": "256|daily_news_jackpot_madness_weekend_50",
@@ -1395,7 +1396,8 @@
         "exactDateLabel": "≈ 19 сентября",
         "exactDateStart": "2026-09-19T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "showDateStart": "2026-09-05T10:00:00.000Z"
       },
       {
         "id": "256|Daily_news_challenge_hall_block_5_2026",
@@ -3373,7 +3375,8 @@
         "exactDateLabel": "10 — 17 октября",
         "exactDateStart": "2026-10-10T10:00:00.000Z",
         "exactDateEnd": "2026-10-17T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "showDateStart": "2026-09-26T10:00:00+00:00"
       },
       {
         "id": "257|Shop_Pack_Medieval",
@@ -3546,7 +3549,8 @@
         "exactDateLabel": "3 — 10 октября",
         "exactDateStart": "2026-10-03T10:00:00.000Z",
         "exactDateEnd": "2026-10-10T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "showDateStart": "2026-09-19T10:00:00+00:00"
       },
       {
         "id": "257|Building_Mystery",

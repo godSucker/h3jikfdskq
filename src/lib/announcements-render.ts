@@ -5,6 +5,7 @@
 // принцип, что guides-resolve.ts - framework-agnostic, строит lookup-карты
 // один раз через ESM module cache).
 import mutantsData from '@/data/mutants/mutants.json'
+import skinIconsData from '@/data/mutants/skin-icons.json'
 import raidsData from '@/data/guides/raids.json'
 import specialLaddersData from '@/data/guides/special-ladders.json'
 import materialData from '@/data/materials/material.json'
@@ -58,6 +59,13 @@ export interface AnnouncementItem {
   // ISO-дата начала (не форматированная) - для хронологической сортировки
   // офферов на странице (ближайшие сверху), exactDateLabel не сортируется.
   exactDateStart?: string | null
+  // Только Daily_news_shop_24h_* - ISO-начало окна, когда баннер РЕАЛЬНО
+  // показывается в игре. Подпись у этого баннера намеренно сдвинута на +2
+  // недели (на картинке мутанты следующего спринта, см.
+  // scripts/detect-daily-news.ts), и без этого поля сдвинутая карточка
+  // уезжала бы в чужой недельный блок прогноза. Сортировка и разбивка
+  // спринта на недели идут по нему, подпись - по exactDateStart.
+  showDateStart?: string | null
   // Только shopForecast - 'week'/'month' помечает "мутанта недели"/"мутанта
   // месяца" (окно продажи ~7 или ~28-31 день, см.
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
@@ -77,7 +85,10 @@ export interface AnnouncementItem {
   skin?: string | null
 }
 
-export function featuredMutantLabel(v: string | null | undefined, locale: Locale = 'ru'): string | null {
+export function featuredMutantLabel(
+  v: string | null | undefined,
+  locale: Locale = 'ru',
+): string | null {
   if (v !== 'day' && v !== 'week' && v !== 'month') return null
   return t(`announcements.featured.${v}`, locale)
 }
@@ -86,7 +97,10 @@ export function featuredMutantLabel(v: string | null | undefined, locale: Locale
 // он тянет node-only axios/fs и живёт вне Vite-графа страницы).
 const RIBBONS = ['legendary', 'limited', 'new', 'heroic', 'exclusive', 'seasonal']
 
-export function ribbonLabel(ribbon: string | null | undefined, locale: Locale = 'ru'): string | null {
+export function ribbonLabel(
+  ribbon: string | null | undefined,
+  locale: Locale = 'ru',
+): string | null {
   if (!ribbon) return null
   const discount = ribbon.match(/^discount-(\d+)$/)
   if (discount) return `-${discount[1]}%`
@@ -148,13 +162,37 @@ const HALL_TEXTURE: Record<ExchangeHall, string> = {
   mystery: '/buildings/building_mystery.png',
 }
 
+// Иконка скина - тот же официальный арт игры, что модалка мутанта показывает в
+// пикере звёзд (assets/gachacontent/icon_<gachaId>.png, карта в
+// data/mutants/skin-icons.json, пополняется scripts/sync-skin-icons.ts).
+// Часть skin id иконки на CDN игры не имеет вовсе - тогда null, и плитка
+// просто остаётся без значка (тот же фолбэк, что в MutantModal.svelte).
+const SKIN_ICON = skinIconsData as Record<string, string>
+const normalizeSkinKey = (v: string) =>
+  v
+    .toLowerCase()
+    .replace(/[\u2018\u2019\u201A\uFF07]/g, "'")
+    .replace(/[^a-z0-9'_ ]/g, '')
+
+export function skinIconFor(skin: string | null | undefined): string | null {
+  const raw = String(skin ?? '').trim()
+  if (!raw) return null
+  if (SKIN_ICON[raw]) return SKIN_ICON[raw]
+  const lower = raw.toLowerCase()
+  if (SKIN_ICON[lower]) return SKIN_ICON[lower]
+  const normalized = normalizeSkinKey(lower)
+  for (const [key, val] of Object.entries(SKIN_ICON)) {
+    if (normalizeSkinKey(key) === normalized) return val
+  }
+  return null
+}
+
 export function exchangeHallMeta(
   hall: ExchangeHall,
   locale: Locale = 'ru',
 ): { title: string; texture: string } {
   return { title: t(`announcements.hall.${hall}`, locale), texture: HALL_TEXTURE[hall] }
 }
-
 
 // id оффера внутри прогноза = "<sprint>|<filter>" (см. detectShopForecast/
 // detectDailyNews в build-announcements.ts).
@@ -197,7 +235,8 @@ export function formatPrice(
 ): string | null {
   if (!price) return null
   if (price.type === 'usd') return `USD ${price.amount.toFixed(2)}`
-  const key = price.type === 'hardcurrency' ? 'announcements.price.gold' : 'announcements.price.silver'
+  const key =
+    price.type === 'hardcurrency' ? 'announcements.price.gold' : 'announcements.price.silver'
   return t(key, locale).replace('{n}', price.amount.toLocaleString(INTL_NUMBER[locale] ?? 'ru-RU'))
 }
 
@@ -288,7 +327,8 @@ export function boxDescription(box: BoxEntry, locale: Locale = 'ru'): string {
   const pool = box.groups.filter((g) => g.chance != null)
   if (pool.length === 0) return t('announcements.box.guaranteedOnly', locale)
   const chances = new Set(pool.map((g) => g.chance!.toFixed(1)))
-  const key = chances.size === 1 ? 'announcements.box.randomEqual' : 'announcements.box.randomVaried'
+  const key =
+    chances.size === 1 ? 'announcements.box.randomEqual' : 'announcements.box.randomVaried'
   return t(key, locale)
     .replace('{n}', String(pool.length))
     .replace('{chance}', pool[0].chance!.toFixed(1))

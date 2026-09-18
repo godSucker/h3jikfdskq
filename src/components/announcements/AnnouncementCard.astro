@@ -19,6 +19,7 @@ import {
   resolveForecastTarget,
   resolvePackMutants,
   exchangeHallMeta,
+  skinIconFor,
   formatPrice,
   exactDateLabelIn,
   boxMutantIcon,
@@ -77,6 +78,13 @@ const tr = (key: string) => t(key, locale)
 // Подпись окна на языке страницы (см. exactDateLabelIn: старые записи без
 // ISO-дат падают обратно на русскую строку из данных).
 const date = (it2: { exactDateLabel?: string | null } | null | undefined) => exactDateLabelIn(it2, locale)
+// Место оффера внутри спринта (сортировка + разбивка на две недели) - по
+// окну ПОКАЗА, если оно задано. Отличается от подписи только у баннера
+// "BACK FOR 24H ONLY": его дату намеренно сдвинули на неделю нарисованных
+// мутантов (см. scripts/detect-daily-news.ts), а сам баннер игра показывает
+// в свою неделю спринта - там ему и место в ленте.
+const offerSortDate = (o: { showDateStart?: string | null; exactDateStart?: string | null }) =>
+  o.showDateStart ?? o.exactDateStart ?? null
 const kind = cardKind(a.category)
 const showCta = mode === 'feed'
 
@@ -162,12 +170,12 @@ const forecastOffers =
         // не оставлять как есть - иначе для полностью недатированного блока
         // лента идёт задом наперёд относительно реальной хронологии игры.
         .sort((x, y) => {
-          const a2 = x.o
-          const b2 = y.o
-          if (!a2.exactDateStart && !b2.exactDateStart) return y.i - x.i
-          if (!a2.exactDateStart) return 1
-          if (!b2.exactDateStart) return -1
-          return a2.exactDateStart.localeCompare(b2.exactDateStart)
+          const a2 = offerSortDate(x.o)
+          const b2 = offerSortDate(y.o)
+          if (!a2 && !b2) return y.i - x.i
+          if (!a2) return 1
+          if (!b2) return -1
+          return a2.localeCompare(b2)
         })
         .map(({ o }) => o)
         // НАЙДЕНО 2026-09-08: старый лимит 18 тихо резал офферы БЕЗ точной
@@ -197,8 +205,9 @@ const forecastWeeks =
           // отправила такие в конец списка, и там они хотя бы не выпадают
           // из кадра совсем.
           offers: forecastOffers.filter((o) => {
-            if (!o.exactDateStart) return w === 1
-            return (new Date(o.exactDateStart).getTime() - sprintStartMs < WEEK_MS ? 1 : 2) === w
+            const at = offerSortDate(o)
+            if (!at) return w === 1
+            return (new Date(at).getTime() - sprintStartMs < WEEK_MS ? 1 : 2) === w
           }),
           label: `${fmtWeekDay(sprintStartMs + (w - 1) * WEEK_MS)} — ${fmtWeekDay(sprintStartMs + w * WEEK_MS - 86_400_000)}`,
         }))
@@ -470,6 +479,16 @@ const forecastWeeks =
                       />
                     )}
                     {ctx.mutantName(gi.id.split('|')[2] ?? '') ?? gi.name}
+                    {skinIconFor(gi.skin) && (
+                      <img
+                        class="exchange-item-skin"
+                        src={textureUrl(skinIconFor(gi.skin)!)}
+                        alt=""
+                        title={gi.skin ?? ''}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                   </span>
                   {gi.cost && (
                     <span class="exchange-item-cost">
@@ -1179,6 +1198,15 @@ const forecastWeeks =
   .exchange-item-star {
     width: 14px;
     height: 14px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  /* Скин - иконкой справа от имени (звезда слева): в Анализаторе тайны
+     награда несёт конкретную пару звезда+скин, и по названию мутанта скин
+     иначе не виден вовсе. Тот же арт, что в пикере звёзд у модалки. */
+  .exchange-item-skin {
+    width: 28px;
+    height: 28px;
     object-fit: contain;
     flex-shrink: 0;
   }
