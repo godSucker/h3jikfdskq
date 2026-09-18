@@ -15,7 +15,7 @@ import { normalizeSearch, normalizeSearchTokens } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
 import nicknameAliases from '@/data/mutants/nickname-aliases.json'
-import { normalizeMutant, orbBuildFor, orbIdsFromBuild, resolveOrb } from './panel-data'
+import { normalizeMutant, orbBuildsFor, orbIdsFromBuild, resolveOrb } from './panel-data'
 import { maxLevelForHp } from './unified-calculator'
 
 // mutants.json's inferred JSON type is a large literal union that's
@@ -131,14 +131,20 @@ const STAR_NAMES = ['обычная', 'бронза', 'серебро', 'зол�
 
 const ALLOWED_MULTIPLIERS = [-50, -25, 0, 25, 50]
 
-// ".гештальт сферовка" - надеть на мутанта его топ-1 сборку с сайта (первая
-// строка в orbing.json, она же первой показана в модалке мутанта). Явно
-// названные сферы в том же сообщении важнее: там игрок сказал конкретнее.
+// ".гештальт сферовка" - надеть сборку сфер с сайта (строки orbing.json, они
+// же показаны в модалке мутанта). Номер после слова выбирает сборку:
+// "сферовка 2" - вторую, без номера - первую. Явно названные сферы в том же
+// сообщении важнее: там игрок сказал конкретнее.
 const BUILD_KEYWORDS = ['сферовка', 'сферовку', 'сферовки', 'сферовкой', 'сборка', 'сборку']
 
-function mentionsBuild(segment: string): boolean {
-  const text = segment.toLowerCase()
-  return BUILD_KEYWORDS.some((w) => new RegExp(`(^|[^а-яё])${w}([^а-яё]|$)`, 'i').test(text))
+// null - слова про сборку в сообщении нет. number - номер сборки (с единицы),
+// по умолчанию 1.
+function findBuildMention(segment: string): number | null {
+  for (const word of BUILD_KEYWORDS) {
+    const m = segment.match(new RegExp(`(^|[^а-яё])${word}\\s*(\\d{1,2})?([^а-яё0-9]|$)`, 'i'))
+    if (m) return m[2] ? Number(m[2]) : 1
+  }
+  return null
 }
 
 export interface ParsedOrbMention {
@@ -155,6 +161,8 @@ export interface ParsedConfig {
   starIndex: number
   basicOrbIds: (string | null)[]
   specialOrbId: string | null
+  // Номер надетой сборки сфер (с нуля) - карточка подсвечивает её в списке.
+  orbBuildIndex: number | null
   atkMultipliers: { 1: number; 2: number }
 }
 
@@ -583,14 +591,21 @@ function parseSingleSegment(
 
   // Сферовка с сайта - только если игрок не перечислил сферы сам.
   let specialOrbId: string | null = specialMention?.id ?? null
-  if (mentionsBuild(segment) && mentions.length === 0) {
-    const build = orbBuildFor(String(found.mutant.id ?? ''))
-    if (!build) {
+  let orbBuildIndex: number | null = null
+  const buildNumber = findBuildMention(segment)
+  if (buildNumber !== null && mentions.length === 0) {
+    const builds = orbBuildsFor(String(found.mutant.id ?? ''))
+    if (builds.length === 0) {
+      return { error: `у мутанта «${found.mutant.name}» пока нет сферовки на сайте` }
+    }
+    if (buildNumber < 1 || buildNumber > builds.length) {
+      const word = builds.length === 1 ? 'сборка' : builds.length < 5 ? 'сборки' : 'сборок'
       return {
-        error: `у мутанта «${found.mutant.name}» пока нет сферовки на сайте - её можно добавить командой .сфера`,
+        error: `у мутанта «${found.mutant.name}» ${builds.length} ${word} - выбери номер от 1 до ${builds.length}`,
       }
     }
-    const fromBuild = orbIdsFromBuild(build, basicSlotCount)
+    orbBuildIndex = buildNumber - 1
+    const fromBuild = orbIdsFromBuild(builds[orbBuildIndex], basicSlotCount)
     fromBuild.basicOrbIds.forEach((id, i) => {
       basicOrbIds[i] = id
     })
@@ -616,6 +631,7 @@ function parseSingleSegment(
     starIndex,
     basicOrbIds,
     specialOrbId,
+    orbBuildIndex,
     atkMultipliers,
   }
 }
@@ -686,7 +702,7 @@ export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] 
 
 Сферы: категория + число вплотную - "щит 20%" (по проценту) или "щит 4" (по уровню сферы).
 Спец-слот: добавь "спец" - "спец щит 20%".
-Сферовка: слово "сферовка" (или "сборка") наденет топ-1 сборку мутанта с сайта. Свои сферы в том же сообщении важнее.
+Сферовка: слово "сферовка" (или "сборка") наденет первую сборку мутанта с сайта, "сферовка 2" - вторую. Все сборки мутанта видно внизу карточки. Свои сферы в том же сообщении важнее.
 Категории: атака/атк, здоровье/хп, крит, вампиризм/вамп, контратака/контра, щит, кровь, усиление/баф, проклятие/дебаф, опыт, скорость/спид (только спец).
 
 Мультипликатор: "+25% на первую атаку", "-50% вторая атака" (-50/-25/0/+25/+50).
@@ -696,6 +712,7 @@ export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] 
 Примеры:
 .азимов
 .гештальт сферовка
+.гештальт сферовка 2 20ур
 .робот 20ур серебро щит 20% +25% на первую атаку
 .робот 20ур серебро vs зомби 30ур золото
 .сравнение робот 30ур vs зомби 45ур vs воин 55ур vs брейкмастер 1ур vs банши 4ур`

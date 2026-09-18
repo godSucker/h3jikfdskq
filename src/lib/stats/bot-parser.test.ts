@@ -247,6 +247,24 @@ describe('сферовка с сайта', () => {
     expect(err('робот сферовка')).toMatch(/нет сферовки/)
   })
 
+  it('номер выбирает конкретную сборку', () => {
+    const first = ok('гештальт сферовка')
+    const second = ok('гештальт сферовка 2')
+    expect(first.primary.orbBuildIndex).toBe(0)
+    expect(second.primary.orbBuildIndex).toBe(1)
+    expect(second.primary.basicOrbIds).not.toEqual(first.primary.basicOrbIds)
+  })
+
+  it('номер вне диапазона объясняет, сколько сборок есть', () => {
+    expect(err('гештальт сферовка 7')).toMatch(/выбери номер от 1 до 3/)
+  })
+
+  it('номер сборки не путается с уровнем', () => {
+    const r = ok('гештальт сферовка 3 20ур')
+    expect(r.primary.orbBuildIndex).toBe(2)
+    expect(r.primary.level).toBe(20)
+  })
+
   it('уровень и звезда в том же сообщении продолжают работать', () => {
     const r = ok('гештальт сферовка 20ур')
     expect(r.primary.level).toBe(20)
