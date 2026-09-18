@@ -24,8 +24,11 @@ export interface BingoEntryVariant {
 }
 
 export function bingoEntryVariant(rawSkin: string | null | undefined): BingoEntryVariant {
-  const value = String(rawSkin ?? '').trim().toLowerCase()
+  const value = String(rawSkin ?? '')
+    .trim()
+    .toLowerCase()
   if (!value || value === '_any') return { star: null, skin: null }
-  if ((STAR_TIERS as readonly string[]).includes(value)) return { star: value as StarTier, skin: null }
+  if ((STAR_TIERS as readonly string[]).includes(value))
+    return { star: value as StarTier, skin: null }
   return { star: null, skin: value }
 }
