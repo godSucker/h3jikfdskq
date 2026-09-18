@@ -6,6 +6,7 @@
 // один раз через ESM module cache).
 import mutantsData from '@/data/mutants/mutants.json'
 import skinIconsData from '@/data/mutants/skin-icons.json'
+import skinsData from '@/data/mutants/skins.json'
 import raidsData from '@/data/guides/raids.json'
 import specialLaddersData from '@/data/guides/special-ladders.json'
 import materialData from '@/data/materials/material.json'
@@ -166,6 +167,26 @@ const normalizeSkinKey = (v: string) =>
     .toLowerCase()
     .replace(/[\u2018\u2019\u201A\uFF07]/g, "'")
     .replace(/[^a-z0-9'_ ]/g, '')
+
+// Голова мутанта В СКИНЕ - тот же формат 100x100, что обычные головы из
+// textures_by_mutant/, только из textures_by_skin/semi-full/. Нужна плиткам
+// Анализатора тайны: награда там - конкретный скин, а detectExchange кладёт в
+// image обычную голову мутанта (просьба юзера 2026-09-18). Считаем на
+// рендере, а не в детекторе, чтобы исправились и уже опубликованные карточки.
+const SKIN_HEAD = new Map<string, string>()
+for (const sp of (skinsData as { specimens: { id: string; skin: string; image?: string[] }[] })
+  .specimens) {
+  const head = sp.image?.find((p) => p.includes('/semi-full/'))
+  if (head) SKIN_HEAD.set(`${sp.id.toLowerCase()}|${sp.skin.toLowerCase()}`, head)
+}
+
+export function skinHeadImage(
+  specimenId: string | null | undefined,
+  skin: string | null | undefined,
+): string | null {
+  if (!specimenId || !skin) return null
+  return SKIN_HEAD.get(`${specimenId.toLowerCase()}|${skin.toLowerCase()}`) ?? null
+}
 
 export function skinIconFor(skin: string | null | undefined): string | null {
   const raw = String(skin ?? '').trim()

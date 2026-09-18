@@ -20,6 +20,7 @@ import {
   resolvePackMutants,
   exchangeHallMeta,
   skinIconFor,
+  skinHeadImage,
   formatPrice,
   exactDateLabelIn,
   boxMutantIcon,
@@ -458,7 +459,15 @@ const forecastWeeks =
                 data-open-mutant-star={gi.star ?? undefined}
                 data-open-mutant-skin={gi.skin ?? undefined}
               >
-                {gi.image && <img class="exchange-item-img" src={textureUrl(gi.image)} alt="" loading="lazy" decoding="async" />}
+                {(skinHeadImage(gi.id.split('|')[2], gi.skin) ?? gi.image) && (
+                  <img
+                    class="exchange-item-img"
+                    src={textureUrl((skinHeadImage(gi.id.split('|')[2], gi.skin) ?? gi.image)!)}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
                 <div class="exchange-item-info">
                   <span class="exchange-item-name">
                     {gi.star && (

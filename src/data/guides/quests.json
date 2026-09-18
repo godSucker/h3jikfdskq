@@ -8968,6 +8968,129 @@
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_upgrade_techcenter.png"
   },
   {
+    "id": "183",
+    "title": {
+      "ru": "Новые возможности!",
+      "en": "New options!",
+      "es": "¡Nuevas opciones!",
+      "fr": "Nouvelles opportunités",
+      "de": "Neue Optionen",
+      "pt": "Novas opções!",
+      "it": "Nuove opzioni!",
+      "tr": "Yeni seçenekler!",
+      "nl": "Nieuwe opties!"
+    },
+    "caption": {
+      "ru": "Победить в PvE-сражениях",
+      "en": "Win PvE fights",
+      "es": "Gana combates JcE",
+      "fr": "Gagne des combats JcE",
+      "de": "Gewinne PvE-Kämpfe",
+      "pt": "Ganhe batalhas PvE",
+      "it": "Vinci dei combattimenti PvE",
+      "tr": "PvE dövüşleri kazan",
+      "nl": "Win PvE-gevechten"
+    },
+    "rewards": [
+      {
+        "type": "entity",
+        "id": "Building_Event_1",
+        "amount": null
+      }
+    ],
+    "chainType": "story",
+    "prevId": null,
+    "trigger": {
+      "category": "battle",
+      "amount": "3"
+    },
+    "requiredLevel": 7,
+    "unlock": [],
+    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_1.png"
+  },
+  {
+    "id": "184",
+    "title": {
+      "ru": "На крыше",
+      "en": "On the roof",
+      "es": "En la azotea",
+      "fr": "Sur le toit",
+      "de": "Auf dem Dach",
+      "pt": "No telhado",
+      "it": "Sul tetto",
+      "tr": "Çatıda",
+      "nl": "Op het dak"
+    },
+    "caption": {
+      "ru": "Поместить Зал испытаний на карту",
+      "en": "Place the Challenge Hall on your map",
+      "es": "Coloca la Sala Reto en tu mapa",
+      "fr": "Place le Challenge Hall sur le toit",
+      "de": "Platziere die Challenge-Saal auf deiner Karte",
+      "pt": "Coloque o Challenge Hall no seu mapa.",
+      "it": "Metti l’Atrio delle Sfide sulla tua mappa",
+      "tr": "Meydan Okuma Salonu'nu haritana yerleştir",
+      "nl": "Plaats de Challenge Hall op je plattegrond"
+    },
+    "rewards": [
+      {
+        "type": "entity",
+        "id": "Material_Event_Token",
+        "amount": null
+      }
+    ],
+    "chainType": "story",
+    "prevId": "183",
+    "trigger": {
+      "category": "collection",
+      "amount": "1"
+    },
+    "requiredLevel": 7,
+    "unlock": [],
+    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_2.png"
+  },
+  {
+    "id": "185",
+    "title": {
+      "ru": "Первый жетон",
+      "en": "First Token",
+      "es": "Primera Ficha",
+      "fr": "Premier Jeton",
+      "de": "Erster Chip",
+      "pt": "Primeiro token",
+      "it": "Primo Gettone",
+      "tr": "İlk Jeton",
+      "nl": "Eerste Muntje"
+    },
+    "caption": {
+      "ru": "Запустить первый контракт в Зале испытаний",
+      "en": "Launch the first contract of the Challenge Hall",
+      "es": "Inicia el primer contrato de la Sala Reto",
+      "fr": "Lance le premier contrat du Challenge Hall",
+      "de": "Starte die erste Herausforderung der Challenge-Saal!",
+      "pt": "Lance o primeiro contrato do Challenge Hall",
+      "it": "Lancia il primo contratto dell’Atrio delle Sfide",
+      "tr": "Meydan Okuma Salonu'nun ilk kontratını başlat",
+      "nl": "Start je eerste contract van de Challenge Hall"
+    },
+    "rewards": [
+      {
+        "type": "entity",
+        "id": "Material_Event_Token",
+        "amount": null
+      }
+    ],
+    "chainType": "story",
+    "prevId": "184",
+    "trigger": {
+      "category": "building",
+      "amount": "1"
+    },
+    "requiredLevel": 7,
+    "unlock": [],
+    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_eventbuilding_3.png"
+  },
+  {
     "id": "358",
     "title": {
       "ru": "Высвободи мощь!",

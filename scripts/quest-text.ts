@@ -5,7 +5,8 @@ import { numbersIn, hasNumber } from '../src/lib/event-quest-text'
 // языков и починка кривых условий Kobojo. Общий код для ивентовых заданий
 // (build-event-quests.ts) и для сюжетных квестов с ачивками (build-quests.ts).
 
-const LOC_URL = (lang: string) => `https://s-beta.kobojo.com/mutants/gameconfig/localisation_${lang}.txt`
+const LOC_URL = (lang: string) =>
+  `https://s-beta.kobojo.com/mutants/gameconfig/localisation_${lang}.txt`
 
 export const LOCALES = ['ru', 'en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 export type Locale = (typeof LOCALES)[number]
@@ -15,23 +16,51 @@ export type I18nText = Record<Locale, string>
 // реальным caption квестов, использующих это действие (сессия редизайна
 // квестов), а не угадано по названию.
 export const ACTION_CATEGORY: Record<string, string> = {
-  killSpecimen: 'battle', killBetterTeamThanMeInPve: 'battle',
-  killMoreThanOneMutantsWithOneAttack: 'battle', sameKillerForAllOpponents: 'battle',
-  specimenKilledBeforeAttack: 'battle', setDamages: 'battle',
-  winFightWithLessThanHundredLife: 'battle', loseMutant: 'battle', winPve: 'battle',
-  winPveLadder: 'battle', losePve: 'battle', teamFullAfterPveFight: 'battle', launchAssist: 'battle',
-  finishPvpFight: 'pvp', winPvp: 'pvp', losePvp: 'pvp', winPvpStraight: 'pvp',
-  teamFullAfterPvpFight: 'pvp', openFight: 'pvp',
-  launchCraft: 'craft', launchCraftPlus: 'craft', openCraft: 'craft',
-  launchHybridation: 'breeding', hybridationOver: 'breeding', duplicateBreed: 'breeding',
-  hoursBreeding: 'breeding', showbreedingitems: 'breeding',
-  hoursIncubating: 'incubation', fillMutosterone: 'incubation',
-  specimenlevelup: 'incubation', accelerate: 'incubation',
-  accelerateHabitatLevelOne: 'building', collectHabitat: 'building', buyExtension: 'building',
-  updateTechCenter: 'building', placeCreature: 'building', refillHpWithHc: 'building',
-  sendGift: 'social', openMutoDex: 'social',
+  killSpecimen: 'battle',
+  killBetterTeamThanMeInPve: 'battle',
+  killMoreThanOneMutantsWithOneAttack: 'battle',
+  sameKillerForAllOpponents: 'battle',
+  specimenKilledBeforeAttack: 'battle',
+  setDamages: 'battle',
+  winFightWithLessThanHundredLife: 'battle',
+  loseMutant: 'battle',
+  winPve: 'battle',
+  winPveLadder: 'battle',
+  losePve: 'battle',
+  teamFullAfterPveFight: 'battle',
+  launchAssist: 'battle',
+  finishPvpFight: 'pvp',
+  winPvp: 'pvp',
+  losePvp: 'pvp',
+  winPvpStraight: 'pvp',
+  teamFullAfterPvpFight: 'pvp',
+  openFight: 'pvp',
+  launchCraft: 'craft',
+  launchCraftPlus: 'craft',
+  openCraft: 'craft',
+  launchHybridation: 'breeding',
+  hybridationOver: 'breeding',
+  duplicateBreed: 'breeding',
+  hoursBreeding: 'breeding',
+  showbreedingitems: 'breeding',
+  hoursIncubating: 'incubation',
+  fillMutosterone: 'incubation',
+  specimenlevelup: 'incubation',
+  accelerate: 'incubation',
+  accelerateHabitatLevelOne: 'building',
+  collectHabitat: 'building',
+  buyExtension: 'building',
+  updateTechCenter: 'building',
+  placeCreature: 'building',
+  refillHpWithHc: 'building',
+  sendGift: 'social',
+  openMutoDex: 'social',
 }
-export const CONDITION_CATEGORY: Record<string, string> = { level: 'level', custom: 'collection', ownEntity: 'collection' }
+export const CONDITION_CATEGORY: Record<string, string> = {
+  level: 'level',
+  custom: 'collection',
+  ownEntity: 'collection',
+}
 
 export function arr<T>(x: T | T[] | undefined | null): T[] {
   if (x === undefined || x === null) return []
@@ -50,7 +79,11 @@ export async function loadLocalisations(): Promise<Record<Locale, Map<string, st
       if (idx === -1) continue
       m.set(
         rawLine.slice(0, idx).trim().toLowerCase(),
-        rawLine.slice(idx + 1).trim().replace(/\\n/g, '\n').replace(/\/n/g, '\n'),
+        rawLine
+          .slice(idx + 1)
+          .trim()
+          .replace(/\\n/g, '\n')
+          .replace(/\/n/g, '\n'),
       )
     }
     out[l] = m
@@ -60,7 +93,10 @@ export async function loadLocalisations(): Promise<Record<Locale, Map<string, st
 
 // Переводит ключ локализации на все 9 языков. Нет перевода на языке - берём
 // русский (на крайний случай английский), чтобы в карточке не зияла дыра.
-export function translate(locs: Record<Locale, Map<string, string>>, key: string | undefined | null): I18nText {
+export function translate(
+  locs: Record<Locale, Map<string, string>>,
+  key: string | undefined | null,
+): I18nText {
   const k = (key ?? '').toLowerCase()
   const ru = k ? (locs.ru.get(k) ?? '') : ''
   const en = k ? (locs.en.get(k) ?? '') : ''
@@ -116,10 +152,14 @@ const PLACEHOLDER = '(?<![\\p{L}\\d])X(?![\\p{L}\\d])'
 export function renumber(text: I18nText, from: string, to: number): I18nText | null {
   const out = {} as I18nText
   for (const l of LOCALES) {
-    const re = from === PLACEHOLDER ? new RegExp(PLACEHOLDER, 'gu') : new RegExp(`(?<!\\d)${from}(?!\\d)`, 'g')
+    const re =
+      from === PLACEHOLDER
+        ? new RegExp(PLACEHOLDER, 'gu')
+        : new RegExp(`(?<!\\d)${from}(?!\\d)`, 'g')
     if (!re.test(text[l])) return null
     let s = text[l].replace(re, String(to))
-    if (l === 'en') s = s.replace(new RegExp(`(?<!\\d)${to}(st|nd|rd|th)\\b`, 'g'), `${to}${enOrdinal(to)}`)
+    if (l === 'en')
+      s = s.replace(new RegExp(`(?<!\\d)${to}(st|nd|rd|th)\\b`, 'g'), `${to}${enOrdinal(to)}`)
     if (l === 'ru') {
       const form = { one: 0, few: 1, many: 2 }[ruPluralClass(to)]
       for (const forms of RU_COUNTED) {
@@ -199,6 +239,17 @@ export const EVENT_FILTER_RE =
   /^filter_dungeon_|event|anniversary|easter|halloween|valentines|xmas|dailymissions|test_intro/i
 export const TEST_FILTER_RE = /(^|_)test_/i
 
+// Фильтры, которые попадают под EVENT_FILTER_RE только из-за слова в имени, а
+// ивентом не являются. Missions_Event_Feature - ветка "Новые функции"
+// (открытие Зала испытаний, здание Building_Event_1 - отсюда "Event" в
+// имени): сервер держит этот фильтр включённым постоянно, без окна дат
+// (проверено живым getuser 2026-09-18), то есть это обычная сюжетная ветка.
+const NOT_EVENT_FILTER_RE = /^missions_event_feature$/i
+
+export function isEventFilter(filter: string): boolean {
+  return EVENT_FILTER_RE.test(filter) && !NOT_EVENT_FILTER_RE.test(filter)
+}
+
 export interface Donor {
   key: string
   amount: number
@@ -221,7 +272,9 @@ export function buildDonors(missions: Record<string, any>[], locs: Locs) {
   // Названия всех миссий (ru) и официальные тексты условий по типу, которые
   // названиями не являются, - для правила "условие = название" в fixCondition.
   const titles = new Set(
-    missions.map((m) => locs.ru.get(String(m.title ?? '').toLowerCase())).filter((t): t is string => !!t),
+    missions
+      .map((m) => locs.ru.get(String(m.title ?? '').toLowerCase()))
+      .filter((t): t is string => !!t),
   )
   const plainTexts = new Map<string, Map<string, { key: string; text: I18nText; uses: number }>>()
   for (const m of missions) {
@@ -302,7 +355,11 @@ export function fixCondition(
   }
   const shape = keyShape(info.captionKey)
   const plural = ruPluralClass(amount)
-  const rank = (d: Donor) => [Number(ruPluralClass(d.amount) !== plural), -d.uses, Number(keyShape(d.key) !== shape)]
+  const rank = (d: Donor) => [
+    Number(ruPluralClass(d.amount) !== plural),
+    -d.uses,
+    Number(keyShape(d.key) !== shape),
+  ]
   const candidates = [...(donors.get(info.sig)?.values() ?? [])].sort((a, b) => {
     const ra = rank(a)
     const rb = rank(b)
