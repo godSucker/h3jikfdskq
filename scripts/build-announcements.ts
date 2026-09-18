@@ -251,7 +251,19 @@ interface DetectResult {
   // Рейды/лесенки: объект УЖЕ был опубликован, но без даты, а теперь kartel
   // её впервые отдал. Это дозаполнение старой карточки, а не новый пост -
   // main() дописывает дату в существующий item с тем же id.
-  patchDates?: { id: string; exactDateLabel: string; exactDateStart: string; exactDateEnd?: string | null }[]
+  patchDates?: {
+    id: string
+    exactDateLabel: string
+    exactDateStart: string
+    exactDateEnd?: string | null
+    // Окно пришло без конца ("27 сентября - ?") либо, наоборот, конец наконец
+    // известен и открытую подпись надо закрыть. Страница на не-RU локалях
+    // рисует "- ?" по ЭТОМУ флагу, а не по пустому exactDateEnd (см.
+    // exactDateLabelIn в announcements-render.ts) - без него уточнение даты
+    // видно только в русской строке, а на остальных языках карточка так и
+    // остаётся с вопросом.
+    exactDateOpenEnd?: boolean
+  }[]
   // Только shopForecast/dailyNews, только при СОЗДАНИИ новой записи (items
   // непустой, updateExisting не задан) - записывается в Announcement.sprintKey.
   sprintKey?: string
@@ -725,15 +737,32 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   // auto-announcements-architecture). exactDateFor - тот же джойн, что уже
   // использует detectBoxes/detectDungeons, со всеми теми же защитами
   // (протухшие/чужие даты).
+  // Окно считаем для ВСЕХ контрактов зала, а не только для свежих. НАЙДЕНО
+  // 2026-09-18 (юзер поймал живьём: "мутанты за жетоны испытаний в игре
+  // появились, а даты у нас нет"): XML Kobojo меняет содержимое слотов на
+  // 2-3 дня РАНЬШЕ, чем сервер начинает отдавать окно ротации, а
+  // Building_Mystery_2025_01 вообще попал в запрашиваемый список только
+  // 2026-09-16 (см. GAMEDEFS_EXCHANGE_ENTITIES в fetch-filters.py) - позже,
+  // чем были объявлены сами контракты Анализатора тайны. Карточка,
+  // опубликованная до появления окна, не получала дату уже никогда: у
+  // detectExchange, в отличие от detectDungeons/detectEventQuests, не было
+  // ветки дозаполнения (patchDates ниже).
+  type HallDate = { label: string; start: string; end: string | null; openEnd?: true } | null
+  const dateByKey = new Map<string, NonNullable<HallDate>>()
+  for (const c of hallContracts) {
+    const exact: HallDate =
+      (await exactDateFor(c.filterName ?? undefined)) ??
+      (c.filterName
+        ? await inferStartFromPreviousRotation(c.filterName, filterNamesByHall.get(c.hall) ?? [])
+        : null)
+    if (exact) dateByKey.set(hallKey(c), exact)
+  }
+
   const items: AnnouncementItem[] = await Promise.all(
     hallFresh.map(async (c) => {
       const m = nameById.get(c.specimenId)
       const token = materialsById.get(c.costTokenId)
-      const exact =
-        (await exactDateFor(c.filterName ?? undefined)) ??
-        (c.filterName
-          ? await inferStartFromPreviousRotation(c.filterName, filterNamesByHall.get(c.hall) ?? [])
-          : null)
+      const exact = dateByKey.get(hallKey(c)) ?? null
       return {
         id: hallKey(c),
         name: m?.name ?? c.specimenId,
@@ -771,6 +800,11 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
   const mysteryFresh = mysteryContracts.filter((c) => !seenSet.has(mysteryKey(c)))
   for (const c of mysteryContracts) allKeys.push(mysteryKey(c))
 
+  for (const c of mysteryContracts) {
+    const exact = await exactDateFor(c.filterName ?? undefined)
+    if (exact) dateByKey.set(mysteryKey(c), exact)
+  }
+
   for (const c of mysteryFresh) {
     const m = nameById.get(c.specimenId.toLowerCase())
     const token = materialsById.get(c.costTokenId)
@@ -787,7 +821,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
     }
     const starName = c.stars ? (STAR_NUM_TO_NAME[c.stars] ?? null) : null
     const skinLabel = c.skin ? `скин: ${skinDisplayName(c.skin)}` : ''
-    const exact = await exactDateFor(c.filterName ?? undefined)
+    const exact = dateByKey.get(mysteryKey(c)) ?? null
     // Звезда НЕ пишется в name текстом. Раньше тут было `${c.stars}⭐` - эмодзи
     // U+2B50, которого нет ни в одном шрифте headless-Chromium (@sparticuz/
     // chromium идёт с минимальным набором), и бот-скриншотер слал в админку
@@ -815,7 +849,23 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
     })
   }
 
-  return { newIds: allKeys, items }
+  // Дозаполнение уже опубликованных карточек: ключ патча - тот же составной
+  // id, что у item'а (hall|contract|specimen[|stars|skin]), main() джойнит
+  // именно по нему. Стереть дату эта ветка не может: exactDateFor без живых
+  // данных возвращает null, и патч в список просто не попадает.
+  const patchDates: NonNullable<DetectResult['patchDates']> = []
+  for (const [key, exact] of dateByKey) {
+    if (!seenSet.has(key)) continue
+    patchDates.push({
+      id: key,
+      exactDateLabel: exact.label,
+      exactDateStart: exact.start,
+      exactDateEnd: exact.end,
+      exactDateOpenEnd: exact.openEnd === true,
+    })
+  }
+
+  return { newIds: allKeys, items, patchDates }
 }
 
 // Полноценный resolveReward из src/lib/guides-resolve.ts требует craft-simulator.ts/
@@ -906,8 +956,7 @@ async function detectDungeons(
     entry: DungeonRawShape
     key: string
     exact: { label: string; start: string; end: string | null }
-  }[] =
-    []
+  }[] = []
   for (const d of entries) {
     const filterName = filterMap.get(d.id)
     if (!filterMatchesEdition(d.id, filterName)) continue
@@ -1279,7 +1328,9 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
   const migrate = !seen.some((k) => k.includes('|'))
 
   const dateLabel = (c: { dateStart: string | null; dateEnd: string | null }) =>
-    c.dateStart ? formatExactRangeRu(new Date(c.dateStart), c.dateEnd ? new Date(c.dateEnd) : null) : null
+    c.dateStart
+      ? formatExactRangeRu(new Date(c.dateStart), c.dateEnd ? new Date(c.dateEnd) : null)
+      : null
   const nowMs = Date.now()
 
   const items: AnnouncementItem[] = []
@@ -1338,7 +1389,6 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
   }
 }
 
-
 const DETECTORS: {
   category: keyof Ledger
   title: string
@@ -1372,7 +1422,12 @@ const DETECTORS: {
     run: detectShopForecast,
   },
   { category: 'dailyNews', title: 'Скоро в игре', link: '/announcements', run: detectDailyNews },
-  { category: 'eventQuests', title: 'Новые задания', link: '/guides#quests', run: detectEventQuests },
+  {
+    category: 'eventQuests',
+    title: 'Новые задания',
+    link: '/guides#quests',
+    run: detectEventQuests,
+  },
   { category: 'rebalance', title: 'Ребаланс статов', link: '/rebalance', run: detectRebalance },
 ]
 
@@ -1594,11 +1649,27 @@ async function main() {
         for (const a of announcements) {
           if (a.category !== d.category) continue
           for (const it of a.items ?? []) {
-            if (it.id !== pd.id || it.exactDateLabel) continue
+            if (it.id !== pd.id) continue
+            // Второй случай патча (2026-09-18): у карточки уже стоит ОТКРЫТОЕ
+            // окно ("27 сентября - ?", начало выведено из конца предыдущей
+            // ротации), а сервер наконец отдал настоящий конец - закрываем
+            // вопрос. Флаг exactDateOpenEnd при этом обязан сняться: страница
+            // на не-RU локалях рисует "- ?" по нему, а не по пустому
+            // exactDateEnd (exactDateLabelIn в announcements-render.ts).
+            const closesOpenEnd =
+              it.exactDateOpenEnd === true && !!pd.exactDateEnd && pd.exactDateOpenEnd !== true
+            if (it.exactDateLabel && !closesOpenEnd) continue
             it.exactDateLabel = pd.exactDateLabel
             it.exactDateStart = pd.exactDateStart
             it.exactDateEnd = pd.exactDateEnd ?? null
-            console.log(`[ANNOUNCE] ${d.category}: дата дописана в старую карточку ${pd.id} -> ${pd.exactDateLabel}`)
+            // Флаг пишем только когда он реально что-то значит: true - окно
+            // без конца, false - у карточки он был и снялся. Детекторам без
+            // открытых окон (рейды/лесенки/квесты) поле в JSON не добавляем.
+            if (pd.exactDateOpenEnd === true) it.exactDateOpenEnd = true
+            else if (it.exactDateOpenEnd) it.exactDateOpenEnd = false
+            console.log(
+              `[ANNOUNCE] ${d.category}: дата ${closesOpenEnd ? 'уточнена' : 'дописана'} в старой карточке ${pd.id} -> ${pd.exactDateLabel}`,
+            )
           }
         }
       }

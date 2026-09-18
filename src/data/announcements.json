@@ -3649,10 +3649,10 @@
           "name": "Жетон джекпота",
           "image": "/materials/Material_Jackpot_Token.png"
         },
-        "exactDateLabel": "27 сентября — ?",
+        "exactDateLabel": "27 сентября — 30 октября",
         "exactDateStart": "2026-09-27T10:00:00+00:00",
-        "exactDateEnd": null,
-        "exactDateOpenEnd": true
+        "exactDateEnd": "2026-10-30T10:00:00+00:00",
+        "exactDateOpenEnd": false
       },
       {
         "id": "jackpot|READY_08|specimen_de_10",
@@ -3664,10 +3664,10 @@
           "name": "Жетон джекпота",
           "image": "/materials/Material_Jackpot_Token.png"
         },
-        "exactDateLabel": "27 сентября — ?",
+        "exactDateLabel": "27 сентября — 30 октября",
         "exactDateStart": "2026-09-27T10:00:00+00:00",
-        "exactDateEnd": null,
-        "exactDateOpenEnd": true
+        "exactDateEnd": "2026-10-30T10:00:00+00:00",
+        "exactDateOpenEnd": false
       },
       {
         "id": "jackpot|READY_09|specimen_fd_11",
@@ -3679,10 +3679,10 @@
           "name": "Жетон джекпота",
           "image": "/materials/Material_Jackpot_Token.png"
         },
-        "exactDateLabel": "27 сентября — ?",
+        "exactDateLabel": "27 сентября — 30 октября",
         "exactDateStart": "2026-09-27T10:00:00+00:00",
-        "exactDateEnd": null,
-        "exactDateOpenEnd": true
+        "exactDateEnd": "2026-10-30T10:00:00+00:00",
+        "exactDateOpenEnd": false
       },
       {
         "id": "event|READY_04|specimen_fa_10",
@@ -3735,8 +3735,9 @@
         },
         "star": "gold",
         "skin": "kings",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       },
       {
         "id": "mystery|READY_02|Specimen_BE_03|3|summer",
@@ -3750,8 +3751,9 @@
         },
         "star": "gold",
         "skin": "summer",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       },
       {
         "id": "mystery|READY_03|Specimen_FC_08|3|europe",
@@ -3765,8 +3767,9 @@
         },
         "star": "gold",
         "skin": "europe",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       },
       {
         "id": "mystery|READY_04|Specimen_EB_10|3|aprilfools",
@@ -3780,8 +3783,9 @@
         },
         "star": "gold",
         "skin": "aprilfools",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       },
       {
         "id": "mystery|READY_05|Specimen_DD_08|3|school",
@@ -3795,8 +3799,9 @@
         },
         "star": "gold",
         "skin": "school",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       },
       {
         "id": "mystery|READY_06|Specimen_AB_11|3|honeybee",
@@ -3810,8 +3815,9 @@
         },
         "star": "gold",
         "skin": "honeybee",
-        "exactDateLabel": null,
-        "exactDateStart": null
+        "exactDateLabel": "15 сентября — 30 октября",
+        "exactDateStart": "2026-09-15T16:00:00+00:00",
+        "exactDateEnd": "2026-10-30T10:00:00+00:00"
       }
     ],
     "link": "/mutants"
