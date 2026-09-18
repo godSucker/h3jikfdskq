@@ -24,6 +24,8 @@ import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
 import { fetchGameXml } from './game-xml-cache'
 
+// Баннер "BACK FOR 24H ONLY" - см. сдвиг дат и подмену блока в конце fetch.
+const BANNER_24H_RE = /^Daily_news_shop_24h_/i
 const DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -48,9 +50,6 @@ interface DailyNewsItem {
   // подпись даты на языке посетителя по ISO-датам, а не по русской строке.
   exactDateEnd: string | null
   exactDateApprox?: boolean
-  // Окно показа баннера в игре - заполняется только у Daily_news_shop_24h_*,
-  // у которых подпись сдвинута на неделю контента (см. сдвиг в конце fetch).
-  showDateStart?: string | null
 }
 
 function balanceQuotes(name: string): string {
@@ -188,6 +187,9 @@ async function buildShopItemIndex(): Promise<Map<string, ShopItemInfo>> {
 // разовый бэкафилл-параметр, часовой пайплайн его не передаёт.
 export async function fetchDailyNewsForecast(
   sprintOverride?: number,
+  // false - служебный вызов за ПРОШЛЫЙ блок: вернуть его офферы как есть, без
+  // повторного подтягивания баннеров (иначе рекурсия на всю историю спринтов).
+  pullPrevBanners = true,
 ): Promise<DailyNewsForecast | null> {
   const [{ data: xml }, shopIndex] = await Promise.all([
     axios.get<string>(DAILYPOPUP_URL, { responseType: 'text', timeout: 20000 }),
@@ -336,19 +338,72 @@ export async function fetchDailyNewsForecast(
   // Сдвиг обязан идти ПОСЛЕ интерполяции по соседям выше: там бездатные
   // офферы датируются по ближайшему датированному соседу, и сдвинутый баннер
   // утащил бы за собой чужие даты на те же +2 недели.
-  const BANNER_24H_RE = /^Daily_news_shop_24h_/i
   const BANNER_24H_SHIFT_MS = 14 * DAY_MS
+
+  // Баннеры одного блока - соседние недели одного спринта (суффикс a = первая,
+  // b = вторая), поэтому окно одного восстанавливается из окна другого ровно
+  // через 7 дней. Нужно, когда kartel отдал окно только одному из двух: второй
+  // иначе остаётся на "≈ дате по соседям" из интерполяции выше, хотя его
+  // неделя известна точно (живой пример 2026-09-18: у 256b окно есть, у 256a
+  // нет, и карточка спринта 257 показывала "≈ 19 сентября" вместо "19-26").
+  const blockBanners = items
+    .filter((it) => BANNER_24H_RE.test(it.filter))
+    .map((it) => ({
+      it,
+      week: /_(\d+)([ab])$/i.exec(it.filter)?.[2]?.toLowerCase() === 'b' ? 1 : 0,
+    }))
+  const anchor = blockBanners.find((b) => b.it.exactDateStart && !b.it.exactDateApprox)
+  if (anchor) {
+    const anchorMs = new Date(anchor.it.exactDateStart!).getTime()
+    for (const b of blockBanners) {
+      if (b === anchor || (b.it.exactDateStart && !b.it.exactDateApprox)) continue
+      const startMs = anchorMs + (b.week - anchor.week) * 7 * DAY_MS
+      b.it.exactDateStart = new Date(startMs).toISOString()
+      b.it.exactDateEnd = new Date(startMs + 7 * DAY_MS).toISOString()
+      b.it.exactDateApprox = false
+    }
+  }
+
   for (const it of items) {
     if (!BANNER_24H_RE.test(it.filter) || !it.exactDateStart) continue
-    const start = new Date(new Date(it.exactDateStart).getTime() + BANNER_24H_SHIFT_MS)
-    const endMs = it.exactDateEnd ? new Date(it.exactDateEnd).getTime() : null
-    const end = endMs != null ? new Date(endMs + BANNER_24H_SHIFT_MS) : null
-    it.showDateStart = it.exactDateStart
+    const startMs = new Date(it.exactDateStart).getTime() + BANNER_24H_SHIFT_MS
+    const start = new Date(startMs)
+    // Баннер по построению покрывает ровно неделю - семь клеток СБ..ПТ. У
+    // части старых записей сервер отдаёт мусорный конец (у 255a это "22
+    // августа -> 29 сентября", у 255b и вовсе конец РАНЬШЕ начала), и такой
+    // диапазон после сдвига превращался в "12 сентября - 19 августа".
+    // Доверяем только концу, который реально отстоит от начала на неделю,
+    // иначе считаем его сами.
+    const rawEndMs = it.exactDateEnd
+      ? new Date(it.exactDateEnd).getTime() + BANNER_24H_SHIFT_MS
+      : null
+    const weekMs = 7 * DAY_MS
+    const sane =
+      rawEndMs != null && Math.abs(rawEndMs - startMs - weekMs) <= DAY_MS
+        ? rawEndMs
+        : startMs + weekMs
+    const end = it.exactDateApprox ? null : new Date(sane)
     it.exactDateStart = start.toISOString()
     it.exactDateEnd = end ? end.toISOString() : null
     it.exactDateLabel = it.exactDateApprox
       ? `≈ ${formatDateRu(start)}`
       : formatExactRangeRu(start, end)
+  }
+
+  // ...и поэтому баннер этого блока описывает НЕ этот спринт, а следующий:
+  // после сдвига его недели уезжают за правую границу окна спринта. Карточка
+  // "Скоро в игре" должна описывать только свой спринт целиком, поэтому свой
+  // баннер отдаём следующему спринту, а себе забираем баннер ПРЕДЫДУЩЕГО
+  // блока - после того же сдвига его недели ложатся ровно на две недели
+  // этого спринта (у спринта 257 это 256a = 19-26 сентября и 256b = 26
+  // сентября - 3 октября). Так в текущем анонсе всегда висят баннеры,
+  // совпадающие по времени с самим анонсом (просьба юзера 2026-09-18).
+  if (pullPrevBanners) {
+    const prev = await fetchDailyNewsForecast(target - 1, false).catch(() => null)
+    const prevBanners = (prev?.items ?? []).filter((it) => BANNER_24H_RE.test(it.filter))
+    const own = items.filter((it) => !BANNER_24H_RE.test(it.filter))
+    items.length = 0
+    items.push(...own, ...prevBanners)
   }
 
   const year = sprintStartDate(target).getUTCFullYear()
