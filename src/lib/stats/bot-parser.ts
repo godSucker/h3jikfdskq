@@ -15,7 +15,7 @@ import { normalizeSearch, normalizeSearchTokens } from '@/lib/search-normalize'
 import orbsRaw from '@/data/materials/orbs.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
 import nicknameAliases from '@/data/mutants/nickname-aliases.json'
-import { normalizeMutant, resolveOrb } from './panel-data'
+import { normalizeMutant, orbBuildFor, orbIdsFromBuild, resolveOrb } from './panel-data'
 import { maxLevelForHp } from './unified-calculator'
 
 // mutants.json's inferred JSON type is a large literal union that's
@@ -131,6 +131,16 @@ const STAR_NAMES = ['обычная', 'бронза', 'серебро', 'зол�
 
 const ALLOWED_MULTIPLIERS = [-50, -25, 0, 25, 50]
 
+// ".гештальт сферовка" - надеть на мутанта его топ-1 сборку с сайта (первая
+// строка в orbing.json, она же первой показана в модалке мутанта). Явно
+// названные сферы в том же сообщении важнее: там игрок сказал конкретнее.
+const BUILD_KEYWORDS = ['сферовка', 'сферовку', 'сферовки', 'сферовкой', 'сборка', 'сборку']
+
+function mentionsBuild(segment: string): boolean {
+  const text = segment.toLowerCase()
+  return BUILD_KEYWORDS.some((w) => new RegExp(`(^|[^а-яё])${w}([^а-яё]|$)`, 'i').test(text))
+}
+
 export interface ParsedOrbMention {
   category: string
   percent: number
@@ -181,6 +191,7 @@ function getNameStripPattern(): RegExp {
     for (const { words } of STAR_KEYWORDS) for (const w of words) phrases.add(w)
     for (const cat of CATEGORIES) for (const kw of cat.keywords) phrases.add(kw)
     for (const w of [
+      ...BUILD_KEYWORDS,
       'ур',
       'уровень',
       'lvl',
@@ -570,12 +581,28 @@ function parseSingleSegment(
     basicOrbIds[i] = m.id
   })
 
+  // Сферовка с сайта - только если игрок не перечислил сферы сам.
+  let specialOrbId: string | null = specialMention?.id ?? null
+  if (mentionsBuild(segment) && mentions.length === 0) {
+    const build = orbBuildFor(String(found.mutant.id ?? ''))
+    if (!build) {
+      return {
+        error: `у мутанта «${found.mutant.name}» пока нет сферовки на сайте - её можно добавить командой .сфера`,
+      }
+    }
+    const fromBuild = orbIdsFromBuild(build, basicSlotCount)
+    fromBuild.basicOrbIds.forEach((id, i) => {
+      basicOrbIds[i] = id
+    })
+    specialOrbId = fromBuild.specialOrbId
+  }
+
   // Same HP-overflow cap the live calculator applies (maxLevelForHp in
   // unified-calculator.ts, shared with the PvP fight-engine) - without it a
   // troll level like "999999ур" produces an HP number the card's fixed-width
   // layout was never built to hold, on top of not reflecting anything real
   // in-game (int32 overflow past this point, see that function's comment).
-  const hpPct = [...basicOrbIds, specialMention?.id ?? null]
+  const hpPct = [...basicOrbIds, specialOrbId]
     .map((id) => resolveOrb(id)?.hpPct ?? 0)
     .reduce((a, b) => a + b, 0)
   const starMul = normalized.starMultipliers[starIndex] ?? 1.0
@@ -588,7 +615,7 @@ function parseSingleSegment(
     level,
     starIndex,
     basicOrbIds,
-    specialOrbId: specialMention?.id ?? null,
+    specialOrbId,
     atkMultipliers,
   }
 }
@@ -652,13 +679,14 @@ export function parseCompareMessage(
   return { ok: true, configs }
 }
 
-export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] [сферы] [атака1: X%] [атака2: X%]
+export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] [сферы | сферовка] [атака1: X%] [атака2: X%]
 
 Имя - можно с опечаткой или сокращённо.
 Уровень по умолчанию 30, звезда - максимальная доступная.
 
 Сферы: категория + число вплотную - "щит 20%" (по проценту) или "щит 4" (по уровню сферы).
 Спец-слот: добавь "спец" - "спец щит 20%".
+Сферовка: слово "сферовка" (или "сборка") наденет топ-1 сборку мутанта с сайта. Свои сферы в том же сообщении важнее.
 Категории: атака/атк, здоровье/хп, крит, вампиризм/вамп, контратака/контра, щит, кровь, усиление/баф, проклятие/дебаф, опыт, скорость/спид (только спец).
 
 Мультипликатор: "+25% на первую атаку", "-50% вторая атака" (-50/-25/0/+25/+50).
@@ -667,6 +695,7 @@ export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] 
 
 Примеры:
 .азимов
+.гештальт сферовка
 .робот 20ур серебро щит 20% +25% на первую атаку
 .робот 20ур серебро vs зомби 30ур золото
 .сравнение робот 30ур vs зомби 45ур vs воин 55ур vs брейкмастер 1ур vs банши 4ур`

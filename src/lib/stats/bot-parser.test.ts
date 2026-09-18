@@ -213,3 +213,43 @@ describe('input edge cases', () => {
     expect(err('')).toMatch(/пустое сообщение/)
   })
 })
+
+describe('сферовка с сайта', () => {
+  it('надевает топ-1 сборку мутанта', () => {
+    const r = ok('гештальт сферовка')
+    expect(r.primary.mutantName).toBe('Гештальт-астероид')
+    // первая строка orbing.json для specimen_fe_09
+    expect(r.primary.basicOrbIds).toEqual(['orb_basic_life_04', 'orb_basic_strengthen_04'])
+    expect(r.primary.specialOrbId).toBe('orb_special_addstrengthen_04')
+  })
+
+  it('понимает разные формы слова и не съедает имя мутанта', () => {
+    for (const msg of ['гештальт сферовку', 'гештальт сферовкой', 'гештальт сборка']) {
+      const r = ok(msg)
+      expect(r.primary.mutantName).toBe('Гештальт-астероид')
+      expect(r.primary.basicOrbIds[0]).toBe('orb_basic_life_04')
+    }
+  })
+
+  it('сдвоенная ячейка идёт в расчёт первой половиной', () => {
+    // у specimen_df_12 первая ячейка - [life_05, retaliate_05]
+    const r = ok('базилиск и эсдрагон сферовка')
+    expect(r.primary.basicOrbIds[0]).toBe('orb_basic_life_05')
+  })
+
+  it('явно названные сферы важнее сборки', () => {
+    const r = ok('гештальт сферовка атака 12%')
+    expect(r.primary.basicOrbIds).toContain('orb_basic_attack_03')
+    expect(r.primary.basicOrbIds).not.toContain('orb_basic_life_04')
+  })
+
+  it('у мутанта без сборки объясняет, что её нет', () => {
+    expect(err('робот сферовка')).toMatch(/нет сферовки/)
+  })
+
+  it('уровень и звезда в том же сообщении продолжают работать', () => {
+    const r = ok('гештальт сферовка 20ур')
+    expect(r.primary.level).toBe(20)
+    expect(r.primary.specialOrbId).toBe('orb_special_addstrengthen_04')
+  })
+})
