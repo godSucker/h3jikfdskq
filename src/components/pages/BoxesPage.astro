@@ -9,6 +9,8 @@ import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
 import { getBoxName } from '@/lib/boxes-i18n';
 import { getLocalizedMutantNames, mutantNameVariants } from '@/lib/mutant-names-i18n';
 import { normalizeSearch } from '@/lib/search-normalize';
+import { getRewardLabel, GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures';
+import { LOCALES } from '@/lib/i18n-locales';
 
 const locale = localeFromAstro(Astro.currentLocale);
 const { names, obtainNames } = getLocalizedMutantNames(locale);
@@ -87,27 +89,72 @@ const localizedBoxes = boxes.map((box) => ({
 // по мутанту - 38КБ (16КБ в gzip) при 383 мутантах.
 // Формат: код мутанта -> [все его имена через "|", номера карточек].
 // Номер карточки - позиция в сетке ниже, порядок тот же, что у localizedBoxes.
-type MutantSearchEntry = [string, number[]];
-const mutantSearchIndex: Record<string, MutantSearchEntry> = {};
+// [все имена через "|", номера карточек, имя для подписи на языке страницы]
+type SearchEntry = [string, number[], string];
+const NAMES_PER_LOCALE = Object.fromEntries(
+  LOCALES.map((l) => [l, getLocalizedMutantNames(l).names]),
+) as Record<string, Record<string, { name: string }>>;
+
+function addToIndex(
+  index: Record<string, SearchEntry>,
+  key: string,
+  cardIndex: number,
+  variants: () => { keys: string[]; display: string },
+) {
+  let entry = index[key];
+  if (!entry) {
+    const { keys, display } = variants();
+    const normalized = new Set<string>();
+    for (const v of keys) {
+      const n = normalizeSearch(v);
+      if (n) normalized.add(n);
+    }
+    entry = [[...normalized].join('|'), [], display];
+    index[key] = entry;
+  }
+  if (entry[1][entry[1].length - 1] !== cardIndex) entry[1].push(cardIndex);
+}
+
+// Награды бокса (звёзды, жетоны, опыт медлаба, серебро/золото) ищутся так же,
+// как мутанты. Имена берём тем же getRewardLabel, которым их рисует модалка,
+// по разу на локаль - уникальных наград всего 74, на сборке это ничто.
+function rewardVariants(r: BoxReward): { keys: string[]; display: string } {
+  if (r.type === 'hardcurrency' || r.type === 'softcurrency') {
+    const words = r.type === 'hardcurrency' ? GOLD_WORD : SILVER_WORD;
+    return {
+      // "золота"/"серебра" - родительный падеж, он идёт после числа; вбивают
+      // же обычно именительный, поэтому кладём в индекс оба.
+      keys: [...Object.values(words), r.type === 'hardcurrency' ? 'золото' : 'серебро'],
+      display: words[locale] ?? words.ru,
+    };
+  }
+  return {
+    keys: LOCALES.map((l) =>
+      getRewardLabel({ name: r.name, type: r.type }, l, NAMES_PER_LOCALE[l]),
+    ),
+    display: getRewardLabel({ name: r.name, type: r.type }, locale, names),
+  };
+}
+
+const mutantSearchIndex: Record<string, SearchEntry> = {};
+const rewardSearchIndex: Record<string, SearchEntry> = {};
 localizedBoxes.forEach((box, cardIndex) => {
   for (const m of allMutants(box)) {
     const code = String(m.id ?? '')
       .toLowerCase()
       .replace(/^specimen_/, '');
     if (!code) continue;
-    let entry = mutantSearchIndex[code];
-    if (!entry) {
-      const keys = new Set<string>();
-      for (const variant of mutantNameVariants(m.id, m.name)) {
-        const key = normalizeSearch(variant);
-        if (key) keys.add(key);
-      }
-      entry = [[...keys].join('|'), []];
-      mutantSearchIndex[code] = entry;
-    }
-    if (entry[1][entry[1].length - 1] !== cardIndex) entry[1].push(cardIndex);
+    addToIndex(mutantSearchIndex, code, cardIndex, () => ({
+      keys: mutantNameVariants(m.id, m.name),
+      display: NAMES_PER_LOCALE[locale]?.[m.id.toLowerCase()]?.name ?? m.name,
+    }));
+  }
+  for (const r of allRewards(box)) {
+    addToIndex(rewardSearchIndex, `${r.type}|${r.name}`, cardIndex, () => rewardVariants(r));
   }
 });
+
+const matchLabel = t('boxes.match.contains', locale);
 
 const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.length));
 ---
@@ -146,6 +193,7 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
           {box.icon && <img class="box-card-icon" src={textureUrl(box.icon)} alt="" loading="lazy" decoding="async" />}
         </span>
         <span class="box-card-name">{box.localizedName}</span>
+        <span class="box-card-match" hidden></span>
         <span class="box-card-meta">
           {box.category && <span class="box-card-cat">{categoryLabel(box.category)}</span>}
           <span class="box-card-count">
@@ -160,10 +208,10 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
 
   <p class="empty-state" id="emptyState" hidden>{t('boxes.emptyState', locale)}</p>
 
-  <script is:inline define:vars={{ mutantSearchIndex }}>
+  <script is:inline define:vars={{ mutantSearchIndex, rewardSearchIndex, matchLabel }}>
     // define:vars вместо set:html: тот запрещён линтером (astro/no-set-html-directive),
     // а JSON в <script type="application/json"> Astro экранирует как HTML-текст.
-    window.__boxMutantSearchIndex = mutantSearchIndex;
+    window.__boxSearch = { mutants: mutantSearchIndex, rewards: rewardSearchIndex, matchLabel };
   </script>
 
   <BoxModal client:load locale={locale} names={names} />
@@ -172,6 +220,8 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
 
 <script>
   import { normalizeSearch } from '@/lib/search-normalize';
+import { getRewardLabel, GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures';
+import { LOCALES } from '@/lib/i18n-locales';
 
   document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('boxGrid')!;
@@ -179,27 +229,58 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
     const searchInput = document.getElementById('boxSearch') as HTMLInputElement;
     const emptyState = document.getElementById('emptyState')!;
     const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.cat-tab'));
-    // Код мутанта -> [имена через "|", номера карточек]; собран на сборке
+    // [имена через "|", номера карточек, имя для подписи]; собрано на сборке
     // (см. фронтматтер), имена уже нормализованы тем же normalizeSearch.
-    type MutantSearchEntry = [string, number[]];
-    const mutantIndex: Record<string, MutantSearchEntry> =
-      (window as unknown as { __boxMutantSearchIndex?: Record<string, MutantSearchEntry> })
-        .__boxMutantSearchIndex ?? {};
-    const indexEntries = Object.values(mutantIndex);
+    type SearchEntry = [string, number[], string];
+    const search = (
+      window as unknown as {
+        __boxSearch?: {
+          mutants: Record<string, SearchEntry>
+          rewards: Record<string, SearchEntry>
+          matchLabel: string
+        }
+      }
+    ).__boxSearch;
+    const indexEntries = [
+      ...Object.values(search?.mutants ?? {}),
+      ...Object.values(search?.rewards ?? {}),
+    ];
+    const matchLabel = search?.matchLabel ?? '{list}';
+    const matchNodes = cards.map((c) => c.querySelector<HTMLElement>('.box-card-match'));
 
     let activeCat = '__all__';
 
     // Карточки, чьё СОДЕРЖИМОЕ подходит под запрос: подстрока сверяется с
-    // именем мутанта на любом из 9 языков (индекс собран по всем словарям),
-    // поэтому "Gestalt", "Гештальт" и "Gestalto" находят одни и те же боксы.
-    function cardsMatchingContents(q: string): Set<number> {
-      const hits = new Set<number>();
+    // именем мутанта или награды на любом из 9 языков (индекс собран по всем
+    // словарям), поэтому "Gestalt", "Гештальт", "звезда" и "silver" находят
+    // одни и те же боксы независимо от языка страницы. Значение - что именно
+    // совпало, для подписи под названием бокса.
+    const MATCH_LIMIT = 3;
+    function cardsMatchingContents(q: string): Map<number, string[]> {
+      const hits = new Map<number, string[]>();
       if (!q) return hits;
-      for (const [names, cardIndexes] of indexEntries) {
+      for (const [names, cardIndexes, display] of indexEntries) {
         if (!names.includes(q)) continue;
-        for (const i of cardIndexes) hits.add(i);
+        for (const i of cardIndexes) {
+          const list = hits.get(i) ?? [];
+          if (!list.includes(display)) list.push(display);
+          hits.set(i, list);
+        }
       }
       return hits;
+    }
+
+    function renderMatch(node: HTMLElement | null, found: string[] | undefined) {
+      if (!node) return;
+      if (!found || found.length === 0) {
+        node.hidden = true;
+        node.textContent = '';
+        return;
+      }
+      const shown = found.slice(0, MATCH_LIMIT).join(', ');
+      const rest = found.length - MATCH_LIMIT;
+      node.textContent = matchLabel.replace('{list}', rest > 0 ? `${shown} +${rest}` : shown);
+      node.hidden = false;
     }
 
     function applyFilter() {
@@ -207,10 +288,12 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
       const contentHits = cardsMatchingContents(q);
       let visible = 0;
       cards.forEach((card, i) => {
-        const matchesQuery = !q || card.dataset.name?.includes(q) || contentHits.has(i);
+        const found = contentHits.get(i);
+        const matchesQuery = !q || card.dataset.name?.includes(q) || found !== undefined;
         const matchesCat = activeCat === '__all__' || card.dataset.cat === activeCat;
         const show = matchesQuery && matchesCat;
         card.style.display = show ? '' : 'none';
+        renderMatch(matchNodes[i], show ? found : undefined);
         if (show) visible++;
       });
       emptyState.hidden = visible !== 0;
@@ -260,6 +343,7 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
   .intro p { margin: 0.35rem 0 0; color: #94a3b8; font-size: 0.9rem; }
 
   .toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem; }
+  .box-card-match { display: block; margin-top: 0.15rem; font-size: 11px; line-height: 1.3; color: #7dd3fc; overflow: hidden; text-overflow: ellipsis; }
   .search-input { flex: 1 1 220px; min-width: 0; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 0.55rem 0.8rem; color: #e2e8f0; font-size: 0.9rem; }
   .search-input:focus-visible { outline: 2px solid #38bdf8; outline-offset: 1px; }
   .search-input::placeholder { color: #64748b; }

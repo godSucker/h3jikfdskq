@@ -585,6 +585,7 @@
   "boxes.pageDescription": "Catalogus van lucky box en mystery box van Mutants Genetic Gladiators: iconen, tiers en de volledige droplijst van elke box.",
   "boxes.subtitle": "{count} boxen die ooit in de winkel zijn verkocht. Klik op een box voor de volledige lijst.",
   "boxes.searchPlaceholder": "Zoek op box of mutant…",
+  "boxes.match.contains": "Bevat: {list}",
   "boxes.categoryAll": "Alle",
   "boxes.category.lucky": "Lucky Box",
   "boxes.category.mystery": "Mystery Box",
