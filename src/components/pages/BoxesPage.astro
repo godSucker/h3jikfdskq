@@ -7,7 +7,7 @@ import BoxModal from '@/components/boxes/BoxModal.svelte';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
 import { getBoxName } from '@/lib/boxes-i18n';
-import { getLocalizedMutantNames, mutantNameVariants } from '@/lib/mutant-names-i18n';
+import { getLocalizedMutantNames, mutantNameVariants, type MutantNameEntry } from '@/lib/mutant-names-i18n';
 import { normalizeSearch } from '@/lib/search-normalize';
 import { getRewardLabel, GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures';
 import { LOCALES } from '@/lib/i18n-locales';
@@ -93,7 +93,7 @@ const localizedBoxes = boxes.map((box) => ({
 type SearchEntry = [string, number[], string];
 const NAMES_PER_LOCALE = Object.fromEntries(
   LOCALES.map((l) => [l, getLocalizedMutantNames(l).names]),
-) as Record<string, Record<string, { name: string }>>;
+) as Record<string, Record<string, MutantNameEntry>>;
 
 function addToIndex(
   index: Record<string, SearchEntry>,
@@ -220,8 +220,6 @@ const subtitle = t('boxes.subtitle', locale).replace('{count}', String(boxes.len
 
 <script>
   import { normalizeSearch } from '@/lib/search-normalize';
-import { getRewardLabel, GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures';
-import { LOCALES } from '@/lib/i18n-locales';
 
   document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('boxGrid')!;
