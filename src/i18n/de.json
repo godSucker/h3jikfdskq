@@ -585,6 +585,7 @@
   "boxes.pageDescription": "Katalog der Lucky- und Mystery-Boxen von Mutants Genetic Gladiators: Icons, Tiers und die vollständige Drop-Liste jeder Box.",
   "boxes.subtitle": "{count} Boxen, die jemals im Shop verkauft wurden. Klicke auf eine Box für die vollständige Drop-Liste.",
   "boxes.searchPlaceholder": "Nach Box oder Mutant suchen…",
+  "boxes.match.contains": "Enthält: {list}",
   "boxes.categoryAll": "Alle",
   "boxes.category.lucky": "Lucky Box",
   "boxes.category.mystery": "Mystery Box",

@@ -586,6 +586,7 @@
   "boxes.pageDescription": "Каталог лаки- и мистери-боксов Mutants Genetic Gladiators: иконки, тиры и полный список мутантов, которые из них выпадают.",
   "boxes.subtitle": "{count} коробок, которые когда-либо продавались в магазине. Клик по боксу — полный дроп-лист внутри.",
   "boxes.searchPlaceholder": "Поиск по боксу или мутанту…",
+  "boxes.match.contains": "Содержит: {list}",
   "boxes.categoryAll": "Все",
   "boxes.category.lucky": "Лаки-бокс",
   "boxes.category.mystery": "Мистери-бокс",

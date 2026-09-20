@@ -585,6 +585,7 @@
   "boxes.pageDescription": "Catalogo delle lucky box e mystery box di Mutants Genetic Gladiators: icone, tier e la lista completa dei mutanti che possono uscire da ogni cassa.",
   "boxes.subtitle": "{count} casse mai vendute nel negozio. Clicca su una cassa per la lista completa.",
   "boxes.searchPlaceholder": "Cerca per cassa o mutante…",
+  "boxes.match.contains": "Contiene: {list}",
   "boxes.categoryAll": "Tutte",
   "boxes.category.lucky": "Lucky Box",
   "boxes.category.mystery": "Mystery Box",
