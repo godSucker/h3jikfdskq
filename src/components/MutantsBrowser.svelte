@@ -327,27 +327,33 @@
   let endIndex = $derived(pageSize * currentPage);
   let shownMutants = $derived(filteredMutants.slice(0, endIndex));
 
+  // Картинки скина, который навязала доска бинго (forceSkin, см.
+  // bingoEntryVariant). Общий поиск для обоих видов каталога: "Головы" берут
+  // отсюда semi-full, "Полные" - full (см. fullTexturePath ниже).
+  function forcedSkinImages(it: any): string[] {
+    if (!it?.forceSkin || !skins || skins.length === 0) return [];
+    const bid = baseId(it.id);
+    const skinTag = String(it.forceSkin).toLowerCase();
+    const skinEntry = skins.find((s: any) => {
+      const sId = baseId(s.id);
+      const sSkin = String(s.skin ?? '').toLowerCase();
+      return sId === bid && (sSkin.includes(skinTag) || skinTag.includes(sSkin));
+    });
+    if (!skinEntry?.image) return [];
+    return Array.isArray(skinEntry.image) ? skinEntry.image : [skinEntry.image];
+  }
+
   function pickTexture(it:any): string {
     const bid = baseId(it.id);
 
-    if (it?.forceSkin) {
-        const skinTag = String(it.forceSkin).toLowerCase();
-
-        if (skins && skins.length > 0) {
-           const skinEntry = skins.find((s: any) => {
-             const sId = baseId(s.id);
-             const sSkin = String(s.skin ?? '').toLowerCase();
-             return sId === bid && (sSkin.includes(skinTag) || skinTag.includes(sSkin));
-           });
-
-           if (skinEntry && skinEntry.image) {
-             const skinImages = Array.isArray(skinEntry.image) ? skinEntry.image : [skinEntry.image];
-             const fullChar = skinImages.find((p: any) => String(p).includes('full-char'));
-             if (fullChar) return fullChar;
-             const semiFull = skinImages.find((p: any) => String(p).includes('semi-full'));
-             if (semiFull) return semiFull;
-             return skinImages[0];
-           }
+    {
+        const skinImages = forcedSkinImages(it);
+        if (skinImages.length > 0) {
+          const fullChar = skinImages.find((p: any) => String(p).includes('full-char'));
+          if (fullChar) return fullChar;
+          const semiFull = skinImages.find((p: any) => String(p).includes('semi-full'));
+          if (semiFull) return semiFull;
+          return skinImages[0];
         }
     }
 
@@ -405,6 +411,16 @@
   // FULL-версия есть не у каждого мутанта/тира -> в разметке onerror всё равно
   // остаётся страховкой на случай реальных пробелов в ассетах.
   function fullTexturePath(it: any): string {
+    // НАЙДЕНО 2026-09-20 (Иван Веприк): на досках "Скины 2025/2026" вид
+    // "Головы" честно показывал скин, а "Полные" - базовое тело, потому что
+    // эта функция собирала путь только из id мутанта и звезды и про forceSkin
+    // не знала вовсе. У скинов своя полная текстура лежит рядом с головой
+    // (textures_by_skin/full/FULL_<code>_<skin>.png, см. build-skins.ts).
+    const skinImages = forcedSkinImages(it);
+    if (skinImages.length > 0) {
+      const full = skinImages.find((p: any) => String(p).includes('/full/'));
+      if (full) return full;
+    }
     const code = String(it?.id ?? '')
       .replace(/^specimen[_-]/i, '')
       .replace(/_+(?:normal|bronze|silver|gold|platinum|plat).*$/i, '')

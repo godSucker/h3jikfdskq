@@ -412,8 +412,14 @@
   .load-more:hover { background: rgba(255,255,255,0.1); color: #fff; }
   .empty-state { text-align: center; padding: 3rem; color: #64748b; }
 
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
-  .modal-card { background: #1e293b; width: 100%; max-width: 400px; border-radius: 24px; padding: 2rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.1); animation: popIn 0.2s ease-out; }
+  /* НАЙДЕНО 2026-09-20 (видео юзера с экрана 375x697): карточка игрока С
+     ТАНДЕМОМ выше короткого экрана, а оверлей центрировал её без прокрутки -
+     верх с крестиком уезжал за границу экрана, закрыть или долистать модалку
+     было нечем. Приём тот же, что уже работает в MutantModal.svelte:
+     align-items: flex-start + прокрутка оверлея, а margin: auto у карточки
+     держит её по центру, пока она влезает. */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; display: flex; align-items: flex-start; justify-content: center; padding: 1rem; overflow-y: auto; overscroll-behavior: contain; }
+  .modal-card { background: #1e293b; width: 100%; max-width: 400px; margin: auto; border-radius: 24px; padding: 2rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); border: 1px solid rgba(255,255,255,0.1); animation: popIn 0.2s ease-out; }
   @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
   .modal-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
