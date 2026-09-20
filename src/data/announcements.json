@@ -3838,5 +3838,33 @@
       }
     ],
     "link": "/guides#quests"
+  },
+  {
+    "id": "skin-1789936769366-0",
+    "date": "2026-09-20T20:39:29.351Z",
+    "category": "skin",
+    "title": "Марв — Cyberweek",
+    "items": [
+      {
+        "id": "Specimen_AE_06|cyberweek",
+        "name": "Марв — Cyberweek",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_ae_06_cyberweek.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1789936769366-1",
+    "date": "2026-09-20T20:39:29.351Z",
+    "category": "skin",
+    "title": "Хищнозавр — Spring",
+    "items": [
+      {
+        "id": "Specimen_DD_05|spring",
+        "name": "Хищнозавр — Spring",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_dd_05_spring.png"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
