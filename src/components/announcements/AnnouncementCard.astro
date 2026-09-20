@@ -331,6 +331,7 @@ const forecastWeeks =
         <time class="card-date" datetime={a.date}>{fmtDate(a.date, locale)}</time>
         <span class="card-category">{categoryLabel('reactor', locale)}</span>
         <a class="hero-name-btn" href={`/simulators/reactor/${it.id}`}>{it.name}</a>
+        {date(it) && <div class="reactor-window">{date(it)}</div>}
         {showCta && <a class="card-source" href={`/simulators/reactor/${it.id}`}>{tr('announcements.openReactorCta')}</a>}
       </div>
     </div>
@@ -664,6 +665,15 @@ const forecastWeeks =
      события в игре. У рейдов/лесенок/боксов/прогноза магазина теперь есть
      настоящий exactDateLabel/sprintRangeLabel - там эта плашка убрана
      совсем (была бы двусмысленной, читалась как игровая дата). */
+  /* Окно ротации генератора (см. detectReactors): в игре одновременно
+     крутятся три, меняются примерно раз в месяц - без срока карточка не
+     отвечает на главный вопрос "до какого числа успеть". */
+  .reactor-window {
+    margin-top: 0.3rem;
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
   .card-date {
     display: inline-block;
     margin-right: 0.5rem;

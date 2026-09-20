@@ -66,6 +66,7 @@ DUNGEONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xm
 DAILYPOPUP_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dailypopup.xml'
 GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
 MISSIONS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/missions.xml'
+GACHA_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gacha.xml'
 # Обменники (см. scripts/build-announcements.ts::fetchHallContracts/
 # fetchMysteryContracts) - ТОЛЬКО эти 3 EntityDescriptor, не весь
 # gamedefinitions.xml (1.2МБ, сотни EntityDescriptor со своими Filter,
@@ -201,6 +202,15 @@ def fetch_all_filter_names() -> list:
         for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', m_block.group(1)):
             if m_filter.group(1):
                 names.append(m_filter.group(1))
+
+    # Генераторы/реакторы (см. detectReactors в build-announcements.ts): окно
+    # ротации сервер отдаёт по фильтру gacha_pack_<id>. Имена берём из самого
+    # gacha.xml, а не из нашего списка - так новый генератор Kobojo попадёт в
+    # ответ сразу, и детектор сможет о нём хотя бы предупредить.
+    r = requests.get(GACHA_URL, timeout=30)
+    r.raise_for_status()
+    for gacha_id in re.findall(r'<Gacha id="([^"]+)"', r.text):
+        names.append('gacha_pack_%s' % gacha_id)
 
     # Ивентовые цепочки заданий (scripts/build-event-quests.ts): по Filter-тегу
     # цепочки kartel отдаёт окно ивента. Точечно - только миссии с
