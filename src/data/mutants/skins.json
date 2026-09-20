@@ -1039,6 +1039,32 @@
       ]
     },
     {
+      "id": "Specimen_AE_06",
+      "name": "Марв",
+      "genes": [
+        "A",
+        "E"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 2319,
+          "atk1": 531,
+          "atk2": 531
+        },
+        "lvl30": {
+          "hp": 9044,
+          "atk1": 3575,
+          "atk2": 3575
+        }
+      },
+      "star": "gold",
+      "skin": "cyberweek",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_ae_06_cyberweek.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_ae_06_cyberweek.webp"
+      ]
+    },
+    {
       "id": "Specimen_AE_07",
       "name": "Элфи",
       "genes": [

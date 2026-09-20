@@ -47,7 +47,10 @@ const calcATK = (base: number, stars: number, bonus: number) =>
 const scale = (lvl1: number, baseLvl1: number, baseLvlM: number) =>
   baseLvl1 > 0 ? Math.floor((lvl1 * baseLvlM) / baseLvl1) : 0
 
-type GachaEntry = { stars: number; bonus: number }
+// basic - запись из <BasicElements> (сам скин), иначе <CompletionReward>
+// (утешительная награда за сбор набора, у неё свои stars/bonus и к скину она
+// отношения не имеет - в fallback ниже такие не годятся).
+type GachaEntry = { stars: number; bonus: number; basic: boolean }
 
 // Parse gacha.xml into a map keyed by "<code>|<skin>" -> {stars, bonus}.
 // code is the lowercased specimen without the Specimen_ prefix (a_01),
@@ -59,6 +62,7 @@ function parseGacha(xml: string): Map<string, GachaEntry> {
   while ((g = gachaRe.exec(xml))) {
     const skin = g[1]
     const block = g[0]
+    const basicBlock = block.match(/<BasicElements>[\s\S]*?<\/BasicElements>/)?.[0] ?? ''
     const specRe = /<GachaSpecimen[^>]*specimen="([^"]+)"[^>]*?\/>/g
     let s: RegExpExecArray | null
     while ((s = specRe.exec(block))) {
@@ -66,7 +70,7 @@ function parseGacha(xml: string): Map<string, GachaEntry> {
       const code = s[1].replace(/^Specimen_/i, '').toLowerCase()
       const stars = Number(tag.match(/stars="([^"]*)"/)?.[1] ?? 0)
       const bonus = Number(tag.match(/bonus="([^"]*)"/)?.[1] ?? 0)
-      map.set(`${code}|${skin}`, { stars, bonus })
+      map.set(`${code}|${skin}`, { stars, bonus, basic: basicBlock.includes(tag) })
     }
   }
   return map
@@ -136,10 +140,29 @@ async function build() {
     const code = m[1].toLowerCase()
     const skin = m[2]
 
-    const entry = gacha.get(`${code}|${skin}`)
+    let entry = gacha.get(`${code}|${skin}`)
     if (!entry) {
-      skipped.push(`${file} (no gacha entry for ${code}|${skin})`)
-      continue
+      // Бинго-доска знает пару "мутант+скин", которой в gacha.xml нет:
+      // cyberweek у Kobojo записан на Specimen_EA_06 (Кранк), а доска "Скины
+      // 2025" и реальный атлас (a_e_06_cyberweek.png на CDN игры) говорят про
+      // Specimen_AE_06 (Марв) - см. skins_from_bingos() в
+      // scripts/character-textures/sync_characters.py. Текстура у нас уже
+      // отрендерена, значит скин настоящий; параметры берём из единственной
+      // гача-строки этого скина - она задаёт звезду и бонус самого скина, а
+      // ошибочен в ней только id мутанта. Если строк несколько и они
+      // расходятся - не гадаем, пропускаем как раньше.
+      const sameSkin = [...gacha.entries()].filter(([k, v]) => k.endsWith(`|${skin}`) && v.basic)
+      const variants = new Set(sameSkin.map(([, v]) => `${v.stars}|${v.bonus}`))
+      if (sameSkin.length > 0 && variants.size === 1) {
+        entry = sameSkin[0][1]
+        console.log(
+          `[gacha-fallback] ${code}|${skin}: строки нет, беру параметры скина из ` +
+            `${sameSkin.map(([k]) => k.split('|')[0]).join(',')} (stars=${entry.stars}, bonus=${entry.bonus})`,
+        )
+      } else {
+        skipped.push(`${file} (no gacha entry for ${code}|${skin})`)
+        continue
+      }
     }
     const base = baseById.get(`specimen_${code}`)
     if (!base) {
