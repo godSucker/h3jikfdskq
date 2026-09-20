@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Belohnungszyklus",
   "craft.incentive.cycleHint": "Das Spiel rotiert diese {n} Belohnungen im Kreislauf, jede mit fester Dauer (voller Zyklus — {duration}). Unten die vollständige Reihenfolge, die aktuell aktive ist hervorgehoben.",
   "craft.incentive.now": "jetzt",
+  "craft.incentive.slotRemaining": "noch {time}",
+  "craft.incentive.slotStartsAt": "{date} · in {time}",
   "craft.incentive.picked": "ausgewählt",
   "craft.sidebar.collapse": "Infos einklappen",
   "craft.sidebar.expand": "Infos ausklappen",

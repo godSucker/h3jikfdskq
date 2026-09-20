@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Cycle de récompenses",
   "craft.incentive.cycleHint": "Le jeu fait tourner ces {n} récompenses en boucle, chacune avec une durée fixe (cycle complet — {duration}). Ci-dessous, la séquence complète, avec celle actuellement active mise en évidence.",
   "craft.incentive.now": "maintenant",
+  "craft.incentive.slotRemaining": "encore {time}",
+  "craft.incentive.slotStartsAt": "{date} · dans {time}",
   "craft.incentive.picked": "sélectionnée",
   "craft.sidebar.collapse": "Réduire les infos",
   "craft.sidebar.expand": "Déplier les infos",

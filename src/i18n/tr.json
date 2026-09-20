@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Ödül döngüsü",
   "craft.incentive.cycleHint": "Oyun bu {n} ödülü sabit sürelerle sırayla döndürür (tam döngü — {duration}). Aşağıda tüm sıra var, şu anda aktif olan vurgulanmış.",
   "craft.incentive.now": "şimdi",
+  "craft.incentive.slotRemaining": "{time} kaldı",
+  "craft.incentive.slotStartsAt": "{date} · {time} sonra",
   "craft.incentive.picked": "seçildi",
   "craft.sidebar.collapse": "Bilgiyi daralt",
   "craft.sidebar.expand": "Bilgiyi genişlet",
