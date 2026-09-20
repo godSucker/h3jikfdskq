@@ -1154,22 +1154,79 @@ async function detectTokens(seen: string[]): Promise<DetectResult> {
   }
 }
 
-// Реакторы - раньше публиковались только "в теории" (комментарий в
-// finish-pending.ts обещал, что build-announcements.ts их подхватит), но
-// детектора для них тут не было вообще - реальный пробел, найден и закрыт
-// 2026-08-07 при разработке кросс-постинга в Telegram-канал.
+// Реакторы (генераторы) - раньше публиковались только "в теории" (комментарий
+// в finish-pending.ts обещал, что build-announcements.ts их подхватит), потом
+// детектор появился (2026-08-07), но сравнивал СПИСОК id из нашего же
+// gacha-name-ru.json с ledger'ом. Этот файл руками не меняется, поэтому после
+// первого прогона детектор не мог сработать НИКОГДА, и ленту реакторов мы
+// проспали целиком (юзер поймал 2026-09-21).
+//
+// На самом деле генераторы РОТИРУЮТСЯ: одновременно в игре крутятся три, и
+// примерно раз в месяц их меняют. Живое окно ротации сервер отдаёт по
+// фильтру gacha_pack_<id> (проверено: на 21 наш генератор ровно 21 фильтр, у
+// текущей тройки western/movies/fantasy окно 16 сентября - 18 октября).
+// Поэтому ключ ledger'а теперь не голый id, а "<id>|<начало окна>" - тот же
+// приём, что у рейдов/лесенок (см. detectDungeons): один и тот же генератор
+// возвращается через месяцы и должен анонситься заново.
+const GACHA_FILTER_RE = /^gacha_pack_(.+)$/i
+// Игра переименовала генератор, а наши данные (страница симулятора, обложки,
+// имена) остались на старом id - анонс должен вести на существующий роут.
+const GACHA_ID_ALIASES: Record<string, string> = { chess: 'checkmate' }
+
 async function detectReactors(seen: string[]): Promise<DetectResult> {
   const [names, covers] = await Promise.all([
     loadJson<Record<string, string>>('src/data/simulators/reactor/gacha-name-ru.json', {}),
     loadJson<Record<string, string>>('src/data/simulators/reactor/gacha-covers.json', {}),
   ])
-  const ids = Object.keys(names)
+  const dates = await loadFilterDates()
   const seenSet = new Set(seen)
-  const fresh = ids.filter((id) => !seenSet.has(id))
-  return {
-    newIds: ids,
-    items: fresh.map((id) => ({ id, name: names[id], image: covers[id] ?? null })),
+  const allKeys: string[] = []
+  const items: AnnouncementItem[] = []
+  const unknown: string[] = []
+  const nowMs = Date.now()
+
+  for (const [filterName, range] of Object.entries(dates)) {
+    const m = GACHA_FILTER_RE.exec(filterName)
+    if (!m || !range?.start) continue
+    const gameId = m[1].toLowerCase()
+    const id = GACHA_ID_ALIASES[gameId] ?? gameId
+    const key = `${id}|${range.start}`
+    allKeys.push(key)
+    if (!names[id]) {
+      // Новый генератор, которого нет в наших данных: страницы симулятора под
+      // него тоже нет, ссылка вела бы в никуда. Не анонсим, но шумим в лог -
+      // это сигнал, что пора пополнять gacha.json/имена/обложки.
+      unknown.push(id)
+      continue
+    }
+    if (seenSet.has(key)) continue
+    // Уже закончившуюся ротацию анонсировать бессмысленно (на первом прогоне
+    // новой схемы сюда попадает вся история окон - она молча уходит в ledger).
+    if (range.end && new Date(range.end).getTime() < nowMs) continue
+    items.push({
+      id,
+      name: names[id],
+      image: covers[id] ?? null,
+      exactDateLabel: formatExactRangeRu(
+        new Date(range.start),
+        range.end ? new Date(range.end) : null,
+      ),
+      exactDateStart: range.start,
+      exactDateEnd: range.end ?? null,
+    })
   }
+
+  if (unknown.length > 0) {
+    console.warn(
+      `[ANNOUNCE] reactor: в игре есть генераторы, которых нет в наших данных - ${[...new Set(unknown)].join(', ')} (нужен gacha.json/имя/обложка, иначе анонс ведёт в никуда)`,
+    )
+  }
+  // Ключи только ДОБАВЛЯЕМ: живой горизонт kartel короткий, и окна старых
+  // ротаций из ответа пропадают - без мерджа с seen они стали бы "новыми"
+  // при следующем появлении. Заодно выкидываем ключи старой схемы (голый id
+  // без "|"): ни один прогон их больше не породит, они только копятся.
+  const kept = seen.filter((k) => k.includes('|'))
+  return { newIds: [...new Set([...kept, ...allKeys])], items }
 }
 
 // Прогноз магазина/daily_news (Фаза 3, задачи A/B) - ledger ключ тут не id, а

@@ -3838,5 +3838,56 @@
       }
     ],
     "link": "/guides#quests"
+  },
+  {
+    "id": "reactor-1789940801017-0",
+    "date": "2026-09-20T21:46:39.935Z",
+    "category": "reactor",
+    "title": "Вестерн",
+    "items": [
+      {
+        "id": "western",
+        "name": "Вестерн",
+        "image": "/reactor/western.png",
+        "exactDateLabel": "16 сентября — 18 октября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-10-18T10:00:00+00:00"
+      }
+    ],
+    "link": "/simulators/reactor"
+  },
+  {
+    "id": "reactor-1789940801017-1",
+    "date": "2026-09-20T21:46:39.935Z",
+    "category": "reactor",
+    "title": "Кино",
+    "items": [
+      {
+        "id": "movies",
+        "name": "Кино",
+        "image": "/reactor/movies.png",
+        "exactDateLabel": "16 сентября — 18 октября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-10-18T10:00:00+00:00"
+      }
+    ],
+    "link": "/simulators/reactor"
+  },
+  {
+    "id": "reactor-1789940801017-2",
+    "date": "2026-09-20T21:46:39.935Z",
+    "category": "reactor",
+    "title": "Темное фентези",
+    "items": [
+      {
+        "id": "fantasy",
+        "name": "Темное фентези",
+        "image": "/reactor/fantasy.png",
+        "exactDateLabel": "16 сентября — 18 октября",
+        "exactDateStart": "2026-09-16T10:00:00+00:00",
+        "exactDateEnd": "2026-10-18T10:00:00+00:00"
+      }
+    ],
+    "link": "/simulators/reactor"
   }
 ]
