@@ -20,9 +20,8 @@
         "hooks": [
           {
             "type": "command",
-            "if": "Bash(git commit *)",
-            "command": "out=$(npx astro check 2>&1); code=$?; if [ \"$code\" -ne 0 ]; then clean=$(printf \"%s\" \"$out\" | sed \"s/\\x1b\\[[0-9;]*m//g\" | tail -40); reason=$(printf \"%s\" \"$clean\" | jq -Rs .); printf \"{\\\"hookSpecificOutput\\\":{\\\"hookEventName\\\":\\\"PreToolUse\\\",\\\"permissionDecision\\\":\\\"ask\\\",\\\"permissionDecisionReason\\\":%s}}\" \"$reason\"; fi",
-            "timeout": 60,
+            "command": "cmd=$(jq -r '.tool_input.command // \"\"'); case \"$cmd\" in *\"git commit\"*) ;; *) exit 0 ;; esac; out=$(npx astro check 2>&1); code=$?; if [ \"$code\" -ne 0 ]; then clean=$(printf \"%s\" \"$out\" | sed \"s/\\x1b\\[[0-9;]*m//g\" | tail -40); reason=$(printf \"%s\" \"$clean\" | jq -Rs .); printf \"{\\\"hookSpecificOutput\\\":{\\\"hookEventName\\\":\\\"PreToolUse\\\",\\\"permissionDecision\\\":\\\"ask\\\",\\\"permissionDecisionReason\\\":%s}}\" \"$reason\"; fi",
+            "timeout": 120,
             "statusMessage": "Running astro check before commit..."
           }
         ]
