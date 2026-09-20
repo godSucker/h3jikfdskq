@@ -1468,7 +1468,7 @@ const DETECTORS: {
   { category: 'token', title: 'Новые жетоны', link: '/materials', run: detectTokens },
   {
     category: 'reactor',
-    title: 'Новые реакторы',
+    title: 'Ротация генераторов',
     link: '/simulators/reactor',
     run: detectReactors,
   },

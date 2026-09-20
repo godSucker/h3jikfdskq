@@ -80,6 +80,14 @@ const tr = (key: string) => t(key, locale)
 // ISO-дат падают обратно на русскую строку из данных).
 const date = (it2: { exactDateLabel?: string | null } | null | undefined) => exactDateLabelIn(it2, locale)
 const kind = cardKind(a.category)
+// Ротация генераторов: одна карточка на всю тройку, каждый баннер - ссылка на
+// свой симулятор. Общую подпись даты показываем один раз, если она у всех
+// совпадает (обычный случай - три пака с единым окном).
+const reactors = kind === 'reactor' ? (a.items ?? []) : []
+const reactorWindow =
+  reactors.length > 0 && reactors.every((r) => date(r) && date(r) === date(reactors[0]))
+    ? date(reactors[0])
+    : null
 const showCta = mode === 'feed'
 
 const it = a.items?.[0]
@@ -322,17 +330,29 @@ const forecastWeeks =
         <button class="hero-name-btn" data-open-mutant={skinBaseId}>{skinName}</button>
       </div>
     </div>
-  ) : kind === 'reactor' && it ? (
-    <div class="hero-card">
-      <a class="hero-art-btn" href={`/simulators/reactor/${it.id}`} title={tr('announcements.openReactor').replace('{name}', it.name)}>
-        {it.image && <img class="hero-art" src={textureUrl(it.image)} alt={it.name} loading="lazy" decoding="async" />}
-      </a>
+  ) : kind === 'reactor' && reactors.length > 0 ? (
+    <div class="reactor-card">
       <div class="card-body">
         <time class="card-date" datetime={a.date}>{fmtDate(a.date, locale)}</time>
         <span class="card-category">{categoryLabel('reactor', locale)}</span>
-        <a class="hero-name-btn" href={`/simulators/reactor/${it.id}`}>{it.name}</a>
-        {date(it) && <div class="reactor-window">{date(it)}</div>}
-        {showCta && <a class="card-source" href={`/simulators/reactor/${it.id}`}>{tr('announcements.openReactorCta')}</a>}
+        {/* Общее окно ротации выносим в заголовок - у тройки генераторов оно
+            одно на всех. Если вдруг окна разъедутся (в истории такое было:
+            "Большой босс" приходил отдельным коротким окном), подпись уходит
+            под каждый баннер. */}
+        {reactorWindow && <div class="reactor-window">{reactorWindow}</div>}
+      </div>
+      <div class="reactor-grid">
+        {reactors.map((r) => (
+          <a
+            class="reactor-tile"
+            href={`/simulators/reactor/${r.id}`}
+            title={tr('announcements.openReactor').replace('{name}', r.name)}
+          >
+            {r.image && <img class="reactor-tile-art" src={textureUrl(r.image)} alt={r.name} loading="lazy" decoding="async" />}
+            <span class="reactor-tile-name">{r.name}</span>
+            {!reactorWindow && date(r) && <span class="reactor-tile-window">{date(r)}</span>}
+          </a>
+        ))}
       </div>
     </div>
   ) : kind === 'box' && it && box && boxOutcomes ? (
@@ -665,8 +685,54 @@ const forecastWeeks =
      события в игре. У рейдов/лесенок/боксов/прогноза магазина теперь есть
      настоящий exactDateLabel/sprintRangeLabel - там эта плашка убрана
      совсем (была бы двусмысленной, читалась как игровая дата). */
-  /* Окно ротации генератора (см. detectReactors): в игре одновременно
-     крутятся три, меняются примерно раз в месяц - без срока карточка не
+  /* Карточка ротации генераторов: шапка с общей датой + сетка кликабельных
+     баннеров (см. detectReactors). Сетка auto-fit, чтобы на узком экране
+     тройка складывалась в столбец, а в скриншот-боте влезала в строку. */
+  .reactor-grid {
+    display: grid;
+    /* 130px, а не 150: на телефоне (390px) при 150 сетка складывалась в один
+       столбец и карточка вытягивалась на ~1000px, при 130 встаёт в две
+       колонки и укладывается в 645px, баннеры при этом читаются. */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+    padding: 0 1rem 1rem;
+  }
+  .reactor-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .reactor-tile:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    transform: translateY(-2px);
+  }
+  .reactor-tile-art {
+    width: 100%;
+    max-width: 160px;
+    max-height: 210px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  .reactor-tile-name {
+    color: #e2e8f0;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .reactor-tile-window {
+    color: #38bdf8;
+    font-size: 0.78rem;
+  }
+  /* Окно ротации (см. detectReactors): в игре одновременно крутятся три
+     генератора, меняются примерно раз в месяц - без срока карточка не
      отвечает на главный вопрос "до какого числа успеть". */
   .reactor-window {
     margin-top: 0.3rem;
