@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Ciclo de recompensas",
   "craft.incentive.cycleHint": "O jogo alterna essas {n} recompensas em ciclo, cada uma com duração fixa (ciclo completo — {duration}). Abaixo está a sequência completa, com a atualmente ativa destacada.",
   "craft.incentive.now": "agora",
+  "craft.incentive.slotRemaining": "faltam {time}",
+  "craft.incentive.slotStartsAt": "{date} · em {time}",
   "craft.incentive.picked": "selecionado",
   "craft.sidebar.collapse": "Recolher informações",
   "craft.sidebar.expand": "Expandir informações",

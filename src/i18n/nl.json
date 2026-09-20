@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Beloningscyclus",
   "craft.incentive.cycleHint": "Het spel laat deze {n} beloningen in een cyclus rouleren, elk met een vaste duur (volledige cyclus — {duration}). Hieronder de volledige volgorde, met de nu actieve gemarkeerd.",
   "craft.incentive.now": "nu",
+  "craft.incentive.slotRemaining": "nog {time}",
+  "craft.incentive.slotStartsAt": "{date} · over {time}",
   "craft.incentive.picked": "gekozen",
   "craft.sidebar.collapse": "Info inklappen",
   "craft.sidebar.expand": "Info uitklappen",

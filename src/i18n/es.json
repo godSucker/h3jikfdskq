@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Ciclo de recompensas",
   "craft.incentive.cycleHint": "El juego rota estas {n} recompensas en bucle, cada una con una duración fija (ciclo completo — {duration}). Abajo está toda la secuencia, con la activa resaltada.",
   "craft.incentive.now": "ahora",
+  "craft.incentive.slotRemaining": "quedan {time}",
+  "craft.incentive.slotStartsAt": "{date} · en {time}",
   "craft.incentive.picked": "seleccionado",
   "craft.sidebar.collapse": "Contraer información",
   "craft.sidebar.expand": "Expandir información",

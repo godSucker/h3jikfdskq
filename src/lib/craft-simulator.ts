@@ -501,6 +501,46 @@ export function getIncentiveCycleState(now: Date = new Date()): IncentiveCycleSt
   }
 }
 
+// Когда каждый бонус цикла включится в СЛЕДУЮЩИЙ раз. Цикл детерминирован
+// (см. getIncentiveCycleState), поэтому достаточно пройти его на круг вперёд
+// от текущего слота: для активного это его же окно, для остальных - ближайшее
+// будущее включение. Просьба игрока (Влад Осипов, ветка сайта 2026-09-14):
+// "чтобы здесь дату и время ближайшего писало - для всех бонусов, не только
+// для следующего".
+export interface IncentiveSlotTiming {
+  index: number
+  startsAt: Date
+  endsAt: Date
+  minutesUntilStart: number
+  minutesRemaining: number
+  isActive: boolean
+}
+
+export function getIncentiveSchedule(now: Date = new Date()): IncentiveSlotTiming[] {
+  const state = getIncentiveCycleState(now)
+  if (state.activeIndex < 0) return []
+  const nowMs = now.getTime()
+  const activeStartMs = nowMs - state.elapsedInSlotMinutes * 60000
+  const out: IncentiveSlotTiming[] = new Array(incentiveLoopOrder.length)
+  let offsetMinutes = 0
+  for (let step = 0; step < incentiveLoopOrder.length; step++) {
+    const index = (state.activeIndex + step) % incentiveLoopOrder.length
+    const entry = incentiveLoopOrder[index]
+    const startMs = activeStartMs + offsetMinutes * 60000
+    const endMs = startMs + entry.duration * 60000
+    out[index] = {
+      index,
+      startsAt: new Date(startMs),
+      endsAt: new Date(endMs),
+      minutesUntilStart: Math.max(0, (startMs - nowMs) / 60000),
+      minutesRemaining: Math.max(0, (endMs - nowMs) / 60000),
+      isActive: step === 0,
+    }
+    offsetMinutes += entry.duration
+  }
+  return out
+}
+
 const RECIPES = RAW_SOURCES.flatMap(({ category, raw }) => parseRecipes(raw, category))
 
 export const craftRecipesByCategory: Record<CraftCategory, CraftRecipe[]> = {

@@ -5,6 +5,7 @@
     incentiveRewards,
     incentiveLoopOrder,
     getIncentiveCycleState,
+    getIncentiveSchedule,
     getCraftItemLabel,
     describeIngredientRegex,
     getItemTexture,
@@ -173,13 +174,49 @@
   // с ошибкой прямо в консоли) - заполняем его чуть позже через rAF, это уже
   // обычное реактивное обновление после гидратации, а не часть самой гидратации.
   let cycleState: ReturnType<typeof getIncentiveCycleState> | null = $state(null);
+  // Расписание "когда каждый бонус включится в следующий раз" (см.
+  // getIncentiveSchedule) - считается тем же тиком, что и cycleState, и по той
+  // же причине не на сервере: "сейчас" во время сборки к делу не относится.
+  let cycleSchedule: ReturnType<typeof getIncentiveSchedule> = $state([]);
   if (typeof window !== 'undefined') {
     requestAnimationFrame(() => {
       cycleState = getIncentiveCycleState();
+      cycleSchedule = getIncentiveSchedule();
       setInterval(() => {
         cycleState = getIncentiveCycleState();
+        cycleSchedule = getIncentiveSchedule();
       }, 60000);
     });
+  }
+  // Дата в часовом поясе читателя: цикл общий для всех, а вот "во сколько это
+  // будет у меня" у каждого своё.
+  const slotDateFormat = new Intl.DateTimeFormat(locale, {
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  // До ближайшего включения бывает больше недели, и "через 7 д 21 ч 42 мин"
+  // читается как шум: минуты нужны только когда ждать меньше часа, а часы -
+  // пока меньше суток.
+  function coarseMinutes(minutes: number): number {
+    const m = Math.max(1, Math.round(minutes));
+    if (m >= 1440) return Math.round(m / 60) * 60;
+    if (m >= 60) return Math.round(m / 5) * 5;
+    return m;
+  }
+  function slotWhenLabel(index: number): string {
+    const slot = cycleSchedule[index];
+    if (!slot) return '';
+    if (slot.isActive) {
+      return t('craft.incentive.slotRemaining', locale).replace(
+        '{time}',
+        formatDurationMinutes(coarseMinutes(slot.minutesRemaining), locale),
+      );
+    }
+    return t('craft.incentive.slotStartsAt', locale)
+      .replace('{date}', slotDateFormat.format(slot.startsAt))
+      .replace('{time}', formatDurationMinutes(coarseMinutes(slot.minutesUntilStart), locale));
   }
   let useCycleIncentive = $state(true);
   let activeIncentiveId: string = $state('');
@@ -444,6 +481,9 @@
                 {/if}
                 <span class="incentive-cycle__slot-name">{getCraftItemLabel(entry.id, locale)}</span>
                 <span class="incentive-cycle__slot-meta">{(entry.per1000 / 10).toFixed(1)}% · {formatDurationMinutes(entry.duration, locale)}</span>
+                {#if slotWhenLabel(i)}
+                  <span class="incentive-cycle__slot-when" class:now={i === cycleState.activeIndex}>{slotWhenLabel(i)}</span>
+                {/if}
               </button>
             {/each}
           </div>
@@ -1270,6 +1310,16 @@
   .incentive-cycle__slot-meta {
     font-size: 0.65rem;
     color: rgba(203, 213, 225, 0.7);
+  }
+  .incentive-cycle__slot-when {
+    font-size: 0.68rem;
+    line-height: 1.25;
+    color: #94a3b8;
+    text-align: center;
+  }
+  .incentive-cycle__slot-when.now {
+    color: #38bdf8;
+    font-weight: 700;
   }
   .incentive-cycle__now,
   .incentive-cycle__picked {

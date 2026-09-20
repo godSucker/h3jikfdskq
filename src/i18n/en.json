@@ -188,6 +188,8 @@
   "craft.incentive.cycleBadge": "Reward cycle",
   "craft.incentive.cycleHint": "The game rotates these {n} rewards in a loop, each with a fixed duration (full loop — {duration}). Below is the full sequence, with the currently active one highlighted.",
   "craft.incentive.now": "now",
+  "craft.incentive.slotRemaining": "{time} left",
+  "craft.incentive.slotStartsAt": "{date} · in {time}",
   "craft.incentive.picked": "picked",
   "craft.sidebar.collapse": "Collapse info",
   "craft.sidebar.expand": "Expand info",
