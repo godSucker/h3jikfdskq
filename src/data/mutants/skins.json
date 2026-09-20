@@ -4649,6 +4649,32 @@
       ]
     },
     {
+      "id": "Specimen_DD_05",
+      "name": "Хищнозавр",
+      "genes": [
+        "D",
+        "D"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 1755,
+          "atk1": 495,
+          "atk2": 287
+        },
+        "lvl30": {
+          "hp": 6845,
+          "atk1": 4393,
+          "atk2": 2198
+        }
+      },
+      "star": "gold",
+      "skin": "spring",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_dd_05_spring.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_dd_05_spring.webp"
+      ]
+    },
+    {
       "id": "Specimen_DD_07",
       "name": "Шершеляшар",
       "genes": [
