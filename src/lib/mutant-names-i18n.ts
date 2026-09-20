@@ -65,3 +65,19 @@ export function getLocalizedMutantNames(locale: Locale): {
     obtainNames: { ...OBTAIN_NAMES_BY_LOCALE.en, ...OBTAIN_NAMES_BY_LOCALE[locale] },
   }
 }
+
+// Все известные написания имени мутанта: RU-канон из mutants.json (приходит
+// аргументом - этот модуль базовые данные не грузит) плюс по одному варианту
+// на каждый из 8 языковых словарей. Нужно поиску, который должен находить
+// мутанта независимо от языка страницы и языка, на котором его вбили (поиск
+// боксов, см. BoxesPage.astro).
+export function mutantNameVariants(id: string, canonicalRu?: string | null): string[] {
+  const key = String(id ?? '').toLowerCase()
+  const out = new Set<string>()
+  if (canonicalRu) out.add(canonicalRu)
+  for (const dict of Object.values(NAMES_BY_LOCALE)) {
+    const name = dict?.[key]?.name
+    if (name) out.add(name)
+  }
+  return [...out]
+}
