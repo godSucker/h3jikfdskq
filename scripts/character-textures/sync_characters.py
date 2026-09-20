@@ -179,8 +179,46 @@ def cache_stands(root):
 
 
 # --------------------------------------------------------------------------- #
-# Skins: gacha.xml -> {skin_name: [specimen_code, ...]}
+# Skins: gacha.xml + бинго-доски -> {skin_name: [specimen_code, ...]}
 # --------------------------------------------------------------------------- #
+# НАЙДЕНО 2026-09-20 (Иван Веприк поймал на Марве): одной gacha.xml мало.
+# Доска "Скины 2025" требует Specimen_AE_06 (Марв) в скине cyberweek, а гача
+# cyberweek записана у Kobojo на Specimen_EA_06 (Кранк) - атласа e_a_06_cyberweek
+# не существует (404), зато a_e_06_cyberweek отдаётся (200). То есть скин
+# реальный, просто гача врёт, и по ней мы его никогда не рендерили.
+# Бинго-доски (morphology_*) несут вторую, независимую таблицу пар
+# "мутант + скин" - берём и её. Лишние пары не опасны: перед рендером каждый
+# атлас проверяется на существование (build_targets отбрасывает 404).
+BINGOS_JSON = os.path.join(REPO, "src", "data", "bingos.json")
+# В поле skin у клетки доски лежит не только скин: "_any" - любой вид, а
+# bronze/silver/gold/platinum - требование звезды (см. src/lib/bingo-entry-variant.ts).
+NON_SKIN_CELL_VALUES = {"_any", ""} | set(STAR_TIERS)
+
+
+def skins_from_bingos():
+    """Map skin -> [specimen_code] from the bingo boards in bingos.json."""
+    out = {}
+    try:
+        with open(BINGOS_JSON, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except Exception as e:  # noqa: BLE001
+        print("[skins] bingos.json unavailable (%s); using gacha only" % e)
+        return out
+    boards = data if isinstance(data, list) else data.get("bingos", [])
+    for board in boards:
+        for cell in board.get("mutants", []) or []:
+            skin = str(cell.get("skin") or "").strip().lower()
+            if skin in NON_SKIN_CELL_VALUES:
+                continue
+            mm = re.match(r"^specimen_([a-z0-9_]+)$", str(cell.get("specimenId") or "").lower())
+            if not mm:
+                continue
+            out.setdefault(skin, [])
+            if mm.group(1) not in out[skin]:
+                out[skin].append(mm.group(1))
+    return out
+
+
 def fetch_skins():
     """Map each Gacha skin id to the specimen codes it re-skins.
 
@@ -211,6 +249,14 @@ def fetch_skins():
             for c in codes:
                 if c not in skins[skin]:
                     skins[skin].append(c)
+    extra = 0
+    for skin, codes in skins_from_bingos().items():
+        for c in codes:
+            if c not in skins.setdefault(skin, []):
+                skins[skin].append(c)
+                extra += 1
+    if extra:
+        print("[skins] +%d пар из бинго-досок (нет в gacha.xml)" % extra)
     return skins
 
 
@@ -256,7 +302,7 @@ def build_targets(mapping, skins, want_skins=True, only=None, workers=16):
     if want_skins:
         for skin, specimens in sorted(skins.items()):
             for spec in specimens:
-                if only and spec != only:
+                if only and spec not in ({only} if isinstance(only, str) else set(only)):
                     continue
                 if spec not in mapping or spec in EXCLUDED_CODES:
                     continue
