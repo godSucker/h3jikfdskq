@@ -111,6 +111,47 @@ function loadOverrides(): Record<string, Partial<SkinRecord>> {
   }
 }
 
+// Звезда скина из магазинных боксов (src/data/boxes.json, собран из
+// shopitems.xml): <ArticleItem typeId="Specimen_DD_05"><Tag key="skin"
+// value="spring"/><Tag key="stars" value="3"/> - для пары, которой нет в
+// gacha.xml, это единственное прямое свидетельство звезды. Бонуса там нет, и
+// его нет нигде: отдельного конфига скинов у игры не существует (проверен
+// весь content_mb.csv), то есть у такой пары бонуса нет и в самом клиенте -
+// скин чисто косметический, статы совпадают с базовым мутантом этой звезды.
+const TIER_STARS: Record<string, number> = {
+  обычный: 0,
+  бронза: 1,
+  серебро: 2,
+  золото: 3,
+  платина: 4,
+}
+
+function loadBoxSkinStars(): Map<string, number> {
+  const out = new Map<string, number>()
+  let data: unknown
+  try {
+    data = JSON.parse(fs.readFileSync(path.join(REPO, 'src/data/boxes.json'), 'utf-8'))
+  } catch {
+    return out
+  }
+  const walk = (node: any): void => {
+    if (Array.isArray(node)) {
+      for (const v of node) walk(v)
+      return
+    }
+    if (!node || typeof node !== 'object') return
+    const id = typeof node.id === 'string' ? node.id.toLowerCase() : ''
+    const skin = typeof node.skin === 'string' ? node.skin.toLowerCase() : ''
+    const stars = TIER_STARS[String(node.tier ?? '').toLowerCase()]
+    if (id.startsWith('specimen_') && skin && stars !== undefined) {
+      out.set(`${id.replace(/^specimen_/, '')}|${skin}`, stars)
+    }
+    for (const v of Object.values(node)) walk(v)
+  }
+  walk(data)
+  return out
+}
+
 async function build() {
   const check = process.argv.includes('--check')
 
@@ -118,6 +159,7 @@ async function build() {
   const baseById = new Map<string, any>()
   for (const m of mutants) baseById.set(String(m.id).toLowerCase(), m)
 
+  const boxSkinStars = loadBoxSkinStars()
   const gacha = parseGacha(await loadGacha())
   console.log(`[gacha] parsed ${gacha.size} (specimen, skin) entries`)
 
@@ -160,8 +202,17 @@ async function build() {
             `${sameSkin.map(([k]) => k.split('|')[0]).join(',')} (stars=${entry.stars}, bonus=${entry.bonus})`,
         )
       } else {
-        skipped.push(`${file} (no gacha entry for ${code}|${skin})`)
-        continue
+        const boxStars = boxSkinStars.get(`${code}|${skin}`)
+        if (boxStars !== undefined) {
+          entry = { stars: boxStars, bonus: 0, basic: true }
+          console.log(
+            `[box-fallback] ${code}|${skin}: в gacha.xml пары нет, звезду беру из бокса ` +
+              `(stars=${boxStars}), бонус 0 - у игры его тоже негде взять`,
+          )
+        } else {
+          skipped.push(`${file} (no gacha entry for ${code}|${skin})`)
+          continue
+        }
       }
     }
     const base = baseById.get(`specimen_${code}`)
@@ -236,10 +287,41 @@ async function build() {
 function diffAgainstCurrent(generated: SkinRecord[]) {
   const cur = JSON.parse(fs.readFileSync(SKINS_OUT, 'utf-8'))
   const curArr: any[] = cur.specimens ?? cur
-  // Current file keys on (id, hand-written skin name). Match generated to
-  // current by (id, star) since names are being corrected from gacha.
-  const curByIdStar = new Map<string, any>()
-  for (const c of curArr) curByIdStar.set(`${c.id}|${c.star}`, c)
+  // Сопоставление старых записей с новыми. Раньше ключом было (id, star) -
+  // это осталось со времён, когда имена скинов были рукописные и массово
+  // правились по гаче. Но у одного мутанта бывает НЕСКОЛЬКО скинов одной
+  // звезды, и такой ключ склеивал их между собой: отчёт каждый прогон писал
+  // фантомные "ребалансы" вида (xinnian->halloween), хотя сверка по паре
+  // (id, skin) показывает ноль изменений (найдено 2026-09-20).
+  // Теперь основной ключ - (id, skin), а (id, star) остаётся вторым проходом
+  // для честного случая переименования скина, и только среди ещё не занятых
+  // записей.
+  const curByIdSkin = new Map<string, any>()
+  const curByIdStar = new Map<string, any[]>()
+  for (const c of curArr) {
+    curByIdSkin.set(`${c.id}|${c.skin}`, c)
+    const bucket = curByIdStar.get(`${c.id}|${c.star}`) ?? []
+    bucket.push(c)
+    curByIdStar.set(`${c.id}|${c.star}`, bucket)
+  }
+  const usedCur = new Set<any>()
+  const matchCurrent = (g: any) => {
+    const exact = curByIdSkin.get(`${g.id}|${g.skin}`)
+    if (exact && !usedCur.has(exact)) {
+      usedCur.add(exact)
+      return exact
+    }
+    // Запись старого файла годится как "переименованная" только если её
+    // собственного скина в новой сборке нет - иначе её заберёт точный ключ.
+    const renamed = (curByIdStar.get(`${g.id}|${g.star}`) ?? []).find(
+      (c) => !usedCur.has(c) && !generatedSkins.has(`${g.id}|${c.skin}`),
+    )
+    if (renamed) {
+      usedCur.add(renamed)
+      return renamed
+    }
+    return undefined
+  }
 
   let fullMatch = 0
   let lvl30Only = 0 // lvl1 identical, lvl30 differs (rounding noise / partial rebalance)
@@ -247,13 +329,14 @@ function diffAgainstCurrent(generated: SkinRecord[]) {
   let nameChange = 0
   let newSkins = 0
   const rebal: string[] = []
-  const genKeys = new Set<string>()
+  // Скины, которые есть в новой сборке: запись из старого файла с таким же
+  // скином ниже нельзя считать "переименованной" - она найдётся точным ключом.
+  const generatedSkins = new Set(generated.map((g: any) => `${g.id}|${g.skin}`))
 
   const eq = (a: any, b: any) => a.hp === b.hp && a.atk1 === b.atk1 && a.atk2 === b.atk2
 
   for (const g of generated) {
-    genKeys.add(`${g.id}|${g.star}`)
-    const c = curByIdStar.get(`${g.id}|${g.star}`)
+    const c = matchCurrent(g)
     if (!c) {
       newSkins++
       continue
@@ -272,7 +355,7 @@ function diffAgainstCurrent(generated: SkinRecord[]) {
     if (c.skin !== g.skin) nameChange++
   }
 
-  const removed = curArr.filter((c) => !genKeys.has(`${c.id}|${c.star}`))
+  const removed = curArr.filter((c) => !usedCur.has(c))
 
   console.log('\n=== DIFF vs current skins.json ===')
   console.log(`current entries : ${curArr.length}`)
