@@ -27,6 +27,8 @@
   "mutants.filter.type.any": "Любой",
   "mutants.filter.bingo": "Бинго",
   "mutants.filter.bingo.any": "Любое",
+  "mutants.filter.source": "Источник",
+  "mutants.filter.source.any": "Любой",
   "mutants.viewMode.label": "Вид",
   "mutants.viewMode.full": "Полные",
   "mutants.viewMode.heads": "Головы",

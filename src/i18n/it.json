@@ -26,6 +26,8 @@
   "mutants.filter.type.any": "Qualsiasi",
   "mutants.filter.bingo": "Bingo",
   "mutants.filter.bingo.any": "Qualsiasi",
+  "mutants.filter.source": "Origine",
+  "mutants.filter.source.any": "Qualsiasi",
   "mutants.viewMode.label": "Visualizza",
   "mutants.viewMode.full": "Completa",
   "mutants.viewMode.heads": "Teste",

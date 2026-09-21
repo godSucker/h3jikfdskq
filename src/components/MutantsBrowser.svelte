@@ -8,6 +8,8 @@
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
+  import { obtainSourceLabelL } from '@/lib/obtain-sources';
+  import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
   const normalizeForSearch = normalizeSearch;
@@ -22,6 +24,7 @@
   const geneLabel = (code: string) => geneLabelL(code, locale);
   const bingoLabel = (key: string) => bingoLabelL(key, locale);
   const TYPE_RU = new Proxy({}, { get: (_t, key: string) => typeLabelL(key, locale) }) as Record<string, string>;
+  const sourceLabel = (key: string) => obtainSourceLabelL(key, locale);
 
   let showScrollTop = $state(false);
   $effect(() => {
@@ -149,7 +152,7 @@
   let typeSel = $state('');
   let typeDropdownOpen = $state(false);
   let bingoDropdownOpen = $state(false);
-  function closeIconDropdowns() { typeDropdownOpen = false; bingoDropdownOpen = false; }
+  function closeIconDropdowns() { typeDropdownOpen = false; bingoDropdownOpen = false; sourceDropdownOpen = false; }
 
   function collectBingoKeys(it:any): string[] {
     const b = it?.bingo;
@@ -174,6 +177,28 @@
       return na.localeCompare(nb, 'ru');
     }));
   let bingoSel = $state('');
+
+  // Источник - откуда мутанта выдавали (obtain.json). Отдельное измерение от
+  // фильтра "Тип": `type` - игровой тег из gamedefinitions.xml, и он давно
+  // расходится с реальностью (мутантов ПвП-сезонов игра с ~90-го сезона метит
+  // как LEGEND). Подробности - в src/lib/obtain-sources.ts.
+  let sourceIds: Map<string, Set<string>> = $derived((() => {
+    const map = new Map<string, Set<string>>();
+    const all = obtainData as Record<string, { type?: string }[]>;
+    for (const mutantId of Object.keys(all)) {
+      for (const rec of all[mutantId] ?? []) {
+        const key = rec?.type;
+        if (!key) continue;
+        if (!map.has(key)) map.set(key, new Set());
+        map.get(key)!.add(mutantId);
+      }
+    }
+    return map;
+  })());
+  let sourceOptions = $derived([...sourceIds.keys()]
+      .sort((a, b) => sourceLabel(a).localeCompare(sourceLabel(b), locale)));
+  let sourceSel = $state('');
+  let sourceDropdownOpen = $state(false);
 
   type StarKey = 'normal'|'bronze'|'silver'|'gold'|'platinum';
 
@@ -254,6 +279,7 @@
     const normalizedQ = q ? normalizeForSearch(q) : null;
     const sBingo = bingoSel ? String(bingoSel) : null;
     const sType = typeSel ? String(typeSel).toLowerCase() : null;
+    const sourceSet = sourceSel ? sourceIds.get(String(sourceSel)) : null;
 
     const bingoData = sBingo ? bingos.find((b: any) => b.id === sBingo) : null;
     const isReactorSel = sBingo === 'reactor' || (sType === 'reactor' || sType === 'gacha');
@@ -289,6 +315,10 @@
         if (!m.bingoKeys.has(sBingo)) continue;
       }
 
+      if (sourceSel) {
+        if (!sourceSet?.has(m.id)) continue;
+      }
+
       // Клетка доски говорит, в каком виде мутант засчитывается: скин, звезда
       // или "как есть" (см. bingo-entry-variant.ts). Звёздность берётся именно
       // отсюда, а не угадывается по id доски.
@@ -320,7 +350,7 @@
 
   $effect(() => {
     // Явное чтение зависимостей: смена любого фильтра сбрасывает страницу
-    void [query, gene1Sel, gene2Sel, typeSel, bingoSel, starSelMutants, viewMode];
+    void [query, gene1Sel, gene2Sel, typeSel, bingoSel, sourceSel, starSelMutants, viewMode];
     currentPage = 1;
   });
 
@@ -598,8 +628,8 @@
     </div>
   </div>
 
-  <!-- Тип/Бинго (кастомные дропдауны с иконками) -->
-  <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl">
+  <!-- Тип/Бинго/Источник (кастомные дропдауны с иконками) -->
+  <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl lg:max-w-5xl">
     <div class="icon-select-wrap">
       <span id="mutant-type-filter-label" class="text-xs text-slate-300">{t('mutants.filter.type', locale)}</span>
       <button
@@ -609,7 +639,7 @@
         class="icon-select-trigger"
         aria-haspopup="listbox"
         aria-expanded={typeDropdownOpen}
-        onclick={(e) => { e.stopPropagation(); bingoDropdownOpen = false; typeDropdownOpen = !typeDropdownOpen; }}
+        onclick={(e) => { e.stopPropagation(); bingoDropdownOpen = false; sourceDropdownOpen = false; typeDropdownOpen = !typeDropdownOpen; }}
       >
         {#if typeSel}<img src={textureUrl(getTypeIcon(typeSel))} alt="" class="icon-select-icon" />{/if}
         <span class="icon-select-label">{typeSel ? (TYPE_RU?.[typeSel] ?? typeSel) : t('mutants.filter.type.any', locale)}</span>
@@ -639,7 +669,7 @@
         class="icon-select-trigger"
         aria-haspopup="listbox"
         aria-expanded={bingoDropdownOpen}
-        onclick={(e) => { e.stopPropagation(); typeDropdownOpen = false; bingoDropdownOpen = !bingoDropdownOpen; }}
+        onclick={(e) => { e.stopPropagation(); typeDropdownOpen = false; sourceDropdownOpen = false; bingoDropdownOpen = !bingoDropdownOpen; }}
       >
         {#if bingoSel}<img src={textureUrl(bingoIconUrl(bingoSel))} alt="" class="icon-select-icon" />{/if}
         <span class="icon-select-label">{bingoSel ? (bingoLabel?.(bingoSel) ?? bingoSel) : t('mutants.filter.bingo.any', locale)}</span>
@@ -654,6 +684,34 @@
             <button type="button" class="icon-select-option {bingoSel === b ? 'active' : ''}" role="option" aria-selected={bingoSel === b} onclick={() => { bingoSel = b; bingoDropdownOpen = false; }}>
               <img src={textureUrl(bingoIconUrl(b))} alt="" class="icon-select-icon" />
               <span class="icon-select-label">{bingoLabel?.(b) ?? b}</span>
+            </button>
+          {/each}
+        </div>
+      {/if}
+    </div>
+
+    <div class="icon-select-wrap">
+      <span id="mutant-source-filter-label" class="text-xs text-slate-300">{t('mutants.filter.source', locale)}</span>
+      <button
+        type="button"
+        id="mutant-source-filter"
+        aria-labelledby="mutant-source-filter-label"
+        class="icon-select-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={sourceDropdownOpen}
+        onclick={(e) => { e.stopPropagation(); typeDropdownOpen = false; bingoDropdownOpen = false; sourceDropdownOpen = !sourceDropdownOpen; }}
+      >
+        <span class="icon-select-label">{sourceSel ? sourceLabel(sourceSel) : t('mutants.filter.source.any', locale)}</span>
+        <span class="icon-select-caret">▾</span>
+      </button>
+      {#if sourceDropdownOpen}
+        <div class="icon-select-panel" role="listbox">
+          <button type="button" class="icon-select-option {!sourceSel ? 'active' : ''}" role="option" aria-selected={!sourceSel} onclick={() => { sourceSel = ''; sourceDropdownOpen = false; }}>
+            <span class="icon-select-label">{t('mutants.filter.source.any', locale)}</span>
+          </button>
+          {#each sourceOptions as src}
+            <button type="button" class="icon-select-option {sourceSel === src ? 'active' : ''}" role="option" aria-selected={sourceSel === src} onclick={() => { sourceSel = src; sourceDropdownOpen = false; }}>
+              <span class="icon-select-label">{sourceLabel(src)}</span>
             </button>
           {/each}
         </div>

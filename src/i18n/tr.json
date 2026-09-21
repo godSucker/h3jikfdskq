@@ -26,6 +26,8 @@
   "mutants.filter.type.any": "Herhangi",
   "mutants.filter.bingo": "Bingo",
   "mutants.filter.bingo.any": "Herhangi",
+  "mutants.filter.source": "Kaynak",
+  "mutants.filter.source.any": "Herhangi",
   "mutants.viewMode.label": "Görünüm",
   "mutants.viewMode.full": "Tam",
   "mutants.viewMode.heads": "Kafalar",
