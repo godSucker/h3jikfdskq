@@ -65,6 +65,14 @@ jobs:
         if: always()
         run: npx tsx scripts/sync-bingo.ts
 
+      - name: 4.1 Проставить ключи новых досок мутантам (bingos.json -> mutants.json)
+        # Шаг 4 добавляет доски, но поле `bingo` у мутанта не обновлял никто -
+        # фильтр "Бинго" на /mutants и список досок в карточке мутанта тихо
+        # отставали (на 2026-09-21: 40 досок из 53 в выпадашке, 13 досок без
+        # единого мутанта). Слияние additive-only, как и сам синк досок.
+        if: always()
+        run: npx tsx scripts/sync-mutant-bingo-keys.ts
+
       - name: 5. Авто-синк каталога боксов (shopitems.xml, s-beta)
         if: always()
         run: npx tsx scripts/build-boxes.ts
@@ -191,6 +199,7 @@ jobs:
           branch: main
           file_pattern: >-
             src/data/bingos.json
+            src/data/mutants/mutants.json
             src/data/guides/event-quests.json
             src/data/guides/quests.json
             src/data/boxes.json
