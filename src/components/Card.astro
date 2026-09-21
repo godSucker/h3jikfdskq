@@ -1,12 +1,14 @@
 ---
 // Карточка для раздела или симулятора.
-// Принимает свойства: title (string), desc (string), href (string), icon (optional URL).
+// Принимает свойства: title (string), desc (string), href (string), icon (optional URL),
+// art (optional URL) - высокая картинка-персонаж у правого нижнего края карточки.
 import { textureUrl } from '@/lib/texture-cdn';
 
-const { title, desc, href, icon } = Astro.props;
+const { title, desc, href, icon, art } = Astro.props;
 ---
 
-<a href={href} class="card">
+<a href={href} class:list={['card', { 'card--with-art': art }]}>
+  {art ? <img class="card-art" src={textureUrl(art)} alt="" loading="lazy" decoding="async" /> : null}
   {icon ? (
     <div class="card-icon">
       <img src={textureUrl(icon)} alt="" />
@@ -30,6 +32,37 @@ const { title, desc, href, icon } = Astro.props;
     min-height: 140px; /* Увеличил высоту */
   }
   
+  /* Картинка-персонаж: прижата к правому нижнему краю. Карточки на десктопе
+     бывают узкими (~230px на 1280), поэтому размер арта считается от ширины
+     самой карточки (container query), а не фиксированный: иначе отступ под
+     него сжимает заголовок до слова в строке и тянет весь ряд вверх. */
+  .card--with-art {
+    position: relative;
+    overflow: hidden;
+    container-type: inline-size;
+    --card-art-h: min(11rem, 70cqw);
+  }
+  .card-art {
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0;
+    height: var(--card-art-h);
+    /* На телефоне карточка бывает ниже арта - без потолка голову срезало бы
+       overflow:hidden сверху. */
+    max-height: calc(100% - 0.5rem);
+    width: auto;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+  }
+  /* Ширина арта ~0.59 от высоты; часть её уходит в собственный padding
+     карточки, поэтому текст отодвигаем на остаток. Только описание:
+     заголовок стоит выше головы персонажа и идёт на всю ширину - иначе на
+     узкой карточке он ломается по слову в строке. */
+  .card--with-art .card-desc {
+    position: relative;
+    padding-right: max(0px, calc(var(--card-art-h) * 0.59 - 1rem));
+  }
+
   .card:hover {
     border-color: #58a6ff;
     transform: translateY(-2px);

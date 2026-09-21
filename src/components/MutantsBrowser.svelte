@@ -9,7 +9,7 @@
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
   import { bingoBoardGroup, compareBingoBoards } from '@/lib/bingo-order';
-  import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources } from '@/lib/obtain-sources';
+  import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources, obtainSourceKey } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
@@ -175,10 +175,10 @@
   // как LEGEND). Подробности - в src/lib/obtain-sources.ts.
   let sourceIds: Map<string, Set<string>> = $derived((() => {
     const map = new Map<string, Set<string>>();
-    const all = obtainData as Record<string, { type?: string }[]>;
+    const all = obtainData as Record<string, { type?: string; where?: string }[]>;
     for (const mutantId of Object.keys(all)) {
       for (const rec of all[mutantId] ?? []) {
-        const key = rec?.type;
+        const key = rec ? obtainSourceKey(rec) : undefined;
         if (!key) continue;
         if (!map.has(key)) map.set(key, new Set());
         map.get(key)!.add(mutantId);

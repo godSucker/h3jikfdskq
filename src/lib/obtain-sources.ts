@@ -138,15 +138,27 @@ export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
     nl: 'Geheime fokkerij',
   },
   event_raid: {
-    ru: 'Рейды и лесенки',
-    en: 'Raids and ladders',
-    es: 'Incursiones y escaleras',
-    fr: 'Raids et échelles',
-    de: 'Raids und Leitern',
-    pt: 'Raides e escadas',
-    it: 'Raid e scale',
-    tr: 'Baskınlar ve merdivenler',
-    nl: 'Raids en ladders',
+    ru: 'Рейды',
+    en: 'Raids',
+    es: 'Incursiones',
+    fr: 'Raids',
+    de: 'Raids',
+    pt: 'Raides',
+    it: 'Raid',
+    tr: 'Baskınlar',
+    nl: 'Raids',
+  },
+  // Не тип obtain.json, а выделенная из event_raid часть - см. obtainSourceKey.
+  event_ladder: {
+    ru: 'Лесенки',
+    en: 'Ladders',
+    es: 'Escaleras',
+    fr: 'Échelles',
+    de: 'Leitern',
+    pt: 'Escadas',
+    it: 'Scale',
+    tr: 'Merdivenler',
+    nl: 'Ladders',
   },
   jackpot_hall: {
     ru: 'Обменный пункт',
@@ -233,6 +245,8 @@ export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
 export const OBTAIN_SOURCE_ICON: Record<string, string> = {
   pvp: '/mut_icons/icon_pvp.webp',
   event_raid: '/etc/icon_atk.webp',
+  // Тот же меч, что у рейдов, перекрашенный в синий - чтобы различать.
+  event_ladder: '/etc/icon_atk_ladder.png',
   // Значок последнего дивизиона (Гига), скачан с Kobojo к нам на CDN.
   campaign: '/etc/division_6.png',
   gacha: '/mut_icons/icon_gacha.webp',
@@ -258,7 +272,7 @@ export const OBTAIN_SOURCE_ICON: Record<string, string> = {
 // линией. Источник, которого здесь нет (новый тип в obtain.json), уходит в
 // конец списка.
 export const OBTAIN_SOURCE_GROUPS: string[][] = [
-  ['pvp', 'event_raid', 'campaign'],
+  ['pvp', 'event_raid', 'event_ladder', 'campaign'],
   ['gacha', 'roulette', 'bingo'],
   ['breeding', 'breeding_duplicate', 'secret_breeding'],
   ['jackpot_hall', 'event_hall'],
@@ -288,6 +302,16 @@ export function compareObtainSources(a: string, b: string): number {
 // (см. .icon-property-паттерн в CLAUDE.md).
 export function obtainSourceIcon(type: string): string | null {
   return OBTAIN_SOURCE_ICON[type] ?? null
+}
+
+// Ключ источника для записи obtain.json. Обычно это просто её тип, но рейды
+// и лесенки в данных лежат под одним типом event_raid, а игроки ищут их
+// порознь. Различаются они по тексту записи ("Рейд: ..." / "Лесенки: ...",
+// включая "Лесенки: Яма: ...") - тот же признак, по которому их различает
+// renderObtainWhere в obtain-render.ts.
+export function obtainSourceKey(record: { type?: string; where?: string }): string | undefined {
+  if (record.type === 'event_raid' && record.where?.startsWith('Лесенки')) return 'event_ladder'
+  return record.type
 }
 
 // Незнакомый источник (новый тип в obtain.json) не прячем - показываем ключ
