@@ -1,11 +1,15 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Запрет перетаскивания текстур (доп. к JS-обработчику в BaseLayout) */
+/* Запрет перетаскивания текстур (доп. к JS-обработчику в BaseLayout) и их
+   синей подсветки, когда зажатой кнопкой выделяешь область страницы. Текст
+   по-прежнему выделяется и копируется. */
 img {
   -webkit-user-drag: none;
   user-drag: none;
   -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* CSS переменные проекта */

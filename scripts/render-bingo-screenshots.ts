@@ -73,7 +73,10 @@ async function fetchLiveHashes(): Promise<Map<string, string>> {
 }
 
 function isPng(buffer: Buffer): boolean {
-  return buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+  return (
+    buffer.length >= 8 &&
+    buffer.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+  )
 }
 
 async function renderBoard(boardId: string): Promise<Buffer | string> {
@@ -123,7 +126,9 @@ async function main(): Promise<void> {
     liveHashes ??= await fetchLiveHashes()
     const liveHash = liveHashes.get(boardId)
     if (liveHash !== hash) {
-      lines.push(`- \`${boardId}\`: на проде ещё другая версия доски (${liveHash ?? 'нет'} вместо ${hash}), жду деплоя`)
+      lines.push(
+        `- \`${boardId}\`: на проде ещё другая версия доски (${liveHash ?? 'нет'} вместо ${hash}), жду деплоя`,
+      )
       continue
     }
 
@@ -146,7 +151,9 @@ async function main(): Promise<void> {
   }
 
   if (dirty) {
-    const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)))
+    const sorted = Object.fromEntries(
+      Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)),
+    )
     await fs.writeFile(MANIFEST_PATH, JSON.stringify(sorted, null, 2) + '\n', 'utf-8')
   }
   if (lines.length === 1) lines.push('✅ Все скриншоты актуальны')
