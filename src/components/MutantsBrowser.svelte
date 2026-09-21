@@ -8,7 +8,7 @@
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
-  import { obtainSourceLabelL } from '@/lib/obtain-sources';
+  import { obtainSourceLabelL, obtainSourceIcon } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
@@ -701,6 +701,7 @@
         aria-expanded={sourceDropdownOpen}
         onclick={(e) => { e.stopPropagation(); typeDropdownOpen = false; bingoDropdownOpen = false; sourceDropdownOpen = !sourceDropdownOpen; }}
       >
+        {#if sourceSel && obtainSourceIcon(sourceSel)}<img src={textureUrl(obtainSourceIcon(sourceSel)!)} alt="" class="icon-select-icon" />{/if}
         <span class="icon-select-label">{sourceSel ? sourceLabel(sourceSel) : t('mutants.filter.source.any', locale)}</span>
         <span class="icon-select-caret">▾</span>
       </button>
@@ -711,6 +712,7 @@
           </button>
           {#each sourceOptions as src}
             <button type="button" class="icon-select-option {sourceSel === src ? 'active' : ''}" role="option" aria-selected={sourceSel === src} onclick={() => { sourceSel = src; sourceDropdownOpen = false; }}>
+              {#if obtainSourceIcon(src)}<img src={textureUrl(obtainSourceIcon(src)!)} alt="" class="icon-select-icon" loading="lazy" decoding="async" />{/if}
               <span class="icon-select-label">{sourceLabel(src)}</span>
             </button>
           {/each}
