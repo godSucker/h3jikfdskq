@@ -62,6 +62,17 @@ jobs:
       - name: 3. Установка зависимостей
         run: npm ci
 
+      - name: 3.5 Скриншоты досок бинго для анонсов (рендер один раз -> репо + CDN)
+        # Карточка бинго-анонса показывает готовый PNG, а не живой рендер
+        # /api/screenshot-bingo на каждого посетителя (тот падал и давал ~1%
+        # ошибок на Vercel, 2026-09-21). Скрипт рендерит доску только когда
+        # прод уже отдаёт её новую версию, так что шаг здесь, а не в часовом
+        # воркфлоу: 5-минутный тик подхватывает новую доску через минуты после
+        # деплоя. Сбой рендера не должен блокировать отправку скриншотов в
+        # чат - повтор будет в следующий тик.
+        continue-on-error: true
+        run: npx tsx scripts/render-bingo-screenshots.ts
+
       - name: 4. Разбор очереди и отправка скриншотов
         run: npx tsx scripts/process-pending-screenshots.ts
         env:
@@ -73,7 +84,8 @@ jobs:
           TELEGRAM_ANNOUNCE_CHAT_ID: ${{ inputs.test_chat_id || secrets.TELEGRAM_ANNOUNCE_CHAT_ID }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-      - name: 5. Коммит очереди (если что-то изменилось)
+      - name: 5. Коммит очереди и скриншотов досок (если что-то изменилось)
+        id: commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: '🤖 Auto-Sync: очередь скриншотов анонсов'
@@ -81,4 +93,28 @@ jobs:
           commit_user_email: 'bot@archivist-library.com'
           commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
           branch: main
-          file_pattern: scripts/pending-screenshots.json
+          # Папкой, не глобом: git add так подхватывает и удаление старой
+          # версии скрина доски.
+          file_pattern: >-
+            scripts/pending-screenshots.json
+            src/data/bingo-screenshots.json
+            public/bingo-screenshots
+
+      - name: 6. Заливка новых скриншотов досок на Яндекс CDN
+        # Тот же приём, что шаг 12 announcements-hourly.yml. Только если шаг 5
+        # реально закоммитил, иначе HEAD~1 - чужой старый коммит.
+        if: steps.commit.outputs.changes_detected == 'true'
+        run: |
+          pip install awscli
+          git diff --name-only --no-renames --diff-filter=ACM HEAD~1 HEAD -- 'public/bingo-screenshots/' | while read -r f; do
+            [ -f "$f" ] || continue
+            key="${f#public/}"
+            echo "↑ $key"
+            aws s3 cp "$f" "s3://archivist-cdn/$key" \
+              --endpoint-url https://storage.yandexcloud.net \
+              --acl public-read
+          done
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.YANDEX_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.YANDEX_SECRET_KEY }}
+          AWS_DEFAULT_REGION: ru-central1

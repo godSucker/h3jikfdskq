@@ -17,7 +17,7 @@ import type { Locale } from './i18n'
 
 export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
   pvp: {
-    ru: 'ПвП',
+    ru: 'PVP',
     en: 'PVP',
     es: 'PVP',
     fr: 'PVP',
@@ -227,31 +227,61 @@ export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
   },
 }
 
-// Иконки источников. Всё из уже залитых на CDN ассетов игры: отдельной
-// отрисовки не потребовалось, проверено curl'ом (все 19 отдают 200).
-// Подбор под размер 20px в дропдауне - изометрические здания и детальные
-// ачивки на этом размере превращаются в кашу, поэтому взяты плоские
-// символьные иконки.
+// Иконки источников. По возможности те же, что у строк "Как получить" в
+// карточке мутанта (OBTAIN_ICON в MutantModal.svelte), чтобы один источник
+// выглядел одинаково в фильтре и в карточке. Всё лежит на нашем CDN.
 export const OBTAIN_SOURCE_ICON: Record<string, string> = {
   pvp: '/mut_icons/icon_pvp.webp',
+  event_raid: '/etc/icon_atk.webp',
+  // Значок последнего дивизиона (Гига), скачан с Kobojo к нам на CDN.
+  campaign: '/etc/division_6.png',
   gacha: '/mut_icons/icon_gacha.webp',
   roulette: '/sims/roulette.webp',
-  box: '/boxes/lucky_box_1.png',
-  bundle: '/quests/achievements/achivement_gift.png',
+  bingo: '/etc/icon_bingo.webp',
+  breeding: '/sims/larva.webp',
+  breeding_duplicate: '/sims/larva.webp',
+  secret_breeding: '/mut_icons/icon_recipe.webp',
+  jackpot_hall: '/materials/Material_Jackpot_Token.png',
+  event_hall: '/materials/Material_Event_Token.png',
   gold_shop: '/cash/hardcurrency.webp',
   credits_shop: '/cash/softcurrency.webp',
+  bundle: '/quests/achievements/achivement_gift.png',
+  box: '/boxes/lucky_box_1.png',
   donate: '/mut_icons/donate.png',
-  breeding: '/sims/larva.webp',
-  breeding_duplicate: '/quests/achievements/achivement_duplicate.png',
-  secret_breeding: '/mut_icons/icon_recipe.webp',
-  event_raid: '/mut_icons/icon_seasonal.webp',
-  event_hall: '/tokens/material_event_token.webp',
-  jackpot_hall: '/cash/jackpot.webp',
-  bingo: '/etc/icon_bingo.webp',
   quest: '/quests/story/quest_mutodex.png',
-  campaign: '/quests/story/quest_pve_d.png',
-  crossover: '/mut_icons/icon_videogame.webp',
-  unavailable: '/mut_icons/limited.webp',
+  crossover: '/mut_icons/limited.webp',
+  unavailable: '/etc/icon_timer.webp',
+}
+
+// Порядок пунктов в выпадашке: по смыслу, а не по алфавиту (иначе, например,
+// два обменника разъезжаются по разным концам списка). Группы разделяются
+// линией. Источник, которого здесь нет (новый тип в obtain.json), уходит в
+// конец списка.
+export const OBTAIN_SOURCE_GROUPS: string[][] = [
+  ['pvp', 'event_raid', 'campaign'],
+  ['gacha', 'roulette', 'bingo'],
+  ['breeding', 'breeding_duplicate', 'secret_breeding'],
+  ['jackpot_hall', 'event_hall'],
+  ['gold_shop', 'credits_shop', 'bundle', 'box', 'donate'],
+  ['quest', 'crossover', 'unavailable'],
+]
+
+const SOURCE_POSITION = new Map<string, { group: number; index: number }>()
+OBTAIN_SOURCE_GROUPS.forEach((group, g) =>
+  group.forEach((type, i) => SOURCE_POSITION.set(type, { group: g, index: i })),
+)
+
+export function obtainSourceGroup(type: string): number {
+  return SOURCE_POSITION.get(type)?.group ?? OBTAIN_SOURCE_GROUPS.length
+}
+
+export function compareObtainSources(a: string, b: string): number {
+  const pa = SOURCE_POSITION.get(a)
+  const pb = SOURCE_POSITION.get(b)
+  if (pa && pb) return pa.group - pb.group || pa.index - pb.index
+  if (pa) return -1
+  if (pb) return 1
+  return a.localeCompare(b)
 }
 
 // Путь отдаётся без CDN-префикса: вызывающий оборачивает в textureUrl()

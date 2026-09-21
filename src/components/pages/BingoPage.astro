@@ -9,6 +9,7 @@ import { textureUrl } from '@/lib/texture-cdn';
 import { t, localeFromAstro } from '@/lib/i18n';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 import { baseMutantId } from '@/lib/utils';
+import { bingoBoardHash } from '@/lib/bingo-board-hash';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 
 const locale = localeFromAstro(Astro.currentLocale);
@@ -252,6 +253,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
           class="bingo-panel"
           data-bingo-index={bingoIdx}
           data-bingo-id={originalBingo.id}
+          data-bingo-hash={bingoBoardHash(originalBingo)}
           hidden={bingoIdx !== 0}
         >
           <div class="bingo-card">

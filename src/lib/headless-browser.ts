@@ -1,15 +1,21 @@
 import { randomUUID } from 'crypto'
 import fs from 'fs/promises'
-import { chromium, type BrowserContext } from 'playwright-core'
+import { chromium, type BrowserContext, type Page } from 'playwright-core'
 import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
 
 // Fluid Compute reuses warm function instances between requests, so we keep
 // one Chromium process alive at module scope instead of launching/closing it
 // per request - @sparticuz/chromium's cold start (extracting + spawning the
 // binary) was the dominant chunk of the reported 6-12s screenshot latency.
-// Shared between api/screenshot.ts and api/tier-poster.ts - one warm instance
-// serves both instead of each keeping its own (module scope survives across
-// routes within the same warm function instance).
+// Shared by every api/screenshot*.ts endpoint - one warm instance serves all
+// of them instead of each launching its own (module scope survives across
+// routes within the same warm function instance). All SSR routes ship in one
+// Vercel function, so a per-request launch() next to this warm browser meant
+// two Chromiums fighting over the same memory and /tmp: the first heavy
+// render passed, every launch after it on that instance died within a second
+// ("browser has been closed" / ERR_INSUFFICIENT_RESOURCES), and the failures
+// were not cached, so each visitor hit the same wall again (the ~1% error
+// rate of 2026-09-21, almost all of it api/screenshot-bingo).
 //
 // launchPersistentContext, not launch(): a plain chromium.launch() lets
 // Playwright pick its own /tmp/playwright_chromiumdev_profile-* dir and only
@@ -37,13 +43,12 @@ async function launchContext(): Promise<BrowserContext> {
   const context = await chromium.launchPersistentContext(userDataDir, {
     executablePath: execPath,
     args: Chromium.args,
-    // Both callers (screenshot.ts, tier-poster.ts) want the same 2x - a
-    // persistent context only has one deviceScaleFactor for every page it
-    // opens (unlike plain launch()+newPage(options), there's no per-page
-    // override for this one setting), but they happen to agree, so this is
-    // the single source instead of each caller passing its own. Viewport
-    // *does* differ between them and *is* settable per-page - each caller
-    // calls page.setViewportSize() itself after context.newPage().
+    // Every caller wants the same 2x - a persistent context only has one
+    // deviceScaleFactor for every page it opens (unlike plain
+    // launch()+newPage(options), there's no per-page override for this one
+    // setting), so this is the single source instead of each caller passing
+    // its own. Viewport *does* differ between callers and *is* settable
+    // per-page - withPage() below applies it after context.newPage().
     deviceScaleFactor: 2,
   })
   context.on('close', () => {
@@ -72,6 +77,39 @@ export function forceRelaunch(): void {
   contextPromise = null
 }
 
+// ERR_INSUFFICIENT_RESOURCES: the browser process is still up but can no
+// longer open anything - same remedy as a dead one.
 export function isBrowserDiedError(message: string): boolean {
-  return /has been closed|disconnected|Target closed/i.test(message)
+  return /has been closed|disconnected|Target closed|ERR_INSUFFICIENT_RESOURCES/i.test(message)
+}
+
+// Runs `fn` on a fresh page of the shared browser and always closes the page
+// afterwards. If the shared browser turns out to be dead, relaunches it and
+// retries once - a warm instance can inherit a browser that crashed under an
+// unrelated earlier request. Anything else is rethrown for the caller's own
+// error response.
+export async function withPage<T>(
+  viewport: { width: number; height: number },
+  fn: (page: Page) => Promise<T>,
+): Promise<T> {
+  for (let attempt = 0; ; attempt++) {
+    let page: Page | undefined
+    try {
+      const context = await getBrowser()
+      page = await context.newPage()
+      await page.setViewportSize(viewport)
+      return await fn(page)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      if (attempt === 0 && isBrowserDiedError(message)) {
+        forceRelaunch()
+        continue
+      }
+      throw err
+    } finally {
+      try {
+        await page?.close()
+      } catch {}
+    }
+  }
 }

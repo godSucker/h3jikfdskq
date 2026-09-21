@@ -8,7 +8,7 @@
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
-  import { obtainSourceLabelL, obtainSourceIcon } from '@/lib/obtain-sources';
+  import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
@@ -195,8 +195,7 @@
     }
     return map;
   })());
-  let sourceOptions = $derived([...sourceIds.keys()]
-      .sort((a, b) => sourceLabel(a).localeCompare(sourceLabel(b), locale)));
+  let sourceOptions = $derived([...sourceIds.keys()].sort(compareObtainSources));
   let sourceSel = $state('');
   let sourceDropdownOpen = $state(false);
 
@@ -710,7 +709,10 @@
           <button type="button" class="icon-select-option {!sourceSel ? 'active' : ''}" role="option" aria-selected={!sourceSel} onclick={() => { sourceSel = ''; sourceDropdownOpen = false; }}>
             <span class="icon-select-label">{t('mutants.filter.source.any', locale)}</span>
           </button>
-          {#each sourceOptions as src}
+          {#each sourceOptions as src, i}
+            {#if i > 0 && obtainSourceGroup(src) !== obtainSourceGroup(sourceOptions[i - 1])}
+              <div class="icon-select-divider" role="separator"></div>
+            {/if}
             <button type="button" class="icon-select-option {sourceSel === src ? 'active' : ''}" role="option" aria-selected={sourceSel === src} onclick={() => { sourceSel = src; sourceDropdownOpen = false; }}>
               {#if obtainSourceIcon(src)}<img src={textureUrl(obtainSourceIcon(src)!)} alt="" class="icon-select-icon" loading="lazy" decoding="async" />{/if}
               <span class="icon-select-label">{sourceLabel(src)}</span>
@@ -837,6 +839,7 @@
   }
   .icon-select-trigger:focus-visible { outline: none; box-shadow: inset 0 0 0 2px rgb(34 211 238); }
   .icon-select-icon { width: 1.5em; height: 1.5em; object-fit: contain; flex-shrink: 0; border-radius: 0.25em; background: rgba(255,255,255,0.06); }
+  .icon-select-divider { height: 1px; margin: 0.25rem 0.5rem; background: rgb(255 255 255 / 0.1); }
   .icon-select-label { flex: 1; font-size: 0.875rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .icon-select-caret { font-size: 0.7em; opacity: 0.6; flex-shrink: 0; }
   .icon-select-panel {

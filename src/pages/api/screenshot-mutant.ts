@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro'
-import { chromium } from 'playwright-core'
-import { cleanupStalePlaywrightProfiles } from '@/lib/chromium-tmp-cleanup'
+import { withPage } from '@/lib/headless-browser'
 import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
 
 // Скриншот модалки ОДНОГО мутанта (MutantModal.svelte) для бот-скриншотера в
@@ -28,125 +27,110 @@ export const GET: APIRoute = async ({ url }) => {
     `https://archivist-library.com/mutants/skin-render/${encodeURIComponent(id)}` +
     `?mutant=${encodeURIComponent(id)}`
 
-  let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined
   try {
-    await cleanupStalePlaywrightProfiles()
-    const Chromium = (await import('@sparticuz/chromium')).default
-    const execPath = await Chromium.executablePath()
-    browser = await chromium.launch({
-      executablePath: execPath,
-      args: Chromium.args,
-    })
-    const page = await browser.newPage({
-      deviceScaleFactor: 2,
-      viewport: { width: 1100, height: 1600 },
-    })
+    return await withPage({ width: 1100, height: 1600 }, async (page) => {
+      await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 20000 })
 
-    await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: 20000 })
+      const selector = '[role="dialog"][aria-labelledby="mutant-title"]'
+      await Promise.all([
+        page.waitForSelector(selector, { timeout: 25000, state: 'visible' }),
+        page.evaluate(() => document.fonts.ready),
+      ])
 
-    const selector = '[role="dialog"][aria-labelledby="mutant-title"]'
-    await Promise.all([
-      page.waitForSelector(selector, { timeout: 25000, state: 'visible' }),
-      page.evaluate(() => document.fonts.ready),
-    ])
-
-    // Явно тянем кастомный шрифт: на минималистичной render-странице
-    // document.fonts.ready может резолвнуться до фактической загрузки
-    // @font-face (font-display:swap), и снимок ловил фолбэк-шрифт (фидбек
-    // 2026-09-05). document.fonts.load() форсит фетч и ждёт его.
-    await page
-      .evaluate(async () => {
-        await Promise.all([
-          document.fonts.load('700 16px "TT Supermolot Neue"'),
-          document.fonts.load('400 16px "TT Supermolot Neue"'),
-        ])
-        await document.fonts.ready
-      })
-      .catch(() => {})
-
-    // У мутанта на скрине всегда выбираем МАКСИМАЛЬНУЮ доступную звезду -
-    // .star-switch-btn в MutantModal рендерятся по возрастанию
-    // (normal→bronze→silver→gold→platinum), кликаем последнюю. Нет ряда звёзд
-    // (одна звезда) - кликать нечего, и так максимум.
-    await page
-      .evaluate((sel) => {
-        const btns = document.querySelectorAll<HTMLButtonElement>(`${sel} .star-switch-btn`)
-        if (btns.length > 1) btns[btns.length - 1].click()
-      }, selector)
-      .catch(() => {})
-
-    await page.evaluate((sel) => {
-      document
-        .querySelectorAll(`${sel} img[loading="lazy"]`)
-        .forEach((img) => img.setAttribute('loading', 'eager'))
-    }, selector)
-
-    const check = (sel: string) => {
-      const imgs = Array.from(document.querySelectorAll(`${sel} img`))
-      return (
-        imgs.length === 0 ||
-        imgs.every((i) => {
-          const img = i as HTMLImageElement
-          if (!img.getAttribute('src')) return true
-          return img.complete && img.naturalWidth > 0
+      // Явно тянем кастомный шрифт: на минималистичной render-странице
+      // document.fonts.ready может резолвнуться до фактической загрузки
+      // @font-face (font-display:swap), и снимок ловил фолбэк-шрифт (фидбек
+      // 2026-09-05). document.fonts.load() форсит фетч и ждёт его.
+      await page
+        .evaluate(async () => {
+          await Promise.all([
+            document.fonts.load('700 16px "TT Supermolot Neue"'),
+            document.fonts.load('400 16px "TT Supermolot Neue"'),
+          ])
+          await document.fonts.ready
         })
-      )
-    }
-    const allLoaded = await page
-      .waitForFunction(check, selector, { timeout: 12000 })
-      .then(() => true)
-      .catch(() => false)
+        .catch(() => {})
 
-    if (!allLoaded) {
+      // У мутанта на скрине всегда выбираем МАКСИМАЛЬНУЮ доступную звезду -
+      // .star-switch-btn в MutantModal рендерятся по возрастанию
+      // (normal→bronze→silver→gold→platinum), кликаем последнюю. Нет ряда звёзд
+      // (одна звезда) - кликать нечего, и так максимум.
+      await page
+        .evaluate((sel) => {
+          const btns = document.querySelectorAll<HTMLButtonElement>(`${sel} .star-switch-btn`)
+          if (btns.length > 1) btns[btns.length - 1].click()
+        }, selector)
+        .catch(() => {})
+
       await page.evaluate((sel) => {
-        document.querySelectorAll(`${sel} img`).forEach((i) => {
-          const img = i as HTMLImageElement
-          if (img.getAttribute('src') && (!img.complete || img.naturalWidth === 0)) {
-            const src = img.src
-            img.src = ''
-            img.src = src
-          }
-        })
+        document
+          .querySelectorAll(`${sel} img[loading="lazy"]`)
+          .forEach((img) => img.setAttribute('loading', 'eager'))
       }, selector)
-      await page.waitForFunction(check, selector, { timeout: 6000 }).catch(() => {})
-    }
 
-    await page.evaluate(() => {
-      document
-        .querySelectorAll('[id*="vercel" i], [class*="vercel" i], iframe[src*="vercel.live"]')
-        .forEach((el) => el.remove())
-    })
+      const check = (sel: string) => {
+        const imgs = Array.from(document.querySelectorAll(`${sel} img`))
+        return (
+          imgs.length === 0 ||
+          imgs.every((i) => {
+            const img = i as HTMLImageElement
+            if (!img.getAttribute('src')) return true
+            return img.complete && img.naturalWidth > 0
+          })
+        )
+      }
+      const allLoaded = await page
+        .waitForFunction(check, selector, { timeout: 12000 })
+        .then(() => true)
+        .catch(() => false)
 
-    await injectDateBadge(page, selector, dateLabel)
-    await freezePageForModalShot(page, selector)
+      if (!allLoaded) {
+        await page.evaluate((sel) => {
+          document.querySelectorAll(`${sel} img`).forEach((i) => {
+            const img = i as HTMLImageElement
+            if (img.getAttribute('src') && (!img.complete || img.naturalWidth === 0)) {
+              const src = img.src
+              img.src = ''
+              img.src = src
+            }
+          })
+        }, selector)
+        await page.waitForFunction(check, selector, { timeout: 6000 }).catch(() => {})
+      }
 
-    await page.waitForTimeout(400)
+      await page.evaluate(() => {
+        document
+          .querySelectorAll('[id*="vercel" i], [class*="vercel" i], iframe[src*="vercel.live"]')
+          .forEach((el) => el.remove())
+      })
 
-    const dialog = await page.$(selector)
-    if (!dialog) {
-      // Мутант не найден на живом проде (данные ещё не задеплоились) -
-      // процессор очереди трактует 404 как "повторить позже".
-      return new Response('Mutant not found', { status: 404 })
-    }
-    const buffer = (await dialog.screenshot({
-      type: 'png',
-      animations: 'disabled',
-    })) as Buffer
+      await injectDateBadge(page, selector, dateLabel)
+      await freezePageForModalShot(page, selector)
 
-    return new Response(new Uint8Array(buffer), {
-      status: 200,
-      headers: {
-        'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
-      },
+      await page.waitForTimeout(400)
+
+      const dialog = await page.$(selector)
+      if (!dialog) {
+        // Мутант не найден на живом проде (данные ещё не задеплоились) -
+        // процессор очереди трактует 404 как "повторить позже".
+        return new Response('Mutant not found', { status: 404 })
+      }
+      const buffer = (await dialog.screenshot({
+        type: 'png',
+        animations: 'disabled',
+      })) as Buffer
+
+      return new Response(new Uint8Array(buffer), {
+        status: 200,
+        headers: {
+          'Content-Type': 'image/png',
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+        },
+      })
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     console.error('[Screenshot-Mutant]', message)
     return new Response(`Screenshot error: ${message}`, { status: 500 })
-  } finally {
-    try {
-      await browser?.close()
-    } catch {}
   }
 }

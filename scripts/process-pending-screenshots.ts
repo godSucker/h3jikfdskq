@@ -98,12 +98,31 @@ async function fetchPhoto(url: string): Promise<FetchResult> {
   }
 }
 
+async function readStoredBingoScreenshot(boardId: string): Promise<Buffer | null> {
+  try {
+    const manifest = JSON.parse(
+      await fs.readFile('src/data/bingo-screenshots.json', 'utf-8'),
+    ) as Record<string, { file?: string }>
+    const file = manifest[boardId]?.file
+    return file ? await fs.readFile(`public${file}`) : null
+  } catch {
+    return null
+  }
+}
+
 async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retry'> {
   const icon = CATEGORY_ICON[job.category] ?? '🔔'
   const link = CATEGORY_LINK[job.category] ?? '/announcements'
   const caption = `${icon} ${job.title}\n\n${SITE}${link}`
 
   if (job.category === 'bingo') {
+    // Готовый скрин доски из репо (render-bingo-screenshots.ts, шаг перед
+    // этим в том же прогоне админ-бота) - без лишнего запуска Chromium на
+    // проде. Эндпоинт остаётся запасным путём, если скрина ещё нет.
+    const stored = await readStoredBingoScreenshot(job.itemIds[0])
+    if (stored) {
+      return (await sendAdminPhoto(stored, caption, `bingo-${job.id}.png`)) ? 'sent' : 'retry'
+    }
     const primary = await fetchPhoto(
       `${SITE}/api/screenshot-bingo?board=${encodeURIComponent(job.itemIds[0])}`,
     )
