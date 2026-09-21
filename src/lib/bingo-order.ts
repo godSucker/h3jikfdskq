@@ -26,9 +26,30 @@ function numbered(re: RegExp, rank: (m: RegExpMatchArray) => number): Rule {
 // 2025+ названы по-разному: event_2024, но 2025_events).
 const GROUPS: Rule[][] = [
   // Базовые и разведение
-  [fixed(['Starter', 'starter_plat', 'bingo_bronze', 'bingo_silver', 'bingo_gold', 'bingo_plat', 'cross_mutation'])],
+  [
+    fixed([
+      'Starter',
+      'starter_plat',
+      'bingo_bronze',
+      'bingo_silver',
+      'bingo_gold',
+      'bingo_plat',
+      'cross_mutation',
+    ]),
+  ],
   // Коллекции
-  [fixed(['legend', 'heroic', 'reactor', 'zodiac', 'zodiac_silver', 'amazons', 'rumble', 'events'])],
+  [
+    fixed([
+      'legend',
+      'heroic',
+      'reactor',
+      'zodiac',
+      'zodiac_silver',
+      'amazons',
+      'rumble',
+      'events',
+    ]),
+  ],
   // Исследования
   [numbered(/^research_(\d+)$/, (m) => Number(m[1]))],
   // Ивенты по годам
