@@ -634,9 +634,44 @@ export function getItemTexture(itemId: string): string | null {
   return raw ? textureUrl(raw) : null
 }
 
+// Часть ингредиентов в рецептах задана не id предмета, а регулярным выражением
+// ("любая базовая сфера", "любые 3 предмета из списка"). Реального предмета за ними
+// нет, поэтому им подбираются обобщенные иконки: пустые рамки нужного уровня из
+// игрового арта, нарисованные рамки без цифры и "?" для разнородных списков.
+function getAnyIngredientTexture(itemId: string): string | null {
+  if (!/[[\]()|+*]/.test(itemId)) return null
+
+  // Список из предметов разных типов - обобщить нечем, показываем заглушку.
+  if (/\|\s*(Star_|Material_)/.test(itemId) || itemId.startsWith('Material_')) {
+    return '/orbs/item_any.png'
+  }
+
+  const level = itemId.match(/_(0[1-4])$/)?.[1]
+
+  if (itemId.startsWith('orb_basic_')) {
+    return level ? `/orbs/orb_basic_empty_${level}.webp` : '/orbs/orb_basic_any.png'
+  }
+
+  if (itemId.startsWith('orb_special_')) {
+    return level ? `/orbs/orb_special_empty_${level}.webp` : '/orbs/orb_special_any.png'
+  }
+
+  // orb_(basic|special)_... - сфера любого из двух видов.
+  if (/^orb_\((basic|special)\|(basic|special)\)/.test(itemId)) {
+    return '/orbs/orb_any.png'
+  }
+
+  return '/orbs/item_any.png'
+}
+
 function getRawTexture(itemId: string): string | null {
   if (ITEM_TEXTURES[itemId]) {
     return ITEM_TEXTURES[itemId]
+  }
+
+  const anyTexture = getAnyIngredientTexture(itemId)
+  if (anyTexture) {
+    return anyTexture
   }
 
   // Handle specific random orb recipes first (before general patterns)
