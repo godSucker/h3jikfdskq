@@ -110,7 +110,7 @@ interface AnnouncementItem {
   // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
   // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
   // из пула daily-offer ("мутант дня", см. fetchDailyMutantOffers).
-  featuredMutant?: 'day' | 'week' | 'month' | null
+  featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null
   // Мутанты внутри пакета - чтобы тайл прогноза был кликабельным даже когда
   // сам itemId мутанта не содержит (см. detect-shop-forecast.ts).
   packMutants?: string[]

@@ -66,7 +66,7 @@ export interface AnnouncementItem {
   // из пула daily-offer (Path cat="special" subCat="dailyoffer") - тот самый
   // "мутант дня" из календаря MUTODEX/@KaiserZ, см.
   // scripts/detect-shop-forecast.ts::fetchDailyMutantOffers.
-  featuredMutant?: 'day' | 'week' | 'month' | null
+  featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null
   packMutants?: string[]
   // Только exchange - какой из 3 залов (см. scripts/build-announcements.ts::
   // detectExchange). Карточка группирует items по этому полю на 3 подблока.
@@ -83,7 +83,7 @@ export function featuredMutantLabel(
   v: string | null | undefined,
   locale: Locale = 'ru',
 ): string | null {
-  if (v !== 'day' && v !== 'week' && v !== 'month') return null
+  if (v !== 'day' && v !== 'week' && v !== 'month' && v !== 'zodiac') return null
   return t(`announcements.featured.${v}`, locale)
 }
 
