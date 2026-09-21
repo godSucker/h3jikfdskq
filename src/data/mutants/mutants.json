@@ -3829,7 +3829,11 @@
       "bingo_bronze",
       "bingo_silver",
       "bingo_gold",
-      "bingo_plat"
+      "bingo_plat",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019"
     ],
     "chance": 20,
     "bank": 42,
@@ -4522,7 +4526,10 @@
       "bingo_bronze",
       "bingo_silver",
       "bingo_gold",
-      "bingo_plat"
+      "bingo_plat",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2020"
     ],
     "chance": 20,
     "bank": 42,
@@ -8910,7 +8917,8 @@
       "special": 1
     },
     "bingo": [
-      "research_2"
+      "research_2",
+      "2026_skins"
     ],
     "chance": 80,
     "bank": 42,
@@ -9230,7 +9238,11 @@
     },
     "bingo": [
       "research_2",
-      "legend"
+      "legend",
+      "event_xmas2020",
+      "event_xmas2021",
+      "event_xmas2022",
+      "event_xmas2023"
     ],
     "chance": 1,
     "bank": 42,
@@ -9343,7 +9355,8 @@
     },
     "bingo": [
       "research_2",
-      "legend"
+      "legend",
+      "event_xmas2016"
     ],
     "chance": 20,
     "bank": 42,
@@ -10453,7 +10466,8 @@
     },
     "bingo": [
       "research_2",
-      "event_2020"
+      "event_2020",
+      "event_xmas2020"
     ],
     "chance": 80,
     "bank": 42,
@@ -10791,7 +10805,8 @@
       "special": 1
     },
     "bingo": [
-      "research_2"
+      "research_2",
+      "2026_skins"
     ],
     "chance": 120,
     "bank": 42,
@@ -11215,7 +11230,9 @@
       "special": 1
     },
     "bingo": [
-      "research_2"
+      "research_2",
+      "event_xmas2022",
+      "event_xmas2023"
     ],
     "chance": 80,
     "bank": 42,
@@ -11328,7 +11345,8 @@
     },
     "bingo": [
       "research_2",
-      "legend"
+      "legend",
+      "2026_skins"
     ],
     "chance": 2,
     "bank": 42,
@@ -11533,7 +11551,8 @@
       "special": 1
     },
     "bingo": [
-      "research_2"
+      "research_2",
+      "2026_events"
     ],
     "chance": 120,
     "bank": 42,
@@ -12479,7 +12498,8 @@
     },
     "bingo": [
       "anniversary_25",
-      "event_2022"
+      "event_2022",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -12842,7 +12862,14 @@
       "special": 1
     },
     "bingo": [
-      "events"
+      "events",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2021",
+      "event_xmas2022"
     ],
     "chance": 0,
     "bank": 42,
@@ -13120,7 +13147,12 @@
       "special": 1
     },
     "bingo": [
-      "events"
+      "events",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2021",
+      "event_xmas2022"
     ],
     "chance": 0,
     "bank": 42,
@@ -13233,7 +13265,9 @@
     },
     "bingo": [
       "research_3",
-      "legend"
+      "legend",
+      "anniversary_26",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -15437,7 +15471,8 @@
     },
     "bingo": [
       "2025_events",
-      "research_3"
+      "research_3",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -15662,7 +15697,9 @@
       "special": 1
     },
     "bingo": [
-      "research_3"
+      "research_3",
+      "event_xmas2018",
+      "event_xmas2019"
     ],
     "chance": 20,
     "bank": 42,
@@ -15973,7 +16010,10 @@
     },
     "bingo": [
       "research_3",
-      "events"
+      "events",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2020"
     ],
     "chance": 0,
     "bank": 42,
@@ -16282,7 +16322,8 @@
     },
     "bingo": [
       "research_3",
-      "legend"
+      "legend",
+      "event_2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -16903,7 +16944,12 @@
       "special": 1
     },
     "bingo": [
-      "research_3"
+      "research_3",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2020",
+      "event_xmas2021"
     ],
     "chance": 20,
     "bank": 42,
@@ -17603,7 +17649,8 @@
       "special": 1
     },
     "bingo": [
-      "research_4"
+      "research_4",
+      "2026_skins"
     ],
     "chance": 120,
     "bank": 42,
@@ -18365,7 +18412,8 @@
     },
     "bingo": [
       "research_4",
-      "legend"
+      "legend",
+      "anniversary_24"
     ],
     "chance": 20,
     "bank": 42,
@@ -18677,7 +18725,8 @@
     "bingo": [
       "research_4",
       "amazons",
-      "rumble"
+      "rumble",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -19074,7 +19123,8 @@
     },
     "bingo": [
       "research_4",
-      "event_2021"
+      "event_2021",
+      "event_xmas2024"
     ],
     "chance": 20,
     "bank": 42,
@@ -19383,7 +19433,8 @@
     },
     "bingo": [
       "research_4",
-      "event_2022"
+      "event_2022",
+      "event_2023"
     ],
     "chance": 80,
     "bank": 42,
@@ -19608,7 +19659,8 @@
     },
     "bingo": [
       "research_4",
-      "amazons"
+      "amazons",
+      "event_xmas2022"
     ],
     "chance": 20,
     "bank": 42,
@@ -20394,7 +20446,10 @@
       "special": 1
     },
     "bingo": [
-      "research_4"
+      "research_4",
+      "event_xmas2021",
+      "event_xmas2022",
+      "event_xmas2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -21017,7 +21072,12 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2022"
+    ],
     "chance": 20,
     "bank": 105,
     "name_attack1": "Верный выстрел",
@@ -21461,7 +21521,9 @@
     },
     "bingo": [
       "research_5",
-      "amazons"
+      "amazons",
+      "event_xmas2021",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -21887,7 +21949,8 @@
     },
     "bingo": [
       "anniversary_25",
-      "research_5"
+      "research_5",
+      "10years"
     ],
     "chance": 0,
     "bank": 42,
@@ -22112,7 +22175,9 @@
     },
     "bingo": [
       "research_5",
-      "rumble"
+      "rumble",
+      "2026_events",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -22337,7 +22402,8 @@
       "special": 1
     },
     "bingo": [
-      "research_5"
+      "research_5",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -22870,7 +22936,8 @@
       "special": 1
     },
     "bingo": [
-      "research_5"
+      "research_5",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -23517,7 +23584,9 @@
       "special": 1
     },
     "bingo": [
-      "research_5"
+      "research_5",
+      "event_xmas2019",
+      "event_xmas2020"
     ],
     "chance": 20,
     "bank": 42,
@@ -24310,7 +24379,8 @@
     "bingo": [
       "2025_events",
       "anniversary_25",
-      "research_5"
+      "research_5",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -24422,7 +24492,8 @@
       "special": 1
     },
     "bingo": [
-      "research_5"
+      "research_5",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -24620,7 +24691,11 @@
       "special": 1
     },
     "bingo": [
-      "research_5"
+      "research_5",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2020"
     ],
     "chance": 20,
     "bank": 42,
@@ -25580,7 +25655,10 @@
       "special": 1
     },
     "bingo": [
-      "research_6"
+      "research_6",
+      "event_xmas2023",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -25693,7 +25771,8 @@
     },
     "bingo": [
       "research_6",
-      "heroic"
+      "heroic",
+      "anniversary_21"
     ],
     "chance": 20,
     "bank": 42,
@@ -25918,7 +25997,8 @@
     },
     "bingo": [
       "research_6",
-      "event_2024"
+      "event_2024",
+      "event_2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -26851,7 +26931,9 @@
     "bingo": [
       "anniversary_25",
       "research_6",
-      "heroic"
+      "heroic",
+      "anniversary_26",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -26937,7 +27019,12 @@
     },
     "bingo": [
       "research_6",
-      "events"
+      "events",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2024"
     ],
     "chance": 0,
     "bank": 42,
@@ -27814,7 +27901,9 @@
       "special": 1
     },
     "bingo": [
-      "research_6"
+      "research_6",
+      "anniversary_26",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -29140,7 +29229,8 @@
     },
     "bingo": [
       "2025_events",
-      "research_7"
+      "research_7",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -29367,7 +29457,10 @@
     },
     "bingo": [
       "research_7",
-      "event_2020"
+      "event_2020",
+      "event_xmas2020",
+      "event_xmas2022",
+      "event_xmas2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -29931,7 +30024,10 @@
       "special": 1
     },
     "bingo": [
-      "research_7"
+      "research_7",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2021"
     ],
     "chance": 20,
     "bank": 42,
@@ -30043,7 +30139,8 @@
       "special": 1
     },
     "bingo": [
-      "research_7"
+      "research_7",
+      "event_xmas2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -30948,7 +31045,8 @@
     },
     "bingo": [
       "research_7",
-      "rumble"
+      "rumble",
+      "anniversary_21"
     ],
     "chance": 20,
     "bank": 42,
@@ -31062,7 +31160,9 @@
     "bingo": [
       "research_7",
       "heroic",
-      "event_2020"
+      "event_2020",
+      "event_xmas2020",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -31515,7 +31615,11 @@
     },
     "bingo": [
       "research_7",
-      "rumble"
+      "rumble",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2021",
+      "event_xmas2022"
     ],
     "chance": 20,
     "bank": 42,
@@ -31911,7 +32015,10 @@
     "bingo": [
       "research_7",
       "rumble",
-      "heroic"
+      "heroic",
+      "anniversary_26",
+      "2026_events",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -32138,7 +32245,10 @@
       "special": 1
     },
     "bingo": [
-      "research_7"
+      "research_7",
+      "event_xmas2021",
+      "event_xmas2023",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -32672,7 +32782,8 @@
       "special": 1
     },
     "bingo": [
-      "research_7"
+      "research_7",
+      "event_xmas2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -32896,7 +33007,9 @@
       "special": 1
     },
     "bingo": [
-      "research_7"
+      "research_7",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -33008,7 +33121,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_xmas2024"
     ],
     "chance": 20,
     "bank": 42,
@@ -33093,7 +33207,10 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_xmas2016",
+      "event_xmas2017",
+      "event_xmas2021"
     ],
     "chance": 0,
     "bank": 42,
@@ -33546,7 +33663,12 @@
     },
     "bingo": [
       "research_8",
-      "heroic"
+      "heroic",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2021"
     ],
     "chance": 20,
     "bank": 42,
@@ -33660,7 +33782,8 @@
     },
     "bingo": [
       "research_8",
-      "event_2024"
+      "event_2024",
+      "event_xmas2024"
     ],
     "chance": 20,
     "bank": 42,
@@ -33772,7 +33895,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -33998,7 +34122,9 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_xmas2019",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -34112,7 +34238,8 @@
     "bingo": [
       "2025_events",
       "anniversary_25",
-      "research_8"
+      "research_8",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -34619,7 +34746,9 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "anniversary_26",
+      "anniversary_24"
     ],
     "chance": 20,
     "bank": 42,
@@ -35043,7 +35172,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "anniversary_21"
     ],
     "chance": 20,
     "bank": 42,
@@ -35155,7 +35285,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -35269,7 +35400,8 @@
     "bingo": [
       "2025_skins",
       "2025_events",
-      "research_8"
+      "research_8",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -35493,7 +35625,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "anniversary_21"
     ],
     "chance": 20,
     "bank": 42,
@@ -35721,7 +35854,8 @@
       "2025_events",
       "anniversary_25",
       "research_8",
-      "heroic"
+      "heroic",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -35835,7 +35969,10 @@
     },
     "bingo": [
       "research_8",
-      "event_2022"
+      "event_2022",
+      "event_xmas2022",
+      "event_xmas2023",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -35947,7 +36084,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -36061,7 +36199,8 @@
     "bingo": [
       "anniversary_25",
       "research_8",
-      "event_2022"
+      "event_2022",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -36174,7 +36313,11 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2020",
+      "event_xmas2024"
     ],
     "chance": 20,
     "bank": 42,
@@ -36287,7 +36430,8 @@
     },
     "bingo": [
       "2025_events",
-      "research_8"
+      "research_8",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -36597,7 +36741,9 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "anniversary_26",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -36710,7 +36856,11 @@
     },
     "bingo": [
       "research_8",
-      "event_2021"
+      "event_2021",
+      "event_xmas2021",
+      "event_xmas2022",
+      "event_xmas2023",
+      "event_xmas2024"
     ],
     "chance": 20,
     "bank": 42,
@@ -37584,7 +37734,9 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "anniversary_26",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -37926,7 +38078,9 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "event_xmas2023",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -39000,7 +39154,9 @@
     },
     "bingo": [
       "anniversary_25",
-      "research_9"
+      "research_9",
+      "anniversary_26",
+      "anniversary_24"
     ],
     "chance": 20,
     "bank": 42,
@@ -39113,7 +39269,9 @@
     },
     "bingo": [
       "research_9",
-      "event_2019"
+      "event_2019",
+      "event_xmas2019",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -39650,7 +39808,8 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -39763,7 +39922,8 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -39875,7 +40035,8 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "event_2023"
     ],
     "chance": 20,
     "bank": 42,
@@ -40214,7 +40375,10 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "anniversary_26",
+      "anniversary_24",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -40328,7 +40492,11 @@
     },
     "bingo": [
       "research_9",
-      "heroic"
+      "heroic",
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2021"
     ],
     "chance": 20,
     "bank": 42,
@@ -40442,7 +40610,8 @@
     },
     "bingo": [
       "2025_events",
-      "research_9"
+      "research_9",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -40642,7 +40811,8 @@
       "2025_skins",
       "2025_events",
       "anniversary_25",
-      "research_9"
+      "research_9",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -40867,7 +41037,9 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "anniversary_26",
+      "10years"
     ],
     "chance": 20,
     "bank": 42,
@@ -40980,7 +41152,8 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -41093,7 +41266,9 @@
     },
     "bingo": [
       "research_10",
-      "event_2022"
+      "event_2022",
+      "event_xmas2022",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -41291,7 +41466,9 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -41689,7 +41866,8 @@
     "bingo": [
       "2025_events",
       "anniversary_25",
-      "research_10"
+      "research_10",
+      "anniversary_26"
     ],
     "chance": 20,
     "bank": 42,
@@ -41802,7 +41980,8 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -41914,7 +42093,9 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "anniversary_26",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -42283,7 +42464,12 @@
     },
     "bingo": [
       "research_10",
-      "event_2019"
+      "event_2019",
+      "event_xmas2019",
+      "event_xmas2021",
+      "event_xmas2022",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 0,
     "bank": 42,
@@ -42398,7 +42584,8 @@
     "bingo": [
       "2025_skins",
       "2025_events",
-      "research_10"
+      "research_10",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -42712,7 +42899,9 @@
     },
     "bingo": [
       "anniversary_25",
-      "research_10"
+      "research_10",
+      "anniversary_26",
+      "anniversary_24"
     ],
     "chance": 20,
     "bank": 42,
@@ -42909,7 +43098,9 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 20,
     "bank": 42,
@@ -43416,7 +43607,8 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -43841,7 +44033,9 @@
       "special": 1
     },
     "bingo": [
-      "research_10"
+      "research_10",
+      "anniversary_26",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -45169,7 +45363,11 @@
     },
     "bingo": [
       "research_11",
-      "event_2020"
+      "event_2020",
+      "event_xmas2020",
+      "event_xmas2022",
+      "event_xmas2023",
+      "event_xmas2024"
     ],
     "chance": 0,
     "bank": 42,
@@ -48141,7 +48339,12 @@
     },
     "bingo": [
       "research_11",
-      "event_2021"
+      "event_2021",
+      "event_xmas2021",
+      "event_xmas2022",
+      "event_xmas2023",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 0,
     "bank": 42,
@@ -48365,7 +48568,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_events"
+    ],
     "chance": 20,
     "bank": 42,
     "tier": "3+",
@@ -48694,7 +48899,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_xmas2025"
+    ],
     "chance": 20,
     "bank": 42,
     "tier": "3-",
@@ -49001,7 +49208,11 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_xmas2023",
+      "event_xmas2024",
+      "event_xmas2025"
+    ],
     "chance": 0,
     "bank": 42,
     "name_attack1": "Подарок-капсула",
@@ -50059,7 +50270,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_2023"
+    ],
     "chance": 0,
     "bank": 42,
     "name_attack1": "Кара ненавистью",
@@ -51140,7 +51353,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_2023"
+    ],
     "chance": 0,
     "bank": 42,
     "tier": "3",
@@ -51445,7 +51660,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_2023"
+    ],
     "chance": 0,
     "bank": 42,
     "tier": "4",
@@ -51977,7 +52194,11 @@
       "special": 1
     },
     "bingo": [
-      "event_2022"
+      "event_2022",
+      "event_xmas2022",
+      "event_xmas2023",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 0,
     "bank": 42,
@@ -53220,7 +53441,9 @@
       "special": 1
     },
     "bingo": [
-      "event_2022"
+      "event_2022",
+      "anniversary_26",
+      "anniversary_24"
     ],
     "chance": 0,
     "bank": 42,
@@ -53389,7 +53612,9 @@
     },
     "bingo": [
       "anniversary_25",
-      "event_2024"
+      "event_2024",
+      "anniversary_26",
+      "anniversary_24"
     ],
     "chance": 0,
     "bank": 43,
@@ -53501,7 +53726,13 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_xmas2017",
+      "event_xmas2018",
+      "event_xmas2019",
+      "event_xmas2021",
+      "event_xmas2023"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Репликация",
@@ -53862,7 +54093,11 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "anniversary_26",
+      "anniversary_24",
+      "10years"
+    ],
     "chance": 0,
     "bank": 50,
     "name_attack1": "Молния",
@@ -54111,7 +54346,8 @@
       "special": 1
     },
     "bingo": [
-      "anniversary_25"
+      "anniversary_25",
+      "anniversary_21"
     ],
     "chance": 0,
     "bank": 42,
@@ -54195,7 +54431,8 @@
       "special": 1
     },
     "bingo": [
-      "event_2021"
+      "event_2021",
+      "anniversary_21"
     ],
     "chance": 0,
     "bank": 42,
@@ -54279,7 +54516,9 @@
       "special": 1
     },
     "bingo": [
-      "event_2019"
+      "event_2019",
+      "anniversary_21",
+      "anniversary_24"
     ],
     "chance": 0,
     "bank": 42,
@@ -54363,7 +54602,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "anniversary_21"
+    ],
     "chance": 0,
     "bank": 42,
     "name_attack1": "Огромная черная дыра",
@@ -54446,7 +54687,8 @@
       "special": 1
     },
     "bingo": [
-      "anniversary_25"
+      "anniversary_25",
+      "anniversary_21"
     ],
     "chance": 0,
     "bank": 42,
@@ -54756,7 +54998,8 @@
     "bingo": [
       "2025_mutants",
       "2025_events",
-      "anniversary_25"
+      "anniversary_25",
+      "anniversary_26"
     ],
     "chance": 0,
     "bank": 84,
@@ -55428,7 +55671,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "event_2023"
+    ],
     "chance": 0,
     "bank": 42,
     "tier": "3",
@@ -57170,7 +57415,9 @@
       "special": 1
     },
     "bingo": [
-      "event_2024"
+      "event_2024",
+      "event_xmas2024",
+      "event_xmas2025"
     ],
     "chance": 0,
     "bank": 42,
@@ -57789,7 +58036,8 @@
     },
     "bingo": [
       "2025_mutants",
-      "2025_events"
+      "2025_events",
+      "event_xmas2025"
     ],
     "chance": 0,
     "bank": 84,
@@ -57900,7 +58148,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "tier": "3+",
@@ -58011,7 +58261,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Стеклянные осколки",
@@ -58122,7 +58374,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Изысканный удар",
@@ -58205,7 +58459,10 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_events",
+      "2026_mutants"
+    ],
     "chance": 0,
     "bank": 84,
     "name_attack1": "Маленькая закуска",
@@ -58425,7 +58682,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Жужжащие пчелы",
@@ -58508,7 +58767,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 0,
     "bank": 42,
     "name_attack1": "Ядовитый шпор",
@@ -58619,7 +58880,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Жёлтая карточка",
@@ -58730,7 +58993,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Взрыв извержения",
@@ -58841,7 +59106,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Спиральный взрыв",
@@ -58925,7 +59192,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 0,
     "bank": 45,
     "tier": "2",
@@ -59121,7 +59390,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "name_attack1": "Смертельное ранение",
@@ -59231,7 +59502,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "tier": "3+",

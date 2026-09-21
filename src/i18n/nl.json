@@ -26,6 +26,8 @@
   "mutants.filter.type.any": "Alle",
   "mutants.filter.bingo": "Bingo",
   "mutants.filter.bingo.any": "Alle",
+  "mutants.filter.source": "Bron",
+  "mutants.filter.source.any": "Elke",
   "mutants.viewMode.label": "Weergave",
   "mutants.viewMode.full": "Volledig",
   "mutants.viewMode.heads": "Koppen",

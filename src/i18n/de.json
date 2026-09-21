@@ -26,6 +26,8 @@
   "mutants.filter.type.any": "Alle",
   "mutants.filter.bingo": "Bingo",
   "mutants.filter.bingo.any": "Alle",
+  "mutants.filter.source": "Quelle",
+  "mutants.filter.source.any": "Beliebig",
   "mutants.viewMode.label": "Ansicht",
   "mutants.viewMode.full": "Vollständig",
   "mutants.viewMode.heads": "Köpfe",
