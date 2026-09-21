@@ -31,7 +31,11 @@ function readKeys(raw: unknown): string[] {
   if (Array.isArray(raw)) {
     return raw
       .map((x) =>
-        typeof x === 'string' ? x : x && typeof x === 'object' && typeof (x as any).key === 'string' ? (x as any).key : '',
+        typeof x === 'string'
+          ? x
+          : x && typeof x === 'object' && typeof (x as any).key === 'string'
+            ? (x as any).key
+            : '',
       )
       .filter(Boolean)
   }
