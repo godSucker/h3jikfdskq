@@ -227,6 +227,39 @@ export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
   },
 }
 
+// Иконки источников. Всё из уже залитых на CDN ассетов игры: отдельной
+// отрисовки не потребовалось, проверено curl'ом (все 19 отдают 200).
+// Подбор под размер 20px в дропдауне - изометрические здания и детальные
+// ачивки на этом размере превращаются в кашу, поэтому взяты плоские
+// символьные иконки.
+export const OBTAIN_SOURCE_ICON: Record<string, string> = {
+  pvp: '/mut_icons/icon_pvp.webp',
+  gacha: '/mut_icons/icon_gacha.webp',
+  roulette: '/sims/roulette.webp',
+  box: '/boxes/lucky_box_1.png',
+  bundle: '/quests/achievements/achivement_gift.png',
+  gold_shop: '/cash/hardcurrency.webp',
+  credits_shop: '/cash/softcurrency.webp',
+  donate: '/mut_icons/donate.png',
+  breeding: '/sims/larva.webp',
+  breeding_duplicate: '/quests/achievements/achivement_duplicate.png',
+  secret_breeding: '/mut_icons/icon_recipe.webp',
+  event_raid: '/mut_icons/icon_seasonal.webp',
+  event_hall: '/tokens/material_event_token.webp',
+  jackpot_hall: '/cash/jackpot.webp',
+  bingo: '/etc/icon_bingo.webp',
+  quest: '/quests/story/quest_mutodex.png',
+  campaign: '/quests/story/quest_pve_d.png',
+  crossover: '/mut_icons/icon_videogame.webp',
+  unavailable: '/mut_icons/limited.webp',
+}
+
+// Путь отдаётся без CDN-префикса: вызывающий оборачивает в textureUrl()
+// (см. .icon-property-паттерн в CLAUDE.md).
+export function obtainSourceIcon(type: string): string | null {
+  return OBTAIN_SOURCE_ICON[type] ?? null
+}
+
 // Незнакомый источник (новый тип в obtain.json) не прячем - показываем ключ
 // как есть, чтобы фильтр не начал тихо терять мутантов.
 export function obtainSourceLabelL(type: string, locale: Locale = 'ru'): string {
