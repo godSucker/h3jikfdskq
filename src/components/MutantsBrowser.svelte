@@ -8,6 +8,7 @@
   import { getTypeIcon, STAR_KEYS } from '@/lib/mutant-icons';
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
+  import { bingoBoardGroup, compareBingoBoards } from '@/lib/bingo-order';
   import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
@@ -165,17 +166,7 @@
   let bingoOptions = $derived((bingoIndex?.length
       ? [...bingoIndex]
       : uniq(flatten(items.map(collectBingoKeys)))
-    ).sort((a,b) => {
-      const la = String(bingoLabel?.(a) ?? a);
-      const lb = String(bingoLabel?.(b) ?? b);
-      const aIsResearch = /^Исследование\s/.test(la);
-      const bIsResearch = /^Исследование\s/.test(lb);
-      if (aIsResearch && !bIsResearch) return -1;
-      if (!aIsResearch && bIsResearch) return 1;
-      const na = la.replace(/\d+/g, m => m.padStart(6, '0'));
-      const nb = lb.replace(/\d+/g, m => m.padStart(6, '0'));
-      return na.localeCompare(nb, 'ru');
-    }));
+    ).sort((a, b) => compareBingoBoards(a, b, (id) => String(bingoLabel?.(id) ?? id))));
   let bingoSel = $state('');
 
   // Источник - откуда мутанта выдавали (obtain.json). Отдельное измерение от
@@ -679,7 +670,10 @@
           <button type="button" class="icon-select-option {!bingoSel ? 'active' : ''}" role="option" aria-selected={!bingoSel} onclick={() => { bingoSel = ''; bingoDropdownOpen = false; }}>
             <span class="icon-select-label">{t('mutants.filter.bingo.any', locale)}</span>
           </button>
-          {#each bingoOptions as b}
+          {#each bingoOptions as b, i}
+            {#if i > 0 && bingoBoardGroup(b) !== bingoBoardGroup(bingoOptions[i - 1])}
+              <div class="icon-select-divider" role="separator"></div>
+            {/if}
             <button type="button" class="icon-select-option {bingoSel === b ? 'active' : ''}" role="option" aria-selected={bingoSel === b} onclick={() => { bingoSel = b; bingoDropdownOpen = false; }}>
               <img src={textureUrl(bingoIconUrl(b))} alt="" class="icon-select-icon" />
               <span class="icon-select-label">{bingoLabel?.(b) ?? b}</span>
