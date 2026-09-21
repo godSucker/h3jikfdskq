@@ -2842,7 +2842,7 @@
         "exactDateLabel": "23 сентября — 23 октября",
         "exactDateStart": "2026-09-23T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
-        "featuredMutant": "month",
+        "featuredMutant": "zodiac",
         "packMutants": [
           "Specimen_AE_02"
         ]
@@ -2859,7 +2859,7 @@
         "exactDateLabel": "23 сентября — 23 октября",
         "exactDateStart": "2026-09-23T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
-        "featuredMutant": "month",
+        "featuredMutant": "zodiac",
         "packMutants": [
           "Specimen_AE_02"
         ]

@@ -78,12 +78,18 @@ export function classifyFeaturedMutant(
   itemId: string,
   start: string | null,
   end: string | null,
-): 'week' | 'month' | null {
+  filterTag?: string | null,
+): 'week' | 'month' | 'zodiac' | null {
   if (!start || !end) return null
   if (!/^-*#?specimen_/i.test(itemId)) return null
   const days = (new Date(end).getTime() - new Date(start).getTime()) / 86_400_000
-  if (days >= 6 && days <= 9) return 'week'
-  if (days >= 25 && days <= 33) return 'month'
+  // Зодиаки продаются тем же месячным окном, что и "мутант месяца", и плашка
+  // на карточке их путала (репорт юзера 2026-09-21: Либраро с подписью
+  // "МУТАНТ МЕСЯЦА"). Отличает их только фильтр оффера - Shop_Zodiac_<id>,
+  // в самом itemId ничего про зодиак нет.
+  const isZodiac = /zodiac/i.test(filterTag ?? '')
+  if (days >= 6 && days <= 9) return isZodiac ? 'zodiac' : 'week'
+  if (days >= 25 && days <= 33) return isZodiac ? 'zodiac' : 'month'
   return null
 }
 
@@ -116,7 +122,7 @@ interface ForecastItem {
   // classifyFeaturedMutant (там окно 1-2 дня для ОБЫЧНОГО спринтового
   // оффера ничего не значит - тут источник уже точно известен по Path).
   // null для не-мутантов и обычных коротких окон.
-  featuredMutant: 'day' | 'week' | 'month' | null
+  featuredMutant: 'day' | 'week' | 'month' | 'zodiac' | null
   // Мутанты ВНУТРИ пакета (<ArticleItems> в shopitems.xml). Без этого пакеты
   // вроде "Пакет «Спираксия»" (bank_e_14_*) выглядели некликабельными: сам
   // itemId мутанта не содержит, а мутант внутри есть (юзер поймал 2026-09-16).
@@ -252,7 +258,12 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
         exactDateEnd: exactRange?.end ?? null,
         featuredMutant:
           forceFeatured ??
-          classifyFeaturedMutant(itemId, exactRange?.start ?? null, exactRange?.end ?? null),
+          classifyFeaturedMutant(
+            itemId,
+            exactRange?.start ?? null,
+            exactRange?.end ?? null,
+            filterTag,
+          ),
         packMutants,
       },
     }
