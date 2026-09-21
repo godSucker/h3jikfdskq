@@ -648,6 +648,30 @@ const structuredData = [
       }
       
       /* Tablet styles */
+      /* НАЙДЕНО 2026-09-21 (репорт Влада, планшет): бургер включался только
+         ниже 768px, а горизонтальное меню из 15 пунктов требует ~1490px - на
+         всём диапазоне 768-1499 часть ссылок просто уезжала за правый край и
+         была недоступна (на 1366 обрезало две, на 1440 - одну). Отдаём этому
+         диапазону то же бургер-меню, что и телефону; остальные мобильные
+         правила (отступы main и прочее) остаются при max-width: 767px. */
+      @media (min-width: 768px) and (max-width: 1499px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        header nav {
+          display: none;
+        }
+
+        .mobile-nav {
+          display: block;
+        }
+
+        .overlay {
+          display: block;
+        }
+      }
+
       @media (min-width: 768px) and (max-width: 1023px) {
         header {
           padding: 1rem 1.5rem;
