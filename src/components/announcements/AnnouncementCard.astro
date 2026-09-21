@@ -9,7 +9,8 @@ import { textureUrl } from '@/lib/texture-cdn'
 import { t, pluralizeCount, type Locale } from '@/lib/i18n'
 import { resolveMutantLite } from '@/lib/guides-resolve'
 import { sprintRangeLabelIn, sprintStartDate, formatDateIn } from '@/lib/sprint-calendar'
-import { getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures'
+import { getRewardTexturePath, getRewardLabel, bingoIconUrl } from '@/lib/bingo-textures'
+import bingoScreenshots from '@/data/bingo-screenshots.json'
 import {
   categoryLabel,
   cardKind,
@@ -91,6 +92,9 @@ const reactorWindow =
 const showCta = mode === 'feed'
 
 const it = a.items?.[0]
+// Готовый скрин доски для бинго-анонса (scripts/render-bingo-screenshots.ts).
+const bingoShotFile =
+  kind === 'bingo' && it ? (bingoScreenshots as Record<string, { file: string }>)[it.id]?.file : undefined
 const dungeon = kind === 'dungeon' && it ? ctx.dungeonById.get(it.id) : null
 const dungeonCover = kind === 'dungeon' && it ? ctx.dungeonCoversMap[it.id] : null
 const mutantLite = kind === 'mutant' && it ? resolveMutantLite(it.id, ctx.mutantsById) : null
@@ -448,7 +452,17 @@ const forecastWeeks =
   ) : kind === 'bingo' && it ? (
     <div class="hero-card">
       <div class="dg-hero bingo-hero">
-        <img class="bingo-screenshot" src={`/api/screenshot-bingo?board=${encodeURIComponent(it.id)}`} alt={formatBingoTitle(ctx.bingosById.get(it.id) ?? it.name, it.id, locale)} loading="lazy" decoding="async" />
+        {/* Готовый PNG из scripts/render-bingo-screenshots.ts, не живой
+            рендер: Chromium на трафике посетителей падал и давал ~1% ошибок
+            на Vercel. Пока скрин новой доски не готов (обычно минуты после
+            деплоя) - иконка доски вместо битой картинки. */}
+        {bingoShotFile ? (
+          <img class="bingo-screenshot" src={textureUrl(bingoShotFile)} alt={formatBingoTitle(ctx.bingosById.get(it.id) ?? it.name, it.id, locale)} loading="lazy" decoding="async" />
+        ) : (
+          <div class="bingo-screenshot-pending">
+            <img src={textureUrl(bingoIconUrl(it.id))} alt="" loading="lazy" decoding="async" />
+          </div>
+        )}
       </div>
       <div class="card-body">
         <time class="card-date" datetime={a.date}>{fmtDate(a.date, locale)}</time>
@@ -1637,5 +1651,16 @@ const forecastWeeks =
   .bingo-screenshot {
     width: 100%;
     display: block;
+  }
+  .bingo-screenshot-pending {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10rem;
+  }
+  .bingo-screenshot-pending img {
+    height: 6rem;
+    width: auto;
+    opacity: 0.85;
   }
 </style>
