@@ -9,6 +9,7 @@
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
   interface ResolvedItem { label: string; icon: string | null; mutant?: MutantLite }
+  interface PvpSeasonEntry extends MutantLite { season: number }
   interface ZodiacEntry extends MutantLite {
     sign: string
     dateFrom: string
@@ -91,6 +92,7 @@
     locale = 'ru' as Locale,
     legendaries = [],
     pvpFarmMutants = [],
+    pvpSeasons = [],
     zodiac = [],
     farmers = [],
     speedOrbs = [],
@@ -107,6 +109,7 @@
     locale?: Locale
     legendaries: MutantLite[]
     pvpFarmMutants: MutantLite[]
+    pvpSeasons: PvpSeasonEntry[]
     zodiac: ZodiacEntry[]
     farmers: FarmerRow[]
     speedOrbs: SpeedOrbRow[]
@@ -154,10 +157,10 @@
   // Вынесено в JSON (src/data/guides/tabs.json) - тот же список читает
   // scripts/build-search-index.ts для генерации ссылок сайтового поиска на
   // конкретные вкладки гайдов, один источник правды вместо двух копий списка.
-  // 'pvp-seasons' временно скрыт из списка - обсуждается отдельно, вернуть
-  // после решения, не удалять оттуда. label из JSON (RU) больше не
-  // используется для отображения - см. tabLabel() ниже, ключи гайдов
-  // переведены на 9 языков через guides.tab.<key>.
+  // 'pvp-seasons' был скрыт с 2026-08-02 (заглушка ready:false, обсуждение
+  // отложено) - вернулся 2026-09-22 с реальными данными (getTournamentsHistory).
+  // label из JSON (RU) больше не используется для отображения - см. tabLabel()
+  // ниже, ключи гайдов переведены на 9 языков через guides.tab.<key>.
   const TABS = tabsData as { key: string; label: string; ready: boolean }[]
   function tabLabel(key: string): string {
     return t(`guides.tab.${key}`, locale)
@@ -532,6 +535,27 @@
       </div>
     </div>
     <div class="guide-author">{t('guides.pvpFarm.author', locale)}</div>
+  {:else if activeTab === 'pvp-seasons'}
+    <div class="text-block">
+      <p>{t('guides.intro.pvpSeasons.p1', locale)}</p>
+      <p>{t('guides.intro.pvpSeasons.p2', locale)}</p>
+    </div>
+    <div class="mutant-grid">
+      {#each pvpSeasons as p (p.season)}
+        <button class="mutant-card" onclick={() => openMutant(p.id)}>
+          <span class="mutant-card-genes">
+            {#each (p.genes.length ? p.genes : ['neutro']) as g}
+              {#if getGeneIcon(g)}<img src={textureUrl(getGeneIcon(g))} alt={g} loading="lazy" decoding="async" />{/if}
+            {/each}
+          </span>
+          <span class="mutant-card-icon">
+            {#if p.icon}<img src={textureUrl(p.icon)} alt="" loading="lazy" decoding="async" />{/if}
+          </span>
+          <span class="mutant-card-name">{p.name}</span>
+          <span class="pvp-season-badge">{t('guides.pvpSeasons.seasonBadge', locale).replace('{n}', String(p.season))}</span>
+        </button>
+      {/each}
+    </div>
   {:else if activeTab === 'farmers'}
     <div class="text-block">
       <p>{t('guides.intro.farmers.p1', locale)}</p>
@@ -1204,6 +1228,7 @@
   .zodiac-card-dates { font-size: 10.5px; color: #94a3b8; }
   .zodiac-card-price { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 11px; font-weight: 700; color: #fbbf24; margin-top: 0.15rem; }
   .zodiac-card-price img { width: 14px; height: 14px; object-fit: contain; }
+  .pvp-season-badge { font-size: 10.5px; font-weight: 700; color: #60a5fa; background: rgba(96, 165, 250, 0.12); border-radius: 999px; padding: 0.1rem 0.5rem; }
 
   .farmer-chip { display: inline-flex; align-items: center; gap: 0.35rem; background: transparent; border: none; color: #e2e8f0; font-size: 0.78rem; font-weight: 600; cursor: pointer; padding: 1px 0; text-align: left; }
   .farmer-chip:hover { color: #60a5fa; }
