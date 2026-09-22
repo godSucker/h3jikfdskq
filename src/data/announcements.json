@@ -3275,6 +3275,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "2 — 5 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-05T10:00:00+00:00",
@@ -3289,6 +3290,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
+        "discountPercent": null,
         "exactDateLabel": "1 — 4 октября",
         "exactDateStart": "2026-10-01T10:00:00+00:00",
         "exactDateEnd": "2026-10-04T10:00:00+00:00",
@@ -3303,6 +3305,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "29 сентября — 1 октября",
         "exactDateStart": "2026-09-29T10:00:00+00:00",
         "exactDateEnd": "2026-10-01T10:00:00+00:00",
@@ -3317,6 +3320,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "29 сентября — 2 октября",
         "exactDateStart": "2026-09-29T10:00:00+00:00",
         "exactDateEnd": "2026-10-02T10:00:00+00:00",
@@ -3331,6 +3335,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "28 сентября — 1 октября",
         "exactDateStart": "2026-09-28T10:00:00+00:00",
         "exactDateEnd": "2026-10-01T10:00:00+00:00",
@@ -3342,6 +3347,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_exchange_office_2026_09-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "27 сентября — 4 октября",
         "exactDateStart": "2026-09-27T10:00:00+00:00",
         "exactDateEnd": "2026-10-04T10:00:00+00:00",
@@ -3356,6 +3362,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "26 — 29 сентября",
         "exactDateStart": "2026-09-26T10:00:00+00:00",
         "exactDateEnd": "2026-09-29T10:00:00+00:00",
@@ -3370,6 +3377,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
+        "discountPercent": null,
         "exactDateLabel": "25 — 28 сентября",
         "exactDateStart": "2026-09-25T10:00:00+00:00",
         "exactDateEnd": "2026-09-28T10:00:00+00:00",
@@ -3384,6 +3392,7 @@
           "type": "usd"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "25 — 27 сентября",
         "exactDateStart": "2026-09-25T10:00:00+00:00",
         "exactDateEnd": "2026-09-27T10:00:00+00:00",
@@ -3398,6 +3407,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "23 — 26 сентября",
         "exactDateStart": "2026-09-23T10:00:00+00:00",
         "exactDateEnd": "2026-09-26T10:00:00+00:00",
@@ -3412,6 +3422,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "seasonal",
+        "discountPercent": null,
         "exactDateLabel": "23 — 30 сентября",
         "exactDateStart": "2026-09-23T10:00:00+00:00",
         "exactDateEnd": "2026-09-30T10:00:00+00:00",
@@ -3423,6 +3434,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_tech_v2-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": 60,
         "exactDateLabel": "22 — 24 сентября",
         "exactDateStart": "2026-09-22T10:00:00+00:00",
         "exactDateEnd": "2026-09-24T10:00:00+00:00",
@@ -3437,6 +3449,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "22 — 26 сентября",
         "exactDateStart": "2026-09-22T10:00:00+00:00",
         "exactDateEnd": "2026-09-26T10:00:00+00:00",
@@ -3451,6 +3464,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "20 — 27 сентября",
         "exactDateStart": "2026-09-20T10:00:00+00:00",
         "exactDateEnd": "2026-09-27T10:00:00+00:00",
@@ -3462,6 +3476,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_e_14_ct-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "21 — 24 сентября",
         "exactDateStart": "2026-09-21T10:00:00+00:00",
         "exactDateEnd": "2026-09-24T10:00:00+00:00",
@@ -3476,6 +3491,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-50",
+        "discountPercent": null,
         "exactDateLabel": "21 — 23 сентября",
         "exactDateStart": "2026-09-21T10:00:00+00:00",
         "exactDateEnd": "2026-09-23T10:00:00+00:00",
@@ -3490,6 +3506,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-30",
+        "discountPercent": null,
         "exactDateLabel": "20 — 23 сентября",
         "exactDateStart": "2026-09-20T10:00:00+00:00",
         "exactDateEnd": "2026-09-23T10:00:00+00:00",
@@ -3504,6 +3521,7 @@
           "type": "hardcurrency"
         },
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "20 — 23 сентября",
         "exactDateStart": "2026-09-20T10:00:00+00:00",
         "exactDateEnd": "2026-09-23T10:00:00+00:00",
@@ -3518,6 +3536,7 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
+        "discountPercent": null,
         "exactDateLabel": "19 — 22 сентября",
         "exactDateStart": "2026-09-19T10:00:00+00:00",
         "exactDateEnd": "2026-09-22T10:00:00+00:00",
@@ -3529,6 +3548,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_building_mystery-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "≈ 19 сентября",
         "exactDateStart": "2026-09-19T10:00:00.000Z",
         "exactDateEnd": null,
@@ -3540,6 +3560,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256b-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "26 сентября — 3 октября",
         "exactDateStart": "2026-09-26T10:00:00.000Z",
         "exactDateEnd": "2026-10-03T10:00:00.000Z",
@@ -3551,6 +3572,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_256a-ru.jpg",
         "price": null,
         "ribbon": null,
+        "discountPercent": null,
         "exactDateLabel": "19 — 26 сентября",
         "exactDateStart": "2026-09-19T10:00:00.000Z",
         "exactDateEnd": "2026-09-26T10:00:00.000Z",
