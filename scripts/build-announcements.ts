@@ -22,6 +22,8 @@ import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './kartel-filter-dates'
+import { hasLivePromoData } from './kartel-promo-percents'
+import { runMain } from './lib/run-main'
 import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/sprint-calendar'
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
@@ -1626,6 +1628,18 @@ async function main() {
         'ниже), но и новые/уточнённые даты в этом прогоне не появятся.',
     )
   }
+  // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): тот же принцип, что у liveDataMissing
+  // выше, но для discountPercent - шаг fetch-promo-percents.py подключён
+  // ТОЛЬКО в announcements-hourly.yml (9.53), а finish-pending.yml/
+  // sync-cron.yml/parser-rebalance.yml зовут этот main() вообще без него. См.
+  // hasLivePromoData() в kartel-promo-percents.ts.
+  const promoDataMissing = !(await hasLivePromoData())
+  if (promoDataMissing) {
+    console.warn(
+      '[ANNOUNCE] ⚠️  scripts/live-promo-percents.json пуст/отсутствует - живого процента ' +
+        'скидки в этом прогоне нет. Уже известный discountPercent НЕ будет стёрт.',
+    )
+  }
 
   // МИГРАЦИЯ 2026-09-08: raid/ladder/eventLadder перешли с ключа "голый id"
   // на "id@exactDateStart" (см. detectDungeons/detectEventLadders выше -
@@ -1841,6 +1855,7 @@ async function main() {
             // ВСЕХ офферов без исключения - это не "дата оказалась чужой",
             // а "мы вообще не спрашивали" - в этом единственном случае
             // защищаем уже известное старое значение, а не доверяем fresh.
+            let merged = fresh
             if (liveDataMissing && !fresh.exactDateLabel && old?.exactDateLabel) {
               // featuredMutant ('week'/'month') тоже считается через
               // classifyFeaturedMutant(id, exactRange.start, exactRange.end) -
@@ -1850,14 +1865,39 @@ async function main() {
               // для даты. Тот же откат, тем же условием (см. advisor-ревью
               // 2026-09-09 - поймано ДО деплоя, до того как реально стёрло
               // ленту "Мутант недели/месяца" на проде).
-              return {
-                ...fresh,
+              //
+              // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): восстанавливались только
+              // exactDateLabel/exactDateStart/featuredMutant - exactDateEnd/
+              // exactDateApprox/exactDateOpenEnd оставались из fresh (null/
+              // false/undefined), т.е. RU-карточка (использует готовую
+              // exactDateLabel-строку как есть) была в порядке, а не-RU
+              // локали (exactDateLabelIn в announcements-render.ts собирает
+              // подпись САМ из этих полей) рисовали неверный диапазон - без
+              // конца, без "≈", без "- ?". Все exactDate*-поля считаются
+              // вместе, из одного exactRange - восстанавливаем всю группу
+              // одним блоком, а не по одному полю за раз.
+              merged = {
+                ...merged,
                 exactDateLabel: old.exactDateLabel,
                 exactDateStart: old.exactDateStart,
+                exactDateEnd: old.exactDateEnd ?? null,
+                exactDateApprox: old.exactDateApprox,
+                exactDateOpenEnd: old.exactDateOpenEnd,
                 featuredMutant: fresh.featuredMutant ?? old.featuredMutant ?? null,
               }
             }
-            return fresh
+            // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): discountPercent - отдельный
+            // живой источник (fetch-promo-percents.py, promoDataMissing выше),
+            // независимый от live-filter-dates - гейтится отдельным флагом, не
+            // завязанным на liveDataMissing.
+            if (
+              promoDataMissing &&
+              merged.discountPercent == null &&
+              old?.discountPercent != null
+            ) {
+              merged = { ...merged, discountPercent: old.discountPercent }
+            }
+            return merged
           })
           const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
           console.log(
@@ -1953,9 +1993,4 @@ async function main() {
 // приём, что уже используют detect-shop-forecast.ts/detect-new-dungeons.ts -
 // в CI всегда вызывается напрямую (`npx tsx scripts/build-announcements.ts`),
 // это условие true, поведение пайплайна не меняется.
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error('[ANNOUNCE] Ошибка:', err instanceof Error ? err.message : err)
-    process.exit(1)
-  })
-}
+runMain(import.meta.url, 'ANNOUNCE', main)

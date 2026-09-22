@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 import { XMLParser } from 'fast-xml-parser'
 import {
   isEventFilter,
@@ -281,9 +282,4 @@ async function main() {
   )
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error('[BUILD-QUESTS] Ошибка:', err instanceof Error ? err.message : err)
-    process.exit(1)
-  })
-}
+runMain(import.meta.url, 'BUILD-QUESTS', main)

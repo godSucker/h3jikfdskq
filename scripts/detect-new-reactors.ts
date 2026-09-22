@@ -19,6 +19,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import axios from 'axios'
+import { runMain } from './lib/run-main'
 
 const ROOT = process.cwd()
 const GACHA_XML_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gacha.xml'
@@ -210,9 +211,4 @@ async function main() {
 // Только при прямом запуске (`tsx detect-new-reactors.ts`) - finish-pending.ts
 // импортирует parseGachaXml из этого модуля и не должен попутно триггерить
 // полный прогон детектора с алертами.
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error('[REACTOR-WATCH] Ошибка:', err instanceof Error ? err.message : err)
-    process.exit(1)
-  })
-}
+runMain(import.meta.url, 'REACTOR-WATCH', main)

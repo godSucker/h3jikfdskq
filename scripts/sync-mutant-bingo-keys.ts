@@ -14,6 +14,7 @@
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { runMain } from './lib/run-main'
 
 const BINGOS_PATH = path.join(process.cwd(), 'src/data/bingos.json')
 const MUTANTS_PATH = path.join(process.cwd(), 'src/data/mutants/mutants.json')
@@ -109,7 +110,4 @@ async function main(): Promise<void> {
   console.log(lines.join('\n'))
 }
 
-main().catch((err) => {
-  console.error('[BINGO-KEYS] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'BINGO-KEYS', main)

@@ -12,6 +12,7 @@ import {
   sendAdminText,
   type AdminPhoto,
 } from './telegram-admin-bot'
+import { runMain } from './lib/run-main'
 
 const SITE = 'https://archivist-library.com'
 const MIN_AGE_MS = 5 * 60 * 1000
@@ -248,7 +249,4 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('[ADMIN-BOT] Упал:', err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'ADMIN-BOT', main)

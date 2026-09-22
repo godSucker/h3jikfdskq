@@ -1,5 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 
 // Сторож, не генератор: obtain.json - кураторские данные (7 коммитов ручной калибровки
 // 2026-07-31: наследование vs реальный обтейн, "больше недоступен", fallback иконок).
@@ -41,7 +42,4 @@ async function main() {
   console.log(lines.join('\n'))
 }
 
-main().catch((err) => {
-  console.error('[OBTAIN-DETECT] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'OBTAIN-DETECT', main)

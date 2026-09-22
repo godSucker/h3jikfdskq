@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 import { pluralize } from '../src/lib/utils'
 
 // Джекпот- и ивент-обменник (Building_Tokens_Jackpot / Building_Event_1 в
@@ -317,7 +318,4 @@ async function main() {
   console.log(lines.join('\n'))
 }
 
-main().catch((err) => {
-  console.error('[EXCHANGE-DETECT] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'EXCHANGE-DETECT', main)

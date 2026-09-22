@@ -22,6 +22,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import axios from 'axios'
+import { runMain } from './lib/run-main'
 
 const ROOT = process.cwd()
 const GAME_DEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
@@ -180,7 +181,4 @@ async function main() {
   )
 }
 
-main().catch((err) => {
-  console.error('[TOKENS] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'TOKENS', main)

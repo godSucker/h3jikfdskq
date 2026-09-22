@@ -16,6 +16,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 
 const LOCALES = ['en', 'es', 'fr', 'de', 'pt', 'it', 'tr', 'nl'] as const
 const LOC_URL = (locale: string) =>
@@ -153,7 +154,4 @@ async function main() {
   console.log('[DONE]')
 }
 
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'OBTAIN-NAMES', main)

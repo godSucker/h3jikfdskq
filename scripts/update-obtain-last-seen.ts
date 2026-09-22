@@ -16,6 +16,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { fetchGameXml } from './game-xml-cache'
 import { hasLiveFilterData, loadFilterDates } from './kartel-filter-dates'
+import { runMain } from './lib/run-main'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LAST_SEEN_PATH = path.join(process.cwd(), 'scripts/obtain-last-seen.json')
@@ -77,7 +78,4 @@ async function main() {
   )
 }
 
-main().catch((err) => {
-  console.error('[obtain-last-seen] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'obtain-last-seen', main)
