@@ -2438,10 +2438,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 2 октября",
-        "exactDateStart": "2026-10-02T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "2 — 5 октября",
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-05T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_09",
@@ -3031,10 +3030,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-50",
-        "exactDateLabel": "≈ 21 сентября",
-        "exactDateStart": "2026-09-21T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "21 — 23 сентября",
+        "exactDateStart": "2026-09-21T10:00:00+00:00",
+        "exactDateEnd": "2026-09-23T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -3156,10 +3154,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 19 сентября",
-        "exactDateStart": "2026-09-19T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "19 — 22 сентября",
+        "exactDateStart": "2026-09-19T10:00:00+00:00",
+        "exactDateEnd": "2026-09-22T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_02",
@@ -3278,10 +3275,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 2 октября",
-        "exactDateStart": "2026-10-02T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "2 — 5 октября",
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-05T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "257|Shop_Pack_Dino",
@@ -3426,10 +3423,10 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_tech_v2-ru.jpg",
         "price": null,
         "ribbon": null,
-        "exactDateLabel": "≈ 23 сентября",
-        "exactDateStart": "2026-09-23T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "22 — 24 сентября",
+        "exactDateStart": "2026-09-22T10:00:00+00:00",
+        "exactDateEnd": "2026-09-24T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "257|Shop_LuckyBox_Zoo_Prime",
@@ -3479,10 +3476,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-50",
-        "exactDateLabel": "≈ 21 сентября",
-        "exactDateStart": "2026-09-21T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "21 — 23 сентября",
+        "exactDateStart": "2026-09-21T10:00:00+00:00",
+        "exactDateEnd": "2026-09-23T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "257|Shop_Pack_Flying",
@@ -3521,10 +3518,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 19 сентября",
-        "exactDateStart": "2026-09-19T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "19 — 22 сентября",
+        "exactDateStart": "2026-09-19T10:00:00+00:00",
+        "exactDateEnd": "2026-09-22T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "257|Building_Mystery",
