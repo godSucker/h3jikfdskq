@@ -309,6 +309,26 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: '2026 Piksel Kalp jetonu',
     nl: 'Pixel Hart-tokens 2026',
   },
+  'рунических жетонов': {
+    en: 'Runic tokens',
+    es: 'fichas rúnicas',
+    fr: 'jetons Runiques',
+    de: 'Runen-Marken',
+    pt: 'fichas Rúnicas',
+    it: 'gettoni runici',
+    tr: 'Runik jetonu',
+    nl: 'Runenmuntjes',
+  },
+  'закатных жетонов': {
+    en: 'Sunset tokens',
+    es: 'fichas de Puesta de sol',
+    fr: 'jetons Couchant',
+    de: 'Sonnenuntergangs-Marken',
+    pt: 'fichas do Pôr-do-Sol',
+    it: 'gettoni Tramonto',
+    tr: 'Günbatımı jetonu',
+    nl: 'Zonsondergang-tokens',
+  },
 }
 
 const SECRET_BREEDING_LABEL: Partial<Record<Locale, string>> = {
