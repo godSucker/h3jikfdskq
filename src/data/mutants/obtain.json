@@ -34461,6 +34461,11 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 200 жетонов джекпота"
+    },
+    {
+      "type": "crossover",
+      "where": "Кроссовер — жетон бэкера краудфандинга настольной игры Mutants: The Card Game (2019), уже не получить",
+      "icon": "/materials/Material_Tcg_Corgi_Token.png"
     }
   ],
   "specimen_de_12": [
