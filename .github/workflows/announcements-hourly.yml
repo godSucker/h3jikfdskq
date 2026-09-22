@@ -81,12 +81,13 @@ jobs:
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
 
-      - name: 6.1 Авто-дополнение obtain.json из магазина/PvP-релиза (новые мутанты)
-        # Additive-only: пишет {type, where} ТОЛЬКО мутантам без единой записи
-        # и только из механически однозначных источников (shopitems.xml gold_shop/
-        # credits_shop, dailypopup.xml News_release_pvp_* -> pvp). Скрещивание/
-        # бинго/квест/реактор/донат-паки не трогает - остаются на
-        # detect-missing-obtain.ts (sync-cron) + ручную калибровку.
+      - name: 6.1 Авто-дополнение obtain.json (магазин/боксы/бинго/PvP-релиз)
+        # Additive-only, только механически однозначные источники: новые
+        # товары магазина (gold_shop/credits_shop), новые боксы из boxes.json
+        # (шаг 5), награды бинго из bingos.json (шаг 4), PvP-релизы. Новыми
+        # считаются itemId, которых нет в obtain-autofill-seen.json (база
+        # кураторских данных, см. комментарий в скрипте). Наборы/донат/рейды/
+        # квесты/кампания остаются на detect-missing-obtain.ts + ручную калибровку.
         if: always()
         run: npx tsx scripts/autofill-obtain.ts
 
@@ -125,6 +126,33 @@ jobs:
         env:
           KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
 
+      - name: 9.51 Окна баннеров daily_news в summary (наблюдение за скидкой на эво)
+        # Только печать, ничего не пишет. Имя фильтра баннера (Daily_news_tech_V2 -
+        # скидка на эво) переиспользуется из спринта в спринт, и kartel отдаёт
+        # окно прошлого показа. Лог нужен, чтобы увидеть, в какой момент сервер
+        # переключает окно на новый показ: заранее или только в день старта.
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          try:
+              data = json.load(open('scripts/live-filter-dates.json'))
+          except Exception:
+              print('### Окна daily_news\nживого снэпшота нет')
+              raise SystemExit
+          rows = sorted(
+              (name, r.get('start'), r.get('end'))
+              for name, r in data.get('filters', {}).items()
+              if name.lower().startswith('daily_news')
+          )
+          print('### Окна daily_news (kartel, снэпшот %s)' % data.get('fetchedAt'))
+          print('| фильтр | start | end |')
+          print('|---|---|---|')
+          for name, start, end in rows:
+              print('| %s | %s | %s |' % (name, start, end))
+          PY
+
       - name: 9.55 Пополнение постоянного журнала дат (date-ledger.json)
         # Живой снэпшот шага 9.5 видит только ~7 дней вперёд и живёт один
         # прогон (scripts/live-filter-dates.json гитигнорится). Этот шаг
@@ -135,6 +163,13 @@ jobs:
         # упал), просто добавит 0 записей.
         if: always()
         run: npx tsx scripts/kartel/update-date-ledger.ts
+
+      - name: 9.56 Журнал "последний раз видели" источников (obtain-last-seen.json)
+        # По живым датам шага 9.5 помечает товары с мутантами и генераторы,
+        # чьё окно открыто прямо сейчас. Отдельный файл, чтобы obtain.json
+        # оставался append-only. Без живого снэпшота - пропуск.
+        if: always()
+        run: npx tsx scripts/update-obtain-last-seen.ts
 
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
@@ -206,6 +241,8 @@ jobs:
             public/boxes/**
             public/materials/**
             src/data/mutants/obtain.json
+            scripts/obtain-autofill-seen.json
+            scripts/obtain-last-seen.json
             src/data/mutants/obtain-names.*.json
             src/data/materials/material.json
             scripts/pending-names-cache.json

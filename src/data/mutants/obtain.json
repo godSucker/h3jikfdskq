@@ -2580,18 +2580,6 @@
       "where": "Рейд: Архитектура"
     }
   ],
-  "specimen_ab_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
-  "specimen_ab_15": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_ab_99": [
     {
       "type": "crossover",
@@ -5238,12 +5226,6 @@
       "where": "Лесенки: Jungle Bells 3"
     }
   ],
-  "specimen_ad_11": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_ad_12": [
     {
       "type": "gold_shop",
@@ -6580,12 +6562,6 @@
       "type": "bundle",
       "where": "Набор: easter26 mutants t1 (от $99.99)",
       "icon": "/mut_icons/donate.png"
-    }
-  ],
-  "specimen_ae_99": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_af_01": [
@@ -9980,12 +9956,6 @@
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
     }
   ],
-  "specimen_ba_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_bb_01": [
     {
       "type": "box",
@@ -12824,12 +12794,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_bc_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_bd_01": [
@@ -18866,12 +18830,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_ca_13": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_ca_14": [
@@ -29027,12 +28985,6 @@
       "where": "Кроссовер — прогресс до локации Asyrith Mines в Celsius Heroes (Celsius Online), уже не получить"
     }
   ],
-  "specimen_db_12": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_db_13": [
     {
       "type": "gold_shop",
@@ -29063,12 +29015,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_db_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_dc_01": [
@@ -30508,12 +30454,6 @@
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
     }
   ],
-  "specimen_dc_12": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_dc_13": [
     {
       "type": "gold_shop",
@@ -30547,10 +30487,6 @@
     }
   ],
   "specimen_dc_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    },
     {
       "type": "event_hall",
       "where": "Зал обмена — 180 жетонов ивента"
@@ -31996,12 +31932,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_dd_15": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_de_01": [
@@ -37133,12 +37063,6 @@
       "type": "bundle",
       "where": "Набор: Суперпакет «Юбилейная» (3 500 золота)",
       "icon": "/cash/hardcurrency.webp"
-    }
-  ],
-  "specimen_ea_11": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_ea_12": [
@@ -43366,12 +43290,6 @@
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
     }
   ],
-  "specimen_ee_12": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
   "specimen_ee_13": [
     {
       "type": "gold_shop",
@@ -44953,12 +44871,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_ef_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_ef_99": [
@@ -50304,18 +50216,6 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
-    }
-  ],
-  "specimen_fd_13": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
-    }
-  ],
-  "specimen_fd_14": [
-    {
-      "type": "unavailable",
-      "where": "Уже не получить"
     }
   ],
   "specimen_fe_01": [
