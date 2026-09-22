@@ -54876,5 +54876,17 @@
       "where": "Зал обмена — 1000 жетонов спелеологии",
       "icon": "/materials/Material_Spelunking_Token.png"
     }
+  ],
+  "specimen_dd_15": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 240 жетонов ивента"
+    }
+  ],
+  "specimen_fd_13": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
+    }
   ]
 }
