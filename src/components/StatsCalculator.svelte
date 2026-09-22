@@ -928,13 +928,15 @@
   // Кап уровня зависит от мутанта/звезды/HP-орбов и может ПОНИЗИТЬСЯ после того, как
   // уровень уже был выставлен (смена звезды на более сильную, добавление HP-орба, смена
   // самого мутанта) - тот же паттерн клэмпа, что в TeamBuilder.svelte (PvP-калькулятор).
+  // "level < 1" НЕ клэмпим тут: bind:value на type="number" превращает очищенное поле
+  // в NaN, и клэмп на каждый инпут откатывал бы его на 1 раньше, чем юзер успел бы
+  // напечатать новое число - поле было физически невозможно стереть для правки.
+  // Эту ветку переносим в onblur инпута (см. ниже).
   $effect(() => {
-    if (!(level >= 1)) level = 1;
-    else if (level > maxLevel) level = maxLevel;
+    if (level > maxLevel) level = maxLevel;
   });
   $effect(() => {
-    if (!(level2 >= 1)) level2 = 1;
-    else if (level2 > maxLevel2) level2 = maxLevel2;
+    if (level2 > maxLevel2) level2 = maxLevel2;
   });
 
   function buildAttackRows(mutant, statLine, abilityList){
@@ -1717,6 +1719,7 @@
                 bind:value={level}
                 onkeydown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                 oninput={(e) => { if (e.target.value < 0) level = 0; }}
+                onblur={() => { if (!(level >= 1)) level = 1; }}
               />
             </div>
             <div class="control">
@@ -2021,6 +2024,7 @@
                 bind:value={level2}
                 onkeydown={(e) => { if (e.key === '-' || e.key === 'e' || e.key === '+') e.preventDefault(); }}
                 oninput={(e) => { if (e.target.value < 0) level2 = 0; }}
+                onblur={() => { if (!(level2 >= 1)) level2 = 1; }}
               />
             </div>
             <div class="control">
