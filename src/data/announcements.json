@@ -3434,7 +3434,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_tech_v2-ru.jpg",
         "price": null,
         "ribbon": null,
-        "discountPercent": 60,
+        "discountPercent": null,
         "exactDateLabel": "22 — 24 сентября",
         "exactDateStart": "2026-09-22T10:00:00+00:00",
         "exactDateEnd": "2026-09-24T10:00:00+00:00",
