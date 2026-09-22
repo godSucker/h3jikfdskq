@@ -474,6 +474,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Диско"
+    },
+    {
+      "type": "credits_shop",
+      "where": "Магазин за 5 000 000 серебра/кредитов (версия: обычный)"
     }
   ],
   "specimen_aa_04": [
@@ -1738,6 +1742,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 86"
+    },
+    {
+      "type": "gold_shop",
+      "where": "Магазин за 1 080 золота (версия: золотой)"
     }
   ],
   "specimen_ab_04": [
@@ -4048,6 +4056,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_03": [
@@ -4131,6 +4151,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_04": [
@@ -4346,6 +4372,18 @@
     {
       "type": "gacha",
       "where": "Реактор — Самоцветы"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_05": [
@@ -4520,6 +4558,18 @@
     {
       "type": "gacha",
       "where": "Реактор — Патруль времени"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_06": [
@@ -4681,6 +4731,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_07": [
@@ -4873,6 +4935,18 @@
     {
       "type": "gacha",
       "where": "Реактор — Самоцветы"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_08": [
@@ -5022,6 +5096,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_09": [
@@ -5136,6 +5222,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_10": [
@@ -5224,6 +5322,18 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Jungle Bells 3"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_ad_12": [
@@ -20904,6 +21014,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 81"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер «Снова в школу» (3★, скин «school»)",
+      "icon": "/boxes/mystery_school.png",
+      "itemId": "Mystery_School_2026"
     }
   ],
   "specimen_cc_06": [
@@ -23331,6 +23447,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Боги арены"
+    },
+    {
+      "type": "credits_shop",
+      "where": "Магазин за 6 000 000 серебра/кредитов (версия: обычный)"
     }
   ],
   "specimen_ce_04": [
@@ -24706,6 +24826,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Патруль времени"
+    },
+    {
+      "type": "credits_shop",
+      "where": "Магазин за 4 000 000 серебра/кредитов (версия: обычный)"
     }
   ],
   "specimen_cf_03": [
@@ -26445,6 +26569,18 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 71"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_03": [
@@ -26712,6 +26848,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Lucky Slots»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_05": [
@@ -26958,6 +27106,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_06": [
@@ -27201,6 +27361,18 @@
     {
       "type": "quest",
       "where": "Квест: Зима пришла!"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_07": [
@@ -27382,6 +27554,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_08": [
@@ -27579,6 +27763,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Lucky Slots»"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (серебро)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "box",
+      "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
+      "icon": "/boxes/mystery_elite_zoo.png",
+      "itemId": "LuckyBox_Zoo_Elite"
     }
   ],
   "specimen_da_11": [
@@ -34032,6 +34228,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 68"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Осенний таинственный контейнер (3★, скин «autumn»)",
+      "icon": "/boxes/mystery_autumn.png",
+      "itemId": "Mystery_Autumn_2026"
     }
   ],
   "specimen_df_04": [
@@ -42011,7 +42213,7 @@
   "specimen_ee_03": [
     {
       "type": "gold_shop",
-      "where": "Магазин за 1 700 золота (версия: обычный)"
+      "where": "Магазин за 1 700 золота (версия: серебряный)"
     },
     {
       "type": "box",
@@ -43039,7 +43241,7 @@
   "specimen_ee_09": [
     {
       "type": "gold_shop",
-      "where": "Магазин за 1 400 золота (версия: обычный)"
+      "where": "Магазин за 1 400 золота (версия: серебряный)"
     },
     {
       "type": "box",
