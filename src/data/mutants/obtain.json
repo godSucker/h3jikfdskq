@@ -2564,6 +2564,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 302"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_ab_11": [
@@ -6646,6 +6650,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_ae_10": [
@@ -6766,6 +6774,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 342"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 200 жетонов джекпота"
     }
   ],
   "specimen_ae_12": [
@@ -7951,6 +7963,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 240"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_af_10": [
@@ -14604,6 +14620,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 283"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_bd_11": [
@@ -16194,6 +16214,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 318"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_be_11": [
@@ -20546,6 +20570,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 320"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_cb_11": [
@@ -23308,6 +23336,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 148"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_cd_11": [
@@ -26852,6 +26884,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 266"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 250 жетонов джекпота"
     }
   ],
   "specimen_d_13": [
@@ -34221,6 +34257,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 107"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_de_10": [
@@ -47308,6 +47348,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_fa_10": [
@@ -49204,6 +49248,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 334"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 200 жетонов джекпота"
     }
   ],
   "specimen_fb_12": [
