@@ -77,7 +77,7 @@ jobs:
         if: always()
         run: npx tsx scripts/build-boxes.ts
 
-      - name: 6. Сторож ротации обменников (джекпот/ивент) - авто-запись в obtain.json
+      - name: 6. Сторож ротации обменников (джекпот/ивент/анализатор тайн) - авто-запись в obtain.json
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
 
