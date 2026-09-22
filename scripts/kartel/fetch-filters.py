@@ -117,7 +117,15 @@ def auth(blob: bytes, retries: int = 3) -> str:
                 raise RuntimeError(f'auth response decode failed: {st2}')
             d2 = zlib.decompress(d2)
             resp = json.loads(d2.decode('utf-8').split('T4RT1FL3773')[0])
-            return '%d:0:109526704649610:%s' % (resp['UserId'], resp['AuthToken'])
+            # FB-ID берём из самого блоба (aj['User']['PlatformUserId']), а не
+            # хардкодим - токен от auth() валиден на kartel.ashx только с FB-ID
+            # ТОГО ЖЕ аккаунта, с которого снят блоб (см. UPDATING-AUTH-BLOB.md,
+            # "Привязка к аккаунту"). Так один и тот же скрипт работает на
+            # любом захваченном .bin без правки кода под каждый акк.
+            fb_id = aj.get('User', {}).get('PlatformUserId')
+            if not fb_id:
+                raise RuntimeError('auth blob has no User.PlatformUserId')
+            return '%d:0:%s:%s' % (resp['UserId'], fb_id, resp['AuthToken'])
         except Exception as e:  # noqa: BLE001
             last_err = e
             time.sleep(3)
