@@ -2277,6 +2277,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Тропическое лето"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 100 жетонов ивента"
     }
   ],
   "specimen_ab_08": [
@@ -4524,6 +4528,10 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 100 жетонов ивента"
     }
   ],
   "specimen_ad_05": [
@@ -7967,6 +7975,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 50 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_af_10": [
@@ -11682,6 +11694,10 @@
       "where": "Набор: Пакет ветерана «Забытая» (от $49.99)",
       "icon": "/mut_icons/donate.png",
       "itemId": "bank_bb_11_45jp"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
     }
   ],
   "specimen_bb_12": [
@@ -20093,6 +20109,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 100 жетонов ивента"
     }
   ],
   "specimen_cb_07": [
@@ -22722,6 +22742,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 100 жетонов ивента"
     }
   ],
   "specimen_cd_06": [
@@ -35817,6 +35841,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 138"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_df_10": [
@@ -42485,6 +42513,10 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Вегас"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_ed_10": [
@@ -49064,6 +49096,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_fb_10": [
@@ -54705,6 +54741,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 348"
+    }
+  ],
+  "specimen_ee_12": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
     }
   ]
 }
