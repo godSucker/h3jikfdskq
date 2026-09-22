@@ -160,6 +160,10 @@ async function main(): Promise<void> {
     if (!itemId) continue
     const parsed = parseSpecimenItemId(itemId)
     if (!parsed) continue
+    // Без Filter или со скрывающим (Hidden_Old_Items) товар в магазине не
+    // показывается - это архив, а не способ получения.
+    const filter = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
+    if (!filter || /^hidden/i.test(filter)) continue
     const cost = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
     if (!cost) continue // донат-паки ($USD) курируются руками
     const amount = Number(cost[1])
