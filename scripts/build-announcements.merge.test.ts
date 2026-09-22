@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { mergeLiveFields, type AnnouncementItem } from './build-announcements'
+import { mergeLiveFields } from './build-announcements'
+import type { AnnouncementItem } from '../src/lib/announcement-schema'
 
 // Синтетические фикстуры, без сети/Telegram - проверяют ровно 2 бага,
 // найденные при аудите Opus 5.5 (2026-09-22) и починенные в build-announcements.ts.

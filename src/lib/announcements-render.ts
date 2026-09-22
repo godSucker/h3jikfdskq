@@ -35,54 +35,14 @@ import { getBoxName } from '@/lib/boxes-i18n'
 import { getLocalizedMutantNames, type MutantNameEntry } from '@/lib/mutant-names-i18n'
 import { getDungeonName } from '@/lib/guides-content-i18n'
 import { formatDateIn, formatExactRange } from '@/lib/sprint-calendar'
+import {
+  RIBBONS,
+  CATEGORIES,
+  type AnnouncementItem,
+  type Announcement,
+} from '@/lib/announcement-schema'
 
-export interface AnnouncementItem {
-  id: string
-  name: string
-  image?: string | null
-  addedNames?: string[]
-  // Только eventQuests: этапы, добавленные в уже анонсированную цепочку.
-  addedStepIds?: string[]
-  // Только rebalance: сколько мутантов затронуто (id записи - дата ребаланса).
-  rebalanceCount?: number
-  // Только для shopForecast/dailyNews - реальная цена оффера, если она есть
-  // (не у всех, часть daily_news - чисто событийные анонсы без покупки).
-  // 'usd' - донат-паки за реальные деньги (<RealPrices Currency="USD">),
-  // отдельно от игровой золота/серебра.
-  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
-  // Только для shopForecast/dailyNews - настоящая игровая лента оффера
-  // (offerTag из shopitems.xml), см. scripts/shop-offer-tags.ts.
-  ribbon?: string | null
-  // Только dailyNews - живой процент скидки (ABGetExperiments, не игровой
-  // offerTag - см. scripts/kartel-promo-percents.ts). Не путать с ribbon
-  // выше: этот баннер (тех-центр) - не ShopItem, offerTag'а у него нет в
-  // принципе, процент приходит отдельным live-запросом.
-  discountPercent?: number | null
-  // Точный диапазон ЭТОГО оффера из живого kartel-запроса (см. scripts/
-  // kartel-filter-dates.ts) - null, если live-данных нет, тогда карточка
-  // берёт общий sprintRangeLabel(sprint) как раньше.
-  exactDateLabel?: string | null
-  // ISO-дата начала (не форматированная) - для хронологической сортировки
-  // офферов на странице (ближайшие сверху), exactDateLabel не сортируется.
-  exactDateStart?: string | null
-  // Только shopForecast - 'week'/'month' помечает "мутанта недели"/"мутанта
-  // месяца" (окно продажи ~7 или ~28-31 день, см.
-  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
-  // из пула daily-offer (Path cat="special" subCat="dailyoffer") - тот самый
-  // "мутант дня" из календаря MUTODEX/@KaiserZ, см.
-  // scripts/detect-shop-forecast.ts::fetchDailyMutantOffers.
-  featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null
-  packMutants?: string[]
-  // Только exchange - какой из 3 залов (см. scripts/build-announcements.ts::
-  // detectExchange). Карточка группирует items по этому полю на 3 подблока.
-  hall?: 'jackpot' | 'event' | 'mystery' | null
-  // Только hall==='mystery' - цена контракта (жетон + количество).
-  cost?: { id?: string; amount: number; name: string; image: string | null } | null
-  // Только hall==='mystery' - клик должен открыть модалку СРАЗУ на этой
-  // звезде/скине (jackpot/event Reward'ы их не несут вообще).
-  star?: string | null
-  skin?: string | null
-}
+export type { AnnouncementItem, Announcement }
 
 export function featuredMutantLabel(
   v: string | null | undefined,
@@ -92,10 +52,6 @@ export function featuredMutantLabel(
   return t(`announcements.featured.${v}`, locale)
 }
 
-// Зеркалит OfferRibbon из scripts/shop-offer-tags.ts (не импортируем сам файл -
-// он тянет node-only axios/fs и живёт вне Vite-графа страницы).
-const RIBBONS = ['legendary', 'limited', 'new', 'heroic', 'exclusive', 'seasonal']
-
 export function ribbonLabel(
   ribbon: string | null | undefined,
   locale: Locale = 'ru',
@@ -103,7 +59,9 @@ export function ribbonLabel(
   if (!ribbon) return null
   const discount = ribbon.match(/^discount-(\d+)$/)
   if (discount) return `-${discount[1]}%`
-  return RIBBONS.includes(ribbon) ? t(`announcements.ribbon.${ribbon}`, locale) : null
+  return (RIBBONS as readonly string[]).includes(ribbon)
+    ? t(`announcements.ribbon.${ribbon}`, locale)
+    : null
 }
 
 export function ribbonClass(ribbon: string | null | undefined): string {
@@ -112,40 +70,13 @@ export function ribbonClass(ribbon: string | null | undefined): string {
   return `ribbon-${ribbon}`
 }
 
-export interface Announcement {
-  id: string
-  date: string
-  category?: string
-  title?: string
-  text?: string | null
-  imagePath?: string | null
-  sourceUrl?: string | null
-  items?: AnnouncementItem[] | null
-  link?: string | null
-}
-
-const CATEGORIES = [
-  'mutant',
-  'skin',
-  'bingo',
-  'box',
-  'exchange',
-  'raid',
-  'ladder',
-  'eventLadder',
-  'reactor',
-  'token',
-  'shopForecast',
-  'dailyNews',
-  'eventQuests',
-  'rebalance',
-]
-
 // Название категории (вкладки ленты и подпись на карточке). Неизвестная
 // категория отдаётся как есть - лучше сырой ключ, чем пустая подпись.
 export function categoryLabel(category: string | undefined, locale: Locale = 'ru'): string {
   if (!category) return ''
-  return CATEGORIES.includes(category) ? t(`announcements.category.${category}`, locale) : category
+  return (CATEGORIES as readonly string[]).includes(category)
+    ? t(`announcements.category.${category}`, locale)
+    : category
 }
 
 // Переехало в announcement-categories.ts - тот же маппинг нужен и публикации

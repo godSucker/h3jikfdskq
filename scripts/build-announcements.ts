@@ -20,7 +20,6 @@ import axios from 'axios'
 import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
-import type { OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './kartel-filter-dates'
 import { hasLivePromoData } from './kartel-promo-percents'
 import { runMain } from './lib/run-main'
@@ -28,6 +27,12 @@ import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/spri
 import { bingoLabel } from '../src/lib/mutant-dicts'
 import { enqueueScreenshotJobs } from './pending-screenshots'
 import { isSingleItemCategory } from '../src/lib/announcement-categories'
+import {
+  CATEGORY_ICON,
+  CATEGORIES,
+  type AnnouncementItem,
+  type Announcement,
+} from '../src/lib/announcement-schema'
 import { pluralize } from '../src/lib/utils'
 import { fetchGameXml } from './game-xml-cache'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
@@ -72,86 +77,11 @@ const ROOT = process.cwd()
 const LEDGER_PATH = path.join(ROOT, 'scripts/announced-ids-cache.json')
 const ANNOUNCEMENTS_PATH = path.join(ROOT, 'src/data/announcements.json')
 
-export interface AnnouncementItem {
-  id: string
-  name: string
-  image?: string | null
-  category?: string | null
-  // Только для bingo: если задано - это НЕ новая доска, а список мутантов,
-  // добавленных в уже существующую (см. detectBingo).
-  addedNames?: string[]
-  // Только eventQuests: этапы, добавленные в уже анонсированную цепочку. Нет
-  // поля - анонс всей новой цепочки.
-  addedStepIds?: string[]
-  // Только rebalance: сколько мутантов затронуто (id записи - дата ребаланса).
-  rebalanceCount?: number
-  // Только для shopForecast/dailyNews.
-  price?: { amount: number; type: 'hardcurrency' | 'softcurrency' | 'usd' } | null
-  // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
-  // (legendary/limited/new/discount-N/...), см. scripts/shop-offer-tags.ts.
-  ribbon?: OfferRibbon | null
-  // Только dailyNews - живой процент скидки (ABGetExperiments, см.
-  // scripts/kartel-promo-percents.ts). Пока только баннер тех-центра
-  // (TECH_CENTER_DISCOUNT_FILTERS в detect-daily-news.ts). null - живых
-  // данных нет или сейчас нет акции.
-  discountPercent?: number | null
-  // shopForecast/dailyNews/raid/ladder/box - точный диапазон ЭТОГО оффера/
-  // рейда/лесенки/бокса из живого kartel-запроса (см.
-  // scripts/kartel-filter-dates.ts), джойн по <Filter> (shopitems.xml для
-  // shopForecast/dailyNews/box, dungeon/dungeons.xml для raid/ladder - у
-  // gacha.xml <Filter> нет вообще, реакторы не датируются в принципе).
-  // null, если live-данных для него нет.
-  exactDateLabel?: string | null
-  // ISO-дата начала (не форматированная) - для хронологической сортировки
-  // на странице (ближайшие сверху), formatExactRangeRu() не сортируется.
-  exactDateStart?: string | null
-  // ISO-конец окна и пометки вида подписи. exactDateLabel собран по-русски и
-  // уходит в скриншот-бота как есть, а страница анонсов с 2026-09-18 рисует
-  // дату на языке посетителя сама - для этого ей нужны сами даты, а не строка.
-  // approx - "≈ 5 сентября" (оффер датирован по соседям, а не живым окном),
-  // openEnd - "26 августа — ?" (начало известно, конец kartel ещё не отдал).
-  exactDateEnd?: string | null
-  exactDateApprox?: boolean
-  exactDateOpenEnd?: boolean
-  // Только shopForecast - 'week'/'month', если оффер помечен игрой как
-  // "мутант недели"/"мутант месяца" (окно продажи ~7 или ~28-31 день, см.
-  // scripts/detect-shop-forecast.ts::classifyFeaturedMutant). 'day' - оффер
-  // из пула daily-offer ("мутант дня", см. fetchDailyMutantOffers).
-  featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null
-  // Мутанты внутри пакета - чтобы тайл прогноза был кликабельным даже когда
-  // сам itemId мутанта не содержит (см. detect-shop-forecast.ts).
-  packMutants?: string[]
-  // Только exchange - какой из 3 залов (джекпот/испытания/анализатор тайны),
-  // см. detectExchange. Страница группирует один Announcement по этому полю
-  // на 3 подблока вместо плоского списка (фидбек юзера 2026-09-15).
-  hall?: 'jackpot' | 'event' | 'mystery' | null
-  // Только hall==='mystery' - цена контракта (см. fetchMysteryContracts).
-  cost?: { id?: string; amount: number; name: string; image: string | null } | null
-  // Только hall==='mystery' - награда несёт конкретную звезду/скин (в
-  // отличие от jackpot/event, где Reward голый, без Tag). Нужно открыть
-  // модалку СРАЗУ на этом скине по клику (фидбек юзера 2026-09-15), не на
-  // дефолтной звезде. specimenId для клика во всех 3 залах - id.split('|')[2]
-  // (совпадает по позиции что у jackpot|READY_03|specimenId, что у
-  // mystery|READY_01|specimenId|stars|skin).
-  star?: string | null
-  skin?: string | null
-}
-
-interface Announcement {
-  id: string
-  date: string
-  category: string
-  title: string
-  text?: string | null
-  items: AnnouncementItem[]
-  link?: string | null
-  // Только shopForecast/dailyNews - номер спринта этой записи. Нужен, чтобы
-  // на следующих часовых прогонах находить УЖЕ опубликованную запись и
-  // дозаполнять её items свежими exactDateLabel (часть офферов узнают точную
-  // дату не сразу, а ближе к своему старту) - без этого поля пришлось бы
-  // парсить id первого item'а, хрупко.
-  sprintKey?: string
-}
+// AnnouncementItem/Announcement переехали в ../src/lib/announcement-schema.ts
+// (Opus 5.5 audit, 2026-09-22) - были продублированы и разъехались с версией
+// в announcements-render.ts (не хватало exactDateEnd/exactDateApprox/
+// exactDateOpenEnd/sprintKey там). Единственный источник теперь один, файл
+// без импортов, безопасен и для tsx, и для Vite.
 
 interface Ledger {
   mutant: string[]
@@ -1522,22 +1452,6 @@ async function notifyDetectorFailure(category: string, err: unknown) {
 // тиков) молчит, чтобы не спамить. Не зависит от публичного кросс-поста
 // (CROSS_POST_ENABLED) - тот сейчас выключен, этот дайджест продолжает
 // работать как отдельный операторский сигнал "зайди проверь".
-const CATEGORY_ICON: Record<string, string> = {
-  mutant: '🧬',
-  skin: '🎨',
-  bingo: '🎲',
-  box: '📦',
-  exchange: '🔁',
-  raid: '⚔️',
-  ladder: '🪜',
-  token: '🪙',
-  reactor: '🎰',
-  shopForecast: '🛒',
-  dailyNews: '📰',
-  eventQuests: '📜',
-  rebalance: '⚖️',
-}
-
 async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
   if (newlyAdded.length === 0) return
   const token = process.env.TELEGRAM_BOT_TOKEN
@@ -1545,7 +1459,7 @@ async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
   if (!token || !chatId) return // тихо, best-effort - как и остальные личные алерты
 
   const lines = newlyAdded.map((a) => {
-    const icon = CATEGORY_ICON[a.category] ?? '🔔'
+    const icon = CATEGORY_ICON[a.category as (typeof CATEGORIES)[number]] ?? '🔔'
     const count = a.items.length
     return `${icon} ${a.title}${count > 1 ? ` (${count})` : ''}`
   })
