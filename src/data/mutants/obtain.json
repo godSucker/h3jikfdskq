@@ -2679,6 +2679,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 336"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «honeybee»)"
     }
   ],
   "specimen_ab_12": [
@@ -3592,6 +3596,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «kings»)"
     }
   ],
   "specimen_ac_09": [
@@ -15205,6 +15213,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 79"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «summer»)"
     }
   ],
   "specimen_be_04": [
@@ -32424,6 +32436,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 115"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «school»)"
     }
   ],
   "specimen_dd_09": [
@@ -39307,6 +39323,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 145"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «aprilfools»)"
     }
   ],
   "specimen_eb_11": [
@@ -49975,6 +49995,10 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Колизей"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «europe»)"
     }
   ],
   "specimen_fc_09": [

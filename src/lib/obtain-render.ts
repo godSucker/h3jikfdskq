@@ -259,6 +259,26 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: 'etkinlik jetonu',
     nl: 'evenemententokens',
   },
+  'таинственных жетонов 2025': {
+    en: 'Mystery tokens 2025',
+    es: 'fichas misteriosas 2025',
+    fr: 'jetons mystère 2025',
+    de: 'Mysterium-Marken 2025',
+    pt: 'fichas misteriosas 2025',
+    it: 'gettoni misteriosi 2025',
+    tr: '2025 Gizem jetonu',
+    nl: 'Mysterie-tokens 2025',
+  },
+  'таинственных жетонов 2026': {
+    en: 'Mystery tokens 2026',
+    es: 'fichas misteriosas 2026',
+    fr: 'jetons mystère 2026',
+    de: 'Mysterium-Marken 2026',
+    pt: 'fichas misteriosas 2026',
+    it: 'gettoni misteriosi 2026',
+    tr: '2026 Gizem jetonu',
+    nl: 'Mysterie-tokens 2026',
+  },
 }
 
 const SECRET_BREEDING_LABEL: Partial<Record<Locale, string>> = {
@@ -2871,13 +2891,21 @@ export function renderObtainWhere(
     return tpl ? fillTemplate(tpl, { n: m[1] }) : entry.where
   }
 
-  if (entry.type === 'jackpot_hall' || entry.type === 'event_hall') {
-    const m = entry.where.match(/^Зал обмена — (\d+) (.+)$/)
+  if (
+    entry.type === 'jackpot_hall' ||
+    entry.type === 'event_hall' ||
+    entry.type === 'mystery_hall'
+  ) {
+    // mystery_hall несёт суффикс "(N★, скин «X»)" - та же нотация, что у box/
+    // bundle (см. renderSuffix), потому что награда там - конкретные звезда+
+    // скин, а не голый мутант, в отличие от jackpot_hall/event_hall.
+    const m = entry.where.match(/^Зал обмена — (\d+) ([^(]+?)(?:\s*\(([^()]*)\))?$/)
     if (!m) return entry.where
     const label = EXCHANGE_HALL_LABEL[locale] ?? EXCHANGE_HALL_LABEL.en
     const desc = EXCHANGE_TOKEN_DESC[m[2]]?.[locale] ?? EXCHANGE_TOKEN_DESC[m[2]]?.en
     if (!label || !desc) return entry.where
-    return `${label} — ${new Intl.NumberFormat(locale).format(Number(m[1]))} ${desc}`
+    const suffix = m[3] ? renderSuffix(m[3], locale) : ''
+    return `${label} — ${new Intl.NumberFormat(locale).format(Number(m[1]))} ${desc}${suffix ? ` (${suffix})` : ''}`
   }
 
   if (entry.type === 'secret_breeding') {

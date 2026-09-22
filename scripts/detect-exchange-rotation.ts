@@ -10,6 +10,11 @@ import { pluralize } from '../src/lib/utils'
 // новые связки (жетон, сумма, мутант) в день, когда они появились в живом XML,
 // пока их не затёрла следующая ротация.
 //
+// Анализатор тайн (Building_Mystery, добавлен 2026-09) - третий обменник, не
+// ротирующийся по времени (фиксированный каталог из 6 слотов), но с наградой
+// в виде конкретных звезды+скина, а не голого мутанта - отдельная ветка
+// парсинга (parseMysteryContracts), см. ниже.
+//
 // В отличие от detect-missing-obtain.ts (тот НИКОГДА не пишет - там нет
 // источника, откуда взять способ получения), этот скрипт умеет построить
 // ПОЛНОСТЬЮ готовую и самодостаточную запись {type, where} прямо из XML для
@@ -67,6 +72,16 @@ const TOKEN_PHRASES: Record<string, Phrase> = {
     one: 'зимний апельсин',
     few: 'зимних апельсина',
     many: 'зимних апельсинов',
+  },
+  Material_Mystery25_Token: {
+    one: 'таинственный жетон 2025',
+    few: 'таинственных жетона 2025',
+    many: 'таинственных жетонов 2025',
+  },
+  Material_Mystery26_Token: {
+    one: 'таинственный жетон 2026',
+    few: 'таинственных жетона 2026',
+    many: 'таинственных жетонов 2026',
   },
 }
 // Массовые существительные (не склоняются по числу) - фиксированная фраза.
@@ -132,6 +147,56 @@ function expectedWhere(amount: number, item: string): string | null {
   return null
 }
 
+interface MysteryContract {
+  specimenId: string
+  amount: number
+  item: string
+  stars: string | null
+  skin: string | null
+}
+
+// Анализатор тайн (Building_Mystery) - отдельная ветка, не встроена в
+// BUILDINGS: тут награда - конкретные звезда+скин (Reward с детьми-тегами),
+// а не голый specimenId самозакрывающимся тегом, как у jackpot/event. Тот же
+// парсинг, что уже проверен в build-announcements.ts::fetchMysteryContracts.
+function parseMysteryContracts(block: string): MysteryContract[] {
+  const costByNum = new Map<string, { amount: number; item: string }>()
+  for (const m of block.matchAll(
+    /<InteractiveAction[^>]*target="WORKING_(\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
+  )) {
+    const [, num, body] = m
+    const cost = body.match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
+    if (cost) costByNum.set(num, { amount: Number(cost[1]), item: cost[2] })
+  }
+  const out: MysteryContract[] = []
+  for (const m of block.matchAll(/<State[^>]*id="READY_(\d+)"[^>]*>([\s\S]*?)<\/State>/g)) {
+    const [, num, body] = m
+    const reward = body.match(/<Reward id="([^"]+)">([\s\S]*?)<\/Reward>/)
+    if (!reward || !/^Specimen_/i.test(reward[1])) continue
+    const cost = costByNum.get(num)
+    if (!cost) continue
+    out.push({
+      specimenId: reward[1].toLowerCase(),
+      amount: cost.amount,
+      item: cost.item,
+      stars: reward[2].match(/<Tag key="stars" value="(\d+)"/)?.[1] ?? null,
+      skin: reward[2].match(/<Tag key="skin" value="([^"]+)"/)?.[1] ?? null,
+    })
+  }
+  return out
+}
+
+// Суффикс "(N★, скин «X»)" - та же нотация числом+звёздочкой, что у box/bundle
+// (см. TIER_STARS в autofill-obtain.ts / renderSuffix в obtain-render.ts) -
+// НЕ словом тира ("золото"), а именно цифрой из тега stars.
+function expectedMysteryWhere(c: MysteryContract): string | null {
+  const base = expectedWhere(c.amount, c.item)
+  if (base === null) return null
+  if (c.skin) return `${base} (${c.stars ? `${c.stars}★, ` : ''}скин «${c.skin}»)`
+  if (c.stars) return `${base} (${c.stars}★)`
+  return base
+}
+
 async function main() {
   const { data: xml } = await axios.get<string>(GAME_DEFS_URL, { responseType: 'text' })
   const obtain: Record<string, ObtainEntry[]> = JSON.parse(await fs.readFile(OBTAIN_PATH, 'utf-8'))
@@ -180,6 +245,35 @@ async function main() {
     }
   }
 
+  // Анализатор тайн (Building_Mystery) - см. parseMysteryContracts. Не
+  // ротация по датам как у двух других залов, а фиксированный каталог из 6
+  // слотов, который просто РАСТЁТ (или меняется), когда Kobojo его обновит -
+  // additive-only так же, как остальные, никакого особого случая для записи.
+  try {
+    const mysteryBlock = extractEntity(xml, 'Building_Mystery')
+    for (const c of parseMysteryContracts(mysteryBlock)) {
+      const where = expectedMysteryWhere(c)
+      if (where === null) {
+        unknownTokens.push({
+          specimenId: c.specimenId,
+          obtainType: 'mystery_hall',
+          amount: c.amount,
+          item: c.item,
+        })
+        continue
+      }
+      const entries = obtain[c.specimenId] ?? []
+      const alreadyCovered = entries.some((e) => e.type === 'mystery_hall' && e.where === where)
+      if (!alreadyCovered)
+        missing.push({ specimenId: c.specimenId, obtainType: 'mystery_hall', where })
+    }
+  } catch (err) {
+    console.error(
+      '[EXCHANGE-WATCH] Building_Mystery не найден в gamedefinitions.xml (переименовали/убрали?), пропуск:',
+      err instanceof Error ? err.message : err,
+    )
+  }
+
   let written: typeof missing = []
   if (missing.length > 0) {
     for (const m of missing) {
@@ -191,9 +285,9 @@ async function main() {
     await fs.writeFile(OBTAIN_PATH, JSON.stringify(obtain, null, 2) + '\n', 'utf-8')
   }
 
-  const lines: string[] = ['### Ротация обменников (джекпот/ивент)']
+  const lines: string[] = ['### Ротация обменников (джекпот/ивент/анализатор тайн)']
   if (written.length === 0 && unknownTokens.length === 0) {
-    lines.push('✅ Текущая ротация обоих обменников полностью отражена в obtain.json')
+    lines.push('✅ Текущее содержимое всех 3 обменников полностью отражено в obtain.json')
   } else {
     if (written.length > 0) {
       lines.push(`✅ Записано в obtain.json (${written.length}):`)

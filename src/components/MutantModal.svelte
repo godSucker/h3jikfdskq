@@ -79,6 +79,7 @@
     donate: '/mut_icons/donate.png',
     jackpot_hall: '/materials/Material_Jackpot_Token.png',
     event_hall: '/materials/Material_Event_Token.png',
+    mystery_hall: '/materials/Material_Mystery26_Token.png',
     bingo: '/etc/icon_bingo.webp',
     gacha: '/mut_icons/icon_gacha.webp',
     secret_breeding: '/mut_icons/icon_recipe.webp',
