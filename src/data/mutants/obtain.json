@@ -6762,6 +6762,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 322"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 342"
     }
   ],
   "specimen_ae_12": [
@@ -16186,6 +16190,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 218"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 318"
     }
   ],
   "specimen_be_11": [
@@ -20592,6 +20600,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 316"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 345"
     }
   ],
   "specimen_cb_12": [
@@ -35853,6 +35865,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 324"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 344"
     }
   ],
   "specimen_df_11": [
@@ -42572,6 +42588,10 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 335"
     }
   ],
   "specimen_ed_12": [
@@ -49180,6 +49200,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 312"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 334"
     }
   ],
   "specimen_fb_12": [

@@ -8,8 +8,20 @@
     "mutantId": "specimen_ed_99"
   },
   {
+    "season": 345,
+    "mutantId": "specimen_cb_11"
+  },
+  {
+    "season": 344,
+    "mutantId": "specimen_df_10"
+  },
+  {
     "season": 343,
     "mutantId": "specimen_dc_11"
+  },
+  {
+    "season": 342,
+    "mutantId": "specimen_ae_11"
   },
   {
     "season": 338,
@@ -22,6 +34,14 @@
   {
     "season": 336,
     "mutantId": "specimen_ab_11"
+  },
+  {
+    "season": 335,
+    "mutantId": "specimen_ed_11"
+  },
+  {
+    "season": 334,
+    "mutantId": "specimen_fb_11"
   },
   {
     "season": 333,
@@ -78,6 +98,10 @@
   {
     "season": 320,
     "mutantId": "specimen_cb_10"
+  },
+  {
+    "season": 318,
+    "mutantId": "specimen_be_10"
   },
   {
     "season": 317,
