@@ -1295,7 +1295,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1000 закатных жетонов"
+      "where": "Зал обмена — 1000 закатных жетонов",
+      "icon": "/materials/Material_Xmas24_Token.png"
     }
   ],
   "specimen_aa_10": [
@@ -4906,7 +4907,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1000 рунических жетонов"
+      "where": "Зал обмена — 1000 рунических жетонов",
+      "icon": "/materials/Material_Runic_Token.png"
     }
   ],
   "specimen_ad_07": [
@@ -5279,7 +5281,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 700 жетонов капсул"
+      "where": "Зал обмена — 700 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     }
   ],
   "specimen_ad_09": [
@@ -7646,7 +7649,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 900 накладных жетонов"
+      "where": "Зал обмена — 900 накладных жетонов",
+      "icon": "/materials/Material_Overlay_Token.png"
     }
   ],
   "specimen_af_07": [
@@ -8178,7 +8182,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1600 жетонов капсул"
+      "where": "Зал обмена — 1600 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     }
   ],
   "specimen_af_13": [
@@ -11626,7 +11631,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 800 жетонов ползучего"
+      "where": "Зал обмена — 800 жетонов ползучего",
+      "icon": "/materials/Material_Crawling_Token.png"
     }
   ],
   "specimen_bb_10": [
@@ -14675,11 +14681,13 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 800 закатных жетонов"
+      "where": "Зал обмена — 800 закатных жетонов",
+      "icon": "/materials/Material_Xmas24_Token.png"
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 900 жетонов капсул"
+      "where": "Зал обмена — 900 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     }
   ],
   "specimen_bd_11": [
@@ -22477,7 +22485,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 700 жетонов капсул"
+      "where": "Зал обмена — 700 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     }
   ],
   "specimen_cd_04": [
@@ -24603,7 +24612,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 650 накладных жетонов"
+      "where": "Зал обмена — 650 накладных жетонов",
+      "icon": "/materials/Material_Overlay_Token.png"
     }
   ],
   "specimen_ce_08": [
@@ -27152,7 +27162,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1000 жетонов ползучего"
+      "where": "Зал обмена — 1000 жетонов ползучего",
+      "icon": "/materials/Material_Crawling_Token.png"
     }
   ],
   "specimen_da_03": [
@@ -34508,7 +34519,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1200 жетонов спелеологии"
+      "where": "Зал обмена — 1200 жетонов спелеологии",
+      "icon": "/materials/Material_Spelunking_Token.png"
     }
   ],
   "specimen_de_14": [
@@ -42662,7 +42674,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 750 рунических жетонов"
+      "where": "Зал обмена — 750 рунических жетонов",
+      "icon": "/materials/Material_Runic_Token.png"
     }
   ],
   "specimen_ed_11": [
@@ -47648,7 +47661,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1800 закатных жетонов"
+      "where": "Зал обмена — 1800 закатных жетонов",
+      "icon": "/materials/Material_Xmas24_Token.png"
     }
   ],
   "specimen_fa_14": [
@@ -51068,7 +51082,8 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 450 жетонов спелеологии"
+      "where": "Зал обмена — 450 жетонов спелеологии",
+      "icon": "/materials/Material_Spelunking_Token.png"
     }
   ],
   "specimen_fd_08": [
@@ -53061,11 +53076,13 @@
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1600 жетонов капсул"
+      "where": "Зал обмена — 1600 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1800 закатных жетонов"
+      "where": "Зал обмена — 1800 закатных жетонов",
+      "icon": "/materials/Material_Xmas24_Token.png"
     }
   ],
   "specimen_fe_13": [
@@ -54798,7 +54815,8 @@
   "specimen_ca_13": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1800 рунических жетонов"
+      "where": "Зал обмена — 1800 рунических жетонов",
+      "icon": "/materials/Material_Runic_Token.png"
     }
   ],
   "specimen_db_12": [
@@ -54810,41 +54828,48 @@
   "specimen_bc_14": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1800 жетонов ползучего"
+      "where": "Зал обмена — 1800 жетонов ползучего",
+      "icon": "/materials/Material_Crawling_Token.png"
     }
   ],
   "specimen_db_14": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 2000 жетонов ползучего"
+      "where": "Зал обмена — 2000 жетонов ползучего",
+      "icon": "/materials/Material_Crawling_Token.png"
     },
     {
       "type": "event_hall",
-      "where": "Зал обмена — 2200 жетонов сигнала"
+      "where": "Зал обмена — 2200 жетонов сигнала",
+      "icon": "/materials/Material_Signal_Token.png"
     }
   ],
   "specimen_ab_15": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 2400 жетонов Валентина 2026"
+      "where": "Зал обмена — 2400 жетонов Валентина 2026",
+      "icon": "/materials/Material_Valentines26_Token.png"
     }
   ],
   "specimen_fd_14": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 2100 жетонов Валентина 2026"
+      "where": "Зал обмена — 2100 жетонов Валентина 2026",
+      "icon": "/materials/Material_Valentines26_Token.png"
     }
   ],
   "specimen_ab_14": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 2500 жетонов сигнала"
+      "where": "Зал обмена — 2500 жетонов сигнала",
+      "icon": "/materials/Material_Signal_Token.png"
     }
   ],
   "specimen_dc_12": [
     {
       "type": "event_hall",
-      "where": "Зал обмена — 1000 жетонов спелеологии"
+      "where": "Зал обмена — 1000 жетонов спелеологии",
+      "icon": "/materials/Material_Spelunking_Token.png"
     }
   ]
 }
