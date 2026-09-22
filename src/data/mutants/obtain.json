@@ -54754,5 +54754,39 @@
       "type": "event_hall",
       "where": "Зал обмена — 180 жетонов ивента"
     }
+  ],
+  "specimen_bc_14": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1800 жетонов ивента"
+    }
+  ],
+  "specimen_db_14": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2000 жетонов ивента"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2200 жетонов ивента"
+    }
+  ],
+  "specimen_ab_15": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2400 жетонов ивента"
+    }
+  ],
+  "specimen_fd_14": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2100 жетонов ивента"
+    }
+  ],
+  "specimen_ab_14": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2500 жетонов ивента"
+    }
   ]
 }
