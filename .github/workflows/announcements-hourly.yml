@@ -134,7 +134,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY' | tee -a "$GITHUB_STEP_SUMMARY"
           import json
           try:
               data = json.load(open('scripts/live-filter-dates.json'))
