@@ -669,7 +669,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1300 жетонов Hexcity"
+      "where": "Зал обмена — 1300 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     },
     {
       "type": "roulette",
@@ -2413,7 +2414,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1250 новогодних жетонов 2025"
+      "where": "Зал обмена — 1250 новогодних жетонов 2025",
+      "icon": "/materials/Material_Xmas25_Token.png"
     },
     {
       "type": "roulette",
@@ -2683,7 +2685,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «honeybee»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «honeybee»)",
+      "icon": "/materials/Material_Mystery26_Token.png"
     }
   ],
   "specimen_ab_12": [
@@ -3600,7 +3603,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «kings»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «kings»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_ac_09": [
@@ -3943,7 +3947,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 2000 жетонов капсул"
+      "where": "Зал обмена — 2000 жетонов капсул",
+      "icon": "/materials/Material_Capsule_Token.png"
     }
   ],
   "specimen_ac_14": [
@@ -8174,11 +8179,13 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1600 новогодних жетонов 2024"
+      "where": "Зал обмена — 1600 новогодних жетонов 2024",
+      "icon": "/materials/Material_Xmas24_Token.png"
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 20 зимних апельсинов"
+      "where": "Зал обмена — 20 зимних апельсинов",
+      "icon": "/materials/Material_Winter_Orange.png"
     },
     {
       "type": "event_hall",
@@ -14387,7 +14394,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 13 зимнего угля"
+      "where": "Зал обмена — 13 зимнего угля",
+      "icon": "/materials/Material_Winter_Coal.png"
     },
     {
       "type": "roulette",
@@ -15252,7 +15260,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «summer»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «summer»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_be_04": [
@@ -16395,7 +16404,8 @@
   "specimen_be_15": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 2000 пасхальных жетонов 2026"
+      "where": "Зал обмена — 2000 пасхальных жетонов 2026",
+      "icon": "/materials/Material_Easter26_Token.png"
     }
   ],
   "specimen_bf_01": [
@@ -23319,7 +23329,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1000 жетонов Hexcity"
+      "where": "Зал обмена — 1000 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     },
     {
       "type": "jackpot_hall",
@@ -28439,7 +28450,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1000 жетонов Hexcity"
+      "where": "Зал обмена — 1000 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     },
     {
       "type": "event_raid",
@@ -28520,7 +28532,8 @@
   "specimen_da_14": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1800 пасхальных жетонов 2026"
+      "where": "Зал обмена — 1800 пасхальных жетонов 2026",
+      "icon": "/materials/Material_Easter26_Token.png"
     }
   ],
   "specimen_db_01": [
@@ -32478,7 +32491,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «school»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «school»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_dd_09": [
@@ -34537,7 +34551,8 @@
   "specimen_de_15": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 3000 новогодних жетонов 2025"
+      "where": "Зал обмена — 3000 новогодних жетонов 2025",
+      "icon": "/materials/Material_Xmas25_Token.png"
     }
   ],
   "specimen_df_01": [
@@ -39145,7 +39160,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1300 жетонов Hexcity"
+      "where": "Зал обмена — 1300 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     },
     {
       "type": "pvp",
@@ -39363,7 +39379,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «aprilfools»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «aprilfools»)",
+      "icon": "/materials/Material_Mystery26_Token.png"
     }
   ],
   "specimen_eb_11": [
@@ -44141,7 +44158,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 40 зимних апельсинов"
+      "where": "Зал обмена — 40 зимних апельсинов",
+      "icon": "/materials/Material_Winter_Orange.png"
     },
     {
       "type": "pvp",
@@ -46046,6 +46064,11 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Uprising"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2000 жетонов заговора",
+      "icon": "/materials/Material_Conspiracy_Token.png"
     }
   ],
   "specimen_f_01": [
@@ -50029,7 +50052,8 @@
     },
     {
       "type": "mystery_hall",
-      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «europe»)"
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «europe»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_fc_09": [
@@ -51835,7 +51859,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 1000 жетонов Hexcity"
+      "where": "Зал обмена — 1000 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     }
   ],
   "specimen_fe_04": [
@@ -52864,7 +52889,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 30 жетонов игрушек"
+      "where": "Зал обмена — 30 жетонов игрушек",
+      "icon": "/materials/Material_Toybox_Token.png"
     },
     {
       "type": "roulette",
@@ -53077,7 +53103,8 @@
     },
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 40 зимних апельсинов"
+      "where": "Зал обмена — 40 зимних апельсинов",
+      "icon": "/materials/Material_Winter_Orange.png"
     },
     {
       "type": "event_hall",
@@ -54772,19 +54799,22 @@
   "specimen_ff_14": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 2500 новогодних жетонов 2024"
+      "where": "Зал обмена — 2500 новогодних жетонов 2024",
+      "icon": "/materials/Material_Xmas24_Token.png"
     }
   ],
   "specimen_ff_99": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 3000 жетонов Hexcity"
+      "where": "Зал обмена — 3000 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     }
   ],
   "specimen_fa_15": [
     {
       "type": "jackpot_hall",
-      "where": "Зал обмена — 3900 жетонов Hexcity"
+      "where": "Зал обмена — 3900 жетонов Hexcity",
+      "icon": "/materials/Material_Hexcity_Token_v2.png"
     }
   ],
   "specimen_ef_15": [
@@ -54887,6 +54917,13 @@
     {
       "type": "event_hall",
       "where": "Зал обмена — 180 жетонов ивента"
+    }
+  ],
+  "specimen_ae_99": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 2500 жетонов заговора",
+      "icon": "/materials/Material_Conspiracy_Token.png"
     }
   ]
 }
