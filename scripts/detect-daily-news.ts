@@ -21,6 +21,7 @@ import {
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
 import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { loadPromoPercents } from './kartel-promo-percents'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
 import { fetchGameXml } from './game-xml-cache'
 
@@ -50,6 +51,27 @@ interface DailyNewsItem {
   // подпись даты на языке посетителя по ISO-датам, а не по русской строке.
   exactDateEnd: string | null
   exactDateApprox?: boolean
+  // Живой процент скидки (ABGetExperiments, см. kartel-promo-percents.ts) -
+  // сейчас только для баннера тех-центра (TECH_CENTER_DISCOUNT_FILTERS ниже).
+  // null, если живых данных нет или акции сейчас нет (эксперимент на "Default").
+  discountPercent?: number | null
+}
+
+// Единственный баннер dailypopup.xml, для которого мы знаем связку с
+// экспериментами промо-процентов (см. память auto-announcements-architecture,
+// "скидка на эво датируется на день позже" - тот же разбор вскрыл и это).
+// HC (золото) и SC (серебро) - независимо настраиваемые панели, на практике
+// пока всегда совпадали, но структурно могут разойтись - тогда показываем
+// меньший (не завышаем скидку, если по факту она разная для двух валют).
+const TECH_CENTER_DISCOUNT_FILTERS: Record<string, [string, string]> = {
+  Daily_news_tech_V2: ['Mutants-Promo-TechCenter-HC', 'Mutants-Promo-TechCenter-SC'],
+}
+
+function techCenterDiscount(filter: string, promoPercents: Record<string, number>): number | null {
+  const pair = TECH_CENTER_DISCOUNT_FILTERS[filter]
+  if (!pair) return null
+  const values = pair.map((name) => promoPercents[name]).filter((v): v is number => v != null)
+  return values.length > 0 ? Math.min(...values) : null
 }
 
 function balanceQuotes(name: string): string {
@@ -220,6 +242,7 @@ export async function fetchDailyNewsForecast(
   }
 
   const filterDates = await loadFilterDates()
+  const promoPercents = await loadPromoPercents()
 
   // См. detect-shop-forecast.ts::fetchShopForecast - тот же фикс "чужая
   // дата по переиспользованному generic Filter-тегу" (LuckyBox_Research_IX
@@ -266,6 +289,7 @@ export async function fetchDailyNewsForecast(
       image,
       price: shopInfo?.price ?? null,
       ribbon: shopInfo?.ribbon ?? null,
+      discountPercent: techCenterDiscount(it.filter, promoPercents),
       exactDateLabel: exactRange
         ? formatExactRangeRu(
             new Date(exactRange.start),

@@ -53,6 +53,11 @@ export interface AnnouncementItem {
   // Только для shopForecast/dailyNews - настоящая игровая лента оффера
   // (offerTag из shopitems.xml), см. scripts/shop-offer-tags.ts.
   ribbon?: string | null
+  // Только dailyNews - живой процент скидки (ABGetExperiments, не игровой
+  // offerTag - см. scripts/kartel-promo-percents.ts). Не путать с ribbon
+  // выше: этот баннер (тех-центр) - не ShopItem, offerTag'а у него нет в
+  // принципе, процент приходит отдельным live-запросом.
+  discountPercent?: number | null
   // Точный диапазон ЭТОГО оффера из живого kartel-запроса (см. scripts/
   // kartel-filter-dates.ts) - null, если live-данных нет, тогда карточка
   // берёт общий sprintRangeLabel(sprint) как раньше.

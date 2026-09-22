@@ -606,8 +606,10 @@ const forecastWeeks =
             >
               <div class="forecast-tile-media">
                 {offer.image && <img src={offer.image} alt={offerName} loading="lazy" decoding="async" />}
-                {ribbonLabel(offer.ribbon, locale) && (
-                  <span class:list={['forecast-ribbon', ribbonClass(offer.ribbon)]}>{ribbonLabel(offer.ribbon, locale)}</span>
+                {(ribbonLabel(offer.ribbon, locale) || offer.discountPercent != null) && (
+                  <span class:list={['forecast-ribbon', offer.ribbon ? ribbonClass(offer.ribbon) : 'ribbon-discount']}>
+                    {ribbonLabel(offer.ribbon, locale) || `-${offer.discountPercent}%`}
+                  </span>
                 )}
                 {featuredMutantLabel(offer.featuredMutant, locale) && (
                   <span class:list={['forecast-featured', `forecast-featured-${offer.featuredMutant}`]}>
