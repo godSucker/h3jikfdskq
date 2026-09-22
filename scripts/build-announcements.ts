@@ -72,7 +72,7 @@ const ROOT = process.cwd()
 const LEDGER_PATH = path.join(ROOT, 'scripts/announced-ids-cache.json')
 const ANNOUNCEMENTS_PATH = path.join(ROOT, 'src/data/announcements.json')
 
-interface AnnouncementItem {
+export interface AnnouncementItem {
   id: string
   name: string
   image?: string | null
@@ -1607,6 +1607,37 @@ async function notifyNewExactDates(
   }
 }
 
+// Восстанавливает live-производные поля (exactDate*/featuredMutant/
+// discountPercent) на уже опубликованном item'е спринта, когда соответствующий
+// живой источник этого прогона отсутствовал - иначе `fresh` целиком выигрывает
+// как раньше (см. вызывающий код: комментарии "НАЙДЕНО 2026-09-08"/"НАЙДЕНО
+// (Opus 5.5 audit, 2026-09-22)" про то, почему это не может быть просто
+// `?? old.поле` по одному полю за раз). Чистая функция - юнит-тест в
+// scripts/build-announcements.merge.test.ts кроет оба фикса без сети/Telegram.
+export function mergeLiveFields(
+  old: AnnouncementItem | undefined,
+  fresh: AnnouncementItem,
+  liveDataMissing: boolean,
+  promoDataMissing: boolean,
+): AnnouncementItem {
+  let merged = fresh
+  if (liveDataMissing && !fresh.exactDateLabel && old?.exactDateLabel) {
+    merged = {
+      ...merged,
+      exactDateLabel: old.exactDateLabel,
+      exactDateStart: old.exactDateStart,
+      exactDateEnd: old.exactDateEnd ?? null,
+      exactDateApprox: old.exactDateApprox,
+      exactDateOpenEnd: old.exactDateOpenEnd,
+      featuredMutant: fresh.featuredMutant ?? old.featuredMutant ?? null,
+    }
+  }
+  if (promoDataMissing && merged.discountPercent == null && old?.discountPercent != null) {
+    merged = { ...merged, discountPercent: old.discountPercent }
+  }
+  return merged
+}
+
 async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
@@ -1855,49 +1886,7 @@ async function main() {
             // ВСЕХ офферов без исключения - это не "дата оказалась чужой",
             // а "мы вообще не спрашивали" - в этом единственном случае
             // защищаем уже известное старое значение, а не доверяем fresh.
-            let merged = fresh
-            if (liveDataMissing && !fresh.exactDateLabel && old?.exactDateLabel) {
-              // featuredMutant ('week'/'month') тоже считается через
-              // classifyFeaturedMutant(id, exactRange.start, exactRange.end) -
-              // тот же exactRange, что и exactDateLabel/exactDateStart выше.
-              // Без live-данных exactRange=null для КАЖДОГО айтема -> classify
-              // вернёт null для всех "мутант недели/месяца" тоже, не только
-              // для даты. Тот же откат, тем же условием (см. advisor-ревью
-              // 2026-09-09 - поймано ДО деплоя, до того как реально стёрло
-              // ленту "Мутант недели/месяца" на проде).
-              //
-              // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): восстанавливались только
-              // exactDateLabel/exactDateStart/featuredMutant - exactDateEnd/
-              // exactDateApprox/exactDateOpenEnd оставались из fresh (null/
-              // false/undefined), т.е. RU-карточка (использует готовую
-              // exactDateLabel-строку как есть) была в порядке, а не-RU
-              // локали (exactDateLabelIn в announcements-render.ts собирает
-              // подпись САМ из этих полей) рисовали неверный диапазон - без
-              // конца, без "≈", без "- ?". Все exactDate*-поля считаются
-              // вместе, из одного exactRange - восстанавливаем всю группу
-              // одним блоком, а не по одному полю за раз.
-              merged = {
-                ...merged,
-                exactDateLabel: old.exactDateLabel,
-                exactDateStart: old.exactDateStart,
-                exactDateEnd: old.exactDateEnd ?? null,
-                exactDateApprox: old.exactDateApprox,
-                exactDateOpenEnd: old.exactDateOpenEnd,
-                featuredMutant: fresh.featuredMutant ?? old.featuredMutant ?? null,
-              }
-            }
-            // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): discountPercent - отдельный
-            // живой источник (fetch-promo-percents.py, promoDataMissing выше),
-            // независимый от live-filter-dates - гейтится отдельным флагом, не
-            // завязанным на liveDataMissing.
-            if (
-              promoDataMissing &&
-              merged.discountPercent == null &&
-              old?.discountPercent != null
-            ) {
-              merged = { ...merged, discountPercent: old.discountPercent }
-            }
-            return merged
+            return mergeLiveFields(old, fresh, liveDataMissing, promoDataMissing)
           })
           const datedAfter = existing.items.filter((it) => it.exactDateLabel).length
           console.log(
