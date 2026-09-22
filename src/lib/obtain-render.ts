@@ -349,6 +349,16 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: 'Mağaracılık jetonu',
     nl: 'Speleologie-tokens',
   },
+  'жетонов заговора': {
+    en: 'Conspiracy tokens',
+    es: 'fichas Conspiración',
+    fr: 'jetons Conspiration',
+    de: 'Verschwörung-Marken',
+    pt: 'fichas de Conspiração',
+    it: 'gettoni Cospirazione',
+    tr: 'Komplo jetonu',
+    nl: 'Samenzwering-tokens',
+  },
 }
 
 const SECRET_BREEDING_LABEL: Partial<Record<Locale, string>> = {
