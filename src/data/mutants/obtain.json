@@ -54925,5 +54925,11 @@
       "where": "Зал обмена — 2500 жетонов заговора",
       "icon": "/materials/Material_Conspiracy_Token.png"
     }
+  ],
+  "specimen_ba_14": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 240 жетонов ивента"
+    }
   ]
 }
