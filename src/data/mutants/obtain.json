@@ -1292,6 +1292,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 129"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1000 жетонов ивента"
     }
   ],
   "specimen_aa_10": [
@@ -4891,6 +4895,10 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1000 жетонов ивента"
     }
   ],
   "specimen_ad_07": [
@@ -6662,6 +6670,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 50 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_ae_10": [
@@ -8122,6 +8134,10 @@
       "where": "Набор: Элитный пакет Хеймдалль (от $99.99)",
       "icon": "/mut_icons/donate.png",
       "itemId": "bank_af_11_prestige"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
     }
   ],
   "specimen_af_12": [
@@ -8493,6 +8509,10 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 250 жетонов джекпота"
     }
   ],
   "specimen_b_13": [
@@ -11583,6 +11603,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 98"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 800 жетонов ивента"
     }
   ],
   "specimen_bb_10": [
@@ -14628,6 +14652,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 800 жетонов ивента"
     }
   ],
   "specimen_bd_11": [
@@ -16276,6 +16304,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 327"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 200 жетонов джекпота"
     }
   ],
   "specimen_be_12": [
@@ -21594,6 +21626,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 100 жетонов ивента"
     }
   ],
   "specimen_cc_08": [
@@ -23247,6 +23283,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 1000 жетонов Hexcity"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_cd_10": [
@@ -23336,6 +23376,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_cd_11": [
@@ -27073,6 +27117,10 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1000 жетонов ивента"
     }
   ],
   "specimen_da_03": [
@@ -31009,6 +31057,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_dc_10": [
@@ -34362,6 +34414,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 298"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 200 жетонов джекпота"
     }
   ],
   "specimen_de_12": [
@@ -40846,6 +40902,10 @@
       "type": "bundle",
       "where": "Набор: Суперпакет «Юбилейная» (3 500 золота)",
       "icon": "/cash/hardcurrency.webp"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
     }
   ],
   "specimen_ec_12": [
@@ -42559,6 +42619,14 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 273"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 750 жетонов ивента"
     }
   ],
   "specimen_ed_11": [
@@ -45816,6 +45884,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 125"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента"
     }
   ],
   "specimen_ef_11": [
@@ -47537,6 +47609,10 @@
       "type": "bundle",
       "where": "Набор: Рождественский пакет (от $49.99)",
       "icon": "/mut_icons/donate.png"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1800 жетонов ивента"
     }
   ],
   "specimen_fa_14": [
@@ -53092,6 +53168,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_ff_01": [
@@ -54652,6 +54732,24 @@
     }
   ],
   "specimen_ee_12": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
+    }
+  ],
+  "specimen_ea_11": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 180 жетонов ивента"
+    }
+  ],
+  "specimen_ca_13": [
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 1800 жетонов ивента"
+    }
+  ],
+  "specimen_db_12": [
     {
       "type": "event_hall",
       "where": "Зал обмена — 180 жетонов ивента"
