@@ -82,5 +82,8 @@ scripts/i18n-sweep-report.json
 # снимок с игрового сервера на момент прогона CI, не история данных. Секрет
 # auth-блоба живёт в KARTEL_AUTH_BLOB_B64 (GitHub Secrets), не в файлах.
 scripts/live-filter-dates.json
+# То же самое, но для процентов промо-акций (scripts/kartel/fetch-promo-percents.py,
+# ABGetExperiments) - см. scripts/kartel-promo-percents.ts.
+scripts/live-promo-percents.json
 scripts/kartel/auth_request_fresh.bin
 downloads/

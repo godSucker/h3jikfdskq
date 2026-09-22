@@ -153,6 +153,19 @@ jobs:
               print('| %s | %s | %s |' % (name, start, end))
           PY
 
+      - name: 9.53 Живые проценты промо-акций (kartel ABGetExperiments)
+        # Процент скидки (тех-центр и т.п.) не хранится ни в одном статичном
+        # XML, ни в date-фильтрах шага 9.5 - игра раздаёт его через
+        # инфраструктуру A/B-экспериментов. См. память
+        # auto-announcements-architecture.md, находка при разборе "скидка на
+        # эво". continue-on-error - обогащение: detect-daily-news.ts просто не
+        # покажет процент, если файла нет.
+        if: always()
+        continue-on-error: true
+        run: python3 scripts/kartel/fetch-promo-percents.py > scripts/live-promo-percents.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
       - name: 9.55 Пополнение постоянного журнала дат (date-ledger.json)
         # Живой снэпшот шага 9.5 видит только ~7 дней вперёд и живёт один
         # прогон (scripts/live-filter-dates.json гитигнорится). Этот шаг

@@ -88,6 +88,11 @@ interface AnnouncementItem {
   // Только для shopForecast/dailyNews - лента с настоящего offerTag игры
   // (legendary/limited/new/discount-N/...), см. scripts/shop-offer-tags.ts.
   ribbon?: OfferRibbon | null
+  // Только dailyNews - живой процент скидки (ABGetExperiments, см.
+  // scripts/kartel-promo-percents.ts). Пока только баннер тех-центра
+  // (TECH_CENTER_DISCOUNT_FILTERS в detect-daily-news.ts). null - живых
+  // данных нет или сейчас нет акции.
+  discountPercent?: number | null
   // shopForecast/dailyNews/raid/ladder/box - точный диапазон ЭТОГО оффера/
   // рейда/лесенки/бокса из живого kartel-запроса (см.
   // scripts/kartel-filter-dates.ts), джойн по <Filter> (shopitems.xml для
@@ -1324,6 +1329,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
       image: it.image ?? forecast.coverImage,
       price: it.price,
       ribbon: it.ribbon,
+      discountPercent: it.discountPercent,
       exactDateLabel: it.exactDateLabel,
       exactDateStart: it.exactDateStart,
       exactDateEnd: it.exactDateEnd,
