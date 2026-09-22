@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import mutantsData from '@/data/mutants/mutants.json';
 import legendaryIds from '@/data/guides/legendaries.json';
 import pvpFarmMutantIds from '@/data/guides/pvp-farm-mutants.json';
+import pvpSeasonsData from '@/data/guides/pvp-seasons.json';
 import zodiacEntries from '@/data/guides/zodiac.json';
 import farmerRows from '@/data/guides/farmers.json';
 import speedOrbs from '@/data/guides/speed-orbs.json';
@@ -74,6 +75,18 @@ function resolve(id: string) {
 
 const legendaries = (legendaryIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
 const pvpFarmMutants = (pvpFarmMutantIds as string[]).map(resolve).filter((x): x is NonNullable<typeof x> => x !== null);
+
+// getTournamentsHistory (kartel, чужие read-only аккаунты со своего согласия,
+// без единого `synch` - см. CONTEXT_KARTEL_PROTOCOL.md rule 10 в 4443/):
+// таблица наград сезона совпала побайтово на 2 разных аккаунтах для всех 146
+// общих сезонов - общесезонная, не персональная лута, безопасно трактовать
+// как факт "этот мутант - награда сезона N" независимо от аккаунта-источника.
+const pvpSeasons = (pvpSeasonsData as { season: number; mutantId: string }[])
+  .map((row) => {
+    const resolved = resolve(row.mutantId);
+    return resolved ? { season: row.season, ...resolved } : null;
+  })
+  .filter((x): x is NonNullable<typeof x> => x !== null);
 
 // zodiac.json.sign - хардкод RU (Овен/Телец/итд), закрытое множество из 12 знаков -
 // ключ словаря по RU-названию, не переведённое имя рендерилось напрямую на всех локалях.
@@ -501,6 +514,7 @@ const specialOffers = (specialOffersData as SpecialOfferRaw[]).map((o) => ({
     locale={locale}
     legendaries={legendaries}
     pvpFarmMutants={pvpFarmMutants}
+    pvpSeasons={pvpSeasons}
     zodiac={zodiac}
     farmers={farmers}
     speedOrbs={speedOrbs}
