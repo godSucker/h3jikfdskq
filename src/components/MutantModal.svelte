@@ -24,6 +24,7 @@
   } from '@/lib/mutant-icons';
   import { baseMutantId as baseId } from '@/lib/utils';
   import { renderObtainWhere } from '@/lib/obtain-render';
+  import { UNKNOWN_SOURCE_ENTRY } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import toplistsData from '@/data/mutants/toplists.json';
   import skinIconsData from '@/data/mutants/skin-icons.json';
@@ -89,7 +90,7 @@
     pvp: '/mut_icons/icon_pvp.webp',
     roulette: '/sims/roulette.webp',
     crossover: '/mut_icons/limited.webp',
-    unavailable: '/etc/icon_timer.webp',
+    unknown: '/etc/icon_timer.webp',
   };
 
   let { open = false, mutant = null, star = 'normal', skins = [], initialSkin = null, onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
@@ -114,6 +115,13 @@
   function displayObtainWhere(o: { type: string; where: string; itemId?: string }): string {
     return renderObtainWhere(o, locale, obtainNames, names);
   }
+
+  // Без единой записи - одна строка "Источник неизвестен" (метка считается,
+  // а не хранится в obtain.json, см. obtain-sources.ts).
+  let obtainEntries: { type: string; where: string; icon?: string; itemId?: string }[] = $derived.by(() => {
+    const list = mutant?.id ? (obtainData as Record<string, { type: string; where: string; icon?: string; itemId?: string }[]>)[mutant.id] : undefined;
+    return list?.length ? list : [UNKNOWN_SOURCE_ENTRY];
+  });
 
   const close = () => onclose?.();
 
@@ -851,14 +859,14 @@
       </div>
 
       <!-- Способы получения -->
-      {#if mutant?.id && obtainData[mutant.id]?.length}
+      {#if mutant?.id}
         <details class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
           <summary class="text-xs text-slate-300 cursor-pointer select-none list-none flex items-center justify-between">
-            <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.howToObtain', locale)} ({obtainData[mutant.id].length})</span>
+            <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.howToObtain', locale)}{obtainEntries[0] === UNKNOWN_SOURCE_ENTRY ? '' : ` (${obtainEntries.length})`}</span>
             <span class="details-chevron text-slate-400">▾</span>
           </summary>
           <div class="flex flex-col gap-1.5 mt-2">
-            {#each obtainData[mutant.id] as o}
+            {#each obtainEntries as o}
               <div class="flex items-center gap-2 text-[12px] text-slate-200">
                 <span class="w-11 h-11 shrink-0 flex items-center justify-center">
                   <img class={`${o.type === 'box' || o.type === 'breeding' || o.type === 'breeding_duplicate' ? 'w-11 h-11' : 'w-7 h-7'} object-contain rounded`} src={textureUrl(o.icon ?? OBTAIN_ICON[o.type] ?? '/etc/icon_bingo.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />

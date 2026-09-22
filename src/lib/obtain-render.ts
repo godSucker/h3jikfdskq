@@ -534,15 +534,15 @@ const STATIC_STRING_DICT: Record<string, Partial<Record<Locale, string>>> = {
       tr: 'Üretim ilk kopyayı VERMEZ - yalnızca zaten sahip olduğunuz bir mutantı çoğaltır (ebeveynlerden biri kendisi olmalı)',
       nl: 'Fokken geeft NIET de eerste kopie - het verdubbelt alleen een mutant die je al bezit (een ouder moet zichzelf zijn)',
     },
-  'Уже не получить': {
-    en: 'No longer obtainable',
-    es: 'Ya no se puede obtener',
-    fr: 'Plus disponible',
-    de: 'Nicht mehr erhältlich',
-    pt: 'Não disponível',
-    it: 'Non più ottenibile',
-    tr: 'Artık elde edilemiyor',
-    nl: 'Niet meer verkrijgbaar',
+  'Источник неизвестен': {
+    en: 'Source unknown',
+    es: 'Origen desconocido',
+    fr: 'Source inconnue',
+    de: 'Quelle unbekannt',
+    pt: 'Origem desconhecida',
+    it: 'Fonte sconosciuta',
+    tr: 'Kaynak bilinmiyor',
+    nl: 'Bron onbekend',
   },
 }
 
@@ -2936,7 +2936,7 @@ export function renderObtainWhere(
   if (
     entry.type === 'breeding' ||
     entry.type === 'breeding_duplicate' ||
-    entry.type === 'unavailable'
+    entry.type === 'unknown'
   ) {
     return (
       STATIC_STRING_DICT[entry.where]?.[locale] ??

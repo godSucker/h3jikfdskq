@@ -9,7 +9,7 @@
   import { bingoIconUrl } from '@/lib/bingo-textures';
   import { bingoEntryVariant } from '@/lib/bingo-entry-variant';
   import { bingoBoardGroup, compareBingoBoards } from '@/lib/bingo-order';
-  import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources, obtainSourceKey } from '@/lib/obtain-sources';
+  import { obtainSourceLabelL, obtainSourceIcon, obtainSourceGroup, compareObtainSources, obtainSourceKey, UNKNOWN_SOURCE } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import { t, pluralizeCount, type Locale } from '@/lib/i18n';
 
@@ -183,6 +183,14 @@
         if (!map.has(key)) map.set(key, new Set());
         map.get(key)!.add(mutantId);
       }
+    }
+    // Мутант без единой записи - "Источник неизвестен". Считается по списку
+    // мутантов, а не по obtain.json: у такого мутанта там записей просто нет.
+    for (const it of items as { id?: string }[]) {
+      const id = String(it?.id ?? '').toLowerCase();
+      if (!id || all[id]?.length) continue;
+      if (!map.has(UNKNOWN_SOURCE)) map.set(UNKNOWN_SOURCE, new Set());
+      map.get(UNKNOWN_SOURCE)!.add(id);
     }
     return map;
   })());

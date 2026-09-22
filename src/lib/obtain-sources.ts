@@ -226,16 +226,19 @@ export const OBTAIN_SOURCE_LABEL: Record<string, Record<Locale, string>> = {
     tr: 'Crossover',
     nl: 'Crossover',
   },
-  unavailable: {
-    ru: 'Уже не получить',
-    en: 'No longer obtainable',
-    es: 'Ya no se puede obtener',
-    fr: 'Plus disponible',
-    de: 'Nicht mehr erhältlich',
-    pt: 'Não disponível',
-    it: 'Non più ottenibile',
-    tr: 'Artık elde edilemiyor',
-    nl: 'Niet meer verkrijgbaar',
+  // Не тип obtain.json: так фильтр и карточка помечают мутанта, у которого
+  // нет ни одной записи-источника (см. obtainSourceKeys). Раньше это была
+  // ручная запись "Уже не получить", которую никто не пересчитывал.
+  unknown: {
+    ru: 'Источник неизвестен',
+    en: 'Source unknown',
+    es: 'Origen desconocido',
+    fr: 'Source inconnue',
+    de: 'Quelle unbekannt',
+    pt: 'Origem desconhecida',
+    it: 'Fonte sconosciuta',
+    tr: 'Kaynak bilinmiyor',
+    nl: 'Bron onbekend',
   },
 }
 
@@ -264,7 +267,7 @@ export const OBTAIN_SOURCE_ICON: Record<string, string> = {
   donate: '/mut_icons/donate.png',
   quest: '/quests/story/quest_mutodex.png',
   crossover: '/mut_icons/limited.webp',
-  unavailable: '/etc/icon_timer.webp',
+  unknown: '/etc/icon_timer.webp',
 }
 
 // Порядок пунктов в выпадашке: по смыслу, а не по алфавиту (иначе, например,
@@ -277,7 +280,7 @@ export const OBTAIN_SOURCE_GROUPS: string[][] = [
   ['breeding', 'breeding_duplicate', 'secret_breeding'],
   ['jackpot_hall', 'event_hall'],
   ['gold_shop', 'credits_shop', 'bundle', 'box', 'donate'],
-  ['quest', 'crossover', 'unavailable'],
+  ['quest', 'crossover', 'unknown'],
 ]
 
 const SOURCE_POSITION = new Map<string, { group: number; index: number }>()
@@ -313,6 +316,12 @@ export function obtainSourceKey(record: { type?: string; where?: string }): stri
   if (record.type === 'event_raid' && record.where?.startsWith('Лесенки')) return 'event_ladder'
   return record.type
 }
+
+// Метка для мутанта без единой записи в obtain.json. Считается при сборке, а
+// не хранится в данных: как только авто-синк допишет мутанту источник, метка
+// исчезнет сама.
+export const UNKNOWN_SOURCE = 'unknown'
+export const UNKNOWN_SOURCE_ENTRY = { type: UNKNOWN_SOURCE, where: 'Источник неизвестен' }
 
 // Незнакомый источник (новый тип в obtain.json) не прячем - показываем ключ
 // как есть, чтобы фильтр не начал тихо терять мутантов.
