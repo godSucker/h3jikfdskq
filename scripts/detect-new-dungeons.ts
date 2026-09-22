@@ -26,6 +26,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import axios from 'axios'
+import { runMain } from './lib/run-main'
 
 const ROOT = process.cwd()
 const DUNGEONS_XML_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/dungeon/dungeons.xml'
@@ -155,9 +156,4 @@ async function main() {
 }
 
 // Только при прямом запуске - см. аналогичный комментарий в detect-new-reactors.ts.
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error('[DUNGEON-WATCH] Ошибка:', err instanceof Error ? err.message : err)
-    process.exit(1)
-  })
-}
+runMain(import.meta.url, 'DUNGEON-WATCH', main)

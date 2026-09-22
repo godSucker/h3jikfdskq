@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import fssync from 'fs'
+import { runMain } from './lib/run-main'
 import path from 'path'
 
 // Каталог боксов для /boxes - строится НАПРЯМУЮ из shopitems.xml (s-beta), а не из
@@ -394,7 +395,4 @@ async function main() {
   console.log(`[BOXES] Иконок докачано: ${downloaded}, без иконки: ${withoutIcon}`)
 }
 
-main().catch((err) => {
-  console.error('[BUILD-BOXES] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'BUILD-BOXES', main)

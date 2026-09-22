@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 import { XMLParser } from 'fast-xml-parser'
 import { loadFilterDates, loadDateLedger, hasLiveFilterData } from './kartel-filter-dates'
 import {
@@ -756,9 +757,4 @@ async function main() {
     console.log(`[EVENT-QUESTS] без имени (нужен event-quest-names.json): ${unnamed.join(', ')}`)
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((err) => {
-    console.error('[EVENT-QUESTS] упал:', err)
-    process.exit(1)
-  })
-}
+runMain(import.meta.url, 'EVENT-QUESTS', main)

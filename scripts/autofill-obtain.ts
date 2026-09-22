@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 import { BINGO_RU } from '../src/lib/mutant-dicts'
 
 // Авто-обновление obtain.json из механически однозначных игровых данных.
@@ -326,7 +327,4 @@ async function writeSummary(lines: string[]): Promise<void> {
   console.log(lines.join('\n'))
 }
 
-main().catch((err) => {
-  console.error('[OBTAIN-AUTOFILL] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'OBTAIN-AUTOFILL', main)

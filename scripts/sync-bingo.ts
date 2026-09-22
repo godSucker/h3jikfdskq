@@ -1,6 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
+import { runMain } from './lib/run-main'
 import { XMLParser } from 'fast-xml-parser'
 
 // Полная автоматизация бинго: тянет манифест + все доски morphology с s-beta,
@@ -260,7 +261,4 @@ async function main() {
   console.log(lines.join('\n'))
 }
 
-main().catch((err) => {
-  console.error('[BINGO-SYNC] Ошибка:', err instanceof Error ? err.message : err)
-  process.exit(1)
-})
+runMain(import.meta.url, 'BINGO-SYNC', main)

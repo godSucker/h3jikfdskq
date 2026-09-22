@@ -15,6 +15,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { loadFilterDates } from '../kartel-filter-dates'
+import { runMain } from '../lib/run-main'
 
 const LEDGER_PATH = path.join(process.cwd(), 'scripts/kartel/date-ledger.json')
 const DAY_MS = 24 * 60 * 60 * 1000
@@ -50,4 +51,4 @@ async function main() {
   )
 }
 
-main()
+runMain(import.meta.url, 'date-ledger', main)
