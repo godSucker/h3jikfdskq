@@ -329,6 +329,26 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: 'Günbatımı jetonu',
     nl: 'Zonsondergang-tokens',
   },
+  'накладных жетонов': {
+    en: 'Overlay tokens',
+    es: 'fichas de Superposición',
+    fr: 'jetons Superposés',
+    de: 'Überlagerte Marken',
+    pt: 'fichas Sobrepostas',
+    it: 'gettoni sovrapposti',
+    tr: 'Kaplama jetonu',
+    nl: 'Gelaagde tokens',
+  },
+  'жетонов спелеологии': {
+    en: 'Spelunking tokens',
+    es: 'fichas de Espeleología',
+    fr: 'jetons Spéléologie',
+    de: 'Höhlenforscher-Marken',
+    pt: 'fichas do Espeleólogo',
+    it: 'gettoni speleologia',
+    tr: 'Mağaracılık jetonu',
+    nl: 'Speleologie-tokens',
+  },
 }
 
 const SECRET_BREEDING_LABEL: Partial<Record<Locale, string>> = {
