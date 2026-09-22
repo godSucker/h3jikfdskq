@@ -126,6 +126,33 @@ jobs:
         env:
           KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
 
+      - name: 9.51 Окна баннеров daily_news в summary (наблюдение за скидкой на эво)
+        # Только печать, ничего не пишет. Имя фильтра баннера (Daily_news_tech_V2 -
+        # скидка на эво) переиспользуется из спринта в спринт, и kartel отдаёт
+        # окно прошлого показа. Лог нужен, чтобы увидеть, в какой момент сервер
+        # переключает окно на новый показ: заранее или только в день старта.
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          try:
+              data = json.load(open('scripts/live-filter-dates.json'))
+          except Exception:
+              print('### Окна daily_news\nживого снэпшота нет')
+              raise SystemExit
+          rows = sorted(
+              (name, r.get('start'), r.get('end'))
+              for name, r in data.get('filters', {}).items()
+              if name.lower().startswith('daily_news')
+          )
+          print('### Окна daily_news (kartel, снэпшот %s)' % data.get('fetchedAt'))
+          print('| фильтр | start | end |')
+          print('|---|---|---|')
+          for name, start, end in rows:
+              print('| %s | %s | %s |' % (name, start, end))
+          PY
+
       - name: 9.55 Пополнение постоянного журнала дат (date-ledger.json)
         # Живой снэпшот шага 9.5 видит только ~7 дней вперёд и живёт один
         # прогон (scripts/live-filter-dates.json гитигнорится). Этот шаг
