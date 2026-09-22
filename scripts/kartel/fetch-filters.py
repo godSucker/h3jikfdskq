@@ -254,6 +254,31 @@ def extract_filters(response: dict) -> list:
     raise RuntimeError('getuser response has no filters[] - формат ответа изменился?')
 
 
+# НАХОДКА 2026-09-22: kartel в ОДНОМ ответе может вернуть ОДНО имя фильтра
+# ДВАЖДЫ с разными датами - игра переиспользует Filter не только между
+# спринтами (та проблема уже учтена окном сравнения в build-*.ts), но и внутри
+# одного getuser-ответа сразу для двух разных циклов/офферов. Пример живьём
+# (2026-09-22, 255 фильтров в ответе, 7 из них дублируются): Daily_news_tech_V2
+# пришёл как {22-24 сент, ТЕКУЩИЙ} И {11-13 авг, старый} одновременно - именно
+# он и был причиной "скидка на эво датируется на день позже": наивная
+# перезапись `out[name] = ...` в порядке ответа брала последнюю запись, а она
+# ВСЕГДА оказывалась более старой во всех 7 случаях (не гарантия на будущее,
+# порядок ответа не документирован). Разруливаем по смыслу, а не по порядку:
+# активная прямо сейчас запись побеждает всегда; если активной нет - берём ту,
+# чей start ближе всего к текущему моменту (будущая ближайшая или самая
+# недавняя прошедшая), а не что попало.
+def pick_current(entries: list, now_ms: float) -> dict:
+    def score(e):
+        start, end = e.get('startDate'), e.get('endDate')
+        if start is None or start == -1:
+            return (2, float('inf'))
+        if end is not None and end != -1 and start <= now_ms < end:
+            return (0, 0.0)  # активна прямо сейчас - вне конкуренции
+        return (1, abs(now_ms - start))
+
+    return min(entries, key=score)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--auth-file', default=None, help='Локальный auth_request_fresh.bin (вместо KARTEL_AUTH_BLOB_B64)')
@@ -280,15 +305,21 @@ def main():
     ])
     filters = extract_filters(response)
 
-    out = {}
+    by_name: dict = {}
     for f in filters:
         name = f.get('name')
         if not name:
             continue
-        start = decode_ms(f.get('startDate'))
+        by_name.setdefault(name, []).append(f)
+
+    now_ms = (datetime.now(timezone.utc) - PSEUDO_DOTNET_EPOCH).total_seconds() * 1000
+    out = {}
+    for name, entries in by_name.items():
+        best = pick_current(entries, now_ms) if len(entries) > 1 else entries[0]
+        start = decode_ms(best.get('startDate'))
         if start is None:
             continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
-        out[name] = {'start': start, 'end': decode_ms(f.get('endDate'))}
+        out[name] = {'start': start, 'end': decode_ms(best.get('endDate'))}
 
     print(json.dumps({'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out}, ensure_ascii=False))
 
