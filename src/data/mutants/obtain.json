@@ -787,6 +787,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 50"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 130"
     }
   ],
   "specimen_aa_06": [
@@ -1038,6 +1042,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 97"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 228"
     }
   ],
   "specimen_aa_08": [
@@ -1284,6 +1292,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 50 жетонов джекпота"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 129"
     }
   ],
   "specimen_aa_10": [
@@ -1370,6 +1382,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 237"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 124"
     }
   ],
   "specimen_aa_11": [
@@ -1426,6 +1446,22 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 162"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 232"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 297"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 333"
     }
   ],
   "specimen_aa_12": [
@@ -1726,10 +1762,6 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 34"
-    },
-    {
-      "type": "pvp",
-      "where": "PVP: Сезон 49"
     },
     {
       "type": "pvp",
@@ -2520,6 +2552,18 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 179"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 208"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 302"
     }
   ],
   "specimen_ab_11": [
@@ -2547,6 +2591,86 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 191"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 200"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 214"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 225"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 243"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 248"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 256"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 262"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 270"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 276"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 281"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 286"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 292"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 293"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 296"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 303"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 305"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 310"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 323"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 336"
     }
   ],
   "specimen_ab_12": [
@@ -3691,6 +3815,10 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 147"
     }
   ],
   "specimen_ac_11": [
@@ -3761,6 +3889,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 157"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 135"
     }
   ],
   "specimen_ac_12": [
@@ -5108,6 +5244,10 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 109"
     }
   ],
   "specimen_ad_09": [
@@ -5234,6 +5374,14 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 182"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 209"
     }
   ],
   "specimen_ad_10": [
@@ -5334,6 +5482,22 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 150"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 178"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 194"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 206"
     }
   ],
   "specimen_ad_12": [
@@ -6582,6 +6746,22 @@
     {
       "type": "roulette",
       "where": "Рулетка «Lucky Slots»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 189"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 196"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 263"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 322"
     }
   ],
   "specimen_ae_12": [
@@ -7763,6 +7943,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 240"
     }
   ],
   "specimen_af_10": [
@@ -7852,6 +8036,30 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 154"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 180"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 210"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 227"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 235"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 288"
     }
   ],
   "specimen_af_11": [
@@ -9643,6 +9851,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 110"
     }
   ],
   "specimen_ba_09": [
@@ -9841,6 +10053,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 195"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 207"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 226"
     }
   ],
   "specimen_ba_10": [
@@ -9955,6 +10179,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 167"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 144"
     }
   ],
   "specimen_ba_11": [
@@ -10017,6 +10249,14 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 166"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 299"
     }
   ],
   "specimen_ba_12": [
@@ -10216,10 +10456,6 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 45"
-    },
-    {
-      "type": "pvp",
-      "where": "PVP: Сезон 65"
     },
     {
       "type": "pvp",
@@ -11414,6 +11650,10 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Яма: Нежить"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 105"
     }
   ],
   "specimen_bb_11": [
@@ -12575,6 +12815,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 111"
     }
   ],
   "specimen_bc_09": [
@@ -12716,6 +12960,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 118"
     }
   ],
   "specimen_bc_10": [
@@ -12817,6 +13065,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 247"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 265"
     }
   ],
   "specimen_bc_11": [
@@ -12862,6 +13118,18 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 290"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 307"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 325"
     }
   ],
   "specimen_bc_12": [
@@ -14324,6 +14592,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 271"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 283"
     }
   ],
   "specimen_bd_11": [
@@ -14378,6 +14654,42 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 158"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 186"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 201"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 202"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 221"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 231"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 244"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 314"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 338"
     }
   ],
   "specimen_bd_12": [
@@ -15854,6 +16166,26 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Яма: Галактик"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 156"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 174"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 185"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 199"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 218"
     }
   ],
   "specimen_be_11": [
@@ -15892,6 +16224,22 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 287"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 311"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 332"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 327"
     }
   ],
   "specimen_be_12": [
@@ -16976,6 +17324,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 113"
     }
   ],
   "specimen_bf_09": [
@@ -17617,10 +17969,6 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 55"
-    },
-    {
-      "type": "pvp",
-      "where": "PVP: Сезон 77"
     }
   ],
   "specimen_ca_04": [
@@ -20105,6 +20453,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 50 жетонов джекпота"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 121"
     }
   ],
   "specimen_cb_10": [
@@ -20174,6 +20526,18 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 197"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 204"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 320"
     }
   ],
   "specimen_cb_11": [
@@ -20216,6 +20580,18 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 175"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 245"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 316"
     }
   ],
   "specimen_cb_12": [
@@ -20262,6 +20638,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Lucky Slots»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 300"
     }
   ],
   "specimen_cb_13": [
@@ -21495,6 +21875,22 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Яма: Рубака"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 198"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 213"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 289"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 146"
     }
   ],
   "specimen_cc_11": [
@@ -21507,6 +21903,22 @@
       "type": "bundle",
       "where": "Набор: Новогоднее предложение (4 200 золота)",
       "icon": "/cash/hardcurrency.webp"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 253"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 278"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 304"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 330"
     }
   ],
   "specimen_cc_12": [
@@ -22876,6 +23288,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 104"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 148"
     }
   ],
   "specimen_cd_11": [
@@ -24235,6 +24655,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 114"
     }
   ],
   "specimen_ce_09": [
@@ -24348,6 +24772,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 190"
     }
   ],
   "specimen_ce_10": [
@@ -24429,6 +24857,22 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Небесное тело"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 151"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 172"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 223"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 259"
     }
   ],
   "specimen_ce_12": [
@@ -26388,6 +26832,14 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 242"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 266"
     }
   ],
   "specimen_d_13": [
@@ -27775,6 +28227,10 @@
       "where": "Лаки-бокс: элитный контейнер «зооморфа» (золото)",
       "icon": "/boxes/mystery_elite_zoo.png",
       "itemId": "LuckyBox_Zoo_Elite"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 126"
     }
   ],
   "specimen_da_11": [
@@ -27857,6 +28313,38 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Jungle Bells 2"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 163"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 188"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 219"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 233"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 241"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 246"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 272"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 329"
     }
   ],
   "specimen_da_12": [
@@ -29168,6 +29656,22 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 153"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 173"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 192"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 216"
     }
   ],
   "specimen_db_11": [
@@ -30648,6 +31152,34 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 222"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 230"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 236"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 260"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 267"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 331"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 337"
     }
   ],
   "specimen_dc_13": [
@@ -31668,6 +32200,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Lucky Slots»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 123"
     }
   ],
   "specimen_dd_08": [
@@ -31808,6 +32344,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 115"
     }
   ],
   "specimen_dd_09": [
@@ -31935,6 +32475,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 96"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 128"
     }
   ],
   "specimen_dd_10": [
@@ -32037,6 +32581,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 152"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 176"
     }
   ],
   "specimen_dd_11": [
@@ -32059,6 +32611,26 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 215"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 238"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 279"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 308"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 317"
     }
   ],
   "specimen_dd_12": [
@@ -33629,6 +34201,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Фотосинтез"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 107"
     }
   ],
   "specimen_de_10": [
@@ -33688,6 +34264,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 133"
     }
   ],
   "specimen_de_11": [
@@ -33734,6 +34314,22 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 165"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 254"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 274"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 298"
     }
   ],
   "specimen_de_12": [
@@ -33996,6 +34592,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 31"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 49"
     }
   ],
   "specimen_df_03": [
@@ -34987,6 +35587,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 117"
     }
   ],
   "specimen_df_09": [
@@ -35149,6 +35753,14 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 112"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 138"
     }
   ],
   "specimen_df_10": [
@@ -35229,6 +35841,14 @@
     {
       "type": "crossover",
       "where": "Кроссовер — награда за 23 уровень в Primal Legends, уже не получить"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 277"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 324"
     }
   ],
   "specimen_df_11": [
@@ -38385,6 +39005,10 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 1300 жетонов Hexcity"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 106"
     }
   ],
   "specimen_eb_08": [
@@ -38481,6 +39105,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 137"
     }
   ],
   "specimen_eb_10": [
@@ -38575,6 +39203,22 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Яма: Галактик"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 181"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 203"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 249"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 145"
     }
   ],
   "specimen_eb_11": [
@@ -38628,6 +39272,30 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Первый эксперимент"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 159"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 187"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 234"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 255"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 258"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 309"
     }
   ],
   "specimen_eb_12": [
@@ -38662,6 +39330,54 @@
     {
       "type": "pvp",
       "where": "Награда за прогресс в ПВП/арене"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 217"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 229"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 239"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 251"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 257"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 261"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 284"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 291"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 295"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 301"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 306"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 328"
     }
   ],
   "specimen_eb_13": [
@@ -38958,6 +39674,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 42"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 77"
     }
   ],
   "specimen_ec_03": [
@@ -40079,6 +40799,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 149"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 168"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 326"
     }
   ],
   "specimen_ec_11": [
@@ -41367,6 +42099,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 92"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 120"
     }
   ],
   "specimen_ed_08": [
@@ -41791,6 +42527,10 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 273"
     }
   ],
   "specimen_ed_11": [
@@ -41952,6 +42692,18 @@
       "type": "bundle",
       "where": "Набор: Пакет «10-летня» (от $4.99)",
       "icon": "/mut_icons/donate.png"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 294"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 321"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 346"
     }
   ],
   "specimen_ee_01": [
@@ -42208,6 +42960,14 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 62"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 69"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 131"
     }
   ],
   "specimen_ee_03": [
@@ -42791,6 +43551,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 70"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 65"
     }
   ],
   "specimen_ee_06": [
@@ -43236,6 +44000,14 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 40 зимних апельсинов"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 183"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 211"
     }
   ],
   "specimen_ee_09": [
@@ -43459,6 +44231,10 @@
     {
       "type": "campaign",
       "where": "Дивизион Гига: Безымянные руины"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 171"
     }
   ],
   "specimen_ee_11": [
@@ -43490,6 +44266,10 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 252"
     }
   ],
   "specimen_ee_13": [
@@ -43517,6 +44297,10 @@
       "type": "bundle",
       "where": "Набор: Особое предложение на день рождения (от $49.99)",
       "icon": "/mut_icons/donate.png"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 269"
     }
   ],
   "specimen_ef_01": [
@@ -44884,6 +45668,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 132"
     }
   ],
   "specimen_ef_10": [
@@ -44996,6 +45784,18 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 102"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 170"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 177"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 125"
     }
   ],
   "specimen_ef_11": [
@@ -46196,6 +46996,10 @@
     {
       "type": "gacha",
       "where": "Реактор — Самоцветы"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 108"
     }
   ],
   "specimen_fa_08": [
@@ -46633,6 +47437,10 @@
     {
       "type": "event_raid",
       "where": "Лесенки: Небесное тело"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 169"
     }
   ],
   "specimen_fa_12": [
@@ -48041,6 +48849,10 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 122"
     }
   ],
   "specimen_fb_09": [
@@ -48298,6 +49110,22 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 161"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 275"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 280"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 285"
     }
   ],
   "specimen_fb_11": [
@@ -48324,6 +49152,30 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 164"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 193"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 212"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 224"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 264"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 312"
     }
   ],
   "specimen_fb_12": [
@@ -50210,6 +51062,18 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 119"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 134"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 139"
     }
   ],
   "specimen_fd_09": [
@@ -50357,6 +51221,10 @@
       "where": "Набор: Пакет «Мастер Лапа» (от $9.99)",
       "icon": "/mut_icons/donate.png",
       "itemId": "bank_fd_10_10jp"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 136"
     }
   ],
   "specimen_fd_11": [
@@ -50383,6 +51251,22 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 200 жетонов джекпота"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 160"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 268"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 282"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 313"
     }
   ],
   "specimen_fd_12": [
@@ -51463,6 +52347,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 93"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 116"
     }
   ],
   "specimen_fe_08": [
@@ -52402,10 +53290,6 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 51"
-    },
-    {
-      "type": "pvp",
-      "where": "PVP: Сезон 69"
     },
     {
       "type": "pvp",
@@ -53480,6 +54364,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 101"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 127"
     }
   ],
   "specimen_ff_10": [
@@ -53578,6 +54466,26 @@
     {
       "type": "gacha",
       "where": "Реактор — Самоцветы"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 155"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 184"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 205"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 220"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 143"
     }
   ],
   "specimen_ff_11": [
