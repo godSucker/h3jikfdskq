@@ -279,6 +279,36 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: '2026 Gizem jetonu',
     nl: 'Mysterie-tokens 2026',
   },
+  'жетонов ползучего': {
+    en: 'Crawling tokens',
+    es: 'fichas de rastreo',
+    fr: 'jetons Grouillants',
+    de: 'Kriechende Marken',
+    pt: 'fichas rastejantes',
+    it: 'gettoni striscianti',
+    tr: 'Sürünen jetonu',
+    nl: 'Kruipende tokens',
+  },
+  'жетонов сигнала': {
+    en: 'Signal tokens',
+    es: 'fichas de señal',
+    fr: 'jetons Mire',
+    de: 'Signal-Marken',
+    pt: 'fichas de sinal',
+    it: 'gettoni segnale',
+    tr: 'sinyal jetonu',
+    nl: 'signaaltokens',
+  },
+  'жетонов Валентина 2026': {
+    en: 'Pixel Heart tokens 2026',
+    es: 'fichas Corazón de píxel 2026',
+    fr: 'jetons Coeur de Pixel 2026',
+    de: 'Pixel-Herz-Marken 2026',
+    pt: 'fichas Coração Pixel 2026',
+    it: 'gettoni Cuore Pixel 2026',
+    tr: '2026 Piksel Kalp jetonu',
+    nl: 'Pixel Hart-tokens 2026',
+  },
 }
 
 const SECRET_BREEDING_LABEL: Partial<Record<Locale, string>> = {
