@@ -267,7 +267,7 @@ export const OBTAIN_SOURCE_ICON: Record<string, string> = {
   donate: '/mut_icons/donate.png',
   quest: '/quests/story/quest_mutodex.png',
   crossover: '/mut_icons/limited.webp',
-  unknown: '/etc/icon_timer.webp',
+  unknown: '/etc/icon_unknown.png',
 }
 
 // Порядок пунктов в выпадашке: по смыслу, а не по алфавиту (иначе, например,

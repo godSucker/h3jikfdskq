@@ -90,7 +90,7 @@
     pvp: '/mut_icons/icon_pvp.webp',
     roulette: '/sims/roulette.webp',
     crossover: '/mut_icons/limited.webp',
-    unknown: '/etc/icon_timer.webp',
+    unknown: '/etc/icon_unknown.png',
   };
 
   let { open = false, mutant = null, star = 'normal', skins = [], initialSkin = null, onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
