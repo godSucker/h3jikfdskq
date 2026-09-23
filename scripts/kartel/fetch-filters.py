@@ -213,6 +213,39 @@ def pick_current(entries: list, now_ms: float) -> dict:
     return min(entries, key=score)
 
 
+def summarize_filters(filters: list, now_ms: float) -> tuple:
+    """Сырые filters[] ответа kartel -> ({имя: выбранное окно}, {имя: все окна})."""
+    by_name: dict = {}
+    for f in filters:
+        name = f.get('name')
+        if not name:
+            continue
+        by_name.setdefault(name, []).append(f)
+
+    out = {}
+    # Все вхождения переиспользуемых имён (только где их >1) - для резолвера
+    # дат в scripts/date-resolver.ts: pick_current выбирает вхождение, не зная,
+    # какое окно нужно потребителю (прогнозу нужен СВОЙ спринт, а не "ближайшее
+    # к сейчас"). Поле аддитивное, `filters` ниже не меняется.
+    occurrences = {}
+    for name, entries in by_name.items():
+        best = pick_current(entries, now_ms) if len(entries) > 1 else entries[0]
+        start = decode_ms(best.get('startDate'))
+        if start is None:
+            continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
+        out[name] = {'start': start, 'end': decode_ms(best.get('endDate'))}
+        if len(entries) > 1:
+            occ = []
+            for e in entries:
+                s = decode_ms(e.get('startDate'))
+                if s is not None:
+                    occ.append({'start': s, 'end': decode_ms(e.get('endDate'))})
+            if len(occ) > 1:
+                occurrences[name] = occ
+
+    return out, occurrences
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--auth-file', default=None, help='Локальный auth_request_fresh.bin (вместо KARTEL_AUTH_BLOB_B64)')
@@ -235,21 +268,8 @@ def main():
     ])
     filters = extract_filters(response)
 
-    by_name: dict = {}
-    for f in filters:
-        name = f.get('name')
-        if not name:
-            continue
-        by_name.setdefault(name, []).append(f)
-
     now_ms = (datetime.now(timezone.utc) - PSEUDO_DOTNET_EPOCH).total_seconds() * 1000
-    out = {}
-    for name, entries in by_name.items():
-        best = pick_current(entries, now_ms) if len(entries) > 1 else entries[0]
-        start = decode_ms(best.get('startDate'))
-        if start is None:
-            continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
-        out[name] = {'start': start, 'end': decode_ms(best.get('endDate'))}
+    out, occurrences = summarize_filters(filters, now_ms)
 
     # meta - для getLiveSnapshot() в kartel-filter-dates.ts: снимок с упавшими
     # источниками имён считается "partial", и мерж не доверяет его null'ам.
@@ -259,7 +279,12 @@ def main():
         'failedSources': failed_sources,
     }
     print(json.dumps(
-        {'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out, 'meta': meta},
+        {
+            'fetchedAt': datetime.now(timezone.utc).isoformat(),
+            'filters': out,
+            'occurrences': occurrences,
+            'meta': meta,
+        },
         ensure_ascii=False,
     ))
 

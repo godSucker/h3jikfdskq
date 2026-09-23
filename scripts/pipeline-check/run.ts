@@ -252,7 +252,9 @@ async function main() {
 
   console.log('\n[1/5] эталон: полные живые данные (игровые XML записываются)')
   setLive(full, true)
-  runBuild(ws, fixtures, 'record')
+  const baseLog = runBuild(ws, fixtures, 'record')
+  const shadow = baseLog.split('\n').find((l) => l.startsWith('### Резолвер дат'))
+  if (shadow) console.log(`  ${shadow.replace('### ', '')}`)
   // Если перехват сети не сработал, "воспроизведение" молча ходило бы в
   // живую сеть и всё равно зеленело - проверяем, что снимок XML записан.
   const recorded = fs.existsSync(fixtures) ? fs.readdirSync(fixtures).length : 0
