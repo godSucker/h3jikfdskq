@@ -166,6 +166,22 @@ jobs:
         env:
           KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
 
+      - name: 9.54 Снимок живых дат и процентов (артефакт для оффлайн-проверки)
+        # scripts/pipeline-check/run.ts гоняет build-announcements.ts оффлайн
+        # на реальном снимке живых данных (kartel локально не дёргаем) и берёт
+        # его отсюда. Содержимое несекретное: имена фильтров, даты, проценты.
+        # Обогащение, ни на что в прогоне не влияет.
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-snapshots
+          path: |
+            scripts/live-filter-dates.json
+            scripts/live-promo-percents.json
+          retention-days: 5
+          if-no-files-found: ignore
+
       - name: 9.55 Пополнение постоянного журнала дат (date-ledger.json)
         # Живой снэпшот шага 9.5 видит только ~7 дней вперёд и живёт один
         # прогон (scripts/live-filter-dates.json гитигнорится). Этот шаг
