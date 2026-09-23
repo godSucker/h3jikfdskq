@@ -73,69 +73,100 @@ GACHA_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gacha.xml'
 GAMEDEFS_EXCHANGE_ENTITIES = ['Building_Tokens_Jackpot', 'Building_Event_1', 'Building_Mystery']
 
 
-def fetch_all_filter_names() -> list:
-    """Собирает ВСЕ <Filter> имена из трёх источников игровых данных - не
-    только daily-offer специмены (для дневных мутантов), но и ЛЮБой ShopItem
-    (боксы - detectBoxes в build-announcements.ts джойнит по itemId->filter
-    без ограничения на subCat/category), dungeons.xml (рейды/лесенки -
-    detectRaids/detectLadders) и dailypopup.xml (daily_news-баннеры). Один
-    live-filter-dates.json на выходе кормит ВСЕ детекторы разом - они уже
-    умеют читать его (см. exactDateFor() в build-announcements.ts), не
-    хватало только явного запроса нужных имён (см. комментарий выше)."""
-    names: list[str] = []
-
-    r = requests.get(SHOPITEMS_URL, timeout=30)
-    r.raise_for_status()
-    for item in re.findall(r'<ShopItem\b[^>]*>[\s\S]*?</ShopItem>', r.text):
+def _names_shopitems(text: str) -> list:
+    out = []
+    for item in re.findall(r'<ShopItem\b[^>]*>[\s\S]*?</ShopItem>', text):
         m_filter = re.search(r'<Filter>([^<]*)</Filter>', item)
         if m_filter and m_filter.group(1):
-            names.append(m_filter.group(1))
+            out.append(m_filter.group(1))
+    return out
 
-    r = requests.get(DUNGEONS_URL, timeout=30)
-    r.raise_for_status()
-    for m in re.finditer(r'<Dungeon id="[^"]+"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)</Filter>', r.text):
-        names.append(m.group(1))
 
-    r = requests.get(DAILYPOPUP_URL, timeout=30)
-    r.raise_for_status()
-    for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', r.text):
-        if m_filter.group(1):
-            names.append(m_filter.group(1))
+def _names_dungeons(text: str) -> list:
+    return [
+        m.group(1)
+        for m in re.finditer(r'<Dungeon id="[^"]+"[^>]*>[\s\S]{0,200}?<Filter>([^<]*)</Filter>', text)
+    ]
 
-    r = requests.get(GAMEDEFS_URL, timeout=30)
-    r.raise_for_status()
+
+def _names_dailypopup(text: str) -> list:
+    return [m.group(1) for m in re.finditer(r'<Filter>([^<]*)</Filter>', text) if m.group(1)]
+
+
+def _names_gamedefs(text: str) -> list:
+    out = []
     for entity_id in GAMEDEFS_EXCHANGE_ENTITIES:
         m_block = re.search(
-            rf'<EntityDescriptor id="{entity_id}"[^>]*>([\s\S]*?)</EntityDescriptor>', r.text
+            rf'<EntityDescriptor id="{entity_id}"[^>]*>([\s\S]*?)</EntityDescriptor>', text
         )
         if not m_block:
             continue
         for m_filter in re.finditer(r'<Filter>([^<]*)</Filter>', m_block.group(1)):
             if m_filter.group(1):
-                names.append(m_filter.group(1))
+                out.append(m_filter.group(1))
+    return out
 
-    # Генераторы/реакторы (см. detectReactors в build-announcements.ts): окно
-    # ротации сервер отдаёт по фильтру gacha_pack_<id>. Имена берём из самого
-    # gacha.xml, а не из нашего списка - так новый генератор Kobojo попадёт в
-    # ответ сразу, и детектор сможет о нём хотя бы предупредить.
-    r = requests.get(GACHA_URL, timeout=30)
-    r.raise_for_status()
-    for gacha_id in re.findall(r'<Gacha id="([^"]+)"', r.text):
-        names.append('gacha_pack_%s' % gacha_id)
 
-    # Ивентовые цепочки заданий (scripts/build-event-quests.ts): по Filter-тегу
-    # цепочки kartel отдаёт окно ивента. Точечно - только миссии с
-    # <Tag key="missionStyle" value="events"/>, а не слепой скан всех 5400+
-    # миссий: слепое расширение списка уже давало три волны регрессий из-за
-    # переиспользованных тегов (см. память auto-announcements-architecture).
-    r = requests.get(MISSIONS_URL, timeout=60)
-    r.raise_for_status()
-    for mission in re.findall(r'<Mission [^>]*>[\s\S]*?</Mission>', r.text):
+# Генераторы/реакторы (см. detectReactors в build-announcements.ts): окно
+# ротации сервер отдаёт по фильтру gacha_pack_<id>. Имена берём из самого
+# gacha.xml, а не из нашего списка - так новый генератор Kobojo попадёт в
+# ответ сразу, и детектор сможет о нём хотя бы предупредить.
+def _names_gacha(text: str) -> list:
+    return ['gacha_pack_%s' % gacha_id for gacha_id in re.findall(r'<Gacha id="([^"]+)"', text)]
+
+
+# Ивентовые цепочки заданий (scripts/build-event-quests.ts): по Filter-тегу
+# цепочки kartel отдаёт окно ивента. Точечно - только миссии с
+# <Tag key="missionStyle" value="events"/>, а не слепой скан всех 5400+
+# миссий: слепое расширение списка уже давало три волны регрессий из-за
+# переиспользованных тегов (см. память auto-announcements-architecture).
+def _names_missions(text: str) -> list:
+    out = []
+    for mission in re.findall(r'<Mission [^>]*>[\s\S]*?</Mission>', text):
         if 'key="missionStyle" value="events"' not in mission:
             continue
         m_filter = re.search(r'<Filter>([^<]*)</Filter>', mission)
         if m_filter and m_filter.group(1):
-            names.append(m_filter.group(1))
+            out.append(m_filter.group(1))
+    return out
+
+
+NAME_SOURCES = [
+    ('shopitems', SHOPITEMS_URL, 30, _names_shopitems),
+    ('dungeons', DUNGEONS_URL, 30, _names_dungeons),
+    ('dailypopup', DAILYPOPUP_URL, 30, _names_dailypopup),
+    ('gamedefinitions', GAMEDEFS_URL, 30, _names_gamedefs),
+    ('gacha', GACHA_URL, 30, _names_gacha),
+    ('missions', MISSIONS_URL, 60, _names_missions),
+]
+
+
+def fetch_all_filter_names() -> tuple:
+    """Собирает ВСЕ <Filter> имена из игровых данных - не только daily-offer
+    специмены (для дневных мутантов), но и ЛЮБой ShopItem (боксы -
+    detectBoxes в build-announcements.ts джойнит по itemId->filter без
+    ограничения на subCat/category), dungeons.xml (рейды/лесенки),
+    dailypopup.xml (daily_news-баннеры), здания обменников, генераторы и
+    ивентовые цепочки. Один live-filter-dates.json на выходе кормит ВСЕ
+    детекторы разом (см. exactDateFor() в build-announcements.ts).
+
+    Возвращает (имена, упавшие_источники). НАЙДЕНО (Opus 5.5 audit,
+    2026-09-22): раньше сбой ЛЮБОГО из источников выкидывал ВСЕ имена разом
+    (filters=[] и сервер отдавал свой авто-набор ~9 записей), а файл на выходе
+    выглядел для guard'а hasLiveFilterData() полноценным - и мерж доверял
+    fresh-null'ам. Теперь каждый источник независим: упавший попадает в
+    failedSources (-> meta в выходе -> снимок "partial" в
+    kartel-filter-dates.ts), остальные имена запрашиваются как обычно."""
+    names: list = []
+    failed: list = []
+    for label, url, timeout, parse in NAME_SOURCES:
+        try:
+            r = requests.get(url, timeout=timeout)
+            r.raise_for_status()
+            names.extend(parse(r.text))
+        except Exception as e:  # noqa: BLE001
+            print(f'WARNING: filter-name source {label} failed: {e}', file=sys.stderr)
+            failed.append(label)
 
     # dedup, сохраняя порядок - дубли не проблема для сервера, но зачем слать лишнее
     seen = set()
@@ -144,7 +175,7 @@ def fetch_all_filter_names() -> list:
         if n not in seen:
             seen.add(n)
             out.append(n)
-    return out
+    return out, failed
 
 
 def extract_filters(response: dict) -> list:
@@ -187,11 +218,7 @@ def main():
     parser.add_argument('--auth-file', default=None, help='Локальный auth_request_fresh.bin (вместо KARTEL_AUTH_BLOB_B64)')
     args = parser.parse_args()
 
-    try:
-        filter_names = fetch_all_filter_names()
-    except Exception as e:  # noqa: BLE001
-        print(f'WARNING: filter-name fetch failed, falling back to empty filters[]: {e}', file=sys.stderr)
-        filter_names = []
+    filter_names, failed_sources = fetch_all_filter_names()
 
     blob = load_auth_blob(args.auth_file)
     uid = auth(blob)
@@ -224,7 +251,17 @@ def main():
             continue  # startDate=-1 - не ротация/не запланировано, бесполезно для дат
         out[name] = {'start': start, 'end': decode_ms(best.get('endDate'))}
 
-    print(json.dumps({'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out}, ensure_ascii=False))
+    # meta - для getLiveSnapshot() в kartel-filter-dates.ts: снимок с упавшими
+    # источниками имён считается "partial", и мерж не доверяет его null'ам.
+    meta = {
+        'requestedCount': len(filter_names),
+        'returnedCount': len(filters),
+        'failedSources': failed_sources,
+    }
+    print(json.dumps(
+        {'fetchedAt': datetime.now(timezone.utc).isoformat(), 'filters': out, 'meta': meta},
+        ensure_ascii=False,
+    ))
 
 
 if __name__ == '__main__':
