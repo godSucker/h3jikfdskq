@@ -237,6 +237,7 @@ jobs:
         run: npx tsx scripts/sync-obtain-names.ts
 
       - name: 11. Коммит всех изменений
+        id: commit
         if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -264,13 +265,32 @@ jobs:
             scripts/pending-screenshots.json
             scripts/kartel/date-ledger.json
 
+      - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
+        # Этап 3 аудита Opus 5.5 (2026-09-23). file_pattern шага 11 ведётся
+        # руками, и это уже ломалось в обе стороны: новый выходной файл без
+        # паттерна молча не коммитится и теряется до следующего прогона. После
+        # коммита в папках, куда пишет пайплайн, не должно остаться ничего
+        # (временные файлы - live-*.json, scripts/.cache/ - в .gitignore и сюда
+        # не попадают). Красный шаг = добавь файл в file_pattern шага 11.
+        if: always()
+        run: |
+          dirty=$(git status --porcelain --untracked-files=all -- src/data scripts public)
+          if [ -n "$dirty" ]; then
+            echo "$dirty"
+            echo "::error title=Незакоммиченные выходы пайплайна::Эти файлы изменены прогоном, но не попали в file_pattern шага 11 - добавь их туда."
+            exit 1
+          fi
+          echo "✅ Все изменённые пайплайном файлы закоммичены"
+
       - name: 12. Синхронизация новых иконок боксов/жетонов с Яндекс CDN
         # Тот же инкрементальный приём, что в sync-cron.yml (шаг 7) - только
         # изменённые в этом коммите файлы, не вся папка целиком. Жетоны
         # добавлены 2026-08-08 - detect-tokens.ts теперь качает их в
         # public/materials/, а не подставляет хотлинк на Kobojo (см. память
         # feedback-tokens-download-not-hotlink).
-        if: always()
+        # Только если шаг 11 реально закоммитил: иначе HEAD~1 - чужой коммит
+        # (другого воркфлоу), и заливался бы его диф (этап 3 аудита Opus 5.5).
+        if: ${{ always() && steps.commit.outputs.changes_detected == 'true' }}
         run: |
           pip install awscli
 
