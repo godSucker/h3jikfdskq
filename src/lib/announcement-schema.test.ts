@@ -5,7 +5,41 @@
 import { describe, expect, it } from 'vitest'
 import fs from 'node:fs'
 import path from 'node:path'
-import { RIBBONS, CATEGORIES, CATEGORY_ICON } from './announcement-schema'
+import {
+  RIBBONS,
+  CATEGORIES,
+  CATEGORY_ICON,
+  dedupeForecastOffers,
+  forecastSprint,
+  forecastWeekOf,
+} from './announcement-schema'
+
+describe('недели прогноза (карточка и скриншот-бот считают одинаково)', () => {
+  const start = Date.UTC(2026, 8, 19)
+  it('граница недели - ровно 7 суток от старта спринта', () => {
+    expect(forecastWeekOf('2026-09-19T00:00:00Z', start)).toBe(1)
+    expect(forecastWeekOf('2026-09-25T23:59:00Z', start)).toBe(1)
+    expect(forecastWeekOf('2026-09-26T00:00:00Z', start)).toBe(2)
+  })
+  it('оффер без даты уходит в неделю 1 - поэтому бот не должен снимать пустую неделю 2', () => {
+    expect(forecastWeekOf(null, start)).toBe(1)
+    expect(forecastWeekOf(undefined, start)).toBe(1)
+  })
+  it('номер спринта - префикс id первого оффера', () => {
+    expect(forecastSprint([{ id: '257|daily_news_x' }])).toBe(257)
+    expect(forecastSprint([])).toBeNull()
+    expect(forecastSprint([{ id: 'junk' }])).toBeNull()
+  })
+  it('дубли одной картинки схлопываются в первое вхождение, офферы без картинки не трогаются', () => {
+    const items = [
+      { id: 'a', image: 'x.png' },
+      { id: 'b', image: 'x.png' },
+      { id: 'c', image: null },
+      { id: 'd', image: null },
+    ]
+    expect(dedupeForecastOffers(items).map((o) => o.id)).toEqual(['a', 'c', 'd'])
+  })
+})
 
 const ROOT = path.join(import.meta.dirname, '../..')
 const CARD_SOURCE = fs.readFileSync(
