@@ -672,6 +672,28 @@ const structuredData = [
         }
       }
 
+      /* Шапка не влезает по факту - бургер на любой ширине. Класс ставит
+         скрипт сразу после <header> по замеру (nav шире своей области).
+         НАЙДЕНО 2026-09-23 (репорт, 1536x826, RU): порог 1500px из фикса
+         выше устарел - меню с тех пор выросло, шапке нужно 1622-1807px в
+         зависимости от языка, а с 1921px (html font-size 140%) - до 2456px.
+         Числовой порог ломается от каждого нового пункта меню, замер - нет. */
+      :global(html.nav-collapsed) .menu-toggle {
+        display: flex;
+      }
+
+      :global(html.nav-collapsed) header nav {
+        display: none;
+      }
+
+      :global(html.nav-collapsed) .mobile-nav {
+        display: block;
+      }
+
+      :global(html.nav-collapsed) .overlay {
+        display: block;
+      }
+
       @media (min-width: 768px) and (max-width: 1023px) {
         header {
           padding: 1rem 1.5rem;
@@ -764,6 +786,38 @@ const structuredData = [
         <span></span>
       </button>
     </header>
+    <script is:inline>
+      // Бургер, если ссылки шапки не влезают (см. html.nav-collapsed в стилях).
+      // Инлайн и сразу после <header> - чтобы решение принималось до первой
+      // отрисовки, а не после загрузки бандла. Повтор после загрузки шрифта
+      // (ширины меняются) и на resize.
+      (function () {
+        var root = document.documentElement;
+        var nav = document.querySelector('header nav');
+        if (!nav) return;
+        var raf = 0;
+        function fit() {
+          raf = 0;
+          root.classList.remove('nav-collapsed');
+          // Узкий экран: бургер уже включён медиа-запросом, nav скрыт - мерить нечего.
+          if (getComputedStyle(nav).display === 'none') return;
+          if (nav.scrollWidth > nav.clientWidth + 1) root.classList.add('nav-collapsed');
+        }
+        function schedule() {
+          if (!raf) raf = requestAnimationFrame(fit);
+        }
+        fit();
+        // fonts.ready в момент выполнения скрипта обычно уже "готов" - веб-шрифт
+        // ещё даже не начал грузиться, - поэтому ловим именно загрузку шрифтов
+        // (с ним ссылки шире) и полную загрузку страницы.
+        if (document.fonts) {
+          document.fonts.ready.then(schedule);
+          if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', schedule);
+        }
+        window.addEventListener('load', schedule);
+        window.addEventListener('resize', schedule);
+      })();
+    </script>
 
     <!-- Mobile Navigation -->
     <div class="overlay" id="overlay"></div>
