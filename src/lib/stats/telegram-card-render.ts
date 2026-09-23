@@ -230,7 +230,10 @@ async function buildPanelTree(input: CardInput) {
       .flat()
       .filter((cell): cell is [string, string] => Array.isArray(cell))
       .map(async (cell) => {
-        splitUriByKey[cell.join('|')] = await loadSplitOrbDataUri(`/orbs/${cell[0]}`, `/orbs/${cell[1]}`)
+        splitUriByKey[cell.join('|')] = await loadSplitOrbDataUri(
+          `/orbs/${cell[0]}`,
+          `/orbs/${cell[1]}`,
+        )
       }),
   )
 
@@ -483,14 +486,25 @@ async function buildPanelTree(input: CardInput) {
       },
       h(
         'div',
-        { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' } },
+        {
+          style: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+          },
+        },
         h(
           'div',
           { style: { display: 'flex', color: '#aab6c8', fontSize: 15, fontWeight: 700 } },
           panel.orbBuilds.length > 1 ? 'Сферовки' : 'Сферовка',
         ),
         active !== null
-          ? h('div', { style: { display: 'flex', color: '#fbbf24', fontSize: 13 } }, `надета №${active + 1}`)
+          ? h(
+              'div',
+              { style: { display: 'flex', color: '#fbbf24', fontSize: 13 } },
+              `надета №${active + 1}`,
+            )
           : h('div', { style: { display: 'flex' } }, ''),
       ),
       ...panel.orbBuilds.map((cells, i) =>
