@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "build:search-index": "tsx scripts/build-search-index.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:pipeline": "tsx scripts/pipeline-check/run.ts"
   },
   "dependencies": {
     "@astrojs/svelte": "^7.1.0",
