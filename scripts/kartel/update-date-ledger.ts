@@ -14,14 +14,30 @@
 // пометки даты как "подтверждённая" (а не диапазон спринта).
 import fs from 'fs/promises'
 import path from 'path'
-import { loadFilterDates } from '../kartel-filter-dates'
+import { getLiveSnapshot } from '../kartel-filter-dates'
 import { runMain } from '../lib/run-main'
 
 const LEDGER_PATH = path.join(process.cwd(), 'scripts/kartel/date-ledger.json')
 const DAY_MS = 24 * 60 * 60 * 1000
 
 async function main() {
-  const filterDates = await loadFilterDates()
+  // Журнал first-write-wins навсегда - неверную запись потом ничто не
+  // перезапишет. Поэтому пишем только из полного снимка (Opus 5.5 audit,
+  // 2026-09-22): при частичном сбое скачивания имён фильтров даты берутся из
+  // урезанного ответа. Пропуск часа ничего не теряет - живой горизонт kartel
+  // ~7 дней, те же окна придут в следующем полном прогоне.
+  const snapshot = await getLiveSnapshot()
+  if (snapshot.status !== 'full') {
+    console.warn(
+      `[date-ledger] снимок живых дат ${snapshot.status}` +
+        (snapshot.meta?.failedSources?.length
+          ? ` (упали источники: ${snapshot.meta.failedSources.join(', ')})`
+          : '') +
+        ' - журнал в этом прогоне не пополняется.',
+    )
+    return
+  }
+  const filterDates = snapshot.filters
 
   let ledger: Record<string, string> = {}
   try {

@@ -20,7 +20,12 @@ import axios from 'axios'
 import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
-import { loadFilterDates, pickFilterDateRange, hasLiveFilterData } from './kartel-filter-dates'
+import {
+  loadFilterDates,
+  pickFilterDateRange,
+  hasLiveFilterData,
+  getLiveSnapshot,
+} from './kartel-filter-dates'
 import { hasLivePromoData } from './kartel-promo-percents'
 import { runMain } from './lib/run-main'
 import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/sprint-calendar'
@@ -1567,10 +1572,14 @@ async function main() {
   // каждый вызывающий workflow всегда всё сделает правильно.
   const liveDataMissing = !(await hasLiveFilterData())
   if (liveDataMissing) {
+    const snap = await getLiveSnapshot()
+    const failed = snap.meta?.failedSources?.length
+      ? ` (упали источники имён: ${snap.meta.failedSources.join(', ')})`
+      : ''
     console.warn(
-      '[ANNOUNCE] ⚠️  scripts/live-filter-dates.json пуст/отсутствует - живых точных дат ' +
-        'нет вообще в этом прогоне. Уже известные exactDateLabel НЕ будут стёрты (см. merge ' +
-        'ниже), но и новые/уточнённые даты в этом прогоне не появятся.',
+      `[ANNOUNCE] ⚠️  снимок живых дат ${snap.status}${failed} - ему нельзя доверять ` +
+        'целиком. Уже известные exactDate*/featuredMutant НЕ будут стёрты (см. merge ниже), ' +
+        'новые даты появятся только там, где живой ответ их реально принёс.',
     )
   }
   // НАЙДЕНО (Opus 5.5 audit, 2026-09-22): тот же принцип, что у liveDataMissing

@@ -16,31 +16,76 @@ export interface FilterDateRange {
 
 const LIVE_FILTER_DATES_PATH = path.join(process.cwd(), 'scripts/live-filter-dates.json')
 
-let cache: Record<string, FilterDateRange> | null = null
-
-export async function loadFilterDates(): Promise<Record<string, FilterDateRange>> {
-  if (cache) return cache
-  try {
-    const raw = await fs.readFile(LIVE_FILTER_DATES_PATH, 'utf-8')
-    const parsed = JSON.parse(raw) as { filters?: Record<string, FilterDateRange> }
-    cache = parsed.filters ?? {}
-  } catch {
-    cache = {}
-  }
-  return cache
+export interface LiveSnapshotMeta {
+  requestedCount?: number
+  returnedCount?: number
+  failedSources?: string[]
 }
 
-// НАЙДЕНО 2026-09-09: этот "тихий фоллбек на {}" - именно то, что позволило
-// finish-pending.yml молча стереть все уже известные даты спринта, когда шаг
-// fetch-filters.py вообще не был подключён (см. коммит 52abe5f99). Сам
-// фоллбек оставляем (легитимный для локальной разработки), но даём вызывающей
-// стороне (build-announcements.ts::main(), merge-логика) способ отличить
-// "живых данных вообще не было в этом прогоне" от "живые данные были, просто
-// для конкретного item'а окна нет" - это разные ситуации и должны по-разному
-// мерджиться с уже известным старым значением.
+// full - все источники имён фильтров скачались, ответу можно доверять целиком.
+// partial - файл есть, но часть источников имён упала (fetch-filters.py пишет
+//   их в meta.failedSources): для этих фильтров даты не запрашивались, и их
+//   null в ответе - "не спрашивали", а не "окна нет".
+// missing - файла нет / он битый / фильтров в нём ноль (шаг не запускался или
+//   упал целиком, локальная разработка).
+export type LiveSnapshotStatus = 'full' | 'partial' | 'missing'
+
+export interface LiveSnapshot {
+  status: LiveSnapshotStatus
+  filters: Record<string, FilterDateRange>
+  meta: LiveSnapshotMeta | null
+}
+
+let snapshotCache: LiveSnapshot | null = null
+
+export async function getLiveSnapshot(): Promise<LiveSnapshot> {
+  if (snapshotCache) return snapshotCache
+  let filters: Record<string, FilterDateRange> = {}
+  let meta: LiveSnapshotMeta | null = null
+  try {
+    const raw = await fs.readFile(LIVE_FILTER_DATES_PATH, 'utf-8')
+    const parsed = JSON.parse(raw) as {
+      filters?: Record<string, FilterDateRange>
+      meta?: LiveSnapshotMeta
+    }
+    filters = parsed.filters ?? {}
+    meta = parsed.meta ?? null
+  } catch {
+    // файла нет или он битый - status ниже станет 'missing'
+  }
+  snapshotCache = { status: classifySnapshot(filters, meta), filters, meta }
+  return snapshotCache
+}
+
+export function classifySnapshot(
+  filters: Record<string, FilterDateRange>,
+  meta: LiveSnapshotMeta | null,
+): LiveSnapshotStatus {
+  if (Object.keys(filters).length === 0) return 'missing'
+  if ((meta?.failedSources?.length ?? 0) > 0 || meta?.requestedCount === 0) return 'partial'
+  // Файл без meta (старый формат, локальный файл) - как раньше, по непустоте.
+  return 'full'
+}
+
+export async function loadFilterDates(): Promise<Record<string, FilterDateRange>> {
+  return (await getLiveSnapshot()).filters
+}
+
+// НАЙДЕНО 2026-09-09: "тихий фоллбек на {}" в loadFilterDates() - именно то,
+// что позволило finish-pending.yml молча стереть все уже известные даты
+// спринта, когда шаг fetch-filters.py вообще не был подключён (см. коммит
+// 52abe5f99). Сам фоллбек оставляем (легитимный для локальной разработки), но
+// даём вызывающей стороне (merge-логика build-announcements.ts::main(),
+// build-event-quests.ts, update-obtain-last-seen.ts) способ отличить "живым
+// данным можно доверять целиком" от всего остального.
+//
+// НАЙДЕНО (Opus 5.5 audit, 2026-09-22): раньше здесь проверялась только
+// непустота файла. Но при сбое скачивания имён фильтров сервер всё равно
+// отдаёт ~9 записей своего авто-набора - файл непустой, guard говорил "данные
+// есть", и мерж стирал уже известные даты. Теперь "есть данные" = только
+// полный снимок (status 'full'); 'partial' защищается так же, как 'missing'.
 export async function hasLiveFilterData(): Promise<boolean> {
-  const dates = await loadFilterDates()
-  return Object.keys(dates).length > 0
+  return (await getLiveSnapshot()).status === 'full'
 }
 
 export function pickFilterDateRange(
