@@ -146,11 +146,9 @@ export function exchangeHallMeta(
 
 // id оффера внутри прогноза = "<sprint>|<filter>" (см. detectShopForecast/
 // detectDailyNews в build-announcements.ts).
-export function forecastSprint(items: AnnouncementItem[]): number | null {
-  const raw = items[0]?.id.split('|')[0]
-  const n = raw ? Number(raw) : NaN
-  return Number.isFinite(n) ? n : null
-}
+// Переехала в announcement-schema.ts - скриншот-бот (голый tsx) считает по ней
+// недели прогноза так же, как карточка. Реэкспорт для существующих импортов.
+export { forecastSprint } from './announcement-schema'
 
 export interface BoxMutantRef {
   id: string

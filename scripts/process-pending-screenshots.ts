@@ -5,6 +5,7 @@
 // минуты CI одного прогона в ожидании Vercel-редеплоя. См. память
 // auto-announcements-architecture.md ("бот-скриншотер в админ-чат").
 import fs from 'fs/promises'
+import path from 'path'
 import { QUEUE_PATH, type PendingScreenshotJob } from './pending-screenshots'
 import {
   sendAdminPhoto,
@@ -13,25 +14,20 @@ import {
   type AdminPhoto,
 } from './telegram-admin-bot'
 import { runMain } from './lib/run-main'
+import {
+  CATEGORY_ICON,
+  CATEGORIES,
+  dedupeForecastOffers,
+  forecastSprint,
+  forecastWeekOf,
+  type Announcement,
+} from '../src/lib/announcement-schema'
+import { sprintStartDate } from '../src/lib/sprint-calendar'
 
 const SITE = 'https://archivist-library.com'
 const MIN_AGE_MS = 5 * 60 * 1000
 const MAX_ATTEMPTS = 6 // при 5-мин cron и MIN_AGE_MS=5мин - до ~30 мин жизни задачи
-
-const CATEGORY_ICON: Record<string, string> = {
-  mutant: '🧬',
-  skin: '🎨',
-  bingo: '🎲',
-  box: '📦',
-  raid: '⚔️',
-  ladder: '🪜',
-  token: '🪙',
-  reactor: '🎰',
-  exchange: '🔁',
-  shopForecast: '🛒',
-  dailyNews: '📰',
-  eventQuests: '📜',
-}
+const ANNOUNCEMENTS_PATH = path.join(process.cwd(), 'src/data/announcements.json')
 
 const CATEGORY_LINK: Record<string, string> = {
   mutant: '/mutants',
@@ -111,8 +107,30 @@ async function readStoredBingoScreenshot(boardId: string): Promise<Buffer | null
   }
 }
 
+// Какие недели прогноза реально непустые - снимать только их. "Скоро в игре"
+// публикуется, когда kartel ещё мог не отдать даты: недатированные офферы
+// карточка кладёт в неделю 1, и кадр "Неделя 2" ушёл бы пустым. Считаем той же
+// функцией, что и карточка (announcement-schema.ts). Не нашли анонс/спринт -
+// обе недели, как раньше.
+async function forecastWeeksToShoot(announcementId: string): Promise<(1 | 2)[]> {
+  try {
+    const all = JSON.parse(await fs.readFile(ANNOUNCEMENTS_PATH, 'utf-8')) as Announcement[]
+    const a = all.find((x) => x.id === announcementId)
+    const sprint = a ? forecastSprint(a.items) : null
+    if (!a || sprint === null) return [1, 2]
+    const startMs = sprintStartDate(sprint).getTime()
+    const present = new Set(
+      dedupeForecastOffers(a.items).map((o) => forecastWeekOf(o.exactDateStart, startMs)),
+    )
+    const weeks = ([1, 2] as const).filter((w) => present.has(w))
+    return weeks.length > 0 ? weeks : [1, 2]
+  } catch {
+    return [1, 2]
+  }
+}
+
 async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retry'> {
-  const icon = CATEGORY_ICON[job.category] ?? '🔔'
+  const icon = CATEGORY_ICON[job.category as (typeof CATEGORIES)[number]] ?? '🔔'
   const link = CATEGORY_LINK[job.category] ?? '/announcements'
   const caption = `${icon} ${job.title}\n\n${SITE}${link}`
 
@@ -176,12 +194,13 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   // - reactor/token/exchange/forecast: у них и так одна карточка.
   // screenshot-dungeon.ts / screenshot-box.ts остаются рабочими, просто не
   // зовутся отсюда.
-  // Прогноз магазина режется на две недели спринта: 38 офферов в один кадр
-  // читаются плохо, поэтому в админку уходят два снимка - "неделя 1" и
-  // "неделя 2" (юзер, 2026-09-16). Остальные категории - один кадр, как было.
-  if (job.category === 'shopForecast') {
+  // Прогнозы режутся на две недели спринта: 38 офферов в один кадр читаются
+  // плохо, поэтому в админку уходит снимок на каждую неделю (юзер, 2026-09-16
+  // для магазина; "Скоро в игре" так же - юзер, 2026-09-23). Остальные
+  // категории - один кадр, как было.
+  if (job.category === 'shopForecast' || job.category === 'dailyNews') {
     let anySent = false
-    for (const week of [1, 2] as const) {
+    for (const week of await forecastWeeksToShoot(job.id)) {
       const shot = await fetchPhoto(
         `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}&week=${week}`,
       )

@@ -9,6 +9,11 @@ import { textureUrl } from '@/lib/texture-cdn'
 import { t, pluralizeCount, type Locale } from '@/lib/i18n'
 import { resolveMutantLite } from '@/lib/guides-resolve'
 import { sprintRangeLabelIn, sprintStartDate, formatDateIn } from '@/lib/sprint-calendar'
+import {
+  dedupeForecastOffers,
+  forecastWeekOf,
+  FORECAST_WEEK_MS,
+} from '@/lib/announcement-schema'
 import { getRewardTexturePath, getRewardLabel, bingoIconUrl } from '@/lib/bingo-textures'
 import bingoScreenshots from '@/data/bingo-screenshots.json'
 import {
@@ -158,8 +163,7 @@ const exchangeGroups =
 const isBoard = a.category === 'dailyNews'
 const forecastOffers =
   kind === 'forecast' && a.items
-    ? a.items
-        .filter((o, i, arr) => !o.image || arr.findIndex((x) => x.image === o.image) === i)
+    ? dedupeForecastOffers(a.items)
         .map((o, i) => ({ o, i }))
         // Хронологически - ближайшие даты сверху, самые дальние снизу.
         // Офферы БЕЗ точной даты (live-данных для них ещё/уже нет) - в самый
@@ -197,9 +201,8 @@ const forecastOffers =
 // Спринт = 14 дней = две недели. Доска на 38 офферов в один кадр читается
 // плохо, поэтому режем её на две недели прямо в вёрстке: на ленте видно оба
 // блока подряд, а скриншот-бот запрашивает по одной неделе за раз (проп week).
-// Граница считается от точного старта спринта, а не от "середины списка" -
-// офферы распределены по дням неравномерно.
-const WEEK_MS = 7 * 86_400_000
+// Какой оффер в какой неделе - forecastWeekOf() из announcement-schema.ts, та
+// же функция решает в боте, какие недели вообще снимать.
 const sprintStartMs = sprint !== null ? sprintStartDate(sprint).getTime() : null
 const fmtWeekDay = (ms: number) => formatDateIn(new Date(ms), locale)
 const forecastWeeks =
@@ -207,14 +210,8 @@ const forecastWeeks =
     ? ([1, 2] as const)
         .map((w) => ({
           week: w,
-          // Оффер без точной даты кладём в первую неделю: сортировка уже
-          // отправила такие в конец списка, и там они хотя бы не выпадают
-          // из кадра совсем.
-          offers: forecastOffers.filter((o) => {
-            if (!o.exactDateStart) return w === 1
-            return (new Date(o.exactDateStart).getTime() - sprintStartMs < WEEK_MS ? 1 : 2) === w
-          }),
-          label: `${fmtWeekDay(sprintStartMs + (w - 1) * WEEK_MS)} — ${fmtWeekDay(sprintStartMs + w * WEEK_MS - 86_400_000)}`,
+          offers: forecastOffers.filter((o) => forecastWeekOf(o.exactDateStart, sprintStartMs) === w),
+          label: `${fmtWeekDay(sprintStartMs + (w - 1) * FORECAST_WEEK_MS)} — ${fmtWeekDay(sprintStartMs + w * FORECAST_WEEK_MS - 86_400_000)}`,
         }))
         .filter((g) => g.offers.length > 0 && (week === null || week === g.week))
     : []

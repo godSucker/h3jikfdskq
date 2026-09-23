@@ -111,6 +111,38 @@ export interface AnnouncementItem {
   skin?: string | null
 }
 
+// Прогнозы (shopForecast/dailyNews) рисуются двумя неделями спринта, и
+// скриншот-бот снимает каждую неделю отдельным кадром. Какой оффер в какой
+// неделе - должны считать одинаково И карточка (AnnouncementCard.astro), И бот
+// (process-pending-screenshots.ts решает, какие недели вообще снимать), иначе
+// бот пришлёт пустой кадр или пропустит неделю. Поэтому логика здесь, один раз.
+
+// Номер спринта прогноза - префикс id первого оффера ("257|...").
+export function forecastSprint(items: { id: string }[]): number | null {
+  const raw = items[0]?.id.split('|')[0]
+  const n = raw ? Number(raw) : NaN
+  return Number.isFinite(n) ? n : null
+}
+
+// Один и тот же баннер/иконка может прийти несколькими офферами - на доске
+// показываем его один раз (первое вхождение в исходном порядке).
+export function dedupeForecastOffers<T extends { image?: string | null }>(items: T[]): T[] {
+  return items.filter((o, i, arr) => !o.image || arr.findIndex((x) => x.image === o.image) === i)
+}
+
+export const FORECAST_WEEK_MS = 7 * 86_400_000
+
+// Граница недели считается от точного старта спринта, а не от середины списка -
+// офферы распределены по дням неравномерно. Оффер без точной даты кладём в
+// первую неделю: сортировка карточки и так отправляет такие в конец списка.
+export function forecastWeekOf(
+  exactDateStart: string | null | undefined,
+  sprintStartMs: number,
+): 1 | 2 {
+  if (!exactDateStart) return 1
+  return new Date(exactDateStart).getTime() - sprintStartMs < FORECAST_WEEK_MS ? 1 : 2
+}
+
 export interface Announcement {
   id: string
   date: string
