@@ -1540,7 +1540,16 @@ export function mergeLiveFields(
   promoDataMissing: boolean,
 ): AnnouncementItem {
   let merged = fresh
-  if (liveDataMissing && !fresh.exactDateLabel && old?.exactDateLabel) {
+  // Без полного снимка живых дат детектор всё равно считает даты - но
+  // приблизительные ("≈ 2 октября", по якорям журнала и соседям). Поэтому
+  // "нельзя доверять fresh" - это не только fresh без даты, но и fresh с
+  // приблизительной датой поверх уже известной точной: иначе на время сбоя
+  // kartel точные даты доски затирались бы догадками, а "мутант недели"
+  // пропадал. Найдено оффлайн-проверкой scripts/pipeline-check (2026-09-23).
+  const freshMissing = !fresh.exactDateLabel
+  const freshApprox = !!fresh.exactDateLabel && fresh.exactDateApprox === true
+  const oldExact = !!old?.exactDateLabel && old.exactDateApprox !== true
+  if (liveDataMissing && old?.exactDateLabel && (freshMissing || (freshApprox && oldExact))) {
     merged = {
       ...merged,
       exactDateLabel: old.exactDateLabel,

@@ -63,6 +63,46 @@ describe('mergeLiveFields', () => {
     expect(merged.discountPercent).toBe(60)
   })
 
+  it('liveDataMissing: приблизительная свежая дата не затирает известную точную (и мутанта недели)', () => {
+    const old = item({
+      exactDateLabel: '2 — 3 октября',
+      exactDateStart: '2026-10-02T10:00:00+00:00',
+      exactDateEnd: '2026-10-03T10:00:00+00:00',
+      exactDateApprox: false,
+      featuredMutant: 'week',
+    })
+    const fresh = item({
+      exactDateLabel: '≈ 2 октября',
+      exactDateStart: '2026-10-02T10:00:00.000Z',
+      exactDateEnd: null,
+      exactDateApprox: true,
+      featuredMutant: null,
+    })
+    const merged = mergeLiveFields(old, fresh, true, false)
+    expect(merged.exactDateLabel).toBe('2 — 3 октября')
+    expect(merged.exactDateEnd).toBe('2026-10-03T10:00:00+00:00')
+    expect(merged.exactDateApprox).toBe(false)
+    expect(merged.featuredMutant).toBe('week')
+  })
+
+  it('liveDataMissing: старая приблизительная дата сохраняется, если свежей нет вовсе', () => {
+    const old = item({ exactDateLabel: '≈ 5 октября', exactDateApprox: true })
+    const fresh = item({ exactDateLabel: null })
+    expect(mergeLiveFields(old, fresh, true, false).exactDateLabel).toBe('≈ 5 октября')
+  })
+
+  it('liveDataMissing: свежая приблизительная побеждает старую приблизительную (обе догадки)', () => {
+    const old = item({ exactDateLabel: '≈ 5 октября', exactDateApprox: true })
+    const fresh = item({ exactDateLabel: '≈ 6 октября', exactDateApprox: true })
+    expect(mergeLiveFields(old, fresh, true, false).exactDateLabel).toBe('≈ 6 октября')
+  })
+
+  it('живые данные полные: приблизительная свежая дата побеждает (доверяем fresh, как раньше)', () => {
+    const old = item({ exactDateLabel: '2 — 3 октября', exactDateApprox: false })
+    const fresh = item({ exactDateLabel: '≈ 2 октября', exactDateApprox: true })
+    expect(mergeLiveFields(old, fresh, false, false)).toEqual(fresh)
+  })
+
   it('нет old (новый item внутри уже опубликованного спринта) - просто fresh, без падения', () => {
     const fresh = item({ exactDateLabel: null, discountPercent: null })
     expect(mergeLiveFields(undefined, fresh, true, true)).toEqual(fresh)
