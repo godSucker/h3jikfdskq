@@ -53,8 +53,10 @@ const MULT_STEPS = [-50, -25, 0, 25, 50]
 
 // Yandex CDN GSLB (cdn.archivist-library.com) occasionally drops the TCP
 // connect from Vercel's US region with a ConnectTimeoutError - transient,
-// not an outage, so worth one retry before giving up on the whole card render.
-async function fetchWithRetry(url: string, retries = 2): Promise<Response> {
+// not an outage, so worth a few retries before giving up on the whole card
+// render. 2026-09-22 two renders still died with "fetch failed" on the old
+// 0.3s+0.6s schedule, so the backoff now spans ~3.5s.
+async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
   for (let attempt = 0; ; attempt++) {
     try {
       const res = await fetch(url)
@@ -62,8 +64,25 @@ async function fetchWithRetry(url: string, retries = 2): Promise<Response> {
     } catch (err) {
       if (attempt >= retries) throw err
     }
-    await new Promise((r) => setTimeout(r, 300 * 2 ** attempt))
+    await new Promise((r) => setTimeout(r, 500 * 2 ** attempt))
   }
+}
+
+// Every image the card uses also ships in public/ and is served by Vercel
+// itself from the site domain - a different network path than Yandex, so a
+// CDN blip (or the hour-long outage of 2026-08-25) no longer kills the render.
+// Fonts have no such fallback: their .ttf files exist only on the CDN.
+const SITE_ORIGIN = 'https://archivist-library.com'
+async function fetchAsset(relPath: string): Promise<Response> {
+  try {
+    const res = await fetchWithRetry(CDN + relPath)
+    if (res.ok) return res
+  } catch {
+    // fall through to the site origin
+  }
+  const res = await fetchWithRetry(SITE_ORIGIN + relPath, 1)
+  if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
+  return res
 }
 
 const imgCache = new Map<string, string>()
@@ -71,8 +90,7 @@ async function loadImageDataUri(relPath: string, grayscale = false): Promise<str
   const key = grayscale ? `${relPath}#gray` : relPath
   const cached = imgCache.get(key)
   if (cached) return cached
-  const res = await fetchWithRetry(CDN + relPath)
-  if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
+  const res = await fetchAsset(relPath)
   const buf = Buffer.from(await res.arrayBuffer())
   let img = sharp(buf)
   if (grayscale) img = img.grayscale().modulate({ brightness: 0.6 })
@@ -100,8 +118,7 @@ async function loadSplitOrbDataUri(leftPath: string, rightPath: string): Promise
       }" fill="#fff"/></svg>`,
     )
   const half = async (relPath: string, side: 'left' | 'right') => {
-    const res = await fetchWithRetry(CDN + relPath)
-    if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
+    const res = await fetchAsset(relPath)
     const square = await sharp(Buffer.from(await res.arrayBuffer()))
       .resize(SIZE, SIZE, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
