@@ -31,8 +31,10 @@ import {
   loadFilterDates,
   loadDateLedger,
   pickFilterDateRange,
+  getLiveSnapshot,
   type FilterDateRange,
 } from './kartel-filter-dates'
+import { shadowCompare } from './date-resolver'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -193,6 +195,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   )
 
   const filterDates = await loadFilterDates()
+  const liveSnap = await getLiveSnapshot()
 
   // НАЙДЕНО 2026-09-08 (живой прогон после расширения явного запроса имён
   // фильтров на ВСЕ <Filter>-теги, не только специмены дня): Kobojo иногда
@@ -236,6 +239,15 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
       new Date(rawExactRange.start).getTime() < sprintWindowEnd
         ? rawExactRange
         : null
+    // Этап 4, теневой режим: date-resolver.ts считает дату рядом, только
+    // логирует расхождение. В данные по-прежнему идёт exactRange выше.
+    shadowCompare(
+      `shopForecast ${target}`,
+      liveSnap,
+      filterTag,
+      { kind: 'sprint', startMs: sprintWindowStart, endMs: sprintWindowEnd },
+      exactRange,
+    )
     return {
       exactRange,
       item: {

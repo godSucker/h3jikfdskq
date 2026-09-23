@@ -33,6 +33,8 @@ export type LiveSnapshotStatus = 'full' | 'partial' | 'missing'
 export interface LiveSnapshot {
   status: LiveSnapshotStatus
   filters: Record<string, FilterDateRange>
+  // Все окна переиспользуемых имён (только где их >1) - для date-resolver.ts.
+  occurrences: Record<string, FilterDateRange[]>
   meta: LiveSnapshotMeta | null
 }
 
@@ -41,19 +43,22 @@ let snapshotCache: LiveSnapshot | null = null
 export async function getLiveSnapshot(): Promise<LiveSnapshot> {
   if (snapshotCache) return snapshotCache
   let filters: Record<string, FilterDateRange> = {}
+  let occurrences: Record<string, FilterDateRange[]> = {}
   let meta: LiveSnapshotMeta | null = null
   try {
     const raw = await fs.readFile(LIVE_FILTER_DATES_PATH, 'utf-8')
     const parsed = JSON.parse(raw) as {
       filters?: Record<string, FilterDateRange>
+      occurrences?: Record<string, FilterDateRange[]>
       meta?: LiveSnapshotMeta
     }
     filters = parsed.filters ?? {}
+    occurrences = parsed.occurrences ?? {}
     meta = parsed.meta ?? null
   } catch {
     // файла нет или он битый - status ниже станет 'missing'
   }
-  snapshotCache = { status: classifySnapshot(filters, meta), filters, meta }
+  snapshotCache = { status: classifySnapshot(filters, meta), filters, occurrences, meta }
   return snapshotCache
 }
 

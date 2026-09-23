@@ -25,7 +25,9 @@ import {
   pickFilterDateRange,
   hasLiveFilterData,
   getLiveSnapshot,
+  type FilterDateRange,
 } from './kartel-filter-dates'
+import { shadowCompare, shadowReport } from './date-resolver'
 import { hasLivePromoData } from './kartel-promo-percents'
 import { runMain } from './lib/run-main'
 import { formatExactRangeRu, formatDateRu, currentSprint } from '../src/lib/sprint-calendar'
@@ -374,15 +376,9 @@ async function buildDungeonFilterMap(): Promise<Map<string, string>> {
 // на 44 дня).
 const STALE_PAST_DAYS = 30
 
-async function exactDateFor(
-  filterName: string | undefined,
-): Promise<{ label: string; start: string; end: string | null } | null> {
-  if (!filterName) return null
-  const dates = await loadFilterDates()
-  const range = pickFilterDateRange(dates, filterName)
-  if (!range) return null
+function isFreshRange(range: FilterDateRange): boolean {
   const startMs = new Date(range.start).getTime()
-  if (Number.isNaN(startMs) || startMs < Date.now() - STALE_PAST_DAYS * 86_400_000) return null
+  if (Number.isNaN(startMs) || startMs < Date.now() - STALE_PAST_DAYS * 86_400_000) return false
   // НАЙДЕНО 2026-09-08: hexcity_2 резолвился в "10-23 августа" (уже 16 дней
   // как закончилось на момент прогона 8 сентября) - 30-дневный барьер по
   // startMs его пропускал (29 < 30), детектор объявил бы уже завершившийся
@@ -391,12 +387,35 @@ async function exactDateFor(
   // датировать их сразу после завершения ещё осмысленно) - считаем протухшим.
   if (range.end) {
     const endMs = new Date(range.end).getTime()
-    if (!Number.isNaN(endMs) && endMs < Date.now() - 3 * 86_400_000) return null
+    if (!Number.isNaN(endMs) && endMs < Date.now() - 3 * 86_400_000) return false
   }
+  return true
+}
+
+async function exactDateFor(
+  filterName: string | undefined,
+): Promise<{ label: string; start: string; end: string | null } | null> {
+  if (!filterName) return null
+  const dates = await loadFilterDates()
+  const range = pickFilterDateRange(dates, filterName)
+  const accepted = range && isFreshRange(range) ? range : null
+  // Этап 4, теневой режим (см. date-resolver.ts) - только лог расхождений,
+  // возвращается по-прежнему accepted.
+  shadowCompare(
+    'exactDateFor',
+    await getLiveSnapshot(),
+    filterName,
+    { kind: 'fresh', nowMs: Date.now() },
+    accepted,
+  )
+  if (!accepted) return null
   return {
-    label: formatExactRangeRu(new Date(range.start), range.end ? new Date(range.end) : null),
-    start: range.start,
-    end: range.end ?? null,
+    label: formatExactRangeRu(
+      new Date(accepted.start),
+      accepted.end ? new Date(accepted.end) : null,
+    ),
+    start: accepted.start,
+    end: accepted.end ?? null,
   }
 }
 
@@ -1840,6 +1859,17 @@ async function main() {
 
   await saveLedger(ledger)
   await fs.writeFile(ANNOUNCEMENTS_PATH, JSON.stringify(announcements, null, 2) + '\n', 'utf-8')
+
+  // Этап 4: отчёт теневого резолвера дат (date-resolver.ts). Только печать -
+  // данные выше уже записаны старым путём.
+  try {
+    const report = shadowReport()
+    console.log(report)
+    if (process.env.GITHUB_STEP_SUMMARY)
+      await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, report + '\n', 'utf-8')
+  } catch {
+    // отчёт не имеет права ломать прогон
+  }
 
   // Бот-скриншотер в АДМИН-чат (TELEGRAM_CHAT_ID, не публичный канал) -
   // отдельный флоу от CROSS_POST_ENABLED ниже, независимо от того, включён

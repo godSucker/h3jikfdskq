@@ -20,7 +20,8 @@ import {
   formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
-import { loadFilterDates, pickFilterDateRange } from './kartel-filter-dates'
+import { loadFilterDates, pickFilterDateRange, getLiveSnapshot } from './kartel-filter-dates'
+import { shadowCompare } from './date-resolver'
 import { loadPromoPercents } from './kartel-promo-percents'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
 import { fetchGameXml } from './game-xml-cache'
@@ -242,6 +243,7 @@ export async function fetchDailyNewsForecast(
   }
 
   const filterDates = await loadFilterDates()
+  const liveSnap = await getLiveSnapshot()
   const promoPercents = await loadPromoPercents()
 
   // См. detect-shop-forecast.ts::fetchShopForecast - тот же фикс "чужая
@@ -280,6 +282,14 @@ export async function fetchDailyNewsForecast(
       new Date(rawExactRange.start).getTime() < sprintWindowEnd
         ? rawExactRange
         : null
+    // Этап 4, теневой режим (см. date-resolver.ts) - только лог расхождений.
+    shadowCompare(
+      `dailyNews ${target}`,
+      liveSnap,
+      it.filter,
+      { kind: 'sprint', startMs: sprintWindowStart, endMs: sprintWindowEnd },
+      exactRange,
+    )
     const inheritedMs =
       !exactRange && it.entity ? (dayMap?.get(it.entity.toLowerCase()) ?? null) : null
     items.push({
