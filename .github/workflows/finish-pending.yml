@@ -98,6 +98,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: 6. Коммит данных
+        id: commit
         if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -123,10 +124,25 @@ jobs:
             public/reactor/**
             public/dungeon-covers/**
 
+      - name: 6.1 Сторож - всё, что записал пайплайн, закоммичено
+        # Тот же сторож, что шаг 11.1 в announcements-hourly.yml (этап 3 аудита
+        # Opus 5.5, 2026-09-23): красный шаг = выходной файл без file_pattern
+        # шага 6, он молча не закоммитился.
+        if: always()
+        run: |
+          dirty=$(git status --porcelain --untracked-files=all -- src/data scripts public)
+          if [ -n "$dirty" ]; then
+            echo "$dirty"
+            echo "::error title=Незакоммиченные выходы пайплайна::Эти файлы изменены прогоном, но не попали в file_pattern шага 6 - добавь их туда."
+            exit 1
+          fi
+          echo "✅ Все изменённые пайплайном файлы закоммичены"
+
       - name: 7. Синхронизация обложек реакторов с Яндекс CDN
         # Тот же приём, что в sync-cron.yml (шаг 7) - заливаем только файлы,
-        # реально изменённые в коммите бота, а не всю папку целиком.
-        if: always()
+        # реально изменённые в коммите бота, а не всю папку целиком. Только
+        # если шаг 6 реально закоммитил - иначе HEAD~1 - чужой коммит.
+        if: ${{ always() && steps.commit.outputs.changes_detected == 'true' }}
         run: |
           pip install awscli
 

@@ -180,61 +180,14 @@ jobs:
           branch: main
           file_pattern: 'src/data/mutants/skin-icons.json public/skins/**'
 
-      - name: 4.85 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
-        # НАЙДЕНО 2026-09-09: этого шага тут не было вообще (тот же баг, что
-        # чинили в finish-pending.yml, коммит 52abe5f99 - см. комментарий там
-        # и в build-announcements.ts::main() про liveDataMissing). Без него
-        # build-announcements.ts на шаге 4.9 ниже гонялся бы без живых дат
-        # каждый ДЕНЬ (этот workflow - ежедневный cron, не разовый dispatch) -
-        # структурный guard в build-announcements.ts теперь не даёт стереть
-        # уже известные даты в этом случае, но без самого шага новые/уточнённые
-        # даты никогда бы и не появлялись. continue-on-error - обогащение,
-        # не критический путь.
-        id: kartel_fetch
-        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
-        continue-on-error: true
-        run: |
-          pip install requests
-          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
-        env:
-          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
-
-      - name: 4.86 Пополнение постоянного журнала дат (date-ledger.json)
-        # Тот же шаг, что announcements-hourly.yml (9.55) - живой снэпшот выше
-        # видит только ~7 дней вперёд и живёт один прогон, этот копит
-        # подтверждённые даты НАВСЕГДА в scripts/kartel/date-ledger.json.
-        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
-        run: npx tsx scripts/kartel/update-date-ledger.ts
-
-      - name: 4.9 Авто-публикация анонсов (мутанты/скины/бинго/боксы/обменники/ребаланс)
-        # Идёт ПОСЛЕДНИМ из data-шагов - нужны самые свежие версии ВСЕХ JSON
-        # разом (mutants/skins/bingos/boxes/obtain/rebalance-history). Ledger
-        # (scripts/announced-ids-cache.json, НЕ scripts/.cache/ - та папка в
-        # .gitignore и не переживает между прогонами CI) хранит уже
-        # опубликованные id, так что повторный прогон не задублирует пост,
-        # даже если этот шаг упадёт и перезапустится завтра. См. память
-        # auto-announcements-architecture - это Фаза 1 (без LLM, без .локал -
-        # только типы, где RU-имя уже есть в самих данных).
-        if: ${{ !cancelled() && steps.parser.outcome == 'success' }}
-        run: npx tsx scripts/build-announcements.ts
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-          # TELEGRAM_CHAT_ID (личный чат, не канал) нужен notifyDetectorFailure()
-          # и notifyRunSummary() внутри build-announcements.ts - без него оба
-          # молча ничего не отправляют (тихий best-effort гейт на оба секрета).
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-      - name: 4.10 Сохранение анонсов
-        if: always()
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: '🤖 Auto-Sync: анонсы'
-          commit_user_name: 'MGG Parser Bot'
-          commit_user_email: 'bot@archivist-library.com'
-          commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
-          branch: main
-          file_pattern: 'src/data/announcements.json scripts/announced-ids-cache.json scripts/kartel/date-ledger.json'
+      # Шаги 4.85-4.10 (живые даты kartel, журнал дат, build-announcements.ts и
+      # коммит анонсов) убраны 2026-09-23 (этап 3 аудита Opus 5.5):
+      # announcements.json пишут только воркфлоу группы "announcements-writes"
+      # с checkout ref: main. Этот крон сидел в своей группе "sync-cron" и
+      # чекаутил github.sha - гонка с часовым прогоном за один и тот же файл,
+      # плюс его file_pattern не включал pending-screenshots.json (задачи
+      # скриншотов молча терялись). Теперь анонсы публикует announcements-
+      # hourly.yml, который дёргается в конце этого прогона (шаг 9.1).
 
       - name: 5. Проверка изменений
         id: check-changes
@@ -249,6 +202,7 @@ jobs:
           fi
 
       - name: 6. Сохранение изменений (Commit & Push)
+        id: commit_data
         # Гейт на успех парсера, а не на общий success() джобы - иначе таймаут
         # 4.2 (после которого 4.3-5 всё равно отрабатывают по outcome == 'success'
         # парсера) съедал бы этот шаг из-за неявного success() в implicit if.
@@ -382,3 +336,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run sync-preview-branch.yml --ref main
+
+      - name: 9.1 Публикация анонсов (announcements-hourly.yml)
+        # Новые мутанты/скины/ребаланс из этого прогона анонсирует часовой
+        # воркфлоу - единственный писатель announcements.json (см. комментарий
+        # на месте бывших шагов 4.85-4.10). Дёргаем в самом конце, после
+        # заливки текстур на CDN (шаги 7/7.1): анонс нового мутанта выходит уже
+        # с картинками. Только если шаг 6 реально что-то закоммитил - иначе
+        # анонсировать из этого прогона нечего, а часовой крон и так идёт по
+        # расписанию. cancel-in-progress у группы false - если часовой прогон
+        # уже идёт, этот встанет в очередь за ним.
+        if: ${{ !cancelled() && steps.commit_data.outputs.changes_detected == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run announcements-hourly.yml --ref main

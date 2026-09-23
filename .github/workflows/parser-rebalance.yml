@@ -54,6 +54,7 @@ jobs:
           fi
 
       - name: 6. Сохранение изменений (Commit & Push)
+        id: commit_data
         if: steps.check-changes.outputs.has_changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
@@ -64,42 +65,13 @@ jobs:
           branch: main
           file_pattern: 'src/data/mutants/*.json'
 
-      - name: 6.05 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
-        # НАЙДЕНО 2026-09-09: этого шага тут не было вообще (тот же баг, что
-        # чинили в finish-pending.yml, коммит 52abe5f99 - см. комментарий там
-        # и в build-announcements.ts::main() про liveDataMissing). Структурный
-        # guard в build-announcements.ts теперь не даёт стереть уже известные
-        # даты, если этого шага нет/он упал, но без него шаг 6.1 ниже никогда
-        # бы не подтягивал новые/уточнённые даты. continue-on-error -
-        # обогащение, не критический путь.
-        id: kartel_fetch
-        if: steps.check-changes.outputs.has_changes == 'true'
-        continue-on-error: true
-        run: |
-          pip install requests
-          python3 scripts/kartel/fetch-filters.py > scripts/live-filter-dates.json
-        env:
-          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
-
-      - name: 6.1 Авто-публикация анонса (ребаланс)
-        # Публикуем сразу, не дожидаясь завтрашнего дневного sync-cron -
-        # ребаланс запускается вручную/по вебхуку, задержка в анонсе не нужна.
-        # Тот же ledger (scripts/announced-ids-cache.json), что у sync-cron.yml -
-        # общая concurrency-группа "sync-cron" (см. комментарий вверху файла)
-        # не даёт этому и дневному прогону писать в него одновременно.
-        if: steps.check-changes.outputs.has_changes == 'true'
-        run: npx tsx scripts/build-announcements.ts
-
-      - name: 6.2 Сохранение анонса
-        if: always()
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: '🤖 Parser Rebalance: анонс'
-          commit_user_name: 'MGG Parser Bot'
-          commit_user_email: 'bot@archivist-library.com'
-          commit_author: 'MGG Parser Bot <bot@archivist-library.com>'
-          branch: main
-          file_pattern: 'src/data/announcements.json scripts/announced-ids-cache.json'
+      # Шаги 6.05-6.2 (живые даты kartel, build-announcements.ts и коммит
+      # анонса) убраны 2026-09-23 (этап 3 аудита Opus 5.5): announcements.json
+      # пишут только воркфлоу группы "announcements-writes" с checkout ref:
+      # main. Здесь анонс писался из группы "sync-cron" со старого чекаута, без
+      # Telegram-секретов (итоги прогона не приходили) и без
+      # pending-screenshots.json в file_pattern (задачи скриншотов терялись).
+      # Анонс ребаланса теперь публикует announcements-hourly.yml (шаг 8.1).
 
       - name: 7. Итоги работы
         if: always()
@@ -124,3 +96,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run sync-preview-branch.yml --ref main
+
+      - name: 8.1 Публикация анонса ребаланса (announcements-hourly.yml)
+        # Ребаланс запускается вручную/по вебхуку - анонс нужен сразу, не ждём
+        # часового крона. Часовой воркфлоу - единственный писатель
+        # announcements.json (см. комментарий на месте шагов 6.05-6.2). Только
+        # если шаг 6 реально закоммитил данные.
+        if: ${{ !cancelled() && steps.commit_data.outputs.changes_detected == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run announcements-hourly.yml --ref main
