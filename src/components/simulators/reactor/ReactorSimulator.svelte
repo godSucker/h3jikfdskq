@@ -132,6 +132,45 @@
     return completedNow;
   }
 
+  // Мутанты, отмеченные юзером как уже выбитые в игре. Засчитываются в
+  // прогресс коллекции (и спин за золото их пропускает), но не попадают в
+  // статистику/инвентарь - их не выбивали в этой симуляции.
+  let owned = $state(new Set<string>());
+
+  // Снять отметку нельзя, если награда за комплит уже выпала спином в
+  // симуляции - откатывать реальный результат спина было бы враньём.
+  let completionFromSpin = $derived(
+    completionReward ? inventory.has(completionReward.specimen) : false,
+  );
+
+  function toggleOwned(specimenId: string) {
+    if (owned.has(specimenId)) {
+      if (completionFromSpin) return;
+      const nextOwned = new Set(owned);
+      nextOwned.delete(specimenId);
+      owned = nextOwned;
+      const nextUnlocked = new Set(unlocked);
+      nextUnlocked.delete(specimenId);
+      if (completed && completionReward) nextUnlocked.delete(completionReward.specimen);
+      unlocked = nextUnlocked;
+      unlockedBaseCount -= 1;
+      completed = false;
+      completionGranted = false;
+      completionTrigger = null;
+      return;
+    }
+    if (unlocked.has(specimenId)) return;
+    const nextOwned = new Set(owned);
+    nextOwned.add(specimenId);
+    owned = nextOwned;
+    // Если отметками собрана вся коллекция - награда за комплит в игре уже
+    // получена: переводим её в пул молча, без записи в инвентарь.
+    if (updateUnlocked(specimenId) && completionReward && !completionGranted) {
+      completionGranted = true;
+      updateUnlocked(completionReward.specimen);
+    }
+  }
+
   function registerResult(result: SpinResult, chargeCost: boolean = true) {
     lastResult = result;
     if (chargeCost) {
@@ -241,7 +280,8 @@
 
     <div class="slot-track">
       {#each baseRewards as reward (reward.specimen)}
-        <div class={`slot-card ${unlocked.has(reward.specimen) ? 'unlocked' : ''} ${lastResult?.item.specimen === reward.specimen ? 'active' : ''}`}>
+        {@const rolled = unlocked.has(reward.specimen) && !owned.has(reward.specimen)}
+        <div class={`slot-card ${unlocked.has(reward.specimen) ? 'unlocked' : ''} ${owned.has(reward.specimen) ? 'owned' : ''} ${lastResult?.item.specimen === reward.specimen ? 'active' : ''}`}>
           <div class="slot-inner">
             <div class="slot-top">
               {#if STAR_ICON[reward.stars]}
@@ -258,6 +298,19 @@
               {/if}
             </div>
             <div class="slot-name">{reward.name}</div>
+            <!-- Для выбитого спином кнопка скрыта, но место держит - иначе карточки разъезжаются по высоте -->
+            <button
+              type="button"
+              class="owned-toggle"
+              class:hidden-toggle={rolled}
+              tabindex={rolled ? -1 : undefined}
+              aria-hidden={rolled || undefined}
+              aria-pressed={owned.has(reward.specimen)}
+              disabled={owned.has(reward.specimen) && completionFromSpin}
+              onclick={() => toggleOwned(reward.specimen)}
+            >
+              {owned.has(reward.specimen) ? `✔ ${t('reactor.ownedMarked', locale)}` : t('reactor.ownedMark', locale)}
+            </button>
           </div>
           {#if unlocked.has(reward.specimen)}
             <div class="slot-overlay-check"><span class="check-icon">✔</span></div>
@@ -426,6 +479,14 @@
   .slot-name { font-size: 0.8rem; font-weight: 600; color: #e2e8f0; line-height: 1.2; margin-bottom: auto; }
   .slot-overlay-check { position: absolute; inset: 0; background: rgba(16, 185, 129, 0.1); border-radius: var(--radius-md); pointer-events: none; display: flex; align-items: start; justify-content: end; padding: 6px; }
   .check-icon { background: #10b981; color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+  .slot-card.owned { background: rgba(100, 116, 139, 0.25); border-color: rgba(148, 163, 184, 0.5); }
+  .slot-card.owned .slot-art img { filter: grayscale(0.6) drop-shadow(0 4px 4px rgba(0,0,0,0.5)); }
+  .slot-card.owned .check-icon { background: #64748b; }
+  .owned-toggle { position: relative; z-index: 1; margin-top: 6px; width: 100%; padding: 3px 4px; font-size: 0.7rem; font-weight: 600; color: #cbd5e1; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
+  .owned-toggle:hover:not(:disabled) { background: rgba(51, 65, 85, 0.8); }
+  .owned-toggle[aria-pressed='true'] { color: #fff; background: #64748b; border-color: #94a3b8; }
+  .owned-toggle:disabled { cursor: default; opacity: 0.6; }
+  .owned-toggle.hidden-toggle { visibility: hidden; }
   .slot-card.completion { border-color: #eab308; background: rgba(234, 179, 8, 0.1); }
   .stage-controls { margin-top: 2rem; }
   .cost-line { display: flex; gap: 1rem; margin-bottom: 1rem; }
