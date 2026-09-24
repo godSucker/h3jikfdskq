@@ -524,6 +524,8 @@
   "reactor.collectIntro": "Соберите коллекцию из {n} {word}.",
   "reactor.starsAlt": "Звёзды награды",
   "reactor.completionLabel": "Награда",
+  "reactor.ownedMark": "Уже есть",
+  "reactor.ownedMarked": "Есть",
   "reactor.statsTitle": "Статистика",
   "reactor.totalSpinsLabel": "Сделано прокрутов:",
   "reactor.tokensSpentLabel": "Жетонов:",

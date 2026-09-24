@@ -523,6 +523,8 @@
   "reactor.collectIntro": "Junte uma coleção de {n} {word}.",
   "reactor.starsAlt": "Estrelas da recompensa",
   "reactor.completionLabel": "Recompensa",
+  "reactor.ownedMark": "Já tenho",
+  "reactor.ownedMarked": "Tenho",
   "reactor.statsTitle": "Estatísticas",
   "reactor.totalSpinsLabel": "Giros feitos:",
   "reactor.tokensSpentLabel": "Fichas:",

@@ -523,6 +523,8 @@
   "reactor.collectIntro": "Collect a set of {n} {word}.",
   "reactor.starsAlt": "Reward stars",
   "reactor.completionLabel": "Reward",
+  "reactor.ownedMark": "Already have",
+  "reactor.ownedMarked": "Owned",
   "reactor.statsTitle": "Statistics",
   "reactor.totalSpinsLabel": "Spins made:",
   "reactor.tokensSpentLabel": "Tokens:",

@@ -523,6 +523,8 @@
   "reactor.collectIntro": "{n} {word} koleksiyonu topla.",
   "reactor.starsAlt": "Ödül yıldızları",
   "reactor.completionLabel": "Ödül",
+  "reactor.ownedMark": "Zaten var",
+  "reactor.ownedMarked": "Var",
   "reactor.statsTitle": "İstatistikler",
   "reactor.totalSpinsLabel": "Yapılan çevirmeler:",
   "reactor.tokensSpentLabel": "Jetonlar:",
