@@ -1,5 +1,88 @@
 [
   {
+    "date": "2026-09-30T10:17:57.623Z",
+    "entries": [
+      {
+        "id": "specimen_df_14",
+        "name": "Суперклеточный дракон",
+        "changes": [
+          {
+            "stat": "speed",
+            "level": null,
+            "old": 5,
+            "new": 4.17
+          },
+          {
+            "stat": "hp",
+            "level": 1,
+            "old": 1130,
+            "new": 2214
+          },
+          {
+            "stat": "atk1",
+            "level": 1,
+            "old": 468,
+            "new": 1667
+          },
+          {
+            "stat": "atk2",
+            "level": 1,
+            "old": 468,
+            "new": 1124
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 30,
+            "new": null,
+            "ability": "ability_slash_plus",
+            "field": "pct"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 548,
+            "new": null,
+            "ability": "ability_slash_plus",
+            "field": "atk1"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 548,
+            "new": null,
+            "ability": "ability_slash_plus",
+            "field": "atk2"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 45,
+            "ability": "ability_retaliate_plus",
+            "field": "pct"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 2925,
+            "ability": "ability_retaliate_plus",
+            "field": "atk1"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 0,
+            "ability": "ability_retaliate_plus",
+            "field": "atk2"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "date": "2026-07-28T11:41:02.598Z",
     "entries": [
       {

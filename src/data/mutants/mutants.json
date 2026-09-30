@@ -59515,62 +59515,62 @@
   },
   {
     "id": "specimen_df_14",
-    "name": "DF_14",
+    "name": "Суперклеточный дракон",
     "genes": [
       "D",
       "F"
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1130,
-        "atk1": 312,
-        "atk2": 312,
-        "ability": 62,
-        "speed": 5,
+        "hp": 2214,
+        "atk1": 1024,
+        "atk2": 1024,
+        "ability": 256,
+        "speed": 4.17,
         "silver": 42,
         "atk1_gene": "d",
         "atk2_gene": "f",
         "atk1_AOE": false,
-        "atk2_AOE": false
+        "atk2_AOE": true
       },
       "lvl30": {
-        "hp": 4407,
-        "atk1": 1825,
-        "atk2": 1825,
-        "ability": 548,
-        "speed": 5,
+        "hp": 8635,
+        "atk1": 6501,
+        "atk2": 4384,
+        "ability": 2926,
+        "speed": 4.17,
         "silver": 1260,
         "atk1_gene": "d",
         "atk2_gene": "f",
         "atk1_AOE": false,
-        "atk2_AOE": false
+        "atk2_AOE": true
       },
-      "hp_base": 1130,
-      "atk1_base": 312,
-      "atk1p_base": 468,
-      "atk2_base": 312,
-      "atk2p_base": 468,
-      "speed_base": 5,
+      "hp_base": 2214,
+      "atk1_base": 1024,
+      "atk1p_base": 1667,
+      "atk2_base": 1024,
+      "atk2p_base": 1124,
+      "speed_base": 4.17,
       "bank_base": 42,
-      "abilityPct1": -20,
-      "abilityPct2": -30
+      "abilityPct1": -25,
+      "abilityPct2": -45
     },
     "abilities": [
       {
-        "name": "ability_slash",
-        "pct": 20,
-        "value_atk1_lvl1": 62,
-        "value_atk2_lvl1": 62,
-        "value_atk1_lvl30": 365,
-        "value_atk2_lvl30": 365
+        "name": "ability_retaliate",
+        "pct": 25,
+        "value_atk1_lvl1": 256,
+        "value_atk2_lvl1": 0,
+        "value_atk1_lvl30": 1625,
+        "value_atk2_lvl30": 0
       },
       {
-        "name": "ability_slash_plus",
-        "pct": 30,
-        "value_atk1_lvl1": 94,
-        "value_atk2_lvl1": 94,
-        "value_atk1_lvl30": 548,
-        "value_atk2_lvl30": 548
+        "name": "ability_retaliate_plus",
+        "pct": 45,
+        "value_atk1_lvl1": 461,
+        "value_atk2_lvl1": 0,
+        "value_atk1_lvl30": 2925,
+        "value_atk2_lvl30": 0
       }
     ],
     "stars": {
@@ -59616,12 +59616,12 @@
       "special": 1
     },
     "bingo": [],
-    "chance": 0,
+    "chance": 20,
     "bank": 42,
     "tier": "",
-    "name_attack1": "Атака 1",
-    "name_attack2": "Атака 2",
+    "name_attack1": "Грозовое дыхание",
+    "name_attack2": "Суперклеточный торнадо",
     "name_attack3": "",
-    "name_lore": "Описание для DF_14"
+    "name_lore": "Громадный дракон, обитающий в самом сердце самых больших грозовых облаков. Его появление обычно предвещает наступление разрушительных штормов. Команда специалистов по изучению циклонических явлений сумела собрать образцы ДНК этого существа для его клонирования с целью использования на аренах. Это значительно обогатило известную компанию, занимающуюся производством зонтиков…"
   }
 ]
