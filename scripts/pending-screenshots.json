@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "id": "mutant-1790764791126-0",
+    "category": "mutant",
+    "title": "Финансовая акула",
+    "itemIds": [
+      "specimen_ed_15"
+    ],
+    "createdAt": "2026-09-30T10:39:58.595Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z"
+  },
+  {
+    "id": "skin-1790764791128-0",
+    "category": "skin",
+    "title": "Черепозавр — Октоберфест",
+    "itemIds": [
+      "Specimen_ED_02|oktoberfest"
+    ],
+    "createdAt": "2026-09-30T10:39:58.595Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z"
+  },
+  {
+    "id": "bingo-1790764791132-0",
+    "category": "bingo",
+    "title": "Мутанты 2026: добавлен(ы) Ed 15",
+    "itemIds": [
+      "2026_mutants"
+    ],
+    "createdAt": "2026-09-30T10:39:58.595Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z"
+  }
+]
