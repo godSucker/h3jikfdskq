@@ -3346,5 +3346,17 @@
     "lore": "Flipflop era una semplice giraffa che viveva nella savana. Un giorno, un elicottero le volò troppo vicino e, FLIPFLOP!, finirono per fondersi in una creatura morfica, capace di trasformarsi a piacimento in un elicottero e in un enorme cannone.",
     "atk1Name": "Giraffottero",
     "atk2Name": "Cannone giraffa"
+  },
+  "specimen_df_14": {
+    "name": "Drago Supercellulare",
+    "lore": "Un drago gigantesco che vive nel cuore delle più grandi nubi temporalesche. La sua presenza di solito preannuncia l’arrivo di tempeste devastanti. Un team specializzato nello studio dei fenomeni ciclonici è riuscito a raccogliere campioni di DNA dalla creatura per clonarla, con l’obiettivo di utilizzarla nelle arene. Ciò ha arricchito notevolmente una famosa azienda operante nel settore degli ombrelli…",
+    "atk1Name": "Soffio di tempesta",
+    "atk2Name": "Tornado supercellulare"
+  },
+  "specimen_ed_15": {
+    "name": "Finanza Squalo",
+    "lore": "Si dice spesso che il mondo della finanza sia una vera e propria vasca degli squali, spietata e senza pietà, dove prevale solo la legge della giungla. È allora che è nata un’idea… E se dessimo a uno squalo mutante a due zampe un vero potere finanziario? Chi verrebbe divorato? E potrebbe darsi che un certo Don abbia messo gli artigli dove serviva per dare vita a questa idea?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Bolla finanziaria"
   }
 }

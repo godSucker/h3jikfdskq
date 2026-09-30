@@ -5843,6 +5843,32 @@
       ]
     },
     {
+      "id": "Specimen_ED_02",
+      "name": "Черепозавр",
+      "genes": [
+        "E",
+        "D"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 2747,
+          "atk1": 813,
+          "atk2": 813
+        },
+        "lvl30": {
+          "hp": 10713,
+          "atk1": 4766,
+          "atk2": 4766
+        }
+      },
+      "star": "gold",
+      "skin": "oktoberfest",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_ed_02_oktoberfest.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_ed_02_oktoberfest.webp"
+      ]
+    },
+    {
       "id": "Specimen_ED_03",
       "name": "Вампаа",
       "genes": [

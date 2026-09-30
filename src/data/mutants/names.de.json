@@ -3346,5 +3346,17 @@
     "lore": "Flipflop war eine einfache Giraffe, die in der Savanne lebte. Eines Tages flog ein Hubschrauber ihr zu nahe, und FLIPFLOP! – schon verschmolzen sie zu einem morphischen Wesen, das sich nach Belieben in einen Hubschrauber und eine riesige Kanone verwandeln konnte.",
     "atk1Name": "Giraffopter",
     "atk2Name": "Giraffenkanone"
+  },
+  "specimen_df_14": {
+    "name": "Superzellen-Drache",
+    "lore": "Ein riesiger Drache, der im Herzen der größten Gewitterwolken lebt. Seine Anwesenheit kündigt meist verheerende Stürme an. Ein auf die Erforschung zyklonaler Phänomene spezialisiertes Team konnte DNA-Proben des Wesens entnehmen, um es zu klonen – mit dem Ziel, es in den Arenen einzusetzen. Dies hat ein berühmtes Unternehmen, das im Regenschirmgeschäft tätig ist, erheblich bereichert…",
+    "atk1Name": "Gewitteratem",
+    "atk2Name": "Superzellen-Tornado"
+  },
+  "specimen_ed_15": {
+    "name": "Finanzhai",
+    "lore": "Es wird oft gesagt, dass die Finanzwelt ein wahres Haifischbecken ist – gnadenlos und rücksichtslos, in dem nur das Gesetz des Dschungels herrscht. Da kam mir eine Idee … Was wäre, wenn wir einem zweibeinigen Mutantenhai echte finanzielle Macht geben würden? Wer würde gefressen werden? Und könnte es sein, dass ein gewisser Don seine Krallen genau dort eingeschlagen hat, wo es nötig war, um diese Idee zum Leben zu erwecken?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Finanzblase"
   }
 }
