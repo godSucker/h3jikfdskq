@@ -3340,5 +3340,17 @@
     "lore": "A Flipflop era uma girafa simples que vivia na savana. Um dia, um helicóptero voou demasiado perto dela e, FLIPFLOP!, acabaram por se fundir numa criatura mórfica, capaz de se transformar à vontade num helicóptero e num canhão gigantesco.",
     "atk1Name": "Girafóptero",
     "atk2Name": "Canhão-Girafa"
+  },
+  "specimen_df_14": {
+    "name": "Dragão Supercelular",
+    "lore": "Um dragão gigantesco que vive no coração das maiores nuvens de tempestade. A sua presença costuma anunciar a chegada de tempestades devastadoras. Uma equipa especializada no estudo de fenómenos ciclónicos conseguiu recolher amostras de ADN da criatura para a clonar, com o objetivo de a utilizar nas arenas. Isto enriqueceu consideravelmente uma famosa empresa do ramo dos guarda-chuvas…",
+    "atk1Name": "Sopro de Tempestade",
+    "atk2Name": "Tornado Supercelular"
+  },
+  "specimen_ed_15": {
+    "name": "Tubarão Financeiro",
+    "lore": "Costuma-se dizer que o mundo das finanças é um verdadeiro aquário de tubarões, impiedoso e implacável, onde apenas prevalece a lei da selva. Foi então que surgiu uma ideia… E se déssemos a um tubarão mutante de duas patas verdadeiro poder financeiro? Quem seria devorado? E será que um certo Don teria colocado as suas garras onde era preciso para dar vida a esta ideia?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Bolha Financeira"
   }
 }

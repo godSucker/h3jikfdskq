@@ -59626,5 +59626,116 @@
     "name_attack2": "Суперклеточный торнадо",
     "name_attack3": "",
     "name_lore": "Громадный дракон, обитающий в самом сердце самых больших грозовых облаков. Его появление обычно предвещает наступление разрушительных штормов. Команда специалистов по изучению циклонических явлений сумела собрать образцы ДНК этого существа для его клонирования с целью использования на аренах. Это значительно обогатило известную компанию, занимающуюся производством зонтиков…"
+  },
+  {
+    "id": "specimen_ed_15",
+    "name": "Финансовая акула",
+    "genes": [
+      "E",
+      "D"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 988,
+        "atk1": 751,
+        "atk2": 751,
+        "ability": 300,
+        "speed": 5.56,
+        "silver": 105,
+        "atk1_gene": "e",
+        "atk2_gene": "d",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "lvl30": {
+        "hp": 3853,
+        "atk1": 5207,
+        "atk2": 5207,
+        "ability": 3228,
+        "speed": 5.56,
+        "silver": 3150,
+        "atk1_gene": "e",
+        "atk2_gene": "d",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "hp_base": 988,
+      "atk1_base": 751,
+      "atk1p_base": 1335,
+      "atk2_base": 751,
+      "atk2p_base": 1335,
+      "speed_base": 5.56,
+      "bank_base": 105,
+      "abilityPct1": -40,
+      "abilityPct2": -62
+    },
+    "abilities": [
+      {
+        "name": "ability_weaken",
+        "pct": 40,
+        "value_atk1_lvl1": 300,
+        "value_atk2_lvl1": 300,
+        "value_atk1_lvl30": 2083,
+        "value_atk2_lvl30": 2083
+      },
+      {
+        "name": "ability_weaken_plus",
+        "pct": 62,
+        "value_atk1_lvl1": 466,
+        "value_atk2_lvl1": 466,
+        "value_atk1_lvl30": 3228,
+        "value_atk2_lvl30": 3228
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/ed_15/specimen_ed_15_normal.webp",
+          "textures_by_mutant/ed_15/larva_ed_15.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/ed_15/specimen_ed_15_bronze.webp",
+          "textures_by_mutant/ed_15/larva_ed_15.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/ed_15/specimen_ed_15_silver.webp",
+          "textures_by_mutant/ed_15/larva_ed_15.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/ed_15/specimen_ed_15_gold.webp",
+          "textures_by_mutant/ed_15/larva_ed_15.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+          "textures_by_mutant/ed_15/larva_ed_15.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 20,
+    "bank": 105,
+    "tier": "",
+    "name_attack1": "СТОНКС",
+    "name_attack2": "Финансовый пузырь",
+    "name_attack3": "",
+    "name_lore": "Часто говорят, что мир финансов — это настоящий «аквариум с акулами», безжалостный и жестокий, где царит лишь закон джунглей. И вот тогда и возникла идея… А что, если бы мы наделили двуногого мутанта-акулу реальной финансовой властью? Кого бы она съела? И не может ли быть так, что некий Дон сунул свои когти туда, куда нужно, чтобы воплотить эту идею в жизнь?"
   }
 ]

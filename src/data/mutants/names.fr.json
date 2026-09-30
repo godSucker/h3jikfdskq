@@ -3346,5 +3346,17 @@
     "lore": "Connaissez-vous l’histoire de Flip-Flop la Girafe ? Un jour, dans la savane, Flip-Flop mangeait tranquillement, quand soudain, un hélicoptère passa. Et FLIP-FLOP, les deux fusionnèrent en une girafe morphique capable de prendre la forme d’un hélicoptère ou d’un canon laser gigantesque !",
     "atk1Name": "Girafoptère",
     "atk2Name": "Canon Girafe"
+  },
+  "specimen_df_14": {
+    "name": "Dragon Supercellulaire",
+    "lore": "Un immense dragon, vivant au coeur des plus importants nuages d’orage. Sa présence implique généralement l’arrivée d’orages dévastateurs. Une équipe spécialisée dans l’étude des phénomènes cycloniques a pu récupérer des échantillons d’ADN de la créature pour la cloner, dans le but de l’utiliser dans les arènes. Ce qui a fortement enrichi une célèbre entreprise liée à la vente de parapluies…",
+    "atk1Name": "Souffle Orageux",
+    "atk2Name": "Tornade Supercellulaire"
+  },
+  "specimen_ed_15": {
+    "name": "Requin de la Finance",
+    "lore": "On dit souvent que la finance est un vériable milieu de requins, sans merci et sans pitié, où seule s’exprime la loi du plus fort. C’est là qu’une idée émergea…. Et si on donnait de véritables capacités financières à un requin mutant bipède ? Qui sera mangé ? Et un certain Don aurait-il mis ses pinces là où il fallait pour faire émerger cette idée ?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Bulle Financière"
   }
 }

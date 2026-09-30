@@ -3346,5 +3346,17 @@
     "lore": "Flipflop was een gewone giraf die op de savanne leefde. Op een dag vloog er een helikopter te dicht bij haar, en FLIPFLOP!, versmolten ze tot een morfisch wezen dat zich naar believen kon veranderen in een helikopter en een enorm kanon.",
     "atk1Name": "Girafopter",
     "atk2Name": "Giraffenkanon"
+  },
+  "specimen_df_14": {
+    "name": "Supercell-draak",
+    "lore": "Een gigantische draak die in het hart van de grootste onweerswolken leeft. Zijn aanwezigheid luidt meestal de komst van verwoestende stormen in. Een team dat gespecialiseerd is in het onderzoek naar cyclonale verschijnselen is erin geslaagd DNA-monsters van het wezen te verzamelen om het te klonen, met als doel het in de arena’s in te zetten. Dit heeft een beroemd bedrijf dat actief is in de paraplu-industrie enorm verrijkt…",
+    "atk1Name": "Onweersadem",
+    "atk2Name": "Supercell-tornado"
+  },
+  "specimen_ed_15": {
+    "name": "Financiële Haai",
+    "lore": "Er wordt vaak gezegd dat de financiële wereld een ware haaienbak is, genadeloos en meedogenloos, waar alleen de wet van de jungle heerst. Toen ontstond er een idee… Wat als we een tweebenige gemuteerde haai echte financiële macht zouden geven? Wie zou er dan worden opgegeten? En zou het kunnen dat een zekere Don zijn klauwen precies op de juiste plek had gezet om dit idee tot leven te brengen?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Financiële zeepbel"
   }
 }

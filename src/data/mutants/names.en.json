@@ -3346,5 +3346,17 @@
     "lore": "Flipflop was a simple giraffe, living in the savannah. One day, a helicopter flew too close to her, and FLIPFLOP!, they ended up merging into a morphic creature, able to turn at will into a helicopter and a massive cannon.",
     "atk1Name": "Giraffopter",
     "atk2Name": "Giraffe Cannon"
+  },
+  "specimen_df_14": {
+    "name": "Supercell Dragon",
+    "lore": "A massive dragon that lives at the heart of the largest thunderclouds. Its presence usually signals the arrival of devastating storms. A team specializing in the study of cyclonic phenomena was able to collect DNA samples from the creature to clone it, with the goal of using it in the arenas. This has greatly enriched a famous company involved in the business of umbrellas…",
+    "atk1Name": "Thunderstorm Breath",
+    "atk2Name": "Supercell Tornado"
+  },
+  "specimen_ed_15": {
+    "name": "Finance Shark",
+    "lore": "It’s often said that the world of finance is a veritable shark tank, merciless and ruthless, where only the law of the jungle prevails. That’s when an idea emerged…. What if we gave a two-legged mutant shark real financial power? Who would get eaten? And could it be that a certain Don had put his claws where they needed to be to bring this idea to life?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Financial Bubble"
   }
 }

@@ -3346,5 +3346,17 @@
     "lore": "Flipflop era una jirafa muy sencilla que vivía en la sabana. Un día, un helicóptero voló demasiado cerca de ella y, ¡FLIPFLOP!, acabaron fusionándose en una criatura morfa, capaz de transformarse a voluntad en un helicóptero y en un cañón gigantesco.",
     "atk1Name": "Jirafóptero",
     "atk2Name": "Cañón de jirafa"
+  },
+  "specimen_df_14": {
+    "name": "Dragón de supercélula",
+    "lore": "Un dragón gigantesco que habita en el corazón de las nubes de tormenta más grandes. Su presencia suele anunciar la llegada de tormentas devastadoras. Un equipo especializado en el estudio de los fenómenos ciclónicos logró recoger muestras de ADN de la criatura para clonarla, con el objetivo de utilizarla en las arenas. Esto ha enriquecido enormemente a una famosa empresa dedicada al negocio de los paraguas…",
+    "atk1Name": "Aliento de tormenta",
+    "atk2Name": "Tornado de supercélula"
+  },
+  "specimen_ed_15": {
+    "name": "Tiburón financiero",
+    "lore": "A menudo se dice que el mundo de las finanzas es un auténtico tanque de tiburones, despiadado y sin piedad, donde solo impera la ley de la selva. Fue entonces cuando surgió una idea… ¿Y si le diéramos a un tiburón mutante de dos patas un poder financiero real? ¿A quién se comería? ¿Y podría ser que un tal Don hubiera metido sus garras donde hacía falta para hacer realidad esta idea?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Burbuja financiera"
   }
 }

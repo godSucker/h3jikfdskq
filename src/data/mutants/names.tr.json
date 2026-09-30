@@ -3346,5 +3346,17 @@
     "lore": "Flipflop, savanada yaşayan sıradan bir zürafaydı. Bir gün, bir helikopter ona çok yaklaşarak uçtu ve FLIPFLOP! Sonunda ikisi birleşerek, istediği zaman helikoptere ve devasa bir topa dönüşebilen morfik bir yaratığa dönüştüler.",
     "atk1Name": "Zürafopter",
     "atk2Name": "Zürafa Topu"
+  },
+  "specimen_df_14": {
+    "name": "Süper Hücre Ejderhası",
+    "lore": "En büyük gök gürültülü bulutların kalbinde yaşayan devasa bir ejderha. Varlığı genellikle yıkıcı fırtınaların gelişini haber verir. Siklonik olayların incelenmesinde uzmanlaşmış bir ekip, bu yaratıktan DNA örnekleri toplayarak onu klonlamayı başardı; amaçları ise onu arenalarda kullanmaktı. Bu gelişme, şemsiye sektöründe faaliyet gösteren ünlü bir şirketi büyük ölçüde zenginleştirdi…",
+    "atk1Name": "Fırtına Nefesi",
+    "atk2Name": "Süper Hücre Kasırgası"
+  },
+  "specimen_ed_15": {
+    "name": "Finans Köpekbalığı",
+    "lore": "Finans dünyasının, acımasız ve merhametsiz, sadece orman kanunlarının hüküm sürdüğü gerçek bir köpekbalığı havuzu olduğu sık sık söylenir. İşte o zaman bir fikir ortaya çıktı… Ya iki ayaklı bir mutant köpekbalığına gerçek finansal güç versek? Kim yutulurdu? Ve acaba bu fikri hayata geçirmek için belli bir Don, pençelerini tam da olması gereken yere mi koymuştu?",
+    "atk1Name": "STONKS",
+    "atk2Name": "Finansal Balon"
   }
 }

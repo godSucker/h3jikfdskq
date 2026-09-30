@@ -972,6 +972,13 @@
             "value": 1502
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 1502
+          },
+          {
             "id": "specimen_cb_14",
             "name": "Капитан Черная Борода",
             "star": "platinum",
@@ -8697,6 +8704,13 @@
             "value": 1990
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 1976
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -10397,6 +10411,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -12807,6 +12828,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 105
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 105
           },
           {
@@ -20311,6 +20339,14 @@
           ],
           "ability_weaken_plus": [
             {
+              "id": "specimen_ed_15",
+              "name": "Финансовая акула",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+              "pct": 62,
+              "value": 931
+            },
+            {
               "id": "specimen_ab_13",
               "name": "Архитектор",
               "star": "platinum",
@@ -21855,6 +21891,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/cc_07/specimen_cc_07_normal.webp",
             "value": 10530
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 10414
           },
           {
             "id": "specimen_dd_13",
@@ -29855,6 +29898,13 @@
             "value": 7762
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 7706
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -31555,6 +31605,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -33965,6 +34022,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 3150
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 3150
           },
           {
@@ -41469,6 +41533,14 @@
           ],
           "ability_weaken_plus": [
             {
+              "id": "specimen_ed_15",
+              "name": "Финансовая акула",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+              "pct": 62,
+              "value": 6456
+            },
+            {
               "id": "specimen_ab_13",
               "name": "Архитектор",
               "star": "platinum",
@@ -46096,6 +46168,13 @@
             "value": 1990
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 1976
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -47796,6 +47875,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -50206,6 +50292,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 105
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 105
           },
           {
@@ -54769,6 +54862,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/cc_07/specimen_cc_07_normal.webp",
             "value": 10530
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 10414
           },
           {
             "id": "specimen_dd_13",
@@ -62776,6 +62876,13 @@
             "value": 7761
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 7706
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -64476,6 +64583,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -66886,6 +67000,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 3150
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 3150
           },
           {
@@ -74390,6 +74511,14 @@
           ],
           "ability_weaken_plus": [
             {
+              "id": "specimen_ed_15",
+              "name": "Финансовая акула",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+              "pct": 62,
+              "value": 6456
+            },
+            {
               "id": "specimen_ab_13",
               "name": "Архитектор",
               "star": "platinum",
@@ -79017,6 +79146,13 @@
             "value": 1990
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 1976
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -80717,6 +80853,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -83127,6 +83270,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 105
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 105
           },
           {
@@ -87669,6 +87819,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/cc_07/specimen_cc_07_normal.webp",
             "value": 10530
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 10414
           },
           {
             "id": "specimen_dd_13",
@@ -95697,6 +95854,13 @@
             "value": 7761
           },
           {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+            "value": 7706
+          },
+          {
             "id": "specimen_fa_10",
             "name": "Часовщица Мими",
             "star": "platinum",
@@ -97397,6 +97561,13 @@
             "name": "Телеведущий",
             "star": "normal",
             "icon": "/textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+            "value": 5.56
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 5.56
           },
           {
@@ -99807,6 +99978,13 @@
             "name": "Д.А.Б.",
             "star": "platinum",
             "icon": "/textures_by_mutant/ea_14/specimen_ea_14_platinum.webp",
+            "value": 3150
+          },
+          {
+            "id": "specimen_ed_15",
+            "name": "Финансовая акула",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
             "value": 3150
           },
           {
@@ -107310,6 +107488,14 @@
             }
           ],
           "ability_weaken_plus": [
+            {
+              "id": "specimen_ed_15",
+              "name": "Финансовая акула",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ed_15/specimen_ed_15_platinum.webp",
+              "pct": 62,
+              "value": 6456
+            },
             {
               "id": "specimen_ab_13",
               "name": "Архитектор",
