@@ -1034,7 +1034,7 @@
     },
     "Building_Mystery": {
       "name": "Mysteries Analyzer",
-      "description": "For mystery tokens (10) opens a 24-hour contract; on completion grants a skin (3) from the past event."
+      "description": "Exchanges mystery tokens for skins"
     },
     "Building_Breeding_Center": {
       "name": "Breeding Center",
@@ -2162,7 +2162,7 @@
     },
     "Building_Mystery": {
       "name": "Analizador de Misterios",
-      "description": "A cambio de fichas misteriosas (10) abre un contrato de 24 horas; al completarlo otorga una skin (3) del evento pasado."
+      "description": "Cambia fichas misteriosas por skins"
     },
     "Building_Breeding_Center": {
       "name": "Hibridador",
@@ -3290,7 +3290,7 @@
     },
     "Building_Mystery": {
       "name": "Analyseur de Mystères",
-      "description": "Contre des jetons mystères (10), ouvre un contrat de 24 heures ; à la fin, octroie un skin (3) de l'événement passé."
+      "description": "Échange des jetons mystères contre des skins"
     },
     "Building_Breeding_Center": {
       "name": "Hybridateur",
@@ -4418,7 +4418,7 @@
     },
     "Building_Mystery": {
       "name": "Mysterium Analysator",
-      "description": "Öffnet gegen mysteriöse Token (10) einen 24-Stunden-Vertrag; nach Abschluss gibt es einen Skin (3) des vergangenen Events."
+      "description": "Tauscht mysteriöse Token gegen Skins ein"
     },
     "Building_Breeding_Center": {
       "name": "Brutzentrum",
@@ -5542,7 +5542,7 @@
     },
     "Building_Mystery": {
       "name": "Analisador de Mistérios",
-      "description": "Em troca de fichas misteriosas (10) abre um contrato de 24 horas; ao concluir, concede uma skin (3) do evento passado."
+      "description": "Troca fichas misteriosas por skins"
     },
     "Building_Breeding_Center": {
       "name": "Centro de Reprodução",
@@ -6671,7 +6671,7 @@
     },
     "Building_Mystery": {
       "name": "Analizzatore di Misteri",
-      "description": "In cambio di gettoni misteriosi (10) apre un contratto di 24 ore; al termine concede una skin (3) dell'evento passato."
+      "description": "Scambia gettoni misteriosi con skin"
     },
     "Building_Breeding_Center": {
       "name": "Ibridatore",
@@ -7799,7 +7799,7 @@
     },
     "Building_Mystery": {
       "name": "Gizem Çözümleyici",
-      "description": "Gizemli jetonlar (10) karşılığında 24 saatlik bir sözleşme açar; tamamlandığında geçmiş etkinlikten bir kostüm (3) verir."
+      "description": "Gizemli jetonları kostümlerle takas eder"
     },
     "Building_Breeding_Center": {
       "name": "Üreme Merkezi",
@@ -8927,7 +8927,7 @@
     },
     "Building_Mystery": {
       "name": "Mysteries Analysator",
-      "description": "Opent voor mysterieuze tokens (10) een contract van 24 uur; bij voltooiing krijg je een skin (3) van het afgelopen evenement."
+      "description": "Ruilt mysterieuze tokens in voor skins"
     },
     "Building_Breeding_Center": {
       "name": "Kweekplaats",

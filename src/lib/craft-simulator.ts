@@ -163,6 +163,10 @@ const ITEM_TRANSLATIONS: Record<string, string> = {
   Material_Crawling_Token: 'Жетон ползучего',
   Material_Plague_Token: 'Жетон чумы',
   Material_Trick_Token: 'Жетон фокусов',
+  Material_Snowstorm_Token: 'Жетон Буря',
+  Material_Capsule_Token: 'Жетон капсулы',
+  Material_Xmas24_Token: 'Закатный жетон',
+  Material_Xmas25_Token: 'Рождественский жетон 2025',
 
   // Buildings
   Building_HC_1: 'Златокузня',
