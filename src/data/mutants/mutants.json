@@ -59729,7 +59729,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 105,
     "tier": "",

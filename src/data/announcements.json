@@ -5384,5 +5384,50 @@
       }
     ],
     "link": "/rebalance"
+  },
+  {
+    "id": "mutant-1790764791126-0",
+    "date": "2026-09-30T10:39:50.541Z",
+    "category": "mutant",
+    "title": "Финансовая акула",
+    "items": [
+      {
+        "id": "specimen_ed_15",
+        "name": "Финансовая акула",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_ed_15_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1790764791128-0",
+    "date": "2026-09-30T10:39:50.541Z",
+    "category": "skin",
+    "title": "Черепозавр — Октоберфест",
+    "items": [
+      {
+        "id": "Specimen_ED_02|oktoberfest",
+        "name": "Черепозавр — Октоберфест",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_ed_02_oktoberfest.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "bingo-1790764791132-0",
+    "date": "2026-09-30T10:39:50.541Z",
+    "category": "bingo",
+    "title": "Мутанты 2026: добавлен(ы) Ed 15",
+    "items": [
+      {
+        "id": "2026_mutants",
+        "name": "Мутанты 2026: добавлен(ы) Ed 15",
+        "image": null,
+        "addedNames": [
+          "Ed 15"
+        ]
+      }
+    ],
+    "link": "/bingo"
   }
 ]

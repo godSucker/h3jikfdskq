@@ -558,7 +558,8 @@
     "specimen_fa_15",
     "specimen_bb_14",
     "specimen_da_15",
-    "specimen_df_14"
+    "specimen_df_14",
+    "specimen_ed_15"
   ],
   "skin": [
     "Specimen_A_01|japan",
@@ -786,6 +787,7 @@
     "Specimen_EC_09|winter",
     "Specimen_EC_10|revolution",
     "Specimen_ED_01|winter",
+    "Specimen_ED_02|oktoberfest",
     "Specimen_ED_03|movies",
     "Specimen_ED_05|solarflare",
     "Specimen_ED_06|easter",
@@ -1037,7 +1039,7 @@
     "2026_mutants|Specimen_D_14",
     "2026_mutants|Specimen_BB_14",
     "2026_mutants|Specimen_FF_98",
-    "2026_mutants|Specimen_FF_98",
+    "2026_mutants|Specimen_ED_15",
     "2026_mutants|Specimen_FA_14",
     "2026_mutants|Specimen_FF_98",
     "2026_mutants|Specimen_EF_15",
