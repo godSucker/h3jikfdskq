@@ -1019,31 +1019,6 @@
     ],
     "rewards": [
       {
-        "name": "Material_Jackpot_Token",
-        "amount": 50,
-        "type": "entity"
-      },
-      {
-        "name": "orb_basic_xp_04",
-        "amount": 3,
-        "type": "entity"
-      },
-      {
-        "name": "gold",
-        "amount": 1000,
-        "type": "hardcurrency"
-      },
-      {
-        "name": "Material_Gacha_Token",
-        "amount": 2,
-        "type": "entity"
-      },
-      {
-        "name": "Star_Platinum",
-        "amount": 2,
-        "type": "entity"
-      },
-      {
         "name": "Star_Silver",
         "amount": 4,
         "type": "entity"
@@ -1065,6 +1040,31 @@
       },
       {
         "name": "Star_Gold",
+        "amount": 2,
+        "type": "entity"
+      },
+      {
+        "name": "Material_Jackpot_Token",
+        "amount": 50,
+        "type": "entity"
+      },
+      {
+        "name": "orb_basic_xp_04",
+        "amount": 3,
+        "type": "entity"
+      },
+      {
+        "name": "gold",
+        "amount": 1000,
+        "type": "hardcurrency"
+      },
+      {
+        "name": "Material_Gacha_Token",
+        "amount": 2,
+        "type": "entity"
+      },
+      {
+        "name": "Star_Platinum",
         "amount": 2,
         "type": "entity"
       },
@@ -1188,31 +1188,6 @@
         "type": "hardcurrency"
       },
       {
-        "name": "Material_XP1000",
-        "amount": 50,
-        "type": "entity"
-      },
-      {
-        "name": "Star_Silver",
-        "amount": 5,
-        "type": "entity"
-      },
-      {
-        "name": "Star_Gold",
-        "amount": 2,
-        "type": "entity"
-      },
-      {
-        "name": "Star_Platinum",
-        "amount": 2,
-        "type": "entity"
-      },
-      {
-        "name": "gold",
-        "amount": 1100,
-        "type": "hardcurrency"
-      },
-      {
         "name": "Material_Gacha_Token",
         "amount": 3,
         "type": "entity"
@@ -1229,6 +1204,31 @@
       },
       {
         "name": "orb_basic_life_06",
+        "amount": 2,
+        "type": "entity"
+      },
+      {
+        "name": "gold",
+        "amount": 1100,
+        "type": "hardcurrency"
+      },
+      {
+        "name": "Material_XP1000",
+        "amount": 50,
+        "type": "entity"
+      },
+      {
+        "name": "Star_Silver",
+        "amount": 5,
+        "type": "entity"
+      },
+      {
+        "name": "Star_Gold",
+        "amount": 2,
+        "type": "entity"
+      },
+      {
+        "name": "Star_Platinum",
         "amount": 2,
         "type": "entity"
       },
@@ -4027,7 +4027,7 @@
       },
       {
         "specimenId": "Specimen_CD_01",
-        "skin": "girl"
+        "skin": "starwars"
       },
       {
         "specimenId": "Specimen_CE_05",
@@ -6218,12 +6218,12 @@
         "skin": "halloween"
       },
       {
-        "specimenId": "Specimen_FE_12",
-        "skin": "_any"
-      },
-      {
         "specimenId": "Specimen_ED_08",
         "skin": "camo"
+      },
+      {
+        "specimenId": "Specimen_FE_12",
+        "skin": "_any"
       }
     ],
     "rewards": [
@@ -7451,21 +7451,6 @@
     ],
     "rewards": [
       {
-        "name": "Star_Platinum",
-        "amount": 2,
-        "type": "entity"
-      },
-      {
-        "name": "orb_basic_critical_05",
-        "amount": 3,
-        "type": "entity"
-      },
-      {
-        "name": "Material_Xmas24_Token",
-        "amount": 200,
-        "type": "entity"
-      },
-      {
         "name": "Star_Silver",
         "amount": 4,
         "type": "entity"
@@ -7483,6 +7468,21 @@
       {
         "name": "orb_basic_life_06",
         "amount": 1,
+        "type": "entity"
+      },
+      {
+        "name": "Star_Platinum",
+        "amount": 2,
+        "type": "entity"
+      },
+      {
+        "name": "orb_basic_critical_05",
+        "amount": 3,
+        "type": "entity"
+      },
+      {
+        "name": "Material_Xmas24_Token",
+        "amount": 200,
         "type": "entity"
       },
       {
