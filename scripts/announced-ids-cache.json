@@ -1015,7 +1015,7 @@
     "2026_skins|Specimen_EC_10",
     "2026_skins|Specimen_AE_05",
     "2026_skins|Specimen_BB_06",
-    "2026_skins|Specimen_FF_98",
+    "2026_skins|Specimen_ED_02",
     "2026_skins|Specimen_EF_06",
     "2026_skins|Specimen_AB_11",
     "2026_skins|Specimen_DA_03",
@@ -1044,7 +1044,7 @@
     "2026_mutants|Specimen_FF_98",
     "2026_mutants|Specimen_E_14",
     "2026_mutants|Specimen_FF_98",
-    "2026_mutants|Specimen_FF_98",
+    "2026_mutants|Specimen_DF_14",
     "2026_mutants|Specimen_AB_15",
     "2026_mutants|Specimen_AA_14",
     "2026_mutants|Specimen_FF_98",
@@ -2196,7 +2196,6 @@
     "Luckybox_Gold_Heroic_v2",
     "Luckybox_Anniversary25_1",
     "Luckybox_Anniversary25_2",
-    "Luckybox_Oktoberfest_2025",
     "LuckyBox_Halloween25",
     "Luckybox_Science_2025",
     "Mystery_Thanksgiving_2025",
@@ -2219,19 +2218,15 @@
     "Luckybox_Summer_2026",
     "Luckybox_Independence_2026",
     "Mystery_Revolution26",
-    "LuckyBox_Necro_Prime",
     "LuckyBox_Saber_Prime",
     "LuckyBox_Cyber_Prime",
-    "LuckyBox_Research_VII",
     "lucky_box_research_viii",
     "LuckyBox_Research_V",
     "Mystery_Anniversary26_1",
     "LuckyBox_Research_IV",
-    "LuckyBox_Zoo_Elite",
     "LuckyBox_Mystic_Elite",
     "LuckyBox_Saber_Elite",
     "LuckyBox_Necro_Elite",
-    "Mysterybox_Ability_Shield",
     "Mysterybox_Ability_Regenerate",
     "Mysterybox_Ability_Retaliate",
     "Mystery_Anniversary26_2",
@@ -2250,7 +2245,12 @@
     "Luckybox_Hyperspeed",
     "Luckybox_Zodiac_Silver_18",
     "LuckyBox_Stars_23",
-    "Mysterybox_Ability_Strengthen"
+    "Mystery_Oktoberfest_2026",
+    "Mysterybox_Ability_Strengthen",
+    "LuckyBox_Necro_Prime",
+    "Mysterybox_Ability_Shield",
+    "LuckyBox_Zoo_Elite",
+    "LuckyBox_Research_VII"
   ],
   "exchange": [
     "jackpot|READY_04|specimen_aa_09",
@@ -2270,6 +2270,7 @@
     "mystery|READY_06|Specimen_AB_11|3|honeybee"
   ],
   "rebalance": [
+    "2026-09-30T10:17:57.623Z",
     "2026-07-28T11:41:02.598Z"
   ],
   "raid": [
@@ -2474,13 +2475,15 @@
     "254",
     "255",
     "256",
-    "257"
+    "257",
+    "258"
   ],
   "dailyNews": [
     "254",
     "255",
     "256",
-    "257"
+    "257",
+    "258"
   ],
   "eventQuests": [
     "filter_missions_anniversary26_2",

@@ -6557,6 +6557,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_ae_09": [
@@ -13045,6 +13051,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 118"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_bc_10": [
@@ -23198,6 +23210,12 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_cd_09": [
@@ -37842,6 +37860,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_ea_08": [
@@ -41298,6 +41322,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 63"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_ed_03": [
@@ -52715,6 +52745,12 @@
     {
       "type": "gacha",
       "where": "Реактор — Тропическое лето"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (золото)",
+      "icon": "/boxes/mystery_oktoberfest.png",
+      "itemId": "Mystery_Oktoberfest_2026"
     }
   ],
   "specimen_fe_09": [
@@ -54573,6 +54609,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 127"
+    },
+    {
+      "type": "gold_shop",
+      "where": "Магазин за 1 400 золота (версия: серебряный)"
     }
   ],
   "specimen_ff_10": [
@@ -54930,6 +54970,12 @@
     {
       "type": "event_hall",
       "where": "Зал обмена — 240 жетонов ивента"
+    }
+  ],
+  "specimen_df_14": [
+    {
+      "type": "gold_shop",
+      "where": "Магазин за 3 200 золота (версия: золотой)"
     }
   ]
 }
