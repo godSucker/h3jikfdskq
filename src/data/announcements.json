@@ -4986,10 +4986,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "exactDateEnd": null,
-        "featuredMutant": null,
+        "exactDateLabel": "30 сентября — 28 октября",
+        "exactDateStart": "2026-09-30T12:00:00+00:00",
+        "exactDateEnd": "2026-10-28T10:00:00+00:00",
+        "featuredMutant": "month",
         "packMutants": [
           "Specimen_DF_14"
         ]
@@ -5003,10 +5003,10 @@
           "type": "usd"
         },
         "ribbon": "legendary",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "exactDateEnd": null,
-        "featuredMutant": null,
+        "exactDateLabel": "30 сентября — 28 октября",
+        "exactDateStart": "2026-09-30T12:00:00+00:00",
+        "exactDateEnd": "2026-10-28T10:00:00+00:00",
+        "featuredMutant": "month",
         "packMutants": [
           "Specimen_DF_14"
         ]
@@ -5337,10 +5337,10 @@
         },
         "ribbon": "legendary",
         "discountPercent": null,
-        "exactDateLabel": "≈ 2 октября",
-        "exactDateStart": "2026-10-02T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "30 сентября — 28 октября",
+        "exactDateStart": "2026-09-30T12:00:00+00:00",
+        "exactDateEnd": "2026-10-28T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Daily_news_shop_24h_2026_257b",
