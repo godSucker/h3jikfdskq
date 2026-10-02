@@ -13,6 +13,7 @@ import { getBoxName } from '../../src/lib/boxes-i18n'
 import { getItemName } from '../../src/lib/materials-i18n'
 import { getDungeonName } from '../../src/lib/guides-content-i18n'
 import { getLocalizedMutantNames } from '../../src/lib/mutant-names-i18n'
+import { localizeSkinRef } from '../../src/lib/skin-names'
 
 const TYPE_EN: Record<string, string> = {
   mutant: 'New mutant',
@@ -57,7 +58,7 @@ export function englishCaptionTitle(category: string, itemIds: string[]): string
       names = itemIds.map((id) => {
         const [base, key] = id.split('|')
         const mutant = clean(mutantName(base))
-        return mutant ? (key ? `${mutant} — ${key}` : mutant) : ''
+        return mutant ? (key ? `${mutant} — ${localizeSkinRef(key, 'en')}` : mutant) : ''
       })
     } else if (category === 'box') {
       const boxes = boxesData as unknown as { itemId: string; name: string }[]

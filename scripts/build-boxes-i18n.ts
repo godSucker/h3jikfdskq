@@ -8,6 +8,15 @@ import path from 'path'
 // сам НЕ трогаем (см. комментарий в build-boxes.ts про изолированный
 // пайплайн) - пишем отдельный src/data/boxes-i18n.json, читается через
 // src/lib/boxes-i18n.ts::getBoxName().
+//
+// ADDITIVE-ONLY (2026-10-03): результат сливается с файлом на диске - уже
+// лежащие значения НЕ перезаписываются, ключи НЕ удаляются (бокс, исчезнувший
+// из boxes.json, остаётся - на него могут ссылаться старые анонсы/obtain),
+// дописываются только недостающие itemId/локали. Запись - только если что-то
+// реально добавилось (нет шума в коммитах). Раньше скрипт перезаписывал файл
+// целиком и нигде не запускался, из-за чего новые боксы так и оставались без
+// переводов (Mystery_Oktoberfest_2026). Запускается шагом часового workflow
+// (announcements-hourly.yml, после build-boxes.ts).
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_URL = (lang: string) =>
@@ -63,7 +72,14 @@ async function main() {
     if (idMatch?.[1] && capMatch?.[1]) captionByItemId.set(idMatch[1], capMatch[1])
   }
 
-  const out: Record<string, Partial<Record<(typeof LOCALES)[number], string>>> = {}
+  type BoxNames = Partial<Record<(typeof LOCALES)[number], string>>
+  const existing = await fs
+    .readFile(OUT_PATH, 'utf-8')
+    .then((raw) => JSON.parse(raw) as Record<string, BoxNames>)
+    .catch(() => ({}) as Record<string, BoxNames>)
+  // Начинаем с копии диска: порядок ключей сохраняется, новые дописываются в конец.
+  const out: Record<string, BoxNames> = structuredClone(existing)
+  let added = 0
 
   for (const lang of LOCALES) {
     console.log(`[BOXES-I18N] ${lang}...`)
@@ -96,16 +112,23 @@ async function main() {
       }
 
       if (name) {
+        resolved++
+        // additive: чужие/ручные/более ранние значения не трогаем
+        if (out[itemId]?.[lang]) continue
         if (!out[itemId]) out[itemId] = {}
         out[itemId][lang] = balanceQuotes(name)
-        resolved++
+        added++
       }
     }
     console.log(`[BOXES-I18N] ${lang}: ${resolved}/${boxes.length} резолвлено`)
   }
 
+  if (added === 0) {
+    console.log('[BOXES-I18N] Новых имён нет, файл не трогаем')
+    return
+  }
   await fs.writeFile(OUT_PATH, JSON.stringify(out, null, 2) + '\n', 'utf-8')
-  console.log(`[BOXES-I18N] Записано в ${OUT_PATH}`)
+  console.log(`[BOXES-I18N] Добавлено имён: ${added}, записано в ${OUT_PATH}`)
 }
 
 main().catch((err) => {

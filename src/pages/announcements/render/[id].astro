@@ -43,6 +43,15 @@ const week = weekRaw === '1' ? 1 : weekRaw === '2' ? 2 : null;
   <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
   <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
   <style define:vars={{ wrapW: isForecast ? '900px' : '760px' }}>
+    /* ★/☆ - см. комментарий в src/styles/global.css (тофу в скринах бота). */
+    @font-face {
+      font-family: "TT Supermolot Neue";
+      src: url("https://cdn.archivist-library.com/fonts/tt-supermolot-neue/symbols-star.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+2605-2606;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       background: #0d1117;
