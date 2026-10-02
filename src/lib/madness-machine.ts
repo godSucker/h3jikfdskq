@@ -148,6 +148,23 @@ const researchLevelMap: Record<number, number> = {
 
 export const madnessMachine: MadnessMachineDefinition = rawMachine as MadnessMachineDefinition
 
+// Уровень игрока, с которого открывается исследование (для блока шансов).
+export function getResearchUnlockLevel(key: MadnessResearchKey): number | null {
+  return typeof key === 'number' ? (researchLevelMap[key] ?? null) : null
+}
+
+// Шансы без привязки к уровню игрока: пул, в котором открыты ВСЕ исследования
+// (уровень ≥ максимального порога). Это нижняя граница шанса каждой награды -
+// на меньших уровнях пул уже, и шанс выше.
+export function getFullPoolResearchChances(
+  machine: MadnessMachineDefinition = madnessMachine,
+  locale: Locale = 'ru',
+  names?: Record<string, string>,
+): MadnessResearchChance[] {
+  const maxLevel = Math.max(...Object.values(researchLevelMap))
+  return getResearchChanceBreakdown(maxLevel, machine, locale, names)
+}
+
 export function getMaxResearchForLevel(level: number): number {
   let max = 0
   for (const [research, requiredLevel] of Object.entries(researchLevelMap)) {

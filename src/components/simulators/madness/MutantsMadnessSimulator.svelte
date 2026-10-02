@@ -9,6 +9,8 @@
   import {
     getMaxResearchForLevel,
     getResearchChanceBreakdown,
+    getFullPoolResearchChances,
+    getResearchUnlockLevel,
     getResearchLabel,
     madnessMachine,
     simulateMadnessAsync,
@@ -32,6 +34,8 @@
   let discountValue = $state('0');
 
   let showOdds = $state(false);
+  let oddsFilter: string = $state('all');
+  let oddsQuery = $state('');
   let isSimulating = $state(false);
   let error: string | null = $state(null);
   let result: MadnessSimulation | null = $state(null);
@@ -245,6 +249,22 @@
 
   let maxResearch = $derived(getMaxResearchForLevel(level));
   let researchChances = $derived(getResearchChanceBreakdown(level, machine, locale, mutantNames));
+
+  // Блок шансов не зависит от введённого уровня: всегда полный пул
+  let fullPoolChances = $derived(getFullPoolResearchChances(machine, locale, mutantNames));
+  let fullPoolLevel = $derived(
+    Math.max(...fullPoolChances.map((g) => getResearchUnlockLevel(g.key) ?? 0)),
+  );
+  let visibleOddsGroups = $derived.by(() => {
+    const q = oddsQuery.trim().toLowerCase();
+    return fullPoolChances
+      .filter((g) => oddsFilter === 'all' || String(g.key) === oddsFilter)
+      .map((g) => ({
+        group: g,
+        rewards: q ? g.rewards.filter((r) => r.label.toLowerCase().includes(q)) : g.rewards,
+      }))
+      .filter((entry) => entry.rewards.length > 0);
+  });
 
   let tokenSpins = $derived(tokenCostPerSpin > 0 ? Math.floor(tokens / tokenCostPerSpin) : 0);
   let goldSpins = $derived(goldCostPerSpin > 0 ? Math.floor(gold / goldCostPerSpin) : 0);
@@ -580,34 +600,71 @@
     <button class="odds-toggle" onclick={() => showOdds = !showOdds}>
       <header>
         <h3>{t('roulette.madness.oddsTitle', locale)}</h3>
-        <p>{t('roulette.madness.oddsForLevel', locale).replace('{n}', String(level)).replace('{max}', String(maxResearch))}</p>
+        <p>{t('roulette.madness.oddsSubtitle', locale).replace('{lvl}', String(fullPoolLevel))}</p>
       </header>
       <span class="chevron">{showOdds ? '▼' : '▲'}</span>
     </button>
 
     {#if showOdds}
-      <div class="odds-table">
-        {#each researchChances as group}
-          <article class="odds-card">
-            <header>
-              <h4>{group.label}</h4>
-              <span class="chance">{formatPercent(group.chance, 4)}</span>
-            </header>
-            <p class="odds-meta">{t('roulette.madness.oddsRewardCount', locale).replace('{n}', String(group.rewards.length))}</p>
-            <ul>
-              {#each group.rewards.slice(0, 5) as reward}
-                <li>
-                  <span>{reward.label}</span>
-                  <span class="value">{formatPercent(reward.chance, 4)}</span>
-                </li>
-              {/each}
-              {#if group.rewards.length > 5}
-                <li class="more">{t('roulette.madness.oddsMore', locale).replace('{n}', String(group.rewards.length - 5))}</li>
-              {/if}
-            </ul>
-          </article>
-        {/each}
+      <div class="odds-tools">
+        <div class="odds-chips" role="tablist">
+          <button
+            type="button"
+            class="odds-chip"
+            class:active={oddsFilter === 'all'}
+            onclick={() => (oddsFilter = 'all')}
+          >{t('roulette.madness.oddsAll', locale)}</button>
+          {#each fullPoolChances as group}
+            <button
+              type="button"
+              class="odds-chip"
+              class:active={oddsFilter === String(group.key)}
+              onclick={() => (oddsFilter = String(group.key))}
+            >{group.label}</button>
+          {/each}
+        </div>
+        <input
+          class="odds-search"
+          type="search"
+          name="madness-odds-search"
+          placeholder={t('roulette.madness.oddsSearch', locale)}
+          bind:value={oddsQuery}
+        />
       </div>
+
+      {#each visibleOddsGroups as { group, rewards } (group.key)}
+        {@const unlock = getResearchUnlockLevel(group.key)}
+        <article class="odds-group">
+          <header>
+            <h4>{group.label}</h4>
+            <span class="odds-group-meta">
+              {#if typeof group.key === 'number'}
+                <span class="pill">{unlock != null && unlock > 1 ? t('roulette.madness.oddsUnlock', locale).replace('{n}', String(unlock)) : t('roulette.madness.oddsAlwaysOpen', locale)}</span>
+              {/if}
+              <span class="pill">{t('roulette.madness.oddsRewards', locale).replace('{n}', String(group.rewards.length))}</span>
+              <span class="chance">{t('roulette.madness.oddsTierChance', locale)}: {formatPercent(group.chance, 4)}</span>
+            </span>
+          </header>
+          <ul class="odds-grid">
+            {#each rewards as reward (reward.rewardId)}
+              <li class="odds-tile">
+                <div class="icon">
+                  <img src={textureUrl(reward.icon ?? '/etc/icon_larva.webp')} alt="" loading="lazy" />
+                </div>
+                <div class="odds-tile-body">
+                  <span class="name">{reward.label}</span>
+                  {#if group.rewards.length > 1}
+                    <span class="share">{t('roulette.madness.oddsShare', locale).replace('{pct}', formatPercent(group.totalOdds > 0 ? reward.odds / group.totalOdds : 0, 2))}</span>
+                  {/if}
+                </div>
+                <span class="value">{formatPercent(reward.chance, 4)}</span>
+              </li>
+            {/each}
+          </ul>
+        </article>
+      {:else}
+        <p class="muted">{t('roulette.madness.oddsNothing', locale)}</p>
+      {/each}
     {/if}
   </section>
 
@@ -936,70 +993,145 @@
     color: rgba(226, 232, 240, 0.7);
   }
 
-  .odds-table {
-    display: grid;
-    gap: 1.2rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  .odds-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .odds-card {
+  .odds-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .odds-chip {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: rgba(15, 23, 42, 0.65);
+    color: rgba(226, 232, 240, 0.85);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .odds-chip:hover {
+    border-color: rgba(244, 114, 182, 0.5);
+  }
+
+  .odds-chip.active {
+    background: rgba(244, 114, 182, 0.2);
+    border-color: rgba(244, 114, 182, 0.65);
+    color: #fdf2f8;
+  }
+
+  .odds-search {
+    width: min(100%, 260px);
+  }
+
+  .odds-group {
     padding: 1.4rem;
     border-radius: 24px;
     background: rgba(17, 24, 39, 0.78);
     border: 1px solid rgba(148, 163, 184, 0.18);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
 
-  .odds-card header {
+  .odds-group header {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
     gap: 0.6rem;
   }
 
-  .odds-card h4 {
+  .odds-group h4 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: #fce7f3;
   }
 
-  .odds-card .chance {
+  .odds-group-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .odds-group-meta .pill {
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.15);
+    font-size: 0.78rem;
+    color: rgba(226, 232, 240, 0.8);
+  }
+
+  .odds-group .chance {
     font-size: 0.95rem;
     color: rgba(248, 113, 113, 0.9);
   }
 
-  .odds-card .odds-meta {
-    margin: 0;
-    font-size: 0.82rem;
-    color: rgba(203, 213, 225, 0.7);
-  }
-
-  .odds-card ul {
+  .odds-grid {
     margin: 0;
     padding: 0;
     list-style: none;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+
+  .odds-tile {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.12);
+  }
+
+  .odds-tile .icon {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(2, 6, 23, 0.5);
+  }
+
+  .odds-tile .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .odds-tile-body {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
   }
 
-  .odds-card li {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.6rem;
-    font-size: 0.9rem;
-    color: rgba(226, 232, 240, 0.88);
+  .odds-tile .name {
+    font-size: 0.88rem;
+    color: rgba(226, 232, 240, 0.95);
+    overflow-wrap: anywhere;
   }
 
-  .odds-card li .value {
-    color: rgba(248, 113, 113, 0.9);
+  .odds-tile .share {
+    font-size: 0.74rem;
+    color: rgba(148, 163, 184, 0.8);
   }
 
-  .odds-card li.more {
-    color: rgba(148, 163, 184, 0.75);
-    font-style: italic;
+  .odds-tile .value {
+    flex: none;
+    font-size: 0.88rem;
+    color: rgba(248, 113, 113, 0.95);
   }
 
   .results {
@@ -1376,8 +1508,12 @@
       display: none;
     }
 
-    .odds-table {
+    .odds-grid {
       grid-template-columns: 1fr;
+    }
+
+    .odds-search {
+      width: 100%;
     }
   }
 </style>
