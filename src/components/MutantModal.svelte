@@ -26,6 +26,7 @@
   import { renderObtainWhere } from '@/lib/obtain-render';
   import { UNKNOWN_SOURCE_ENTRY } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
+  import offerHistory from '@/data/mutants/offer-history.json';
   import toplistsData from '@/data/mutants/toplists.json';
   import skinIconsData from '@/data/mutants/skin-icons.json';
   import { t, type Locale } from '@/lib/i18n';
@@ -123,6 +124,47 @@
     const list = mutant?.id ? (obtainData as Record<string, { type: string; where: string; icon?: string; itemId?: string }[]>)[mutant.id] : undefined;
     return list?.length ? list : [UNKNOWN_SOURCE_ENTRY];
   });
+
+  // Последние (до 5) появления мутанта по датам kartel-фильтров, см.
+  // scripts/build-offer-history.ts. Покрытие неполное - для мутантов без
+  // известных дат блок просто не рисуется. Будущие окна отбрасываем на клиенте
+  // (файл пересобирается пайплайном, а страница может жить дольше).
+  // Подпись берём из записи "Как получить" с тем же itemId (там уже готовый
+  // локализованный рендер), иначе - "Магазин" для самого мутанта в магазине.
+  let recentOffers: { date: string; label: string; price: string }[] = $derived.by(() => {
+    const list = mutant?.id ? (offerHistory as Record<string, [string, string, [string, number][] | null?][]>)[mutant.id] : undefined;
+    if (!list?.length) return [];
+    const today = new Date().toISOString().slice(0, 10);
+    const seen = new Set<string>();
+    const out: { date: string; label: string; price: string }[] = [];
+    for (const [date, ref, price] of list) {
+      if (date > today) continue;
+      // ref: itemId товара (магазин) либо "<type>|<where>" записи "Как получить".
+      const entry = obtainEntries.find((o) => (ref.includes('|') ? `${o.type}|${o.where}` === ref : o.itemId === ref));
+      const label = entry ? displayObtainWhere(entry) : ref.startsWith('Specimen_') ? t('modal.offerHistory.shop', locale) : '';
+      if (!label || seen.has(`${date}|${label}`)) continue;
+      seen.add(`${date}|${label}`);
+      out.push({ date, label, price: fmtOfferPrice(price) });
+      if (out.length === 5) break;
+    }
+    return out;
+  });
+  // [['g', 600]] -> "600 золота"; несколько вариантов оплаты (реактор) - через " / ".
+  function fmtOfferPrice(price: [string, number][] | null | undefined): string {
+    if (!price?.length) return '';
+    return price
+      .map(([cur, amount]) => {
+        if (cur === '$') return `$${amount}`;
+        const key = cur === 'g' ? 'modal.price.gold' : cur === 's' ? 'modal.price.silver' : 'modal.price.reactorToken';
+        return t(key, locale).replace('{n}', Number(amount).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'));
+      })
+      .join(' / ');
+  }
+  function fmtOfferDate(d: string): string {
+    return new Date(`${d}T00:00:00Z`).toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', {
+      day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
+    });
+  }
 
   const close = () => onclose?.();
 
@@ -890,6 +932,22 @@
           </div>
         </details>
       {/if}
+
+      <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
+        <div class="text-xs text-slate-300 mb-1"><span class="row-icon"><img class="stat-icon" src={textureUrl("/etc/icon_timer.webp")} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.offerHistory.title', locale)}</span></div>
+        {#if recentOffers.length}
+          <div class="text-[12px] text-slate-200 space-y-1">
+            {#each recentOffers as o}
+              <div class="flex gap-2 leading-snug">
+                <span class="shrink-0 text-slate-400 tabular-nums">{fmtOfferDate(o.date)}</span>
+                <span class="break-words">{o.label}{#if o.price}<span class="text-amber-300/90 whitespace-nowrap ml-1">· {o.price}</span>{/if}</span>
+              </div>
+            {/each}
+          </div>
+        {:else}
+          <div class="text-[12px] text-slate-500">{t('modal.offerHistory.empty', locale)}</div>
+        {/if}
+      </div>
 
       <!-- Misc -->
       <div class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">

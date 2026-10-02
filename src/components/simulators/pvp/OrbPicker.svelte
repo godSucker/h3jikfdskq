@@ -53,7 +53,7 @@
     type="button"
     onclick={() => (open = !open)}
     title={label}
-    class="relative w-11 h-11 rounded-lg overflow-hidden border-none bg-transparent p-0 shrink-0"
+    class="relative w-12 h-12 md:w-11 md:h-11 rounded-lg overflow-hidden border-none bg-transparent p-0 shrink-0"
   >
     <img src={textureUrl(slotBg)} alt="" class="w-full h-full object-cover" />
     {#if selected}
@@ -69,7 +69,7 @@
       type="button"
       title={t('pvp.orb.remove', locale)}
       onclick={() => pick(null)}
-      class="absolute -right-1.5 -top-1.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] leading-4 z-10"
+      class="absolute -right-2 -top-2 md:-right-1.5 md:-top-1.5 w-6 h-6 md:w-4 md:h-4 rounded-full bg-rose-500 text-white text-xs md:text-[10px] leading-6 md:leading-4 z-10"
     >
       ×
     </button>
@@ -83,11 +83,11 @@
       class="fixed inset-0 z-40 cursor-default bg-black/70"
     ></button>
     <div
-      class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 max-w-[90vw] max-h-[55vh] overflow-y-auto rounded-2xl border border-slate-600 bg-slate-900 p-3 shadow-2xl"
+      class="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 max-w-[90vw] max-h-[75vh] md:max-h-[55vh] overflow-y-auto rounded-2xl border border-slate-600 bg-slate-900 p-3 shadow-2xl"
     >
       <div class="flex items-center justify-between mb-2">
         <span class="text-sky-100 text-sm font-semibold">{label}</span>
-        <button type="button" onclick={() => (open = false)} class="text-slate-400 hover:text-slate-200 text-lg leading-none">×</button>
+        <button type="button" onclick={() => (open = false)} class="text-slate-400 hover:text-slate-200 text-2xl md:text-lg leading-none w-10 h-10 md:w-auto md:h-auto">×</button>
       </div>
       {#if options.length === 0}
         <div class="text-sky-300/60 text-xs px-1 py-2">{t('pvp.orb.none', locale)}</div>
@@ -97,7 +97,7 @@
           type="button"
           onclick={() => toggleCat(cat.key)}
           aria-expanded={openCats.has(cat.key)}
-          class="w-full mt-1.5 mb-1 flex items-center gap-1.5 px-1 py-0.5 rounded text-xs font-bold uppercase tracking-wide text-sky-200/80 hover:bg-sky-600/15"
+          class="w-full mt-1.5 mb-1 flex items-center gap-1.5 px-1 py-2 md:py-0.5 rounded text-xs font-bold uppercase tracking-wide text-sky-200/80 hover:bg-sky-600/15"
         >
           <span class="w-3 text-center shrink-0">{openCats.has(cat.key) ? '▾' : '▸'}</span>
           <img src={textureUrl(cat.icon)} alt="" class="w-5 h-5 object-contain" />
@@ -109,7 +109,7 @@
             <button
               type="button"
               onclick={() => pick(o.id)}
-              class="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-left text-sky-100 text-sm hover:bg-sky-600/30"
+              class="w-full flex items-center gap-2.5 px-2 py-2.5 md:py-1.5 rounded-lg text-left text-sky-100 text-sm hover:bg-sky-600/30"
             >
               <img src={textureUrl(o.icon)} alt="" class="w-8 h-8 object-contain shrink-0" />
               <span class="truncate">{o.name}</span>

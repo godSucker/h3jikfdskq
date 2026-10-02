@@ -65,30 +65,35 @@
   let enemyCritCharm = $state(false)
   let enemyAnticritCharm = $state(false)
 
+  // На мобильном две команды друг под другом - двойной скролл на ~2600px, поэтому
+  // там показываем одну за раз (вкладки), на lg+ - обе рядом. Обе остаются в DOM
+  // (скрыта через CSS, не {#if}), чтобы не терять состояние поиска/пресетов.
+  let activeTeam = $state<'mine' | 'enemy'>('mine')
+
   let session = $state<BattleSession | null>(null)
   let tick = $state(0) // бампается после каждой мутации session, чтобы $derived перечитали её состояние
 
   let units = $derived.by(() => {
-    tick
+    const _tick = tick // зависимость от tick: перечитать session после мутации
     return session ? session.getUnits() : []
   })
   let turnLog = $derived.by(() => {
-    tick
+    const _tick = tick // зависимость от tick: перечитать session после мутации
     // Копия, не сама ссылка: BattleSession.turnLog мутируется через push() на месте,
     // ссылка не меняется - Svelte 5 сравнивает $derived по идентичности и без
     // копии не считает значение изменившимся, лог не перерисовывается.
     return session ? [...session.turnLog] : []
   })
   let currentTurn = $derived.by(() => {
-    tick
+    const _tick = tick // зависимость от tick: перечитать session после мутации
     return session ? session.currentTurn() : null
   })
   let winner = $derived.by(() => {
-    tick
+    const _tick = tick // зависимость от tick: перечитать session после мутации
     return session ? session.winner() : null
   })
   let turnQueue = $derived.by(() => {
-    tick
+    const _tick = tick // зависимость от tick: перечитать session после мутации
     return session ? session.upcomingQueue(20) : []
   })
 
@@ -193,20 +198,35 @@
   }
 </script>
 
-<div class="max-w-6xl mx-auto p-4">
+<div class="max-w-6xl mx-auto p-4 pb-24 lg:pb-4">
   <h1 class="text-2xl md:text-3xl font-bold text-sky-100">{t('simulatorsIndex.card.pvp.title', locale)}</h1>
   <p class="text-sky-200/80 mt-1">
     {t('pvp.intro', locale)}
   </p>
 
   {#if !session}
-    <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-      <div class="space-y-3">
+    <div class="mt-4 lg:hidden grid grid-cols-2 gap-1 rounded-xl bg-slate-950/60 p-1 border border-slate-700/50" role="tablist">
+      {#each [['mine', t('pvp.team.mine', locale)], ['enemy', t('pvp.team.opponent', locale)]] as [key, label] (key)}
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTeam === key}
+          onclick={() => (activeTeam = key as 'mine' | 'enemy')}
+          class={`min-h-11 rounded-lg text-sm font-semibold transition-colors ${
+            activeTeam === key ? 'bg-sky-600 text-white' : 'text-sky-200/70 hover:bg-slate-800'
+          }`}
+        >
+          {label}
+        </button>
+      {/each}
+    </div>
+    <div class="mt-4 lg:mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class={`space-y-3 ${activeTeam === 'mine' ? '' : 'hidden'} lg:block`}>
         <TeamBuilder title={t("pvp.team.mine", locale)} bind:slots={myTeam} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
             {t('pvp.mode.mine', locale)}
-            <select bind:value={myMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1">
+            <select bind:value={myMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5 md:py-1">
               <option value="manual">{t('pvp.mode.manual', locale)}</option>
               <option value="ai">{t('pvp.mode.ai', locale)}</option>
             </select>
@@ -225,7 +245,7 @@
           </div>
         </div>
       </div>
-      <div class="space-y-3">
+      <div class={`space-y-3 ${activeTeam === 'enemy' ? '' : 'hidden'} lg:block`}>
         <TeamBuilder title={t("pvp.team.opponent", locale)} bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <DarkCheckbox
@@ -240,7 +260,7 @@
                   type="number"
                   min="1"
                   bind:value={enemyLevelRange.min}
-                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1"
+                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5 md:py-1"
                 />
               </label>
               <label class="flex items-center gap-1">
@@ -249,7 +269,7 @@
                   type="number"
                   min="1"
                   bind:value={enemyLevelRange.max}
-                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1"
+                  class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5 md:py-1"
                 />
               </label>
               <span class="text-sky-300/60 text-xs">
@@ -259,7 +279,7 @@
           {/if}
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
             {t('pvp.mode.opponent', locale)}
-            <select bind:value={enemyMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1">
+            <select bind:value={enemyMode} class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5 md:py-1">
               <option value="manual">{t('pvp.mode.manual', locale)}</option>
               <option value="ai">{t('pvp.mode.ai', locale)}</option>
             </select>
@@ -280,11 +300,15 @@
       </div>
     </div>
 
-    <div class="mt-4 flex flex-wrap gap-3 items-start">
+    <!-- Мобильный: панель действий прибита к низу экрана (fixed, а не sticky - у предка
+         main.wide стоит overflow-y:auto, и sticky относительно него не липнет).
+         lg+: display:contents - кнопки встают в общий ряд, как раньше. -->
+    <div class="mt-4 lg:flex lg:flex-wrap lg:gap-3 lg:items-center">
+    <div class="fixed inset-x-0 bottom-0 z-20 grid grid-cols-2 gap-2 border-t border-slate-700/60 bg-slate-950/90 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] backdrop-blur lg:contents">
       <button
         type="button"
         onclick={startFight}
-        class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
+        class="min-h-11 px-3 lg:px-4 py-2 text-sm lg:text-base rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
       >
         {t('pvp.startFight', locale)}
       </button>
@@ -292,11 +316,12 @@
         type="button"
         onclick={runBatch}
         disabled={batchRunning}
-        class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white ring-1 ring-white/10"
+        class="min-h-11 px-3 lg:px-4 py-2 text-sm lg:text-base leading-tight rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white ring-1 ring-white/10"
       >
         {batchRunning ? t('pvp.estimateOdds.running', locale) : t('pvp.estimateOdds.button', locale).replace('{n}', String(clampedBatchRuns))}
       </button>
-      <label class="flex items-center gap-1.5 text-xs text-sky-300/70">
+    </div>
+      <label class="mt-3 lg:mt-0 flex items-center gap-1.5 text-xs text-sky-300/70">
         {t('pvp.estimateOdds.runsLabel', locale)}
         <input
           type="number"
@@ -304,7 +329,7 @@
           max="5000"
           step="10"
           bind:value={batchRuns}
-          class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1.5"
+          class="w-20 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5"
         />
       </label>
     </div>
@@ -334,14 +359,14 @@
         <button
           type="button"
           onclick={startFight}
-          class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
+          class="min-h-11 px-3 lg:px-4 py-2 text-sm lg:text-base rounded-xl bg-rose-600 hover:bg-rose-500 text-white ring-1 ring-white/10"
         >
           {t('pvp.startFightAgain', locale)}
         </button>
         <button
           type="button"
           onclick={reset}
-          class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
+          class="min-h-11 px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white"
         >
           {t('pvp.resetTeams', locale)}
         </button>

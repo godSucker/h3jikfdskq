@@ -76,7 +76,7 @@
   }
 </script>
 
-<div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur space-y-4">
+<div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-3 md:p-4 backdrop-blur space-y-4">
   <h2 class="text-sky-100 font-bold">{t('pvp.battle.title', locale)}</h2>
 
   {#if !winner && turnQueue.length > 0}
@@ -183,7 +183,7 @@
                 <button
                   type="button"
                   onclick={() => pickTarget(u.instanceId)}
-                  class="mt-1 w-full rounded bg-rose-600/80 hover:bg-rose-500 text-white text-[11px] py-0.5"
+                  class="mt-1 w-full rounded bg-rose-600/80 hover:bg-rose-500 text-white text-sm md:text-[11px] py-2 md:py-0.5"
                 >
                   {t('pvp.battle.attackButton', locale)}
                 </button>
@@ -217,19 +217,19 @@
           <button
             type="button"
             onclick={() => (pendingAttack = null)}
-            class="text-xs text-sky-400 underline"
+            class="text-sm md:text-xs text-sky-400 underline py-2 md:py-0"
           >
             {t('pvp.battle.cancel', locale)}
           </button>
         {:else}
-          <div class="flex gap-2">
+          <div class="flex flex-wrap gap-2">
             {#each currentTurn.validActions as action (action.attack)}
               {@const gene = attackGene(currentTurn.unit, action.attack)}
               <button
                 type="button"
                 onclick={() => pickAttack(action.attack)}
                 style={geneButtonStyle(gene)}
-                class={`px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5 ${GENE_BUTTON_BASE_CLASS}`}
+                class={`min-h-11 md:min-h-0 px-3 py-1.5 rounded-lg text-sm flex items-center gap-1.5 ${GENE_BUTTON_BASE_CLASS}`}
               >
                 {#if gene !== 'neutro'}
                   <img src={textureUrl(`/genes/icon_gene_${gene.toLowerCase()}.webp`)} alt="" class="w-3.5 h-3.5" />
@@ -244,7 +244,7 @@
         <button
           type="button"
           onclick={() => onResolve()}
-          class="px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-sm"
+          class="min-h-11 md:min-h-0 px-3 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-sm"
         >
           {t('pvp.battle.aiTurnButton', locale)}
         </button>
@@ -253,13 +253,13 @@
     <button
       type="button"
       onclick={onAutoPlay}
-      class="w-full px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm ring-1 ring-white/10 shadow-lg shadow-amber-900/30 transition-colors"
+      class="w-full min-h-11 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm ring-1 ring-white/10 shadow-lg shadow-amber-900/30 transition-colors"
     >
       {t('pvp.battle.autoPlayButton', locale)}
     </button>
   {/if}
 
-  <div class="max-h-64 overflow-y-auto rounded-lg border border-slate-700/50 bg-slate-950/40 p-2 space-y-1.5">
+  <div class="max-h-48 md:max-h-64 overflow-y-auto rounded-lg border border-slate-700/50 bg-slate-950/40 p-2 space-y-1.5">
     {#each turnLog as group, i (group.turnNumber)}
       <div
         class={`rounded-md border-l-2 pl-2 pr-1.5 py-1 ${group.attackerSide === 'mine' ? 'border-sky-500' : 'border-rose-500'} ${i % 2 === 0 ? 'bg-slate-900/50' : ''}`}
