@@ -918,7 +918,7 @@
         <details class="rounded-lg bg-slate-900/60 ring-1 ring-white/10 p-2 overflow-hidden">
           <summary class="text-xs text-slate-300 cursor-pointer select-none list-none flex items-center justify-between">
             <span class="row-icon"><img class="stat-icon" src={textureUrl('/cash/hardcurrency.webp')} alt="" aria-hidden="true" loading="lazy" decoding="async" />{t('modal.howToObtain', locale)}{obtainEntries[0] === UNKNOWN_SOURCE_ENTRY ? '' : ` (${obtainEntries.length})`}</span>
-            <span class="details-chevron text-slate-400">▾</span>
+            <svg class="details-chevron text-slate-400" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2 4l4 4 4-4z" /></svg>
           </summary>
           <div class="flex flex-col gap-1.5 mt-2">
             {#each obtainEntries as o}
