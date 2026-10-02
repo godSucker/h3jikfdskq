@@ -83,6 +83,10 @@ jobs:
           # ANNOUNCE-секрет ещё не заведён.
           TELEGRAM_ANNOUNCE_CHAT_ID: ${{ inputs.test_chat_id || secrets.TELEGRAM_ANNOUNCE_CHAT_ID }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Англоязычная группа: те же анонсы, но скрины с ?lang=en и подписи на
+          # английском (process-pending-screenshots.ts). Секрет не задан - EN
+          # просто пропускается, RU-доставка не меняется. Без фолбэка на RU-чаты.
+          TELEGRAM_EN_CHAT_ID: ${{ secrets.TELEGRAM_EN_CHAT_ID }}
 
       - name: 5. Коммит очереди и скриншотов досок (если что-то изменилось)
         id: commit

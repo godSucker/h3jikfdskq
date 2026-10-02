@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { withPage } from '@/lib/headless-browser'
-import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
+import { shotDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
+import { renderLocale } from '@/lib/render-locale'
 
 // Скриншот модалки ОДНОГО мутанта (MutantModal.svelte) для бот-скриншотера в
 // админ-чат. Снимаем с изолированной /mutants/skin-render/[id] (та же, что для
@@ -18,14 +19,15 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response('Missing id param', { status: 400 })
   }
   const id = rawId.toLowerCase()
-  const dateLabel = ruDate(url.searchParams.get('date') ?? '')
+  const lang = renderLocale(url.searchParams.get('lang'))
+  const dateLabel = shotDate(url.searchParams.get('date') ?? '', lang)
 
   // Хардкод хоста, не url.origin: см. комментарий в screenshot.ts (SSRF через
   // Host). ?mutant= в query читает MutantsBrowser::tryOpenFromUrl на самой
   // render-странице (путь /[id] - для резолва данных во frontmatter).
   const pageUrl =
     `https://archivist-library.com/mutants/skin-render/${encodeURIComponent(id)}` +
-    `?mutant=${encodeURIComponent(id)}`
+    `?mutant=${encodeURIComponent(id)}${lang !== 'ru' ? `&lang=${lang}` : ''}`
 
   try {
     return await withPage({ width: 1100, height: 1600 }, async (page) => {

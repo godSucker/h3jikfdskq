@@ -11,8 +11,11 @@ import {
   sendAdminPhoto,
   sendAdminMediaGroup,
   sendAdminText,
+  chatIdFor,
   type AdminPhoto,
+  type AnnounceTarget,
 } from './telegram-admin-bot'
+import { englishCaptionTitle } from './lib/announcement-caption-en'
 import { runMain } from './lib/run-main'
 import {
   CATEGORY_ICON,
@@ -52,8 +55,17 @@ const CATEGORY_LINK: Record<string, string> = {
 // модалки /boxes больше не шлём (решение юзера 2026-09-05).
 const CONTENT_ONLY_CATEGORIES = new Set(['mutant', 'skin'])
 
-function contentUrlFor(category: string, itemId: string, date?: string): string {
-  const dateParam = date ? `&date=${encodeURIComponent(date)}` : ''
+// Все screenshot-* и render-страницы понимают ?lang=en (англоязычная группа).
+// Для 'ru' параметр не добавляем - URL остаётся ровно прежним.
+const langParam = (target: AnnounceTarget) => (target === 'en' ? '&lang=en' : '')
+
+function contentUrlFor(
+  category: string,
+  itemId: string,
+  target: AnnounceTarget,
+  date?: string,
+): string {
+  const dateParam = (date ? `&date=${encodeURIComponent(date)}` : '') + langParam(target)
   if (category === 'mutant')
     return `${SITE}/api/screenshot-mutant?id=${encodeURIComponent(itemId)}${dateParam}`
   if (category === 'skin')
@@ -129,24 +141,40 @@ async function forecastWeeksToShoot(announcementId: string): Promise<(1 | 2)[]> 
   }
 }
 
-async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retry'> {
+async function attemptDeliver(
+  job: PendingScreenshotJob,
+  target: AnnounceTarget,
+): Promise<'sent' | 'retry'> {
+  const en = target === 'en'
   const icon = CATEGORY_ICON[job.category as (typeof CATEGORIES)[number]] ?? '🔔'
   const link = CATEGORY_LINK[job.category] ?? '/announcements'
-  const caption = `${icon} ${job.title}\n\n${SITE}${link}`
+  // EN: подпись из английских словарей (без кириллицы, см. announcement-caption-en.ts)
+  // и ссылка на /en-версию страницы.
+  const caption = en
+    ? `${icon} ${englishCaptionTitle(job.category, job.itemIds)}\n\n${SITE}/en${link}`
+    : `${icon} ${job.title}\n\n${SITE}${link}`
+  const lang = langParam(target)
 
   if (job.category === 'bingo') {
     // Готовый скрин доски из репо (render-bingo-screenshots.ts, шаг перед
     // этим в том же прогоне админ-бота) - без лишнего запуска Chromium на
-    // проде. Эндпоинт остаётся запасным путём, если скрина ещё нет.
-    const stored = await readStoredBingoScreenshot(job.itemIds[0])
-    if (stored) {
-      return (await sendAdminPhoto(stored, caption, `bingo-${job.id}.png`)) ? 'sent' : 'retry'
+    // проде. Он русский, поэтому для EN сразу идём в эндпоинт (/en/bingo).
+    // Эндпоинт остаётся запасным путём, если скрина ещё нет.
+    if (!en) {
+      const stored = await readStoredBingoScreenshot(job.itemIds[0])
+      if (stored) {
+        return (await sendAdminPhoto(stored, caption, `bingo-${job.id}.png`, target))
+          ? 'sent'
+          : 'retry'
+      }
     }
     const primary = await fetchPhoto(
-      `${SITE}/api/screenshot-bingo?board=${encodeURIComponent(job.itemIds[0])}`,
+      `${SITE}/api/screenshot-bingo?board=${encodeURIComponent(job.itemIds[0])}${lang}`,
     )
     if (!primary.ok) return 'retry'
-    return (await sendAdminPhoto(primary.buffer, caption, `bingo-${job.id}.png`)) ? 'sent' : 'retry'
+    return (await sendAdminPhoto(primary.buffer, caption, `bingo-${job.id}.png`, target))
+      ? 'sent'
+      : 'retry'
   }
 
   if (CONTENT_ONLY_CATEGORIES.has(job.category)) {
@@ -161,7 +189,7 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     const cappedIds = job.itemIds.slice(0, 4)
     const buffers: { buffer: Buffer; itemId: string }[] = []
     for (const itemId of cappedIds) {
-      const r = await fetchPhoto(contentUrlFor(job.category, itemId, job.date))
+      const r = await fetchPhoto(contentUrlFor(job.category, itemId, target, job.date))
       if (r.ok) buffers.push({ buffer: r.buffer, itemId })
     }
 
@@ -179,11 +207,11 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
       filename: `${job.category}-content-${b.itemId}.png`,
     }))
     if (photos.length === 1) {
-      return (await sendAdminPhoto(photos[0].buffer, caption, photos[0].filename))
+      return (await sendAdminPhoto(photos[0].buffer, caption, photos[0].filename, target))
         ? 'sent'
         : 'retry'
     }
-    return (await sendAdminMediaGroup(photos, caption)) ? 'sent' : 'retry'
+    return (await sendAdminMediaGroup(photos, caption, target)) ? 'sent' : 'retry'
   }
 
   // Все остальные категории (box/raid/ladder/reactor/token/exchange/
@@ -202,13 +230,14 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
     let anySent = false
     for (const week of await forecastWeeksToShoot(job.id)) {
       const shot = await fetchPhoto(
-        `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}&week=${week}`,
+        `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}&week=${week}${lang}`,
       )
       if (!shot.ok) return anySent ? 'sent' : 'retry'
       const ok = await sendAdminPhoto(
         shot.buffer,
-        `${caption}\nНеделя ${week}`,
+        `${caption}\n${en ? 'Week' : 'Неделя'} ${week}`,
         `${job.category}-${job.id}-w${week}.png`,
+        target,
       )
       if (ok) anySent = true
     }
@@ -216,10 +245,10 @@ async function attemptDeliver(job: PendingScreenshotJob): Promise<'sent' | 'retr
   }
 
   const primary = await fetchPhoto(
-    `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}`,
+    `${SITE}/api/screenshot-announcement?id=${encodeURIComponent(job.id)}${lang}`,
   )
   if (!primary.ok) return 'retry'
-  return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`))
+  return (await sendAdminPhoto(primary.buffer, caption, `${job.category}-${job.id}.png`, target))
     ? 'sent'
     : 'retry'
 }
@@ -230,6 +259,10 @@ async function main() {
     console.log('[ADMIN-BOT] Очередь пуста')
     return
   }
+
+  // 'ru' - всегда, как раньше; 'en' - только если задан TELEGRAM_EN_CHAT_ID
+  // (без секрета английская группа тихо пропускается, RU-пайплайн не страдает).
+  const targets: AnnounceTarget[] = chatIdFor('en') ? ['ru', 'en'] : ['ru']
 
   const now = Date.now()
   const remaining: PendingScreenshotJob[] = []
@@ -243,9 +276,17 @@ async function main() {
       continue
     }
 
-    const result = await attemptDeliver(job)
     changed = true
-    if (result === 'sent') {
+    // Только те получатели, кому ещё не доставлено: сбой EN не должен слать
+    // повторный пост в RU-группу (и наоборот).
+    const todo = targets.filter((tg) => !(job.delivered ?? []).includes(tg))
+    const failed: AnnounceTarget[] = []
+    for (const tg of todo) {
+      const result = await attemptDeliver(job, tg)
+      if (result === 'sent') job.delivered = [...(job.delivered ?? []), tg]
+      else failed.push(tg)
+    }
+    if (failed.length === 0) {
       sent++
       continue
     }
@@ -253,7 +294,7 @@ async function main() {
     job.attempts++
     if (job.attempts >= MAX_ATTEMPTS) {
       await sendAdminText(
-        `⚠️ Не удалось получить скриншот для «${job.title}» после ${job.attempts} попыток — анонс уже опубликован на сайте, скриншот пропущен.`,
+        `⚠️ Не удалось получить скриншот для «${job.title}» (${failed.join(', ')}) после ${job.attempts} попыток — анонс уже опубликован на сайте, скриншот пропущен.`,
       )
       continue
     }

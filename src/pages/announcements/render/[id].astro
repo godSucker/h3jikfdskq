@@ -11,13 +11,16 @@ export const prerender = false;
 import announcementsData from '@/data/announcements.json';
 import AnnouncementCard from '@/components/announcements/AnnouncementCard.astro';
 import { buildAnnouncementContext, type Announcement } from '@/lib/announcements-render';
+import { renderLocale } from '@/lib/render-locale';
 
 const id = Astro.params.id;
 const announcements = (announcementsData as Announcement[]) ?? [];
 const a = announcements.find((x) => x.id === id);
-// Скриншот-бот снимает только русскую версию карточки (в админку уходит
-// русский пост) - страница анонсов для игроков переведена, а этот рендер нет.
-const ctx = buildAnnouncementContext('ru');
+// ?lang=en - английская версия карточки для англоязычной группы (карточка и
+// контекст уже умеют locale, как живая /en/announcements). Без параметра - RU
+// для админки, как раньше.
+const locale = renderLocale(Astro.url.searchParams.get('lang'));
+const ctx = buildAnnouncementContext(locale);
 
 // Прогноз магазина/«скоро в игре» - доска офферов. Юзеру FHD-ширина (8
 // мелких колонок) не зашла - вернули к «крупным плиткам» ~4 в ряд (фидбек
@@ -34,7 +37,7 @@ const week = weekRaw === '1' ? 1 : weekRaw === '2' ? 2 : null;
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
 <head>
   <meta charset="utf-8" />
   <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
@@ -53,7 +56,7 @@ const week = weekRaw === '1' ? 1 : weekRaw === '2' ? 2 : null;
 </head>
 <body>
   <div class="wrap">
-    {a ? <AnnouncementCard a={a} week={week} ctx={ctx} mode="render" /> : <div class="missing">Анонс не найден: {id}</div>}
+    {a ? <AnnouncementCard a={a} week={week} ctx={ctx} mode="render" locale={locale} /> : <div class="missing">{locale === 'en' ? 'Announcement not found' : 'Анонс не найден'}: {id}</div>}
   </div>
 </body>
 </html>

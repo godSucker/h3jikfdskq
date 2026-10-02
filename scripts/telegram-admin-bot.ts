@@ -12,9 +12,20 @@
 // существующий кросс-пост в канал в такой ситуации ретраит ТОТ ЖЕ текст
 // текстом и падает второй раз (см. postGenericCard в telegram-cross-post.ts).
 // Простой текст этого класса ошибок не имеет вообще.
-function getCreds() {
+//
+// Получатели: 'ru' - админ-группа (как раньше), 'en' - англоязычная группа
+// (TELEGRAM_EN_CHAT_ID). EN БЕЗ фолбэка на RU-чаты: если секрет не задан,
+// английский пост просто не отправляется, а не утекает в русскую группу.
+export type AnnounceTarget = 'ru' | 'en'
+
+export function chatIdFor(target: AnnounceTarget): string | null {
+  if (target === 'en') return process.env.TELEGRAM_EN_CHAT_ID || null
+  return process.env.TELEGRAM_ANNOUNCE_CHAT_ID || process.env.TELEGRAM_CHAT_ID || null
+}
+
+function getCreds(target: AnnounceTarget = 'ru') {
   const botToken = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_ANNOUNCE_CHAT_ID || process.env.TELEGRAM_CHAT_ID
+  const chatId = chatIdFor(target)
   if (!botToken || !chatId) return null
   return { botToken, chatId }
 }
@@ -38,8 +49,9 @@ export async function sendAdminPhoto(
   buffer: Buffer,
   caption: string,
   filename: string,
+  target: AnnounceTarget = 'ru',
 ): Promise<boolean> {
-  const creds = getCreds()
+  const creds = getCreds(target)
   if (!creds) return false
   try {
     const form = new FormData()
@@ -72,8 +84,12 @@ export interface AdminPhoto {
 // Требует 2-10 элементов (ограничение самого Telegram API) - вызывающий код
 // (process-pending-screenshots.ts) обязан звать sendAdminPhoto вместо этого
 // при одной фотографии.
-export async function sendAdminMediaGroup(photos: AdminPhoto[], caption: string): Promise<boolean> {
-  const creds = getCreds()
+export async function sendAdminMediaGroup(
+  photos: AdminPhoto[],
+  caption: string,
+  target: AnnounceTarget = 'ru',
+): Promise<boolean> {
+  const creds = getCreds(target)
   if (!creds) return false
   if (photos.length < 2 || photos.length > 10) {
     console.error(`[ADMIN-BOT] sendMediaGroup: неверное число фото (${photos.length}), нужно 2-10`)

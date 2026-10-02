@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { withPage } from '@/lib/headless-browser'
+import { renderLocale } from '@/lib/render-locale'
 
 // Генерирует скриншот ОДНОЙ карточки анонса через изолированную страницу
 // /announcements/render/[id] (не живую /announcements) - карточка там
@@ -38,7 +39,13 @@ export const GET: APIRoute = async ({ url }) => {
       : { width: 800, height: 1000 }
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}${week ? `?week=${week}` : ''}`
+  // lang=en - английская карточка (рендер-страница читает ?lang=).
+  const lang = renderLocale(url.searchParams.get('lang'))
+  const query = new URLSearchParams()
+  if (week) query.set('week', week)
+  if (lang !== 'ru') query.set('lang', lang)
+  const qs = query.toString()
+  const pageUrl = `https://archivist-library.com/announcements/render/${encodeURIComponent(id)}${qs ? `?${qs}` : ''}`
 
   try {
     return await withPage(viewport, async (page) => {

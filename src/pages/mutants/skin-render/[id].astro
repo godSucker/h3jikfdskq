@@ -20,6 +20,7 @@ import mutantsData from '@/data/mutants/mutants.json';
 import skinsData from '@/data/mutants/skins.json';
 import MutantsBrowser from '@/components/MutantsBrowser.svelte';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
+import { renderLocale } from '@/lib/render-locale';
 
 const raw = Astro.params.id ?? '';
 const sep = raw.indexOf('|');
@@ -29,11 +30,13 @@ const mutant = (mutantsData as { id: string }[]).find((m) => m.id === baseId) ??
 const allSkins = (skinsData as { specimens?: { id: string }[] }).specimens ?? [];
 const skins = allSkins.filter((s) => String(s.id).toLowerCase() === baseId);
 
-const { names, obtainNames } = getLocalizedMutantNames('ru');
+// ?lang=en - модалка на английском для англоязычной группы (как /en/mutants).
+const locale = renderLocale(Astro.url.searchParams.get('lang'));
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <!-- Шрифт грузим с CDN тем же путём, что BaseLayout - локальный /fonts/…
@@ -89,12 +92,12 @@ const { names, obtainNames } = getLocalizedMutantNames('ru');
         bingos={[]}
         bingoIndex={[]}
         title=""
-        locale="ru"
+        locale={locale}
         names={names}
         obtainNames={obtainNames}
       />
     ) : (
-      <div class="missing">Мутант не найден: {baseId}</div>
+      <div class="missing">{locale === 'en' ? 'Mutant not found' : 'Мутант не найден'}: {baseId}</div>
     )}
   </body>
 </html>

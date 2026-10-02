@@ -53,11 +53,15 @@ export async function freezePageForModalShot(page: Page, selector: string): Prom
 // делается в headless-табе эндпоинта прямо перед снимком - живую модалку на
 // сайте это не трогает.
 
-// Формат RU, как fmtDate в src/lib/announcements-render.ts.
-export function ruDate(iso: string): string | null {
+// Формат даты плашки: RU как fmtDate в src/lib/announcements-render.ts, EN - en-US.
+export function shotDate(iso: string, lang: 'ru' | 'en'): string | null {
   const d = new Date(iso)
   if (Number.isNaN(d.getTime())) return null
-  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
+  return d.toLocaleDateString(lang === 'en' ? 'en-US' : 'ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
 }
 
 // Вставляет плашку в левый верхний угол элемента-диалога. position:absolute
