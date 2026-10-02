@@ -511,5 +511,12 @@
     "name": "+10 пропусков",
     "description": "Навсегда увеличивает максимальное количество пропусков энергии на 10.",
     "texture": "/materials/Material_EnergyMax10.png"
+  },
+  {
+    "id": "Material_Halloween26_Token",
+    "name": "Селенит Жетон",
+    "description": "",
+    "texture": "/materials/Material_Halloween26_Token.png",
+    "eventDate": "2026-10-02"
   }
 ]

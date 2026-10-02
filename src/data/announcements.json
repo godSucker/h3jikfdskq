@@ -5429,5 +5429,75 @@
       }
     ],
     "link": "/bingo"
+  },
+  {
+    "id": "mutant-1790948212527-0",
+    "date": "2026-10-02T13:36:52.077Z",
+    "category": "mutant",
+    "title": "EC_14",
+    "items": [
+      {
+        "id": "specimen_ec_14",
+        "name": "EC_14",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_ec_14_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1790948212529-0",
+    "date": "2026-10-02T13:36:52.077Z",
+    "category": "skin",
+    "title": "Царь-Молот — Хеллоуин",
+    "items": [
+      {
+        "id": "Specimen_CE_09|halloween",
+        "name": "Царь-Молот — Хеллоуин",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_ce_09_halloween.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1790948212529-1",
+    "date": "2026-10-02T13:36:52.077Z",
+    "category": "skin",
+    "title": "Арельвам — Хеллоуин",
+    "items": [
+      {
+        "id": "Specimen_CF_10|halloween",
+        "name": "Арельвам — Хеллоуин",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_cf_10_halloween.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1790948212529-2",
+    "date": "2026-10-02T13:36:52.077Z",
+    "category": "skin",
+    "title": "Сезанн — Хеллоуин",
+    "items": [
+      {
+        "id": "Specimen_DC_04|halloween",
+        "name": "Сезанн — Хеллоуин",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_dc_04_halloween.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "token-1790948213118",
+    "date": "2026-10-02T13:36:52.077Z",
+    "category": "token",
+    "title": "Селенит Жетон",
+    "items": [
+      {
+        "id": "Material_Halloween26_Token",
+        "name": "Селенит Жетон",
+        "image": "/materials/Material_Halloween26_Token.png"
+      }
+    ],
+    "link": "/materials"
   }
 ]
