@@ -3,5 +3,11 @@
     "type": "reactor",
     "id": "zodiac",
     "alertedAt": "2026-08-07T15:59:57.842Z"
+  },
+  "dungeon:halloween26": {
+    "type": "dungeon",
+    "id": "halloween26",
+    "dungeonType": "experiment",
+    "alertedAt": "2026-10-02T13:36:26.189Z"
   }
 }

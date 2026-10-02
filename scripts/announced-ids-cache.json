@@ -559,7 +559,8 @@
     "specimen_bb_14",
     "specimen_da_15",
     "specimen_df_14",
-    "specimen_ed_15"
+    "specimen_ed_15",
+    "specimen_ec_14"
   ],
   "skin": [
     "Specimen_A_01|japan",
@@ -706,6 +707,7 @@
     "Specimen_CE_06|autumn",
     "Specimen_CE_07|anniversary",
     "Specimen_CE_08|cybernetics",
+    "Specimen_CE_09|halloween",
     "Specimen_CE_11|valentines",
     "Specimen_CF_01|girl",
     "Specimen_CF_02|soldiers",
@@ -715,6 +717,7 @@
     "Specimen_CF_06|western",
     "Specimen_CF_08|solarflare",
     "Specimen_CF_09|worker",
+    "Specimen_CF_10|halloween",
     "Specimen_D_01|gachaboss",
     "Specimen_DA_01|villains",
     "Specimen_DA_02|halloween",
@@ -732,6 +735,7 @@
     "Specimen_DB_09|nebula",
     "Specimen_DB_10|anniversary",
     "Specimen_DC_01|gothic",
+    "Specimen_DC_04|halloween",
     "Specimen_DC_05|lucha",
     "Specimen_DC_06|winter",
     "Specimen_DC_08|vegetal",
@@ -2448,7 +2452,8 @@
     "Preorder_Token_DE_10_gold",
     "Material_Tcg_Corgi_Token",
     "Material_Mutenstein_Token",
-    "Material_Hexcity_Token"
+    "Material_Hexcity_Token",
+    "Material_Halloween26_Token"
   ],
   "reactor": [
     "starwars|2026-07-30T10:00:00+00:00",

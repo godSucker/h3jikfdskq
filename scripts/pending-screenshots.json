@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": "mutant-1790948212527-0",
+    "category": "mutant",
+    "title": "EC_14",
+    "itemIds": [
+      "specimen_ec_14"
+    ],
+    "createdAt": "2026-10-02T13:37:00.446Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z"
+  },
+  {
+    "id": "skin-1790948212529-0",
+    "category": "skin",
+    "title": "Царь-Молот — Хеллоуин",
+    "itemIds": [
+      "Specimen_CE_09|halloween"
+    ],
+    "createdAt": "2026-10-02T13:37:00.446Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z"
+  },
+  {
+    "id": "skin-1790948212529-1",
+    "category": "skin",
+    "title": "Арельвам — Хеллоуин",
+    "itemIds": [
+      "Specimen_CF_10|halloween"
+    ],
+    "createdAt": "2026-10-02T13:37:00.446Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z"
+  },
+  {
+    "id": "skin-1790948212529-2",
+    "category": "skin",
+    "title": "Сезанн — Хеллоуин",
+    "itemIds": [
+      "Specimen_DC_04|halloween"
+    ],
+    "createdAt": "2026-10-02T13:37:00.446Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z"
+  },
+  {
+    "id": "token-1790948213118",
+    "category": "token",
+    "title": "Селенит Жетон",
+    "itemIds": [
+      "Material_Halloween26_Token"
+    ],
+    "createdAt": "2026-10-02T13:37:00.446Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z"
+  }
+]
