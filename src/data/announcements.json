@@ -4469,10 +4469,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 10 октября",
-        "exactDateStart": "2026-10-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "9 — 12 октября",
+        "exactDateStart": "2026-10-09T10:00:00+00:00",
+        "exactDateEnd": "2026-10-12T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_02",
@@ -4510,10 +4509,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 10 октября",
-        "exactDateStart": "2026-10-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "9 — 10 октября",
+        "exactDateStart": "2026-10-09T10:00:00+00:00",
+        "exactDateEnd": "2026-10-10T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_08"
@@ -4528,10 +4526,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 9 октября",
-        "exactDateStart": "2026-10-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "8 — 11 октября",
+        "exactDateStart": "2026-10-08T10:00:00+00:00",
+        "exactDateEnd": "2026-10-11T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4562,10 +4559,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 8 октября",
-        "exactDateStart": "2026-10-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "7 — 9 октября",
+        "exactDateStart": "2026-10-07T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4578,10 +4574,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 8 октября",
-        "exactDateStart": "2026-10-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "8 — 9 октября",
+        "exactDateStart": "2026-10-08T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_02"
@@ -4596,10 +4591,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 7 октября",
-        "exactDateStart": "2026-10-07T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "6 — 9 октября",
+        "exactDateStart": "2026-10-06T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DA_12",
@@ -4634,10 +4628,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 6 октября",
-        "exactDateStart": "2026-10-06T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "7 — 8 октября",
+        "exactDateStart": "2026-10-07T10:00:00+00:00",
+        "exactDateEnd": "2026-10-08T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_04"
@@ -4652,10 +4645,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 5 октября",
-        "exactDateStart": "2026-10-05T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "5 — 9 октября",
+        "exactDateStart": "2026-10-05T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_02",
@@ -4714,11 +4706,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 5 октября",
-        "exactDateStart": "2026-10-05T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "featuredMutant": null,
+        "exactDateLabel": "6 — 13 октября",
+        "exactDateStart": "2026-10-06T10:00:00+00:00",
+        "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "featuredMutant": "week",
         "packMutants": [
           "Specimen_BA_13"
         ]
@@ -4732,10 +4723,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 5 октября",
-        "exactDateStart": "2026-10-05T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "6 — 7 октября",
+        "exactDateStart": "2026-10-06T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BC_06"
@@ -4750,10 +4740,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_04"
@@ -4768,10 +4757,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_11"
@@ -4786,10 +4774,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_12"
@@ -4804,10 +4791,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_09"
@@ -4822,10 +4808,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
@@ -4840,10 +4825,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 6 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-06T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4856,10 +4840,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "4 — 5 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-05T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_05"
@@ -4874,10 +4857,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 3 октября",
-        "exactDateStart": "2026-10-03T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "3 — 6 октября",
+        "exactDateStart": "2026-10-03T10:00:00+00:00",
+        "exactDateEnd": "2026-10-06T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4946,10 +4928,9 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 3 октября",
-        "exactDateStart": "2026-10-03T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
+        "exactDateLabel": "3 — 4 октября",
+        "exactDateStart": "2026-10-03T10:00:00+00:00",
+        "exactDateEnd": "2026-10-04T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DC_08"
@@ -4964,9 +4945,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "exactDateEnd": null,
+        "exactDateLabel": "2 — 9 октября",
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_02",
@@ -5190,10 +5171,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 10 октября",
-        "exactDateStart": "2026-10-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "9 — 12 октября",
+        "exactDateStart": "2026-10-09T10:00:00+00:00",
+        "exactDateEnd": "2026-10-12T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_Mystery_Oktoberfest_2026",
@@ -5205,10 +5186,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 10 октября",
-        "exactDateStart": "2026-10-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "2 — 9 октября",
+        "exactDateStart": "2026-10-02T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_bundle_orbs_adaptive_weaken_13",
@@ -5220,10 +5201,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 9 октября",
-        "exactDateStart": "2026-10-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "8 — 11 октября",
+        "exactDateStart": "2026-10-08T10:00:00+00:00",
+        "exactDateEnd": "2026-10-11T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_Pack_daily_10_challenge_45",
@@ -5235,10 +5216,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 8 октября",
-        "exactDateStart": "2026-10-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "7 — 9 октября",
+        "exactDateStart": "2026-10-07T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_Pack_Warbeasts",
@@ -5250,10 +5231,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 7 октября",
-        "exactDateStart": "2026-10-07T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "6 — 9 октября",
+        "exactDateStart": "2026-10-06T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_LuckyBox_Necro_Prime",
@@ -5265,10 +5246,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 5 октября",
-        "exactDateStart": "2026-10-05T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "5 — 9 октября",
+        "exactDateStart": "2026-10-05T10:00:00+00:00",
+        "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|PayWall_Bank_Ex",
@@ -5277,10 +5258,10 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 5 октября",
-        "exactDateStart": "2026-10-05T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "4 — 7 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|shop_pack_daily_50_jt_60",
@@ -5292,10 +5273,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 4 октября",
-        "exactDateStart": "2026-10-04T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "4 — 6 октября",
+        "exactDateStart": "2026-10-04T10:00:00+00:00",
+        "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_bundle_orbs_regenerate_5_24",
@@ -5307,10 +5288,10 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 3 октября",
-        "exactDateStart": "2026-10-03T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateLabel": "3 — 6 октября",
+        "exactDateStart": "2026-10-03T10:00:00+00:00",
+        "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "exactDateApprox": false
       },
       {
         "id": "258|Shop_Mysterybox_Ability_Strengthen",
