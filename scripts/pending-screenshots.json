@@ -1,1 +1,212 @@
-[]
+[
+  {
+    "id": "shopForecast-1790763567357",
+    "category": "shopForecast",
+    "title": "Прогноз магазина: 48",
+    "itemIds": [
+      "258|Bundle_Casino_100jt_21",
+      "258|Bundle_Casino_300jt_21",
+      "258|Pack_Skull",
+      "258|Specimen_BF_05_Bronze",
+      "258|bank_ed_15_10ct",
+      "258|bank_ed_15_25ct",
+      "258|bank_ed_15_60ct",
+      "258|LuckyBox_Research_VII",
+      "258|Specimen_FF_09_Silver",
+      "258|bundle_orbs_critical_5_27",
+      "258|Specimen_CE_04_Bronze",
+      "258|pack_daily_5m_credit_69",
+      "258|Specimen_DA_02",
+      "258|LuckyBox_Zoo_Elite",
+      "258|Specimen_DA_13_Gold",
+      "258|Specimen_AA_08",
+      "258|pack_gold_1000_hc_83",
+      "258|pack_gold_4000_hc_83",
+      "258|pack_gold_10000_hc_83",
+      "258|Pack_Desert",
+      "258|Specimen_FD_09_Silver_sc",
+      "258|pack_powerlevel_91",
+      "258|Specimen_ED_08",
+      "258|Mysterybox_Ability_Shield",
+      "258|Specimen_BA_08",
+      "258|bundle_orbs_adaptive_weaken_13",
+      "258|Specimen_AF_04_sc",
+      "258|pack_daily_10_challenge_45",
+      "258|Specimen_DD_02_Silver",
+      "258|Pack_Warbeasts",
+      "258|Specimen_EF_04_Bronze",
+      "258|Specimen_EF_04_Bronze_sc",
+      "258|LuckyBox_Necro_Prime",
+      "258|Specimen_BA_13_Gold",
+      "258|Specimen_BC_06",
+      "258|bank_fa_04_ex_t5",
+      "258|bank_fc_11_ex_t4",
+      "258|bank_ba_12_ex_t3",
+      "258|bank_ca_09_ex_t2",
+      "258|bank_fb_14_ex_t1",
+      "258|pack_daily_50_jt_60",
+      "258|Specimen_FA_05_Bronze",
+      "258|bundle_orbs_regenerate_5_24",
+      "258|Mysterybox_Ability_Strengthen",
+      "258|Specimen_DC_08_Bronze_sc",
+      "258|Mystery_Oktoberfest_2026",
+      "258|Specimen_DF_14_Gold",
+      "258|Specimen_DF_14_rc"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:19:24.046Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "dailyNews-1790763573779",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 24",
+    "itemIds": [
+      "258|Shop_Bundle_Casino_21",
+      "258|Shop_Pack_Skull",
+      "258|daily_news_jackpot_madness_weekend_25jt",
+      "258|PayWall_2026_ED_15_CT",
+      "258|shop_lucky_box_research_viii",
+      "258|Shop_bundle_orbs_critical_5_27",
+      "258|Shop_pack_daily_5m_credit_69",
+      "258|Shop_LuckyBox_Zoo_Elite",
+      "258|Shop_Pack_Desert",
+      "258|Shop_pack_powerlevel_91",
+      "258|Shop_pack_gold_hc_83",
+      "258|Shop_Mysterybox_Ability_Shield",
+      "258|Shop_Mystery_Oktoberfest_2026",
+      "258|Shop_bundle_orbs_adaptive_weaken_13",
+      "258|Shop_Pack_daily_10_challenge_45",
+      "258|Shop_Pack_Warbeasts",
+      "258|Shop_LuckyBox_Necro_Prime",
+      "258|PayWall_Bank_Ex",
+      "258|shop_pack_daily_50_jt_60",
+      "258|Shop_bundle_orbs_regenerate_5_24",
+      "258|Shop_Mysterybox_Ability_Strengthen",
+      "258|Daily_News_Specimen_DF_14_release",
+      "258|Daily_news_shop_24h_2026_257b",
+      "258|Daily_news_shop_24h_2026_257a"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:19:24.046Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "mutant-1789480416684-0",
+    "category": "mutant",
+    "title": "DF_14",
+    "itemIds": [
+      "specimen_df_14"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-15T13:53:36.033Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "mutant-1790764791126-0",
+    "category": "mutant",
+    "title": "Финансовая акула",
+    "itemIds": [
+      "specimen_ed_15"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "skin-1790764791128-0",
+    "category": "skin",
+    "title": "Черепозавр — Октоберфест",
+    "itemIds": [
+      "Specimen_ED_02|oktoberfest"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "box-1790763565669-0",
+    "category": "box",
+    "title": "Таинственный контейнер Октоберфеста",
+    "itemIds": [
+      "Mystery_Oktoberfest_2026"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:19:24.046Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "mutant-1790948212527-0",
+    "category": "mutant",
+    "title": "EC_14",
+    "itemIds": [
+      "specimen_ec_14"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "skin-1790948212529-0",
+    "category": "skin",
+    "title": "Царь-Молот — Хеллоуин",
+    "itemIds": [
+      "Specimen_CE_09|halloween"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "skin-1790948212529-1",
+    "category": "skin",
+    "title": "Арельвам — Хеллоуин",
+    "itemIds": [
+      "Specimen_CF_10|halloween"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "skin-1790948212529-2",
+    "category": "skin",
+    "title": "Сезанн — Хеллоуин",
+    "itemIds": [
+      "Specimen_DC_04|halloween"
+    ],
+    "createdAt": "2026-10-02T22:41:17.000Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z",
+    "delivered": [
+      "ru"
+    ]
+  }
+]
