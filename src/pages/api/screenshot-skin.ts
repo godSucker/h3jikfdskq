@@ -62,6 +62,9 @@ export const GET: APIRoute = async ({ url }) => {
           await Promise.all([
             document.fonts.load('700 16px "TT Supermolot Neue"'),
             document.fonts.load('400 16px "TT Supermolot Neue"'),
+            // ★/☆ лежат в отдельном unicode-range-шрифте (global.css) и без
+            // явного запроса с текстом начинают грузиться уже ПОСЛЕ снимка.
+            document.fonts.load('700 16px "TT Supermolot Neue"', '★☆'),
           ])
           await document.fonts.ready
         })
