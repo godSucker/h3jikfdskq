@@ -306,7 +306,7 @@
   }
 </script>
 
-<div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-4 backdrop-blur">
+<div class="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-3 md:p-4 backdrop-blur">
   <h2 class="text-sky-100 font-bold mb-3">{title}</h2>
 
   <div class="mb-4 rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 text-xs">
@@ -315,20 +315,20 @@
         type="text"
         placeholder={t('pvp.preset.namePlaceholder', locale)}
         bind:value={newPresetName}
-        class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1 min-w-0 flex-1 basis-24"
+        class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-xs px-2 py-1.5 md:py-1 min-w-0 flex-1 basis-24"
       />
       <button
         type="button"
         onclick={savePreset}
         disabled={!newPresetName.trim()}
-        class="px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white shrink-0"
+        class="min-h-10 md:min-h-0 px-2.5 md:px-2 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white shrink-0"
       >
         {t('pvp.preset.save', locale)}
       </button>
       {#if presets.length}
         <select
           bind:value={selectedPresetName}
-          class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 px-2 py-1 min-w-0 max-w-32"
+          class="rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-xs px-2 py-1.5 md:py-1 min-w-0 max-w-32"
         >
           <option value="">{t('pvp.preset.selectPlaceholder', locale)}</option>
           {#each presets as p (p.name)}
@@ -339,7 +339,7 @@
           type="button"
           onclick={loadPreset}
           disabled={!selectedPresetName}
-          class="px-2 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white shrink-0"
+          class="min-h-10 md:min-h-0 px-2.5 md:px-2 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white shrink-0"
         >
           {t('pvp.preset.load', locale)}
         </button>
@@ -347,7 +347,7 @@
           type="button"
           onclick={deletePreset}
           disabled={!selectedPresetName}
-          class="px-2 py-1 rounded-lg bg-rose-700/80 hover:bg-rose-600 disabled:opacity-50 text-white shrink-0"
+          class="min-h-10 md:min-h-0 px-2.5 md:px-2 py-1 rounded-lg bg-rose-700/80 hover:bg-rose-600 disabled:opacity-50 text-white shrink-0"
         >
           {t('pvp.preset.delete', locale)}
         </button>
@@ -398,7 +398,7 @@
                 bind:value={search[i]}
                 onfocus={() => (searchOpen[i] = true)}
                 onblur={() => setTimeout(() => (searchOpen[i] = false), 150)}
-                class="w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-sm px-2 py-1.5"
+                class="w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5"
               />
               {#if searchOpen[i]}
                 <ul
@@ -410,7 +410,7 @@
                         type="button"
                         onmousedown={(e) => e.preventDefault()}
                         onclick={() => pickMutant(i, opt.id)}
-                        class="w-full text-left px-2 py-1.5 text-sm text-sky-100 hover:bg-sky-600/30"
+                        class="w-full text-left px-2 py-2.5 md:py-1.5 text-base md:text-sm text-sky-100 hover:bg-sky-600/30"
                       >
                         {opt.name}
                       </button>
@@ -463,7 +463,7 @@
               max={levelCap}
               bind:value={slot.level}
               disabled={disableLevelInputs}
-              class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-sm px-2 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+              class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-sm px-2 py-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
             />
           </label>
           <label class="block">
@@ -485,7 +485,7 @@
                 type="button"
                 onclick={() => applyOrbingPreset(i, preset)}
                 title={t('pvp.orbingPreset.applyTitle', locale)}
-                class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 hover:bg-emerald-500/25"
+                class="min-h-8 md:min-h-0 px-3 md:px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 hover:bg-emerald-500/25"
               >
                 {t('pvp.orbingPreset.label', locale).replace('{n}', String(pi + 1))}
               </button>
@@ -493,7 +493,7 @@
           </div>
         {/if}
 
-        <div class="flex flex-wrap items-end gap-3">
+        <div class="flex flex-wrap items-end gap-4 md:gap-3">
           {#each Array.from({ length: normalOrbSlots(mutant) }) as _, slotIdx (slotIdx)}
             <OrbPicker
               bind:value={slot.basicOrbIds[slotIdx]}

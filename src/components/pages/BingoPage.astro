@@ -42,6 +42,40 @@ const bingos: Bingo[] = bingosData as Bingo[];
 const sortedBingos: Bingo[] = [...bingos].sort((a, b) => Number(!!a.archived) - Number(!!b.archived));
 const firstArchivedIndex = sortedBingos.findIndex((b) => b.archived);
 
+// Категории-фильтры над полосой вкладок. Правила по префиксам/суффиксам id, а не
+// только по списку: sync-bingo добавляет новые доски сам, и любая незнакомая
+// попадает в "misc" - вкладка не должна пропасть из-за того, что её забыли
+// вписать сюда. Архив эксклюзивен: archived-доска живёт ТОЛЬКО в нём.
+type BingoCategory = 'research' | 'archive' | 'newMutants' | 'events' | 'skins' | 'cross' | 'misc';
+const CROSS_IDS = new Set([
+  'cross_mutation', 'bingo_bronze', 'bingo_silver', 'bingo_gold', 'bingo_plat',
+  'Starter', 'starter_plat',
+]);
+function bingoCategory(b: Bingo): BingoCategory {
+  if (b.archived) return 'archive';
+  const id = b.id;
+  if (id.startsWith('research_')) return 'research';
+  if (id.endsWith('_mutants')) return 'newMutants';
+  if (id.endsWith('_skins')) return 'skins';
+  if (CROSS_IDS.has(id)) return 'cross';
+  if (id.endsWith('_events') || id.startsWith('event') || id.startsWith('anniversary_') || id.endsWith('years')) {
+    return 'events';
+  }
+  return 'misc';
+}
+const CATEGORY_ORDER: BingoCategory[] = ['research', 'archive', 'newMutants', 'events', 'skins', 'cross', 'misc'];
+const CATEGORY_LABEL_KEY: Record<BingoCategory, string> = {
+  research: 'bingo.cat.research',
+  archive: 'bingo.cat.archive',
+  newMutants: 'bingo.cat.newMutants',
+  events: 'bingo.cat.events',
+  skins: 'bingo.cat.skins',
+  cross: 'bingo.cat.cross',
+  misc: 'bingo.cat.misc',
+};
+const categoryByBoardId = new Map(sortedBingos.map((b) => [b.id, bingoCategory(b)]));
+const presentCategories = CATEGORY_ORDER.filter((c) => sortedBingos.some((b) => bingoCategory(b) === c));
+
 const GENE_ICONS = {
   A: '/genes/icon_gene_a.webp',
   B: '/genes/icon_gene_b.webp',
@@ -208,6 +242,49 @@ function getSubBingos(bingo: Bingo): Bingo[] {
   return [bingo];
 }
 
+// Блок "Плавильня и кузня": какие мутанты нужно собрать, чтобы получить золотую
+// плавильню (Building_HC_2) / кузню (Building_HC_1) наградой бинго. Выводится из
+// самих наград тем же getBingoLayout(), что рисует доски (награды идут строки ->
+// колонки -> приз за всю доску), поэтому не расходится с сеткой и подхватит новые
+// доски автоматически. Specimen_FF_98 - заглушка "пока нет", в список не берём.
+const GOLD_BUILDING_IDS = ['Building_HC_2', 'Building_HC_1'];
+interface GoldSource {
+  building: BingoReward;
+  boardId: string;
+  boardTitle: string;
+  scope: 'row' | 'col' | 'whole';
+  n: number;
+  headerIcon: string;
+  mutants: BingoMutant[];
+}
+const goldSources: GoldSource[] = [];
+for (const bingo of sortedBingos) {
+  const { cols, hasLineRewards, rowRewards, colRewards, completionReward, topHeaders, sideHeaders } = getBingoLayout(bingo);
+  if (!hasLineRewards) continue;
+  const real = (m: BingoMutant) => m && m.specimenId !== 'Specimen_FF_98';
+  const push = (building: BingoReward, scope: GoldSource['scope'], n: number, mutants: BingoMutant[], headerIcon = '') => {
+    goldSources.push({
+      building, boardId: bingo.id, boardTitle: formatBingoTitle(bingo.title, bingo.id),
+      scope, n, headerIcon, mutants: mutants.filter(real),
+    });
+  };
+  rowRewards.forEach((rw, r) => {
+    if (GOLD_BUILDING_IDS.includes(rw.name)) push(rw, 'row', r + 1, bingo.mutants.slice(r * cols, (r + 1) * cols), sideHeaders[r]);
+  });
+  colRewards.forEach((rw, c) => {
+    if (GOLD_BUILDING_IDS.includes(rw.name)) {
+      push(rw, 'col', c + 1, bingo.mutants.filter((_, i) => i % cols === c), topHeaders[c]);
+    }
+  });
+  if (completionReward && GOLD_BUILDING_IDS.includes(completionReward.name)) {
+    push(completionReward, 'whole', 0, bingo.mutants);
+  }
+}
+// Плавильни выше кузен, внутри - порядок вкладок (sort стабильный).
+goldSources.sort((a, b) => GOLD_BUILDING_IDS.indexOf(a.building.name) - GOLD_BUILDING_IDS.indexOf(b.building.name));
+const goldPanelIndex = sortedBingos.length;
+const GOLD_TAB_ID = 'gold_buildings';
+
 const i18nShareCopied = t('bingo.share.copied', locale);
 const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
 ---
@@ -223,6 +300,16 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
     </div>
   </section>
 
+  <div class="bingo-cats" role="group" aria-label={t('bingo.pageTitle', locale)}>
+    <button type="button" class="bingo-cat-pill" data-category="all" aria-pressed="true">{t('bingo.cat.all', locale)}</button>
+    {presentCategories.map((cat) => (
+      <button type="button" class="bingo-cat-pill" data-category={cat} aria-pressed="false">{t(CATEGORY_LABEL_KEY[cat], locale)}</button>
+    ))}
+    {goldSources.length > 0 && (
+      <button type="button" class="bingo-cat-pill gold" data-category="gold" aria-pressed="false">{t('bingo.cat.gold', locale)}</button>
+    )}
+  </div>
+
   <div class="bingo-tabs">
     {sortedBingos.map((bingo, idx) => (
       <>
@@ -232,6 +319,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
           type="button"
           data-bingo-index={idx}
           data-bingo-id={bingo.id}
+          data-category={categoryByBoardId.get(bingo.id)}
           aria-selected={idx === 0}
         >
           <span class={`bingo-icon-span icon-${bingo.id}`}></span>
@@ -242,6 +330,19 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
         </button>
       </>
     ))}
+    {goldSources.length > 0 && (
+      <button
+        class="bingo-tab"
+        type="button"
+        data-bingo-index={goldPanelIndex}
+        data-bingo-id={GOLD_TAB_ID}
+        data-category="gold"
+        aria-selected="false"
+      >
+        <img class="bingo-icon-span" src={textureUrl('/buildings/gold_furnace_hc2.png')} alt="" loading="lazy" />
+        <span class="bingo-tab-label">{t('bingo.cat.gold', locale)}</span>
+      </button>
+    )}
   </div>
 
   <div class="bingo-content">
@@ -326,7 +427,7 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
                               const hasSkin = !isMissing && mutant.skin && mutant.skin !== '_any' && mutant.skin.trim() !== '';
 
                               return (
-                                <div class="grid-cell mutant-cell" class:missing-mutant={isMissing} title={getMutantName(mutant.specimenId)} data-specimen-id={!isMissing ? mutant.specimenId : undefined}>
+                                <div class="grid-cell mutant-cell" class:missing-mutant={isMissing} title={getMutantName(mutant.specimenId)} data-specimen-id={!isMissing ? mutant.specimenId : undefined} data-skin={!isMissing ? mutant.skin : undefined}>
                                   <div class="mutant-content">
                                     <img src={textureUrl(texturePath)} alt="" loading="lazy" class="mutant-img" />
                                     {hasSkin && (
@@ -404,6 +505,66 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
         </div>
       );
     })}
+
+    {goldSources.length > 0 && (
+      <div class="bingo-panel" data-bingo-index={goldPanelIndex} data-bingo-id={GOLD_TAB_ID} hidden>
+        <div class="bingo-card">
+          <div class="bingo-card-header">
+            <div class="bingo-card-title-wrapper">
+              <img class="bingo-header-icon" src={textureUrl('/buildings/gold_furnace_hc2.png')} alt="" />
+              <h2 class="bingo-card-title">{t('bingo.cat.gold', locale)}</h2>
+            </div>
+          </div>
+          <p class="gold-intro">{t('bingo.gold.intro', locale)}</p>
+
+          {goldSources.map((src) => (
+            <section class="gold-section">
+              <div class="gold-section-head">
+                <div class="gold-reward">
+                  <img src={textureUrl(getRewardTexturePath(src.building))} alt="" class="gold-reward-img" />
+                  <span>{getRewardLabel(src.building, locale, names)}</span>
+                </div>
+                <div class="gold-source">
+                  <span class="gold-source-label">{t('bingo.gold.fromBoard', locale)}:</span>
+                  <button type="button" class="gold-open-board" data-open-board={src.boardId} title={t('bingo.gold.openBoard', locale)}>
+                    <span class={`bingo-header-icon small icon-${src.boardId}`}></span>
+                    {src.boardTitle}
+                  </button>
+                  <span class="gold-scope">
+                    {src.headerIcon && <img src={textureUrl(src.headerIcon)} alt="" class="gold-scope-icon" />}
+                    {src.scope === 'whole'
+                      ? t('bingo.gold.whole', locale)
+                      : t(src.scope === 'col' ? 'bingo.gold.column' : 'bingo.gold.row', locale).replace('{n}', String(src.n))}
+                  </span>
+                </div>
+              </div>
+              <div class="gold-mutants">
+                {src.mutants.map((mutant) => {
+                  const hasSkin = mutant.skin && mutant.skin !== '_any' && mutant.skin.trim() !== '';
+                  return (
+                    <div class="gold-item">
+                      <div class="grid-cell mutant-cell" title={getMutantName(mutant.specimenId)} data-specimen-id={mutant.specimenId} data-skin={mutant.skin}>
+                        <div class="mutant-content">
+                          <img src={textureUrl(getMutantTexturePath(mutant.specimenId, mutant.skin))} alt="" loading="lazy" class="mutant-img" />
+                          {hasSkin && (
+                            <span class="skin-badge" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style="display:block">
+                                <path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" />
+                              </svg>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span class="gold-name">{getMutantName(mutant.specimenId)}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
   <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
@@ -436,13 +597,57 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
       });
     });
 
+    // Категории-фильтры над вкладками. Скрываем только КНОПКИ вкладок, панели не
+    // трогаем: ?board=<id> и скриншот-эндпоинт ищут панель по data-bingo-id и
+    // не должны зависеть от выбранной категории.
+    const pills = document.querySelectorAll(".bingo-cat-pill");
+    const separator = document.querySelector(".bingo-tabs-separator");
+    const applyCategory = (cat) => {
+      pills.forEach(p => p.setAttribute("aria-pressed", String(p.dataset.category === cat)));
+      let firstVisible = null;
+      tabs.forEach(tab => {
+        const show = cat === "all" || tab.dataset.category === cat;
+        tab.hidden = !show;
+        if (show && !firstVisible) firstVisible = tab;
+      });
+      if (separator) separator.hidden = cat !== "all";
+      const selected = document.querySelector('.bingo-tab[aria-selected="true"]');
+      if ((!selected || selected.hidden) && firstVisible) {
+        selectByIndex(firstVisible.dataset.bingoIndex, firstVisible);
+        setBoardParam(firstVisible.dataset.bingoId);
+      }
+      const url = new URL(location.href);
+      if (cat === "all") url.searchParams.delete("cat"); else url.searchParams.set("cat", cat);
+      history.replaceState(null, "", url);
+    };
+    pills.forEach(pill => pill.addEventListener("click", () => applyCategory(pill.dataset.category)));
+
+    // "Открыть бинго" в блоке плавильни/кузни: переключаемся в категорию этой доски
+    // (иначе её вкладка осталась бы скрытой) и открываем её.
+    document.querySelectorAll(".gold-open-board").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tab = document.querySelector(`.bingo-tab[data-bingo-id="${btn.dataset.openBoard}"]`);
+        if (!tab) return;
+        applyCategory(tab.dataset.category);
+        selectByIndex(tab.dataset.bingoIndex, tab);
+        setBoardParam(tab.dataset.bingoId);
+        tab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        document.querySelector(".bingo-cats")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
     // ?board=<id> - открыть конкретную доску напрямую (используется скриншот-
     // эндпоинтом api/screenshot-bingo.ts для кросс-поста в Telegram, и теперь
-    // и обычными пользовательскими ссылками "поделиться").
-    const boardId = new URLSearchParams(location.search).get("board");
-    if (boardId) {
-      const btn = document.querySelector(`.bingo-tab[data-bingo-id="${boardId}"]`);
-      if (btn) selectByIndex(btn.dataset.bingoIndex, btn);
+    // и обычными пользовательскими ссылками "поделиться"). ?cat=<категория>
+    // восстанавливает фильтр, но только если открытая доска в него входит -
+    // иначе остаёмся на "Все", доска никогда не прячется.
+    const params = new URLSearchParams(location.search);
+    const boardId = params.get("board");
+    const catParam = params.get("cat");
+    const boardTab = boardId ? document.querySelector(`.bingo-tab[data-bingo-id="${boardId}"]`) : null;
+    if (boardTab) selectByIndex(boardTab.dataset.bingoIndex, boardTab);
+    if (catParam && catParam !== "all" && document.querySelector(`.bingo-cat-pill[data-category="${catParam}"]`)) {
+      if (!boardTab || boardTab.dataset.category === catParam) applyCategory(catParam);
     }
 
     document.querySelectorAll(".bingo-share-btn").forEach((btn) => {
@@ -470,11 +675,14 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
     // Svelte-островом, слушает это событие).
     document.querySelectorAll(".mutant-cell[data-specimen-id]").forEach((cell) => {
       cell.addEventListener("click", () => {
-        window.dispatchEvent(
-          new CustomEvent("archivist:open-mutant", {
-            detail: { specimenId: cell.dataset.specimenId },
-          }),
-        );
+        // Поле skin в bingos.json двойное: имя звезды (bronze/silver/gold/platinum),
+        // имя скина или "_any" (любая версия). Открываем модалку ровно в том виде,
+        // как мутант стоит на доске: звезда -> star, скин -> skin, "_any" -> дефолт.
+        const skin = (cell.dataset.skin || "").toLowerCase();
+        const detail = { specimenId: cell.dataset.specimenId };
+        if (["bronze", "silver", "gold", "platinum"].includes(skin)) detail.star = skin;
+        else if (skin && skin !== "_any") detail.skin = skin;
+        window.dispatchEvent(new CustomEvent("archivist:open-mutant", { detail }));
       });
     });
   });
@@ -486,6 +694,13 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
   .bingo-icon { width: 40px; height: 40px; filter: drop-shadow(0 4px 16px rgba(96, 165, 250, 0.4)); }
   .intro h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; text-shadow: 0 3px 10px rgba(96, 165, 250, 0.4); }
   .intro p { margin: 0; color: #e5e7eb; font-size: 0.9rem; }
+
+  .bingo-cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .bingo-cat-pill { appearance: none; border: 1px solid rgba(96, 165, 250, 0.25); background: rgba(22, 27, 34, 0.95); color: #94a3b8; border-radius: 999px; padding: 0.35rem 0.9rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .bingo-cat-pill:hover { background: rgba(30, 58, 138, 0.2); color: #fff; }
+  .bingo-cat-pill[aria-pressed="true"] { background: rgba(30, 58, 138, 0.45); border-color: rgba(96, 165, 250, 0.6); color: #93c5fd; }
+  .bingo-cat-pill.gold[aria-pressed="true"] { background: rgba(120, 83, 9, 0.35); border-color: rgba(251, 191, 36, 0.6); color: #fcd34d; }
+  .bingo-tab[hidden], .bingo-tabs-separator[hidden] { display: none; }
 
   .bingo-tabs { display: flex; overflow-x: auto; gap: 0.25rem; margin-bottom: 1rem; border-bottom: 2px solid rgba(96, 165, 250, 0.25); scrollbar-width: thin; justify-content: flex-start; }
   .bingo-tabs::-webkit-scrollbar { height: 4px; }
@@ -859,6 +1074,24 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
   .icon-anniversary_24,
   .icon-anniversary_26 { background-image: url('https://cdn.archivist-library.com/bingo/bingo_anniversery.webp'); }
 
+  /* --- ПЛАВИЛЬНЯ И КУЗНЯ --- */
+  .bingo-header-icon.small { width: 22px; height: 22px; flex-shrink: 0; filter: none; }
+  .gold-intro { margin: 0 0 1.25rem; text-align: center; color: #94a3b8; font-size: 0.9rem; }
+  .gold-section { margin-bottom: 1.5rem; padding: 1rem; border-radius: 16px; background: rgba(30, 41, 59, 0.35); border: 1px solid rgba(251, 191, 36, 0.2); }
+  .gold-section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1.25rem; margin-bottom: 0.9rem; }
+  .gold-reward { display: flex; align-items: center; gap: 0.6rem; font-weight: 800; color: #fcd34d; font-size: 1.05rem; }
+  .gold-reward-img { width: 40px; height: 40px; object-fit: contain; }
+  .gold-source { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; font-size: 0.85rem; color: #94a3b8; }
+  .gold-open-board { appearance: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(96, 165, 250, 0.3); background: rgba(30, 58, 138, 0.15); color: #93c5fd; border-radius: 999px; padding: 0.25rem 0.7rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+  .gold-open-board:hover { background: rgba(30, 58, 138, 0.35); color: #fff; }
+  .gold-open-board .bingo-header-icon { background-size: contain; background-repeat: no-repeat; }
+  .gold-scope { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #cbd5e1; }
+  .gold-scope-icon { width: 22px; height: 22px; object-fit: contain; }
+  .gold-mutants { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 10px; }
+  .gold-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
+  .gold-item .grid-cell { width: 100%; }
+  .gold-name { font-size: 0.7rem; line-height: 1.15; text-align: center; color: #94a3b8; overflow-wrap: anywhere; }
+
   /* --- MOBILE RESPONSIVE --- */
   @media (max-width: 768px) {
     .bingo-board-wrapper {
@@ -941,6 +1174,10 @@ const i18nSharePromptLabel = t('bingo.share.promptLabel', locale);
   }
 
   @media (max-width: 480px) {
+    .gold-mutants { grid-template-columns: repeat(auto-fill, minmax(68px, 1fr)); gap: 8px; }
+    .gold-section { padding: 0.75rem; }
+    .bingo-cat-pill { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+
     .bingo-grid {
       gap: 4px;
     }

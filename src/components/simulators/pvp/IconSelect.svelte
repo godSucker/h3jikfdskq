@@ -55,7 +55,7 @@
     onkeydown={onTriggerKeydown}
     aria-haspopup="listbox"
     aria-expanded={open}
-    class="w-full flex items-center gap-1.5 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-xs px-1.5 py-1"
+    class="w-full flex items-center gap-1.5 rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 text-base md:text-xs px-2 md:px-1.5 py-1.5 md:py-1 min-h-[42px] md:min-h-0"
   >
     {#if selected?.icon}
       <img src={textureUrl(selected.icon)} alt="" class="w-3.5 h-3.5 shrink-0" />
@@ -66,7 +66,7 @@
   {#if open}
     <ul
       role="listbox"
-      class="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto rounded-lg border border-slate-700/70 bg-slate-900 shadow-xl text-xs"
+      class="absolute z-10 mt-1 w-full max-h-56 overflow-y-auto rounded-lg border border-slate-700/70 bg-slate-900 shadow-xl text-base md:text-xs"
     >
       {#each options as o (o.value ?? '__none__')}
         <li role="option" aria-selected={o.value === value}>
@@ -74,7 +74,7 @@
             type="button"
             onclick={() => pick(o.value)}
             onkeydown={(e) => e.key === 'Escape' && (e.preventDefault(), (open = false), triggerEl?.focus())}
-            class="w-full flex items-center gap-1.5 text-left px-2 py-1.5 text-sky-100 hover:bg-sky-600/30"
+            class="w-full flex items-center gap-1.5 text-left px-2 py-2.5 md:py-1.5 text-sky-100 hover:bg-sky-600/30"
           >
             {#if o.icon}
               <img src={textureUrl(o.icon)} alt="" class="w-3.5 h-3.5 shrink-0" />

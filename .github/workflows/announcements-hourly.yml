@@ -200,6 +200,13 @@ jobs:
         if: always()
         run: npx tsx scripts/update-obtain-last-seen.ts
 
+      - name: 9.57 История последних офферов мутантов (offer-history.json)
+        # Даты kartel-фильтров (снимок 9.5 + date-ledger) -> мутанты товара.
+        # Для блока "Последние появления" в модалке. Merge-only; при неполном
+        # снимке сам ничего не пишет.
+        if: always()
+        run: npx tsx scripts/build-offer-history.ts
+
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
         # сейчас сломалось", а не только ежемесячное календарное напоминание
@@ -280,6 +287,7 @@ jobs:
             scripts/announced-ids-cache.json
             scripts/pending-screenshots.json
             scripts/kartel/date-ledger.json
+            src/data/mutants/offer-history.json
 
       - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
         # Этап 3 аудита Opus 5.5 (2026-09-23). file_pattern шага 11 ведётся
