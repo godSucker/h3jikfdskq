@@ -59737,5 +59737,88 @@
     "name_attack2": "Финансовый пузырь",
     "name_attack3": "",
     "name_lore": "Часто говорят, что мир финансов — это настоящий «аквариум с акулами», безжалостный и жестокий, где царит лишь закон джунглей. И вот тогда и возникла идея… А что, если бы мы наделили двуногого мутанта-акулу реальной финансовой властью? Кого бы она съела? И не может ли быть так, что некий Дон сунул свои когти туда, куда нужно, чтобы воплотить эту идею в жизнь?"
+  },
+  {
+    "id": "specimen_ec_14",
+    "name": "EC_14",
+    "genes": [
+      "E",
+      "C"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 1130,
+        "atk1": 312,
+        "atk2": 312,
+        "ability": 62,
+        "speed": 5,
+        "silver": 42,
+        "atk1_gene": "e",
+        "atk2_gene": "c",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "lvl30": {
+        "hp": 4407,
+        "atk1": 1825,
+        "atk2": 1825,
+        "ability": 548,
+        "speed": 5,
+        "silver": 1260,
+        "atk1_gene": "e",
+        "atk2_gene": "c",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "hp_base": 1130,
+      "atk1_base": 312,
+      "atk1p_base": 468,
+      "atk2_base": 312,
+      "atk2p_base": 468,
+      "speed_base": 5,
+      "bank_base": 42,
+      "abilityPct1": 20,
+      "abilityPct2": 30
+    },
+    "abilities": [
+      {
+        "name": "ability_strengthen",
+        "pct": 20,
+        "value_atk1_lvl1": 62,
+        "value_atk2_lvl1": 62,
+        "value_atk1_lvl30": 365,
+        "value_atk2_lvl30": 365
+      },
+      {
+        "name": "ability_strengthen_plus",
+        "pct": 30,
+        "value_atk1_lvl1": 94,
+        "value_atk2_lvl1": 94,
+        "value_atk1_lvl30": 548,
+        "value_atk2_lvl30": 548
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+          "textures_by_mutant/ec_14/larva_ec_14.webp"
+        ]
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 0,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Атака 1",
+    "name_attack2": "Атака 2",
+    "name_attack3": "",
+    "name_lore": "Описание для EC_14"
   }
 ]

@@ -3835,6 +3835,13 @@
             "value": 314
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 312
+          },
+          {
             "id": "specimen_e_03",
             "name": "Церера",
             "star": "platinum",
@@ -8837,6 +8844,13 @@
             "value": 1130
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1130
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -10803,6 +10817,13 @@
             "name": "Жиганто-Моаи",
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -16700,6 +16721,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -20327,6 +20355,14 @@
               "icon": "/textures_by_mutant/e_01/specimen_e_01_platinum.webp",
               "pct": 30,
               "value": 99
+            },
+            {
+              "id": "specimen_ec_14",
+              "name": "EC_14",
+              "star": "normal",
+              "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+              "pct": 30,
+              "value": 94
             },
             {
               "id": "specimen_e_03",
@@ -25041,6 +25077,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/db_02/specimen_db_02_platinum.webp",
             "value": 1896
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1825
           }
         ],
         "atk2": [
@@ -30031,6 +30074,13 @@
             "value": 4407
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 4407
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -31997,6 +32047,13 @@
             "name": "Жиганто-Моаи",
             "star": "normal",
             "icon": "/textures_by_mutant/ae_14/specimen_ae_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -37894,6 +37951,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -41521,6 +41585,14 @@
               "icon": "/textures_by_mutant/e_01/specimen_e_01_platinum.webp",
               "pct": 30,
               "value": 586
+            },
+            {
+              "id": "specimen_ec_14",
+              "name": "EC_14",
+              "star": "normal",
+              "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+              "pct": 30,
+              "value": 548
             },
             {
               "id": "specimen_e_03",
@@ -46301,6 +46373,13 @@
             "value": 1130
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1130
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -48274,6 +48353,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -54164,6 +54250,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -58019,6 +58112,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/db_02/specimen_db_02_platinum.webp",
             "value": 1896
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1825
           }
         ],
         "atk2": [
@@ -63009,6 +63109,13 @@
             "value": 4407
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 4407
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -64982,6 +65089,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -70872,6 +70986,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -74499,6 +74620,14 @@
               "icon": "/textures_by_mutant/e_01/specimen_e_01_platinum.webp",
               "pct": 30,
               "value": 586
+            },
+            {
+              "id": "specimen_ec_14",
+              "name": "EC_14",
+              "star": "normal",
+              "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+              "pct": 30,
+              "value": 548
             },
             {
               "id": "specimen_e_03",
@@ -79279,6 +79408,13 @@
             "value": 1130
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1130
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -81245,6 +81381,13 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -87142,6 +87285,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -90997,6 +91147,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/db_02/specimen_db_02_platinum.webp",
             "value": 1896
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1825
           }
         ],
         "atk2": [
@@ -95987,6 +96144,13 @@
             "value": 4407
           },
           {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 4407
+          },
+          {
             "id": "specimen_d_14",
             "name": "Апиархия",
             "star": "platinum",
@@ -97953,6 +98117,13 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 5
           },
           {
@@ -103850,6 +104021,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ec_14",
+            "name": "EC_14",
+            "star": "normal",
+            "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -107477,6 +107655,14 @@
               "icon": "/textures_by_mutant/e_01/specimen_e_01_platinum.webp",
               "pct": 30,
               "value": 586
+            },
+            {
+              "id": "specimen_ec_14",
+              "name": "EC_14",
+              "star": "normal",
+              "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+              "pct": 30,
+              "value": 548
             },
             {
               "id": "specimen_e_03",
