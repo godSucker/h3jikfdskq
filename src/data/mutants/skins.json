@@ -3740,6 +3740,32 @@
       ]
     },
     {
+      "id": "Specimen_CE_09",
+      "name": "Царь-Молот",
+      "genes": [
+        "C",
+        "E"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 3155,
+          "atk1": 1127,
+          "atk2": 1127
+        },
+        "lvl30": {
+          "hp": 12303,
+          "atk1": 6585,
+          "atk2": 6585
+        }
+      },
+      "star": "gold",
+      "skin": "halloween",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_ce_09_halloween.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_ce_09_halloween.webp"
+      ]
+    },
+    {
       "id": "Specimen_CE_11",
       "name": "Чунь Ли",
       "genes": [
@@ -3971,6 +3997,32 @@
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_09_worker.png",
         "textures_by_skins/textures_by_skin/semi-full/specimen_cf_09_worker.webp"
+      ]
+    },
+    {
+      "id": "Specimen_CF_10",
+      "name": "Арельвам",
+      "genes": [
+        "C",
+        "F"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 3380,
+          "atk1": 555,
+          "atk2": 555
+        },
+        "lvl30": {
+          "hp": 13181,
+          "atk1": 3235,
+          "atk2": 3235
+        }
+      },
+      "star": "gold",
+      "skin": "halloween",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_cf_10_halloween.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_cf_10_halloween.webp"
       ]
     },
     {
@@ -4412,6 +4464,32 @@
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_01_gothic.png",
         "textures_by_skins/textures_by_skin/semi-full/specimen_dc_01_gothic.webp"
+      ]
+    },
+    {
+      "id": "Specimen_DC_04",
+      "name": "Сезанн",
+      "genes": [
+        "D",
+        "C"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 3143,
+          "atk1": 1359,
+          "atk2": 1359
+        },
+        "lvl30": {
+          "hp": 12257,
+          "atk1": 9464,
+          "atk2": 9464
+        }
+      },
+      "star": "gold",
+      "skin": "halloween",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_dc_04_halloween.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_dc_04_halloween.webp"
       ]
     },
     {
