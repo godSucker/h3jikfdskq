@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { withPage } from '@/lib/headless-browser'
+import { renderLocale } from '@/lib/render-locale'
 
 // Скриншот одной доски бинго. Посетители сюда больше не ходят: карточка
 // анонса показывает PNG, отрендеренный один раз и лежащий в репо и на CDN
@@ -17,7 +18,9 @@ export const GET: APIRoute = async ({ url }) => {
   }
 
   // Хардкод, не url.origin: см. комментарий в screenshot.ts (SSRF через Host).
-  const pageUrl = `https://archivist-library.com/bingo?board=${encodeURIComponent(boardId)}`
+  // lang=en - английская доска (/en/bingo) для англоязычной группы.
+  const prefix = renderLocale(url.searchParams.get('lang')) === 'en' ? '/en' : ''
+  const pageUrl = `https://archivist-library.com${prefix}/bingo?board=${encodeURIComponent(boardId)}`
 
   try {
     return await withPage({ width: 1200, height: 1000 }, async (page) => {

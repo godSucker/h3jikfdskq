@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { withPage } from '@/lib/headless-browser'
-import { ruDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
+import { shotDate, freezePageForModalShot, injectDateBadge } from '@/lib/screenshot-date-badge'
+import { renderLocale } from '@/lib/render-locale'
 
 // Скриншот модалки ОДНОГО скина (MutantModal.svelte с предвыбранным вариантом
 // скина) для бот-скриншотера в админ-чат. Снимаем НЕ с живой /mutants
@@ -28,7 +29,8 @@ export const GET: APIRoute = async ({ url }) => {
   // регистр. skinKey как есть (matcher initialSkin регистр не учитывает).
   const baseId = raw.slice(0, sep).toLowerCase()
   const skinKey = raw.slice(sep + 1)
-  const dateLabel = ruDate(url.searchParams.get('date') ?? '')
+  const lang = renderLocale(url.searchParams.get('lang'))
+  const dateLabel = shotDate(url.searchParams.get('date') ?? '', lang)
 
   // Хардкод хоста, не url.origin: см. комментарий в screenshot.ts (SSRF через
   // Host). ?mutant=&skin= в query - их читает MutantsBrowser::tryOpenFromUrl
@@ -36,7 +38,7 @@ export const GET: APIRoute = async ({ url }) => {
   // frontmatter).
   const pageUrl =
     `https://archivist-library.com/mutants/skin-render/${encodeURIComponent(raw)}` +
-    `?mutant=${encodeURIComponent(baseId)}&skin=${encodeURIComponent(skinKey)}`
+    `?mutant=${encodeURIComponent(baseId)}&skin=${encodeURIComponent(skinKey)}${lang !== 'ru' ? `&lang=${lang}` : ''}`
 
   try {
     return await withPage({ width: 1100, height: 1600 }, async (page) => {
