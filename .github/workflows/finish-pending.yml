@@ -119,6 +119,7 @@ jobs:
             scripts/announced-ids-cache.json
             scripts/pending-screenshots.json
             scripts/resolved-names-cache.json
+            scripts/resolved-names-en-cache.json
             scripts/pending-names-cache.json
             scripts/kartel/date-ledger.json
             public/reactor/**

@@ -24,6 +24,14 @@
     specialOrbId: string | null
   }
 
+  const MIN_TEAM_SIZE = 1
+  const MAX_TEAM_SIZE = 3
+
+  // Новый слот стартует копией последнего - удобнее править, чем собирать с нуля.
+  function defaultSlotFrom(src: SlotConfig): SlotConfig {
+    return $state.snapshot(src)
+  }
+
   let {
     title,
     slots = $bindable(),
@@ -39,7 +47,7 @@
   } = $props()
 
   // Пресеты команд - общий список на localStorage (не привязан к стороне мои/оппонент,
-  // это просто "сборка из 3 мутантов", годная для любой из двух TeamBuilder-карточек).
+  // это просто "сборка из 1-3 мутантов", годная для любой из двух TeamBuilder-карточек).
   const PRESETS_KEY = 'mgg-pvp-team-presets'
   interface TeamPreset {
     name: string
@@ -97,7 +105,7 @@
     const preset = presets.find((p) => p.name === selectedPresetName)
     if (!preset) return
     // preset пришёл из presets ($state-массив) - тот же прокси-гочтя, что и в savePreset.
-    const cloned = $state.snapshot(preset.slots)
+    const cloned = $state.snapshot(preset.slots).slice(0, MAX_TEAM_SIZE)
     slots.splice(0, slots.length, ...cloned)
     search = cloned.map(() => '')
     searchOpen = cloned.map(() => false)
@@ -211,6 +219,21 @@
   // напрямую (иначе выбор перезаписывался бы при каждом наборе символа).
   let search = $state<string[]>(slots.map(() => ''))
   let searchOpen = $state<boolean[]>(slots.map(() => false))
+
+  // Команда - от 1 до 3 мутантов (бой 1v3, 2v2 и т.п.).
+  function removeSlot(i: number) {
+    if (slots.length <= MIN_TEAM_SIZE) return
+    slots.splice(i, 1)
+    search.splice(i, 1)
+    searchOpen.splice(i, 1)
+  }
+
+  function addSlot() {
+    if (slots.length >= MAX_TEAM_SIZE) return
+    slots.push(defaultSlotFrom(slots[slots.length - 1]))
+    search.push('')
+    searchOpen.push(false)
+  }
 
   function filteredOptions(i: number) {
     const q = search[i]?.trim().toLowerCase()
@@ -375,6 +398,18 @@
       {@const levelCap = maxLevel(mutant, slot.star, slot)}
       {@const orbingPresets = mutant ? orbingPresetsFor(mutant.id) : []}
       <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-3">
+        {#if slots.length > MIN_TEAM_SIZE}
+          <div class="flex items-center justify-between text-xs text-sky-300/70">
+            <span>{t('pvp.slot.title', locale).replace('{n}', String(i + 1))}</span>
+            <button
+              type="button"
+              onclick={() => removeSlot(i)}
+              class="min-h-9 md:min-h-0 px-2 py-1 rounded-lg bg-rose-700/70 hover:bg-rose-600 text-white"
+            >
+              {t('pvp.slot.remove', locale)}
+            </button>
+          </div>
+        {/if}
         <div class="flex gap-3">
           {#if portrait}
             <img
@@ -515,5 +550,14 @@
         </div>
       </div>
     {/each}
+    {#if slots.length < MAX_TEAM_SIZE}
+      <button
+        type="button"
+        onclick={addSlot}
+        class="w-full min-h-11 rounded-xl border border-dashed border-slate-600/70 text-sky-300/80 hover:bg-slate-800/50 text-sm"
+      >
+        + {t('pvp.slot.add', locale)}
+      </button>
+    {/if}
   </div>
 </div>
