@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "id": "skin-1790764791128-0",
+    "category": "skin",
+    "title": "Черепозавр — Октоберфест",
+    "itemIds": [
+      "Specimen_ED_02|oktoberfest"
+    ],
+    "createdAt": "2026-10-02T23:00:32.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:39:50.541Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "box-1790763565669-0",
+    "category": "box",
+    "title": "Таинственный контейнер Октоберфеста",
+    "itemIds": [
+      "Mystery_Oktoberfest_2026"
+    ],
+    "createdAt": "2026-10-02T23:00:32.000Z",
+    "attempts": 0,
+    "date": "2026-09-30T10:19:24.046Z",
+    "delivered": [
+      "ru"
+    ]
+  },
+  {
+    "id": "skin-1790948212529-1",
+    "category": "skin",
+    "title": "Арельвам — Хеллоуин",
+    "itemIds": [
+      "Specimen_CF_10|halloween"
+    ],
+    "createdAt": "2026-10-02T23:00:32.000Z",
+    "attempts": 0,
+    "date": "2026-10-02T13:36:52.077Z",
+    "delivered": [
+      "ru"
+    ]
+  }
+]
