@@ -3265,6 +3265,63 @@
           }
         ]
       }
+    },
+    {
+      "id": "halloween26",
+      "name": "Хеллоуин 2026",
+      "nameAuthored": true,
+      "mutantId": null,
+      "fightCount": 120,
+      "bossCount": 13,
+      "rewards": {
+        "currency": {
+          "softcurrency": 252000,
+          "hardcurrency": 0,
+          "experience": 25200
+        },
+        "items": [
+          {
+            "id": "Star_Bronze",
+            "amount": 4
+          },
+          {
+            "id": "Material_Halloween26_Token",
+            "amount": 120
+          },
+          {
+            "id": "Material_Jackpot_Token",
+            "amount": 25
+          },
+          {
+            "id": "orb_special_speed_01",
+            "amount": 2
+          },
+          {
+            "id": "Material_XP1000",
+            "amount": 15
+          },
+          {
+            "id": "Star_Silver",
+            "amount": 1
+          },
+          {
+            "id": "orb_basic_attack_03",
+            "amount": 2
+          },
+          {
+            "id": "orb_basic_critical_03",
+            "amount": 2
+          },
+          {
+            "id": "Material_Gacha_Token",
+            "amount": 1
+          },
+          {
+            "id": "Star_Gold",
+            "amount": 1
+          }
+        ]
+      }
     }
   ],
   "challenge": [
