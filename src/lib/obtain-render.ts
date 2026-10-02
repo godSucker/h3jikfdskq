@@ -14,6 +14,7 @@
 // не открытый список произвольного текста, чем и оправдан разбор регулярками
 // вместо LLM.
 
+import { localizeSkinRef } from './skin-names'
 import type { Locale } from './i18n'
 import { STAR_DICT, STAR_LABEL, BINGO_RU, bingoLabelL, GENE_RU, geneLabelL } from './mutant-dicts'
 import mutants from '@/data/mutants/mutants.json'
@@ -1375,13 +1376,13 @@ function renderSuffix(raw: string, locale: Locale): string {
   m = raw.match(/^(\d+)★,\s*скин\s*«([^»]+)»$/)
   if (m) {
     const skinLabel = SKIN_LABEL_DICT[locale] ?? SKIN_LABEL_DICT.en ?? 'skin'
-    return `${m[1]}★, ${skinLabel} «${m[2]}»`
+    return `${m[1]}★, ${skinLabel} «${localizeSkinRef(m[2], locale)}»`
   }
 
   m = raw.match(/^скин\s*«([^»]+)»$/)
   if (m) {
     const skinLabel = SKIN_LABEL_DICT[locale] ?? SKIN_LABEL_DICT.en ?? 'skin'
-    return `${skinLabel} «${m[1]}»`
+    return `${skinLabel} «${localizeSkinRef(m[1], locale)}»`
   }
 
   // "N★" отдельно (без скина) - число+звезда универсальны, перевода не требуют.
@@ -2938,7 +2939,14 @@ export function renderObtainWhere(
   obtainNames: Record<string, string>,
   mutantNames: Record<string, { name: string }> = {},
 ): string {
-  if (locale === 'ru') return entry.where
+  // RU: текст уже русский, но ссылка на скин внутри «...» бывает сырым слагом
+  // ("oktoberfest") - подставляем имя (skin-names.ts).
+  if (locale === 'ru') {
+    return entry.where.replace(
+      /скин «([^»]+)»/g,
+      (_m, ref: string) => `скин «${localizeSkinRef(ref, 'ru')}»`,
+    )
+  }
 
   if (entry.type === 'bundle' || entry.type === 'box') {
     return renderBundleBoxWhere(entry, locale, obtainNames, mutantNames)

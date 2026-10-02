@@ -43,6 +43,7 @@ import {
 import { pluralize } from '../src/lib/utils'
 import { fetchGameXml } from './game-xml-cache'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
+import skinsRuCurated from '../src/data/mutants/skins-ru-curated.json'
 
 // Причёсанное имя (для бинго-заголовков и фолбэков в подписях бота): убрать
 // dash-префикс сортировки, "_" -> пробел, разбить camelCase, Title Case.
@@ -69,12 +70,12 @@ function bingoDisplayName(title: string, id: string): string {
   return prettifyName(title)
 }
 
-// RU-имя скина: skins-i18n.json (общий с сайтом) -> локальный SKIN_NAME_RU ->
-// prettify слага (не сырой lowercase-ключ вроде "school"). LLM-имена НЕ
+// RU-имя скина: skins-i18n.json (общий с сайтом) -> skins-ru-curated.json
+// (общий с сайтом, RU-имена по просьбе владельца 2026-10-03) -> prettify слага (не сырой lowercase-ключ вроде "school"). LLM-имена НЕ
 // придумываем (см. память feedback-no-llm-authored-names).
 function skinDisplayName(slug: string): string {
   const i18n = (skinsI18n as Record<string, { ru?: string }>)[slug]?.ru
-  return i18n ?? SKIN_NAME_RU[slug] ?? prettifyName(slug)
+  return i18n ?? (skinsRuCurated as Record<string, string>)[slug] ?? prettifyName(slug)
 }
 
 const ROOT = process.cwd()
@@ -152,34 +153,6 @@ async function loadLedger(): Promise<{ ledger: Ledger; isBootstrap: boolean }> {
 async function saveLedger(ledger: Ledger) {
   await fs.mkdir(path.dirname(LEDGER_PATH), { recursive: true })
   await fs.writeFile(LEDGER_PATH, JSON.stringify(ledger, null, 2) + '\n', 'utf-8')
-}
-
-// GACHA_NAME_RU дублировать импортом из .svelte-соседнего lib нельзя (там же
-// Svelte-специфичные вещи), поэтому короткий локальный список только для
-// того, что реально встречается в skins.json - расхождение не страшно,
-// worst case skin объявится под сырым id вместо RU-названия.
-const SKIN_NAME_RU: Record<string, string> = {
-  western: 'Вестерн',
-  gachaboss: 'Большой босс',
-  japan: 'Япония',
-  fantasy: 'Темное фентези',
-  lucha: "Мучачо's",
-  olympians: 'Боги арены',
-  music: 'Диско',
-  villains: 'Супер злодеи',
-  starwars: 'Космические войны',
-  beach: 'Тропическое лето',
-  heroes: 'Супергерои',
-  soldiers: 'Патруль времени',
-  gothic: 'Готика',
-  movies: 'Кино',
-  elements: 'Команда элементалей',
-  steampunk: 'Стимпанк',
-  vegetal: 'Фотосинтез',
-  girl: 'Хищницы',
-  hexcity: 'Hex City',
-  gemstones: 'Самоцветы',
-  chess: 'Шахматы',
 }
 
 interface DetectResult {

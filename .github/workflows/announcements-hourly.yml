@@ -77,6 +77,14 @@ jobs:
         if: always()
         run: npx tsx scripts/build-boxes.ts
 
+      - name: 5.1 Переводы имён новых боксов (localisation_{lang}.txt, additive-only)
+        # Без этого шага новые боксы оставались без EN/ES/... имён: на /en и в
+        # английских скринах бота светилось русское (Mystery_Oktoberfest_2026,
+        # 2026-10-02). Скрипт только ДОПИСЫВАЕТ недостающее, ничего не
+        # перезаписывает и не удаляет; нет новых имён - файл не меняется.
+        if: always()
+        run: npx tsx scripts/build-boxes-i18n.ts
+
       - name: 6. Сторож ротации обменников (джекпот/ивент/анализатор тайн) - авто-запись в obtain.json
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
@@ -275,6 +283,7 @@ jobs:
             src/data/guides/event-quests.json
             src/data/guides/quests.json
             src/data/boxes.json
+            src/data/boxes-i18n.json
             public/boxes/**
             public/materials/**
             src/data/mutants/obtain.json

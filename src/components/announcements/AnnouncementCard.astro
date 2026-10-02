@@ -5,6 +5,7 @@
 // "Открыть реактор") не рендерятся вообще - это статичный скриншот, кликать
 // там всё равно некуда, а висящая синяя ссылка выглядит как незаконченная
 // вёрстка (фидбек 2026-08-07).
+import { localizeSkinRef } from '@/lib/skin-names'
 import { textureUrl } from '@/lib/texture-cdn'
 import { t, pluralizeCount, type Locale } from '@/lib/i18n'
 import { resolveMutantLite } from '@/lib/guides-resolve'
@@ -108,7 +109,7 @@ const skinBaseId = kind === 'skin' && it ? it.id.split('|')[0]?.toLowerCase() : 
 // берём на языке страницы, слаг скина оставляем как есть - он и в игре латиницей.
 const skinName =
   it && skinBaseId
-    ? [ctx.mutantName(skinBaseId), it.name.split('—').slice(1).join('—').trim()]
+    ? [ctx.mutantName(skinBaseId), localizeSkinRef(it.name.split('—').slice(1).join('—').trim(), locale)]
         .filter(Boolean)
         .join(' — ') || it.name
     : (it?.name ?? '')
@@ -426,7 +427,7 @@ const forecastWeeks =
                       {m.tier && TIER_ICON[m.tier] && (
                         <img class="box-drop-tier" src={textureUrl(TIER_ICON[m.tier])} alt={m.tier} loading="lazy" decoding="async" />
                       )}
-                      {m.skin && <span class="box-drop-skin">{tr('announcements.box.skin').replace('{name}', m.skin)}</span>}
+                      {m.skin && <span class="box-drop-skin">{tr('announcements.box.skin').replace('{name}', localizeSkinRef(m.skin, locale))}</span>}
                     </span>
                   ))}
                   {o.rewards.map((reward) => {

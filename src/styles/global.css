@@ -1,6 +1,22 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Символы ★/☆ (U+2605-2606): в TT Supermolot Neue их нет, а у headless-Chromium
+   скриншот-бота (Vercel) нет и системного шрифта с ними - в Telegram-скринах
+   выходил "тофу" (напр. "3★, скин ..."). Субсет Noto Sans CJK (SIL OFL 1.1) на
+   CDN, тот же family + unicode-range: стеки шрифтов менять не нужно, файл
+   грузится только когда в тексте реально есть эти два символа. Объявлено здесь,
+   а не в CDN-овском tt-supermolot-neue.css: тот отдаётся с кэшем на 30 дней.
+   URL абсолютный - см. Gotchas про CSS-url'ы и CDN. */
+@font-face {
+  font-family: "TT Supermolot Neue";
+  src: url("https://cdn.archivist-library.com/fonts/tt-supermolot-neue/symbols-star.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2605-2606;
+}
+
 /* Запрет перетаскивания текстур (доп. к JS-обработчику в BaseLayout) и их
    синей подсветки, когда зажатой кнопкой выделяешь область страницы. Текст
    по-прежнему выделяется и копируется. */
