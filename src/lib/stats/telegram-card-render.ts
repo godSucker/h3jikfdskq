@@ -59,7 +59,10 @@ const MULT_STEPS = [-50, -25, 0, 25, 50]
 async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
   for (let attempt = 0; ; attempt++) {
     try {
-      const res = await fetch(url)
+      // Без таймаута зависший коннект (CDN иногда принимает TCP и молчит)
+      // держится сотни секунд, и ретраи ниже не успевают сработать - карточка
+      // и .расписание зависали бы целиком. 8с на попытку, дальше повтор.
+      const res = await fetch(url, { signal: AbortSignal.timeout(8000) })
       if (res.ok || attempt >= retries) return res
     } catch (err) {
       if (attempt >= retries) throw err
@@ -86,7 +89,7 @@ async function fetchAsset(relPath: string): Promise<Response> {
 }
 
 const imgCache = new Map<string, string>()
-async function loadImageDataUri(relPath: string, grayscale = false): Promise<string> {
+export async function loadImageDataUri(relPath: string, grayscale = false): Promise<string> {
   const key = grayscale ? `${relPath}#gray` : relPath
   const cached = imgCache.get(key)
   if (cached) return cached
@@ -162,7 +165,7 @@ function loadFonts() {
   return fontsPromise
 }
 
-function h(type: string, props: any, ...children: any[]) {
+export function h(type: string, props: any, ...children: any[]) {
   return {
     type,
     props: { ...props, children: children.flat().filter((c) => c !== null && c !== undefined) },
@@ -731,7 +734,7 @@ async function buildPanelTree(input: CardInput) {
   return { tree, estHeight }
 }
 
-async function rasterize(tree: any, width: number, height: number): Promise<Buffer> {
+export async function rasterize(tree: any, width: number, height: number): Promise<Buffer> {
   const { bold, medium, regular } = await loadFonts()
   const svg = await satori(tree, {
     width,

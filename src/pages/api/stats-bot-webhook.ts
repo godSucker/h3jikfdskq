@@ -15,6 +15,7 @@ import {
   renderCompareMulti,
   type CardInput,
 } from '@/lib/stats/telegram-card-render'
+import { renderCraftScheduleCard } from '@/lib/stats/craft-schedule-card'
 import {
   checkRateLimit,
   type RateLimitResult,
@@ -400,6 +401,40 @@ export const POST: APIRoute = async ({ request }) => {
     // check or a typo spammed both the sender and the admin. Silently
     // ignored instead, same as an unaddressed message.
     if (!text.slice(1).trim()) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    // ".расписание" - квадратная карточка ротации доп. наград крафта (цикл
+    // детерминирован, см. craft-schedule-card.ts). Публичная команда, как и сами
+    // карточки статов: тот же лимитер на пользователя. Рендер ограничен 40с -
+    // Telegram повторяет вебхук, если ответа нет слишком долго, и без потолка
+    // на плохом CDN карточка могла бы уйти дважды.
+    if (/^(расписание|ротация)\s*$/i.test(text.slice(1).trim())) {
+      const rl = await checkRateLimit(fromUserId ?? chatId)
+      if (!rl.allowed) {
+        await sendTelegramMessage(BOT_TOKEN, chatId, rateLimitMessage(rl), messageId)
+      } else {
+        try {
+          const card = await Promise.race([
+            renderCraftScheduleCard(),
+            new Promise<never>((_, reject) =>
+              setTimeout(() => reject(new Error('craft schedule render timeout')), 40_000),
+            ),
+          ])
+          await sendTelegramPhoto(BOT_TOKEN, chatId, card.png, messageId, card.caption)
+        } catch (err) {
+          console.error('craft schedule failed:', err instanceof Error ? err.message : err)
+          await sendTelegramMessage(
+            BOT_TOKEN,
+            chatId,
+            'Не получилось нарисовать расписание, попробуй ещё раз чуть позже.',
+            messageId,
+          )
+        }
+      }
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
