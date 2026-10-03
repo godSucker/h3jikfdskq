@@ -56,7 +56,6 @@ function pct(per1000: number): string {
 
 export interface CraftScheduleCard {
   png: Buffer
-  caption: string
 }
 
 export async function renderCraftScheduleCard(now: Date = new Date()): Promise<CraftScheduleCard> {
@@ -211,14 +210,5 @@ export async function renderCraftScheduleCard(now: Date = new Date()): Promise<C
 
   const png = await rasterize(tree, SIZE, SIZE)
 
-  const cur = slots[0]
-  const curReward = incentiveLoopOrder[cur.index]
-  const next = slots[1]
-  const nextReward = incentiveLoopOrder[next.index]
-  const caption = [
-    `🛠 Крафт, доп. награда сейчас: ${translateItemId(curReward.id)} (${pct(curReward.per1000)}), ещё ${formatDurationMinutes(coarseMinutes(cur.minutesRemaining), 'ru')}`,
-    `Дальше: ${translateItemId(nextReward.id)} - ${mskDate.format(next.startsAt)} МСК`,
-  ].join('\n')
-
-  return { png, caption }
+  return { png }
 }

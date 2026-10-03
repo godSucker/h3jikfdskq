@@ -424,7 +424,7 @@ export const POST: APIRoute = async ({ request }) => {
               setTimeout(() => reject(new Error('craft schedule render timeout')), 40_000),
             ),
           ])
-          await sendTelegramPhoto(BOT_TOKEN, chatId, card.png, messageId, card.caption)
+          await sendTelegramPhoto(BOT_TOKEN, chatId, card.png, messageId)
         } catch (err) {
           console.error('craft schedule failed:', err instanceof Error ? err.message : err)
           await sendTelegramMessage(
