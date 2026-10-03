@@ -1,3 +1,4 @@
+/* global document, NodeFilter -- код внутри page.evaluate() исполняется в браузере */
 // Систематический браузерный i18n-прогон: все переведённые пути x 8
 // не-RU локалей, TreeWalker по текстовым узлам + перебор title/alt/
 // aria-label/placeholder в одном page.evaluate() (см. память

@@ -14,6 +14,9 @@ export default [
       'dist/**',
       '.vercel/**',
       '.astro/**',
+      // генерируемые Astro типы во вложенных проектах (src/i18n, scripts/character-textures)
+      '**/.astro/**',
+      '**/.cache/**',
       '.mimocode/**',
       '.venv*/**',
       'node_modules/**',

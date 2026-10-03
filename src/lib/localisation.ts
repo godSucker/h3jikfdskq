@@ -8,7 +8,7 @@ const localisationDict: Record<string, string> = {}
 for (const line of localisationRu.split('\n')) {
   const idx = line.indexOf(';')
   if (idx === -1) continue
-  const key = line.slice(0, idx).trim().replace(/^﻿/, '')
+  const key = line.slice(0, idx).trim().replace(/^\uFEFF/, '')
   const value = line.slice(idx + 1).trim()
   if (key) localisationDict[key] = value
 }
