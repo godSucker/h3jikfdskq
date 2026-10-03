@@ -458,7 +458,7 @@
               <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-sky-300/80">
                 {#if genes.length}
                   <span class="inline-flex items-center gap-0.5">
-                    {#each genes as gene (gene)}
+                    {#each genes as gene, gi (gi)}
                       <img
                         src={textureUrl(`/genes/icon_gene_${gene.toLowerCase()}.webp`)}
                         alt={geneLabelL(gene, locale) || gene}

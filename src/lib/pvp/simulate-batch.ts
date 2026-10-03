@@ -10,6 +10,7 @@
  */
 
 import { createBattleSession } from './fight-engine'
+import type { BattleTandems } from './fight-engine'
 import type { CombatUnit } from './battle-profile'
 
 export interface BatchResult {
@@ -37,6 +38,7 @@ export function simulateBatch(
   buildEnemy: () => CombatUnit[],
   runs: number,
   rng: () => number = Math.random,
+  buildTandems: () => BattleTandems = () => ({}),
 ): BatchResult {
   let mineWins = 0
   let enemyWins = 0
@@ -45,7 +47,7 @@ export function simulateBatch(
   let enemyHpSumOnWin = 0
 
   for (let i = 0; i < runs; i++) {
-    const session = createBattleSession(buildMine(), buildEnemy(), 'ai', 'ai', rng)
+    const session = createBattleSession(buildMine(), buildEnemy(), 'ai', 'ai', rng, 'ru', buildTandems())
     let turns = 0
     while (!session.isFinished() && turns < TURN_GUARD) {
       session.resolveTurn()

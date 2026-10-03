@@ -11,6 +11,7 @@ import { computeTurnQueue } from './turn-order'
 import { chooseBestAttack } from './ai'
 import { applyAttack } from './resolve-attack'
 import { tickSlash } from './abilities'
+import { applyTandemHit, chooseTandemTarget, type TandemHitEvent } from './tandem'
 import { t, type Locale } from '@/lib/i18n'
 
 export type FighterMode = 'manual' | 'ai'
@@ -52,11 +53,21 @@ export interface BattleStep {
    *  до конца боя), если у атакующего есть активный slashDot. 0 = не сработал. */
   slashTick: number
   slashTickDied: boolean
+  tandemHit?: BattleStepHit & { helperName: string }
 }
 
 export interface TurnChoice {
   attack: 'atk1' | 'atk2'
   targetId?: string
+  /** Call the side's tandem helper at the end of this turn (once per fight, see tandem.ts). */
+  tandem?: boolean
+  /** Tandem target; defaults to the main target if still alive, else the weakest alive enemy. */
+  tandemTargetId?: string
+}
+
+export interface BattleTandems {
+  mine?: CombatUnit | null
+  enemy?: CombatUnit | null
 }
 
 /** Один ход, сгруппированный для UI (BattleView) - вместо плоского списка строк,
@@ -80,6 +91,10 @@ export class BattleSession {
   private queuePos = 0
   private turnNumber = 0
   public readonly turnLog: TurnLogGroup[] = []
+  // Helpers live outside this.units on purpose: never targetable, queued or killable and
+  // invisible to isFinished()/AI scoring (see tandem.ts). Each side has one use per fight.
+  private tandems: BattleTandems
+  private tandemUsed: Record<'mine' | 'enemy', boolean> = { mine: false, enemy: false }
 
   constructor(
     myTeam: CombatUnit[],
@@ -88,7 +103,9 @@ export class BattleSession {
     enemyMode: FighterMode,
     rng: () => number = Math.random,
     locale: Locale = 'ru',
+    tandems: BattleTandems = {},
   ) {
+    this.tandems = tandems
     this.units = [...myTeam, ...enemyTeam]
     this.myMode = myMode
     this.enemyMode = enemyMode
@@ -116,6 +133,11 @@ export class BattleSession {
 
   getUnits(): CombatUnit[] {
     return this.units
+  }
+
+  /** The side's helper while it is still unused, else null. */
+  getTandem(side: 'mine' | 'enemy'): CombatUnit | null {
+    return this.tandemUsed[side] ? null : (this.tandems[side] ?? null)
   }
 
   /** Превью ближайших N ходов очереди (для шкалы ходов в UI) - лучшая доступная оценка,
@@ -191,7 +213,11 @@ export class BattleSession {
       if (!info) break
       if (info.needsInput) {
         const aiChoice = chooseBestAttack(this.units, info.unit.instanceId)
-        this.resolveTurn({ attack: aiChoice.attack, targetId: aiChoice.targetId ?? undefined })
+        this.resolveTurn({
+          attack: aiChoice.attack,
+          targetId: aiChoice.targetId ?? undefined,
+          tandem: this.getTandem(info.unit.side) !== null,
+        })
       } else {
         this.resolveTurn()
       }
@@ -206,8 +232,14 @@ export class BattleSession {
 
     let attack: 'atk1' | 'atk2'
     let targetId: string | null
+    // Manual turns follow the player's checkbox; AI-resolved turns (AI side, "run to end", batch)
+    // call the helper on the side's first own turn, if it has one - a deterministic site rule.
+    let wantTandem: boolean
+    let tandemTargetId: string | undefined
 
     if (info.needsInput) {
+      wantTandem = Boolean(choice?.tandem)
+      tandemTargetId = choice?.tandemTargetId
       if (!choice) throw new Error(`Turn for ${unit.name} requires a choice (manual mode)`)
       attack = choice.attack
       const isAOE = attack === 'atk1' ? unit.atk1IsAOE : unit.atk2IsAOE
@@ -217,11 +249,29 @@ export class BattleSession {
       const aiChoice = chooseBestAttack(this.units, unit.instanceId)
       attack = aiChoice.attack
       targetId = aiChoice.targetId
+      wantTandem = true
     }
 
     this.turnNumber += 1
     const outcome = applyAttack(this.units, unit.instanceId, attack, targetId, this.rng)
     this.units = outcome.units
+
+    // Tandem: after the active unit's attack, before its slash tick. Skipped (and not spent) if
+    // the fight is already decided or the side has no unused helper.
+    let tandemEvent: TandemHitEvent | null = null
+    let tandemHelper: CombatUnit | null = null
+    if (wantTandem && !this.isFinished()) {
+      tandemHelper = this.getTandem(unit.side)
+      if (tandemHelper) {
+        const tid = chooseTandemTarget(this.units, unit.side, [tandemTargetId, targetId])
+        if (tid) {
+          const strike = applyTandemHit(this.units, tandemHelper, tid, this.rng)
+          this.units = strike.units
+          tandemEvent = strike.event
+          if (tandemEvent) this.tandemUsed[unit.side] = true
+        }
+      }
+    }
 
     // slash - тикает в конце хода поражённого юнита (здесь: атакующего этого хода,
     // раз именно сейчас его ход подошёл к концу), фикс. магнитуда, не расходуется.
@@ -341,6 +391,31 @@ export class BattleSession {
           .replace('{died}', diedSuffix(slashTickDied)),
       )
     }
+    let tandemHit: BattleStep['tandemHit']
+    if (tandemEvent && tandemHelper) {
+      const h: BattleStepHit = {
+        targetId: tandemEvent.targetId,
+        targetName: nameOf(tandemEvent.targetId),
+        damage: tandemEvent.damage,
+        crit: tandemEvent.crit,
+        shieldAbsorbed: tandemEvent.shieldAbsorbed,
+        died: tandemEvent.died,
+        baseDamage: tandemEvent.baseDamage,
+        typeModPct: tandemEvent.typeModPct,
+        buffDamage: 0,
+      }
+      tandemHit = { ...h, helperName: tandemHelper.name }
+      turnLines.push(
+        t('pvp.log.tandemHit', loc)
+          .replace('{helper}', tandemHelper.name)
+          .replace('{target}', h.targetName)
+          .replace('{tag}', sideTag(h.targetName))
+          .replace('{damage}', String(h.damage))
+          .replace('{breakdown}', breakdown(h))
+          .replace('{shield}', shieldSuffix(h.shieldAbsorbed))
+          .replace('{died}', diedSuffix(h.died)),
+      )
+    }
     this.turnLog.push({
       turnNumber: this.turnNumber,
       attackerName: unit.name,
@@ -359,6 +434,7 @@ export class BattleSession {
       retaliateHits,
       slashTick,
       slashTickDied,
+      tandemHit,
     }
   }
 }
@@ -370,6 +446,7 @@ export function createBattleSession(
   enemyMode: FighterMode,
   rng: () => number = Math.random,
   locale: Locale = 'ru',
+  tandems: BattleTandems = {},
 ): BattleSession {
-  return new BattleSession(myTeam, enemyTeam, myMode, enemyMode, rng, locale)
+  return new BattleSession(myTeam, enemyTeam, myMode, enemyMode, rng, locale, tandems)
 }
