@@ -85,9 +85,12 @@ export async function renderCraftScheduleCard(now: Date = new Date()): Promise<C
   const tiles = slots.map((slot) => {
     const reward = incentiveLoopOrder[slot.index]
     const active = slot.isActive
-    const when = active
-      ? `СЕЙЧАС · ${formatDurationMinutes(coarseMinutes(slot.minutesRemaining), 'ru')}`
-      : mskDate.format(slot.startsAt)
+    // Как на странице крафта (craft.incentive.slotStartsAt / slotRemaining):
+    // "{дата} · через {время}" и "ещё {время}" - в плитке две строки.
+    const whenDate = active ? 'СЕЙЧАС' : mskDate.format(slot.startsAt)
+    const whenIn = active
+      ? `ещё ${formatDurationMinutes(coarseMinutes(slot.minutesRemaining), 'ru')}`
+      : `через ${formatDurationMinutes(coarseMinutes(slot.minutesUntilStart), 'ru')}`
     return h(
       'div',
       {
@@ -96,7 +99,7 @@ export async function renderCraftScheduleCard(now: Date = new Date()): Promise<C
           alignItems: 'center',
           width: TILE_W,
           height: tileH,
-          padding: 10,
+          padding: 8,
           borderRadius: 18,
           backgroundColor: active ? 'rgba(251,191,36,0.14)' : '#161b22',
           border: active ? '2px solid #fbbf24' : '1px solid rgba(148,163,184,0.2)',
@@ -152,7 +155,19 @@ export async function renderCraftScheduleCard(now: Date = new Date()): Promise<C
               color: active ? '#fbbf24' : '#60a5fa',
             },
           },
-          when,
+          whenDate,
+        ),
+        h(
+          'div',
+          {
+            style: {
+              display: 'flex',
+              fontSize: 17,
+              fontWeight: 600,
+              color: active ? '#fcd34d' : '#93c5fd',
+            },
+          },
+          whenIn,
         ),
       ),
     )
