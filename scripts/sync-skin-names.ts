@@ -70,7 +70,7 @@ async function loadLocMap(locale: string): Promise<Map<string, string>> {
   for (const line of raw.split(/\r?\n/)) {
     const idx = line.indexOf(';')
     if (idx === -1) continue
-    const key = line.slice(0, idx).trim().replace(/^﻿/, '').toLowerCase()
+    const key = line.slice(0, idx).trim().replace(/^\uFEFF/, '').toLowerCase()
     const value = line.slice(idx + 1).trim()
     if (key) map.set(key, value)
   }
