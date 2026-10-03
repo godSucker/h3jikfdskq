@@ -27,6 +27,8 @@ import { t, type Locale } from '@/lib/i18n'
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n'
 import { getItemName } from '@/lib/materials-i18n'
 import { getBoxName } from '@/lib/boxes-i18n'
+import { getDungeonName } from '@/lib/guides-content-i18n'
+import { localizeSkinRef } from '@/lib/skin-names'
 import { GACHA_NAME_RU, GACHA_NAME_EN } from '@/lib/reactor-gacha'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -48,6 +50,9 @@ interface SearchEntryOut {
   href: string
   keywords?: string[]
 }
+
+const CYRILLIC = /[А-Яа-яЁё]/
+const hasCyrillic = (v: string) => CYRILLIC.test(v)
 
 async function readJson<T>(relPath: string): Promise<T> {
   const raw = await fs.readFile(path.join(ROOT, relPath), 'utf-8')
@@ -199,7 +204,11 @@ async function build(locale: Locale): Promise<SearchEntry[]> {
     ready: boolean
   }
   const guideTabs = await readJson<GuideTab[]>('src/data/guides/tabs.json')
-  entries.push({ title: t('guides.pageTitle', locale), category: t('search.category.guides', locale), href: '/guides' })
+  entries.push({
+    title: t('guides.pageTitle', locale),
+    category: t('search.category.guides', locale),
+    href: withLocale('/guides', locale),
+  })
   for (const tab of guideTabs) {
     if (!tab.ready) continue
     const key = `guides.tab.${tab.key}`
@@ -292,22 +301,83 @@ async function build(locale: Locale): Promise<SearchEntry[]> {
     })
   }
 
-  // --- Боксы: только хаб ---
+  // --- Боксы: хаб + каждый бокс отдельно (диплинк /boxes?box=<itemId>) ---
+  // Раньше тут читалось b.id, а в boxes.json поле называется itemId - имена
+  // боксов в индекс не попадали вовсе.
   interface BoxRaw {
-    id?: string
+    itemId?: string
     name?: string
   }
   const boxes = await readJson<BoxRaw[]>('src/data/boxes.json')
-  const boxNames = boxes
-    .map((b) => (b.id && b.name ? (isRu ? b.name : getBoxName(b.id, locale, b.name)) : null))
-    .filter(Boolean)
-    .join(' ')
   entries.push({
     title: t('nav.boxes', locale),
     category: t('search.category.site', locale),
     href: withLocale('/boxes', locale),
-    keywords: boxNames,
   })
+  for (const b of boxes) {
+    if (!b.itemId || !b.name) continue
+    const name = isRu ? b.name : getBoxName(b.itemId, locale, b.name)
+    if (!isRu && hasCyrillic(name)) continue // нет перевода - не кладём русское в чужой индекс
+    entries.push({
+      title: name,
+      category: t('announcements.category.box', locale),
+      href: withLocale(`/boxes?box=${encodeURIComponent(b.itemId)}`, locale),
+    })
+  }
+
+  // --- Скины: "Мутант - Скин", диплинк /mutants?mutant=&skin= ---
+  interface SkinRaw {
+    id?: string
+    skin?: string
+  }
+  const mutantNameById = new Map(mutants.map((m) => [m.id.toLowerCase(), m.name]))
+  const skins = (await readJson<{ specimens: SkinRaw[] }>('src/data/mutants/skins.json')).specimens
+  const seenSkins = new Set<string>()
+  for (const sk of skins) {
+    if (!sk.id || !sk.skin) continue
+    const baseId = sk.id.toLowerCase()
+    const key = `${baseId}|${sk.skin}`
+    if (seenSkins.has(key)) continue
+    seenSkins.add(key)
+    const mutantName = (!isRu && names[baseId]?.name) || mutantNameById.get(baseId)
+    if (!mutantName) continue
+    const skinName = localizeSkinRef(sk.skin, locale)
+    const title = `${mutantName} — ${skinName}`
+    if (!isRu && hasCyrillic(title)) continue
+    entries.push({
+      title,
+      category: t('announcements.category.skin', locale),
+      href: withLocale(
+        `/mutants?mutant=${encodeURIComponent(baseId)}&skin=${encodeURIComponent(sk.skin)}`,
+        locale,
+      ),
+    })
+  }
+
+  // --- Рейды и лесенки: диплинк /guides?dungeon=<id> ---
+  interface DungeonRaw {
+    id: string
+    name?: string
+  }
+  const raids = await readJson<DungeonRaw[]>('src/data/guides/raids.json')
+  const special = await readJson<{ experiment: DungeonRaw[]; challenge: DungeonRaw[] }>(
+    'src/data/guides/special-ladders.json',
+  )
+  const dungeons = [
+    ...raids.map((d) => ({ d, key: d.id })),
+    ...special.experiment.map((d) => ({ d, key: `experiment/${d.id}` })),
+    ...special.challenge.map((d) => ({ d, key: `challenge/${d.id}` })),
+  ]
+  for (const { d, key } of dungeons) {
+    if (!d.id || !d.name) continue
+    const name = isRu ? d.name : getDungeonName(key, locale, d.name)
+    if (!isRu && hasCyrillic(name)) continue
+    entries.push({
+      title: name,
+      category: t('search.category.guides', locale),
+      href: withLocale(`/guides?dungeon=${encodeURIComponent(d.id)}`, locale),
+    })
+  }
 
   return entries
 }

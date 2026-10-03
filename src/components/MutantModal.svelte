@@ -95,6 +95,9 @@
     unknown: '/etc/icon_unknown.png',
   };
 
+  // [дата, ref, цена?] - цена опциональна: часть записей в offer-history.json идёт без неё.
+  type OfferHistoryEntry = [string, string, ([string, number][] | null)?];
+
   let { open = false, mutant = null, star = 'normal', skins = [], initialSkin = null, onclose = undefined, locale = 'ru' as Locale, names = {} as Record<string, { name: string; lore: string; atk1Name: string; atk2Name: string }>, obtainNames = {} as Record<string, string> }: {
     open?: boolean;
     mutant?: any;
@@ -132,7 +135,7 @@
   // Подпись берём из записи "Как получить" с тем же itemId (там уже готовый
   // локализованный рендер), иначе - "Магазин" для самого мутанта в магазине.
   let recentOffers: { date: string; label: string; price: string }[] = $derived.by(() => {
-    const list = mutant?.id ? (offerHistory as Record<string, [string, string, [string, number][] | null?][]>)[mutant.id] : undefined;
+    const list = mutant?.id ? (offerHistory as unknown as Record<string, OfferHistoryEntry[]>)[mutant.id] : undefined;
     if (!list?.length) return [];
     const today = new Date().toISOString().slice(0, 10);
     const seen = new Set<string>();
@@ -218,7 +221,7 @@
   );
 
   // ===== Skin switching =====
-  let selectedSkin = $state(null);
+  let selectedSkin = $state<any>(null);
 
   $effect(() => {
     if (!mutant?.id) return;
@@ -429,7 +432,7 @@
   //   full со звездой -> full без звезды -> голова.
   // Второй шаг обязателен: у мутантов, существующих в одной форме (GACHA),
   // отрендерен только FULL_<code>.png без суффикса звезды.
-  const heroCandidates = (m: any, starKey: string): string[] => {
+  function heroCandidates(m: any, starKey: string): string[] {
     const abs = (p: string) => (p.startsWith('/') ? p : `/${p}`);
     const out: string[] = [];
     const skinFull = (m?.image ?? []).find((p: string) => p.includes('/full/'));
@@ -448,7 +451,7 @@
     }
     out.push(imgSrc(m, starKey));
     return out;
-  };
+  }
 
   // formatting - тот же приём, что INTL_LOCALE в GuidesPage.astro/EvotechCalculator.svelte
   // (не общий модуль). Раньше fmt()/fmtNoSign() были хардкожены на 'ru-RU' на ВСЕХ
