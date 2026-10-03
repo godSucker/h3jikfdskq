@@ -3,6 +3,8 @@
   import TeamBuilder from './TeamBuilder.svelte'
   import BattleView from './BattleView.svelte'
   import DarkCheckbox from './DarkCheckbox.svelte'
+  import TandemPicker from './TandemPicker.svelte'
+  import { buildTandemUnit, type TandemConfig } from '@/lib/pvp/tandem'
   import { buildBattleUnit, type CombatUnit } from '@/lib/pvp/battle-profile'
   import { createBattleSession, BattleSession, type FighterMode, type TurnChoice } from '@/lib/pvp/fight-engine'
   import { simulateBatch, type BatchResult } from '@/lib/pvp/simulate-batch'
@@ -56,6 +58,9 @@
     const hi = Math.max(lo, enemyLevelRange.max || lo)
     return lo + Math.floor(Math.random() * (hi - lo + 1))
   }
+  // Tandem helper per side (null = none), see src/lib/pvp/tandem.ts for the rules.
+  let myTandem = $state<TandemConfig | null>(null)
+  let enemyTandem = $state<TandemConfig | null>(null)
   let myMode = $state<FighterMode>('manual')
   let enemyMode = $state<FighterMode>('ai')
   // Крит/антикрит-чармы - аккаунтные бустеры (активируются на весь аккаунт на N дней),
@@ -87,6 +92,12 @@
   let currentTurn = $derived.by(() => {
     const _tick = tick // зависимость от tick: перечитать session после мутации
     return session ? session.currentTurn() : null
+  })
+  // Helper of the side whose turn it is, while still unused - drives the "Tandem" checkbox.
+  let currentTandem = $derived.by(() => {
+    const _tick = tick // dependency: re-read the session after a mutation
+    const turn = session ? session.currentTurn() : null
+    return session && turn ? session.getTandem(turn.unit.side) : null
   })
   let winner = $derived.by(() => {
     const _tick = tick // зависимость от tick: перечитать session после мутации
@@ -139,10 +150,17 @@
     return disambiguateNames(units)
   }
 
+  function buildTandems() {
+    return {
+      mine: myTandem ? buildTandemUnit(myTandem, 'mine', { locale, names }) : null,
+      enemy: enemyTandem ? buildTandemUnit(enemyTandem, 'enemy', { locale, names }) : null,
+    }
+  }
+
   function startFight() {
     const mine = buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm)
     const enemy = buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true)
-    session = createBattleSession(mine, enemy, myMode, enemyMode, Math.random, locale)
+    session = createBattleSession(mine, enemy, myMode, enemyMode, Math.random, locale, buildTandems())
     tick += 1
   }
 
@@ -191,7 +209,9 @@
       batchResult = simulateBatch(
         () => buildTeam(myTeam, 'mine', myCritCharm, myAnticritCharm),
         () => buildTeam(enemyTeam, 'enemy', enemyCritCharm, enemyAnticritCharm, true),
-        runs
+        runs,
+        Math.random,
+        buildTandems
       )
       batchRunning = false
     }, 20)
@@ -223,6 +243,7 @@
     <div class="mt-4 lg:mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div class={`space-y-3 ${activeTeam === 'mine' ? '' : 'hidden'} lg:block`}>
         <TeamBuilder title={t("pvp.team.mine", locale)} bind:slots={myTeam} {locale} {names} />
+        <TandemPicker bind:config={myTandem} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <label class="flex items-center gap-2 text-sky-200/80 text-sm">
             {t('pvp.mode.mine', locale)}
@@ -247,6 +268,7 @@
       </div>
       <div class={`space-y-3 ${activeTeam === 'enemy' ? '' : 'hidden'} lg:block`}>
         <TeamBuilder title={t("pvp.team.opponent", locale)} bind:slots={enemyTeam} disableLevelInputs={enemyLevelRange.enabled} {locale} {names} />
+        <TandemPicker bind:config={enemyTandem} {locale} {names} />
         <div class="rounded-xl border border-slate-700/50 bg-slate-950/40 p-3 space-y-2">
           <DarkCheckbox
             bind:checked={enemyLevelRange.enabled}
@@ -354,7 +376,7 @@
     {/if}
   {:else}
     <div class="mt-6">
-      <BattleView {units} {turnLog} {currentTurn} {winner} {turnQueue} onResolve={resolveTurn} onAutoPlay={autoPlay} {locale} />
+      <BattleView {units} {turnLog} {currentTurn} {winner} {turnQueue} tandem={currentTandem} onResolve={resolveTurn} onAutoPlay={autoPlay} {locale} />
       <div class="mt-3 flex flex-wrap gap-3">
         <button
           type="button"

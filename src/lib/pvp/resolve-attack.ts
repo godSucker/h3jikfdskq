@@ -43,7 +43,7 @@ export interface AttackOutcome {
   retaliateEvents: AttackEvent[]
 }
 
-function cloneUnits(units: CombatUnit[]): CombatUnit[] {
+export function cloneUnits(units: CombatUnit[]): CombatUnit[] {
   return units.map((u) => ({ ...u, abilities: u.abilities.map((a) => ({ ...a })) }))
 }
 

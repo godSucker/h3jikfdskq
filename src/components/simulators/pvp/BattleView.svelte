@@ -12,6 +12,7 @@
     currentTurn,
     winner,
     turnQueue,
+    tandem = null,
     onResolve,
     onAutoPlay,
     locale = 'ru' as Locale,
@@ -21,6 +22,8 @@
     currentTurn: CurrentTurnInfo | null
     winner: 'mine' | 'enemy' | null
     turnQueue: CombatUnit[]
+    /** Unused tandem helper of the side to move, else null. */
+    tandem?: CombatUnit | null
     onResolve: (choice?: TurnChoice) => void
     onAutoPlay: () => void
     locale?: Locale
@@ -42,12 +45,21 @@
   }
 
   let pendingAttack = $state<'atk1' | 'atk2' | null>(null)
+  // "Tandem" checkbox: armed before the attack is chosen; reset after the turn resolves.
+  let tandemArmed = $state(false)
+  // AOE main attack + tandem armed: the next click chooses the tandem's target only.
+  let pendingAoeTandem = $state(false)
 
   function pickAttack(attack: 'atk1' | 'atk2') {
     const action = currentTurn?.validActions.find((a) => a.attack === attack)
     if (action?.isAOE) {
-      onResolve({ attack })
-      pendingAttack = null
+      if (tandemArmed && tandem) {
+        pendingAttack = attack
+        pendingAoeTandem = true
+      } else {
+        onResolve({ attack })
+        pendingAttack = null
+      }
     } else {
       pendingAttack = attack
     }
@@ -55,9 +67,25 @@
 
   function pickTarget(targetId: string) {
     if (!pendingAttack) return
-    onResolve({ attack: pendingAttack, targetId })
+    if (pendingAoeTandem) {
+      onResolve({ attack: pendingAttack, tandem: true, tandemTargetId: targetId })
+    } else {
+      onResolve({ attack: pendingAttack, targetId, tandem: tandemArmed && Boolean(tandem) })
+    }
     pendingAttack = null
+    pendingAoeTandem = false
+    tandemArmed = false
   }
+
+  function cancelPending() {
+    pendingAttack = null
+    pendingAoeTandem = false
+  }
+
+  // The helper is spent or the turn passed to a side without one: drop a stale checkbox.
+  $effect(() => {
+    if (!tandem) tandemArmed = false
+  })
 
   function hpPct(u: CombatUnit): number {
     return u.maxHp > 0 ? Math.max(0, Math.round((u.hp / u.maxHp) * 100)) : 0
@@ -213,15 +241,24 @@
       </div>
       {#if currentTurn.needsInput}
         {#if pendingAttack}
-          <div class="text-xs text-sky-300/70 mb-2">{t('pvp.battle.pickTarget', locale)}</div>
+          <div class="text-xs text-sky-300/70 mb-2">
+            {pendingAoeTandem ? t('pvp.tandem.pickTarget', locale) : t('pvp.battle.pickTarget', locale)}
+          </div>
           <button
             type="button"
-            onclick={() => (pendingAttack = null)}
+            onclick={cancelPending}
             class="text-sm md:text-xs text-sky-400 underline py-2 md:py-0"
           >
             {t('pvp.battle.cancel', locale)}
           </button>
         {:else}
+          {#if tandem}
+            <label class="mb-2 flex min-h-10 items-center gap-2 text-sm text-amber-200 cursor-pointer select-none">
+              <input type="checkbox" bind:checked={tandemArmed} class="accent-amber-500 w-4 h-4" />
+              <img src={textureUrl(tandem.portraitUrl)} alt="" class="w-6 h-6 rounded object-cover border border-amber-500/40" />
+              ✦ {t('pvp.tandem.use', locale).replace('{name}', tandem.name).replace('{atk}', String(tandem.atk1))}
+            </label>
+          {/if}
           <div class="flex flex-wrap gap-2">
             {#each currentTurn.validActions as action (action.attack)}
               {@const gene = attackGene(currentTurn.unit, action.attack)}
