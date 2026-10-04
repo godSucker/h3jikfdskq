@@ -4991,6 +4991,23 @@
         "packMutants": [
           "Specimen_DF_14"
         ]
+      },
+      {
+        "id": "258|Specimen_FE_02_sc",
+        "name": "Синеглазка",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_fe_02.png",
+        "price": {
+          "amount": 5000000,
+          "type": "softcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "5 — 6 октября",
+        "exactDateStart": "2026-10-05T10:00:00+00:00",
+        "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "featuredMutant": "day",
+        "packMutants": [
+          "Specimen_FE_02"
+        ]
       }
     ],
     "link": "/materials",
