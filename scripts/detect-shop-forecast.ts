@@ -566,24 +566,59 @@ const WAVE_EDGE_MARGIN = 20
 // вокруг неё едет. Поэтому сверяем базу каждой точки с медианой по её
 // окрестности (+-3 соседа по позиции, чтобы не смешивать разные волны) и
 // выкидываем всё, что расходится больше чем на сутки с запасом.
-function dropOutliers(confirmed: { position: number; dayMs: number }[]): {
+export function dropOutliers(confirmed: { position: number; dayMs: number }[]): {
   kept: { position: number; dayMs: number }[]
   outlierPositions: Set<number>
+  // position -> |база точки - медиана окрестности| в мс (только для выбросов)
+  outlierShiftMs: Map<number, number>
 } {
   const sorted = [...confirmed].sort((a, b) => a.position - b.position)
   const base = (p: { position: number; dayMs: number }) => p.dayMs + p.position * DAY_MS
   const kept: { position: number; dayMs: number }[] = []
   const outlierPositions = new Set<number>()
+  const outlierShiftMs = new Map<number, number>()
   for (let i = 0; i < sorted.length; i++) {
     const window = sorted
       .slice(Math.max(0, i - 3), i + 4)
       .map(base)
       .sort((a, b) => a - b)
     const median = window[Math.floor(window.length / 2)]
-    if (Math.abs(base(sorted[i]) - median) <= 1.5 * DAY_MS) kept.push(sorted[i])
-    else outlierPositions.add(sorted[i].position)
+    const shift = Math.abs(base(sorted[i]) - median)
+    if (shift <= 1.5 * DAY_MS) kept.push(sorted[i])
+    else {
+      outlierPositions.add(sorted[i].position)
+      outlierShiftMs.set(sorted[i].position, shift)
+    }
   }
-  return { kept, outlierPositions }
+  return { kept, outlierPositions, outlierShiftMs }
+}
+
+// НАЙДЕНО 2026-10-04 (юзер: "дневного мута нет 5 числа"): Specimen_FE_02_sc
+// стоит в пуле на позиции 63, а лестница даёт для неё 15.08 (последнее
+// включение, оно же в date-ledger.json). kartel же отдавал живое окно
+// 5->6 окт - РЕАЛЬНОЕ повторное включение старого специмена, вклиненное в
+// лестницу (между позицией 13 = 4 окт и позицией 12 = 6 окт). dropOutliers
+// принимал его за "переиспользованный Filter-тег" (см. комментарий выше про
+// Specimen_BB_08), пересчитывал по лестнице в 15.08, окно спринта это
+// отсекало - и дневной мутант целиком пропадал из прогноза.
+// Различие между двумя случаями: ошибка "kartel вернул прошлое включение" даёт
+// дату ВНЕ текущего спринта (её и так отсекает окно) и/или сдвиг в 1-3 дня.
+// Живая дата ВНУТРИ окна спринта при сдвиге от лестницы на недели - это уже
+// не эхо прошлого включения, а настоящее окно. Порог 7 дней оставляет
+// BB_08-подобные случаи (2 дня) на старой логике.
+const WEDGED_RERUN_MIN_SHIFT_DAYS = 7
+export function isWedgedRerun(
+  liveStartMs: number,
+  shiftMs: number | undefined,
+  windowStartMs: number,
+  windowEndMs: number,
+): boolean {
+  if (shiftMs === undefined || Number.isNaN(liveStartMs)) return false
+  return (
+    shiftMs > WEDGED_RERUN_MIN_SHIFT_DAYS * DAY_MS &&
+    liveStartMs >= windowStartMs &&
+    liveStartMs < windowEndMs
+  )
 }
 
 function buildWaves(
@@ -707,7 +742,7 @@ async function appendDailyMutantOffers(
     }
   }
 
-  const { kept: confirmedClean, outlierPositions } = dropOutliers(confirmed)
+  const { kept: confirmedClean, outlierPositions, outlierShiftMs } = dropOutliers(confirmed)
   if (outlierPositions.size > 0) {
     console.log(
       `[forecast] дневной пул: отброшено выбивающихся kartel-дат: ${outlierPositions.size} (позиции ${[...outlierPositions].join(', ')})`,
@@ -728,9 +763,29 @@ async function appendDailyMutantOffers(
       (new Date(range.end).getTime() - new Date(range.start).getTime()) / DAY_MS <= 3
     )
     let dayMs: number
-    // Выброс не доверяем даже на его собственной плитке - считаем по лестнице.
-    if (isConfirmed && !outlierPositions.has(entry.position)) {
-      dayMs = new Date(range!.start).getTime()
+    // Дата, которой на самом деле место на лестнице (для ladderByItemId); у
+    // повторного включения (wedgedRerun) она отличается от выдаваемой.
+    let ladderDayMs: number | null = null
+    const liveStartMs = isConfirmed ? new Date(range!.start).getTime() : NaN
+    const wedgedRerun =
+      isConfirmed &&
+      outlierPositions.has(entry.position) &&
+      isWedgedRerun(liveStartMs, outlierShiftMs.get(entry.position), windowStart, windowEnd)
+    // Выброс не доверяем даже на его собственной плитке - считаем по лестнице
+    // (кроме wedgedRerun - там живая дата настоящая, см. isWedgedRerun).
+    if (isConfirmed && (!outlierPositions.has(entry.position) || wedgedRerun)) {
+      dayMs = liveStartMs
+      if (wedgedRerun) {
+        const waveAnchor = pickWaveAnchor(entry.position, waves)
+        const neighbor = waveAnchor ? null : pickNearestConfirmed(entry.position, confirmedClean)
+        const anchor = waveAnchor ?? neighbor
+        ladderDayMs = anchor ? anchor.dayMs - (entry.position - anchor.position) * DAY_MS : null
+        console.log(
+          `[forecast] дневной пул: ${entry.filterTag} - повторное включение вне лестницы, ` +
+            `берём живую дату ${formatDateRu(new Date(liveStartMs))} (лестница давала ` +
+            `${ladderDayMs === null ? 'ничего' : formatDateRu(new Date(ladderDayMs))})`,
+        )
+      }
     } else if (!entry.isSpecimen) {
       // Не-специмен без живой даты: позиции в лестнице у него нет, гадать по
       // соседям нельзя (именно это давало ошибку в 1-3 дня на bundle/pack).
@@ -754,14 +809,19 @@ async function appendDailyMutantOffers(
     // Лестница отдаётся наружу ДО фильтра по окну спринта - спринт-блок
     // датируется наследованием от этих же якорей (inheritDatesFromAnchors),
     // и ему нужны в том числе специмены у самой границы окна.
-    if (isSpecimen && itemId) ladderByItemId.set(itemId.toLowerCase(), dayMs)
+    // Повторное включение в лестницу не пишем датой окна: соседи по группе
+    // наследуют от лестницы, а не от вклиненного окна.
+    if (isSpecimen && itemId && !wedgedRerun) ladderByItemId.set(itemId.toLowerCase(), dayMs)
+    else if (isSpecimen && itemId && ladderDayMs !== null) {
+      ladderByItemId.set(itemId.toLowerCase(), ladderDayMs)
+    }
     if (dayMs < windowStart || dayMs >= windowEnd) continue
 
     const built = await buildItem(entry.itemXml, isSpecimen ? 'day' : undefined)
     if (!built) continue
     // Выброс тоже перезаписываем: buildItem уже проставил ему kartel-овский
     // exactDateLabel, а мы этой дате как раз не верим.
-    if (!isConfirmed || outlierPositions.has(entry.position)) {
+    if (!isConfirmed || (outlierPositions.has(entry.position) && !wedgedRerun)) {
       built.item.exactDateLabel = `≈ ${formatDateRu(new Date(dayMs))}`
       built.item.exactDateStart = new Date(dayMs).toISOString()
       built.item.exactDateEnd = null
