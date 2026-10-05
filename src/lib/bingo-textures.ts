@@ -148,7 +148,9 @@ export function getRewardTexturePath(reward: {
 
       // Попробуем угадать папку по имени
       if (name.includes('special')) {
-        return `/orbs/special/${name}.webp`
+        // Временные варианты сфер (orb_special_speed_02_ephemeral_20 и т.п.) своей
+        // иконки не имеют - рисуются иконкой базовой сферы.
+        return `/orbs/special/${name.replace(/_ephemeral_\d+$/i, '')}.webp`
       }
       // Basic orbs? Мы не видели папку basic, но видели orb_basic в именах?
       // Нет, в find results были только special и boosters.
@@ -317,6 +319,19 @@ export function getRewardLabel(
 ): string {
   if (reward.type === 'hardcurrency' || reward.type === 'softcurrency') {
     return formatCurrencyAmount(reward.amount ?? 0, reward.type, locale)
+  }
+
+  // Временные сферы (orb_special_speed_02_ephemeral_20): у них нет своего ключа
+  // локализации, а число в конце - количество зарядов (игра пишет
+  // "Здоровье +30% заряд 30", см. orb_basic_life_06_ephemeral_30). Берём
+  // подпись базовой сферы и дописываем заряд; вне RU - нейтральное "⚡N",
+  // чтобы не утекал русский текст.
+  const ephemeral = reward.name.match(/^(.*)_ephemeral_(\d+)$/i)
+  if (ephemeral) {
+    const base = getRewardLabel({ ...reward, name: ephemeral[1], amount: 1 }, locale, names)
+    const charge = locale === 'ru' ? `заряд ${ephemeral[2]}` : `⚡${ephemeral[2]}`
+    const label = `${base}, ${charge}`
+    return reward.amount && reward.amount > 1 ? `${label} ×${reward.amount}` : label
   }
 
   // Для entity используем перевод из craft-simulator (RU-only), прогнанный

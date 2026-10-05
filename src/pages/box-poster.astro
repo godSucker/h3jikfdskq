@@ -1,0 +1,244 @@
+---
+// Постер ОДНОГО бокса со всеми исходами и реальными шансами - для рендера
+// в PNG (пост в Telegram и т.п.), не для посетителей. Открывается как
+// /box-poster?box=<itemId>. Не в навигации, noindex. Цифры берутся из
+// того же @/lib/box-outcomes, что и модалка /boxes, поэтому разойтись не могут.
+export const prerender = false
+
+import boxesData from '@/data/boxes.json'
+import { textureUrl } from '@/lib/texture-cdn'
+import { formatCurrencyAmount } from '@/lib/bingo-textures'
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n'
+import BoxPosterCell from '@/components/boxes/BoxPosterCell.astro'
+import { chanceRows, formatChance, groupedOutcomes, type Box } from '@/lib/box-outcomes'
+
+const boxId = Astro.url.searchParams.get('box') ?? ''
+const box = (boxesData as Box[]).find((b) => b.itemId === boxId)
+if (!box) Astro.response.status = 404
+
+const { names } = getLocalizedMutantNames('ru')
+
+const outcomes = box ? groupedOutcomes(box) : []
+const guaranteed = outcomes.filter((o) => o.chance == null)
+const rows = chanceRows(outcomes)
+
+// Число ячеек (исход = одна ячейка) определяет размер плитки. Подпись с именем
+// есть у каждого мутанта всегда; у больших боксов плитка и шрифт просто меньше.
+const cellCount = outcomes.length
+const tile = cellCount <= 12 ? 104 : cellCount <= 40 ? 88 : cellCount <= 100 ? 72 : 68
+const nameSize = cellCount <= 40 ? 13 : 11
+
+// Много рядов по 1-2 плитки (бокс из одних наград вроде "Контейнера звёзд") -
+// длинная лента полупустых рядов. Раскладываем ряды в два столбца: читаются
+// сверху вниз по убыванию шанса, постер получается вдвое короче.
+const poolOutcomes = rows.reduce((n, r) => n + r.outcomes.length, 0)
+const twoCols = rows.length >= 6 && poolOutcomes / rows.length <= 2
+const half = Math.ceil(rows.length / 2)
+
+const title = box?.name ?? 'Бокс не найден'
+const price = box?.price ? formatCurrencyAmount(box.price.amount, box.price.type, 'ru') : null
+const totalCells = outcomes.length
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>{title}</title>
+  <link rel="stylesheet" href="/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+  <style is:global define:vars={{ tile: `${tile}px`, nameSize: `${nameSize}px` }}>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0d1117; }
+    body {
+      font-family: "TT Supermolot Neue", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
+      color: #f1f5f9;
+      width: 1000px;
+    }
+
+    .poster {
+      position: relative;
+      width: 1000px;
+      padding: 40px 32px 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(900px 420px at 50% -80px, rgba(59, 130, 246, 0.28), transparent 70%),
+        radial-gradient(700px 500px at 100% 100%, rgba(124, 58, 237, 0.16), transparent 70%),
+        #0d1117;
+    }
+
+    /* Водяной знак: диагональная плитка поверх всего постера + подпись в подвале. */
+    .wm {
+      position: absolute;
+      inset: -50%;
+      transform: rotate(-24deg);
+      display: flex;
+      flex-direction: column;
+      gap: 70px;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0.045;
+      font-size: 30px;
+      letter-spacing: 0.22em;
+      white-space: nowrap;
+      color: #fff;
+    }
+
+    .head { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; margin-bottom: 26px; }
+    .box-icon { width: 168px; height: 168px; object-fit: contain; filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.45)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.6)); }
+    h1 { font-size: 36px; line-height: 1.1; letter-spacing: 0.01em; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; font-size: 14px; color: #cbd5f5; }
+    .chip { padding: 4px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .chip.price { color: #fde68a; border-color: rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.08); }
+
+    .rows { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; }
+    .row {
+      display: grid;
+      grid-template-columns: 168px 1fr;
+      border-radius: 16px;
+      background: rgba(30, 41, 59, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+    .label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 8px;
+      background: linear-gradient(180deg, rgba(59, 130, 246, 0.16), rgba(59, 130, 246, 0.05));
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    .label .pct { font-size: 34px; line-height: 1; color: #86efac; }
+    .label .sub { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; color: #e2e8f0; font-weight: 600; line-height: 1.2; }
+    .row.guaranteed .label { background: linear-gradient(180deg, rgba(250, 204, 21, 0.2), rgba(250, 204, 21, 0.06)); }
+    .row.guaranteed .label .pct { font-size: 20px; color: #fde68a; }
+
+    .rows.two { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(var(--half), auto); gap: 10px; }
+    .rows.two .row { grid-template-columns: 108px 1fr; }
+    .rows.two .label { padding: 12px 6px; }
+    .rows.two .label .pct { font-size: 28px; }
+    .rows.two .label .sub { font-size: 12.5px; }
+    .rows.two .cells { padding: 12px 10px; }
+
+    /* Сетка фиксированных столбцов: связка из двух мутантов занимает ровно два
+       столбца, поэтому одиночная связка среди одиночных не ломает ритм рядов. */
+    .cells {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, var(--tile));
+      grid-auto-flow: row dense;
+      justify-content: start;
+      align-items: start;
+      gap: 14px 8px;
+      padding: 14px 12px;
+    }
+
+    .cell { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; min-width: 0; position: relative; }
+    .item { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; width: var(--tile); }
+
+    .cell.duo { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8px; align-items: start; justify-items: center; }
+    .cell.duo::before {
+      content: ''; position: absolute; inset: -6px; border-radius: 14px; z-index: 0;
+      background: rgba(96, 165, 250, 0.07); border: 1px solid rgba(96, 165, 250, 0.32);
+    }
+    .cell.duo .plus {
+      position: absolute; left: 50%; top: calc(var(--tile) / 2); transform: translate(-50%, -50%); z-index: 3;
+      width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+      background: #1e3a8a; color: #dbeafe; font-size: 15px; line-height: 1; border: 1px solid rgba(147, 197, 253, 0.5);
+    }
+    .cell.duo .chips { grid-column: 1 / -1; }
+
+    .art {
+      position: relative;
+      width: var(--tile); height: var(--tile);
+      border-radius: 10px; overflow: hidden;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .art img.main { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .art.reward img.main { object-fit: contain; padding: 14%; }
+    .star { position: absolute; left: 3px; bottom: 3px; width: 34%; height: 34%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9)); }
+
+    .name { font-size: var(--nameSize); line-height: 1.15; text-align: center; color: #f1f5f9; font-weight: 600; width: calc(var(--tile) + 6px); margin: 0 -3px; overflow-wrap: normal; word-break: normal; hyphens: none; letter-spacing: -0.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .skin { font-size: 10.5px; line-height: 1; color: #c7d2fe; background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(129, 140, 248, 0.35); border-radius: 999px; padding: 2px 7px; max-width: var(--tile); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Награда связки (жетон, серебро и т.п.): маленькая плашка под мутантом, текст главный. */
+    .chips { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .chip-r { display: flex; align-items: center; gap: 4px; padding: 2px 6px 2px 3px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); font-size: 11.5px; line-height: 1.1; color: #e2e8f0; font-weight: 600; max-width: calc(var(--tile) + 10px); }
+    .chip-r img { width: 18px; height: 18px; object-fit: contain; flex: none; }
+    .chip-r span { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: normal; word-break: normal; hyphens: none; }
+    .cell.duo .chip-r { max-width: none; }
+
+    .foot { position: relative; z-index: 2; margin-top: 22px; display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+    .foot .note { max-width: 560px; font-size: 13px; line-height: 1.35; color: #cbd5e1; font-weight: 500; }
+    .foot .brand { font-size: 17px; letter-spacing: 0.18em; color: #f1f5f9; font-weight: 700; }
+    .empty { position: relative; z-index: 2; text-align: center; padding: 60px 0; color: #94a3b8; font-size: 22px; }
+  </style>
+</head>
+<body>
+  {box ? (
+    <div class="poster" data-box-id={box.itemId} data-cells={totalCells}>
+      <div class="wm" aria-hidden="true">
+        {Array.from({ length: 40 }).map(() => (
+          <span>ARCHIVIST-LIBRARY.COM &nbsp;&nbsp;&nbsp; ARCHIVIST-LIBRARY.COM &nbsp;&nbsp;&nbsp; ARCHIVIST-LIBRARY.COM</span>
+        ))}
+      </div>
+
+      <div class="head">
+        {box.icon && <img class="box-icon" src={textureUrl(box.icon)} alt="" loading="eager" decoding="sync" />}
+        <h1>{title}</h1>
+        <div class="meta">
+          {box.category && <span class="chip">{box.category}</span>}
+          {price && <span class="chip price">{price}</span>}
+          <span class="chip">Вариантов: {totalCells}</span>
+        </div>
+      </div>
+
+      {guaranteed.length > 0 && (
+        <div class="rows" style="margin-bottom: 10px">
+
+          <div class="row guaranteed">
+            <div class="label">
+              <div class="pct">Гарантировано</div>
+              <div class="sub">выпадает всегда</div>
+            </div>
+            <div class="cells">
+              {guaranteed.map((o) => (
+                <BoxPosterCell outcome={o} names={names} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div class={twoCols ? 'rows two' : 'rows'} style={`--half:${half}`}>
+        {rows.map((r) => (
+          <div class="row">
+            <div class="label">
+              <div class="pct">{formatChance(r.chance)}</div>
+              {r.outcomes.length > 1 ? (
+                <div class="sub"><span>каждый</span><span>всего {formatChance(r.total)}</span></div>
+              ) : (
+                <div class="sub"><span>один вариант</span></div>
+              )}
+            </div>
+            <div class="cells">
+              {r.outcomes.map((o) => (
+                <BoxPosterCell outcome={o} names={names} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="foot">
+        <span class="note">Процент — шанс выпадения за одно открытие контейнера. Каждое открытие — новый бросок кубика, и шанс на конкретного мутанта может быть совсем небольшим.</span>
+        <span class="brand">ARCHIVIST-LIBRARY.COM</span>
+      </div>
+    </div>
+  ) : (
+    <div class="poster"><div class="empty">Бокс «{boxId}» не найден</div></div>
+  )}
+</body>
+</html>

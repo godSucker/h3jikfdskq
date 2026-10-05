@@ -38897,7 +38897,7 @@
     "itemId": "Luckybox_Xmas_Bronze_2018",
     "icon": "/boxes/lucky_box_xmas_bronze.png",
     "category": "Лаки-бокс",
-    "name": "Легендарный киберконтейнер",
+    "name": "Бронзовый рождественский подарок",
     "price": {
       "amount": 10000000,
       "type": "softcurrency"
@@ -41692,7 +41692,7 @@
     "itemId": "LuckyBox_Plague",
     "icon": "/boxes/mystery_plague.png",
     "category": "Лаки-бокс",
-    "name": "контейнер «Хэллоуин»",
+    "name": "контейнер «Хэллоуин: Чума»",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
@@ -42010,7 +42010,7 @@
     "itemId": "Luckybox_xmas20_3",
     "icon": "/boxes/mystery_winter.png",
     "category": "Лаки-бокс",
-    "name": "Мероприятия контейнер",
+    "name": "Рождественский контейнер 2020",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
@@ -42718,7 +42718,7 @@
     "itemId": "Luckybox_Anniversary22",
     "icon": "/boxes/mystery_anniversary22.png",
     "category": "Лаки-бокс",
-    "name": "данных контейнер",
+    "name": "Юбилейный контейнер «Данные»",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
@@ -42778,7 +42778,7 @@
     "itemId": "mystery_box_xmas22_2",
     "icon": "/boxes/mystery_winter.png",
     "category": "Мистери-бокс",
-    "name": "mystery box xmas22 2",
+    "name": "Рождественский контейнер 2022 — Часть 2",
     "price": {
       "amount": 1200,
       "type": "hardcurrency"
@@ -42862,7 +42862,7 @@
     "itemId": "mystery_box_xmas22_1",
     "icon": "/boxes/mystery_snowstorm.png",
     "category": "Мистери-бокс",
-    "name": "mystery box xmas22 1",
+    "name": "Рождественский контейнер 2022 — Часть 1",
     "price": {
       "amount": 1200,
       "type": "hardcurrency"
@@ -43576,7 +43576,7 @@
     "itemId": "Mystery_GlassCannon",
     "icon": "/boxes/mystery_glasscannon.png",
     "category": "Мистери-бокс",
-    "name": "Таинственный коробка «Стеклянная пушка»",
+    "name": "Таинственная коробка «Стеклянная пушка»",
     "price": {
       "amount": 800,
       "type": "hardcurrency"
@@ -47670,7 +47670,7 @@
     "itemId": "Mystery_Fools_2026",
     "icon": "/boxes/mystery_fools.png",
     "category": "Мистери-бокс",
-    "name": "Контейнер для Апрельские дураки",
+    "name": "Контейнер «1 апреля»",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
@@ -47898,7 +47898,7 @@
     "itemId": "Mystery_Labor_2026",
     "icon": "/boxes/mystery_labor.png",
     "category": "Мистери-бокс",
-    "name": "Таинственный коробка Дня труда",
+    "name": "Таинственная коробка Дня труда",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
@@ -63708,7 +63708,7 @@
     "itemId": "LuckyBox_Cyber_Elite",
     "icon": "/boxes/mystery_elite_cyber.png",
     "category": "Лаки-бокс",
-    "name": "элитный контейнер «зооморфа»",
+    "name": "элитный контейнер «Кибер»",
     "price": {
       "amount": 700,
       "type": "hardcurrency"
@@ -72474,7 +72474,7 @@
     "itemId": "Luckybox_Hyperspeed",
     "icon": "/boxes/mystery_hyperspeed.png",
     "category": "Лаки-бокс",
-    "name": "Контейнер с мутантом-Молниеносный",
+    "name": "Контейнер с мутантом-Гиперскорость",
     "price": {
       "amount": 1000,
       "type": "hardcurrency"
