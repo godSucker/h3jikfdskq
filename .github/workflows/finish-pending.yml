@@ -26,7 +26,9 @@ concurrency:
 
 jobs:
   finish-job:
-    runs-on: ubuntu-latest
+    # 24.04 закреплён: ubuntu-latest переедет на 26.04 с 19.10.2026, а pip install awscli и
+    # остальные OS-зависимые шаги на 26.04 не проверялись. Переезжать осознанно.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
