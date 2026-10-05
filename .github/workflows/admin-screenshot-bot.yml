@@ -34,7 +34,9 @@ concurrency:
 
 jobs:
   screenshot-bot-job:
-    runs-on: ubuntu-latest
+    # 24.04 закреплён: ubuntu-latest переедет на 26.04 с 19.10.2026, а pip install awscli и
+    # остальные OS-зависимые шаги на 26.04 не проверялись. Переезжать осознанно.
+    runs-on: ubuntu-24.04
     # 20 мин: холодный @sparticuz/chromium отвечает до ~90с на вызов, а за
     # один прогон может накопиться несколько задач (в проде редко >2, но
     # запас нужен). Один прогон всё равно ограничен MAX_ATTEMPTS/MIN_AGE_MS
