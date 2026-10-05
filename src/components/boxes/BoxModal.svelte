@@ -5,6 +5,14 @@
   import { getBoxName } from '@/lib/boxes-i18n'
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import { starLabelL } from '@/lib/mutant-dicts'
+  import {
+    TIER_ICON,
+    TIER_KEY,
+    groupedOutcomes,
+    type Box,
+    type BoxMutantRef,
+    type BoxPrice,
+  } from '@/lib/box-outcomes'
 
   let {
     locale = 'ru' as Locale,
@@ -20,35 +28,6 @@
     return names[m.id]?.name || m.name
   }
 
-  interface BoxMutantRef {
-    id: string
-    name: string
-    tier: string | null
-    skin: string | null
-  }
-  interface BoxReward {
-    name: string
-    type: 'entity' | 'hardcurrency' | 'softcurrency'
-    amount: number
-  }
-  interface BoxGroup {
-    chance: number | null
-    mutants: BoxMutantRef[]
-    rewards: BoxReward[]
-  }
-  interface BoxPrice {
-    amount: number
-    type: 'hardcurrency' | 'softcurrency'
-  }
-  interface Box {
-    itemId: string
-    icon: string | null
-    category: string
-    name: string
-    price: BoxPrice | null
-    groups: BoxGroup[]
-  }
-
   function formatPrice(price: BoxPrice | null): string | null {
     if (!price) return null
     return formatCurrencyAmount(price.amount, price.type, locale)
@@ -56,17 +35,6 @@
 
   const boxes = boxesData as Box[]
   const boxByItemId = new Map(boxes.map((b) => [b.itemId, b]))
-
-  const TIER_ICON: Record<string, string> = {
-    'бронза': '/stars/star_bronze.webp',
-    'серебро': '/stars/star_silver.webp',
-    'золото': '/stars/star_gold.webp',
-    'платина': '/stars/star_platinum.webp',
-  }
-
-  const TIER_KEY: Record<string, 'bronze' | 'silver' | 'gold' | 'platinum'> = {
-    'бронза': 'bronze', 'серебро': 'silver', 'золото': 'gold', 'платина': 'platinum',
-  }
 
   // boxes.json хранит tier как RU-слово ('бронза' и т.п.) - alt/title
   // рендерили его напрямую без locale (найдено live-прогоном 2026-08-17,
@@ -85,31 +53,8 @@
     return b.groups.flatMap((g) => g.mutants)
   }
 
-  // Игра розыгрывает бокс по группам (не по плоскому списку статей) - Tag
-  // key="option"/rand_X на ShopItem группирует несколько ArticleItem в ОДИН
-  // атомарный исход (мутант + бонусный жетон выпадают вместе, это не два
-  // независимых слота, см. Mystery_Anniversary26_1 - "Шанс 1 к 6" в тултипе
-  // игры, а не 1 к 11 как посчитал бы наивный плоский пул). Схлопываем группы
-  // с одинаковым содержимым (в боксах на сотни мутантов реальных групп может
-  // быть меньше, чем кажется) суммированием их шанса.
-  function groupedOutcomes(b: Box) {
-    const map = new Map<string, { chance: number | null; mutants: BoxMutantRef[]; rewards: BoxReward[] }>()
-    for (const g of b.groups) {
-      const key = [
-        ...g.mutants.map((m) => `m:${m.id}|${m.tier ?? ''}|${m.skin ?? ''}`),
-        ...g.rewards.map((r) => `r:${r.type}|${r.name}|${r.amount}`),
-      ]
-        .sort()
-        .join(',')
-      const existing = map.get(key)
-      if (existing) {
-        if (existing.chance != null && g.chance != null) existing.chance += g.chance
-      } else {
-        map.set(key, { chance: g.chance, mutants: g.mutants, rewards: g.rewards })
-      }
-    }
-    return [...map.values()]
-  }
+  // groupedOutcomes (схлопывание групп с одинаковым содержимым, атомарные
+  // исходы) вынесен в @/lib/box-outcomes - общий с постером box-poster.astro.
 
   let open = $state(false)
   let box: Box | null = $state(null)

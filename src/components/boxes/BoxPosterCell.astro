@@ -1,0 +1,84 @@
+---
+// Одна ячейка постера бокса (box-poster.astro). Исход = мутант, награда или
+// атомарная связка (выпадают вместе). Все ячейки одного размера, чтобы сетка не
+// ломалась: связка "мутант + награда" - это одна плитка мутанта и маленькая
+// плашка награды под подписью; связка из двух мутантов занимает ровно два
+// столбца сетки (.duo).
+import { textureUrl } from '@/lib/texture-cdn'
+import { getMutantTexturePath, getRewardTexturePath, getRewardLabel } from '@/lib/bingo-textures'
+import { getSkinName } from '@/lib/skin-names'
+import { TIER_ICON, TIER_KEY, type BoxMutantRef, type BoxOutcome, type BoxReward } from '@/lib/box-outcomes'
+
+interface Props {
+  outcome: BoxOutcome
+  names: Record<string, { name: string }>
+}
+const { outcome, names } = Astro.props
+
+function mutantIcon(m: BoxMutantRef): string {
+  const variant = (m.tier && TIER_KEY[m.tier]) || 'normal'
+  return textureUrl(getMutantTexturePath(m.id, m.skin ?? '_any', variant))
+}
+function mutantName(m: BoxMutantRef): string {
+  return names[m.id]?.name || m.name
+}
+function skinLabel(m: BoxMutantRef): string | null {
+  const name = getSkinName(m.skin, 'ru')
+  if (!name) return null
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}
+function rewardIcon(r: BoxReward): string | null {
+  const p = getRewardTexturePath(r)
+  return p ? textureUrl(p) : null
+}
+function rewardLabel(r: BoxReward): string {
+  return getRewardLabel(r, 'ru')
+}
+
+const { mutants, rewards } = outcome
+const isDuo = mutants.length >= 2
+// Главная плитка: мутант, а если мутантов нет - первая награда. Остальные
+// награды связки - маленькие плашки под ней.
+const mainRewards = mutants.length === 0 ? rewards.slice(0, 1) : []
+const chips = mutants.length === 0 ? rewards.slice(1) : rewards
+---
+
+<div class:list={['cell', { duo: isDuo }]} style={isDuo ? `grid-column: span ${mutants.length}` : undefined}>
+  {isDuo && <span class="plus">+</span>}
+  {
+    mutants.map((m) => (
+      <div class="item">
+        <div class="art">
+          <img class="main" src={mutantIcon(m)} alt={mutantName(m)} loading="eager" decoding="sync" />
+          {m.tier && TIER_ICON[m.tier] && (
+            <img class="star" src={textureUrl(TIER_ICON[m.tier])} alt="" loading="eager" decoding="sync" />
+          )}
+        </div>
+        <div class="name">{mutantName(m)}</div>
+        {skinLabel(m) && <div class="skin">{skinLabel(m)}</div>}
+      </div>
+    ))
+  }
+  {
+    mainRewards.map((r) => (
+      <div class="item">
+        <div class="art reward">
+          {rewardIcon(r) && <img class="main" src={rewardIcon(r)!} alt={rewardLabel(r)} loading="eager" decoding="sync" />}
+        </div>
+        <div class="name">{rewardLabel(r)}</div>
+      </div>
+    ))
+  }
+  {
+    chips.length > 0 && (
+      <div class="chips">
+        {chips.map((r) => (
+          <div class="chip-r">
+            {rewardIcon(r) && <img src={rewardIcon(r)!} alt="" loading="eager" decoding="sync" />}
+            <span>{rewardLabel(r)}</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>
