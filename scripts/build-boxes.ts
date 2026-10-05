@@ -24,6 +24,9 @@ const THUMB_BASE = 'https://s-beta.kobojo.com/mutants/assets/thumbnails/'
 const MUTANTS_PATH = path.join(process.cwd(), 'src/data/mutants/mutants.json')
 const BOXES_ICON_DIR = path.join(process.cwd(), 'public/boxes')
 const OUT_PATH = path.join(process.cwd(), 'src/data/boxes.json')
+// Ручные RU-названия там, где игровая локализация битая или пустая (itemId -> имя).
+// Без этого файла почасовой синк затирал бы правки прямо в boxes.json.
+const NAME_OVERRIDES_PATH = path.join(process.cwd(), 'src/data/boxes-name-overrides.json')
 
 const TIER_WORDS = new Set(['normal', 'bronze', 'silver', 'gold', 'platinum'])
 const TIER_RU: Record<string, string> = {
@@ -109,6 +112,11 @@ async function main() {
     // регистронезависимая карта как второй проход.
     if (!locLower.has(key.toLowerCase())) locLower.set(key.toLowerCase(), val)
   }
+
+  const nameOverrides = await fs
+    .readFile(NAME_OVERRIDES_PATH, 'utf-8')
+    .then((t) => JSON.parse(t) as Record<string, string>)
+    .catch(() => ({}) as Record<string, string>)
 
   const mutantIds = new Set(mutants.map((m) => m.id.toLowerCase()))
   const mutantNameById = new Map(mutants.map((m) => [m.id.toLowerCase(), m.name]))
@@ -275,7 +283,7 @@ async function main() {
       : null
 
     const captionMatch = m[0].match(/caption="([^"]*)"/)
-    const name = resolveName(itemId, captionMatch?.[1])
+    const name = nameOverrides[itemId] ?? resolveName(itemId, captionMatch?.[1])
     const category = /luckybox|lucky_box/i.test(itemId)
       ? 'Лаки-бокс'
       : /mystery/i.test(itemId)
