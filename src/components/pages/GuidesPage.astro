@@ -16,6 +16,7 @@ import { shouldShowAmount } from '@/lib/event-quest-text';
 import raidsData from '@/data/guides/raids.json';
 import eventLaddersData from '@/data/guides/event-ladders.json';
 import specialLaddersData from '@/data/guides/special-ladders.json';
+import dungeonDetailsData from '@/data/guides/dungeon-details.json';
 import specialOffersData from '@/data/guides/special-offers.json';
 import materialData from '@/data/materials/material.json';
 import { translateItemId, getItemTexture } from '@/lib/craft-simulator';
@@ -41,7 +42,9 @@ import {
   resolveCurrencySummary as resolveCurrencySummaryShared,
   resolveItemList as resolveItemListShared,
   resolveDungeon as resolveDungeonShared,
+  type MutantLite,
   type MutantRaw,
+  type ResolvedReward,
   type RewardResolveCtx,
   type RewardRaw as SharedRewardRaw,
 } from '@/lib/guides-resolve';
@@ -455,6 +458,90 @@ const specialLadders = {
   challenge: specialLaddersRaw.challenge.map((d) => resolveSpecialLadder('challenge', d)),
 };
 
+// Детали рейдов и лесенок (scripts/sync-dungeon-details.ts): цена входа,
+// лимит, условия для мутантов, энергия и награды по этажам. Названия наград
+// резолвятся ОДИН раз в таблицу detailItems (около 200 id), а в самих этажах
+// остаются только пары [id, количество] - иначе HTML страницы раздувается
+// копиями одних и тех же подписей на каждой из 9 локалей.
+interface DetailItemRaw { id: string; amount: number }
+interface DungeonDetailRaw {
+  entryCost: { amount: number; type: string } | null;
+  completionMax: number | null;
+  conditions: { minLevel: number | null; maxLevel: number | null; genes: string[]; stars: string[] | null } | null;
+  floors: number;
+  energy: { min: number; max: number; total: number } | null;
+  milestones: { floor: number; items: DetailItemRaw[] }[];
+}
+interface EventDetailRaw {
+  energy: { min: number; max: number; total: number } | null;
+  maps: { fights: number; energy: [number, number] | null; fightItems: DetailItemRaw[]; finish: DetailItemRaw[] }[];
+}
+const detailsRaw = dungeonDetailsData as unknown as {
+  dungeons: Record<string, DungeonDetailRaw>;
+  events: Record<string, EventDetailRaw>;
+};
+interface DetailItemView { name: string; icon: string | null; mutant?: MutantLite }
+interface DungeonDetailView {
+  kind: 'dungeon' | 'event';
+  cost: ResolvedReward | null;
+  limit: number | null;
+  minLevel: number | null;
+  maxLevel: number | null;
+  genes: string[];
+  stars: string[] | null;
+  energy: { min: number; max: number; total: number } | null;
+  floors: number;
+  milestones?: [number, [string, number][]][];
+  maps?: { fights: number; energy: [number, number] | null; fightItems: [string, number][]; finish: [string, number][] }[];
+}
+const detailItems: Record<string, DetailItemView> = {};
+function pairs(items: DetailItemRaw[]): [string, number][] {
+  return items.map((it) => {
+    if (!detailItems[it.id]) {
+      const r = resolveReward({ type: 'entity', id: it.id, amount: '1' });
+      detailItems[it.id] = { name: r.label, icon: r.icon, ...(r.mutant ? { mutant: r.mutant } : {}) };
+    }
+    return [it.id, it.amount];
+  });
+}
+// В игре верхняя граница уровня бывает "9999" - это "без ограничения".
+const noCap = (v: number | null) => (v === null || v >= 9999 ? null : v);
+const dungeonDetails: Record<string, DungeonDetailView> = {};
+for (const [id, d] of Object.entries(detailsRaw.dungeons)) {
+  const c = d.conditions;
+  dungeonDetails[id] = {
+    kind: 'dungeon',
+    cost: d.entryCost ? resolveReward({ type: d.entryCost.type, amount: String(d.entryCost.amount) }) : null,
+    limit: d.completionMax,
+    minLevel: c?.minLevel ?? null,
+    maxLevel: noCap(c?.maxLevel ?? null),
+    genes: c?.genes ?? [],
+    stars: c?.stars ?? null,
+    energy: d.energy,
+    floors: d.floors,
+    milestones: d.milestones.map((m) => [m.floor, pairs(m.items)]),
+  };
+}
+for (const [id, e] of Object.entries(detailsRaw.events)) {
+  dungeonDetails[id] = {
+    kind: 'event',
+    cost: null,
+    limit: null,
+    minLevel: null,
+    maxLevel: null,
+    genes: [],
+    stars: null,
+    energy: e.energy,
+    floors: e.maps.reduce((n, m) => n + m.fights, 0),
+    maps: e.maps.map((m) => ({
+      fights: m.fights,
+      energy: m.energy,
+      fightItems: pairs(m.fightItems),
+      finish: pairs(m.finish),
+    })),
+  };
+}
+
 interface SpecialOfferMutantRaw { id: string; name: string; tier: string | null; skin: string | null }
 interface SpecialOfferRewardRaw { name: string; type: 'entity' | 'hardcurrency' | 'softcurrency'; amount: number }
 interface SpecialOfferGroupRaw { chance: number | null; mutants: SpecialOfferMutantRaw[]; rewards: SpecialOfferRewardRaw[] }
@@ -526,6 +613,8 @@ const specialOffers = (specialOffersData as SpecialOfferRaw[]).map((o) => ({
     specialLadders={specialLadders}
     specialOffers={specialOffers}
     dungeonCovers={dungeonCovers}
+    dungeonDetails={dungeonDetails}
+    detailItems={detailItems}
     divisionArenas={divisionArenas}
   />
   <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />

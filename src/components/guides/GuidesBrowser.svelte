@@ -4,7 +4,7 @@
   import tabsData from '@/data/guides/tabs.json'
   import { t, pluralizeCount, type Locale } from '@/lib/i18n'
   import { GOLD_WORD, SILVER_WORD, INTL_LOCALE } from '@/lib/bingo-textures'
-  import { geneLabelL } from '@/lib/mutant-dicts'
+  import { geneLabelL, starLabelL } from '@/lib/mutant-dicts'
   import QuestsTab, { type EventQuestChain } from './QuestsTab.svelte'
 
   interface MutantLite { id: string; name: string; genes: string[]; icon: string; fullArt?: string }
@@ -64,6 +64,23 @@
     items: ResolvedItem[]
   }
   interface SpecialLadders { experiment: DungeonEntry[]; challenge: DungeonEntry[] }
+  // Детали рейдов/лесенок (scripts/sync-dungeon-details.ts): вход, лимит, условия
+  // для мутантов, энергия и награды по этажам. Названия наград лежат один раз в detailItems.
+  type ItemPair = [string, number]
+  interface DetailItem { name: string; icon: string | null; mutant?: MutantLite }
+  interface DungeonView {
+    kind: 'dungeon' | 'event'
+    cost: ResolvedItem | null
+    limit: number | null
+    minLevel: number | null
+    maxLevel: number | null
+    genes: string[]
+    stars: string[] | null
+    energy: { min: number; max: number; total: number } | null
+    floors: number
+    milestones?: [number, ItemPair[]][]
+    maps?: { fights: number; energy: [number, number] | null; fightItems: ItemPair[]; finish: ItemPair[] }[]
+  }
   interface QuestReward { label: string; icon: string | null; mutant?: MutantLite }
   type TriggerCategory = 'battle' | 'pvp' | 'craft' | 'breeding' | 'incubation' | 'building' | 'level' | 'collection' | 'social' | 'misc'
   interface Quest {
@@ -104,6 +121,8 @@
     specialLadders = { experiment: [], challenge: [] },
     specialOffers = [],
     dungeonCovers = {},
+    dungeonDetails = {},
+    detailItems = {},
     divisionArenas = {},
   }: {
     locale?: Locale
@@ -121,6 +140,8 @@
     specialLadders: SpecialLadders
     specialOffers: SpecialOffer[]
     dungeonCovers: Record<string, string | null>
+    dungeonDetails: Record<string, DungeonView>
+    detailItems: Record<string, DetailItem>
     divisionArenas: Record<string, string | null>
   } = $props()
 
@@ -224,6 +245,61 @@
     if (specialLadders.challenge.some((d) => d.id === id)) return { tab: 'ladders', section: 'challenge' }
     return null
   }
+  // Награды по этажам свёрнуты под кнопкой. Исключение - карточка, открытая по
+  // ?dungeon=<id> (так её снимает бот-скриншотер и так делятся ссылкой): она раскрыта
+  // целиком и без внутренней прокрутки, иначе в кадр не попадёт список.
+  let openFloors = $state<Record<string, boolean>>({})
+  const deepLinkId = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('dungeon')
+  function floorsOpen(id: string): boolean {
+    return deepLinkId === id || !!openFloors[id]
+  }
+  function collapsible(id: string): boolean {
+    return deepLinkId !== id
+  }
+
+  function itemLabel(id: string, amount: number): string {
+    const name = detailItems[id]?.name ?? id
+    return amount > 1 ? `${name} ×${amount}` : name
+  }
+  function energyRange(min: number, max: number): string {
+    return min === max ? String(min) : `${min}–${max}`
+  }
+  function levelText(d: DungeonView): string | null {
+    if (d.minLevel && d.maxLevel) return t('guides.dungeon.levelRange', locale).replace('{min}', String(d.minLevel)).replace('{max}', String(d.maxLevel))
+    if (d.minLevel) return t('guides.dungeon.levelMin', locale).replace('{n}', String(d.minLevel))
+    if (d.maxLevel) return t('guides.dungeon.levelMax', locale).replace('{n}', String(d.maxLevel))
+    return null
+  }
+  // У ивент-лесенок подряд идут карты с одинаковыми наградами - показываем их одной строкой "1-8".
+  function groupMaps(maps: NonNullable<DungeonView['maps']>) {
+    const sig = (m: (typeof maps)[number]) => JSON.stringify([m.fightItems, m.finish])
+    const out: { from: number; to: number; fightItems: ItemPair[]; finish: ItemPair[] }[] = []
+    maps.forEach((m, i) => {
+      const last = out[out.length - 1]
+      if (last && sig(maps[last.to - 1]) === sig(m)) last.to = i + 1
+      else out.push({ from: i + 1, to: i + 1, fightItems: m.fightItems, finish: m.finish })
+    })
+    return out
+  }
+  // Подряд идущие этажи с одной и той же наградой ("Душа x3" на каждом из 80 этажей) - одной строкой.
+  // Склеиваем только соседние этажи (шаг 1): награда "каждые 10 этажей" остаётся отдельными строками.
+  function groupMilestones(ms: [number, ItemPair[]][]) {
+    const out: { from: number; to: number; items: ItemPair[] }[] = []
+    for (const [floor, items] of ms) {
+      const last = out[out.length - 1]
+      if (last && last.to === floor - 1 && JSON.stringify(last.items) === JSON.stringify(items)) last.to = floor
+      else out.push({ from: floor, to: floor, items })
+    }
+    return out
+  }
+  const ALL_GENES = ['A', 'B', 'C', 'D', 'E', 'F']
+  // 5 из 6 разрешённых генов - это запрет одного ("Без Киборгов" и т.п.), так читается понятнее.
+  function geneView(genes: string[]): { except: boolean; list: string[] } | null {
+    if (!genes.length) return null
+    if (genes.length === ALL_GENES.length - 1) return { except: true, list: ALL_GENES.filter((g) => !genes.includes(g)) }
+    return { except: false, list: genes }
+  }
+
   const dungeonDeepLink = resolveDungeonDeepLink()
   let activeTab = $state(dungeonDeepLink?.tab ?? initialTab())
 
@@ -317,6 +393,124 @@
 </div>
 
 <div class="tab-content">
+  {#snippet rewardChip(iid: string, amount: number)}
+    {@const it = detailItems[iid]}
+    {#if it?.mutant}
+      <button class="dg-chip-item dg-chip-mutant" title={itemLabel(iid, amount)} onclick={() => openMutant(it.mutant!.id)}>
+        {#if it.icon}<img src={textureUrl(it.icon)} alt="" loading="lazy" decoding="async" />{/if}
+        <span>{itemLabel(iid, amount)}</span>
+      </button>
+    {:else}
+      <span class="dg-chip-item" title={itemLabel(iid, amount)}>
+        {#if it?.icon}<img src={textureUrl(it.icon)} alt="" loading="lazy" decoding="async" />{/if}
+        <span>{itemLabel(iid, amount)}</span>
+      </span>
+    {/if}
+  {/snippet}
+
+  {#snippet floorList(d: DungeonView, flat: boolean)}
+    <ol class="dg-floors" class:dg-floors-flat={flat}>
+      {#if d.milestones}
+        {#each groupMilestones(d.milestones) as g (g.from)}
+          {@const label = g.from === g.to ? String(g.from) : `${g.from}–${g.to}`}
+          <li class="dg-row" class:dg-row-mutant={g.items.some(([iid]) => detailItems[iid]?.mutant)}>
+            <span class="dg-floor" title={t('guides.dungeon.floor', locale).replace('{n}', label)}>{label}</span>
+            <span class="dg-items">
+              {#each g.items as [iid, amount] (iid)}{@render rewardChip(iid, amount)}{/each}
+            </span>
+          </li>
+        {/each}
+      {:else if d.maps}
+        {#each groupMaps(d.maps) as g (g.from)}
+          <li class="dg-row" class:dg-row-mutant={g.finish.some(([iid]) => detailItems[iid]?.mutant)}>
+            <span class="dg-floor" title={t('guides.dungeon.map', locale).replace('{n}', g.from === g.to ? String(g.from) : `${g.from}–${g.to}`)}>{g.from === g.to ? g.from : `${g.from}–${g.to}`}</span>
+            <span class="dg-items">
+              {#if g.fightItems.length}
+                <span class="dg-sub">{t('guides.dungeon.mapFights', locale)}</span>
+                {#each g.fightItems as [iid, amount] (iid)}{@render rewardChip(iid, amount)}{/each}
+              {/if}
+              {#if g.finish.length}
+                {#if g.fightItems.length}<span class="dg-sub">{t('guides.dungeon.mapFinish', locale)}</span>{/if}
+                {#each g.finish as [iid, amount] (iid)}{@render rewardChip(iid, amount)}{/each}
+              {/if}
+            </span>
+          </li>
+        {/each}
+      {/if}
+    </ol>
+  {/snippet}
+
+  {#snippet detailBlock(id: string)}
+    {@const d = dungeonDetails[id]}
+    {#if d}
+      {@const lvl = levelText(d)}
+      {@const gv = geneView(d.genes)}
+      {@const rowsCount = d.maps?.length ?? d.milestones?.length ?? 0}
+      <div class="dg-meta">
+        {#if d.kind === 'dungeon'}
+          {#if d.cost}
+            <span class="dg-chip dg-chip-paid" title={t('guides.dungeon.entryTitle', locale)}>
+              {#if d.cost.icon}<img src={textureUrl(d.cost.icon)} alt="" loading="lazy" decoding="async" />{/if}
+              {t('guides.dungeon.entry', locale).replace('{cost}', d.cost.label)}
+            </span>
+          {:else}
+            <span class="dg-chip dg-chip-free" title={t('guides.dungeon.entryTitle', locale)}>{t('guides.dungeon.entryFree', locale)}</span>
+          {/if}
+          {#if d.limit}
+            <span class="dg-chip" title={t('guides.dungeon.limitTitle', locale)}>{t('guides.dungeon.limit', locale).replace('{n}', String(d.limit))}</span>
+          {/if}
+        {/if}
+        {#if d.energy}
+          <span class="dg-chip" title={t('guides.dungeon.energyTitle', locale)}>
+            <img src={textureUrl('/materials/icon_ticket.webp')} alt="" loading="lazy" decoding="async" />
+            {t('guides.dungeon.energy', locale).replace('{range}', energyRange(d.energy.min, d.energy.max))}
+          </span>
+        {/if}
+      </div>
+      {#if lvl || gv || d.stars}
+        <div class="dg-cond" title={t('guides.dungeon.condTitle', locale)}>
+          <div class="dg-cond-title">{t('guides.dungeon.reqTitle', locale)}</div>
+          {#if lvl}<span class="dg-cond-item">{lvl}</span>{/if}
+          {#if gv}
+            <span class="dg-cond-item">
+              {gv.except ? t('guides.dungeon.genesExcept', locale) : t('guides.dungeon.genesOnly', locale)}
+              {#each gv.list as g (g)}
+                <span class="dg-gene-tag" class:dg-gene-except={gv.except}>
+                  {#if getGeneIcon(g)}<img class="dg-gene" src={textureUrl(getGeneIcon(g))} alt="" loading="lazy" decoding="async" />{/if}
+                  {geneLabelL(g, locale)}
+                </span>
+              {/each}
+            </span>
+          {/if}
+          {#if d.stars}
+            <span class="dg-cond-item">
+              {t('guides.dungeon.stars', locale)}
+              {#each d.stars as s (s)}
+                {#if s === ''}
+                  <span class="dg-nostar">{t('guides.dungeon.noStar', locale)}</span>
+                {:else}
+                  <img class="dg-star" src={textureUrl(`/stars/star_${s}.webp`)} alt={starLabelL(s, locale)} title={starLabelL(s, locale)} loading="lazy" decoding="async" />
+                {/if}
+              {/each}
+            </span>
+          {/if}
+        </div>
+      {/if}
+      {#if rowsCount > 0}
+        {@const titleKey = d.kind === 'event' ? 'guides.dungeon.mapsTitle' : 'guides.dungeon.floorsTitle'}
+        {#if collapsible(id)}
+          <button class="dg-toggle" aria-expanded={!!openFloors[id]} onclick={() => (openFloors[id] = !openFloors[id])}>
+            <span>{t(titleKey, locale)} ({rowsCount})</span>
+            <span class="dg-chev" class:open={openFloors[id]}>▾</span>
+          </button>
+        {:else}
+          <div class="dg-title">{t(titleKey, locale)}</div>
+        {/if}
+        {#if floorsOpen(id)}{@render floorList(d, deepLinkId === id)}{/if}
+      {/if}
+    {/if}
+  {/snippet}
+
   {#snippet activityCard(
     id: string,
     dungeonType: 'raid' | 'experiment' | 'challenge' | 'event',
@@ -365,7 +559,7 @@
             {/each}
           </div>
         {/if}
-        {#if items.length}
+        {#if items.length && !dungeonDetails[id]}
           <div class="activity-items">
             {#each items as it, i (i)}
               <span class="activity-item-chip" title={it.label}>
@@ -375,6 +569,7 @@
             {/each}
           </div>
         {/if}
+        {@render detailBlock(id)}
       </div>
     </div>
   {/snippet}
@@ -1325,7 +1520,7 @@
     .fighter-card { max-width: 100%; }
   }
 
-  .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11.875rem, 1fr)); gap: 0.9rem; }
+  .activity-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(11.875rem, 1fr)); gap: 0.9rem; align-items: start; }
   .activity-card {
     display: flex; flex-direction: column; border-radius: 14px; overflow: hidden;
     background: linear-gradient(180deg, rgba(30,41,59,0.4) 0%, rgba(10,14,22,0.9) 70%);
@@ -1359,6 +1554,57 @@
   }
   .activity-item-chip img { width: 16px; height: 16px; object-fit: contain; flex-shrink: 0; }
   .activity-item-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Детали рейдов и лесенок: вход, лимит, энергия, условия, награды по этажам. */
+  .dg-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.45rem; }
+  .dg-chip {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; color: #cbd5e1;
+    background: rgba(30,41,59,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 2px 8px 2px 6px;
+  }
+  .dg-chip img { width: 14px; height: 14px; object-fit: contain; }
+  .dg-chip-paid { color: #fde68a; border-color: rgba(250,204,21,0.3); background: rgba(250,204,21,0.08); }
+  .dg-chip-free { color: #86efac; border-color: rgba(134,239,172,0.25); background: rgba(134,239,172,0.07); }
+  .dg-cond {
+    display: flex; flex-direction: column; gap: 3px; margin-top: 0.35rem; padding: 0.35rem 0.5rem; border-radius: 8px;
+    background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.18); font-size: 0.68rem; color: #bfdbfe;
+  }
+  .dg-cond-item { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .dg-cond-title { font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #93c5fd; }
+  .dg-gene { width: 16px; height: 16px; object-fit: contain; }
+  .dg-gene-tag { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px 1px 3px; border-radius: 999px; background: rgba(15,23,42,0.7); border: 1px solid rgba(96,165,250,0.3); color: #e2e8f0; font-weight: 700; }
+  .dg-gene-except { border-color: rgba(248,113,113,0.6); color: #fecaca; }
+  .dg-gene-except .dg-gene { filter: grayscale(0.4); }
+  .dg-star { width: 16px; height: 16px; object-fit: contain; }
+  .dg-nostar { color: #94a3b8; }
+  .dg-title { margin-top: 0.5rem; font-size: 0.66rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #93c5fd; }
+  .dg-toggle {
+    appearance: none; width: 100%; margin-top: 0.5rem; display: flex; align-items: center; justify-content: space-between; gap: 6px;
+    background: rgba(59,130,246,0.1); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.3rem 0.5rem;
+    font: inherit; font-size: 0.7rem; font-weight: 700; color: #bfdbfe; cursor: pointer; text-align: left;
+  }
+  .dg-toggle:hover { background: rgba(59,130,246,0.18); }
+  .dg-chev { transition: transform 0.15s ease; }
+  .dg-chev.open { transform: rotate(180deg); }
+  .dg-floors { list-style: none; margin: 0.35rem 0 0; padding: 0 2px 0 0; display: flex; flex-direction: column; gap: 3px; max-height: 22rem; overflow-y: auto; }
+  .dg-floors-flat { max-height: none; overflow: visible; }
+  .dg-row { display: flex; align-items: flex-start; gap: 6px; padding: 3px 4px; border-radius: 7px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.04); }
+  .dg-row-mutant { border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.07); }
+  .dg-floor {
+    flex: none; min-width: 2rem; white-space: nowrap; text-align: center; font-size: 0.66rem; font-weight: 800; color: #0f172a;
+    background: #93c5fd; border-radius: 5px; padding: 1px 4px; margin-top: 1px;
+  }
+  .dg-row-mutant .dg-floor { background: #fbbf24; }
+  .dg-items { display: flex; flex-wrap: wrap; gap: 3px; min-width: 0; align-items: center; }
+  .dg-sub { font-size: 0.6rem; color: #64748b; font-weight: 600; }
+  .dg-chip-item {
+    display: inline-flex; align-items: center; gap: 3px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px; padding: 1px 5px 1px 2px; font-size: 0.64rem; color: #cbd5e1; max-width: 100%;
+  }
+  .dg-chip-item img { width: 15px; height: 15px; object-fit: contain; flex-shrink: 0; }
+  .dg-chip-item span { overflow-wrap: anywhere; line-height: 1.2; }
+  button.dg-chip-item { appearance: none; font: inherit; font-size: 0.64rem; cursor: pointer; }
+  .dg-chip-mutant { color: #fde68a; border-color: rgba(251,191,36,0.45); font-weight: 700; }
+  .dg-chip-mutant:hover { background: rgba(251,191,36,0.15); }
 
   .soon-block { color: #64748b; padding: 2rem 0; text-align: center; font-size: 0.9rem; }
 

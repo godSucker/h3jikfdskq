@@ -70,6 +70,22 @@ export const GET: APIRoute = async ({ url }) => {
           .forEach((el) => el.remove())
       })
 
+      // Липкая шапка сайта и фиксированные панели (нижняя плавающая) не должны
+      // попасть в кадр: у длинных карточек (рейд на 300 этажей, ~1200px при
+      // viewport 700px) element.screenshot прокручивает карточку под шапку, и та
+      // закрывает арт. Те же приёмы - в screenshot-rebalance.ts.
+      await page.evaluate((sel) => {
+        const card = document.querySelector(sel)
+        document.querySelectorAll('header, footer').forEach((el) => {
+          ;(el as HTMLElement).style.display = 'none'
+        })
+        document.querySelectorAll<HTMLElement>('body *').forEach((el) => {
+          if (card && (card === el || card.contains(el))) return
+          const pos = getComputedStyle(el).position
+          if (pos === 'fixed' || pos === 'sticky') el.style.display = 'none'
+        })
+      }, selector)
+
       await page.waitForTimeout(150)
 
       const card = await page.$(selector)

@@ -119,6 +119,14 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
+      - name: 9.1 Детали рейдов/лесенок (вход, лимит, условия, награды по этажам)
+        # dungeon-details.json лежит ОТДЕЛЬНО от raids.json/special-ladders.json/
+        # event-ladders.json (их пишет finish-pending после ручного имени), так что
+        # шаг безопасно гонять каждый час: сам по себе данные не удаляет, а при
+        # сбое сети оставляет прежние записи. Печатает pve_event, которых нет на сайте.
+        if: always()
+        run: npx tsx scripts/sync-dungeon-details.ts
+
       - name: 9.5 Живые точные даты офферов (kartel getuser, acceptFuturFilters)
         # Статичные shopitems.xml/dailypopup.xml несут только номер спринта
         # (2-недельное окно) - точный день конкретного оффера решает сервер
@@ -299,6 +307,7 @@ jobs:
             scripts/pending-screenshots.json
             scripts/kartel/date-ledger.json
             src/data/mutants/offer-history.json
+            src/data/guides/dungeon-details.json
 
       - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
         # Этап 3 аудита Opus 5.5 (2026-09-23). file_pattern шага 11 ведётся
