@@ -34,6 +34,7 @@ import { getItemName } from '@/lib/materials-i18n'
 import { getBoxName } from '@/lib/boxes-i18n'
 import { getLocalizedMutantNames, type MutantNameEntry } from '@/lib/mutant-names-i18n'
 import { getDungeonName } from '@/lib/guides-content-i18n'
+import { buildDungeonDetailCard, type DungeonDetailCard } from '@/lib/dungeon-detail-view'
 import { formatDateIn, formatExactRange } from '@/lib/sprint-calendar'
 import {
   RIBBONS,
@@ -319,6 +320,8 @@ export interface AnnouncementRenderContext {
   mutantsById: Map<string, MutantRaw>
   dungeonById: Map<string, ResolvedDungeon>
   dungeonCoversMap: Record<string, string | null>
+  // entry cost, limit, requirements and per-floor rewards, same as the cards on /guides
+  dungeonDetail: (id: string) => DungeonDetailCard | null
   boxesById: Map<string, BoxEntry>
   boxesByIdLower: Map<string, BoxEntry>
   bingosById: Map<string, string>
@@ -441,6 +444,7 @@ function buildContext(locale: Locale): AnnouncementRenderContext {
     ),
   ])
   const dungeonCoversMap = dungeonCovers as Record<string, string | null>
+  const detailCache = new Map<string, DungeonDetailCard | null>()
   const boxesById = new Map((boxesData as BoxEntry[]).map((b) => [b.itemId, b]))
   const boxesByIdLower = new Map((boxesData as BoxEntry[]).map((b) => [b.itemId.toLowerCase(), b]))
   const bingosById = new Map(
@@ -520,6 +524,10 @@ function buildContext(locale: Locale): AnnouncementRenderContext {
     mutantsById,
     dungeonById,
     dungeonCoversMap,
+    dungeonDetail: (id: string) => {
+      if (!detailCache.has(id)) detailCache.set(id, buildDungeonDetailCard(id, locale, rewardCtx))
+      return detailCache.get(id) ?? null
+    },
     boxesById,
     boxesByIdLower,
     bingosById,
