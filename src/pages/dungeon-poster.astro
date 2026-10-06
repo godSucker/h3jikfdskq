@@ -1,0 +1,295 @@
+---
+// Постер ОДНОГО рейда / лесенки / ивент-лесенки: условия входа слева, награды по
+// этажам справа. Для рендера в PNG (бот-анонсер, посты в Telegram), не для
+// посетителей. Открывается как /dungeon-poster?id=<id>[&from=<ISO>&to=<ISO>].
+// Не в навигации, noindex. Данные - из @/lib/dungeon-poster (те же, что /guides).
+export const prerender = false
+
+import { textureUrl } from '@/lib/texture-cdn'
+import { getPosterData, type PosterItem } from '@/lib/dungeon-poster'
+
+const id = Astro.url.searchParams.get('id') ?? ''
+const data = getPosterData(id)
+if (!data) Astro.response.status = 404
+
+// Окно события: дата в Москве, как в карточках анонсов. Без параметров даты не рисуем.
+function fmtDate(raw: string | null): string | null {
+  if (!raw) return null
+  const d = new Date(raw)
+  if (Number.isNaN(d.getTime())) return null
+  return d.toLocaleDateString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    timeZone: 'Europe/Moscow',
+  })
+}
+const from = fmtDate(Astro.url.searchParams.get('from'))
+const to = fmtDate(Astro.url.searchParams.get('to'))
+
+const STAR_ICON: Record<string, string> = {
+  '': '/stars/no_stars.webp',
+  bronze: '/stars/star_bronze.webp',
+  silver: '/stars/star_silver.webp',
+  gold: '/stars/star_gold.webp',
+  platinum: '/stars/star_platinum.webp',
+}
+const STAR_NAME: Record<string, string> = {
+  '': 'Без звезды',
+  bronze: 'Бронза',
+  silver: 'Серебро',
+  gold: 'Золото',
+  platinum: 'Платина',
+}
+
+function ticketsText(t: { min: number; max: number } | null): string | null {
+  if (!t) return null
+  return t.min === t.max ? String(t.min) : `${t.min}–${t.max}`
+}
+function amountText(it: PosterItem): string {
+  return `${it.amount.toLocaleString('ru-RU')} шт.`
+}
+
+const isEvent = data?.kind === 'event'
+const cellCount = data?.cells.length ?? 0
+const name = data?.name ?? 'Не найдено'
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>{name}</title>
+  <link rel="stylesheet" href="/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+  <style is:global>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0d1117; }
+    body {
+      font-family: "TT Supermolot Neue", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
+      color: #f1f5f9;
+      width: 1700px;
+    }
+
+    .poster {
+      position: relative;
+      width: 1700px;
+      padding: 36px 40px 32px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 700px 1fr;
+      gap: 30px;
+      background: #0d1117;
+    }
+
+    /* Арена лесенки (как на сайте): скрин по ширине постера сверху, дальше плавно в тёмный фон. */
+    .bg { position: absolute; top: 0; left: 0; right: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .bg img { display: block; width: 100%; height: auto; }
+    .bg::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(8, 12, 20, 0.35) 0%, rgba(8, 12, 20, 0.6) 50%, #0d1117 100%); }
+
+    /* Водяной знак: диагональная плитка поверх всего постера. */
+    .wm {
+      position: absolute; inset: -50%; transform: rotate(-24deg);
+      display: flex; flex-direction: column; gap: 90px; justify-content: center; align-items: center;
+      pointer-events: none; z-index: 5; opacity: 0.04;
+      font-size: 34px; letter-spacing: 0.22em; white-space: nowrap; color: #fff;
+    }
+
+    .left { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+    .right { position: relative; z-index: 2; min-width: 0; }
+
+    .top { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 170px; }
+    .logo { max-width: 470px; max-height: 170px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55)); }
+    .logo-text { font-size: 46px; line-height: 1.05; max-width: 470px; }
+    .dates { display: flex; flex-direction: column; gap: 6px; font-size: 38px; line-height: 1.1; text-align: left; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
+
+    .panel {
+      border-radius: 34px;
+      background: rgba(15, 23, 42, 0.66);
+      border: 2px solid rgba(148, 163, 184, 0.45);
+    }
+    .panel h2 { font-size: 44px; line-height: 1.1; text-align: center; font-weight: 600; }
+
+    .cond { padding: 26px 26px 26px; }
+    .cost { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; font-size: 32px; font-weight: 600; }
+    .cost img { width: 46px; height: 44px; object-fit: contain; }
+    .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+    .chip { padding: 4px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14); font-size: 19px; color: #cbd5e1; font-weight: 600; }
+
+    .cond-grid { display: grid; grid-template-columns: 170px minmax(0, 1fr) 170px; margin-top: 22px; }
+    .col { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+    .col.mid { align-items: center; padding: 0 12px; border-left: 2px solid rgba(148, 163, 184, 0.3); border-right: 2px solid rgba(148, 163, 184, 0.3); }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 82px; }
+    .row img { height: 74px; width: auto; max-width: 84px; object-fit: contain; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6)); }
+    .row.off img { opacity: 0.55; }
+    .mark { width: 62px; height: 62px; flex: none; }
+
+    .level { font-size: 30px; line-height: 1.2; text-align: center; font-weight: 600; margin-top: 4px; }
+    .level b { display: block; font-weight: 700; font-size: 34px; color: #fde68a; }
+    .stand { margin: auto 0; padding-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: 100%; }
+    .mwrap { position: relative; max-width: 100%; overflow: hidden; }
+    .mutant { display: block; max-width: 100%; max-height: 560px; object-fit: contain; filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.55)); }
+    /* Вотермарка прямо по арту мутанта: вырезать его из постера без следов не получится. */
+    .mwm { position: absolute; inset: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; transform: rotate(-24deg) scale(1.5); pointer-events: none; }
+    .mwm span { font-size: 20px; letter-spacing: 0.16em; white-space: nowrap; color: #fff; opacity: 0.15; text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); }
+    .mname { font-size: 30px; line-height: 1.1; font-weight: 600; text-align: center; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); }
+
+    .foot { margin-top: auto; display: flex; flex-direction: column; gap: 8px; padding: 6px 4px 0; }
+    .foot .note { font-size: 14px; line-height: 1.35; color: #94a3b8; font-weight: 500; }
+    .foot .brand { font-size: 20px; letter-spacing: 0.18em; color: #f1f5f9; }
+
+    .rewards { padding: 26px 20px 28px; height: 100%; }
+    .grid { display: grid; grid-template-columns: repeat(var(--cols), 1fr); margin-top: 26px; row-gap: 18px; }
+    .c { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 6px 14px; border-left: 2px solid rgba(148, 163, 184, 0.28); min-width: 0; }
+    .c:nth-child(5n + 1) { border-left: none; }
+    .num { font-size: 84px; line-height: 1; font-weight: 600; letter-spacing: -0.01em; }
+    .num.range { font-size: 56px; padding-top: 14px; }
+    .each { font-size: 17px; color: #94a3b8; font-weight: 500; margin-top: -2px; }
+    .it { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%; }
+    .it img { width: 92px; height: 92px; object-fit: contain; filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.55)); }
+    .it.m img { border-radius: 14px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.14); object-fit: cover; }
+    .many .it img { width: 62px; height: 62px; }
+    .cnt { font-size: 34px; line-height: 1.1; font-weight: 600; }
+    .many .cnt { font-size: 26px; }
+    .nm { font-size: 15px; line-height: 1.15; color: #cbd5e1; font-weight: 500; text-align: center; max-width: 100%; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .pf { margin-top: 6px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 5px 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); }
+    .pf .cap { font-size: 13px; color: #94a3b8; font-weight: 500; }
+    .pf .line { display: flex; align-items: center; gap: 5px; font-size: 18px; font-weight: 600; }
+    .pf img { width: 28px; height: 28px; object-fit: contain; }
+    .empty { grid-column: 1 / -1; text-align: center; padding: 60px 0; color: #94a3b8; font-size: 26px; }
+  </style>
+</head>
+<body>
+  {data ? (
+    <div class="poster" data-dungeon-id={data.id} data-cells={cellCount}>
+      <div class="bg">{data.screenUrl && <img src={data.screenUrl} alt="" loading="eager" decoding="sync" />}</div>
+      <div class="wm" aria-hidden="true">
+        {Array.from({ length: 40 }).map(() => (
+          <span>ARCHIVIST-LIBRARY.COM &nbsp;&nbsp;&nbsp; ARCHIVIST-LIBRARY.COM &nbsp;&nbsp;&nbsp; ARCHIVIST-LIBRARY.COM</span>
+        ))}
+      </div>
+
+      <div class="left">
+        <div class="top">
+          {data.titleUrl
+            ? <img class="logo" src={data.titleUrl} alt={data.name} loading="eager" decoding="sync" />
+            : <div class="logo-text">{data.name}</div>}
+          {(from || to) && (
+            <div class="dates">
+              {from && <span>{from}</span>}
+              {to && <span>{to}</span>}
+            </div>
+          )}
+        </div>
+
+        <div class="panel cond">
+          <h2>Условия для прохождения</h2>
+          {isEvent ? (
+            <div class="cost"><span>Билеты за бой: {ticketsText(data.tickets)}</span></div>
+          ) : (
+            <div class="cost">
+              {data.cost ? (
+                <>
+                  <span>Стоимость: {data.cost.amount.toLocaleString('ru-RU')}</span>
+                  <img src={textureUrl(data.cost.type === 'hardcurrency' ? '/cash/hardcurrency.webp' : '/cash/softcurrency.webp')} alt="" loading="eager" decoding="sync" />
+                </>
+              ) : (
+                <span>Стоимость: бесплатно</span>
+              )}
+            </div>
+          )}
+          <div class="meta">
+            <span class="chip">{isEvent ? 'Боёв' : 'Этажей'}: {data.floors}</span>
+            {!isEvent && data.tickets && <span class="chip">Билеты за бой: {ticketsText(data.tickets)}</span>}
+            {data.limit && <span class="chip">Лимит: {data.limit}</span>}
+          </div>
+
+          <div class="cond-grid">
+            <div class="col">
+              {data.genes.map((g) => (
+                <div class:list={['row', { off: !g.allowed }]} title={g.label}>
+                  {g.icon && <img src={textureUrl(g.icon)} alt={g.label} loading="eager" decoding="sync" />}
+                  {g.allowed ? (
+                    <svg class="mark" viewBox="0 0 64 64" aria-label="можно"><path d="M10 34 L25 49 L54 13" fill="none" stroke="#4ade80" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  ) : (
+                    <svg class="mark" viewBox="0 0 64 64" aria-label="нельзя"><circle cx="32" cy="32" r="26" fill="rgba(127,29,29,0.45)" stroke="#ef4444" stroke-width="7"/><path d="M14 50 L50 14" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/></svg>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div class="col mid">
+              <div class="level">Уровень мутантов:<b>{data.levelText}</b></div>
+              {data.mutantArt && (
+                <div class="stand">
+                  <div class="mwrap">
+                    <img class="mutant" src={textureUrl(data.mutantArt)} alt="" loading="eager" decoding="sync" onerror="this.parentElement.remove()" />
+                    <div class="mwm" aria-hidden="true">
+                      {Array.from({ length: 10 }).map(() => <span>ARCHIVIST-LIBRARY.COM</span>)}
+                    </div>
+                  </div>
+                  {data.mutantName && <div class="mname">{data.mutantName}</div>}
+                </div>
+              )}
+            </div>
+
+            <div class="col">
+              {data.stars.map((s) => (
+                <div class:list={['row', { off: !s.allowed }]} title={STAR_NAME[s.key]}>
+                  <img src={textureUrl(STAR_ICON[s.key])} alt={STAR_NAME[s.key]} loading="eager" decoding="sync" />
+                  {s.allowed ? (
+                    <svg class="mark" viewBox="0 0 64 64" aria-label="можно"><path d="M10 34 L25 49 L54 13" fill="none" stroke="#4ade80" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  ) : (
+                    <svg class="mark" viewBox="0 0 64 64" aria-label="нельзя"><circle cx="32" cy="32" r="26" fill="rgba(127,29,29,0.45)" stroke="#ef4444" stroke-width="7"/><path d="M14 50 L50 14" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/></svg>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span class="brand">ARCHIVIST-LIBRARY.COM</span>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="panel rewards">
+          <h2>{isEvent ? 'Награды за прохождение карт' : 'Награды за прохождение этапов'}</h2>
+          <div class="grid" style={`--cols:${Math.max(1, Math.min(5, cellCount))}`}>
+            {data.cells.map((cell) => (
+              <div class:list={['c', { many: cell.items.length > 1 }]}>
+                <div class:list={['num', { range: cell.range }]}>{cell.label}</div>
+                {cell.range && <div class="each">за каждый этаж</div>}
+                {cell.items.map((it) => (
+                  <div class:list={['it', { m: it.isMutant }]}>
+                    {it.icon && <img src={textureUrl(it.icon)} alt={it.name} loading="eager" decoding="sync" />}
+                    <div class="cnt">{amountText(it)}</div>
+                    <div class="nm">{it.name}</div>
+                  </div>
+                ))}
+                {cell.perFight.length > 0 && (
+                  <div class="pf">
+                    <span class="cap">за бои на карте</span>
+                    {cell.perFight.map((it) => (
+                      <div class="line">
+                        {it.icon && <img src={textureUrl(it.icon)} alt="" loading="eager" decoding="sync" />}
+                        <span>{it.amount.toLocaleString('ru-RU')} шт.</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            {cellCount === 0 && <div class="empty">В конфиге нет наград за этапы</div>}
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="poster"><div class="empty">«{id}» не найден</div></div>
+  )}
+</body>
+</html>
