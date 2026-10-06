@@ -9,6 +9,7 @@ import { abilityLabelL } from '@/lib/mutant-dicts';
 import { getGeneIcon, STAR_KEYS, STAR_MULTIPLIERS } from '@/lib/mutant-icons';
 import { sortMutantsByGene } from '@/lib/mutant-sort';
 import { t, localeFromAstro, pluralizeCount } from '@/lib/i18n';
+import { SCAM_TIER, tierText } from '@/lib/tier-label';
 import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
@@ -40,8 +41,8 @@ const fmtDate = (iso: string) =>
   new Date(iso).toLocaleDateString(INTL_LOCALE[locale] ?? 'ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
 // Тир (1 - лучший ... 4 - худший, +/- внутри тира) -> цвет бейджа, тот же принцип, что в TierList.svelte
-const TIER_COLOR: Record<string, string> = { '1': '#f87171', '2': '#fb923c', '3': '#facc15', '4': '#4ade80' };
-const tierColor = (tier: string) => TIER_COLOR[tier[0]] ?? '#94a3b8';
+const TIER_COLOR: Record<string, string> = { '1': '#f87171', '2': '#fb923c', '3': '#facc15', '4': '#4ade80', [SCAM_TIER]: '#e879f9' };
+const tierColor = (tier: string) => TIER_COLOR[tier === SCAM_TIER ? tier : tier[0]] ?? '#94a3b8';
 
 interface MutantMeta {
   head: string | null;
@@ -316,7 +317,7 @@ const pctDeltaCls = (pct: Pair | null): string => {
                       })}
                       {row.tier && (
                         <span class="tier-badge" style={`color:${tierColor(row.tier)};border-color:${tierColor(row.tier)}`}>
-                          {t('rebalance.tierLabel', locale)}: {row.tier}
+                          {t('rebalance.tierLabel', locale)}: {tierText(row.tier, locale)}
                         </span>
                       )}
                     </div>
