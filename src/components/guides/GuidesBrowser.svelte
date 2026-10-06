@@ -70,6 +70,8 @@
   interface DetailItem { name: string; icon: string | null; mutant?: MutantLite }
   interface DungeonView {
     kind: 'dungeon' | 'event'
+    // false: the dungeon is not in the game registry any more, so cost and limit are unknown
+    known: boolean
     cost: ResolvedItem | null
     limit: number | null
     minLevel: number | null
@@ -453,7 +455,7 @@
               {#if d.cost.icon}<img src={textureUrl(d.cost.icon)} alt="" loading="lazy" decoding="async" />{/if}
               {t('guides.dungeon.entry', locale).replace('{cost}', d.cost.label)}
             </span>
-          {:else}
+          {:else if d.known}
             <span class="dg-chip dg-chip-free" title={t('guides.dungeon.entryTitle', locale)}>{t('guides.dungeon.entryFree', locale)}</span>
           {/if}
           {#if d.limit}

@@ -47,6 +47,8 @@ export interface PosterData {
   id: string
   kind: DungeonKind
   name: string
+  // false: not in the game registry any more, entry cost, limit and conditions are unknown
+  known: boolean
   titleUrl: string | null
   screenUrl: string | null
   cost: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null
@@ -66,6 +68,7 @@ interface DetailsFile {
     string,
     {
       type: 'raid' | 'experiment' | 'challenge'
+      active: boolean
       title?: string | null
       screen?: string | null
       entryCost: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null
@@ -215,6 +218,7 @@ function buildPosterData(id: string): PosterData | null {
       id,
       kind: d.type,
       name,
+      known: d.active,
       titleUrl: d.title ?? null,
       screenUrl: d.screen ?? null,
       cost: d.entryCost,
@@ -251,6 +255,7 @@ function buildPosterData(id: string): PosterData | null {
       id,
       kind: 'event',
       name,
+      known: true,
       titleUrl: e.title ?? null,
       screenUrl: e.screen ?? null,
       cost: null,
