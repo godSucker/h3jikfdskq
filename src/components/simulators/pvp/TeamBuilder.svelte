@@ -14,6 +14,7 @@
   import IconSelect from './IconSelect.svelte'
   import OrbPicker from './OrbPicker.svelte'
   import { t, type Locale } from '@/lib/i18n'
+  import { SCAM_TIER, tierText } from '@/lib/tier-label'
   import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 
   interface SlotConfig {
@@ -208,6 +209,7 @@
     '2': 'bg-orange-500/15 text-orange-300 ring-1 ring-orange-500/40',
     '3': 'bg-yellow-500/15 text-yellow-300 ring-1 ring-yellow-500/40',
     '4': 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/40',
+    [SCAM_TIER]: 'bg-fuchsia-500/15 text-fuchsia-300 ring-1 ring-fuchsia-500/40',
   }
 
   function tierClass(tier: string | undefined): string {
@@ -470,7 +472,7 @@
                 {/if}
                 {#if mutant.tier}
                   <span class={`inline-flex items-center rounded px-1.5 py-0.5 text-[11px] font-semibold ${tierClass(mutant.tier)}`}>
-                    {t('pvp.tier', locale).replace('{n}', mutant.tier)}
+                    {t('pvp.tier', locale).replace('{n}', tierText(mutant.tier, locale))}
                   </span>
                 {/if}
                 {#if ability}

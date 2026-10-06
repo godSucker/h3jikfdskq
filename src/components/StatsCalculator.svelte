@@ -10,6 +10,7 @@
   import { applySpeedSphere } from '@/lib/stats/speed-sphere-table';
   import { textureUrl } from '@/lib/texture-cdn';
   import { t, type Locale } from '@/lib/i18n';
+  import { tierText } from '@/lib/tier-label';
   import { getItemName } from '@/lib/materials-i18n';
   import {
     GENE_NAMES,
@@ -75,7 +76,7 @@
       const typeKey = String(typeRaw || '').trim();
       const typeKind = typeKey.toLowerCase();
       const typeLabel = readableType(typeRaw);
-      const tierLabel = readableTier(tierRaw);
+      const tierLabel = tierText(readableTier(tierRaw), locale);
       const basicSlotCount = Number.isFinite(m.orbs?.normal) ? m.orbs.normal : slotsForType(typeKind);
       
       // Build available stars from m.stars object

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 
-const VALID_TIERS = ['1', '1+', '1-', '2', '2+', '2-', '3', '3+', '3-', '4', 'un-tired']
+const VALID_TIERS = ['1', '1+', '1-', '2', '2+', '2-', '3', '3+', '3-', '4', 'un-tired', 'скам']
 
 // Тиры пишутся не только отсюда - есть ещё редактор на превью-ветке
 // (кнопка публикации тиров в mutants.json на main). Оба писателя должны
@@ -66,7 +66,7 @@ function getFormatsMessage(): string {
     'Робот,2-',
     'Голиаф:3',
     '```',
-    '_Валидные тиры: 1, 1+, 1-, 2, 2+, 2-, 3, 3+, 3-, 4, un-tired_',
+    '_Валидные тиры: 1, 1+, 1-, 2, 2+, 2-, 3, 3+, 3-, 4, un-tired, скам_',
   ].join('\n')
 }
 
@@ -1144,8 +1144,11 @@ export const POST: APIRoute = async ({ request }) => {
       // Поэтому сначала снимаем tier со всех, потом проставляем свежий набор.
       let count = 0
       let cleared = 0
+      // Шуточный тир 'скам' (Финансовая акула) снимать молча нельзя: его
+      // проставляют руками, и файл тиров от бота его обычно не содержит.
+      // Явная строка "Имя (тир)" для этого мутанта по-прежнему перезапишет.
       for (const m of currentMutants as { id?: string; tier?: string }[]) {
-        if (m.id && !(m.id in parsedTiers) && m.tier != null) {
+        if (m.id && !(m.id in parsedTiers) && m.tier != null && m.tier !== 'скам') {
           delete m.tier
           cleared++
         }

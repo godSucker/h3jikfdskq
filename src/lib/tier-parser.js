@@ -8,7 +8,7 @@
  */
 
 // Valid tier values
-const VALID_TIERS = ['1', '1+', '1-', '2', '2+', '2-', '3', '3+', '3-', '4', 'un-tired']
+const VALID_TIERS = ['1', '1+', '1-', '2', '2+', '2-', '3', '3+', '3-', '4', 'un-tired', 'скам']
 
 /**
  * Strip decoration from a name, keeping letters of ANY script (incl. Cyrillic),
@@ -28,7 +28,7 @@ function normalizeForComparison(str) {
 
 /**
  * Normalize tier value to accepted format
- * Valid tiers: 1, 1+, 1-, 2, 2+, 2-, 3, 3+, 3-, 4, un-tired
+ * Valid tiers: 1, 1+, 1-, 2, 2+, 2-, 3, 3+, 3-, 4, un-tired, скам
  */
 function normalizeTierValue(tier) {
   tier = String(tier).trim()
@@ -47,6 +47,7 @@ function normalizeTierValue(tier) {
     '3-': '3-',
     4: '4',
     'UN-TIRED': 'un-tired',
+    СКАМ: 'скам',
     // Russian variations
     '1ПЛЮС': '1+',
     '1МИНУС': '1-',

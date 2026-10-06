@@ -30,6 +30,7 @@
   import toplistsData from '@/data/mutants/toplists.json';
   import skinIconsData from '@/data/mutants/skin-icons.json';
   import { t, type Locale } from '@/lib/i18n';
+  import { tierText } from '@/lib/tier-label';
 
   // Топ/анти-топ бейджи - берём только "текущий" (последний) снапшот toplists.json,
   // который пересобирается build-toplists.ts при каждом обновлении mutants.json,
@@ -806,7 +807,7 @@
         </div>
         <div class="flex items-center gap-2 shrink-0">
           {#if mutant?.tier}
-            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">{t('modal.tierBadge', locale).replace('{n}', String(mutant.tier))}</span>
+            <span class="px-2 py-1 rounded-full text-[11px] bg-emerald-500/15 text-emerald-100 ring-1 ring-emerald-500/40">{t('modal.tierBadge', locale).replace('{n}', tierText(mutant.tier, locale))}</span>
           {/if}
           <span class={`px-2 py-1 rounded-full text-[10px] ring-1 ${STAR_COLOR[shownStar]}`}>{starLabelL(shownStar, locale)}</span>
         </div>
