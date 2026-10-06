@@ -96,13 +96,18 @@ export function buildDungeonDetailCard(
   locale: Locale,
   rewardCtx: RewardResolveCtx,
 ): DungeonDetailCard | null {
-  const itemCache = new Map<string, { name: string; icon: string | null; mutantId: string | null }>()
+  const itemCache = new Map<
+    string,
+    { name: string; icon: string | null; mutantId: string | null }
+  >()
   const item = (pair: Pair): DetailItem => {
     let base = itemCache.get(pair.id)
     if (!base) {
       const r = resolveReward({ type: 'entity', id: pair.id, amount: '1' }, rewardCtx)
       // luxe zones (Habitat_*_HC) resolve without an icon, the file name is the lowercase id
-      const icon = r.icon ?? (/^Habitat_.+_HC$/.test(pair.id) ? `/zones/luxe/${pair.id.toLowerCase()}.webp` : null)
+      const icon =
+        r.icon ??
+        (/^Habitat_.+_HC$/.test(pair.id) ? `/zones/luxe/${pair.id.toLowerCase()}.webp` : null)
       base = { name: r.label, icon, mutantId: r.mutant?.id ?? null }
       itemCache.set(pair.id, base)
     }
