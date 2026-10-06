@@ -43,6 +43,10 @@ export interface DungeonDetail {
   entryCost: { amount: number; type: 'hardcurrency' | 'softcurrency' } | null
   completionMax: number | null
   conditions: Conditions | null
+  // title logo on the Kobojo CDN (pveeventcontent), null = none found
+  title?: string | null
+  // arena screenshot (screen_<asset>.jpg), the poster background
+  screen?: string | null
   floors: number
   energy: { min: number; max: number; total: number } | null
   milestones: { floor: number; items: ItemAmount[] }[]
@@ -55,6 +59,8 @@ export interface EventMapDetail {
 }
 export interface EventDetail {
   active: boolean
+  title?: string | null
+  screen?: string | null
   energy: { min: number; max: number; total: number } | null
   maps: EventMapDetail[]
 }
@@ -122,6 +128,7 @@ function energySummary(values: number[]): { min: number; max: number; total: num
 }
 
 interface RegistryEntry {
+  assetId: string | null
   type: DungeonDetail['type']
   completionMax: number | null
   entryCost: DungeonDetail['entryCost']
@@ -156,6 +163,7 @@ export function parseRegistry(xml: string): Map<string, RegistryEntry> {
       conditions = empty ? null : c
     }
     out.set(head.id, {
+      assetId: head.assetId || null,
       type: head.type as DungeonDetail['type'],
       completionMax: head.completionMax ? Number(head.completionMax) : null,
       entryCost:
@@ -209,6 +217,49 @@ export function parseEventFile(xml: string): Pick<EventDetail, 'energy' | 'maps'
     })
   }
   return { energy: energySummary(all), maps }
+}
+
+const ASSET_BASE = 'https://s-beta.kobojo.com/mutants/assets/pveeventcontent/'
+
+async function urlExists(url: string): Promise<boolean> {
+  try {
+    const res = await axios.head(url, {
+      timeout: 8000,
+      validateStatus: (s) => s === 200 || s === 404,
+    })
+    return res.status === 200
+  } catch {
+    return false
+  }
+}
+
+// Title logo: title_<c>-ru.png, falling back to title_<c>.png. Candidates in order:
+// the registry assetId (69 of 105 dungeons use an asset that differs from the id,
+// e.g. vegas_16 -> vegas), the id, the id without "season_", the id without "_N".
+// 147 of 147 resolved on 2026-10-06.
+function assetCandidates(id: string, assetId: string | null): string[] {
+  const noSeason = id.replace(/^season_/, '')
+  return [
+    ...new Set([assetId, id, noSeason, noSeason.replace(/_\d+$/, '')].filter(Boolean) as string[]),
+  ]
+}
+
+export async function resolveScreen(id: string, assetId: string | null): Promise<string | null> {
+  for (const c of assetCandidates(id, assetId)) {
+    const url = `${ASSET_BASE}screen_${c}.jpg`
+    if (await urlExists(url)) return url
+  }
+  return null
+}
+
+export async function resolveTitle(id: string, assetId: string | null): Promise<string | null> {
+  for (const c of assetCandidates(id, assetId)) {
+    for (const suffix of ['-ru.png', '.png']) {
+      const url = `${ASSET_BASE}title_${c}${suffix}`
+      if (await urlExists(url)) return url
+    }
+  }
+  return null
 }
 
 async function mapLimit<T, R>(items: T[], limit: number, fn: (x: T) => Promise<R>): Promise<R[]> {
@@ -278,6 +329,9 @@ async function main() {
       entryCost: reg ? reg.entryCost : (old?.entryCost ?? null),
       completionMax: reg ? reg.completionMax : (old?.completionMax ?? null),
       conditions: reg ? reg.conditions : (old?.conditions ?? null),
+      title: old?.title ?? (await resolveTitle(id, reg?.assetId ?? null)),
+      screen:
+        old?.screen !== undefined ? old.screen : await resolveScreen(id, reg?.assetId ?? null),
       ...body,
     }
   })
@@ -289,7 +343,13 @@ async function main() {
       console.error(`[DUNGEON-DETAILS] pve_event/${id}.xml not downloaded, keeping previous entry`)
       return
     }
-    next.events[id] = { active: manifestEvents.includes(id), ...parseEventFile(xml) }
+    const oldEvent = prev.events[id]
+    next.events[id] = {
+      active: manifestEvents.includes(id),
+      title: oldEvent?.title ?? (await resolveTitle(id, null)),
+      screen: oldEvent?.screen !== undefined ? oldEvent.screen : await resolveScreen(id, null),
+      ...parseEventFile(xml),
+    }
   })
 
   const sortObj = <T>(o: Record<string, T>) =>

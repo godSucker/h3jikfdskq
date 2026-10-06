@@ -141,6 +141,21 @@ async function forecastWeeksToShoot(announcementId: string): Promise<(1 | 2)[]> 
   }
 }
 
+// Окно рейда/лесенки берём из самого анонса (exactDateStart/exactDateEnd, их
+// проставляет build-announcements.ts по kartel-фильтрам). Нет дат - постер без них.
+async function dungeonPosterUrl(job: PendingScreenshotJob): Promise<string> {
+  const params = new URLSearchParams({ id: job.itemIds[0] })
+  try {
+    const all = JSON.parse(await fs.readFile(ANNOUNCEMENTS_PATH, 'utf-8')) as Announcement[]
+    const item = all.find((x) => x.id === job.id)?.items.find((i) => i.id === job.itemIds[0])
+    if (item?.exactDateStart) params.set('from', item.exactDateStart)
+    if (item?.exactDateEnd) params.set('to', item.exactDateEnd)
+  } catch {
+    // без дат
+  }
+  return `${SITE}/api/screenshot-dungeon?${params}`
+}
+
 async function attemptDeliver(
   job: PendingScreenshotJob,
   target: AnnounceTarget,
@@ -242,6 +257,19 @@ async function attemptDeliver(
       if (ok) anySent = true
     }
     return anySent ? 'sent' : 'retry'
+  }
+
+  // raid/ladder: постер /dungeon-poster (условия входа + награды по этажам, даты
+  // окна из анонса). Постер только RU. Не получился - на последней попытке
+  // падаем на карточку анонса ниже, чтобы анонс не потерялся совсем.
+  if ((job.category === 'raid' || job.category === 'ladder') && !en) {
+    const poster = await fetchPhoto(await dungeonPosterUrl(job))
+    if (poster.ok) {
+      return (await sendAdminPhoto(poster.buffer, caption, `${job.category}-${job.id}.png`, target))
+        ? 'sent'
+        : 'retry'
+    }
+    if (job.attempts < MAX_ATTEMPTS - 1) return 'retry'
   }
 
   const primary = await fetchPhoto(
