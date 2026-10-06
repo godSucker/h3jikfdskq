@@ -876,7 +876,7 @@
         },
         {
           "id": "Star_Gold",
-          "amount": 1
+          "amount": 4
         },
         {
           "id": "Material_Gacha_Token",
@@ -982,7 +982,7 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 1
+          "amount": 2
         },
         {
           "id": "Star_Gold",
@@ -1672,7 +1672,7 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 1
+          "amount": 2
         },
         {
           "id": "Star_Gold",
