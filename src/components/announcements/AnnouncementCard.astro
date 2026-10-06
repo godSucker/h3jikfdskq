@@ -103,6 +103,7 @@ const bingoShotFile =
   kind === 'bingo' && it ? (bingoScreenshots as Record<string, { file: string }>)[it.id]?.file : undefined
 const dungeon = kind === 'dungeon' && it ? ctx.dungeonById.get(it.id) : null
 const dungeonCover = kind === 'dungeon' && it ? ctx.dungeonCoversMap[it.id] : null
+const dungeonDetail = kind === 'dungeon' && it ? ctx.dungeonDetail(it.id) : null
 const mutantLite = kind === 'mutant' && it ? resolveMutantLite(it.id, ctx.mutantsById) : null
 const skinBaseId = kind === 'skin' && it ? it.id.split('|')[0]?.toLowerCase() : null
 // Имя скина в данных записано по-русски ("Шин Хакухо — school"): имя мутанта
@@ -284,7 +285,89 @@ const forecastWeeks =
         )}
         <div class="dg-secondary">{dungeon.fightCount} {pluralizeCount(dungeon.fightCount, locale, 'announcements.count.fight')}</div>
         {date(it) && <div class="dg-exact-date">{date(it)}</div>}
-        {dungeon.currency.length > 0 && (
+        {dungeonDetail && (
+          <>
+            <div class="dd-meta">
+              {dungeonDetail.kind === 'dungeon' && dungeonDetail.cost && (
+                <span class="dd-chip dd-chip-paid" title={tr('guides.dungeon.entryTitle')}>
+                  {dungeonDetail.cost.icon && <img src={textureUrl(dungeonDetail.cost.icon)} alt="" loading="lazy" decoding="async" />}
+                  {tr('guides.dungeon.entry').replace('{cost}', dungeonDetail.cost.label)}
+                </span>
+              )}
+              {dungeonDetail.kind === 'dungeon' && !dungeonDetail.cost && dungeonDetail.known && (
+                <span class="dd-chip dd-chip-free" title={tr('guides.dungeon.entryTitle')}>{tr('guides.dungeon.entryFree')}</span>
+              )}
+              {dungeonDetail.kind === 'dungeon' && dungeonDetail.known && dungeonDetail.limit && (
+                <span class="dd-chip" title={tr('guides.dungeon.limitTitle')}>{tr('guides.dungeon.limit').replace('{n}', String(dungeonDetail.limit))}</span>
+              )}
+              {dungeonDetail.tickets && (
+                <span class="dd-chip" title={tr('guides.dungeon.energyTitle')}>
+                  <img src={textureUrl('/materials/icon_ticket.webp')} alt="" loading="lazy" decoding="async" />
+                  {tr('guides.dungeon.energy').replace('{range}', dungeonDetail.tickets)}
+                </span>
+              )}
+            </div>
+            {(dungeonDetail.level || dungeonDetail.genes || dungeonDetail.stars) && (
+              <div class="dd-cond" title={tr('guides.dungeon.condTitle')}>
+                <div class="dd-cond-title">{tr('guides.dungeon.reqTitle')}</div>
+                {dungeonDetail.level && <span class="dd-cond-item">{dungeonDetail.level}</span>}
+                {dungeonDetail.genes && (
+                  <span class="dd-cond-item">
+                    {dungeonDetail.genes.except ? tr('guides.dungeon.genesExcept') : tr('guides.dungeon.genesOnly')}
+                    {dungeonDetail.genes.list.map((g) => (
+                      <span class:list={['dd-gene-tag', { 'dd-gene-except': dungeonDetail.genes?.except }]}>
+                        {g.icon && <img class="dd-gene" src={textureUrl(g.icon)} alt="" loading="lazy" decoding="async" />}
+                        {g.label}
+                      </span>
+                    ))}
+                  </span>
+                )}
+                {dungeonDetail.stars && (
+                  <span class="dd-cond-item">
+                    {tr('guides.dungeon.stars')}
+                    {dungeonDetail.stars.map((s) =>
+                      s.icon
+                        ? <img class="dd-star" src={textureUrl(s.icon)} alt={s.label} title={s.label} loading="lazy" decoding="async" />
+                        : <span class="dd-nostar">{s.label}</span>,
+                    )}
+                  </span>
+                )}
+              </div>
+            )}
+            {dungeonDetail.rows.length > 0 && (
+              <details class="dd-details">
+                <summary class="dd-toggle">
+                  <span>{dungeonDetail.rowsTitle} ({dungeonDetail.rows.length})</span>
+                  <span class="dd-chev">▾</span>
+                </summary>
+                <ol class="dd-floors">
+                  {dungeonDetail.rows.map((r) => (
+                    <li class:list={['dd-row', { 'dd-row-mutant': r.mutant }]}>
+                      <span class="dd-floor" title={r.floorTitle}>{r.floorLabel}</span>
+                      <span class="dd-items">
+                        {r.fightItems.length > 0 && <span class="dd-sub">{tr('guides.dungeon.mapFights')}</span>}
+                        {r.fightItems.map((i) => (
+                          <span class="dd-chip-item" title={i.label}>
+                            {i.icon && <img src={textureUrl(i.icon)} alt="" loading="lazy" decoding="async" />}
+                            <span>{i.label}</span>
+                          </span>
+                        ))}
+                        {r.fightItems.length > 0 && r.items.length > 0 && <span class="dd-sub">{tr('guides.dungeon.mapFinish')}</span>}
+                        {r.items.map((i) => (
+                          <span class:list={['dd-chip-item', { 'dd-chip-mutant': i.mutantId }]} title={i.label}>
+                            {i.icon && <img src={textureUrl(i.icon)} alt="" loading="lazy" decoding="async" />}
+                            <span>{i.label}</span>
+                          </span>
+                        ))}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            )}
+          </>
+        )}
+        {!dungeonDetail && dungeon.currency.length > 0 && (
           <div class="dg-currency">
             {dungeon.currency.map((c) => (
               <span class="reward-inline">
@@ -294,7 +377,7 @@ const forecastWeeks =
             ))}
           </div>
         )}
-        {dungeon.items.length > 0 && (
+        {!dungeonDetail && dungeon.items.length > 0 && (
           <div class="dg-items">
             {dungeon.items.map((it2) => (
               <span class="dg-item-chip" title={it2.label}>
@@ -1030,6 +1113,41 @@ const forecastWeeks =
   }
   /* Точная дата запуска - живой kartel-запрос (см. scripts/kartel-filter-dates.ts),
      не диапазон спринта - у рейдов/лесенок его и не было отродясь. */
+
+  /* Детали рейда/лесенки (цена, лимит, условия, награды по этажам) - те же
+     стили, что dg-* на /guides, под префиксом dd-, потому что dg-* в этой
+     карточке уже заняты (hero/items/chip). */
+  .dd-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.45rem; }
+  .dd-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 600; color: #cbd5e1; background: rgba(30,41,59,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 999px; padding: 2px 8px 2px 6px; }
+  .dd-chip img { width: 14px; height: 14px; object-fit: contain; }
+  .dd-chip-paid { color: #fde68a; border-color: rgba(250,204,21,0.3); background: rgba(250,204,21,0.08); }
+  .dd-chip-free { color: #86efac; border-color: rgba(134,239,172,0.25); background: rgba(134,239,172,0.07); }
+  .dd-cond { display: flex; flex-direction: column; gap: 3px; margin-top: 0.35rem; padding: 0.35rem 0.5rem; border-radius: 8px; background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.18); font-size: 0.68rem; color: #bfdbfe; }
+  .dd-cond-item { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .dd-cond-title { font-size: 0.64rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #93c5fd; }
+  .dd-gene { width: 16px; height: 16px; object-fit: contain; }
+  .dd-gene-tag { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px 1px 3px; border-radius: 999px; background: rgba(15,23,42,0.7); border: 1px solid rgba(96,165,250,0.3); color: #e2e8f0; font-weight: 700; }
+  .dd-gene-except { border-color: rgba(248,113,113,0.6); color: #fecaca; }
+  .dd-star { width: 16px; height: 16px; object-fit: contain; }
+  .dd-nostar { color: #94a3b8; }
+  .dd-details { margin-top: 0.5rem; }
+  .dd-toggle { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 6px; background: rgba(59,130,246,0.1); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.3rem 0.5rem; font-size: 0.7rem; font-weight: 700; color: #bfdbfe; cursor: pointer; }
+  .dd-toggle::-webkit-details-marker { display: none; }
+  .dd-toggle:hover { background: rgba(59,130,246,0.18); }
+  .dd-chev { transition: transform 0.15s ease; }
+  .dd-details[open] .dd-chev { transform: rotate(180deg); }
+  .dd-floors { list-style: none; margin: 0.35rem 0 0; padding: 0 2px 0 0; display: flex; flex-direction: column; gap: 3px; max-height: 22rem; overflow-y: auto; }
+  .dd-row { display: flex; align-items: flex-start; gap: 6px; padding: 3px 4px; border-radius: 7px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.04); }
+  .dd-row-mutant { border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.07); }
+  .dd-floor { flex: none; min-width: 2rem; white-space: nowrap; text-align: center; font-size: 0.66rem; font-weight: 800; color: #0f172a; background: #93c5fd; border-radius: 5px; padding: 1px 4px; margin-top: 1px; }
+  .dd-row-mutant .dd-floor { background: #fbbf24; }
+  .dd-items { display: flex; flex-wrap: wrap; gap: 3px; min-width: 0; align-items: center; }
+  .dd-sub { font-size: 0.6rem; color: #64748b; font-weight: 600; }
+  .dd-chip-item { display: inline-flex; align-items: center; gap: 3px; font-size: 0.66rem; font-weight: 600; color: #e2e8f0; background: rgba(30,41,59,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 1px 5px 1px 3px; }
+  .dd-chip-item img { width: 15px; height: 15px; object-fit: contain; flex-shrink: 0; }
+  .dd-chip-item span { overflow-wrap: anywhere; line-height: 1.2; }
+  .dd-chip-mutant { color: #fde68a; border-color: rgba(251,191,36,0.45); font-weight: 700; }
+
   .dg-exact-date {
     font-size: 0.76rem;
     font-weight: 600;
