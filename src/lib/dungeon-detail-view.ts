@@ -9,6 +9,7 @@ import { resolveReward, type RewardResolveCtx } from '@/lib/guides-resolve'
 import { geneLabelL, starLabelL } from '@/lib/mutant-dicts'
 import { getGeneIcon } from '@/lib/mutant-icons'
 import { t, type Locale } from '@/lib/i18n'
+import { GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures'
 
 export interface DetailItem {
   label: string
@@ -54,6 +55,7 @@ interface DungeonRaw {
   } | null
   energy: { min: number; max: number } | null
   milestones: { floor: number; items: Pair[] }[]
+  completion?: Pair[]
 }
 interface EventRaw {
   energy: { min: number; max: number } | null
@@ -63,6 +65,8 @@ const details = detailsData as unknown as {
   dungeons: Record<string, DungeonRaw>
   events: Record<string, EventRaw>
 }
+
+const cap = (w: string) => w.charAt(0).toUpperCase() + w.slice(1)
 
 const ALL_GENES = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -100,8 +104,17 @@ export function buildDungeonDetailCard(
     string,
     { name: string; icon: string | null; mutantId: string | null }
   >()
+  // currency of the completion reward comes as pseudo ids $hardcurrency / $softcurrency
+  const currency: Record<string, { name: string; icon: string }> = {
+    $hardcurrency: { name: cap(GOLD_WORD[locale] ?? GOLD_WORD.ru), icon: '/cash/hardcurrency.webp' },
+    $softcurrency: { name: cap(SILVER_WORD[locale] ?? SILVER_WORD.ru), icon: '/cash/softcurrency.webp' },
+  }
   const item = (pair: Pair): DetailItem => {
     let base = itemCache.get(pair.id)
+    if (!base && currency[pair.id]) {
+      base = { ...currency[pair.id], mutantId: null }
+      itemCache.set(pair.id, base)
+    }
     if (!base) {
       const r = resolveReward({ type: 'entity', id: pair.id, amount: '1' }, rewardCtx)
       // luxe zones (Habitat_*_HC) resolve without an icon, the file name is the lowercase id
@@ -149,17 +162,31 @@ export function buildDungeonDetailCard(
           }))
         : null,
       rowsTitle: t('guides.dungeon.floorsTitle', locale),
-      rows: runs.map((r) => {
-        const label = r.from === r.to ? String(r.from) : `${r.from}–${r.to}`
-        const items = r.items.map(item)
-        return {
-          floorLabel: label,
-          floorTitle: floorTitle('floor', label),
-          mutant: items.some((i) => i.mutantId),
-          fightItems: [],
-          items,
-        }
-      }),
+      rows: [
+        ...runs.map((r) => {
+          const label = r.from === r.to ? String(r.from) : `${r.from}–${r.to}`
+          const items = r.items.map(item)
+          return {
+            floorLabel: label,
+            floorTitle: floorTitle('floor', label),
+            mutant: items.some((i) => i.mutantId),
+            fightItems: [],
+            items,
+          }
+        }),
+        // reward for finishing the whole dungeon, on top of the floors
+        ...(d.completion?.length
+          ? [
+              {
+                floorLabel: t('guides.dungeon.final', locale),
+                floorTitle: t('guides.dungeon.completion', locale),
+                mutant: d.completion.some((p) => item(p).mutantId),
+                fightItems: [],
+                items: d.completion.map(item),
+              },
+            ]
+          : []),
+      ],
     }
   }
 

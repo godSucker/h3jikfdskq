@@ -1136,5 +1136,7 @@
   "home.card.pvp.title": "Simulateur de combat PvP",
   "home.card.pvp.desc": "Composez votre équipe et celle de l'adversaire (3×3), choisissez qui combat manuellement et qui est piloté par l'IA, puis lancez le combat.",
   "guides.quests.filterEvents": "Événements",
-  "guides.quests.fromLevel": "dès le niveau {level}"
+  "guides.quests.fromLevel": "dès le niveau {level}",
+  "guides.dungeon.final": "Final",
+  "guides.dungeon.completion": "Pour l'achèvement complet"
 }

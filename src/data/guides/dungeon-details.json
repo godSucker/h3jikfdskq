@@ -856,6 +856,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Star_Bronze",
+     "amount": 13
+    }
    ]
   },
   "anniversary_21_2": {
@@ -2571,6 +2577,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Material_Masks_Token",
+     "amount": 110
+    }
    ]
   },
   "anniversary_25_2": {
@@ -3984,7 +3996,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "dumas": {
    "type": "raid",
@@ -5309,6 +5339,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "orb_basic_xp_04",
+     "amount": 2
+    }
    ]
   },
   "easter26": {
@@ -6224,6 +6260,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    }
    ]
   },
   "galacless": {
@@ -6254,7 +6296,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "god": {
    "type": "experiment",
@@ -6278,7 +6338,21 @@
     "max": 15,
     "total": 240
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 70
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 50000
+    },
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    }
+   ]
   },
   "gotham_16": {
    "type": "experiment",
@@ -6510,6 +6584,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "orb_special_addregenerate_03",
+     "amount": 1
+    }
    ]
   },
   "halloween": {
@@ -6610,6 +6690,20 @@
        "amount": 1
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "$softcurrency",
+     "amount": 400
+    },
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
     }
    ]
   },
@@ -6718,6 +6812,16 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 30
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
+    }
    ]
   },
   "halloween_2": {
@@ -6825,6 +6929,16 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 30
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
+    }
    ]
   },
   "halloween20": {
@@ -6931,6 +7045,12 @@
        "amount": 2
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "orb_special_addregenerate_03",
+     "amount": 1
     }
    ]
   },
@@ -7672,6 +7792,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$softcurrency",
+     "amount": 50
+    }
    ]
   },
   "halloween2018_2": {
@@ -8412,6 +8538,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$softcurrency",
+     "amount": 50
+    }
    ]
   },
   "halloween21": {
@@ -9009,6 +9141,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Material_Trick_Token",
+     "amount": 650
+    }
    ]
   },
   "halloween25": {
@@ -9182,6 +9320,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    }
    ]
   },
   "halloween26": {
@@ -9354,6 +9498,12 @@
        "amount": 10
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Star_Platinum",
+     "amount": 1
     }
    ]
   },
@@ -9621,6 +9771,12 @@
        "amount": 100
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Star_Platinum",
+     "amount": 1
     }
    ]
   },
@@ -10249,6 +10405,12 @@
        "amount": 1
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Star_Gold",
+     "amount": 3
     }
    ]
   },
@@ -10885,6 +11047,24 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 30
+    },
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    },
+    {
+     "id": "Material_Gacha_Token",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
+    }
    ]
   },
   "jungle_bells_2": {
@@ -10992,6 +11172,20 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 30
+    },
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
+    }
    ]
   },
   "jungle_bells_3": {
@@ -11053,6 +11247,20 @@
        "amount": 1
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 30
+    },
+    {
+     "id": "Star_Platinum",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_life_03_ephemeral_20",
+     "amount": 3
     }
    ]
   },
@@ -11347,6 +11555,12 @@
        "amount": 1
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Star_Platinum",
+     "amount": 1
     }
    ]
   },
@@ -12491,7 +12705,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "necroless": {
    "type": "challenge",
@@ -12521,7 +12753,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "neon_14": {
    "type": "experiment",
@@ -13999,6 +14249,16 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Material_Event_Token",
+     "amount": 30
+    },
+    {
+     "id": "orb_special_addstrengthen_03",
+     "amount": 1
+    }
    ]
   },
   "saberless": {
@@ -14029,7 +14289,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "space_16": {
    "type": "experiment",
@@ -14339,7 +14617,21 @@
     "max": 5,
     "total": 75
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    }
+   ]
   },
   "triangle_abc": {
    "type": "challenge",
@@ -14367,7 +14659,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "triangle_def": {
    "type": "challenge",
@@ -14395,7 +14705,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   },
   "unliving": {
    "type": "raid",
@@ -14937,6 +15265,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Star_Bronze",
+     "amount": 8
+    }
    ]
   },
   "valentines24": {
@@ -15043,6 +15377,12 @@
        "amount": 100
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "orb_basic_xp_04",
+     "amount": 2
     }
    ]
   },
@@ -15216,6 +15556,12 @@
        "amount": 250
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "orb_basic_xp_04",
+     "amount": 2
     }
    ]
   },
@@ -16539,6 +16885,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Material_Snowstorm_Token",
+     "amount": 10
+    }
    ]
   },
   "xmas22_2": {
@@ -16707,6 +17059,12 @@
        "amount": 50
       }
      ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Material_Snowstorm_Token",
+     "amount": 14
     }
    ]
   },
@@ -17699,6 +18057,12 @@
       }
      ]
     }
+   ],
+   "completion": [
+    {
+     "id": "Material_Xmas24_Token",
+     "amount": 100
+    }
    ]
   },
   "xmas25_1": {
@@ -18049,7 +18413,25 @@
     "max": 20,
     "total": 181
    },
-   "milestones": []
+   "milestones": [],
+   "completion": [
+    {
+     "id": "$hardcurrency",
+     "amount": 10
+    },
+    {
+     "id": "$softcurrency",
+     "amount": 5000
+    },
+    {
+     "id": "Star_Bronze",
+     "amount": 1
+    },
+    {
+     "id": "orb_basic_shield_04",
+     "amount": 1
+    }
+   ]
   }
  },
  "events": {

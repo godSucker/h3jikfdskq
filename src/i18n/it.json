@@ -1136,5 +1136,7 @@
   "home.card.pvp.title": "Simulatore di combattimento PvP",
   "home.card.pvp.desc": "Crea la tua squadra e quella dell'avversario (3×3), scegli chi combatte manualmente e chi è gestito dall'IA, poi disputa lo scontro.",
   "guides.quests.filterEvents": "Eventi",
-  "guides.quests.fromLevel": "dal livello {level}"
+  "guides.quests.fromLevel": "dal livello {level}",
+  "guides.dungeon.final": "Finale",
+  "guides.dungeon.completion": "Per il completamento totale"
 }

@@ -1136,5 +1136,7 @@
   "home.card.pvp.title": "PvP battle simulator",
   "home.card.pvp.desc": "Build your team and the opponent's (3×3), choose who fights manually and who runs on AI, then play out the battle.",
   "guides.quests.filterEvents": "Events",
-  "guides.quests.fromLevel": "from level {level}"
+  "guides.quests.fromLevel": "from level {level}",
+  "guides.dungeon.final": "Final",
+  "guides.dungeon.completion": "For completing the whole dungeon"
 }

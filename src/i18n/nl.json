@@ -1136,5 +1136,7 @@
   "home.card.pvp.title": "PvP-gevechtssimulator",
   "home.card.pvp.desc": "Stel je eigen team en dat van de tegenstander samen (3×3), kies wie handmatig vecht en wie door AI wordt bestuurd, en speel het gevecht uit.",
   "guides.quests.filterEvents": "Evenementen",
-  "guides.quests.fromLevel": "vanaf niveau {level}"
+  "guides.quests.fromLevel": "vanaf niveau {level}",
+  "guides.dungeon.final": "Finale",
+  "guides.dungeon.completion": "Voor volledig voltooien"
 }
