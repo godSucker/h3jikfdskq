@@ -231,6 +231,59 @@
     }
   },
   {
+    "id": "insanity",
+    "name": "Безумие",
+    "nameAuthored": true,
+    "mutantId": "Specimen_EF_12",
+    "fightCount": 200,
+    "bossCount": 3,
+    "rewards": {
+      "currency": {
+        "softcurrency": 1674540,
+        "hardcurrency": 0,
+        "experience": 154980
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 10
+        },
+        {
+          "id": "orb_basic_life_03",
+          "amount": 2
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 4
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 20
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "orb_special_addslash_04",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_attack_05",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
     "id": "insanity_2",
     "name": "Безумие II",
     "nameAuthored": true,
@@ -278,6 +331,67 @@
         },
         {
           "id": "orb_special_addslash_04",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "library",
+    "name": "Библиотека",
+    "nameAuthored": true,
+    "mutantId": "Specimen_FF_12",
+    "fightCount": 300,
+    "bossCount": 13,
+    "rewards": {
+      "currency": {
+        "softcurrency": 2815000,
+        "hardcurrency": 0,
+        "experience": 281500
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 15
+        },
+        {
+          "id": "orb_basic_attack_03",
+          "amount": 3
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 15
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 4
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 2
+        },
+        {
+          "id": "orb_special_addweaken_05",
+          "amount": 1
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_xp_04",
+          "amount": 1
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 2
+        },
+        {
+          "id": "orb_special_speed_05",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
           "amount": 1
         }
       ]
@@ -339,6 +453,55 @@
         },
         {
           "id": "orb_special_speed_05",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "verne",
+    "name": "Верн",
+    "nameAuthored": true,
+    "mutantId": "Specimen_AC_12",
+    "fightCount": 201,
+    "bossCount": 10,
+    "rewards": {
+      "currency": {
+        "softcurrency": 1122000,
+        "hardcurrency": 0,
+        "experience": 112700
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 10
+        },
+        {
+          "id": "orb_basic_attack_03",
+          "amount": 1
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 4
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 15
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "orb_special_addretaliate_04",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
           "amount": 1
         }
       ]
@@ -471,6 +634,95 @@
     }
   },
   {
+    "id": "dumas",
+    "name": "Дюма",
+    "nameAuthored": true,
+    "mutantId": "Specimen_C_13",
+    "fightCount": 300,
+    "bossCount": 20,
+    "rewards": {
+      "currency": {
+        "softcurrency": 3346000,
+        "hardcurrency": 0,
+        "experience": 334600
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 45
+        },
+        {
+          "id": "Star_Bronze",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_retaliate_02",
+          "amount": 2
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 45
+        },
+        {
+          "id": "orb_special_speed_02",
+          "amount": 2
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_life_04",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_attack_04",
+          "amount": 3
+        },
+        {
+          "id": "Material_Muto50",
+          "amount": 25
+        },
+        {
+          "id": "orb_special_speed_03",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_retaliate_04",
+          "amount": 1
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_critical_05",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_shield_04",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_xp_04",
+          "amount": 2
+        },
+        {
+          "id": "Material_Mutenstein_Token",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
     "id": "dumas_2",
     "name": "Дюма II",
     "nameAuthored": true,
@@ -560,6 +812,51 @@
     }
   },
   {
+    "id": "inferno",
+    "name": "Инферно",
+    "nameAuthored": true,
+    "mutantId": "Specimen_FB_12",
+    "fightCount": 200,
+    "bossCount": 28,
+    "rewards": {
+      "currency": {
+        "softcurrency": 1112000,
+        "hardcurrency": 0,
+        "experience": 111700
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 10
+        },
+        {
+          "id": "orb_basic_life_03",
+          "amount": 1
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 4
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 15
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "orb_special_speed_04",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
     "id": "inferno_2",
     "name": "Инферно II",
     "nameAuthored": true,
@@ -603,6 +900,67 @@
         },
         {
           "id": "orb_special_speed_04",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "kalevala",
+    "name": "Калевала",
+    "nameAuthored": true,
+    "mutantId": "Specimen_F_13",
+    "fightCount": 300,
+    "bossCount": 15,
+    "rewards": {
+      "currency": {
+        "softcurrency": 3446000,
+        "hardcurrency": 0,
+        "experience": 344600
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 10
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 3
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 20
+        },
+        {
+          "id": "orb_basic_attack_03",
+          "amount": 3
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_weaken_04",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_xp_04",
+          "amount": 2
+        },
+        {
+          "id": "orb_special_speed_05",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
           "amount": 1
         }
       ]
@@ -664,6 +1022,91 @@
         },
         {
           "id": "orb_special_speed_05",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "cryptid",
+    "name": "Криптид",
+    "nameAuthored": true,
+    "mutantId": "Specimen_D_13",
+    "fightCount": 300,
+    "bossCount": 25,
+    "rewards": {
+      "currency": {
+        "softcurrency": 2480000,
+        "hardcurrency": 0,
+        "experience": 248000
+      },
+      "items": [
+        {
+          "id": "Star_Bronze",
+          "amount": 2
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 50
+        },
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 30
+        },
+        {
+          "id": "orb_basic_slash_02",
+          "amount": 4
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_attack_02",
+          "amount": 3
+        },
+        {
+          "id": "orb_special_speed_02",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_life_04",
+          "amount": 2
+        },
+        {
+          "id": "Material_Muto50",
+          "amount": 10
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_critical_04",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_xp_04",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_strengthen_05",
+          "amount": 1
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_slash_06",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
           "amount": 1
         }
       ]
@@ -832,6 +1275,55 @@
     }
   },
   {
+    "id": "musashi",
+    "name": "Мусаси",
+    "nameAuthored": true,
+    "mutantId": "Specimen_CF_12",
+    "fightCount": 200,
+    "bossCount": 6,
+    "rewards": {
+      "currency": {
+        "softcurrency": 1180000,
+        "hardcurrency": 0,
+        "experience": 118000
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 10
+        },
+        {
+          "id": "orb_basic_attack_03",
+          "amount": 2
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 4
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 20
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "orb_special_addregenerate_04",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
     "id": "musashi_2",
     "name": "Мусаси II",
     "nameAuthored": true,
@@ -875,6 +1367,67 @@
         },
         {
           "id": "orb_special_addregenerate_04",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "unliving",
+    "name": "Немертвые",
+    "nameAuthored": true,
+    "mutantId": "Specimen_B_13",
+    "fightCount": 300,
+    "bossCount": 12,
+    "rewards": {
+      "currency": {
+        "softcurrency": 2384000,
+        "hardcurrency": 0,
+        "experience": 235400
+      },
+      "items": [
+        {
+          "id": "Star_Bronze",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_regenerate_02",
+          "amount": 3
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 2
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 8
+        },
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 25
+        },
+        {
+          "id": "orb_special_speed_03",
+          "amount": 2
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_regenerate_06",
+          "amount": 2
+        },
+        {
+          "id": "Material_Mutenstein_Token",
           "amount": 1
         }
       ]
@@ -1014,6 +1567,91 @@
         {
           "id": "orb_special_speed_02",
           "amount": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "factory",
+    "name": "Фабрика",
+    "nameAuthored": true,
+    "mutantId": "Specimen_A_13",
+    "fightCount": 300,
+    "bossCount": 11,
+    "rewards": {
+      "currency": {
+        "softcurrency": 1330000,
+        "hardcurrency": 0,
+        "experience": 133000
+      },
+      "items": [
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 40
+        },
+        {
+          "id": "Star_Bronze",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_shield_02",
+          "amount": 2
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 30
+        },
+        {
+          "id": "orb_basic_life_03",
+          "amount": 2
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_attack_04",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_critical_04",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_life_04",
+          "amount": 2
+        },
+        {
+          "id": "Material_Muto50",
+          "amount": 10
+        },
+        {
+          "id": "orb_special_speed_03",
+          "amount": 1
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "orb_basic_shield_04",
+          "amount": 1
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_critical_05",
+          "amount": 2
+        },
+        {
+          "id": "Material_Mutenstein_Token",
+          "amount": 1
         }
       ]
     }

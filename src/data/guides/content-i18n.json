@@ -2143,6 +2143,106 @@
       "it": "Porto spaziale",
       "tr": "Uzay limanı",
       "nl": "Ruimtehaven"
+    },
+    "inferno": {
+      "en": "Inferno",
+      "es": "Inferno",
+      "fr": "Inferno",
+      "de": "Inferno",
+      "pt": "Inferno",
+      "it": "Inferno",
+      "tr": "Inferno",
+      "nl": "Inferno"
+    },
+    "insanity": {
+      "en": "Insanity",
+      "es": "Locura",
+      "fr": "Folie",
+      "de": "Wahnsinn",
+      "pt": "Insanidade",
+      "it": "Follia",
+      "tr": "Delilik",
+      "nl": "Waanzin"
+    },
+    "library": {
+      "en": "Library",
+      "es": "Biblioteca",
+      "fr": "Bibliothèque",
+      "de": "Bibliothek",
+      "pt": "Biblioteca",
+      "it": "Biblioteca",
+      "tr": "Kütüphane",
+      "nl": "Bibliotheek"
+    },
+    "verne": {
+      "en": "Verne",
+      "es": "Verne",
+      "fr": "Verne",
+      "de": "Verne",
+      "pt": "Verne",
+      "it": "Verne",
+      "tr": "Verne",
+      "nl": "Verne"
+    },
+    "musashi": {
+      "en": "Musashi",
+      "es": "Musashi",
+      "fr": "Musashi",
+      "de": "Musashi",
+      "pt": "Musashi",
+      "it": "Musashi",
+      "tr": "Musashi",
+      "nl": "Musashi"
+    },
+    "kalevala": {
+      "en": "Kalevala",
+      "es": "Kalevala",
+      "fr": "Kalevala",
+      "de": "Kalevala",
+      "pt": "Kalevala",
+      "it": "Kalevala",
+      "tr": "Kalevala",
+      "nl": "Kalevala"
+    },
+    "dumas": {
+      "en": "Dumas",
+      "es": "Dumas",
+      "fr": "Dumas",
+      "de": "Dumas",
+      "pt": "Dumas",
+      "it": "Dumas",
+      "tr": "Dumas",
+      "nl": "Dumas"
+    },
+    "cryptid": {
+      "en": "Cryptid",
+      "es": "Críptido",
+      "fr": "Cryptide",
+      "de": "Kryptid",
+      "pt": "Críptico",
+      "it": "Criptide",
+      "tr": "Kriptid",
+      "nl": "Cryptide"
+    },
+    "unliving": {
+      "en": "Undead",
+      "es": "No muerto",
+      "fr": "Mort-vivant",
+      "de": "Untot",
+      "pt": "Morto-vivo",
+      "it": "Non morto",
+      "tr": "Yaşayan Ölü",
+      "nl": "Ondode"
+    },
+    "factory": {
+      "en": "Factory",
+      "es": "Fábrica",
+      "fr": "Usine",
+      "de": "Fabrik",
+      "pt": "Fábrica",
+      "it": "Fabbrica",
+      "tr": "Fabrika",
+      "nl": "Fabriek"
     }
   },
   "specialOfferNames": {
