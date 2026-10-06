@@ -465,6 +465,7 @@ const specialLadders = {
 // копиями одних и тех же подписей на каждой из 9 локалей.
 interface DetailItemRaw { id: string; amount: number }
 interface DungeonDetailRaw {
+  active: boolean;
   entryCost: { amount: number; type: string } | null;
   completionMax: number | null;
   conditions: { minLevel: number | null; maxLevel: number | null; genes: string[]; stars: string[] | null } | null;
@@ -483,6 +484,7 @@ const detailsRaw = dungeonDetailsData as unknown as {
 interface DetailItemView { name: string; icon: string | null; mutant?: MutantLite }
 interface DungeonDetailView {
   kind: 'dungeon' | 'event';
+  known: boolean;
   cost: ResolvedReward | null;
   limit: number | null;
   minLevel: number | null;
@@ -511,6 +513,7 @@ for (const [id, d] of Object.entries(detailsRaw.dungeons)) {
   const c = d.conditions;
   dungeonDetails[id] = {
     kind: 'dungeon',
+    known: d.active,
     cost: d.entryCost ? resolveReward({ type: d.entryCost.type, amount: String(d.entryCost.amount) }) : null,
     limit: d.completionMax,
     minLevel: c?.minLevel ?? null,
@@ -525,6 +528,7 @@ for (const [id, d] of Object.entries(detailsRaw.dungeons)) {
 for (const [id, e] of Object.entries(detailsRaw.events)) {
   dungeonDetails[id] = {
     kind: 'event',
+    known: true,
     cost: null,
     limit: null,
     minLevel: null,

@@ -297,7 +297,24 @@ async function main() {
     ...special.experiment.map((r) => r.id),
     ...special.challenge.map((r) => r.id),
   ]
-  const dungeonIds = [...new Set([...registry.keys(), ...siteDungeonIds])]
+  const knownDungeonIds = [...new Set([...registry.keys(), ...siteDungeonIds])]
+  // First runs of raids: the game keeps dungeon_<base>.xml for the earlier run of a
+  // re-run raid (inferno_2 -> inferno) but the registry lists only the current one.
+  // Floors and rewards differ between the runs, so each one is read from its own file.
+  const raidIds = new Set([
+    ...raids.map((r) => r.id),
+    ...[...registry].filter(([, e]) => e.type === 'raid').map(([id]) => id),
+  ])
+  const earlierRunIds = [
+    ...new Set(
+      knownDungeonIds
+        .filter((id) => raidIds.has(id) && /_\d+$/.test(id))
+        .map((id) => id.replace(/_\d+$/, ''))
+        .filter((base) => !knownDungeonIds.includes(base)),
+    ),
+  ]
+  const dungeonIds = [...knownDungeonIds, ...earlierRunIds]
+  const isEarlierRun = new Set(earlierRunIds)
 
   // event ladders: site list + every pve_event file in the manifest
   const manifestEvents = (manifest ?? '')
@@ -314,6 +331,7 @@ async function main() {
   await mapLimit(dungeonIds, 6, async (id) => {
     const xml = await fetchText(`${BASE}/dungeon/dungeon_${id}.xml`)
     const reg = registry.get(id)
+    if (!xml && isEarlierRun.has(id)) return // no such earlier run, nothing to keep
     if (!xml) {
       failed++
       console.error(`[DUNGEON-DETAILS] dungeon_${id}.xml not downloaded, keeping previous entry`)
@@ -321,7 +339,10 @@ async function main() {
     }
     const body = parseDungeonFile(xml)
     const old = prev.dungeons[id]
-    const type = reg?.type ?? old?.type ?? (raids.some((r) => r.id === id) ? 'raid' : 'experiment')
+    const type =
+      reg?.type ??
+      old?.type ??
+      (raidIds.has(id) || isEarlierRun.has(id) ? 'raid' : 'experiment')
     next.dungeons[id] = {
       type,
       active: Boolean(reg),

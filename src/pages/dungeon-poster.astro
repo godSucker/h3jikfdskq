@@ -114,11 +114,16 @@ const name = data?.name ?? 'Не найдено'
 
     .cond { padding: 26px 26px 26px; }
     .cost { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; font-size: 32px; font-weight: 600; }
+    .cost.unknown { font-size: 24px; color: #cbd5e1; font-weight: 500; text-align: center; }
     .cost img { width: 46px; height: 44px; object-fit: contain; }
     .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
     .chip { padding: 4px 14px; border-radius: 999px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14); font-size: 19px; color: #cbd5e1; font-weight: 600; }
 
     .cond-grid { display: grid; grid-template-columns: 170px minmax(0, 1fr) 170px; margin-top: 22px; }
+    .cond-grid[data-known="0"] { grid-template-columns: 1fr; }
+    .cond-grid[data-known="0"] > .col:not(.mid) { display: none; }
+    .cond-grid[data-known="0"] .level { display: none; }
+    .cond-grid[data-known="0"] .col.mid { border: none; }
     .col { display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
     .col.mid { align-items: center; padding: 0 12px; border-left: 2px solid rgba(148, 163, 184, 0.3); border-right: 2px solid rgba(148, 163, 184, 0.3); }
     .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 82px; }
@@ -188,6 +193,8 @@ const name = data?.name ?? 'Не найдено'
           <h2>Условия для прохождения</h2>
           {isEvent ? (
             <div class="cost"><span>Билеты за бой: {ticketsText(data.tickets)}</span></div>
+          ) : !data.known ? (
+            <div class="cost unknown"><span>Условия входа в игровых данных недоступны</span></div>
           ) : (
             <div class="cost">
               {data.cost ? (
@@ -203,10 +210,10 @@ const name = data?.name ?? 'Не найдено'
           <div class="meta">
             <span class="chip">{isEvent ? 'Боёв' : 'Этажей'}: {data.floors}</span>
             {!isEvent && data.tickets && <span class="chip">Билеты за бой: {ticketsText(data.tickets)}</span>}
-            {data.limit && <span class="chip">Лимит: {data.limit}</span>}
+            {data.known && data.limit && <span class="chip">Лимит: {data.limit}</span>}
           </div>
 
-          <div class="cond-grid">
+          <div class="cond-grid" data-known={data.known ? "1" : "0"}>
             <div class="col">
               {data.genes.map((g) => (
                 <div class:list={['row', { off: !g.allowed }]} title={g.label}>

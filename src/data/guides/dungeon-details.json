@@ -3464,6 +3464,248 @@
     }
    ]
   },
+  "cryptid": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_cryptid-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_cryptid.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4340
+   },
+   "milestones": [
+    {
+     "floor": 10,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 5
+      }
+     ]
+    },
+    {
+     "floor": 30,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "orb_basic_slash_02",
+       "amount": 4
+      }
+     ]
+    },
+    {
+     "floor": 50,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "orb_basic_attack_02",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 70,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "orb_special_speed_02",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 90,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 110,
+     "items": [
+      {
+       "id": "orb_basic_life_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 130,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Material_Muto50",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "orb_basic_critical_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 170,
+     "items": [
+      {
+       "id": "orb_basic_xp_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "orb_basic_strengthen_05",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 190,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_D_13",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 220,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 240,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 260,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 280,
+     "items": [
+      {
+       "id": "orb_basic_slash_06",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
   "cryptid_2": {
    "type": "raid",
    "active": true,
@@ -3743,6 +3985,293 @@
     "total": 181
    },
    "milestones": []
+  },
+  "dumas": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_dumas.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_dumas.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4250
+   },
+   "milestones": [
+    {
+     "floor": 10,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 30,
+     "items": [
+      {
+       "id": "orb_basic_retaliate_02",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 5
+      }
+     ]
+    },
+    {
+     "floor": 50,
+     "items": [
+      {
+       "id": "orb_special_speed_02",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 70,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "orb_basic_life_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 90,
+     "items": [
+      {
+       "id": "orb_basic_attack_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 110,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "orb_basic_attack_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 130,
+     "items": [
+      {
+       "id": "Material_Muto50",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "orb_special_speed_03",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 170,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 190,
+     "items": [
+      {
+       "id": "orb_basic_retaliate_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_C_13",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 210,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 220,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 230,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 240,
+     "items": [
+      {
+       "id": "orb_basic_critical_05",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 250,
+     "items": [
+      {
+       "id": "orb_basic_shield_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 260,
+     "items": [
+      {
+       "id": "Material_Muto50",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 270,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 280,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 290,
+     "items": [
+      {
+       "id": "orb_basic_xp_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
   },
   "dumas_2": {
    "type": "raid",
@@ -5190,6 +5719,248 @@
      "items": [
       {
        "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
+  "factory": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_factory-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_factory.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4950
+   },
+   "milestones": [
+    {
+     "floor": 10,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 30,
+     "items": [
+      {
+       "id": "orb_basic_shield_02",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 5
+      }
+     ]
+    },
+    {
+     "floor": 50,
+     "items": [
+      {
+       "id": "orb_basic_life_03",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 70,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "orb_basic_attack_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 90,
+     "items": [
+      {
+       "id": "orb_basic_critical_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 110,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "orb_basic_life_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 130,
+     "items": [
+      {
+       "id": "Material_Muto50",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "orb_special_speed_03",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 170,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 190,
+     "items": [
+      {
+       "id": "orb_basic_shield_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_A_13",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 220,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 240,
+     "items": [
+      {
+       "id": "orb_basic_critical_05",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 260,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 280,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
        "amount": 2
       }
      ]
@@ -9259,6 +10030,113 @@
     }
    ]
   },
+  "inferno": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_inferno-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_inferno.jpg",
+   "floors": 200,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 2840
+   },
+   "milestones": [
+    {
+     "floor": 15,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 30,
+     "items": [
+      {
+       "id": "orb_basic_life_03",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 45,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 105,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "orb_special_speed_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "Specimen_FB_12",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 175,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 3
+      }
+     ]
+    }
+   ]
+  },
   "inferno_2": {
    "type": "raid",
    "active": true,
@@ -9360,6 +10238,122 @@
       {
        "id": "Material_Gacha_Token",
        "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
+  "insanity": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_insanity-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_insanity.jpg",
+   "floors": 200,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 2300
+   },
+   "milestones": [
+    {
+     "floor": 18,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 36,
+     "items": [
+      {
+       "id": "orb_basic_life_03",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 54,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 72,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 90,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 108,
+     "items": [
+      {
+       "id": "orb_special_addslash_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 127,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 146,
+     "items": [
+      {
+       "id": "Specimen_EF_12",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 162,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 181,
+     "items": [
+      {
+       "id": "orb_basic_attack_05",
+       "amount": 1
       }
      ]
     },
@@ -10062,6 +11056,149 @@
     }
    ]
   },
+  "kalevala": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_kalevala-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_kalevala.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4265
+   },
+   "milestones": [
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "orb_basic_attack_03",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "orb_basic_weaken_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_F_13",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 225,
+     "items": [
+      {
+       "id": "orb_basic_xp_04",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 250,
+     "items": [
+      {
+       "id": "orb_special_speed_05",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 275,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
   "kalevala_2": {
    "type": "raid",
    "active": true,
@@ -10199,6 +11336,131 @@
       {
        "id": "Material_Gacha_Token",
        "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
+  "library": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_library-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_library.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4155
+   },
+   "milestones": [
+    {
+     "floor": 25,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 50,
+     "items": [
+      {
+       "id": "orb_basic_attack_03",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 75,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 4
+      }
+     ]
+    },
+    {
+     "floor": 125,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "orb_special_addweaken_05",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 175,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_FF_12",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 225,
+     "items": [
+      {
+       "id": "orb_basic_xp_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 250,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 275,
+     "items": [
+      {
+       "id": "orb_special_speed_05",
+       "amount": 1
       }
      ]
     },
@@ -10974,6 +12236,113 @@
       {
        "id": "Material_Event_Token",
        "amount": 30
+      }
+     ]
+    }
+   ]
+  },
+  "musashi": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_musashi-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_musashi.jpg",
+   "floors": 200,
+   "energy": {
+    "min": 5,
+    "max": 24,
+    "total": 2900
+   },
+   "milestones": [
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "orb_basic_attack_03",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "orb_special_addregenerate_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Specimen_CF_12",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
       }
      ]
     }
@@ -13028,6 +14397,158 @@
    },
    "milestones": []
   },
+  "unliving": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_unliving-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_unliving.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 4020
+   },
+   "milestones": [
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "orb_basic_regenerate_02",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 8
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 25
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "orb_special_speed_03",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_B_13",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 220,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 240,
+     "items": [
+      {
+       "id": "orb_basic_regenerate_06",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 260,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 280,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ]
+  },
   "unliving_2": {
    "type": "raid",
    "active": true,
@@ -13973,6 +15494,113 @@
       {
        "id": "Material_Event_Token",
        "amount": 10
+      }
+     ]
+    }
+   ]
+  },
+  "verne": {
+   "type": "raid",
+   "active": false,
+   "entryCost": null,
+   "completionMax": null,
+   "conditions": null,
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_verne-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_verne.jpg",
+   "floors": 201,
+   "energy": {
+    "min": 5,
+    "max": 25,
+    "total": 2865
+   },
+   "milestones": [
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "orb_basic_attack_03",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "orb_special_addretaliate_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Specimen_AC_12",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 186,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 201,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
       }
      ]
     }
