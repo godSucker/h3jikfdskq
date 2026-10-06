@@ -1140,5 +1140,7 @@
   "tierPoster.legendUp": "sterkere mutanten binnen de tier",
   "tierPoster.legendDown": "zwakkere mutanten binnen de tier",
   "guides.quests.filterEvents": "Evenementen",
-  "guides.quests.fromLevel": "vanaf niveau {level}"
+  "guides.quests.fromLevel": "vanaf niveau {level}",
+  "guides.dungeon.final": "Finale",
+  "guides.dungeon.completion": "Voor volledig voltooien"
 }

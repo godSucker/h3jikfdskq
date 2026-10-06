@@ -50,6 +50,10 @@ export interface DungeonDetail {
   floors: number
   energy: { min: number; max: number; total: number } | null
   milestones: { floor: number; items: ItemAmount[] }[]
+  // Reward for finishing the whole dungeon: what the registry (dungeons.xml) promises on top of
+  // the per-floor rewards. Only the part the floors do not already give (registry amount minus
+  // what the fights hand out). Currency uses the pseudo ids $hardcurrency / $softcurrency.
+  completion?: ItemAmount[]
 }
 export interface EventMapDetail {
   fights: number
@@ -128,11 +132,42 @@ function energySummary(values: number[]): { min: number; max: number; total: num
 }
 
 interface RegistryEntry {
+  rewards: ItemAmount[]
   assetId: string | null
   type: DungeonDetail['type']
   completionMax: number | null
   entryCost: DungeonDetail['entryCost']
   conditions: Conditions | null
+}
+
+// <Reward> tags directly under <Dungeon>: entities (type may be missing) and currency.
+// Quirk of the game files: a currency reward can keep its amount in `id`.
+function registryRewards(block: string): ItemAmount[] {
+  const out: ItemAmount[] = []
+  const body = block.replace(/<Conditions>[\s\S]*?<\/Conditions>/, '')
+  for (const m of body.matchAll(/<Reward\b([^>]*)\/>/g)) {
+    const a = attrs(m[1])
+    if (a.type === 'softcurrency' || a.type === 'hardcurrency') {
+      const amount = Number(a.amount ?? a.id ?? '0') || 0
+      if (amount) out.push({ id: `$${a.type}`, amount })
+    } else if (a.type === 'experience') {
+      continue
+    } else if (a.id) {
+      out.push({ id: a.id, amount: Number(a.amount ?? '1') || 1 })
+    }
+  }
+  return out
+}
+
+// Registry amount minus what the floors already hand out, per id.
+export function completionReward(registry: ItemAmount[], milestones: DungeonDetail['milestones']): ItemAmount[] {
+  const given = new Map<string, number>()
+  for (const m of milestones) for (const it of m.items) given.set(it.id, (given.get(it.id) ?? 0) + it.amount)
+  const want = new Map<string, number>()
+  for (const r of registry) want.set(r.id, (want.get(r.id) ?? 0) + r.amount)
+  return [...want]
+    .map(([id, amount]) => ({ id, amount: amount - (given.get(id) ?? 0) }))
+    .filter((r) => r.amount > 0)
 }
 
 export function parseRegistry(xml: string): Map<string, RegistryEntry> {
@@ -163,6 +198,7 @@ export function parseRegistry(xml: string): Map<string, RegistryEntry> {
       conditions = empty ? null : c
     }
     out.set(head.id, {
+      rewards: registryRewards(block),
       assetId: head.assetId || null,
       type: head.type as DungeonDetail['type'],
       completionMax: head.completionMax ? Number(head.completionMax) : null,
@@ -355,6 +391,8 @@ async function main() {
         old?.screen !== undefined ? old.screen : await resolveScreen(id, reg?.assetId ?? null),
       ...body,
     }
+    const completion = reg ? completionReward(reg.rewards, body.milestones) : (old?.completion ?? [])
+    if (completion.length) next.dungeons[id].completion = completion
   })
 
   await mapLimit(eventIds, 6, async (id) => {

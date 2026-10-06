@@ -22,7 +22,7 @@ import materialData from '@/data/materials/material.json';
 import { translateItemId, getItemTexture } from '@/lib/craft-simulator';
 import { getLocalisedName } from '@/lib/localisation';
 import { getItemName } from '@/lib/materials-i18n';
-import { getMutantTexturePath } from '@/lib/bingo-textures';
+import { getMutantTexturePath, GOLD_WORD, SILVER_WORD } from '@/lib/bingo-textures';
 import { getGeneIcon, STAR_KEYS, STAR_MULTIPLIERS } from '@/lib/mutant-icons';
 import { geneLabelL } from '@/lib/mutant-dicts';
 import { calculateFinalStats } from '@/lib/stats/unified-calculator';
@@ -472,6 +472,7 @@ interface DungeonDetailRaw {
   floors: number;
   energy: { min: number; max: number; total: number } | null;
   milestones: { floor: number; items: DetailItemRaw[] }[];
+  completion?: DetailItemRaw[];
 }
 interface EventDetailRaw {
   energy: { min: number; max: number; total: number } | null;
@@ -494,11 +495,17 @@ interface DungeonDetailView {
   energy: { min: number; max: number; total: number } | null;
   floors: number;
   milestones?: [number, [string, number][]][];
+  completion?: [string, number][];
   maps?: { fights: number; energy: [number, number] | null; fightItems: [string, number][]; finish: [string, number][] }[];
 }
 const detailItems: Record<string, DetailItemView> = {};
 function pairs(items: DetailItemRaw[]): [string, number][] {
   return items.map((it) => {
+    if (!detailItems[it.id] && it.id.startsWith('$')) {
+      const gold = it.id === '$hardcurrency';
+      const word = (gold ? GOLD_WORD : SILVER_WORD)[locale] ?? (gold ? GOLD_WORD : SILVER_WORD).ru;
+      detailItems[it.id] = { name: word.charAt(0).toUpperCase() + word.slice(1), icon: gold ? '/cash/hardcurrency.webp' : '/cash/softcurrency.webp' };
+    }
     if (!detailItems[it.id]) {
       const r = resolveReward({ type: 'entity', id: it.id, amount: '1' });
       detailItems[it.id] = { name: r.label, icon: r.icon, ...(r.mutant ? { mutant: r.mutant } : {}) };
@@ -523,6 +530,7 @@ for (const [id, d] of Object.entries(detailsRaw.dungeons)) {
     energy: d.energy,
     floors: d.floors,
     milestones: d.milestones.map((m) => [m.floor, pairs(m.items)]),
+    ...(d.completion?.length ? { completion: pairs(d.completion) } : {}),
   };
 }
 for (const [id, e] of Object.entries(detailsRaw.events)) {

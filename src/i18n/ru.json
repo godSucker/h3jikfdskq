@@ -1146,5 +1146,7 @@
   "tierPoster.legendDown": "более слабые мутанты внутри тира",
   "nav.announcements": "Анонсы",
   "guides.quests.filterEvents": "Ивенты",
-  "guides.quests.fromLevel": "с {level} уровня"
+  "guides.quests.fromLevel": "с {level} уровня",
+  "guides.dungeon.final": "Финал",
+  "guides.dungeon.completion": "За полное прохождение"
 }

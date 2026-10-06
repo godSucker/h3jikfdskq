@@ -1140,5 +1140,7 @@
   "tierPoster.legendUp": "tier içinde daha güçlü mutantlar",
   "tierPoster.legendDown": "tier içinde daha zayıf mutantlar",
   "guides.quests.filterEvents": "Etkinlikler",
-  "guides.quests.fromLevel": "{level}. seviyeden"
+  "guides.quests.fromLevel": "{level}. seviyeden",
+  "guides.dungeon.final": "Final",
+  "guides.dungeon.completion": "Tamamını bitirme ödülü"
 }

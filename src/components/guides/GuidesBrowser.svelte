@@ -81,6 +81,7 @@
     energy: { min: number; max: number; total: number } | null
     floors: number
     milestones?: [number, ItemPair[]][]
+    completion?: ItemPair[]
     maps?: { fights: number; energy: [number, number] | null; fightItems: ItemPair[]; finish: ItemPair[] }[]
   }
   interface QuestReward { label: string; icon: string | null; mutant?: MutantLite }
@@ -422,6 +423,14 @@
             </span>
           </li>
         {/each}
+        {#if d.completion}
+          <li class="dg-row">
+            <span class="dg-floor" title={t('guides.dungeon.completion', locale)}>{t('guides.dungeon.final', locale)}</span>
+            <span class="dg-items">
+              {#each d.completion as [iid, amount] (iid)}{@render rewardChip(iid, amount)}{/each}
+            </span>
+          </li>
+        {/if}
       {:else if d.maps}
         {#each groupMaps(d.maps) as g (g.from)}
           <li class="dg-row" class:dg-row-mutant={g.finish.some(([iid]) => detailItems[iid]?.mutant)}>
@@ -447,7 +456,7 @@
     {#if d}
       {@const lvl = levelText(d)}
       {@const gv = geneView(d.genes)}
-      {@const rowsCount = d.maps?.length ?? d.milestones?.length ?? 0}
+      {@const rowsCount = d.maps?.length ?? (d.milestones?.length ?? 0) + (d.completion ? 1 : 0)}
       <div class="dg-meta">
         {#if d.kind === 'dungeon'}
           {#if d.cost}

@@ -1140,5 +1140,7 @@
   "tierPoster.legendUp": "mutants plus forts au sein du tier",
   "tierPoster.legendDown": "mutants plus faibles au sein du tier",
   "guides.quests.filterEvents": "Événements",
-  "guides.quests.fromLevel": "dès le niveau {level}"
+  "guides.quests.fromLevel": "dès le niveau {level}",
+  "guides.dungeon.final": "Final",
+  "guides.dungeon.completion": "Pour l'achèvement complet"
 }

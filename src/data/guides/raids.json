@@ -15,11 +15,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -31,7 +31,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -92,11 +92,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -108,7 +108,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -169,11 +169,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -185,7 +185,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -299,15 +299,15 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 8
+          "amount": 4
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Material_Jackpot_Token",
@@ -413,11 +413,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Silver",
@@ -425,7 +425,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Material_Jackpot_Token",
@@ -523,15 +523,15 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 8
+          "amount": 4
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Material_Jackpot_Token",
@@ -572,11 +572,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -588,7 +588,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -738,11 +738,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -754,7 +754,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -876,11 +876,11 @@
         },
         {
           "id": "Star_Gold",
-          "amount": 5
+          "amount": 1
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -982,11 +982,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 3
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -994,7 +994,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1128,11 +1128,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -1144,7 +1144,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1213,11 +1213,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -1229,7 +1229,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1339,15 +1339,15 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 8
+          "amount": 4
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 2
+          "amount": 1
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1449,11 +1449,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -1465,7 +1465,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1510,11 +1510,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 4
+          "amount": 2
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -1526,7 +1526,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",
@@ -1672,11 +1672,11 @@
       "items": [
         {
           "id": "Star_Platinum",
-          "amount": 3
+          "amount": 1
         },
         {
           "id": "Star_Gold",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Star_Silver",
@@ -1688,7 +1688,7 @@
         },
         {
           "id": "Material_Gacha_Token",
-          "amount": 6
+          "amount": 3
         },
         {
           "id": "Material_Jackpot_Token",

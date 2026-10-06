@@ -41,6 +41,8 @@ export interface PosterCell {
   perFight: PosterItem[]
   // true when the label is a range (smaller number, "за каждый" note)
   range: boolean
+  // reward for finishing the whole dungeon (not tied to a floor)
+  final?: boolean
 }
 
 export interface PosterData {
@@ -82,6 +84,7 @@ interface DetailsFile {
       floors: number
       energy: { min: number; max: number; total: number } | null
       milestones: { floor: number; items: { id: string; amount: number }[] }[]
+      completion?: { id: string; amount: number }[]
     }
   >
   events: Record<
@@ -136,8 +139,16 @@ const rewardCtx: RewardResolveCtx = {
 }
 
 const itemCache = new Map<string, Omit<PosterItem, 'amount'>>()
+const CURRENCY_ITEM: Record<string, { name: string; icon: string }> = {
+  $hardcurrency: { name: 'Золото', icon: '/cash/hardcurrency.webp' },
+  $softcurrency: { name: 'Серебро', icon: '/cash/softcurrency.webp' },
+}
 function item(id: string, amount: number): PosterItem {
   let base = itemCache.get(id)
+  if (!base && CURRENCY_ITEM[id]) {
+    base = { id, name: CURRENCY_ITEM[id].name, icon: CURRENCY_ITEM[id].icon, isMutant: false }
+    itemCache.set(id, base)
+  }
   if (!base) {
     const r = resolveReward({ type: 'entity', id, amount: '1' }, rewardCtx)
     // luxe zones (Habitat_*_HC) resolve without an icon, the file name is the lowercase id
@@ -208,12 +219,21 @@ function buildPosterData(id: string): PosterData | null {
       floor: m.floor,
       items: m.items.map((it) => item(it.id, it.amount)),
     }))
-    const cells = foldRuns(rows).map((r) => ({
+    const cells: PosterCell[] = foldRuns(rows).map((r) => ({
       label: r.from === r.to ? String(r.from) : `${r.from}–${r.to}`,
       items: r.items,
       perFight: [],
       range: r.from !== r.to,
     }))
+    if (d.completion?.length) {
+      cells.push({
+        label: 'Финал',
+        items: d.completion.map((it) => item(it.id, it.amount)),
+        perFight: [],
+        range: false,
+        final: true,
+      })
+    }
     return {
       id,
       kind: d.type,
@@ -281,10 +301,10 @@ function buildPosterData(id: string): PosterData | null {
 
 export function getPosterData(id: string): PosterData | null {
   const data = buildPosterData(id)
-  // the mutant that stands in the arena: the featured one, else a mutant from the rewards, else a generic one
+  // the mutant that stands in the arena: the featured one, else a mutant from the rewards;
+  // with neither the poster shows a question mark (no unique mutant), never a stand-in mutant
   if (data && !data.mutantArt) {
-    const m =
-      firstMutantReward(data.cells) ?? resolveMutantLite('specimen_a_01', mutantsById, names)
+    const m = firstMutantReward(data.cells)
     data.mutantArt = m?.fullArt ?? null
     data.mutantName = m?.name ?? null
   }

@@ -1140,5 +1140,7 @@
   "tierPoster.legendUp": "stärkere Mutanten innerhalb des Tiers",
   "tierPoster.legendDown": "schwächere Mutanten innerhalb des Tiers",
   "guides.quests.filterEvents": "Events",
-  "guides.quests.fromLevel": "ab Stufe {level}"
+  "guides.quests.fromLevel": "ab Stufe {level}",
+  "guides.dungeon.final": "Finale",
+  "guides.dungeon.completion": "Für den vollständigen Abschluss"
 }
