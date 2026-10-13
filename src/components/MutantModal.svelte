@@ -135,6 +135,12 @@
   // (файл пересобирается пайплайном, а страница может жить дольше).
   // Подпись берём из записи "Как получить" с тем же itemId (там уже готовый
   // локализованный рендер), иначе - "Магазин" для самого мутанта в магазине.
+  // Пустой массив в offer-history.json = у мутанта были появления, но все в контейнерах с
+  // малым шансом (scripts/build-offer-history.ts) - вместо "Нет данных" показываем подсказку.
+  let onlyLowChanceBoxes: boolean = $derived.by(() => {
+    const list = mutant?.id ? (offerHistory as unknown as Record<string, OfferHistoryEntry[]>)[mutant.id] : undefined;
+    return Array.isArray(list) && list.length === 0;
+  });
   let recentOffers: { date: string; label: string; price: string }[] = $derived.by(() => {
     const list = mutant?.id ? (offerHistory as unknown as Record<string, OfferHistoryEntry[]>)[mutant.id] : undefined;
     if (!list?.length) return [];
@@ -364,7 +370,7 @@
       hp: skinStats.hp ?? 0,
       atk1: skinStats.atk1 ?? 0,
       atk2: skinStats.atk2 ?? 0,
-      ability: Math.round((skinStats.atk1 ?? 0) * Math.abs(abilityPct) / 100),
+      ability: Math.floor(((skinStats.atk1 ?? 0) * Math.abs(abilityPct)) / 100),
       speed: mutantStats.speed ?? 0,
       silver: mutantStats.silver ?? 0,
     };
@@ -405,7 +411,8 @@
     const atk = atkSlot === 1
       ? (level < 25 ? s1.atk1 : s30.atk1)
       : (level < 25 ? s1.atk2 : s30.atk2);
-    return Math.round(atk * (Math.abs(ability.pct ?? 0) / 100));
+    // Игра берёт долю урона с округлением вниз (FightTests::testShield/testRegen), в целых числах.
+    return Math.floor((atk * Math.abs(ability.pct ?? 0)) / 100);
   };
 
   // Texture — specimen (head) only
@@ -937,7 +944,7 @@
             {/each}
           </div>
         {:else}
-          <div class="text-[12px] text-slate-500">{t('modal.offerHistory.empty', locale)}</div>
+          <div class="text-[12px] text-slate-500">{t(onlyLowChanceBoxes ? 'modal.offerHistory.onlyLowChance' : 'modal.offerHistory.empty', locale)}</div>
         {/if}
       </div>
 

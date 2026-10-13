@@ -38,6 +38,7 @@ import path from 'path'
 import { fetchGameXml } from './game-xml-cache'
 import { getLiveSnapshot } from './kartel-filter-dates'
 import { runMain } from './lib/run-main'
+import { buildBoxChanceIndex, isLowChanceBoxAppearance, type BoxLike } from '../src/lib/offer-box-chance'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
@@ -91,7 +92,31 @@ async function readJson<T>(p: string, fallback: T): Promise<T> {
   }
 }
 
+// Контейнеры, из которых мутант выпадает с шансом ниже порога, в историю не попадают
+// (src/lib/offer-box-chance.ts). --prune-only: без сети и снимка kartel прогнать уже
+// сохранённый файл через тот же фильтр (разовая чистка / шаг перед пушем).
+async function pruneOnly() {
+  const boxIndex = buildBoxChanceIndex(await readJson<BoxLike[]>(P('src/data/boxes.json'), []))
+  const prev = await readJson<Record<string, [string, string, Price?][]>>(OUT_PATH, {})
+  const out: typeof prev = {}
+  let dropped = 0
+  for (const [mutantId, entries] of Object.entries(prev)) {
+    const droppedBefore = dropped
+    const kept = entries.filter((e) => {
+      const low = isLowChanceBoxAppearance(boxIndex, mutantId, e[1])
+      if (low) dropped += 1
+      return !low
+    })
+    // Пустой массив = маркер "появления были, но все в контейнерах с малым шансом"
+    // (модалка показывает подсказку вместо "Нет данных о датах").
+    if (kept.length || entries.length === 0 || dropped > droppedBefore) out[mutantId] = kept
+  }
+  await fs.writeFile(OUT_PATH, JSON.stringify(out) + '\n')
+  console.log(`[offer-history] --prune-only: убрано записей ${dropped}, мутантов осталось ${Object.keys(out).length}`)
+}
+
 async function main() {
+  if (process.argv.includes('--prune-only')) return pruneOnly()
   const snapshot = await getLiveSnapshot()
   if (snapshot.status !== 'full') {
     console.warn(`[offer-history] снимок ${snapshot.status} - файл не трогаем.`)
@@ -132,8 +157,16 @@ async function main() {
   }
 
   // mutantId -> "date|ref" -> price
+  const boxIndex = buildBoxChanceIndex(await readJson<BoxLike[]>(P('src/data/boxes.json'), []))
+  // Мутанты, у которых хотя бы одно появление выброшено фильтром малого шанса.
+  const lowChanceOnly = new Set<string>()
   const found = new Map<string, Map<string, Price>>()
   const add = (mutantId: string, date: string, ref: string, price: Price) => {
+    if (isLowChanceBoxAppearance(boxIndex, mutantId, ref)) {
+      bump('droppedLowChanceBox')
+      lowChanceOnly.add(mutantId)
+      return
+    }
     let m = found.get(mutantId)
     if (!m) found.set(mutantId, (m = new Map()))
     m.set(`${date}|${ref}`, price)
@@ -360,6 +393,8 @@ async function main() {
   // Merge-only с предыдущим выходом: ничего не удаляем.
   const prev = await readJson<Record<string, [string, string, Price?][]>>(OUT_PATH, {})
   for (const [mutantId, entries] of Object.entries(prev)) {
+    // [] в прошлом файле - маркер "все появления в контейнерах с малым шансом": переносим.
+    if (entries.length === 0) lowChanceOnly.add(mutantId)
     for (const e of entries) {
       if (!found.get(mutantId)?.has(`${e[0]}|${e[1]}`)) add(mutantId, e[0], e[1], e[2] ?? null)
     }
@@ -373,6 +408,8 @@ async function main() {
     entries.sort((a, b) => (a[0] === b[0] ? a[1].localeCompare(b[1]) : b[0].localeCompare(a[0])))
     out[mutantId] = entries.slice(0, KEEP)
   }
+  // Маркер [] только тем, у кого после фильтра не осталось ни одной записи.
+  for (const mutantId of [...lowChanceOnly].sort()) if (!out[mutantId]) out[mutantId] = []
 
   const nextOutText = JSON.stringify(out) + '\n'
   const prevOutText = await fs.readFile(OUT_PATH, 'utf-8').catch(() => '')
