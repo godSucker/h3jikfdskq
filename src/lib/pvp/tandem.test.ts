@@ -12,7 +12,9 @@ describe('tandem', () => {
   it('strikes once, stays out of the unit list and the queue', () => {
     const helper = buildTandemUnit({ mutantId: 'specimen_a_01', level: 30, star: 'normal' }, 'mine')
     const s = createBattleSession(
-      [mk('specimen_a_01', 'mine', 30, '0')],
+      // Same level on both sides: on equal speed the game gives the first move to the higher
+      // level, then to the side - so mine moves first and survives to use the tandem.
+      [mk('specimen_a_01', 'mine', 300, '0')],
       [mk('specimen_a_01', 'enemy', 300, '0')],
       'manual',
       'ai',

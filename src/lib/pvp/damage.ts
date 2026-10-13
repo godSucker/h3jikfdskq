@@ -1,30 +1,39 @@
 /**
- * Формула урона - 1:1 с "Формула урона" на src/components/guides/GuidesBrowser.svelte
- * (L788-803), которая сама уже документирует FightUtils::fillAttackModel (RE):
+ * Формула удара - точный порт FightUtils::fillAttackModel (Ghidra), ВСЯ арифметика
+ * целочисленная int32 с отбрасыванием дробной части к нулю (так делит C++), а не float
+ * с округлением:
  *
- *   1) базовый урон → крит (если сработал, ×2) → тип (±25%/±50%)
- *   2) отдельно: та же база → тот же крит → тот же тип → берётся % баффа от результата
- *   3) итог = результат (1) + результат (2)
+ *   d1 = base + base * crit% / 100            (crit% = 100 при крите, иначе 0)
+ *   d2 = d1   + d1   * typeMod% / 100         (typeMod: +-25/+-50 из таблицы типов)
+ *   бафф (strengthen/weaken) - ОТДЕЛЬНАЯ ветка с теми же шагами от той же базы:
+ *   b1 = base + base * crit% / 100;  b2 = b1 + b1 * typeMod% / 100
+ *   вклад баффа = b2 * бафф% / 100
+ *   итог = max(0, d2 + вклад баффа)
  *
- * Пример с сайта: атака 10000, крит ×2, тип +25%, бафф +40%.
- * Ветка 1: 10000 → 20000 → 25000. Ветка 2: 10000 → 20000 → 25000 → ×40% = 10000.
- * Итог 35000 (не наивные 25000×1.4 "по счастливой случайности одинаковых чисел" -
- * при разных базах урона и баффа веерная формула даёт другой результат, чем
- * плоское умножение готового числа на процент).
+ * Оракул - юнит-тесты самой игры (FightTests::testRegen): атака 414, тип +25% даёт 517
+ * (414 + trunc(103.5)), а не 518 как у Math.round.
+ *
+ * Шанс крита (целое): (5 * (чармы + сферы + 100) + 99) / 100 - ПОТОЛОК, бросок
+ * random(0..99) < шанса. Константы 5 и 100 - randomValueForCritical и
+ * damagesPercentForCritical из fightsettings.xml.
  */
 
-import { getTypeModifier, critChance, type Gene } from './type-table'
+import { getTypeModifier, type Gene } from './type-table'
 
-/** Эффективный крит-шанс атакующего против конкретной цели: свой крит-чарм/орбы + антикрит-чарм цели.
- *  Округляется до целого - rollCrit ниже сравнивает с ЦЕЛЫМ броском (Math.floor(rng()*100)),
- *  так что дробная часть формулы (см. GuidesBrowser.svelte, где она показана с 2 знаками для
- *  документации) всё равно не даёт более тонкой гранулярности броска - целое здесь честнее
- *  показывает, что реально влияет на исход. */
+/** randomValueForCritical (fightsettings.xml): базовый шанс крита, %. */
+export const CRIT_BASE_CHANCE = 5
+/** damagesPercentForCritical (fightsettings.xml): прибавка урона при крите, %. */
+export const CRIT_DAMAGE_PCT = 100
+
+/** Эффективный крит-шанс атакующего против конкретной цели: свой крит-чарм/орбы + антикрит-чарм
+ *  цели. Целое, с округлением ВВЕРХ - ровно как считает клиент игры. */
 export function effectiveCritChance(
   attackerCritBonusPct: number,
   targetAnticritBonusPct: number,
 ): number {
-  return Math.round(critChance(attackerCritBonusPct + targetAnticritBonusPct))
+  return Math.trunc(
+    (CRIT_BASE_CHANCE * (attackerCritBonusPct + targetAnticritBonusPct + 100) + 99) / 100,
+  )
 }
 
 export function rollCrit(critChancePct: number, rng: () => number): boolean {
@@ -32,15 +41,15 @@ export function rollCrit(critChancePct: number, rng: () => number): boolean {
   return roll < critChancePct
 }
 
-function applyCritAndType(
-  base: number,
-  crit: boolean,
-  attackerGene: Gene,
-  targetGene: Gene,
-): { result: number; typeModPct: number } {
-  const afterCrit = crit ? base * 2 : base
-  const typeModPct = getTypeModifier(attackerGene, targetGene)
-  return { result: afterCrit * (1 + typeModPct / 100), typeModPct }
+/** C-style `value * percent / 100` in int32: truncates toward zero. */
+function pctOf(value: number, percent: number): number {
+  return Math.trunc((value * percent) / 100)
+}
+
+/** base -> crit -> type, the way one branch of fillAttackModel does it. */
+function critThenType(base: number, critPct: number, typeModPct: number): number {
+  const afterCrit = base + pctOf(base, critPct)
+  return afterCrit + pctOf(afterCrit, typeModPct)
 }
 
 export interface HitInput {
@@ -64,18 +73,17 @@ export interface HitResult {
 }
 
 export function resolveHit(input: HitInput): HitResult {
-  const { result: mainDamage, typeModPct } = applyCritAndType(
-    input.baseDamage,
-    input.crit,
-    input.attackerGene,
-    input.targetGene,
-  )
-  const buffDamage = input.buffPct ? mainDamage * (input.buffPct / 100) : 0
+  const typeModPct = getTypeModifier(input.attackerGene, input.targetGene)
+  const critPct = input.crit ? CRIT_DAMAGE_PCT : 0
+  const mainDamage = critThenType(input.baseDamage, critPct, typeModPct)
+  // Ветка баффа стартует от той же базы, что и основная (в игре может быть унаследованное
+  // значение прошлого хода - здесь не моделируется), поэтому её b2 == mainDamage.
+  const buffDamage = input.buffPct ? pctOf(mainDamage, input.buffPct) : 0
   return {
     baseDamage: input.baseDamage,
-    mainDamage: Math.round(mainDamage),
-    buffDamage: Math.round(buffDamage),
-    totalDamage: Math.round(mainDamage + buffDamage),
+    mainDamage,
+    buffDamage,
+    totalDamage: Math.max(0, mainDamage + buffDamage),
     crit: input.crit,
     typeModPct,
     buffPct: input.buffPct,

@@ -16,13 +16,13 @@ import orbsRaw from '@/data/materials/orbs.json'
 import charmsRaw from '@/data/materials/charms.json'
 import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator'
 import { applySpeedSphere } from '@/lib/stats/speed-sphere-table'
+import { ABILITY_UNLOCK_LEVELS, calculateExactStats } from '@/lib/stats/stat-formula'
 import { t, type Locale } from '@/lib/i18n'
 import type { MutantNameEntry } from '@/lib/mutant-names-i18n'
 import type { Gene } from './type-table'
 
 export type AbilityKind = 'shield' | 'regen' | 'retaliate' | 'slash' | 'strengthen' | 'weaken'
 
-const ATK2_UNLOCK_LEVEL = 5
 
 /** Макс. заряды strengthen (Effect strengthen_01 stackMax="2" в abilitydefinitions_decoded.xml). */
 export const STRENGTHEN_STACK_MAX = 2
@@ -63,11 +63,16 @@ export interface CombatUnit {
   atk2IsAOE: boolean
   /** РУ-название атаки 2 (mutant.name_attack2) - для UI вместо родового "Атака 2". */
   attack2Name: string
-  /** Атака 2 анлочится на 5 уровне (gamedefinitions.xml, Tag unlockAttack="1:1:..;2:5:..;1p:10:..;2p:15:..").
-   *  Универсально для 708/711 мутантов; 3 уникальных/легендарных исключения (разный
-   *  уровень анлока/переключения тира вплоть до 50) не моделируются - та же степень
-   *  точности, что уже принята в unified-calculator.ts для порогов 10/15. */
+  /** Атака 2 доступна с уровня разблокировки мутанта (тег unlockAttack, по умолчанию 5;
+   *  у FD_07, DD_13, EA_99 свой - берётся из base_stats.unlock). */
   atk2Available: boolean
+  /** Уровень бойца - второй ключ тай-брейка очереди ходов при равной скорости
+   *  (FightContext::computeTurns, выше уровень ходит раньше). */
+  level: number
+  /** Скорость в ИГРОВОЙ сырой конвенции (целое spX100, МЕНЬШЕ = БЫСТРЕЕ), уже со
+   *  сферами скорости: floor(spX100 * 100 / (100 + %)), минимум 1 (ISpecimenModel::
+   *  getSpeedX100). Очередь ходов считается по нему, а не по округлённому speedX100. */
+  speedRaw: number
   speedX100: number
   /** Свой крит-чарм + крит-орбы - повышает МОЙ шанс крита при атаке. */
   critCharmBonusPct: number
@@ -274,17 +279,39 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
       bank_base: bs.bank_base,
       abilityPct1: bs.abilityPct1,
       abilityPct2: bs.abilityPct2,
+      unlock: bs.unlock,
+      passport: bs.passport,
     },
     level,
     starMul,
   )
 
-  const hp = Math.round(baseResult.hp * (1 + mods.hpPct / 100))
-  const atk1 = Math.round(baseResult.atk1 * (1 + mods.atk1Pct / 100))
-  const atk2 = Math.round(baseResult.atk2 * (1 + mods.atk2Pct / 100))
+  // Точная формула клиента (stat-formula.ts): HP-сферы вторым floor, атак-сферы внутри
+  // единого floor, GACHA - от сырых баз с паспортным bonus, пороги атак - по мутанту.
+  const pp = bs.passport
+  const exact = calculateExactStats(
+    {
+      hp_base: pp ? pp.hp_base : bs.hp_base,
+      atk1_base: pp ? pp.atk1_base : bs.atk1_base,
+      atk1p_base: pp ? pp.atk1p_base : bs.atk1p_base,
+      atk2_base: pp ? pp.atk2_base : bs.atk2_base,
+      atk2p_base: pp ? pp.atk2p_base : bs.atk2p_base,
+      unlock: bs.unlock,
+    },
+    { lf: Math.round(starMul * 100), bonus: pp ? pp.bonus : 0 },
+    level,
+    { hpPct: mods.hpPct, atk1Pct: mods.atk1Pct, atk2Pct: mods.atk2Pct },
+  )
+  const hp = exact.hp
+  const atk1 = exact.atk1
+  const atk2 = exact.atk2
   const speedX100 = mods.speedPct
-    ? applySpeedSphere(baseResult.speed, mods.speedPct)
+    ? applySpeedSphere(baseResult.speed, mods.speedPct, bs.spX100)
     : baseResult.speed
+  // Игровая сырая скорость (целое, меньше = быстрее) - для очереди ходов.
+  const rawBaseSp =
+    Number(bs.spX100) > 0 ? Math.round(Number(bs.spX100)) : Math.max(1, Math.round(1000 / baseResult.speed))
+  const speedRaw = Math.max(1, Math.floor((rawBaseSp * 100) / (100 + (mods.speedPct || 0))))
 
   // Крит-чарм и крит-орбы повышают МОЙ шанс крита; антикрит-чарм снижает шанс крита
   // ПРОТИВНИКА против меня (не мой собственный) - считается отдельно, применяется
@@ -310,9 +337,10 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
     : []
   const abilities: CombatAbility[] = []
   let ownKind: AbilityKind | null = null
-  if (abilityEntries.length) {
+  // До 4-го уровня способности в игре нет (MiscSettings AbilitiesUnlockLevels).
+  if (abilityEntries.length && level >= ABILITY_UNLOCK_LEVELS.first) {
     const own =
-      abilityEntries.find((a) => a.name.endsWith('_plus')) && level >= 25
+      abilityEntries.find((a) => a.name.endsWith('_plus')) && level >= ABILITY_UNLOCK_LEVELS.second
         ? abilityEntries.find((a) => a.name.endsWith('_plus'))!
         : abilityEntries.find((a) => !a.name.endsWith('_plus')) || abilityEntries[0]
     ownKind = abilityKindFromCode(own.name)
@@ -366,7 +394,9 @@ export function buildBattleUnit(mutantId: string, opts: BuildUnitOptions): Comba
     atk2Gene: normalizeGene(bs.atk2_gene ?? lvl1.atk2_gene),
     atk2IsAOE: Boolean(bs.atk2_AOE ?? lvl1.atk2_AOE),
     attack2Name: localizedAtk2 || attack2Fallback,
-    atk2Available: level >= ATK2_UNLOCK_LEVEL,
+    atk2Available: exact.atk2Unlocked,
+    level,
+    speedRaw,
     speedX100,
     critCharmBonusPct,
     anticritBonusPct,
