@@ -194,7 +194,7 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 - **Weak mutants** (Specimen_A_02, Specimen_B_02, Specimen_C_02 = Слабый Робот/Зомби/Воин) must NEVER be parsed or written to mutants.json.
 - **Bingo title matching** requires stripping dash prefixes: existing titles use `--------morphology_*` for sort order.
 - **StatsCalculator.svelte uses `client:load`** (switched back from `client:only` 2026-08-12: `client:only` shipped zero SSR content, so any failed JS chunk on unstable connections — VPNs especially — left the page silently blank; `client:load` renders full markup via SSR first). All interactive components on the site use `client:load` or `client:visible`.
-- **Stat calculation single source of truth**: `src/lib/stats/unified-calculator.ts` (`calculateFinalStats()`).
+- **Stat calculation single source of truth**: the exact game formula in `src/lib/stats/stat-formula.ts` (integer math, floor, per-specimen `bonus`, per-mutant attack unlock levels). `calculateFinalStats()` in `unified-calculator.ts` and `skin-stats.ts` delegate to it; the bot card, the stats calculator, the modals and the PvP engine all go through it. Never reintroduce `Math.round` on stats or float percent math (`atk * 0.3` gives 1952.99...) - the nightly sync would write false rebalance entries.
 - **Lucky Box feature REMOVED**. All code, data, textures deleted. Lucky Slots roulette simulator is SEPARATE and must be preserved.
 - **All new textures** must be uploaded to CDN.
 
@@ -205,6 +205,9 @@ The dev server runs with polling enabled and ignores Python venv directories (`.
 | `scripts/sync-mutants.ts` | `sync-cron.yml` daily 16:30 MSK | Parse gamedefinitions.xml, download textures, update mutants.json |
 | `scripts/sync-bingo.ts` | `sync-simulators.yml` manual | Incremental bingo updater (additive only) |
 | `scripts/download-skins.ts` | `sync-cron.yml` daily | Download skin textures from CDN |
+| `scripts/backfill-mutant-raw.ts` | manual (needs network) | Adds raw fields `spX100`, `unlock`, GACHA `passport` to mutants.json without touching anything else |
+| `scripts/recompute-derived-stats.ts` | manual (no network) | Recomputes lvl1/lvl30 and ability values from stored bases with the shared formula; run after any change of the formula or after a merge with the nightly sync |
+| `scripts/build-offer-history.ts` | `announcements-hourly.yml` | "Recent appearances" data; drops box appearances where the mutant's chance is below 10% (`--prune-only` re-applies it to the stored file without network) |
 
 ## Gotchas
 
