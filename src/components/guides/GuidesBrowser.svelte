@@ -207,8 +207,10 @@
   const CRIT_SPHERE_PERCENTS = [2, 5, 11, 13, 15, 17, 18, 19]
   const CRIT_BASE = 5
   const CRIT_BOOST_NET = 50 - 75
+  // Клиент игры считает шанс ЦЕЛЫМ с округлением вверх: (5 * (100 + бонус) + 99) / 100
+  // (FightUtils::fillAttackModel) и бросает кубик 0..99 - дробного шанса в игре нет.
   function critChance(bonus: number): number {
-    return Math.round(CRIT_BASE * (100 + bonus) / 100 * 100) / 100
+    return Math.trunc((CRIT_BASE * (100 + bonus) + 99) / 100)
   }
   const CRIT_SPHERE_LEVELS = CRIT_SPHERE_PERCENTS.map((percent, level) => ({
     level,
@@ -946,6 +948,9 @@
       <div class="formula-box">
         {t('guides.numbers.hp.formula', locale)}
       </div>
+      <p>
+        {t('guides.numbers.hp.floorNote', locale)}
+      </p>
 
       <h2>{t('guides.numbers.damage.title', locale)}</h2>
       <p>
@@ -968,10 +973,19 @@
       <p>
         {t('guides.numbers.damage.example', locale)}
       </p>
+      <p>
+        {t('guides.numbers.damage.unlockNote', locale)}
+      </p>
+      <p>
+        {t('guides.numbers.damage.abilityNote', locale)}
+      </p>
 
       <h2>{t('guides.numbers.stars.title', locale)}</h2>
       <p>
         {t('guides.numbers.stars.p1', locale)}
+      </p>
+      <p>
+        {t('guides.numbers.stars.bonusNote', locale)}
       </p>
 
       <h2>{t('guides.numbers.silver.title', locale)}</h2>
@@ -1000,6 +1014,10 @@
       </p>
       <p class="formula-example">
         {t('guides.numbers.crit.exampleBefore', locale)}<img src={textureUrl('/boosters/charm_critical_7.webp')} alt={t('guides.numbers.crit.altBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleMid', locale)}<img src={textureUrl('/boosters/charm_anticritical_7.webp')} alt={t('guides.numbers.crit.altAntiBooster', locale)} class="formula-icon" loading="lazy" decoding="async" />{t('guides.numbers.crit.exampleAfter', locale)}
+      </p>
+
+      <p>
+        {t('guides.numbers.crit.roundNote', locale)}
       </p>
 
       <div class="type-table-wrap">
@@ -1041,6 +1059,9 @@
       </div>
       <p>
         {t('guides.numbers.damageFormula.example', locale)}
+      </p>
+      <p>
+        {t('guides.numbers.damageFormula.roundNote', locale)}
       </p>
 
       <h2>{t('guides.numbers.typeTable.title', locale)}</h2>
