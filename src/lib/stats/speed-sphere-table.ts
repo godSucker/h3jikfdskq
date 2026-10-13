@@ -74,28 +74,47 @@ function getSphereLevelKey(speedPct: number): 'lvl3' | 'lvl4' | 'lvl5' | null {
 }
 
 /**
- * Calculate speed with Speed Orb using lookup table
- * @param baseSpeed - The mutant's base speed
- * @param speedPct - The percentage bonus from the orb (+15%, +18%, or +20%)
- * @returns Calculated speed value using the lookup table, or fallback to formula if not found
+ * Exact game rule (ISpecimenModel::getSpeedX100, Ghidra):
+ *   speedX100' = floor(spX100 * 100 / (100 + sum of speed-orb %)), minimum 1
+ *   displayed speed = 1000 / speedX100'
+ * This reproduces every cell of SPEED_SPHERE_TABLE (verified 150/150 by
+ * speed-sphere-table.test.ts) and also handles any base speed and any SUM of
+ * speed orbs, which the table cannot.
+ *
+ * @param spX100 raw integer `spX100` tag of the mutant when known (exact);
+ *   otherwise it is estimated from the displayed speed (1000/speed), which can
+ *   be off by one for a few speeds (e.g. 3.13 is both 319 and 320).
  */
-export function applySpeedSphere(baseSpeed: number, speedPct: number): number {
-  // Check if this is a speed orb percentage (15%, 18%, or 20%)
-  const levelKey = getSphereLevelKey(speedPct);
-  if (!levelKey) {
-    // Not a speed orb, fall back to regular percentage math
-    return baseSpeed * (1 + speedPct / 100);
+export function applySpeedSphereExact(
+  baseSpeed: number,
+  speedPct: number,
+  spX100?: number | null,
+): number {
+  const raw =
+    spX100 && spX100 > 0 ? Math.round(spX100) : Math.max(1, Math.round(1000 / baseSpeed))
+  const reduced = Math.max(1, Math.floor((raw * 100) / (100 + speedPct)))
+  return Math.round((1000 / reduced) * 100) / 100
+}
+
+/**
+ * Calculate speed with Speed Orb(s): the lookup table stays the primary source
+ * (single orb of level 3/4/5 on a base speed that is in the table); everything
+ * else - other bases, several orbs at once, other percentages - uses the exact
+ * integer rule above instead of the old naive `speed * (1 + pct/100)`.
+ * @param baseSpeed - The mutant's base speed
+ * @param speedPct - Total percentage bonus from speed orbs
+ * @param spX100 - raw integer spX100 of the mutant, when known
+ */
+export function applySpeedSphere(
+  baseSpeed: number,
+  speedPct: number,
+  spX100?: number | null,
+): number {
+  const levelKey = getSphereLevelKey(speedPct)
+  if (levelKey) {
+    const baseSpeedKey = baseSpeed.toFixed(2)
+    const tableEntry = SPEED_SPHERE_TABLE[baseSpeedKey as keyof typeof SPEED_SPHERE_TABLE]
+    if (tableEntry) return tableEntry[levelKey]
   }
-
-  // Try to find the base speed in the lookup table
-  const baseSpeedKey = baseSpeed.toFixed(2);
-  const tableEntry = SPEED_SPHERE_TABLE[baseSpeedKey as keyof typeof SPEED_SPHERE_TABLE];
-
-  if (tableEntry) {
-    // Found in table, use the exact value
-    return tableEntry[levelKey];
-  }
-
-  // Not in table, fall back to mathematical formula
-  return baseSpeed * (1 + speedPct / 100);
+  return applySpeedSphereExact(baseSpeed, speedPct, spX100)
 }

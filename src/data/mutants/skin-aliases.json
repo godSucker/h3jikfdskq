@@ -1,0 +1,12 @@
+{
+  "_README": "Skin aliases for the Telegram stats bot. Key = skin code from skins.json (winter, halloween, ...), value = list of extra words users may type. Keys starting with an underscore are ignored. Official RU names and the codes themselves already work without entries here. Aliases are curated by hand and approved by the owner (2026-10-14), do not add LLM-invented ones.",
+  "winter": ["зимний", "зимняя"],
+  "halloween": ["хэллоуин", "хелоуин"],
+  "easter": ["пасха", "пасхальная"],
+  "beach": ["пляж", "пляжный", "тропики"],
+  "anniversary": ["юбилейный"],
+  "valentines": ["валентин"],
+  "summer": ["летний"],
+  "autumn": ["осенний"],
+  "spring": ["весенний"]
+}

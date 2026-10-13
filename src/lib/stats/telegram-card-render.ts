@@ -611,12 +611,27 @@ async function buildPanelTree(input: CardInput) {
     },
     h(
       'div',
-      { style: { display: 'flex', justifyContent: 'center', width: '100%' } },
+      {
+        style: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 4,
+          width: '100%',
+        },
+      },
       h(
         'div',
         { style: { display: 'flex', fontSize: 28, fontWeight: 800, color: '#ffffff' } },
         panel.name,
       ),
+      panel.skinLabel
+        ? h(
+            'div',
+            { style: { display: 'flex', fontSize: 17, fontWeight: 700, color: '#9fb0c8' } },
+            `Скин: ${panel.skinLabel}`,
+          )
+        : null,
     ),
     h(
       'div',

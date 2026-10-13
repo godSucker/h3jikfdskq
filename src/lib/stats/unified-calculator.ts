@@ -3,7 +3,27 @@
  * Single source of truth for all mutant stat calculations
  */
 
+import { ABILITY_UNLOCK_LEVELS, calculateExactStats, type UnlockLevels } from './stat-formula'
+
 export interface BaseStatsInput {
+  /** Per-mutant attack unlock levels (tag unlockAttack); default 1/5/10/15. */
+  unlock?: Partial<UnlockLevels> | null
+  /** Integer per-specimen bonus (0 for a plain mutant). */
+  bonus?: number
+  /**
+   * GACHA mutants: raw (unadjusted) bases plus the gacha "passport" bonus. The
+   * plain hp_base/atk*_base of such a mutant have the bonus baked in with
+   * rounding (kept for rebalance diffs); with passport the exact game formula
+   * is used instead (HP ~ LF - bonus, ATK ~ bonus + 100).
+   */
+  passport?: {
+    bonus: number
+    hp_base: number
+    atk1_base: number
+    atk1p_base: number
+    atk2_base: number
+    atk2p_base: number
+  } | null
   hp?: number
   atk1?: number
   atk1r?: number
@@ -26,6 +46,8 @@ export interface BaseStatsInput {
 }
 
 export interface CalculatedStats {
+  /** false below the level where attack 2 appears in the game (default 5). */
+  atk2Unlocked?: boolean
   hp: number
   atk1: number
   atk2: number
@@ -35,7 +57,14 @@ export interface CalculatedStats {
 }
 
 /**
- * Calculate final stats
+ * Calculate final stats.
+ *
+ * Delegates to the exact game formula in stat-formula.ts (integer math, one
+ * floor, see there). The star multiplier is converted to the game's star factor
+ * LF = round(multiplier * 100); `bonus` is the per-specimen integer bonus
+ * (0 for a plain mutant) and `unlock` the mutant's own attack unlock levels
+ * (default 1/5/10/15).
+ *
  * @param baseStats Base stat values (supports both naming conventions)
  * @param level Current level (1-30)
  * @param starMultiplier Star rating multiplier (1.0, 1.1, 1.3, 1.75, 2.0)
@@ -47,12 +76,20 @@ export function calculateFinalStats(
 ): CalculatedStats {
   const multiplier = starMultiplier || 1
 
+  // GACHA passport: use the raw bases + integer bonus instead of the adjusted ones.
+  const passport = baseStats.passport
+  const bonus = passport ? passport.bonus : (baseStats.bonus ?? 0)
+
   // Normalize input - support both naming conventions
-  const hp = baseStats.hp ?? baseStats.hp_base ?? 0
-  const atk1 = baseStats.atk1 ?? baseStats.atk1_base ?? 0
-  const atk1r = baseStats.atk1r ?? baseStats.atk1p_base ?? atk1
-  const atk2 = baseStats.atk2 ?? baseStats.atk2_base ?? 0
-  const atk2r = baseStats.atk2r ?? baseStats.atk2p_base ?? atk2
+  const hp = passport ? passport.hp_base : (baseStats.hp ?? baseStats.hp_base ?? 0)
+  const atk1 = passport ? passport.atk1_base : (baseStats.atk1 ?? baseStats.atk1_base ?? 0)
+  const atk1r = passport
+    ? passport.atk1p_base
+    : (baseStats.atk1r ?? baseStats.atk1p_base ?? atk1)
+  const atk2 = passport ? passport.atk2_base : (baseStats.atk2 ?? baseStats.atk2_base ?? 0)
+  const atk2r = passport
+    ? passport.atk2p_base
+    : (baseStats.atk2r ?? baseStats.atk2p_base ?? atk2)
 
   const speed =
     baseStats.speed ??
@@ -66,40 +103,34 @@ export function calculateFinalStats(
   const abilityPct1 = baseStats.abilityPct1 ?? 0
   const abilityPct2 = baseStats.abilityPct2 ?? 0
 
-  // Apply star multiplier to base stats
-  const finalBaseHp = hp * multiplier
-  const finalBaseAtk1 = atk1 * multiplier
-  const finalBaseAtk1r = atk1r * multiplier
-  const finalBaseAtk2 = atk2 * multiplier
-  const finalBaseAtk2r = atk2r * multiplier
+  const exact = calculateExactStats(
+    {
+      hp_base: hp,
+      atk1_base: atk1,
+      atk1p_base: atk1r,
+      atk2_base: atk2,
+      atk2p_base: atk2r,
+      unlock: baseStats.unlock,
+    },
+    { lf: Math.round(multiplier * 100), bonus },
+    level,
+  )
 
-  // Level scaling
-  const levelScale = level / 10 + 0.9
-
-  const finalHp = finalBaseHp * levelScale
-
-  // ATK1: upgrades at level 10
-  const activeBaseAtk1 = level < 10 ? finalBaseAtk1 : finalBaseAtk1r
-  const finalAtk1 = activeBaseAtk1 * levelScale
-
-  // ATK2: upgrades at level 15
-  const activeBaseAtk2 = level < 15 ? finalBaseAtk2 : finalBaseAtk2r
-  const finalAtk2 = activeBaseAtk2 * levelScale
-
-  // Ability: switches at level 25
-  const abilityPercent = level < 25 ? abilityPct1 : abilityPct2
-  const abilityValue = finalAtk1 * (Math.abs(abilityPercent) / 100)
-
-  const finalSpeed = speed
-  const finalSilver = silver * level
+  // Ability: switches at level 25. Nominal value = pct of the first attack;
+  // in a fight the game takes the same share of the damage actually dealt,
+  // always floored (FightTests::testShield/testRegen).
+  const abilityPercent = level < ABILITY_UNLOCK_LEVELS.second ? abilityPct1 : abilityPct2
+  const abilityValue = Math.floor((exact.atk1 * Math.abs(abilityPercent)) / 100)
 
   return {
-    hp: Math.round(finalHp),
-    atk1: Math.round(finalAtk1),
-    atk2: Math.round(finalAtk2),
-    ability: Math.round(abilityValue),
-    speed: finalSpeed,
-    silver: Math.round(finalSilver),
+    hp: exact.hp,
+    atk1: exact.atk1,
+    atk2: exact.atk2,
+    ability: abilityValue,
+    speed,
+    // Silver per hour = bank x level (HabitatController::getCurrencyFromSpecimen).
+    silver: Math.round(silver * level),
+    atk2Unlocked: exact.atk2Unlocked,
   }
 }
 

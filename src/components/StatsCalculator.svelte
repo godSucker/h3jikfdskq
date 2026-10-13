@@ -7,7 +7,12 @@
   import { normalizeSearch } from '@/lib/search-normalize';
   import { calculateFinalStats, maxLevelForHp } from '@/lib/stats/unified-calculator';
   import { sortMutantsByGene } from '@/lib/mutant-sort';
-  import { applySpeedSphere } from '@/lib/stats/speed-sphere-table';
+  import { calcStats as calcMutantStats } from '@/lib/stats/panel-data';
+  import { ABILITY_UNLOCK_LEVELS } from '@/lib/stats/stat-formula';
+  import { skinEffectiveHpBase } from '@/lib/stats/skin-stats';
+  import { skinsForMutant } from '@/lib/stats/skin-catalog';
+  import { getSkinName } from '@/lib/localisation';
+  import skinIconsData from '@/data/mutants/skin-icons.json';
   import { textureUrl } from '@/lib/texture-cdn';
   import { t, type Locale } from '@/lib/i18n';
   import { tierText } from '@/lib/tier-label';
@@ -123,6 +128,11 @@
         specialSlotCount: Number.isFinite(m.orbs?.special) ? m.orbs.special : SPECIAL_SLOT_COUNT,
         attackMeta: buildAttackMeta(m),
         _rawStars: m.stars ?? {},
+        // Raw fields of mutants.json base_stats (backfill-mutant-raw.ts): own attack
+        // unlock levels, raw integer speed tag, GACHA passport (raw bases + bonus).
+        unlock: m.base_stats?.unlock ?? null,
+        spX100: Number(m.base_stats?.spX100) || null,
+        passport: m.base_stats?.passport ?? null,
       };
     });
   }
@@ -562,6 +572,7 @@
   let selected = $state(ALL_MUTANTS[0]);       // текущий мутант
   let level = $state(30);                      // уровень из инпута
   let stars = $state(0);                       // 0..4
+  let skinCode = $state(null as string | null);   // код скина (skins.json) или null
   // выбранные сферы: массив из N базовых и 1 спец
   let basicSlots = $state([]);                 // длина = selected.basicSlotCount
   let specialSlot = $state(null);
@@ -583,6 +594,7 @@
   let selected2 = $state(null as any);
   let level2 = $state(30);
   let stars2 = $state(0);
+  let skinCode2 = $state(null as string | null);
   let basicSlots2 = $state([] as any[]);
   let specialSlot2 = $state(null as any);
   let openDropdown2 = $state(null as string | null);
@@ -598,6 +610,7 @@
     if (m) { lastMutantId = m.id; selected = m; }
     if (renderParams.level) level = renderParams.level;
     if (renderParams.stars != null) stars = renderParams.stars;
+    if (renderParams.skin) skinCode = renderParams.skin;
     showCatalog = false;
     if (renderParams.orbs) {
       basicSlots = renderParams.orbs.map((id: string | null) => id ? ORBS.basic.find((o) => o.id === id) || ORBS.special.find((o) => o.id === id) || null : null);
@@ -612,6 +625,7 @@
       if (m2) { lastMutantId2 = m2.id; selected2 = m2; }
       if (renderParams.level2) level2 = renderParams.level2;
       if (renderParams.stars2 != null) stars2 = renderParams.stars2;
+      if (renderParams.skin2) skinCode2 = renderParams.skin2;
       if (renderParams.orbs2) {
         basicSlots2 = renderParams.orbs2.map((id: string | null) => id ? ORBS.basic.find((o) => o.id === id) || ORBS.special.find((o) => o.id === id) || null : null);
       }
@@ -689,6 +703,7 @@
     const count = Number.isFinite(selected.basicSlotCount) ? selected.basicSlotCount : 3;
     basicSlots = Array(count).fill(null);
     specialSlot = null;
+    skinCode = null;
     // Auto-select max available star ONLY when mutant changes
     const availableArray = Array.from(selected.availableStars);
     if (availableArray.length > 0) {
@@ -702,6 +717,7 @@
     const count = Number.isFinite(selected2.basicSlotCount) ? selected2.basicSlotCount : 3;
     basicSlots2 = Array(count).fill(null);
     specialSlot2 = null;
+    skinCode2 = null;
     const availableArray = Array.from(selected2.availableStars);
     if (availableArray.length > 0) {
       stars2 = Math.max(...availableArray);
@@ -870,61 +886,49 @@
   // серебра от ~6.3М до ~51М уровня - на 1-2 порядка выше HP-порога для ЛЮБОГО реального
   // мутанта/звезды/орбов (HP переполняется первым всегда), так что клэмпа по HP тут
   // достаточно, отдельный клэмп по серебру не нужен.
-  function computeMaxLevel(m, s, mods){
+  function computeMaxLevel(m, s, mods, skinEntry = null){
     if (!m) return 1;
-    const starMul = starMulOf(m, s);
     const hpPct = mods?.hpPct || 0;
-    return maxLevelForHp((m.hpBase || 0) * starMul * (1 + hpPct / 100));
+    // Скин: звезда уже внутри его HP (hp_base * (LF - bonus) / 100).
+    const hpAtLevelOne = skinEntry
+      ? skinEffectiveHpBase(m.hpBase || 0, skinEntry)
+      : (m.hpBase || 0) * starMulOf(m, s);
+    return maxLevelForHp(hpAtLevelOne * (1 + hpPct / 100));
   }
 
-  function calcStats(m, lvl, s, mods){
-    // Use unified smart stats calculator with debug
-    const starMul = starMulOf(m, s);
-    const baseStats = {
-      hp_base: m.hpBase,
-      atk1_base: m.atk1Base,
-      atk1p_base: m.atk1PlusBase,
-      atk2_base: m.atk2Base,
-      atk2p_base: m.atk2PlusBase,
-      speed_base: m.speed,
-      bank_base: m.bankBase,
-      abilityPct1: m.abilityPct1,
-      abilityPct2: m.abilityPct2,
-    };
-    const result = calculateFinalStats(baseStats, lvl, starMul);
-
-    // Apply orb modifiers if present
-    let finalStats = { ...result };
-    if (mods) {
-      if (mods.hpPct) finalStats.hp = Math.round(result.hp * (1 + mods.hpPct / 100));
-      if (mods.atk1Pct) finalStats.atk1 = Math.round(result.atk1 * (1 + mods.atk1Pct / 100));
-      if (mods.atk2Pct) finalStats.atk2 = Math.round(result.atk2 * (1 + mods.atk2Pct / 100));
-      if (mods.speedPct) finalStats.speed = applySpeedSphere(result.speed, mods.speedPct);
-    }
-
-    return {
-      hp: finalStats.hp,
-      atk1: finalStats.atk1,
-      atk2: finalStats.atk2,
-      speed: finalStats.speed,
-      bank: finalStats.silver,
-    };
+  // Один расчёт на сайт, бота и PvP: точная формула клиента игры (stat-formula.ts),
+  // орбы по правилам игры (HP второй floor, атака внутри floor), скины и GACHA.
+  function calcStats(m, lvl, s, mods, skinEntry = null){
+    const r = calcMutantStats(m, lvl, s, mods || {}, skinEntry);
+    return { hp: r.hp, atk1: r.atk1, atk2: r.atk2, speed: r.speed, bank: r.bank, atk2Unlocked: r.atk2Unlocked };
   }
 
+  // --- СКИНЫ (реакторные/ивентовые) ---
+  // Скин задаёт фиксированную звезду и gacha-бонус; характеристики считаются той же
+  // точной формулой. Переключатель - иконки как в модалке мутанта.
+  const skinIconPath = (sk) => (skinIconsData[sk.skin] ?? ('/' + (sk.image?.[1] ?? sk.image?.[0] ?? '')));
+  const skinTexture = (sk) => '/' + (sk.image?.[1] ?? sk.image?.[0] ?? '');
+
+  let skinList = $derived(selected ? skinsForMutant(selected.id) : []);
+  let skin = $derived(skinList.find((x) => x.skin === skinCode) ?? null);
+  let starsEff = $derived(skin ? skin.stars : stars);
   let orbModifiers = $derived(calcOrbModifiers(basicSlots, specialSlot));
-  let stats = $derived(selected ? calcStats(selected, level, stars, orbModifiers) : {hp:0, atk1:0, atk2:0, speed:0, bank: 0});
+  let stats = $derived(selected ? calcStats(selected, level, starsEff, orbModifiers, skin) : {hp:0, atk1:0, atk2:0, speed:0, bank: 0});
   let abilityRows = $derived(selected ? calcAbilityRows(selected, stats, orbModifiers, level, specialSlot) : []);
   let attackRows = $derived(buildAttackRows(selected, stats, abilityRows));
-  let maxLevel = $derived(selected ? computeMaxLevel(selected, stars, orbModifiers) : 1);
+  let maxLevel = $derived(selected ? computeMaxLevel(selected, starsEff, orbModifiers, skin) : 1);
 
   // --- ВТОРОЙ МУТАНТ (сравнение) ---
+  let skinList2 = $derived(selected2 ? skinsForMutant(selected2.id) : []);
+  let skin2 = $derived(skinList2.find((x) => x.skin === skinCode2) ?? null);
+  let starsEff2 = $derived(skin2 ? skin2.stars : stars2);
   let orbModifiers2 = $derived(calcOrbModifiers(basicSlots2, specialSlot2));
-  let stats2 = $derived(selected2 ? calcStats(selected2, level2, stars2, orbModifiers2) : {hp:0, atk1:0, atk2:0, speed:0, bank: 0});
+  let stats2 = $derived(selected2 ? calcStats(selected2, level2, starsEff2, orbModifiers2, skin2) : {hp:0, atk1:0, atk2:0, speed:0, bank: 0});
   let abilityRows2 = $derived(selected2 ? calcAbilityRows(selected2, stats2, orbModifiers2, level2, specialSlot2) : []);
   let attackRows2 = $derived(buildAttackRows(selected2, stats2, abilityRows2));
   let typeIconCurrent = $derived(selected ? typeIconPath(selected.typeKey || selected.type) : '');
   let typeIconCurrent2 = $derived(selected2 ? typeIconPath(selected2.typeKey || selected2.type) : '');
-  let maxLevel2 = $derived(selected2 ? computeMaxLevel(selected2, stars2, orbModifiers2) : 1);
+  let maxLevel2 = $derived(selected2 ? computeMaxLevel(selected2, starsEff2, orbModifiers2, skin2) : 1);
 
   // Кап уровня зависит от мутанта/звезды/HP-орбов и может ПОНИЗИТЬСЯ после того, как
   // уровень уже был выставлен (смена звезды на более сильную, добавление HP-орба, смена
@@ -975,10 +979,13 @@
         effects,
       };
     });
-    return rows.filter((row) => row.label || row.damage || row.effects.length);
+    // Атаки 2 в игре нет до уровня разблокировки (по умолчанию 5, тег unlockAttack).
+    return rows.filter((row) => (row.attack !== 2 || statLine?.atk2Unlocked !== false) && (row.label || row.damage || row.effects.length));
   }
 
   function calcAbilityRows(mutant, statLine, mods, lvl, specialOrb){
+    // В игре способности нет до 4-го уровня (MiscSettings AbilitiesUnlockLevels).
+    if ((Number(lvl) || 1) < ABILITY_UNLOCK_LEVELS.first) return [];
     const baseList = Array.isArray(mutant?.abilities) ? mutant.abilities : [];
     const combined = [...baseList];
     const orbAbility = specialOrbAbilityEntry(specialOrb);
@@ -1388,6 +1395,7 @@
         id: selected.id,
         level,
         stars,
+        skin: skinCode,
         orbs: basicSlots.map((o: any) => o?.id || null),
         special: specialSlot?.id || null,
         atkMultipliers,
@@ -1397,6 +1405,7 @@
         state.id2 = selected2.id;
         state.level2 = level2;
         state.stars2 = stars2;
+        state.skin2 = skinCode2;
         state.orbs2 = basicSlots2.map((o: any) => o?.id || null);
         state.special2 = specialSlot2?.id || null;
         state.atkMultipliers2 = atkMultipliers2;
@@ -1619,7 +1628,7 @@
           {/each}
         </div>
         <div class="mut-figure">
-          <img class="texture" src={textureUrl(figureImage(selected, stars))} alt={selected.name} />
+          <img class="texture" src={textureUrl(skin ? skinTexture(skin) : figureImage(selected, stars))} alt={selected.name} />
         </div>
 
         <div class="hero-controls" bind:this={dropdownHost}>
@@ -1729,16 +1738,31 @@
                 {#each [0,1,2,3,4] as s}
                   <button
                     class="star"
-                    class:selected={stars === s}
-                    disabled={!selected.availableStars.has(s)}
-                    onclick={() => stars = s}
-                    aria-pressed={stars === s}
+                    class:selected={starsEff === s}
+                    class:locked={!!skin}
+                    disabled={!selected.availableStars.has(s) && !(skin && skin.stars === s)}
+                    onclick={() => { if (!skin) stars = s; }}
+                    aria-pressed={starsEff === s}
                     title={starTitle(s)}>
                     <img src={textureUrl(STAR_ICON[s])} alt="*" />
                   </button>
                 {/each}
               </div>
             </div>
+            {#if skinList.length}
+              <div class="control">
+                <div class="skins">
+                  <button class="skin-btn" class:selected={!skin} onclick={() => skinCode = null}
+                    aria-pressed={!skin} title={selected.name}>—</button>
+                  {#each skinList as sk}
+                    <button class="skin-btn" class:selected={skin?.skin === sk.skin} onclick={() => skinCode = sk.skin}
+                      aria-pressed={skin?.skin === sk.skin} title={getSkinName(sk.skin, locale) ?? sk.label}>
+                      <img src={textureUrl(skinIconPath(sk))} alt={getSkinName(sk.skin, locale) ?? sk.label} loading="lazy" />
+                    </button>
+                  {/each}
+                </div>
+              </div>
+            {/if}
           </div>
         </div>
 
@@ -1926,7 +1950,7 @@
           {/each}
         </div>
         <div class="mut-figure">
-          <img class="texture" src={textureUrl(figureImage(selected2, stars2))} alt={selected2.name} />
+          <img class="texture" src={textureUrl(skin2 ? skinTexture(skin2) : figureImage(selected2, stars2))} alt={selected2.name} />
         </div>
 
         <div class="hero-controls" bind:this={dropdownHost2}>
@@ -2034,16 +2058,31 @@
                 {#each [0,1,2,3,4] as s}
                   <button
                     class="star"
-                    class:selected={stars2 === s}
-                    disabled={!selected2.availableStars.has(s)}
-                    onclick={() => stars2 = s}
-                    aria-pressed={stars2 === s}
+                    class:selected={starsEff2 === s}
+                    class:locked={!!skin2}
+                    disabled={!selected2.availableStars.has(s) && !(skin2 && skin2.stars === s)}
+                    onclick={() => { if (!skin2) stars2 = s; }}
+                    aria-pressed={starsEff2 === s}
                     title={starTitle(s)}>
                     <img src={textureUrl(STAR_ICON[s])} alt="*" />
                   </button>
                 {/each}
               </div>
             </div>
+            {#if skinList2.length}
+              <div class="control">
+                <div class="skins">
+                  <button class="skin-btn" class:selected={!skin2} onclick={() => skinCode2 = null}
+                    aria-pressed={!skin2} title={selected2.name}>—</button>
+                  {#each skinList2 as sk}
+                    <button class="skin-btn" class:selected={skin2?.skin === sk.skin} onclick={() => skinCode2 = sk.skin}
+                      aria-pressed={skin2?.skin === sk.skin} title={getSkinName(sk.skin, locale) ?? sk.label}>
+                      <img src={textureUrl(skinIconPath(sk))} alt={getSkinName(sk.skin, locale) ?? sk.label} loading="lazy" />
+                    </button>
+                  {/each}
+                </div>
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -3167,4 +3206,10 @@
     .lvl { font-size: 15px; }
     .gene2-label { font-size: 12px; }
   }
+
+  .skins { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  .skin-btn { min-width:36px; height:36px; padding:2px; border-radius:8px; border:1px solid #2e3948; background:#1b212a; color:#aab6c8; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .skin-btn img { width:30px; height:30px; object-fit:contain; }
+  .skin-btn.selected { border-color:#6ea8ff; box-shadow:0 0 6px rgba(110,168,255,.55); }
+  .star.locked { pointer-events:none; }
 </style>
