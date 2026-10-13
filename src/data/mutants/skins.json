@@ -13,12 +13,13 @@
           "atk2": 642
         },
         "lvl30": {
-          "hp": 9929,
-          "atk1": 1881,
-          "atk2": 3763
+          "hp": 9931,
+          "atk1": 1884,
+          "atk2": 3764
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "japan",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_a_01_japan.png",
@@ -38,12 +39,13 @@
           "atk2": 530
         },
         "lvl30": {
-          "hp": 13116,
-          "atk1": 5281,
-          "atk2": 3097
+          "hp": 13117,
+          "atk1": 5282,
+          "atk2": 3098
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_a_05_winter.png",
@@ -65,11 +67,12 @@
         },
         "lvl30": {
           "hp": 5440,
-          "atk1": 2223,
-          "atk2": 1272
+          "atk1": 2226,
+          "atk2": 1278
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_01_girl.png",
@@ -90,12 +93,13 @@
           "atk2": 757
         },
         "lvl30": {
-          "hp": 12900,
-          "atk1": 8569,
-          "atk2": 5716
+          "hp": 12902,
+          "atk1": 8575,
+          "atk2": 5722
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "camo",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_02_camo.png",
@@ -116,12 +120,13 @@
           "atk2": 426
         },
         "lvl30": {
-          "hp": 8786,
-          "atk1": 4334,
-          "atk2": 2497
+          "hp": 8789,
+          "atk1": 4338,
+          "atk2": 2498
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "music",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_03_music.png",
@@ -142,12 +147,13 @@
           "atk2": 324
         },
         "lvl30": {
-          "hp": 9746,
-          "atk1": 3274,
-          "atk2": 1888
+          "hp": 9748,
+          "atk1": 3277,
+          "atk2": 1889
         }
       },
       "star": "gold",
+      "bonus": 13,
       "skin": "hexcity",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_04_hexcity.png",
@@ -168,12 +174,13 @@
           "atk2": 1143
         },
         "lvl30": {
-          "hp": 18489,
+          "hp": 18493,
           "atk1": 11014,
           "atk2": 6521
         }
       },
       "star": "platinum",
+      "bonus": -10,
       "skin": "western",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_06_western.png",
@@ -194,12 +201,13 @@
           "atk2": 286
         },
         "lvl30": {
-          "hp": 8186,
-          "atk1": 5119,
-          "atk2": 2938
+          "hp": 8188,
+          "atk1": 5123,
+          "atk2": 2945
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "wireframe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_07_wireframe.png",
@@ -220,12 +228,13 @@
           "atk2": 715
         },
         "lvl30": {
-          "hp": 13025,
+          "hp": 13028,
           "atk1": 8244,
-          "atk2": 4234
+          "atk2": 4238
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_08_valentines.png",
@@ -246,12 +255,13 @@
           "atk2": 455
         },
         "lvl30": {
-          "hp": 13224,
-          "atk1": 4629,
+          "hp": 13226,
+          "atk1": 4634,
           "atk2": 2668
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_09_winter.png",
@@ -272,12 +282,13 @@
           "atk2": 274
         },
         "lvl30": {
-          "hp": 7753,
-          "atk1": 2929,
-          "atk2": 2617
+          "hp": 7756,
+          "atk1": 2933,
+          "atk2": 2616
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_aa_11_anniversary.png",
@@ -299,11 +310,12 @@
         },
         "lvl30": {
           "hp": 4668,
-          "atk1": 1800,
-          "atk2": 1800
+          "atk1": 1802,
+          "atk2": 1802
         }
       },
       "star": "bronze",
+      "bonus": 10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_01_steampunk.png",
@@ -324,12 +336,13 @@
           "atk2": 771
         },
         "lvl30": {
-          "hp": 11209,
-          "atk1": 4511,
-          "atk2": 4511
+          "hp": 11212,
+          "atk1": 4514,
+          "atk2": 4514
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "villains",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_02_villains.png",
@@ -350,12 +363,13 @@
           "atk2": 750
         },
         "lvl30": {
-          "hp": 9419,
-          "atk1": 4394,
-          "atk2": 4394
+          "hp": 9420,
+          "atk1": 4399,
+          "atk2": 4399
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "worker",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_03_worker.png",
@@ -376,12 +390,13 @@
           "atk2": 1242
         },
         "lvl30": {
-          "hp": 8638,
-          "atk1": 6990,
-          "atk2": 6990
+          "hp": 8639,
+          "atk1": 6993,
+          "atk2": 6993
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "soldiers",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_04_soldiers.png",
@@ -402,12 +417,13 @@
           "atk2": 798
         },
         "lvl30": {
-          "hp": 6567,
-          "atk1": 7714,
-          "atk2": 7714
+          "hp": 6568,
+          "atk1": 7716,
+          "atk2": 7716
         }
       },
       "star": "none",
+      "bonus": 30,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_05_anniversary.png",
@@ -428,12 +444,13 @@
           "atk2": 462
         },
         "lvl30": {
-          "hp": 9703,
-          "atk1": 3652,
-          "atk2": 3652
+          "hp": 9705,
+          "atk1": 3651,
+          "atk2": 3651
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_06_winter.png",
@@ -460,6 +477,7 @@
         }
       },
       "star": "none",
+      "bonus": -10,
       "skin": "beach",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_07_beach.png",
@@ -481,11 +499,12 @@
         },
         "lvl30": {
           "hp": 9984,
-          "atk1": 5826,
-          "atk2": 5826
+          "atk1": 5830,
+          "atk2": 5830
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_08_xmas25.png",
@@ -507,11 +526,12 @@
         },
         "lvl30": {
           "hp": 13888,
-          "atk1": 11026,
-          "atk2": 11026
+          "atk1": 11025,
+          "atk2": 11025
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "science",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_10_science.png",
@@ -532,12 +552,13 @@
           "atk2": 652
         },
         "lvl30": {
-          "hp": 13033,
-          "atk1": 5809,
-          "atk2": 3735
+          "hp": 13037,
+          "atk1": 5810,
+          "atk2": 3738
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "honeybee",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ab_11_honeybee.png",
@@ -558,12 +579,13 @@
           "atk2": 387
         },
         "lvl30": {
-          "hp": 6696,
-          "atk1": 2265,
-          "atk2": 2265
+          "hp": 6697,
+          "atk1": 2266,
+          "atk2": 2266
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "olympians",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_01_olympians.png",
@@ -584,12 +606,13 @@
           "atk2": 912
         },
         "lvl30": {
-          "hp": 15069,
-          "atk1": 6085,
-          "atk2": 6085
+          "hp": 15070,
+          "atk1": 6088,
+          "atk2": 6088
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_02_steampunk.png",
@@ -610,12 +633,13 @@
           "atk2": 1531
         },
         "lvl30": {
-          "hp": 17737,
+          "hp": 17739,
           "atk1": 8785,
           "atk2": 8785
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "fantasy",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_03_fantasy.png",
@@ -637,11 +661,12 @@
         },
         "lvl30": {
           "hp": 8018,
-          "atk1": 4003,
-          "atk2": 4003
+          "atk1": 4005,
+          "atk2": 4005
         }
       },
       "star": "none",
+      "bonus": 15,
       "skin": "chess",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_04_chess.png",
@@ -662,12 +687,13 @@
           "atk2": 459
         },
         "lvl30": {
-          "hp": 9028,
-          "atk1": 2686,
-          "atk2": 2686
+          "hp": 9030,
+          "atk1": 2687,
+          "atk2": 2687
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "wireframe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_05_wireframe.png",
@@ -688,12 +714,13 @@
           "atk2": 509
         },
         "lvl30": {
-          "hp": 8358,
-          "atk1": 2980,
-          "atk2": 2980
+          "hp": 8360,
+          "atk1": 2982,
+          "atk2": 2982
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "kings",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_08_kings.png",
@@ -714,12 +741,13 @@
           "atk2": 569
         },
         "lvl30": {
-          "hp": 11672,
-          "atk1": 4058,
-          "atk2": 4058
+          "hp": 11675,
+          "atk1": 4063,
+          "atk2": 4063
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "revolution",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_09_revolution.png",
@@ -741,11 +769,12 @@
         },
         "lvl30": {
           "hp": 5835,
-          "atk1": 3983,
-          "atk2": 3983
+          "atk1": 3985,
+          "atk2": 3985
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ac_11_winter.png",
@@ -766,12 +795,13 @@
           "atk2": 1034
         },
         "lvl30": {
-          "hp": 13259,
-          "atk1": 6057,
-          "atk2": 6057
+          "hp": 13261,
+          "atk1": 6062,
+          "atk2": 6062
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_01_steampunk.png",
@@ -792,12 +822,13 @@
           "atk2": 735
         },
         "lvl30": {
-          "hp": 10759,
+          "hp": 10763,
           "atk1": 4306,
           "atk2": 4306
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_02_halloween.png",
@@ -818,12 +849,13 @@
           "atk2": 911
         },
         "lvl30": {
-          "hp": 9285,
-          "atk1": 5338,
-          "atk2": 5338
+          "hp": 9286,
+          "atk1": 5340,
+          "atk2": 5340
         }
       },
       "star": "gold",
+      "bonus": 24,
       "skin": "xinnian",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_02_xinnian.png",
@@ -844,12 +876,13 @@
           "atk2": 676
         },
         "lvl30": {
-          "hp": 9688,
+          "hp": 9690,
           "atk1": 3955,
           "atk2": 3955
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "gemstones",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_04_gemstones.png",
@@ -870,12 +903,13 @@
           "atk2": 1051
         },
         "lvl30": {
-          "hp": 12429,
+          "hp": 12432,
           "atk1": 6163,
           "atk2": 6163
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "soldiers",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_05_soldiers.png",
@@ -896,12 +930,13 @@
           "atk2": 1532
         },
         "lvl30": {
-          "hp": 17022,
-          "atk1": 8916,
-          "atk2": 8916
+          "hp": 17027,
+          "atk1": 8918,
+          "atk2": 8918
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_06_valentines.png",
@@ -923,11 +958,12 @@
         },
         "lvl30": {
           "hp": 14227,
-          "atk1": 3002,
-          "atk2": 3002
+          "atk1": 3003,
+          "atk2": 3003
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "gemstones",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_07_gemstones.png",
@@ -948,12 +984,13 @@
           "atk2": 549
         },
         "lvl30": {
-          "hp": 11028,
-          "atk1": 3218,
-          "atk2": 3218
+          "hp": 11029,
+          "atk1": 3221,
+          "atk2": 3221
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ad_08_winter.png",
@@ -974,12 +1011,13 @@
           "atk2": 490
         },
         "lvl30": {
-          "hp": 7748,
+          "hp": 7750,
           "atk1": 2872,
           "atk2": 2872
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "heroes",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_01_heroes.png",
@@ -1001,11 +1039,12 @@
         },
         "lvl30": {
           "hp": 12885,
-          "atk1": 6862,
-          "atk2": 6862
+          "atk1": 6865,
+          "atk2": 6865
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_03_winter.png",
@@ -1026,12 +1065,13 @@
           "atk2": 851
         },
         "lvl30": {
-          "hp": 11711,
-          "atk1": 5351,
-          "atk2": 5351
+          "hp": 11712,
+          "atk1": 5352,
+          "atk2": 5352
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "blueplanet",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_05_blueplanet.png",
@@ -1052,12 +1092,13 @@
           "atk2": 531
         },
         "lvl30": {
-          "hp": 9044,
-          "atk1": 3575,
-          "atk2": 3575
+          "hp": 9046,
+          "atk1": 3577,
+          "atk2": 3577
         }
       },
       "star": "gold",
+      "bonus": 12,
       "skin": "cyberweek",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_06_cyberweek.png",
@@ -1078,12 +1119,13 @@
           "atk2": 1552
         },
         "lvl30": {
-          "hp": 11751,
-          "atk1": 10120,
-          "atk2": 10120
+          "hp": 11752,
+          "atk1": 10121,
+          "atk2": 10121
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_07_winter.png",
@@ -1104,12 +1146,13 @@
           "atk2": 796
         },
         "lvl30": {
-          "hp": 7266,
-          "atk1": 4510,
-          "atk2": 4510
+          "hp": 7268,
+          "atk1": 4511,
+          "atk2": 4511
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "oktoberfest",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_08_oktoberfest.png",
@@ -1130,12 +1173,13 @@
           "atk2": 837
         },
         "lvl30": {
-          "hp": 15518,
-          "atk1": 5460,
-          "atk2": 5460
+          "hp": 15520,
+          "atk1": 5461,
+          "atk2": 5461
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_09_valentines.png",
@@ -1156,12 +1200,13 @@
           "atk2": 1286
         },
         "lvl30": {
-          "hp": 14824,
-          "atk1": 10099,
+          "hp": 14823,
+          "atk1": 10101,
           "atk2": 5016
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_11_winter.png",
@@ -1182,12 +1227,13 @@
           "atk2": 809
         },
         "lvl30": {
-          "hp": 10335,
-          "atk1": 4733,
-          "atk2": 4733
+          "hp": 10336,
+          "atk1": 4736,
+          "atk2": 4736
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "vegetal",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_01_vegetal.png",
@@ -1208,12 +1254,13 @@
           "atk2": 1361
         },
         "lvl30": {
-          "hp": 13415,
-          "atk1": 7961,
-          "atk2": 7961
+          "hp": 13417,
+          "atk1": 7964,
+          "atk2": 7964
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_03_winter.png",
@@ -1234,12 +1281,13 @@
           "atk2": 326
         },
         "lvl30": {
-          "hp": 10328,
-          "atk1": 2080,
-          "atk2": 2080
+          "hp": 10327,
+          "atk1": 2079,
+          "atk2": 2079
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "gemstones",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_04_gemstones.png",
@@ -1260,12 +1308,13 @@
           "atk2": 160
         },
         "lvl30": {
-          "hp": 7746,
-          "atk1": 1021,
-          "atk2": 1021
+          "hp": 7745,
+          "atk1": 1023,
+          "atk2": 1023
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "starwars",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_04_starwars.png",
@@ -1286,12 +1335,13 @@
           "atk2": 570
         },
         "lvl30": {
-          "hp": 7187,
-          "atk1": 3736,
-          "atk2": 3736
+          "hp": 7188,
+          "atk1": 3741,
+          "atk2": 3741
         }
       },
       "star": "none",
+      "bonus": 30,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_06_anniversary.png",
@@ -1318,6 +1368,7 @@
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "opalescent",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_07_opalescent.png",
@@ -1338,12 +1389,13 @@
           "atk2": 773
         },
         "lvl30": {
-          "hp": 10893,
-          "atk1": 4522,
-          "atk2": 4522
+          "hp": 10894,
+          "atk1": 4527,
+          "atk2": 4527
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "beach",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_08_beach.png",
@@ -1365,11 +1417,12 @@
         },
         "lvl30": {
           "hp": 16482,
-          "atk1": 6179,
-          "atk2": 6179
+          "atk1": 6183,
+          "atk2": 6183
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_09_winter.png",
@@ -1390,12 +1443,13 @@
           "atk2": 1365
         },
         "lvl30": {
-          "hp": 20131,
+          "hp": 20133,
           "atk1": 9350,
           "atk2": 9350
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_af_99_winter.png",
@@ -1416,11 +1470,12 @@
         },
         "lvl30": {
           "hp": 6669,
-          "atk1": 2763,
-          "atk2": 2763
+          "atk1": 2766,
+          "atk2": 2766
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "villains",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_b_01_villains.png",
@@ -1441,11 +1496,12 @@
         },
         "lvl30": {
           "hp": 11793,
-          "atk1": 7331,
-          "atk2": 7331
+          "atk1": 7333,
+          "atk2": 7333
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_b_12_easter.png",
@@ -1466,12 +1522,13 @@
           "atk2": 768
         },
         "lvl30": {
-          "hp": 12596,
-          "atk1": 4496,
-          "atk2": 4496
+          "hp": 12598,
+          "atk1": 4497,
+          "atk2": 4497
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_01_halloween.png",
@@ -1492,12 +1549,13 @@
           "atk2": 454
         },
         "lvl30": {
-          "hp": 11188,
-          "atk1": 2806,
-          "atk2": 2806
+          "hp": 11190,
+          "atk1": 2807,
+          "atk2": 2807
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "japan",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_02_japan.png",
@@ -1518,12 +1576,13 @@
           "atk2": 1006
         },
         "lvl30": {
-          "hp": 14297,
-          "atk1": 5894,
-          "atk2": 5894
+          "hp": 14300,
+          "atk1": 5896,
+          "atk2": 5896
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "villains",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_03_villains.png",
@@ -1545,11 +1604,12 @@
         },
         "lvl30": {
           "hp": 10885,
-          "atk1": 3742,
-          "atk2": 3742
+          "atk1": 3746,
+          "atk2": 3746
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_04_halloween.png",
@@ -1570,12 +1630,13 @@
           "atk2": 948
         },
         "lvl30": {
-          "hp": 12515,
-          "atk1": 5546,
-          "atk2": 5546
+          "hp": 12517,
+          "atk1": 5548,
+          "atk2": 5548
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "summer",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_05_summer.png",
@@ -1596,12 +1657,13 @@
           "atk2": 984
         },
         "lvl30": {
-          "hp": 11938,
-          "atk1": 5357,
-          "atk2": 5357
+          "hp": 11939,
+          "atk1": 5362,
+          "atk2": 5362
         }
       },
       "star": "silver",
+      "bonus": -20,
       "skin": "chess",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_06_chess.png",
@@ -1622,12 +1684,13 @@
           "atk2": 654
         },
         "lvl30": {
-          "hp": 13935,
-          "atk1": 4515,
-          "atk2": 4515
+          "hp": 13936,
+          "atk1": 4518,
+          "atk2": 4518
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_07_halloween.png",
@@ -1649,11 +1712,12 @@
         },
         "lvl30": {
           "hp": 12612,
-          "atk1": 3704,
-          "atk2": 3704
+          "atk1": 3705,
+          "atk2": 3705
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_08_valentines.png",
@@ -1675,11 +1739,12 @@
         },
         "lvl30": {
           "hp": 15779,
-          "atk1": 8330,
-          "atk2": 8330
+          "atk1": 8333,
+          "atk2": 8333
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_09_winter.png",
@@ -1700,12 +1765,13 @@
           "atk2": 1216
         },
         "lvl30": {
-          "hp": 18147,
-          "atk1": 7113,
-          "atk2": 7113
+          "hp": 18146,
+          "atk1": 7119,
+          "atk2": 7119
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ba_10_anniversary.png",
@@ -1726,12 +1792,13 @@
           "atk2": 408
         },
         "lvl30": {
-          "hp": 11743,
-          "atk1": 4167,
-          "atk2": 2394
+          "hp": 11744,
+          "atk1": 4170,
+          "atk2": 2395
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "heroes",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_01_heroes.png",
@@ -1752,12 +1819,13 @@
           "atk2": 375
         },
         "lvl30": {
-          "hp": 11309,
-          "atk1": 3817,
-          "atk2": 2182
+          "hp": 11312,
+          "atk1": 3821,
+          "atk2": 2184
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "vegetal",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_02_vegetal.png",
@@ -1779,11 +1847,12 @@
         },
         "lvl30": {
           "hp": 13384,
-          "atk1": 2389,
-          "atk2": 1485
+          "atk1": 2394,
+          "atk2": 1486
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "olympians",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_03_olympians.png",
@@ -1804,12 +1873,13 @@
           "atk2": 255
         },
         "lvl30": {
-          "hp": 10494,
+          "hp": 10496,
           "atk1": 2620,
-          "atk2": 1498
+          "atk2": 1501
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_04_halloween.png",
@@ -1831,11 +1901,12 @@
         },
         "lvl30": {
           "hp": 15561,
-          "atk1": 8899,
-          "atk2": 5117
+          "atk1": 8902,
+          "atk2": 5119
         }
       },
       "star": "gold",
+      "bonus": 7,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_05_easter.png",
@@ -1856,12 +1927,13 @@
           "atk2": 681
         },
         "lvl30": {
-          "hp": 13837,
-          "atk1": 6964,
-          "atk2": 4002
+          "hp": 13840,
+          "atk1": 6969,
+          "atk2": 4007
         }
       },
       "star": "gold",
+      "bonus": 11,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_06_easter.png",
@@ -1882,12 +1954,13 @@
           "atk2": 306
         },
         "lvl30": {
-          "hp": 15143,
+          "hp": 15144,
           "atk1": 3146,
           "atk2": 1808
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_07_spring.png",
@@ -1908,12 +1981,13 @@
           "atk2": 275
         },
         "lvl30": {
-          "hp": 16009,
+          "hp": 16010,
           "atk1": 2831,
-          "atk2": 1624
+          "atk2": 1627
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "verdant",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_07_verdant.png",
@@ -1934,12 +2008,13 @@
           "atk2": 326
         },
         "lvl30": {
-          "hp": 8412,
-          "atk1": 4432,
+          "hp": 8414,
+          "atk1": 4433,
           "atk2": 2699
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "beach",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_08_beach.png",
@@ -1960,12 +2035,13 @@
           "atk2": 259
         },
         "lvl30": {
-          "hp": 10721,
-          "atk1": 3515,
-          "atk2": 2019
+          "hp": 10722,
+          "atk1": 3514,
+          "atk2": 2020
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bb_09_halloween.png",
@@ -1986,12 +2062,13 @@
           "atk2": 880
         },
         "lvl30": {
-          "hp": 13844,
-          "atk1": 5157,
-          "atk2": 5157
+          "hp": 13845,
+          "atk1": 5159,
+          "atk2": 5159
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "starwars",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_01_starwars.png",
@@ -2013,11 +2090,12 @@
         },
         "lvl30": {
           "hp": 6322,
-          "atk1": 2898,
-          "atk2": 2898
+          "atk1": 2900,
+          "atk2": 2900
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "olympians",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_02_olympians.png",
@@ -2038,12 +2116,13 @@
           "atk2": 1412
         },
         "lvl30": {
-          "hp": 13778,
-          "atk1": 8264,
-          "atk2": 8264
+          "hp": 13780,
+          "atk1": 8266,
+          "atk2": 8266
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "soldiers",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_04_soldiers.png",
@@ -2064,12 +2143,13 @@
           "atk2": 997
         },
         "lvl30": {
-          "hp": 12136,
-          "atk1": 5836,
-          "atk2": 5836
+          "hp": 12139,
+          "atk1": 5840,
+          "atk2": 5840
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "patrick",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_06_patrick.png",
@@ -2091,11 +2171,12 @@
         },
         "lvl30": {
           "hp": 11957,
-          "atk1": 6911,
-          "atk2": 6911
+          "atk1": 6913,
+          "atk2": 6913
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_07_halloween.png",
@@ -2116,12 +2197,13 @@
           "atk2": 1508
         },
         "lvl30": {
-          "hp": 10113,
-          "atk1": 10111,
-          "atk2": 10111
+          "hp": 10114,
+          "atk1": 10114,
+          "atk2": 10114
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_08_winter.png",
@@ -2142,12 +2224,13 @@
           "atk2": 1181
         },
         "lvl30": {
-          "hp": 14589,
-          "atk1": 6905,
-          "atk2": 6905
+          "hp": 14591,
+          "atk1": 6906,
+          "atk2": 6906
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "oktoberfest",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_09_oktoberfest.png",
@@ -2168,12 +2251,13 @@
           "atk2": 2123
         },
         "lvl30": {
-          "hp": 12823,
+          "hp": 12824,
           "atk1": 12230,
           "atk2": 12230
         }
       },
       "star": "gold",
+      "bonus": 9,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_10_valentines.png",
@@ -2194,12 +2278,13 @@
           "atk2": 381
         },
         "lvl30": {
-          "hp": 15412,
-          "atk1": 2229,
-          "atk2": 2229
+          "hp": 15416,
+          "atk1": 2233,
+          "atk2": 2233
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "masks",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bc_11_masks.png",
@@ -2221,11 +2306,12 @@
         },
         "lvl30": {
           "hp": 13689,
-          "atk1": 5680,
-          "atk2": 5680
+          "atk1": 5686,
+          "atk2": 5686
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "thanksgiving",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_01_thanksgiving.png",
@@ -2246,12 +2332,13 @@
           "atk2": 631
         },
         "lvl30": {
-          "hp": 9656,
-          "atk1": 3707,
-          "atk2": 3707
+          "hp": 9658,
+          "atk1": 3708,
+          "atk2": 3708
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "movies",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_03_movies.png",
@@ -2272,12 +2359,13 @@
           "atk2": 435
         },
         "lvl30": {
-          "hp": 7426,
+          "hp": 7425,
           "atk1": 2552,
           "atk2": 2552
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "elements",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_04_elements.png",
@@ -2304,6 +2392,7 @@
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "fantasy",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_05_fantasy.png",
@@ -2324,12 +2413,13 @@
           "atk2": 786
         },
         "lvl30": {
-          "hp": 12675,
-          "atk1": 4613,
-          "atk2": 4613
+          "hp": 12676,
+          "atk1": 4615,
+          "atk2": 4615
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_06_anniversary.png",
@@ -2350,12 +2440,13 @@
           "atk2": 824
         },
         "lvl30": {
-          "hp": 11305,
-          "atk1": 4823,
-          "atk2": 4823
+          "hp": 11309,
+          "atk1": 4825,
+          "atk2": 4825
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_08_winter.png",
@@ -2376,12 +2467,13 @@
           "atk2": 493
         },
         "lvl30": {
-          "hp": 10229,
-          "atk1": 3089,
-          "atk2": 3089
+          "hp": 10230,
+          "atk1": 3091,
+          "atk2": 3091
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_09_winter.png",
@@ -2402,12 +2494,13 @@
           "atk2": 1410
         },
         "lvl30": {
-          "hp": 15163,
-          "atk1": 8255,
-          "atk2": 8255
+          "hp": 15165,
+          "atk1": 8258,
+          "atk2": 8258
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_10_winter.png",
@@ -2434,6 +2527,7 @@
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "patrick",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bd_11_patrick.png",
@@ -2454,12 +2548,13 @@
           "atk2": 893
         },
         "lvl30": {
-          "hp": 11968,
-          "atk1": 5227,
-          "atk2": 5227
+          "hp": 11970,
+          "atk1": 5233,
+          "atk2": 5233
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "summer",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_03_summer.png",
@@ -2481,11 +2576,12 @@
         },
         "lvl30": {
           "hp": 13412,
-          "atk1": 5414,
-          "atk2": 5414
+          "atk1": 5413,
+          "atk2": 5413
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "lucha",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_05_lucha.png",
@@ -2506,12 +2602,13 @@
           "atk2": 1032
         },
         "lvl30": {
-          "hp": 11913,
-          "atk1": 6473,
-          "atk2": 6473
+          "hp": 11916,
+          "atk1": 6476,
+          "atk2": 6476
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_07_halloween.png",
@@ -2532,12 +2629,13 @@
           "atk2": 962
         },
         "lvl30": {
-          "hp": 12409,
-          "atk1": 5635,
-          "atk2": 5635
+          "hp": 12413,
+          "atk1": 5638,
+          "atk2": 5638
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_08_easter.png",
@@ -2558,12 +2656,13 @@
           "atk2": 1018
         },
         "lvl30": {
-          "hp": 12379,
-          "atk1": 6477,
-          "atk2": 6477
+          "hp": 12380,
+          "atk1": 6478,
+          "atk2": 6478
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "masks",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_09_masks.png",
@@ -2585,11 +2684,12 @@
         },
         "lvl30": {
           "hp": 13716,
-          "atk1": 12865,
-          "atk2": 12865
+          "atk1": 12871,
+          "atk2": 12871
         }
       },
       "star": "gold",
+      "bonus": 13,
       "skin": "hexcity",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_be_11_hexcity.png",
@@ -2616,6 +2716,7 @@
         }
       },
       "star": "none",
+      "bonus": -10,
       "skin": "gothic",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_01_gothic.png",
@@ -2636,12 +2737,13 @@
           "atk2": 242
         },
         "lvl30": {
-          "hp": 7406,
-          "atk1": 1420,
-          "atk2": 1420
+          "hp": 7409,
+          "atk1": 1419,
+          "atk2": 1419
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_02_steampunk.png",
@@ -2663,11 +2765,12 @@
         },
         "lvl30": {
           "hp": 13474,
-          "atk1": 5863,
-          "atk2": 5863
+          "atk1": 5865,
+          "atk2": 5865
         }
       },
       "star": "gold",
+      "bonus": -2,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_05_anniversary.png",
@@ -2688,12 +2791,13 @@
           "atk2": 1170
         },
         "lvl30": {
-          "hp": 15226,
+          "hp": 15225,
           "atk1": 6840,
           "atk2": 6840
         }
       },
       "star": "platinum",
+      "bonus": 0,
       "skin": "confrontation",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_05_confrontation.png",
@@ -2715,11 +2819,12 @@
         },
         "lvl30": {
           "hp": 9172,
-          "atk1": 3490,
-          "atk2": 3490
+          "atk1": 3495,
+          "atk2": 3495
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "music",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_06_music.png",
@@ -2740,12 +2845,13 @@
           "atk2": 1056
         },
         "lvl30": {
-          "hp": 11520,
-          "atk1": 6841,
-          "atk2": 6841
+          "hp": 11522,
+          "atk1": 6843,
+          "atk2": 6843
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "school",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_07_school.png",
@@ -2767,11 +2873,12 @@
         },
         "lvl30": {
           "hp": 12683,
-          "atk1": 5800,
-          "atk2": 5800
+          "atk1": 5804,
+          "atk2": 5804
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "jefferson",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_08_jefferson.png",
@@ -2792,12 +2899,13 @@
           "atk2": 615
         },
         "lvl30": {
-          "hp": 21060,
-          "atk1": 6443,
-          "atk2": 3615
+          "hp": 21061,
+          "atk1": 6448,
+          "atk2": 3616
         }
       },
       "star": "gold",
+      "bonus": -8,
       "skin": "patrick",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_bf_12_patrick.png",
@@ -2817,12 +2925,13 @@
           "atk2": 543
         },
         "lvl30": {
-          "hp": 7093,
-          "atk1": 3182,
-          "atk2": 3182
+          "hp": 7094,
+          "atk1": 3184,
+          "atk2": 3184
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_c_01_steampunk.png",
@@ -2843,12 +2952,13 @@
           "atk2": 763
         },
         "lvl30": {
-          "hp": 11301,
-          "atk1": 4466,
-          "atk2": 4466
+          "hp": 11305,
+          "atk1": 4471,
+          "atk2": 4471
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "heroes",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_01_heroes.png",
@@ -2869,12 +2979,13 @@
           "atk2": 616
         },
         "lvl30": {
-          "hp": 8345,
-          "atk1": 3600,
-          "atk2": 3600
+          "hp": 8346,
+          "atk1": 3603,
+          "atk2": 3603
         }
       },
       "star": "platinum",
+      "bonus": 20,
       "skin": "olympics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_02_olympics.png",
@@ -2895,12 +3006,13 @@
           "atk2": 1145
         },
         "lvl30": {
-          "hp": 8345,
-          "atk1": 6335,
-          "atk2": 6335
+          "hp": 8346,
+          "atk1": 6336,
+          "atk2": 6336
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "worker",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_05_worker.png",
@@ -2921,12 +3033,13 @@
           "atk2": 1597
         },
         "lvl30": {
-          "hp": 14933,
-          "atk1": 10324,
-          "atk2": 10324
+          "hp": 14935,
+          "atk1": 10330,
+          "atk2": 10330
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "vegetal",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_06_vegetal.png",
@@ -2947,12 +3060,13 @@
           "atk2": 1094
         },
         "lvl30": {
-          "hp": 13143,
-          "atk1": 6644,
-          "atk2": 6644
+          "hp": 13145,
+          "atk1": 6646,
+          "atk2": 6646
         }
       },
       "star": "silver",
+      "bonus": 15,
       "skin": "olympics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_07_olympics.png",
@@ -2973,12 +3087,13 @@
           "atk2": 382
         },
         "lvl30": {
-          "hp": 6715,
-          "atk1": 4818,
-          "atk2": 4818
+          "hp": 6717,
+          "atk1": 4828,
+          "atk2": 4828
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "olympics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ca_08_olympics.png",
@@ -3000,11 +3115,12 @@
         },
         "lvl30": {
           "hp": 4492,
-          "atk1": 1925,
-          "atk2": 1925
+          "atk1": 1930,
+          "atk2": 1930
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_01_girl.png",
@@ -3025,12 +3141,13 @@
           "atk2": 850
         },
         "lvl30": {
-          "hp": 12768,
-          "atk1": 4978,
-          "atk2": 4978
+          "hp": 12770,
+          "atk1": 4981,
+          "atk2": 4981
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "japan",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_02_japan.png",
@@ -3052,11 +3169,12 @@
         },
         "lvl30": {
           "hp": 10147,
-          "atk1": 5123,
-          "atk2": 5123
+          "atk1": 5127,
+          "atk2": 5127
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "movies",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_03_movies.png",
@@ -3077,12 +3195,13 @@
           "atk2": 903
         },
         "lvl30": {
-          "hp": 12124,
-          "atk1": 5283,
-          "atk2": 5283
+          "hp": 12128,
+          "atk1": 5282,
+          "atk2": 5282
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_04_halloween.png",
@@ -3103,12 +3222,13 @@
           "atk2": 1920
         },
         "lvl30": {
-          "hp": 10097,
-          "atk1": 11298,
-          "atk2": 11298
+          "hp": 10099,
+          "atk1": 11303,
+          "atk2": 11303
         }
       },
       "star": "gold",
+      "bonus": -2,
       "skin": "autumn",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_08_autumn.png",
@@ -3129,12 +3249,13 @@
           "atk2": 1166
         },
         "lvl30": {
-          "hp": 14157,
-          "atk1": 6824,
-          "atk2": 6824
+          "hp": 14159,
+          "atk1": 6825,
+          "atk2": 6825
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "aprilfools",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_09_aprilfools.png",
@@ -3155,12 +3276,13 @@
           "atk2": 1197
         },
         "lvl30": {
-          "hp": 15225,
+          "hp": 15226,
           "atk1": 7002,
           "atk2": 7002
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "thanksgiving",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cb_10_thanksgiving.png",
@@ -3181,12 +3303,13 @@
           "atk2": 293
         },
         "lvl30": {
-          "hp": 8623,
-          "atk1": 2983,
+          "hp": 8625,
+          "atk1": 2988,
           "atk2": 1714
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "japan",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_01_japan.png",
@@ -3208,11 +3331,12 @@
         },
         "lvl30": {
           "hp": 18790,
-          "atk1": 11319,
-          "atk2": 6670
+          "atk1": 11321,
+          "atk2": 6674
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "movies",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_02_movies.png",
@@ -3233,12 +3357,13 @@
           "atk2": 253
         },
         "lvl30": {
-          "hp": 3958,
-          "atk1": 2792,
+          "hp": 3959,
+          "atk1": 2794,
           "atk2": 1951
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "starwars",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_03_starwars.png",
@@ -3259,12 +3384,13 @@
           "atk2": 276
         },
         "lvl30": {
-          "hp": 10003,
-          "atk1": 2803,
+          "hp": 10007,
+          "atk1": 2805,
           "atk2": 1608
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "olympians",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_04_olympians.png",
@@ -3285,12 +3411,13 @@
           "atk2": 838
         },
         "lvl30": {
-          "hp": 14675,
-          "atk1": 8522,
-          "atk2": 4910
+          "hp": 14678,
+          "atk1": 8523,
+          "atk2": 4915
         }
       },
       "star": "gold",
+      "bonus": 12,
       "skin": "school",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_05_school.png",
@@ -3311,12 +3438,13 @@
           "atk2": 257
         },
         "lvl30": {
-          "hp": 8974,
+          "hp": 8976,
           "atk1": 3408,
-          "atk2": 1518
+          "atk2": 1524
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "independence",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_06_independence.png",
@@ -3337,12 +3465,13 @@
           "atk2": 330
         },
         "lvl30": {
-          "hp": 10877,
-          "atk1": 3360,
-          "atk2": 1913
+          "hp": 10879,
+          "atk1": 3364,
+          "atk2": 1917
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "labor",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_08_labor.png",
@@ -3363,12 +3492,13 @@
           "atk2": 626
         },
         "lvl30": {
-          "hp": 11259,
-          "atk1": 9763,
-          "atk2": 4876
+          "hp": 11261,
+          "atk1": 9766,
+          "atk2": 4879
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_09_valentines.png",
@@ -3389,12 +3519,13 @@
           "atk2": 995
         },
         "lvl30": {
-          "hp": 16418,
-          "atk1": 10910,
-          "atk2": 5817
+          "hp": 16420,
+          "atk1": 10913,
+          "atk2": 5821
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "kings",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cc_10_kings.png",
@@ -3415,12 +3546,13 @@
           "atk2": 199
         },
         "lvl30": {
-          "hp": 3806,
+          "hp": 3808,
           "atk1": 1162,
           "atk2": 1162
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_01_girl.png",
@@ -3442,11 +3574,12 @@
         },
         "lvl30": {
           "hp": 6981,
-          "atk1": 2032,
-          "atk2": 2032
+          "atk1": 2034,
+          "atk2": 2034
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "starwars",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_01_starwars.png",
@@ -3468,11 +3601,12 @@
         },
         "lvl30": {
           "hp": 12694,
-          "atk1": 6554,
-          "atk2": 6554
+          "atk1": 6558,
+          "atk2": 6558
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_03_winter.png",
@@ -3493,12 +3627,13 @@
           "atk2": 1537
         },
         "lvl30": {
-          "hp": 24214,
-          "atk1": 8995,
-          "atk2": 8995
+          "hp": 24215,
+          "atk1": 9000,
+          "atk2": 9000
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "soldiers",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_06_soldiers.png",
@@ -3519,12 +3654,13 @@
           "atk2": 1262
         },
         "lvl30": {
-          "hp": 17920,
-          "atk1": 7383,
-          "atk2": 7383
+          "hp": 17923,
+          "atk1": 7385,
+          "atk2": 7385
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "oktoberfest",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_08_oktoberfest.png",
@@ -3545,12 +3681,13 @@
           "atk2": 620
         },
         "lvl30": {
-          "hp": 9808,
-          "atk1": 6360,
-          "atk2": 6360
+          "hp": 9810,
+          "atk1": 6366,
+          "atk2": 6366
         }
       },
       "star": "gold",
+      "bonus": 4,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_09_anniversary.png",
@@ -3571,12 +3708,13 @@
           "atk2": 722
         },
         "lvl30": {
-          "hp": 9106,
-          "atk1": 4219,
-          "atk2": 4219
+          "hp": 9108,
+          "atk1": 4225,
+          "atk2": 4225
         }
       },
       "star": "gold",
+      "bonus": 2,
       "skin": "worker",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_10_worker.png",
@@ -3597,12 +3735,13 @@
           "atk2": 1283
         },
         "lvl30": {
-          "hp": 13852,
-          "atk1": 7501,
-          "atk2": 7501
+          "hp": 13853,
+          "atk1": 7503,
+          "atk2": 7503
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cd_11_xmas25.png",
@@ -3629,6 +3768,7 @@
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "gothic",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_01_gothic.png",
@@ -3650,11 +3790,12 @@
         },
         "lvl30": {
           "hp": 12842,
-          "atk1": 5985,
-          "atk2": 5985
+          "atk1": 5988,
+          "atk2": 5988
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "olympians",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_03_olympians.png",
@@ -3675,12 +3816,13 @@
           "atk2": 608
         },
         "lvl30": {
-          "hp": 8809,
-          "atk1": 3564,
-          "atk2": 2298
+          "hp": 8812,
+          "atk1": 3566,
+          "atk2": 2300
         }
       },
       "star": "gold",
+      "bonus": 6,
       "skin": "autumn",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_06_autumn.png",
@@ -3701,12 +3843,13 @@
           "atk2": 1487
         },
         "lvl30": {
-          "hp": 9988,
-          "atk1": 9681,
-          "atk2": 9681
+          "hp": 9989,
+          "atk1": 9686,
+          "atk2": 9686
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_07_anniversary.png",
@@ -3727,12 +3870,13 @@
           "atk2": 1142
         },
         "lvl30": {
-          "hp": 10280,
-          "atk1": 6681,
-          "atk2": 6681
+          "hp": 10283,
+          "atk1": 6686,
+          "atk2": 6686
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "cybernetics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_08_cybernetics.png",
@@ -3753,12 +3897,13 @@
           "atk2": 1127
         },
         "lvl30": {
-          "hp": 12303,
-          "atk1": 6585,
-          "atk2": 6585
+          "hp": 12305,
+          "atk1": 6590,
+          "atk2": 6590
         }
       },
       "star": "gold",
+      "bonus": 6,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_09_halloween.png",
@@ -3779,12 +3924,13 @@
           "atk2": 539
         },
         "lvl30": {
-          "hp": 5628,
-          "atk1": 4017,
-          "atk2": 4017
+          "hp": 5630,
+          "atk1": 4016,
+          "atk2": 4016
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ce_11_valentines.png",
@@ -3805,12 +3951,13 @@
           "atk2": 802
         },
         "lvl30": {
-          "hp": 10010,
-          "atk1": 4688,
-          "atk2": 4688
+          "hp": 10012,
+          "atk1": 4692,
+          "atk2": 4692
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_01_girl.png",
@@ -3832,11 +3979,12 @@
         },
         "lvl30": {
           "hp": 12335,
-          "atk1": 7879,
-          "atk2": 7879
+          "atk1": 7882,
+          "atk2": 7882
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "soldiers",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_02_soldiers.png",
@@ -3857,12 +4005,13 @@
           "atk2": 346
         },
         "lvl30": {
-          "hp": 5381,
-          "atk1": 4575,
-          "atk2": 4575
+          "hp": 5382,
+          "atk1": 4582,
+          "atk2": 4582
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "lucha",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_03_lucha.png",
@@ -3883,12 +4032,13 @@
           "atk2": 1109
         },
         "lvl30": {
-          "hp": 10786,
-          "atk1": 6697,
-          "atk2": 6697
+          "hp": 10788,
+          "atk1": 6698,
+          "atk2": 6698
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "chess",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_04_chess.png",
@@ -3909,12 +4059,13 @@
           "atk2": 562
         },
         "lvl30": {
-          "hp": 9722,
-          "atk1": 3287,
-          "atk2": 3287
+          "hp": 9723,
+          "atk1": 3288,
+          "atk2": 3288
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_05_valentines.png",
@@ -3935,12 +4086,13 @@
           "atk2": 1077
         },
         "lvl30": {
-          "hp": 14878,
-          "atk1": 6512,
-          "atk2": 6512
+          "hp": 14882,
+          "atk1": 6514,
+          "atk2": 6514
         }
       },
       "star": "none",
+      "bonus": -10,
       "skin": "western",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_06_western.png",
@@ -3962,11 +4114,12 @@
         },
         "lvl30": {
           "hp": 14298,
-          "atk1": 8769,
-          "atk2": 8769
+          "atk1": 8770,
+          "atk2": 8770
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "solarflare",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_08_solarflare.png",
@@ -3987,12 +4140,13 @@
           "atk2": 1445
         },
         "lvl30": {
-          "hp": 13271,
-          "atk1": 9036,
-          "atk2": 9036
+          "hp": 13274,
+          "atk1": 9041,
+          "atk2": 9041
         }
       },
       "star": "gold",
+      "bonus": -8,
       "skin": "worker",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_09_worker.png",
@@ -4013,12 +4167,13 @@
           "atk2": 555
         },
         "lvl30": {
-          "hp": 13181,
-          "atk1": 3235,
-          "atk2": 3235
+          "hp": 13184,
+          "atk1": 3236,
+          "atk2": 3236
         }
       },
       "star": "gold",
+      "bonus": 4,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_cf_10_halloween.png",
@@ -4038,12 +4193,13 @@
           "atk2": 609
         },
         "lvl30": {
-          "hp": 7546,
-          "atk1": 3568,
-          "atk2": 3568
+          "hp": 7548,
+          "atk1": 3569,
+          "atk2": 3569
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "gachaboss",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_d_01_gachaboss.png",
@@ -4064,12 +4220,13 @@
           "atk2": 360
         },
         "lvl30": {
-          "hp": 5819,
-          "atk1": 2285,
-          "atk2": 2285
+          "hp": 5818,
+          "atk1": 2288,
+          "atk2": 2288
         }
       },
       "star": "bronze",
+      "bonus": 10,
       "skin": "villains",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_01_villains.png",
@@ -4091,11 +4248,12 @@
         },
         "lvl30": {
           "hp": 15069,
-          "atk1": 5510,
-          "atk2": 5510
+          "atk1": 5514,
+          "atk2": 5514
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_02_halloween.png",
@@ -4116,12 +4274,13 @@
           "atk2": 972
         },
         "lvl30": {
-          "hp": 10811,
-          "atk1": 7829,
-          "atk2": 7829
+          "hp": 10814,
+          "atk1": 7833,
+          "atk2": 7833
         }
       },
       "star": "gold",
+      "bonus": 17,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_03_spring.png",
@@ -4142,12 +4301,13 @@
           "atk2": 1126
         },
         "lvl30": {
-          "hp": 12566,
-          "atk1": 6590,
-          "atk2": 6590
+          "hp": 12567,
+          "atk1": 6591,
+          "atk2": 6591
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_04_winter.png",
@@ -4168,12 +4328,13 @@
           "atk2": 644
         },
         "lvl30": {
-          "hp": 12124,
+          "hp": 12128,
           "atk1": 3774,
           "atk2": 3774
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_05_winter.png",
@@ -4194,12 +4355,13 @@
           "atk2": 1408
         },
         "lvl30": {
-          "hp": 8637,
-          "atk1": 8225,
-          "atk2": 8225
+          "hp": 8640,
+          "atk1": 8230,
+          "atk2": 8230
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_08_winter.png",
@@ -4220,12 +4382,13 @@
           "atk2": 526
         },
         "lvl30": {
-          "hp": 10155,
+          "hp": 10158,
           "atk1": 3949,
           "atk2": 3949
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_10_halloween.png",
@@ -4246,12 +4409,13 @@
           "atk2": 625
         },
         "lvl30": {
-          "hp": 10756,
-          "atk1": 5043,
-          "atk2": 5363
+          "hp": 10759,
+          "atk1": 5045,
+          "atk2": 5367
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_da_11_anniversary.png",
@@ -4278,6 +4442,7 @@
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "gachaboss",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_01_gachaboss.png",
@@ -4299,11 +4464,12 @@
         },
         "lvl30": {
           "hp": 11267,
-          "atk1": 6738,
-          "atk2": 6738
+          "atk1": 6743,
+          "atk2": 6743
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "western",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_04_western.png",
@@ -4324,12 +4490,13 @@
           "atk2": 521
         },
         "lvl30": {
-          "hp": 8061,
-          "atk1": 3051,
-          "atk2": 3051
+          "hp": 8063,
+          "atk1": 3055,
+          "atk2": 3055
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "fantasy",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_06_fantasy.png",
@@ -4356,6 +4523,7 @@
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_07_halloween.png",
@@ -4377,11 +4545,12 @@
         },
         "lvl30": {
           "hp": 13868,
-          "atk1": 9710,
-          "atk2": 9710
+          "atk1": 9711,
+          "atk2": 9711
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_08_halloween.png",
@@ -4402,12 +4571,13 @@
           "atk2": 1177
         },
         "lvl30": {
-          "hp": 13840,
-          "atk1": 6888,
-          "atk2": 6888
+          "hp": 13841,
+          "atk1": 6893,
+          "atk2": 6893
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "nebula",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_09_nebula.png",
@@ -4428,12 +4598,13 @@
           "atk2": 1502
         },
         "lvl30": {
-          "hp": 14406,
-          "atk1": 8992,
-          "atk2": 8992
+          "hp": 14408,
+          "atk1": 8994,
+          "atk2": 8994
         }
       },
       "star": "gold",
+      "bonus": -7,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_db_10_anniversary.png",
@@ -4454,12 +4625,13 @@
           "atk2": 302
         },
         "lvl30": {
-          "hp": 5066,
-          "atk1": 1773,
-          "atk2": 1773
+          "hp": 5068,
+          "atk1": 1776,
+          "atk2": 1776
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "gothic",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_01_gothic.png",
@@ -4480,12 +4652,13 @@
           "atk2": 1359
         },
         "lvl30": {
-          "hp": 12257,
-          "atk1": 9464,
-          "atk2": 9464
+          "hp": 12261,
+          "atk1": 9469,
+          "atk2": 9469
         }
       },
       "star": "gold",
+      "bonus": 11,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_04_halloween.png",
@@ -4507,11 +4680,12 @@
         },
         "lvl30": {
           "hp": 10328,
-          "atk1": 3865,
-          "atk2": 3865
+          "atk1": 3866,
+          "atk2": 3866
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "lucha",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_05_lucha.png",
@@ -4532,12 +4706,13 @@
           "atk2": 1282
         },
         "lvl30": {
-          "hp": 15900,
-          "atk1": 7851,
-          "atk2": 7851
+          "hp": 15902,
+          "atk1": 7855,
+          "atk2": 7855
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_06_winter.png",
@@ -4558,12 +4733,13 @@
           "atk2": 429
         },
         "lvl30": {
-          "hp": 12932,
-          "atk1": 2512,
-          "atk2": 2512
+          "hp": 12934,
+          "atk1": 2514,
+          "atk2": 2514
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "vegetal",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_08_vegetal.png",
@@ -4585,11 +4761,12 @@
         },
         "lvl30": {
           "hp": 10362,
-          "atk1": 2907,
-          "atk2": 2907
+          "atk1": 2909,
+          "atk2": 2909
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "aprilfools",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_09_aprilfools.png",
@@ -4610,12 +4787,13 @@
           "atk2": 1092
         },
         "lvl30": {
-          "hp": 14406,
-          "atk1": 6382,
-          "atk2": 6382
+          "hp": 14407,
+          "atk1": 6381,
+          "atk2": 6381
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_10_winter.png",
@@ -4636,12 +4814,13 @@
           "atk2": 738
         },
         "lvl30": {
-          "hp": 11532,
-          "atk1": 4317,
-          "atk2": 4317
+          "hp": 11534,
+          "atk1": 4320,
+          "atk2": 4320
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dc_11_winter.png",
@@ -4662,12 +4841,13 @@
           "atk2": 434
         },
         "lvl30": {
-          "hp": 12686,
-          "atk1": 4406,
-          "atk2": 2546
+          "hp": 12687,
+          "atk1": 4408,
+          "atk2": 2545
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_01_valentines.png",
@@ -4689,11 +4869,12 @@
         },
         "lvl30": {
           "hp": 12531,
-          "atk1": 6070,
-          "atk2": 3500
+          "atk1": 6073,
+          "atk2": 3501
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_04_xmas25.png",
@@ -4714,12 +4895,13 @@
           "atk2": 301
         },
         "lvl30": {
-          "hp": 6650,
+          "hp": 6649,
           "atk1": 4615,
-          "atk2": 2305
+          "atk2": 2307
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "cybernetics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_05_cybernetics.png",
@@ -4741,11 +4923,12 @@
         },
         "lvl30": {
           "hp": 6845,
-          "atk1": 4393,
-          "atk2": 2198
+          "atk1": 4395,
+          "atk2": 2197
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_05_spring.png",
@@ -4766,12 +4949,13 @@
           "atk2": 500
         },
         "lvl30": {
-          "hp": 11349,
-          "atk1": 5130,
-          "atk2": 2932
+          "hp": 11351,
+          "atk1": 5135,
+          "atk2": 2935
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "camo",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_07_camo.png",
@@ -4792,12 +4976,13 @@
           "atk2": 631
         },
         "lvl30": {
-          "hp": 20409,
-          "atk1": 7759,
-          "atk2": 4789
+          "hp": 20411,
+          "atk1": 7761,
+          "atk2": 4791
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "school",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_08_school.png",
@@ -4819,11 +5004,12 @@
         },
         "lvl30": {
           "hp": 11423,
-          "atk1": 3629,
-          "atk2": 2177
+          "atk1": 3633,
+          "atk2": 2181
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_09_xmas25.png",
@@ -4845,11 +5031,12 @@
         },
         "lvl30": {
           "hp": 11337,
-          "atk1": 4497,
-          "atk2": 2679
+          "atk1": 4500,
+          "atk2": 2680
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "autumn",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_dd_10_autumn.png",
@@ -4870,12 +5057,13 @@
           "atk2": 859
         },
         "lvl30": {
-          "hp": 12024,
-          "atk1": 5028,
-          "atk2": 5028
+          "hp": 12025,
+          "atk1": 5030,
+          "atk2": 5030
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_02_halloween.png",
@@ -4896,12 +5084,13 @@
           "atk2": 318
         },
         "lvl30": {
-          "hp": 8218,
-          "atk1": 1874,
-          "atk2": 1874
+          "hp": 8217,
+          "atk1": 1876,
+          "atk2": 1876
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_03_winter.png",
@@ -4922,12 +5111,13 @@
           "atk2": 1175
         },
         "lvl30": {
-          "hp": 7546,
-          "atk1": 8552,
-          "atk2": 8552
+          "hp": 7548,
+          "atk1": 8555,
+          "atk2": 8555
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "lucha",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_04_lucha.png",
@@ -4949,11 +5139,12 @@
         },
         "lvl30": {
           "hp": 16524,
-          "atk1": 8972,
-          "atk2": 8972
+          "atk1": 8974,
+          "atk2": 8974
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "music",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_05_music.png",
@@ -4974,12 +5165,13 @@
           "atk2": 798
         },
         "lvl30": {
-          "hp": 13142,
-          "atk1": 4669,
-          "atk2": 4669
+          "hp": 13144,
+          "atk1": 4668,
+          "atk2": 4668
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "thanksgiving",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_07_thanksgiving.png",
@@ -5001,11 +5193,12 @@
         },
         "lvl30": {
           "hp": 6981,
-          "atk1": 3990,
-          "atk2": 3990
+          "atk1": 3992,
+          "atk2": 3992
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_08_winter.png",
@@ -5026,12 +5219,13 @@
           "atk2": 344
         },
         "lvl30": {
-          "hp": 10580,
-          "atk1": 2015,
-          "atk2": 2015
+          "hp": 10584,
+          "atk1": 2020,
+          "atk2": 2020
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "vegetal",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_09_vegetal.png",
@@ -5052,12 +5246,13 @@
           "atk2": 1284
         },
         "lvl30": {
-          "hp": 15737,
-          "atk1": 9192,
-          "atk2": 9192
+          "hp": 15738,
+          "atk1": 9197,
+          "atk2": 9197
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "tcg",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_de_11_tcg.png",
@@ -5078,12 +5273,13 @@
           "atk2": 1006
         },
         "lvl30": {
-          "hp": 13576,
-          "atk1": 5894,
-          "atk2": 5894
+          "hp": 13578,
+          "atk1": 5896,
+          "atk2": 5896
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "japan",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_01_japan.png",
@@ -5104,12 +5300,13 @@
           "atk2": 593
         },
         "lvl30": {
-          "hp": 9090,
-          "atk1": 3481,
-          "atk2": 3481
+          "hp": 9091,
+          "atk1": 3484,
+          "atk2": 3484
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_02_spring.png",
@@ -5130,12 +5327,13 @@
           "atk2": 942
         },
         "lvl30": {
-          "hp": 11263,
-          "atk1": 5507,
-          "atk2": 5507
+          "hp": 11264,
+          "atk1": 5511,
+          "atk2": 5511
         }
       },
       "star": "gold",
+      "bonus": 12,
       "skin": "autumn",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_03_autumn.png",
@@ -5156,12 +5354,13 @@
           "atk2": 1145
         },
         "lvl30": {
-          "hp": 14714,
-          "atk1": 6694,
-          "atk2": 6694
+          "hp": 14716,
+          "atk1": 6696,
+          "atk2": 6696
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "elements",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_04_elements.png",
@@ -5182,12 +5381,13 @@
           "atk2": 1041
         },
         "lvl30": {
-          "hp": 15607,
-          "atk1": 6086,
-          "atk2": 6086
+          "hp": 15608,
+          "atk1": 6087,
+          "atk2": 6087
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_04_winter.png",
@@ -5208,12 +5408,13 @@
           "atk2": 1022
         },
         "lvl30": {
-          "hp": 7164,
+          "hp": 7166,
           "atk1": 5978,
           "atk2": 5978
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_05_winter.png",
@@ -5235,11 +5436,12 @@
         },
         "lvl30": {
           "hp": 12503,
-          "atk1": 11094,
-          "atk2": 11094
+          "atk1": 11097,
+          "atk2": 11097
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_07_halloween.png",
@@ -5260,12 +5462,13 @@
           "atk2": 1727
         },
         "lvl30": {
-          "hp": 13525,
-          "atk1": 9424,
-          "atk2": 9424
+          "hp": 13527,
+          "atk1": 9425,
+          "atk2": 9425
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "thanksgiving",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_08_thanksgiving.png",
@@ -5286,12 +5489,13 @@
           "atk2": 764
         },
         "lvl30": {
-          "hp": 11913,
-          "atk1": 4479,
-          "atk2": 4479
+          "hp": 11916,
+          "atk1": 4484,
+          "atk2": 4484
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "purgatory",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_09_purgatory.png",
@@ -5312,12 +5516,13 @@
           "atk2": 679
         },
         "lvl30": {
-          "hp": 11882,
-          "atk1": 3991,
-          "atk2": 3991
+          "hp": 11885,
+          "atk1": 3993,
+          "atk2": 3993
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_df_10_valentines.png",
@@ -5338,11 +5543,12 @@
         },
         "lvl30": {
           "hp": 4091,
-          "atk1": 1175,
-          "atk2": 1175
+          "atk1": 1179,
+          "atk2": 1179
         }
       },
       "star": "bronze",
+      "bonus": 10,
       "skin": "gothic",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_e_01_gothic.png",
@@ -5362,12 +5568,13 @@
           "atk2": 198
         },
         "lvl30": {
-          "hp": 10780,
-          "atk1": 2189,
-          "atk2": 1150
+          "hp": 10781,
+          "atk1": 2187,
+          "atk2": 1149
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "chess",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_e_03_chess.png",
@@ -5388,12 +5595,13 @@
           "atk2": 995
         },
         "lvl30": {
-          "hp": 12999,
-          "atk1": 5833,
-          "atk2": 5833
+          "hp": 13001,
+          "atk1": 5835,
+          "atk2": 5835
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "gachaboss",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ea_01_gachaboss.png",
@@ -5414,12 +5622,13 @@
           "atk2": 598
         },
         "lvl30": {
-          "hp": 9860,
-          "atk1": 3512,
-          "atk2": 3512
+          "hp": 9862,
+          "atk1": 3514,
+          "atk2": 3514
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ea_02_halloween.png",
@@ -5440,12 +5649,13 @@
           "atk2": 677
         },
         "lvl30": {
-          "hp": 12293,
-          "atk1": 4152,
-          "atk2": 4152
+          "hp": 12295,
+          "atk1": 4154,
+          "atk2": 4154
         }
       },
       "star": "gold",
+      "bonus": -11,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ea_05_easter.png",
@@ -5467,11 +5677,12 @@
         },
         "lvl30": {
           "hp": 12305,
-          "atk1": 5822,
-          "atk2": 5822
+          "atk1": 5821,
+          "atk2": 5821
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "thanksgiving",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ea_06_thanksgiving.png",
@@ -5492,12 +5703,13 @@
           "atk2": 838
         },
         "lvl30": {
-          "hp": 18602,
-          "atk1": 5300,
-          "atk2": 4905
+          "hp": 18604,
+          "atk1": 5303,
+          "atk2": 4907
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "oktoberfest",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ea_07_oktoberfest.png",
@@ -5518,12 +5730,13 @@
           "atk2": 384
         },
         "lvl30": {
-          "hp": 6061,
-          "atk1": 2633,
-          "atk2": 2633
+          "hp": 6060,
+          "atk1": 2637,
+          "atk2": 2637
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "elements",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_02_elements.png",
@@ -5544,12 +5757,13 @@
           "atk2": 1281
         },
         "lvl30": {
-          "hp": 12932,
-          "atk1": 8502,
-          "atk2": 8502
+          "hp": 12935,
+          "atk1": 8508,
+          "atk2": 8508
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_03_easter.png",
@@ -5570,12 +5784,13 @@
           "atk2": 536
         },
         "lvl30": {
-          "hp": 7710,
-          "atk1": 3138,
-          "atk2": 3138
+          "hp": 7712,
+          "atk1": 3139,
+          "atk2": 3139
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "movies",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_04_movies.png",
@@ -5597,11 +5812,12 @@
         },
         "lvl30": {
           "hp": 11969,
-          "atk1": 9349,
-          "atk2": 9349
+          "atk1": 9354,
+          "atk2": 9354
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "elements",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_05_elements.png",
@@ -5623,11 +5839,12 @@
         },
         "lvl30": {
           "hp": 11334,
-          "atk1": 4880,
-          "atk2": 4880
+          "atk1": 4881,
+          "atk2": 4881
         }
       },
       "star": "gold",
+      "bonus": 13,
       "skin": "hexcity",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_07_hexcity.png",
@@ -5648,12 +5865,13 @@
           "atk2": 1345
         },
         "lvl30": {
-          "hp": 14812,
-          "atk1": 8614,
-          "atk2": 8614
+          "hp": 14813,
+          "atk1": 8618,
+          "atk2": 8618
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "masks",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_09_masks.png",
@@ -5674,12 +5892,13 @@
           "atk2": 729
         },
         "lvl30": {
-          "hp": 13911,
-          "atk1": 4450,
-          "atk2": 4450
+          "hp": 13914,
+          "atk1": 4453,
+          "atk2": 4453
         }
       },
       "star": "gold",
+      "bonus": -9,
       "skin": "aprilfools",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_10_aprilfools.png",
@@ -5700,12 +5919,13 @@
           "atk2": 997
         },
         "lvl30": {
-          "hp": 12925,
-          "atk1": 6569,
-          "atk2": 6569
+          "hp": 12928,
+          "atk1": 6574,
+          "atk2": 6574
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "summer",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_eb_11_summer.png",
@@ -5726,12 +5946,13 @@
           "atk2": 704
         },
         "lvl30": {
-          "hp": 9025,
-          "atk1": 4118,
-          "atk2": 4118
+          "hp": 9028,
+          "atk1": 4121,
+          "atk2": 4121
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "starwars",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_01_starwars.png",
@@ -5752,12 +5973,13 @@
           "atk2": 402
         },
         "lvl30": {
-          "hp": 4922,
-          "atk1": 2351,
-          "atk2": 2351
+          "hp": 4924,
+          "atk1": 2355,
+          "atk2": 2355
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "steampunk",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_01_steampunk.png",
@@ -5778,12 +6000,13 @@
           "atk2": 448
         },
         "lvl30": {
-          "hp": 7617,
-          "atk1": 2751,
-          "atk2": 2751
+          "hp": 7619,
+          "atk1": 2755,
+          "atk2": 2755
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "villains",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_03_villains.png",
@@ -5805,11 +6028,12 @@
         },
         "lvl30": {
           "hp": 10893,
-          "atk1": 8491,
-          "atk2": 8491
+          "atk1": 8493,
+          "atk2": 8493
         }
       },
       "star": "gold",
+      "bonus": 20,
       "skin": "kings",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_05_kings.png",
@@ -5830,12 +6054,13 @@
           "atk2": 1054
         },
         "lvl30": {
-          "hp": 4336,
-          "atk1": 6571,
-          "atk2": 6571
+          "hp": 4340,
+          "atk1": 6570,
+          "atk2": 6570
         }
       },
       "star": "gold",
+      "bonus": 13,
       "skin": "hexcity",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_08_hexcity.png",
@@ -5856,12 +6081,13 @@
           "atk2": 908
         },
         "lvl30": {
-          "hp": 13724,
-          "atk1": 5322,
-          "atk2": 5322
+          "hp": 13725,
+          "atk1": 5323,
+          "atk2": 5323
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_09_winter.png",
@@ -5888,6 +6114,7 @@
         }
       },
       "star": "gold",
+      "bonus": 4,
       "skin": "revolution",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ec_10_revolution.png",
@@ -5908,12 +6135,13 @@
           "atk2": 406
         },
         "lvl30": {
-          "hp": 7854,
+          "hp": 7855,
           "atk1": 2388,
           "atk2": 2388
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_01_winter.png",
@@ -5934,12 +6162,13 @@
           "atk2": 813
         },
         "lvl30": {
-          "hp": 10713,
-          "atk1": 4766,
-          "atk2": 4766
+          "hp": 10715,
+          "atk1": 4770,
+          "atk2": 4770
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "oktoberfest",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_02_oktoberfest.png",
@@ -5960,12 +6189,13 @@
           "atk2": 551
         },
         "lvl30": {
-          "hp": 8018,
-          "atk1": 3224,
-          "atk2": 3224
+          "hp": 8021,
+          "atk1": 3227,
+          "atk2": 3227
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "movies",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_03_movies.png",
@@ -5986,12 +6216,13 @@
           "atk2": 1422
         },
         "lvl30": {
-          "hp": 12371,
-          "atk1": 9406,
-          "atk2": 9406
+          "hp": 12373,
+          "atk1": 9411,
+          "atk2": 9411
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "solarflare",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_05_solarflare.png",
@@ -6012,12 +6243,13 @@
           "atk2": 598
         },
         "lvl30": {
-          "hp": 7893,
-          "atk1": 3493,
-          "atk2": 3493
+          "hp": 7895,
+          "atk1": 3498,
+          "atk2": 3498
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_06_easter.png",
@@ -6038,12 +6270,13 @@
           "atk2": 385
         },
         "lvl30": {
-          "hp": 11150,
-          "atk1": 2266,
-          "atk2": 2266
+          "hp": 11152,
+          "atk1": 2265,
+          "atk2": 2265
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "summer",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_07_summer.png",
@@ -6064,12 +6297,13 @@
           "atk2": 467
         },
         "lvl30": {
-          "hp": 5354,
-          "atk1": 2729,
-          "atk2": 2729
+          "hp": 5356,
+          "atk1": 2732,
+          "atk2": 2732
         }
       },
       "star": "none",
+      "bonus": 10,
       "skin": "camo",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_08_camo.png",
@@ -6090,12 +6324,13 @@
           "atk2": 438
         },
         "lvl30": {
-          "hp": 9804,
-          "atk1": 2561,
-          "atk2": 2561
+          "hp": 9806,
+          "atk1": 2567,
+          "atk2": 2567
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "carnival",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_09_carnival.png",
@@ -6116,12 +6351,13 @@
           "atk2": 990
         },
         "lvl30": {
-          "hp": 13489,
-          "atk1": 6508,
-          "atk2": 6508
+          "hp": 13493,
+          "atk1": 6511,
+          "atk2": 6511
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_10_valentines.png",
@@ -6143,11 +6379,12 @@
         },
         "lvl30": {
           "hp": 14032,
-          "atk1": 9058,
-          "atk2": 9058
+          "atk1": 9064,
+          "atk2": 9064
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "carnival",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ed_11_carnival.png",
@@ -6168,12 +6405,13 @@
           "atk2": 490
         },
         "lvl30": {
-          "hp": 12487,
-          "atk1": 5003,
+          "hp": 12489,
+          "atk1": 5002,
           "atk2": 2866
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_02_halloween.png",
@@ -6194,12 +6432,13 @@
           "atk2": 375
         },
         "lvl30": {
-          "hp": 10088,
-          "atk1": 3817,
-          "atk2": 2182
+          "hp": 10090,
+          "atk1": 3821,
+          "atk2": 2184
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_03_easter.png",
@@ -6220,12 +6459,13 @@
           "atk2": 644
         },
         "lvl30": {
-          "hp": 12628,
-          "atk1": 6559,
-          "atk2": 3756
+          "hp": 12631,
+          "atk1": 6561,
+          "atk2": 3761
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "music",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_04_music.png",
@@ -6246,12 +6486,13 @@
           "atk2": 591
         },
         "lvl30": {
-          "hp": 12683,
-          "atk1": 6003,
-          "atk2": 3449
+          "hp": 12685,
+          "atk1": 6004,
+          "atk2": 3453
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "masks",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_06_masks.png",
@@ -6272,12 +6513,13 @@
           "atk2": 457
         },
         "lvl30": {
-          "hp": 13009,
+          "hp": 13011,
           "atk1": 4658,
-          "atk2": 2656
+          "atk2": 2659
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "beach",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_07_beach.png",
@@ -6299,11 +6541,12 @@
         },
         "lvl30": {
           "hp": 16482,
-          "atk1": 8197,
-          "atk2": 4707
+          "atk1": 8196,
+          "atk2": 4709
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_08_winter.png",
@@ -6324,12 +6567,13 @@
           "atk2": 828
         },
         "lvl30": {
-          "hp": 16832,
-          "atk1": 9677,
-          "atk2": 4833
+          "hp": 16833,
+          "atk1": 9681,
+          "atk2": 4837
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "wireframe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_09_wireframe.png",
@@ -6350,12 +6594,13 @@
           "atk2": 510
         },
         "lvl30": {
-          "hp": 13838,
-          "atk1": 5179,
-          "atk2": 2976
+          "hp": 13840,
+          "atk1": 5181,
+          "atk2": 2977
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "school",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ee_10_school.png",
@@ -6376,12 +6621,13 @@
           "atk2": 318
         },
         "lvl30": {
-          "hp": 6165,
-          "atk1": 1864,
-          "atk2": 1864
+          "hp": 6168,
+          "atk1": 1868,
+          "atk2": 1868
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "elements",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_01_elements.png",
@@ -6402,12 +6648,13 @@
           "atk2": 515
         },
         "lvl30": {
-          "hp": 8548,
-          "atk1": 4990,
-          "atk2": 4990
+          "hp": 8552,
+          "atk1": 4999,
+          "atk2": 4999
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_04_easter.png",
@@ -6428,12 +6675,13 @@
           "atk2": 2791
         },
         "lvl30": {
-          "hp": 8768,
-          "atk1": 16331,
-          "atk2": 16331
+          "hp": 8767,
+          "atk1": 16333,
+          "atk2": 16333
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "blueplanet",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_05_blueplanet.png",
@@ -6454,12 +6702,13 @@
           "atk2": 812
         },
         "lvl30": {
-          "hp": 9944,
-          "atk1": 4754,
-          "atk2": 4754
+          "hp": 9947,
+          "atk1": 4759,
+          "atk2": 4759
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "europe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_06_europe.png",
@@ -6480,12 +6729,13 @@
           "atk2": 1032
         },
         "lvl30": {
-          "hp": 12722,
-          "atk1": 6031,
-          "atk2": 6031
+          "hp": 12721,
+          "atk1": 6033,
+          "atk2": 6033
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_09_winter.png",
@@ -6512,6 +6762,7 @@
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_10_halloween.png",
@@ -6532,12 +6783,13 @@
           "atk2": 698
         },
         "lvl30": {
-          "hp": 9012,
-          "atk1": 8567,
-          "atk2": 8567
+          "hp": 9015,
+          "atk1": 8568,
+          "atk2": 8568
         }
       },
       "star": "gold",
+      "bonus": 13,
       "skin": "hexcity",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ef_11_hexcity.png",
@@ -6557,12 +6809,13 @@
           "atk2": 456
         },
         "lvl30": {
-          "hp": 7612,
-          "atk1": 2661,
-          "atk2": 2661
+          "hp": 7614,
+          "atk1": 2664,
+          "atk2": 2664
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_f_01_girl.png",
@@ -6582,12 +6835,13 @@
           "atk2": 922
         },
         "lvl30": {
-          "hp": 10354,
-          "atk1": 5613,
-          "atk2": 5879
+          "hp": 10355,
+          "atk1": 5616,
+          "atk2": 5882
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_f_12_xmas25.png",
@@ -6608,12 +6862,13 @@
           "atk2": 806
         },
         "lvl30": {
-          "hp": 11469,
-          "atk1": 4721,
-          "atk2": 4721
+          "hp": 11471,
+          "atk1": 4723,
+          "atk2": 4723
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "heroes",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_01_heroes.png",
@@ -6634,12 +6889,13 @@
           "atk2": 560
         },
         "lvl30": {
-          "hp": 9601,
-          "atk1": 3283,
-          "atk2": 3283
+          "hp": 9602,
+          "atk1": 3282,
+          "atk2": 3282
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_02_valentines.png",
@@ -6660,12 +6916,13 @@
           "atk2": 941
         },
         "lvl30": {
-          "hp": 9992,
-          "atk1": 6030,
-          "atk2": 6030
+          "hp": 9991,
+          "atk1": 6033,
+          "atk2": 6033
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_05_winter.png",
@@ -6686,12 +6943,13 @@
           "atk2": 836
         },
         "lvl30": {
-          "hp": 8665,
-          "atk1": 5444,
-          "atk2": 5444
+          "hp": 8669,
+          "atk1": 5450,
+          "atk2": 5450
         }
       },
       "star": "silver",
+      "bonus": 25,
       "skin": "gemstones",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_07_gemstones.png",
@@ -6713,11 +6971,12 @@
         },
         "lvl30": {
           "hp": 7933,
-          "atk1": 2134,
-          "atk2": 2134
+          "atk1": 2140,
+          "atk2": 2140
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "olympics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_08_olympics.png",
@@ -6738,12 +6997,13 @@
           "atk2": 914
         },
         "lvl30": {
-          "hp": 11622,
-          "atk1": 5353,
-          "atk2": 5353
+          "hp": 11625,
+          "atk1": 5358,
+          "atk2": 5358
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "xmas25",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_09_xmas25.png",
@@ -6764,12 +7024,13 @@
           "atk2": 766
         },
         "lvl30": {
-          "hp": 6322,
-          "atk1": 4105,
-          "atk2": 4105
+          "hp": 6325,
+          "atk1": 4106,
+          "atk2": 4106
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fa_10_anniversary.png",
@@ -6790,12 +7051,13 @@
           "atk2": 653
         },
         "lvl30": {
-          "hp": 8556,
-          "atk1": 3827,
-          "atk2": 3827
+          "hp": 8559,
+          "atk1": 3830,
+          "atk2": 3830
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "girl",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_01_girl.png",
@@ -6817,11 +7079,12 @@
         },
         "lvl30": {
           "hp": 12445,
-          "atk1": 4876,
-          "atk2": 4876
+          "atk1": 4877,
+          "atk2": 4877
         }
       },
       "star": "gold",
+      "bonus": -10,
       "skin": "gachaboss",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_03_gachaboss.png",
@@ -6842,12 +7105,13 @@
           "atk2": 802
         },
         "lvl30": {
-          "hp": 15101,
-          "atk1": 4874,
-          "atk2": 4874
+          "hp": 15102,
+          "atk1": 4878,
+          "atk2": 4878
         }
       },
       "star": "platinum",
+      "bonus": -10,
       "skin": "music",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_05_music.png",
@@ -6868,12 +7132,13 @@
           "atk2": 434
         },
         "lvl30": {
-          "hp": 7812,
-          "atk1": 3563,
-          "atk2": 3563
+          "hp": 7814,
+          "atk1": 3562,
+          "atk2": 3562
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_06_winter.png",
@@ -6894,12 +7159,13 @@
           "atk2": 1205
         },
         "lvl30": {
-          "hp": 15673,
-          "atk1": 7060,
-          "atk2": 7060
+          "hp": 15677,
+          "atk1": 7063,
+          "atk2": 7063
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_09_halloween.png",
@@ -6920,12 +7186,13 @@
           "atk2": 1305
         },
         "lvl30": {
-          "hp": 17857,
-          "atk1": 7880,
-          "atk2": 7880
+          "hp": 17861,
+          "atk1": 7882,
+          "atk2": 7882
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_10_winter.png",
@@ -6946,12 +7213,13 @@
           "atk2": 357
         },
         "lvl30": {
-          "hp": 7756,
-          "atk1": 2572,
-          "atk2": 2572
+          "hp": 7760,
+          "atk1": 2573,
+          "atk2": 2573
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_01_winter.png",
@@ -6973,11 +7241,12 @@
         },
         "lvl30": {
           "hp": 14114,
-          "atk1": 5643,
-          "atk2": 5643
+          "atk1": 5647,
+          "atk2": 5647
         }
       },
       "star": "none",
+      "bonus": -10,
       "skin": "heroes",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_02_heroes.png",
@@ -6998,12 +7267,13 @@
           "atk2": 816
         },
         "lvl30": {
-          "hp": 13350,
-          "atk1": 7057,
-          "atk2": 7057
+          "hp": 13349,
+          "atk1": 7063,
+          "atk2": 7063
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "fantasy",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_04_fantasy.png",
@@ -7024,12 +7294,13 @@
           "atk2": 916
         },
         "lvl30": {
-          "hp": 12192,
-          "atk1": 5361,
-          "atk2": 5361
+          "hp": 12191,
+          "atk1": 5365,
+          "atk2": 5365
         }
       },
       "star": "silver",
+      "bonus": 10,
       "skin": "fantasy",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_05_fantasy.png",
@@ -7050,12 +7321,13 @@
           "atk2": 575
         },
         "lvl30": {
-          "hp": 8934,
-          "atk1": 3375,
-          "atk2": 3375
+          "hp": 8938,
+          "atk1": 3378,
+          "atk2": 3378
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "western",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_07_western.png",
@@ -7076,12 +7348,13 @@
           "atk2": 842
         },
         "lvl30": {
-          "hp": 12086,
-          "atk1": 4929,
-          "atk2": 4929
+          "hp": 12088,
+          "atk1": 4934,
+          "atk2": 4934
         }
       },
       "star": "gold",
+      "bonus": -5,
       "skin": "europe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_08_europe.png",
@@ -7102,12 +7375,13 @@
           "atk2": 1697
         },
         "lvl30": {
-          "hp": 16372,
-          "atk1": 9204,
-          "atk2": 9204
+          "hp": 16373,
+          "atk1": 9206,
+          "atk2": 9206
         }
       },
       "star": "gold",
+      "bonus": 8,
       "skin": "advent",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fc_10_advent.png",
@@ -7128,12 +7402,13 @@
           "atk2": 510
         },
         "lvl30": {
-          "hp": 8224,
-          "atk1": 2983,
-          "atk2": 2983
+          "hp": 8228,
+          "atk1": 2984,
+          "atk2": 2984
         }
       },
       "star": "silver",
+      "bonus": -10,
       "skin": "gothic",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_01_gothic.png",
@@ -7154,12 +7429,13 @@
           "atk2": 409
         },
         "lvl30": {
-          "hp": 8575,
-          "atk1": 3845,
-          "atk2": 3845
+          "hp": 8579,
+          "atk1": 3849,
+          "atk2": 3849
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "valentines",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_02_valentines.png",
@@ -7180,12 +7456,13 @@
           "atk2": 670
         },
         "lvl30": {
-          "hp": 10129,
-          "atk1": 3923,
-          "atk2": 3923
+          "hp": 10128,
+          "atk1": 3924,
+          "atk2": 3924
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "confrontation",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_04_confrontation.png",
@@ -7206,12 +7483,13 @@
           "atk2": 567
         },
         "lvl30": {
-          "hp": 8345,
-          "atk1": 3328,
-          "atk2": 3328
+          "hp": 8346,
+          "atk1": 3333,
+          "atk2": 3333
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_05_easter.png",
@@ -7232,12 +7510,13 @@
           "atk2": 985
         },
         "lvl30": {
-          "hp": 17408,
-          "atk1": 6519,
-          "atk2": 6519
+          "hp": 17413,
+          "atk1": 6524,
+          "atk2": 6524
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "olympics",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_06_olympics.png",
@@ -7258,12 +7537,13 @@
           "atk2": 9
         },
         "lvl30": {
-          "hp": 12970,
-          "atk1": 9513,
-          "atk2": 9513
+          "hp": 12972,
+          "atk1": 10172,
+          "atk2": 10172
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_07_easter.png",
@@ -7284,12 +7564,13 @@
           "atk2": 1296
         },
         "lvl30": {
-          "hp": 13353,
-          "atk1": 7176,
-          "atk2": 7176
+          "hp": 13356,
+          "atk1": 7179,
+          "atk2": 7179
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_08_winter.png",
@@ -7311,11 +7592,12 @@
         },
         "lvl30": {
           "hp": 11957,
-          "atk1": 6665,
-          "atk2": 6665
+          "atk1": 6668,
+          "atk2": 6668
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "anniversary",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fd_09_anniversary.png",
@@ -7336,12 +7618,13 @@
           "atk2": 598
         },
         "lvl30": {
-          "hp": 9456,
-          "atk1": 3498,
-          "atk2": 3498
+          "hp": 9459,
+          "atk1": 3501,
+          "atk2": 3501
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_02_halloween.png",
@@ -7362,12 +7645,13 @@
           "atk2": 902
         },
         "lvl30": {
-          "hp": 10620,
-          "atk1": 5279,
-          "atk2": 5279
+          "hp": 10621,
+          "atk1": 5281,
+          "atk2": 5281
         }
       },
       "star": "gold",
+      "bonus": 5,
       "skin": "wireframe",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_03_wireframe.png",
@@ -7388,12 +7672,13 @@
           "atk2": 596
         },
         "lvl30": {
-          "hp": 9290,
-          "atk1": 3490,
-          "atk2": 3490
+          "hp": 9292,
+          "atk1": 3492,
+          "atk2": 3492
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "lucha",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_04_lucha.png",
@@ -7415,11 +7700,12 @@
         },
         "lvl30": {
           "hp": 10842,
-          "atk1": 8462,
-          "atk2": 8462
+          "atk1": 8468,
+          "atk2": 8468
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "chess",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_06_chess.png",
@@ -7441,11 +7727,12 @@
         },
         "lvl30": {
           "hp": 11595,
-          "atk1": 5595,
-          "atk2": 5595
+          "atk1": 5600,
+          "atk2": 5600
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "easter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_07_easter.png",
@@ -7466,12 +7753,13 @@
           "atk2": 1869
         },
         "lvl30": {
-          "hp": 12753,
-          "atk1": 11718,
-          "atk2": 11718
+          "hp": 12754,
+          "atk1": 11719,
+          "atk2": 11719
         }
       },
       "star": "gold",
+      "bonus": 10,
       "skin": "beach",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_08_beach.png",
@@ -7492,12 +7780,13 @@
           "atk2": 1660
         },
         "lvl30": {
-          "hp": 16002,
-          "atk1": 9673,
-          "atk2": 9673
+          "hp": 16004,
+          "atk1": 9677,
+          "atk2": 9677
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_09_winter.png",
@@ -7518,12 +7807,13 @@
           "atk2": 688
         },
         "lvl30": {
-          "hp": 11048,
-          "atk1": 4036,
-          "atk2": 4036
+          "hp": 11051,
+          "atk1": 4039,
+          "atk2": 4039
         }
       },
       "star": "gold",
+      "bonus": 9,
       "skin": "masks",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_10_masks.png",
@@ -7544,12 +7834,13 @@
           "atk2": 668
         },
         "lvl30": {
-          "hp": 11060,
-          "atk1": 4234,
-          "atk2": 4234
+          "hp": 11063,
+          "atk1": 4238,
+          "atk2": 4238
         }
       },
       "star": "none",
+      "bonus": 4,
       "skin": "autumn",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_13_autumn.png",
@@ -7570,12 +7861,13 @@
           "atk2": 720
         },
         "lvl30": {
-          "hp": 10140,
+          "hp": 10141,
           "atk1": 4564,
           "atk2": 4564
         }
       },
       "star": "none",
+      "bonus": 12,
       "skin": "seasons",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_13_seasons.png",
@@ -7596,12 +7888,13 @@
           "atk2": 649
         },
         "lvl30": {
-          "hp": 11407,
-          "atk1": 4114,
-          "atk2": 4114
+          "hp": 11409,
+          "atk1": 4116,
+          "atk2": 4116
         }
       },
       "star": "none",
+      "bonus": 1,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_13_spring.png",
@@ -7622,12 +7915,13 @@
           "atk2": 630
         },
         "lvl30": {
-          "hp": 11755,
+          "hp": 11754,
           "atk1": 3993,
           "atk2": 3993
         }
       },
       "star": "none",
+      "bonus": -2,
       "skin": "summer",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_13_summer.png",
@@ -7648,12 +7942,13 @@
           "atk2": 591
         },
         "lvl30": {
-          "hp": 12445,
-          "atk1": 3746,
-          "atk2": 3746
+          "hp": 12446,
+          "atk1": 3749,
+          "atk2": 3749
         }
       },
       "star": "none",
+      "bonus": -8,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fe_13_winter.png",
@@ -7674,12 +7969,13 @@
           "atk2": 539
         },
         "lvl30": {
-          "hp": 12086,
-          "atk1": 5495,
-          "atk2": 3162
+          "hp": 12088,
+          "atk1": 5498,
+          "atk2": 3166
         }
       },
       "star": "bronze",
+      "bonus": -10,
       "skin": "gachaboss",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_01_gachaboss.png",
@@ -7700,12 +7996,13 @@
           "atk2": 460
         },
         "lvl30": {
-          "hp": 12152,
+          "hp": 12155,
           "atk1": 4681,
-          "atk2": 2688
+          "atk2": 2689
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_02_halloween.png",
@@ -7726,12 +8023,13 @@
           "atk2": 315
         },
         "lvl30": {
-          "hp": 13116,
-          "atk1": 3196,
+          "hp": 13117,
+          "atk1": 3200,
           "atk2": 1842
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "spring",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_03_spring.png",
@@ -7752,12 +8050,13 @@
           "atk2": 605
         },
         "lvl30": {
-          "hp": 14507,
-          "atk1": 5495,
-          "atk2": 3532
+          "hp": 14509,
+          "atk1": 5494,
+          "atk2": 3535
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_04_winter.png",
@@ -7778,12 +8077,13 @@
           "atk2": 571
         },
         "lvl30": {
-          "hp": 10704,
-          "atk1": 4927,
-          "atk2": 3882
+          "hp": 10707,
+          "atk1": 4929,
+          "atk2": 3885
         }
       },
       "star": "gold",
+      "bonus": 15,
       "skin": "western",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_06_western.png",
@@ -7805,11 +8105,12 @@
         },
         "lvl30": {
           "hp": 11193,
-          "atk1": 4363,
-          "atk2": 2506
+          "atk1": 4368,
+          "atk2": 2511
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "winter",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_08_winter.png",
@@ -7830,12 +8131,13 @@
           "atk2": 672
         },
         "lvl30": {
-          "hp": 15553,
-          "atk1": 7660,
-          "atk2": 3925
+          "hp": 15554,
+          "atk1": 7664,
+          "atk2": 3924
         }
       },
       "star": "gold",
+      "bonus": 0,
       "skin": "halloween",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_09_halloween.png",
@@ -7857,11 +8159,12 @@
         },
         "lvl30": {
           "hp": 24082,
-          "atk1": 14649,
-          "atk2": 7405
+          "atk1": 14654,
+          "atk2": 7404
         }
       },
       "star": "platinum",
+      "bonus": 10,
       "skin": "gemstones",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ff_10_gemstones.png",
