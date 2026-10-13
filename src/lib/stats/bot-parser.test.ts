@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { parseMessage } from './bot-parser'
+import mutantsRaw from '@/data/mutants/mutants.json'
+import skinsRaw from '@/data/mutants/skins.json'
+import { skinLabel } from './skin-catalog'
 
 function ok(text: string) {
   const r = parseMessage(text)
@@ -270,4 +273,111 @@ describe('сферовка с сайта', () => {
     expect(r.primary.level).toBe(20)
     expect(r.primary.specialOrbId).toBe('orb_special_addstrengthen_04')
   })
+})
+
+describe('скины', () => {
+  it('выбирает скин по названию после имени и берёт его звезду', () => {
+    const p = ok('охотник за головами зима 30ур').primary
+    expect(p.mutantName).toBe('Охотник за головами')
+    expect(p.skin?.skin).toBe('winter')
+    expect(p.starIndex).toBe(3)
+    expect(p.level).toBe(30)
+  })
+
+  it('без названия скина всё как раньше - скина нет', () => {
+    const p = ok('охотник за головами 30ур').primary
+    expect(p.skin).toBeNull()
+  })
+
+  it('принимает утверждённые алиасы скинов', () => {
+    expect(ok('охотник за головами зимний 30ур').primary.skin?.skin).toBe('winter')
+    expect(ok('охотник за головами зимняя').primary.skin?.skin).toBe('winter')
+  })
+
+  it('принимает код скина латиницей', () => {
+    expect(ok('охотник за головами winter 30ур').primary.skin?.skin).toBe('winter')
+  })
+
+  it('та же звезда, что у скина, допустима, другая - ошибка', () => {
+    expect(ok('охотник за головами зима золото 30ур').primary.skin?.skin).toBe('winter')
+    expect(err('охотник за головами зима платина 30ур')).toMatch(/звезда фиксированная/)
+  })
+
+  it('мутант без такого скина: ошибка со списком его скинов', () => {
+    expect(err('робот зима 30ур')).toMatch(/нет скина «зима» - есть: .*Япония/)
+  })
+
+  it('слово "скин" показывает список скинов мутанта', () => {
+    expect(err('робот скины')).toMatch(/не указан скин - у мутанта «Робот» есть: .*Япония/)
+  })
+
+  it('"большой босс" - название скина, а не никнейм другого мутанта', () => {
+    const p = ok('цербер большой босс 20ур').primary
+    expect(p.mutantName).toBe('Цербер')
+    expect(p.skin?.skin).toBe('gachaboss')
+  })
+
+  it('слово скина внутри имени мутанта не считается скином', () => {
+    const p = ok('пасхальный грозаяц 20ур').primary
+    expect(p.mutantName).toBe('Пасхальный Грозаяц')
+    expect(p.skin).toBeNull()
+    expect(p.level).toBe(20)
+  })
+
+  it('цифры в названии скина не принимаются за уровень', () => {
+    const xmas = ok('сэр банног рождество 2025').primary
+    expect(xmas.skin?.skin).toBe('xmas25')
+    expect(xmas.level).toBe(30)
+    const april = ok('пилатесса 1 апреля 20ур').primary
+    expect(april.skin?.skin).toBe('aprilfools')
+    expect(april.level).toBe(20)
+  })
+
+  it('сферы и множители продолжают работать вместе со скином', () => {
+    const p = ok('охотник за головами зима 20ур щит 22% +25% на первую атаку').primary
+    expect(p.skin?.skin).toBe('winter')
+    expect(p.level).toBe(20)
+    expect(p.basicOrbIds).toContain('orb_basic_shield_04')
+    expect(p.atkMultipliers[1]).toBe(25)
+  })
+
+  it('скин работает в режиме сравнения: у каждой стороны свой', () => {
+    const r = ok('охотник за головами зима 30ур vs охотник за головами 30ур золото')
+    expect(r.primary.skin?.skin).toBe('winter')
+    expect(r.secondary?.skin).toBeNull()
+  })
+})
+
+describe('скины: все пары мутант + скин из skins.json', () => {
+  const mutants = mutantsRaw as any[]
+  const sameName = (name: string) => mutants.filter((m) => m.name === name).length > 1
+  const pairs = (skinsRaw as { specimens: any[] }).specimens.map((s) => {
+    const id = String(s.id).toLowerCase()
+    return { id, skin: s.skin as string, mutant: mutants.find((m) => String(m.id).toLowerCase() === id) }
+  })
+
+  for (const variant of ['label', 'code'] as const) {
+    it(`".<имя> <${variant === 'label' ? 'название' : 'код'} скина> 20ур" находит нужную пару`, () => {
+      const failures: string[] = []
+      for (const { id, skin, mutant } of pairs) {
+        // Мутанты с одинаковым именем ("Колосс"/"колосс") по имени не различить -
+        // для них в боте есть .добавить; здесь они не показатель.
+        if (sameName(mutant.name)) continue
+        const phrase = variant === 'label' ? skinLabel(skin) : skin
+        const text = `${mutant.name} ${phrase} 20ур`
+        const r = parseMessage(text)
+        if (!r.ok) {
+          failures.push(`${text} -> ошибка: ${r.error}`)
+          continue
+        }
+        const p = r.primary
+        if (String(p.mutant.id).toLowerCase() !== id || p.skin?.skin !== skin || p.level !== 20) {
+          failures.push(
+            `${text} -> ${p.mutant.id} / ${p.skin?.skin ?? 'без скина'} / ${p.level}ур`,
+          )
+        }
+      }
+      expect(failures).toEqual([])
+    })
+  }
 })

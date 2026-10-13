@@ -8,7 +8,8 @@
 // Formula (verified against 204/245 hand-written entries, Ghidra + Frida):
 //   lvl1.hp   = floor(hp_base   * (LF - bonus) / 100)
 //   lvl1.atkN = floor(atkN_base * (bonus + 100) * LF / 10000)
-//   lvlM      = floor(lvl1 * base.lvlM / base.lvl1)   per stat
+//   lvl30     = exact game formula at level 30 (see src/lib/stats/stat-formula.ts),
+//               NOT the old lvl1-scaled approximation
 // where LF is the star multiplier x100: {0:100,1:110,2:130,3:175,4:200},
 // and (stars, bonus) come from the GachaSpecimen entry for (specimen, skin).
 //
@@ -20,6 +21,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import axios from 'axios'
+import { calculateExactStats } from '../src/lib/stats/stat-formula'
 
 const REPO = process.cwd()
 const GACHA_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gacha.xml'
@@ -38,14 +40,6 @@ const STAR_NAME: Record<number, string> = {
   3: 'gold',
   4: 'platinum',
 }
-
-const calcHP = (base: number, stars: number, bonus: number) =>
-  Math.floor((base * (LEVEL_FACTOR[stars] - bonus)) / 100)
-const calcATK = (base: number, stars: number, bonus: number) =>
-  Math.floor((base * (bonus + 100) * LEVEL_FACTOR[stars]) / 10000)
-// Scale a floored lvl1 value by the base mutant's own per-stat level curve.
-const scale = (lvl1: number, baseLvl1: number, baseLvlM: number) =>
-  baseLvl1 > 0 ? Math.floor((lvl1 * baseLvlM) / baseLvl1) : 0
 
 // basic - запись из <BasicElements> (сам скин), иначе <CompletionReward>
 // (утешительная награда за сбор набора, у неё свои stars/bonus и к скину она
@@ -70,7 +64,14 @@ function parseGacha(xml: string): Map<string, GachaEntry> {
       const code = s[1].replace(/^Specimen_/i, '').toLowerCase()
       const stars = Number(tag.match(/stars="([^"]*)"/)?.[1] ?? 0)
       const bonus = Number(tag.match(/bonus="([^"]*)"/)?.[1] ?? 0)
-      map.set(`${code}|${skin}`, { stars, bonus, basic: basicBlock.includes(tag) })
+      const basic = basicBlock.includes(tag)
+      // Game lookup order (GachaController::findGachaSpecimen, verified in
+      // Ghidra): BasicElements first, CompletionReward only if the pair is
+      // not in Basic. A later CompletionReward line must never overwrite
+      // a Basic one.
+      const prev = map.get(`${code}|${skin}`)
+      if (prev?.basic && !basic) continue
+      map.set(`${code}|${skin}`, { stars, bonus, basic })
     }
   }
   return map
@@ -97,6 +98,9 @@ type SkinRecord = {
     lvl30: { hp: number; atk1: number; atk2: number }
   }
   star: string
+  // Integer bonus of the (specimen, skin) pair from gacha.xml. The bot's exact
+  // stat formula needs it: HP ~ (LF - bonus), ATK ~ (bonus + 100).
+  bonus: number
   skin: string
   image: string[]
 }
@@ -235,9 +239,28 @@ async function build() {
     }
 
     const bs = base.base_stats
-    const hp1 = calcHP(bs.hp_base, stars, bonus)
-    const a11 = calcATK(bs.atk1_base, stars, bonus)
-    const a21 = calcATK(bs.atk2_base, stars, bonus)
+    // One exact formula for every level (shared with the site and the bot):
+    // single floor at the end, per-mutant attack unlock levels. lvl30 used to be
+    // lvl1 scaled by the base mutant's lvl30/lvl1 ratio, which is a floor of a
+    // floor and drifts from the game by 0-4 (659 for FD_07).
+    const exactAt = (level: number) =>
+      calculateExactStats(
+        {
+          hp_base: bs.hp_base,
+          atk1_base: bs.atk1_base,
+          atk1p_base: bs.atk1p_base,
+          atk2_base: bs.atk2_base,
+          atk2p_base: bs.atk2p_base,
+          unlock: bs.unlock,
+        },
+        { lf: LEVEL_FACTOR[stars], bonus },
+        level,
+      )
+    const e1 = exactAt(1)
+    const e30 = exactAt(30)
+    const hp1 = e1.hp
+    const a11 = e1.atk1
+    const a21 = e1.atk2
 
     const rec: SkinRecord = {
       id: `Specimen_${code.toUpperCase()}`,
@@ -245,13 +268,10 @@ async function build() {
       genes: base.genes,
       base_stats: {
         lvl1: { hp: hp1, atk1: a11, atk2: a21 },
-        lvl30: {
-          hp: scale(hp1, bs.lvl1.hp, bs.lvl30.hp),
-          atk1: scale(a11, bs.lvl1.atk1, bs.lvl30.atk1),
-          atk2: scale(a21, bs.lvl1.atk2, bs.lvl30.atk2),
-        },
+        lvl30: { hp: e30.hp, atk1: e30.atk1, atk2: e30.atk2 },
       },
       star: STAR_NAME[stars] ?? 'none',
+      bonus,
       skin,
       image: [`${SKIN_BASE}/full/${file}`],
     }

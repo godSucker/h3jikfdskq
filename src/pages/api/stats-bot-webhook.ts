@@ -198,11 +198,19 @@ async function sendTelegramPhoto(
   }
 }
 
+// Bump when card numbers change (v2: exact game formula, 2026-10) - cached
+// cards from the old rounding must not be served any more.
+const CARD_CACHE_VERSION = 'v2'
+
 function cacheKeyFor(config: ParsedConfig): string {
   return [
+    CARD_CACHE_VERSION,
     config.mutant.id,
     config.level,
     config.starIndex,
+    // Скин меняет и статы, и картинку: без него в ключе "цербер" и "цербер
+    // большой босс" отдавали бы друг другу чужую карточку из кэша.
+    config.skin?.skin ?? '',
     config.basicOrbIds.join(','),
     config.specialOrbId ?? '',
     config.orbBuildIndex ?? '',
@@ -219,6 +227,7 @@ function toCardInput(config: ParsedConfig): CardInput {
   const panel = buildPanelData(config.mutant, {
     level: config.level,
     starIndex: config.starIndex,
+    skin: config.skin,
     basicOrbIds: config.basicOrbIds,
     specialOrbId: config.specialOrbId,
     orbBuildIndex: config.orbBuildIndex,

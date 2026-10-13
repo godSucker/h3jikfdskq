@@ -17,6 +17,15 @@ import mutantsRaw from '@/data/mutants/mutants.json'
 import nicknameAliases from '@/data/mutants/nickname-aliases.json'
 import { normalizeMutant, orbBuildsFor, orbIdsFromBuild, resolveOrb } from './panel-data'
 import { maxLevelForHp } from './unified-calculator'
+import { skinEffectiveHpBase } from './skin-stats'
+import {
+  skinPhrases,
+  skinsForMutant,
+  stripPhrase,
+  textContainsPhrase,
+  type SkinEntry,
+  type SkinPhrase,
+} from './skin-catalog'
 
 // mutants.json's inferred JSON type is a large literal union that's
 // impractical to thread through every consumer in this file - one shared
@@ -159,6 +168,8 @@ export interface ParsedConfig {
   mutantName: string
   level: number
   starIndex: number
+  // Скиновая версия мутанта (звезда у неё фиксирована = starIndex), иначе null.
+  skin: SkinEntry | null
   basicOrbIds: (string | null)[]
   specialOrbId: string | null
   // Номер надетой сборки сфер (с нуля) - карточка подсвечивает её в списке.
@@ -527,6 +538,65 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
   return mentions.sort((a, b) => a.pos - b.pos).map((m) => m.mention)
 }
 
+// ".охотник зима 30ур" - скин выбирается названием (официальное RU-имя, код
+// или алиас из skin-aliases.json) ПОСЛЕ того, как мутант найден: искать скин
+// среди всех подряд нельзя, он не должен подменять имя мутанта.
+//
+// Порядок: фраза скина вырезается из текста, мутант ищется в остатке, и скин
+// принимается, только если он у этого мутанта есть. Так "цербер большой босс"
+// даёт Цербера в скине, а не мутанта, у которого "большой босс" - никнейм.
+// Вырезанная фраза не попадает ни в уровень, ни в звезду, ни в сферы ("1 апреля",
+// "Рождество 2025", "Кровавые игры" иначе путались бы с числами и ключевыми словами).
+const SKIN_LIST_WORD = /(?<![a-zа-яё0-9])скин(?:ы|а|ов|ами|е)?(?![a-zа-яё0-9])/i
+
+type ResolvedTarget =
+  | { found: FindMutantResult; skin: SkinEntry | null; text: string }
+  | { error: string }
+
+function skinNamesOf(mutantId: string): string {
+  return skinsForMutant(mutantId)
+    .map((s) => s.label)
+    .join(', ')
+}
+
+function resolveMutantAndSkin(segment: string, overlay: AliasOverlayEntry[]): ResolvedTarget {
+  const plain = findMutant(segment, overlay)
+  const present: SkinPhrase[] = skinPhrases().filter((p) => textContainsPhrase(segment, p))
+
+  let lacks: { mutant: { id: string; name: string }; label: string } | null = null
+  for (const phrase of present) {
+    // Слово скина - часть самого имени найденного мутанта ("Пасхальный Грозаяц"):
+    // это не запрос скина.
+    if (plain.kind === 'found' && textContainsPhrase(plain.mutant.name, phrase)) continue
+    const stripped = stripPhrase(segment, phrase)
+    const candidate = findMutant(stripped, overlay)
+    if (candidate.kind !== 'found') continue
+    const own = skinsForMutant(candidate.mutant.id).find((sk) => sk.skin === phrase.skin)
+    if (own) return { found: candidate, skin: own, text: stripped }
+    if (!lacks && plain.kind === 'found' && plain.mutant.id === candidate.mutant.id) {
+      lacks = { mutant: candidate.mutant, label: phrase.text }
+    }
+  }
+
+  if (lacks) {
+    const list = skinNamesOf(lacks.mutant.id)
+    return {
+      error: list
+        ? `у мутанта «${lacks.mutant.name}» нет скина «${lacks.label}» - есть: ${list}`
+        : `у мутанта «${lacks.mutant.name}» нет скинов`,
+    }
+  }
+  if (plain.kind === 'found' && SKIN_LIST_WORD.test(segment)) {
+    const list = skinNamesOf(plain.mutant.id)
+    return {
+      error: list
+        ? `не указан скин - у мутанта «${plain.mutant.name}» есть: ${list}. Напиши название скина после имени`
+        : `у мутанта «${plain.mutant.name}» нет скинов`,
+    }
+  }
+  return { found: plain, skin: null, text: segment }
+}
+
 // Default level when the message names a mutant but never specifies one
 // (e.g. ".азимов" with nothing else) - there's no in-game "default level" so
 // this is purely a bot UX call: 30 reads as a reasonable mid-game snapshot.
@@ -536,16 +606,26 @@ function parseSingleSegment(
   segment: string,
   overlay: AliasOverlayEntry[],
 ): ParsedConfig | { error: string } {
-  const found = findMutant(segment, overlay)
+  const target = resolveMutantAndSkin(segment, overlay)
+  if ('error' in target) return { error: target.error }
+  const { found, skin } = target
+  // Дальше уровень, звезда, сферы и множители читаются из текста БЕЗ слов скина.
+  const text = target.text
   if (found.kind === 'none') return { error: `не нашёл мутанта в "${segment.trim()}"` }
   if (found.kind === 'ambiguous')
     return {
       error: `не понял, какого мутанта имеешь в виду - похоже на ${found.candidates.join(' или ')}, уточни имя`,
     }
-  const rawLevel = findLevel(segment) ?? DEFAULT_LEVEL
+  const rawLevel = findLevel(text) ?? DEFAULT_LEVEL
   const normalized = normalizeMutant(found.mutant)
   const availableStars = Array.from(normalized.availableStars)
-  const explicitStarIndex = findStarKeyword(segment)
+  const explicitStarIndex = findStarKeyword(text)
+  // Звезда скина фиксирована (она зашита в gacha.xml) - другую просить нельзя.
+  if (skin && explicitStarIndex !== null && explicitStarIndex !== skin.stars) {
+    return {
+      error: `у скина «${skin.label}» звезда фиксированная - ${STAR_NAMES[skin.stars]}, другую выбрать нельзя`,
+    }
+  }
   // A star word WAS written but this mutant never had that tier in-game
   // (e.g. ".утконос платина" - Утконос only has stars.normal) - reject
   // rather than silently rendering a fabricated tier. Most GACHA mutants
@@ -553,7 +633,7 @@ function parseSingleSegment(
   // у кого она всего одна" for free - any explicit star word on such a
   // mutant is necessarily not in availableStars unless it happens to be
   // the one tier it does have, which is fine to accept.
-  if (explicitStarIndex !== null && !availableStars.includes(explicitStarIndex)) {
+  if (!skin && explicitStarIndex !== null && !availableStars.includes(explicitStarIndex)) {
     const available = availableStars
       .slice()
       .sort((a, b) => a - b)
@@ -566,10 +646,11 @@ function parseSingleSegment(
   // No star keyword in the text -> default to the mutant's highest available
   // tier (platinum for anything that has one), same as the live page's
   // auto-select-on-mutant-change behavior.
-  const starIndex =
-    explicitStarIndex ?? (availableStars.length > 0 ? Math.max(...availableStars) : 0)
-  const atkMultipliers = findMultipliers(segment)
-  const mentions = findOrbMentions(segment)
+  const starIndex = skin
+    ? skin.stars
+    : (explicitStarIndex ?? (availableStars.length > 0 ? Math.max(...availableStars) : 0))
+  const atkMultipliers = findMultipliers(text)
+  const mentions = findOrbMentions(text)
 
   // The real page never offers a multiplier control for a neutro-gene attack
   // (`{#if attack.gene !== 'neutro'}` gates both the bar and the button
@@ -592,7 +673,7 @@ function parseSingleSegment(
   // Сферовка с сайта - только если игрок не перечислил сферы сам.
   let specialOrbId: string | null = specialMention?.id ?? null
   let orbBuildIndex: number | null = null
-  const buildNumber = findBuildMention(segment)
+  const buildNumber = findBuildMention(text)
   if (buildNumber !== null && mentions.length === 0) {
     const builds = orbBuildsFor(String(found.mutant.id ?? ''))
     if (builds.length === 0) {
@@ -620,8 +701,11 @@ function parseSingleSegment(
   const hpPct = [...basicOrbIds, specialOrbId]
     .map((id) => resolveOrb(id)?.hpPct ?? 0)
     .reduce((a, b) => a + b, 0)
-  const starMul = normalized.starMultipliers[starIndex] ?? 1.0
-  const maxLevel = maxLevelForHp(normalized.hpBase * starMul * (1 + hpPct / 100))
+  // Для скина звезда уже внутри его HP: hp_base * (LF - bonus) / 100.
+  const hpAtLevelOne = skin
+    ? skinEffectiveHpBase(normalized.hpBase, skin)
+    : normalized.hpBase * (normalized.starMultipliers[starIndex] ?? 1.0)
+  const maxLevel = maxLevelForHp(hpAtLevelOne * (1 + hpPct / 100))
   const level = Math.min(rawLevel, maxLevel)
 
   return {
@@ -629,6 +713,7 @@ function parseSingleSegment(
     mutantName: found.mutant.name,
     level,
     starIndex,
+    skin,
     basicOrbIds,
     specialOrbId,
     orbBuildIndex,
@@ -695,10 +780,14 @@ export function parseCompareMessage(
   return { ok: true, configs }
 }
 
-export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] [сферы | сферовка] [атака1: X%] [атака2: X%]
+export const FORMAT_HELP = `.<мутант> [скин] [уровень]ур [звезда] [сферы | сферовка] [атака1: X%] [атака2: X%]
 
 Имя - можно с опечаткой или сокращённо.
 Уровень по умолчанию 30, звезда - максимальная доступная.
+
+Скин (реакторный или ивентовый): название скина после имени - ".охотник зима 30ур". У скина звезда фиксированная. Не помнишь название - напиши слово "скин" после имени, бот покажет список скинов этого мутанта.
+
+Статы считаются для мутанта со скрытым бонусом 0 (у каждого экземпляра он свой, от −3 до +3, в игре не показан) - у твоего мутанта HP и атака могут отличаться на 1–3%.
 
 Сферы: категория + число вплотную - "щит 20%" (по проценту) или "щит 4" (по уровню сферы).
 Спец-слот: добавь "спец" - "спец щит 20%".
@@ -713,6 +802,7 @@ export const FORMAT_HELP = `.<мутант> [уровень]ур [звезда] 
 
 Примеры:
 .азимов
+.охотник за головами зима 30ур
 .гештальт сферовка
 .гештальт сферовка 2 20ур
 .робот 20ур серебро щит 20% +25% на первую атаку

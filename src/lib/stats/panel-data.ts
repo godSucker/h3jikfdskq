@@ -6,6 +6,8 @@
  * renderer (Telegram bot) - numbers must match exactly, not "look close".
  */
 import { calculateFinalStats } from './unified-calculator'
+import { calculateExactStats, lfForStars, ABILITY_UNLOCK_LEVELS, type UnlockLevels } from './stat-formula'
+import type { SkinEntry } from './skin-catalog'
 import { applySpeedSphere } from './speed-sphere-table'
 import { TYPE_RU, typeLabelL, abilityLabelL } from '@/lib/mutant-dicts'
 import { baseMutantId } from '@/lib/utils'
@@ -520,6 +522,18 @@ export interface NormalizedMutant {
   abilityPct1: number
   abilityPct2: number
   abilities: AbilityEntry[]
+  // Raw fields from mutants.json base_stats (see scripts/backfill-mutant-raw.ts):
+  // own attack unlock levels, raw integer speed tag, GACHA passport (raw bases + bonus).
+  unlock: Partial<UnlockLevels> | null
+  spX100: number | null
+  passport: {
+    bonus: number
+    hp_base: number
+    atk1_base: number
+    atk1p_base: number
+    atk2_base: number
+    atk2p_base: number
+  } | null
   starMultipliers: Record<number, number>
   availableStars: Set<number>
   basicSlotCount: number
@@ -595,6 +609,9 @@ export function normalizeMutant(
     abilityPct1,
     abilityPct2,
     abilities: normalizeAbilities(m, locale),
+    unlock: (baseStats.unlock as Partial<UnlockLevels> | undefined) ?? null,
+    spX100: Number.isFinite(Number(baseStats.spX100)) ? Number(baseStats.spX100) : null,
+    passport: baseStats.passport ?? null,
     starMultipliers: STAR_MULTIPLIERS,
     availableStars,
     basicSlotCount,
@@ -610,16 +627,25 @@ interface CalcStatsResult {
   atk2: number
   speed: number
   bank: number
+  atk2Unlocked: boolean
 }
 
-function calcStats(
+// One path for plain mutants, GACHA mutants and skins: the exact game formula
+// (stat-formula.ts) with orbs applied the way the game does it (HP orbs as a
+// second floor, attack orbs inside the single floor). A skin brings its own
+// star factor + gacha bonus; a GACHA mutant with a "passport" brings raw bases +
+// bonus; everything else is bonus 0 with LF = star multiplier x 100.
+// calculateFinalStats() is used only for the two values these do not change:
+// speed (base) and silver.
+export function calcStats(
   m: NormalizedMutant,
   level: number,
   starIndex: number,
   mods: OrbModifiers,
+  skin: SkinEntry | null = null,
 ): CalcStatsResult {
   const starMul = m.starMultipliers[starIndex] ?? 1.0
-  const result = calculateFinalStats(
+  const plain = calculateFinalStats(
     {
       hp_base: m.hpBase,
       atk1_base: m.atk1Base,
@@ -630,19 +656,36 @@ function calcStats(
       bank_base: m.bankBase,
       abilityPct1: m.abilityPct1,
       abilityPct2: m.abilityPct2,
+      unlock: m.unlock,
     },
     level,
-    starMul,
+    skin ? 1 : starMul,
   )
-  let hp = result.hp
-  let atk1 = result.atk1
-  let atk2 = result.atk2
-  let speed = result.speed
-  if (mods.hpPct) hp = Math.round(result.hp * (1 + mods.hpPct / 100))
-  if (mods.atk1Pct) atk1 = Math.round(result.atk1 * (1 + mods.atk1Pct / 100))
-  if (mods.atk2Pct) atk2 = Math.round(result.atk2 * (1 + mods.atk2Pct / 100))
-  if (mods.speedPct) speed = applySpeedSphere(result.speed, mods.speedPct)
-  return { hp, atk1, atk2, speed, bank: result.silver }
+  const p = skin ? null : m.passport
+  const exact = calculateExactStats(
+    {
+      hp_base: p ? p.hp_base : m.hpBase,
+      atk1_base: p ? p.atk1_base : m.atk1Base,
+      atk1p_base: p ? p.atk1p_base : m.atk1PlusBase,
+      atk2_base: p ? p.atk2_base : m.atk2Base,
+      atk2p_base: p ? p.atk2p_base : m.atk2PlusBase,
+      unlock: m.unlock,
+    },
+    skin
+      ? { lf: lfForStars(skin.stars), bonus: skin.bonus }
+      : { lf: Math.round(starMul * 100), bonus: p ? p.bonus : 0 },
+    level,
+    { hpPct: mods.hpPct, atk1Pct: mods.atk1Pct, atk2Pct: mods.atk2Pct },
+  )
+  const speed = mods.speedPct ? applySpeedSphere(plain.speed, mods.speedPct, m.spX100) : plain.speed
+  return {
+    hp: exact.hp,
+    atk1: exact.atk1,
+    atk2: exact.atk2,
+    speed,
+    bank: plain.silver,
+    atk2Unlocked: exact.atk2Unlocked,
+  }
 }
 
 interface AbilityRowValue {
@@ -669,6 +712,8 @@ function calcAbilityRows(
   level: number,
   specialOrb: EnrichedOrb | null = null,
 ): AbilityRow[] {
+  // The game shows no ability before level 4 (MiscSettings AbilitiesUnlockLevels).
+  if (level < ABILITY_UNLOCK_LEVELS.first) return []
   const combined = [...mutant.abilities]
   if (specialOrb?.specialAbility) combined.push(specialOrb.specialAbility)
   if (!combined.length) return []
@@ -794,7 +839,10 @@ function buildAttackRows(
       effects,
     }
   })
-  return rows.filter((row) => row.label || row.damage || row.effects.length)
+  // Attack 2 does not exist yet below its unlock level (default 5, tag unlockAttack).
+  return rows.filter(
+    (row) => (row.attack !== 2 || statLine.atk2Unlocked) && (row.label || row.damage || row.effects.length),
+  )
 }
 
 // Рекомендованная сборка сфер - первая строка из orbing.json, та же, что
@@ -861,6 +909,8 @@ export interface PanelData {
   basicOrbs: (EnrichedOrb | null)[]
   specialOrb: EnrichedOrb | null
   availableStars: number[]
+  // Название скина (если карточка - скиновая версия), иначе null.
+  skinLabel: string | null
   // Все сборки мутанта с сайта; activeOrbBuild - индекс той, что надета на
   // карточке (через ".<мутант> сферовка N"), иначе null.
   orbBuilds: OrbBuild[]
@@ -889,6 +939,12 @@ function portraitPath(rawMutant: any, starIndex: number): string {
   return '/' + (images?.[0] ?? '')
 }
 
+// Скиновый портрет: semi-full - тот же класс "головы", что у обычных мутантов
+// (stars[*].images[0]); полный рост (image[0]) тяжёлый и в карточку не нужен.
+function skinPortraitPath(skin: SkinEntry): string {
+  return '/' + (skin.image[1] ?? skin.image[0])
+}
+
 export function buildPanelData(
   rawMutant: any,
   opts: {
@@ -902,6 +958,8 @@ export function buildPanelData(
     // приходят уже разложенными в basicOrbIds/specialOrbId.
     orbBuildIndex?: number | null
     atkMultipliers?: { 1: number; 2: number }
+    // Скиновая версия мутанта: звезда у неё фиксирована (starIndex игнорируется).
+    skin?: SkinEntry | null
   },
 ): PanelData {
   const locale = opts.locale ?? 'ru'
@@ -917,12 +975,13 @@ export function buildPanelData(
   const basicOrbs = basicOrbIds.map((id) => resolveOrb(id))
   const specialOrb = resolveOrb(opts.specialOrbId)
   const mods = calcOrbModifiers(basicOrbs, specialOrb)
-  const stats = calcStats(mutant, opts.level, opts.starIndex, mods)
+  const skin = opts.skin ?? null
+  const stats = calcStats(mutant, opts.level, skin ? skin.stars : opts.starIndex, mods, skin)
   const abilityRows = calcAbilityRows(mutant, stats, mods, opts.level, specialOrb)
   const attackRows = buildAttackRows(mutant, stats, abilityRows, opts.atkMultipliers)
   return {
     name: mutant.name,
-    portraitPath: portraitPath(rawMutant, opts.starIndex),
+    portraitPath: skin ? skinPortraitPath(skin) : portraitPath(rawMutant, opts.starIndex),
     typeLabel: mutant.typeLabel,
     typeIcon: typeIconPath(mutant.type),
     tierLabel: mutant.tierLabel,
@@ -935,7 +994,8 @@ export function buildPanelData(
     specialSlotCount: mutant.specialSlotCount,
     basicOrbs,
     specialOrb,
-    availableStars: Array.from(mutant.availableStars).sort((a, b) => a - b),
+    availableStars: skin ? [skin.stars] : Array.from(mutant.availableStars).sort((a, b) => a - b),
+    skinLabel: skin ? skin.label : null,
     orbBuilds: orbBuildsFor(String(rawMutant?.id ?? '')),
     activeOrbBuild: opts.orbBuildIndex ?? null,
   }

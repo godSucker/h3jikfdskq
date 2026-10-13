@@ -47,6 +47,8 @@ interface BaseStatsCalc {
   bank_base: number
   abilityPct1: number
   abilityPct2: number
+  // Own attack unlock levels (tag unlockAttack), only when not the 1/5/10/15 default.
+  unlock?: Partial<Record<'atk1' | 'atk2' | 'atk1p' | 'atk2p', number>>
 }
 
 interface StatsResult {
@@ -414,6 +416,28 @@ function findLocalizedText(locMap: Map<string, string>, id: string, suffix: stri
   return locMap.get(key) || ''
 }
 
+// "1:1:a;2:5:neutre;1p:10:a;2p:15:neutre" -> {atk1,atk2,atk1p,atk2p}; undefined when it
+// is the standard 1/5/10/15 (the shared calculator defaults to that).
+function parseUnlockLevels(raw: string): BaseStatsCalc['unlock'] | undefined {
+  if (!raw) return undefined
+  const key: Record<string, 'atk1' | 'atk2' | 'atk1p' | 'atk2p'> = {
+    '1': 'atk1',
+    '2': 'atk2',
+    '1p': 'atk1p',
+    '2p': 'atk2p',
+  }
+  const out: NonNullable<BaseStatsCalc['unlock']> = {}
+  for (const part of raw.split(';')) {
+    const [name, level] = part.split(':')
+    const k = key[name]
+    const n = Number(level)
+    if (k && Number.isFinite(n)) out[k] = n
+  }
+  const std = { atk1: 1, atk2: 5, atk1p: 10, atk2p: 15 }
+  const isStd = (Object.keys(std) as Array<keyof typeof std>).every((k) => (out[k] ?? std[k]) === std[k])
+  return isStd ? undefined : out
+}
+
 // ==================== РАСЧЕТ СТАТОВ ====================
 
 // Формула живёт в ЕДИНСТВЕННОМ источнике правды: src/lib/stats/unified-calculator.ts.
@@ -425,7 +449,12 @@ function calculateFinalStats(
   starMultiplier: number,
 ): StatsResult {
   const lvl = Math.max(1, Math.min(30, level))
-  const result = calcFinalStatsUnified(baseStats, lvl, starMultiplier)
+  // atk2Unlocked is a UI flag of the shared calculator, not data for mutants.json.
+  const { atk2Unlocked: _atk2Unlocked, ...result } = calcFinalStatsUnified(
+    baseStats,
+    lvl,
+    starMultiplier,
+  )
   return { ...result, speed: roundSpeed(result.speed) }
 }
 
@@ -756,6 +785,10 @@ async function sync(options: {
       abilityPct2: parseInt(tags.abilityPct2 || '0'),
     }
 
+    // Свои пороги разблокировки атак (только если не стандартные 1/5/10/15).
+    const unlockLevels = parseUnlockLevels(String(tags.unlockAttack || ''))
+    if (unlockLevels) baseStatsForCalc.unlock = unlockLevels
+
     // Определение множителя для GACHA
     let gachaMult = 1.0
     if (xmlMultiplier > 0) {
@@ -768,9 +801,20 @@ async function sync(options: {
     // Поправка на "паспортный" bonus из gacha.xml (см. parseGachaBonusMap) -
     // без неё GACHA-мутанты со старым bonus!=0 (Зевс, Неоурбан и т.д.)
     // считались по голой формуле и расходились с реальными статами игры.
+    let passportRaw:
+      | { bonus: number; hp_base: number; atk1_base: number; atk1p_base: number; atk2_base: number; atk2p_base: number }
+      | undefined
     if (isGacha) {
       const gachaBonus = gachaBonusMap.get(mutantId.toLowerCase())?.bonus ?? 0
       if (gachaBonus !== 0) {
+        passportRaw = {
+          bonus: gachaBonus,
+          hp_base: baseStatsForCalc.hp_base,
+          atk1_base: baseStatsForCalc.atk1_base,
+          atk1p_base: baseStatsForCalc.atk1p_base,
+          atk2_base: baseStatsForCalc.atk2_base,
+          atk2p_base: baseStatsForCalc.atk2p_base,
+        }
         const lf = gachaMult * 100
         const atkFactor = (gachaBonus + 100) / 100
         baseStatsForCalc.hp_base = Math.round((baseStatsForCalc.hp_base * (lf - gachaBonus)) / lf)
@@ -825,8 +869,10 @@ async function sync(options: {
 
         const calcValues = (lvl: number) => {
           const s = calculateFinalStats(baseStatsForCalc, lvl, 1.0)
-          const val_atk1 = s.atk1 * (Math.abs(abilityPct) / 100)
-          const val_atk2 = s.atk2 * (Math.abs(abilityPct) / 100)
+          // Integer math: atk * (pct/100) in float gives 1952.9999999999998 for
+          // 6510 * 0.3 and floors to the wrong value.
+          const val_atk1 = Math.floor((s.atk1 * Math.abs(abilityPct)) / 100)
+          const val_atk2 = Math.floor((s.atk2 * Math.abs(abilityPct)) / 100)
           return { val_atk1, val_atk2 }
         }
         const v1 = calcValues(1)
@@ -835,10 +881,10 @@ async function sync(options: {
         return {
           name: abilityName,
           pct: Math.abs(abilityPct),
-          value_atk1_lvl1: Math.round(v1.val_atk1),
-          value_atk2_lvl1: isRetaliate ? 0 : Math.round(v1.val_atk2),
-          value_atk1_lvl30: Math.round(v30.val_atk1),
-          value_atk2_lvl30: isRetaliate ? 0 : Math.round(v30.val_atk2),
+          value_atk1_lvl1: Math.floor(v1.val_atk1),
+          value_atk2_lvl1: isRetaliate ? 0 : Math.floor(v1.val_atk2),
+          value_atk1_lvl30: Math.floor(v30.val_atk1),
+          value_atk2_lvl30: isRetaliate ? 0 : Math.floor(v30.val_atk2),
         }
       })
       .filter(Boolean)
@@ -909,6 +955,15 @@ async function sync(options: {
         bank_base: baseStatsForCalc.bank_base,
         abilityPct1: baseStatsForCalc.abilityPct1,
         abilityPct2: baseStatsForCalc.abilityPct2,
+        // Raw integer spX100 tag: displayed speed (1000/spX100, 2 decimals) is
+        // ambiguous (3.13 = 319 or 320), the exact speed-orb rule needs the raw value.
+        ...(speedValRaw > 0 && { spX100: Math.round(speedValRaw) }),
+        // Only mutants whose unlockAttack differs from 1/5/10/15 (FD_07, DD_13, EA_99).
+        ...(unlockLevels && { unlock: unlockLevels }),
+        // GACHA mutants: hp_base/atk*_base above have the gacha "passport" bonus
+        // baked in (rounded); the raw values + integer bonus make the exact formula
+        // possible. Additive - the adjusted fields stay as they are.
+        ...(passportRaw && { passport: passportRaw }),
       },
       abilities: abilities,
       stars: starsObj,
