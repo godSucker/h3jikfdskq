@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { dropOutliers, isWedgedRerun } from './detect-shop-forecast'
+import { dropOutliers, isWedgedRerun, pickWaveAnchor } from './detect-shop-forecast'
 
 const DAY = 24 * 60 * 60 * 1000
 const d = (iso: string) => new Date(iso).getTime()
@@ -53,5 +53,28 @@ describe('isWedgedRerun', () => {
   it('не выброс (нет сдвига) или битая дата - false', () => {
     expect(isWedgedRerun(d('2026-10-05T10:00:00Z'), undefined, winStart, winEnd)).toBe(false)
     expect(isWedgedRerun(NaN, 50 * DAY, winStart, winEnd)).toBe(false)
+  })
+})
+
+describe('pickWaveAnchor', () => {
+  const dateFor = (position: number, wave: { position: number; dayMs: number }[]) => {
+    const a = pickWaveAnchor(position, [wave])!
+    return a.dayMs - (position - a.position) * DAY
+  }
+
+  it('ровная лестница: прогноз = экстраполяция -1 день за позицию', () => {
+    const wave = [10, 11, 12, 13, 14, 15].map(ladderPoint)
+    expect(dateFor(5, wave)).toBe(ladderPoint(5).dayMs)
+  })
+
+  it('один сдвинутый якорь (сдвоенный день) не тянет прогноз за собой', () => {
+    const wave = [10, 11, 12, 13, 14, 15].map(ladderPoint)
+    wave[0] = { ...wave[0], dayMs: wave[0].dayMs + DAY } // ближайший к цели якорь съехал на сутки
+    expect(dateFor(5, wave)).toBe(ladderPoint(5).dayMs)
+  })
+
+  it('позиция вне волны и запаса - нет якоря', () => {
+    const wave = [10, 11, 12].map(ladderPoint)
+    expect(pickWaveAnchor(100, [wave])).toBeNull()
   })
 })

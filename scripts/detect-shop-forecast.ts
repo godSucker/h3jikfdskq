@@ -550,6 +550,7 @@ const WAVE_MAX_POSITION_GAP = 20
 // краем на чистой лестнице ошибка держится в пределах 2 дней и на 20 шагах.
 // Дальше края волны работает консервативный MAX_NEIGHBOR_DISTANCE.
 const WAVE_EDGE_MARGIN = 20
+const WAVE_ANCHOR_SAMPLE = 5
 
 // Отбраковка выбросов среди подтверждённых точек.
 //
@@ -644,7 +645,7 @@ function buildWaves(
   return waves.filter((w) => w.length >= 2)
 }
 
-function pickWaveAnchor(
+export function pickWaveAnchor(
   position: number,
   waves: { position: number; dayMs: number }[][],
 ): { position: number; dayMs: number } | null {
@@ -652,16 +653,18 @@ function pickWaveAnchor(
     const lo = wave[0].position
     const hi = wave[wave.length - 1].position
     if (position < lo - WAVE_EDGE_MARGIN || position > hi + WAVE_EDGE_MARGIN) continue
-    let best: { position: number; dayMs: number } | null = null
-    let bestDist = Infinity
-    for (const a of wave) {
-      const dist = Math.abs(a.position - position)
-      if (dist < bestDist) {
-        bestDist = dist
-        best = a
-      }
-    }
-    return best
+    // Медиана "базы" (дата + позиция) по WAVE_ANCHOR_SAMPLE ближайшим точкам
+    // волны вместо одной ближайшей: один сдвинутый якорь (сдвоенный день или
+    // день-пропуск лестницы) больше не тянет за собой весь хвост прогноза.
+    // Бэктест на date-ledger.json (2026-10-14): +-1 день 90% -> 95%.
+    const nearest = [...wave]
+      .sort((a, b) => Math.abs(a.position - position) - Math.abs(b.position - position))
+      .slice(0, WAVE_ANCHOR_SAMPLE)
+    const bases = nearest.map((a) => a.dayMs + a.position * DAY_MS).sort((a, b) => a - b)
+    const medianBase = bases[Math.floor(bases.length / 2)]
+    // Синтетический якорь прямо на целевой позиции: вызывающий код считает
+    // anchor.dayMs - (position - anchor.position) * DAY и получает medianBase - position * DAY.
+    return { position, dayMs: medianBase - position * DAY_MS }
   }
   return null
 }
