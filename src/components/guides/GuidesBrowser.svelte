@@ -937,10 +937,6 @@
     {/each}
   {:else if activeTab === 'numbers'}
     <div class="text-block guide-prose numbers-tab">
-      <div class="note">
-        {t('guides.numbers.note', locale)}
-      </div>
-
       <h2>{t('guides.numbers.hp.title', locale)}</h2>
       <p>
         {t('guides.numbers.hp.p1', locale)}
