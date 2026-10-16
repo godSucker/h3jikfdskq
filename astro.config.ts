@@ -11,6 +11,20 @@ const SRC = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
   site: 'https://archivist-library.com',
   output: 'server',
+  // Доверенные хосты запроса. С Astro 5.18 (обновление от 03.10.2026) без этого
+  // списка заголовок Host не доверяется, и url.origin в SSR равен https://localhost:
+  // сломался постер тира на превью (headless-браузер ходил на localhost), а
+  // встроенная защита checkOrigin отвергала form-POST с верным Origin. Хосты
+  // отсюда проходят проверку (релей присылает Host: archivist-library.com), любой
+  // другой по-прежнему становится localhost. Протокол и порт не задаём: лямбда
+  // получает запрос по http изнутри Vercel.
+  security: {
+    allowedDomains: [
+      { hostname: 'archivist-library.com' },
+      { hostname: 'www.archivist-library.com' },
+      { hostname: 'preview.archivist-library.com' },
+    ],
+  },
   // harfbuzzjs (text shaping, pulled in transitively by @resvg/resvg-js for
   // the stats-bot card renderer) loads hb.wasm at runtime via a path Vercel's
   // file tracer doesn't follow statically - without this the function bundle
