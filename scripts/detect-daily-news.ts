@@ -33,6 +33,7 @@ import { loadPromoPercents } from './kartel-promo-percents'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
 import { fetchGameXml } from './game-xml-cache'
 import { WEEKEND_FILTER_RE, weekendWindow } from './lib/date-rules'
+import type { DateSource } from '../src/lib/announcement-schema'
 
 // Баннер "BACK FOR 24H ONLY" - см. сдвиг дат и подмену блока в конце fetch.
 const BANNER_24H_RE = /^Daily_news_shop_24h_/i
@@ -62,6 +63,8 @@ interface DailyNewsItem {
   exactDateApprox?: boolean
   // См. AnnouncementItem.exactDateUncertainDays (announcement-schema.ts).
   exactDateUncertainDays?: number
+  // Откуда взята дата, см. DateSource (announcement-schema.ts).
+  dateSource?: DateSource
   // Живой процент скидки (ABGetExperiments, см. kartel-promo-percents.ts) -
   // сейчас только для баннера тех-центра (TECH_CENTER_DISCOUNT_FILTERS ниже).
   // null, если живых данных нет или акции сейчас нет (эксперимент на "Default").
@@ -344,6 +347,13 @@ export async function fetchDailyNewsForecast(
         (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
       exactDateEnd: exactRange?.end ?? manual?.end ?? null,
       exactDateApprox: manual ? manual.approx === true : !exactRange && inheritedMs != null,
+      dateSource: exactRange
+        ? 'kartel'
+        : manual
+          ? 'manual'
+          : inheritedMs != null
+            ? 'inherit'
+            : undefined,
     })
   }
 
@@ -394,6 +404,7 @@ export async function fetchDailyNewsForecast(
       items[i].exactDateStart = new Date(w.startMs).toISOString()
       items[i].exactDateEnd = new Date(w.endMs).toISOString()
       items[i].exactDateApprox = true
+      items[i].dateSource = 'rule'
       continue
     }
     // Датировано по соседям: показываем +-1 сутки (на истории в пределах суток
@@ -404,6 +415,7 @@ export async function fetchDailyNewsForecast(
     items[i].exactDateEnd = null
     items[i].exactDateApprox = true
     items[i].exactDateUncertainDays = 1
+    items[i].dateSource = 'neighbor'
   }
 
   // Баннер "BACK FOR 24H ONLY" (Daily_news_shop_24h_*) - единственный оффер
@@ -473,7 +485,10 @@ export async function fetchDailyNewsForecast(
   // У 24h-баннеров дата идёт по собственным правилам выше (суббота, неделя
   // целиком), оценка +-1 сутки к ним не относится.
   for (const it of items) {
-    if (BANNER_24H_RE.test(it.filter)) delete it.exactDateUncertainDays
+    if (BANNER_24H_RE.test(it.filter)) {
+      delete it.exactDateUncertainDays
+      if (it.exactDateStart) it.dateSource = 'rule'
+    }
   }
 
   // ...и поэтому баннер этого блока описывает НЕ этот спринт, а следующий:
