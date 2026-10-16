@@ -5546,6 +5546,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 206"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота"
     }
   ],
   "specimen_ad_12": [
@@ -9795,6 +9799,12 @@
     {
       "type": "quest",
       "where": "Квест: Фиолетовые"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_ba_08": [
@@ -11658,6 +11668,10 @@
       "type": "event_hall",
       "where": "Зал обмена — 800 жетонов ползучего",
       "icon": "/materials/Material_Crawling_Token.png"
+    },
+    {
+      "type": "gold_shop",
+      "where": "Магазин за 1 200 золота (версия: бронзовый)"
     }
   ],
   "specimen_bb_10": [
@@ -20106,6 +20120,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_cb_05": [
@@ -30339,6 +30359,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_dc_05": [
@@ -33173,6 +33199,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_de_03": [
@@ -39506,6 +39538,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 309"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 200 жетонов джекпота"
     }
   ],
   "specimen_eb_12": [
@@ -46014,6 +46050,12 @@
     {
       "type": "event_hall",
       "where": "Зал обмена — 40 жетонов ивента"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_ef_11": [
@@ -49236,6 +49278,12 @@
     {
       "type": "event_hall",
       "where": "Зал обмена — 40 жетонов ивента"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: контейнер «Хэллоуин» (3★, скин «halloween»)",
+      "icon": "/boxes/mystery_halloween.png",
+      "itemId": "Mystery_Halloween26"
     }
   ],
   "specimen_fb_10": [
@@ -54649,6 +54697,10 @@
     {
       "type": "gold_shop",
       "where": "Магазин за 1 400 золота (версия: серебряный)"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота"
     }
   ],
   "specimen_ff_10": [
