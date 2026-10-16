@@ -32,6 +32,9 @@ import {
   loadDateLedger,
   pickFilterDateRange,
   getLiveSnapshot,
+  loadManualFilterDates,
+  pickManualFilterDate,
+  isYearTaggedEventFilter,
   type FilterDateRange,
 } from './kartel-filter-dates'
 import { shadowCompare } from './date-resolver'
@@ -129,6 +132,10 @@ interface ForecastItem {
   // вроде "Пакет «Спираксия»" (bank_e_14_*) выглядели некликабельными: сам
   // itemId мутанта не содержит, а мутант внутри есть (юзер поймал 2026-09-16).
   packMutants: string[]
+  // Дата проставлена из scripts/manual-filter-dates.json, а не kartel/лестницей.
+  // Служебный флаг: такой оффер не служит якорем для соседей (inheritDatesFromAnchors)
+  // и в announcements.json не попадает (detectShopForecast копирует поля явно).
+  manualDate?: boolean
 }
 
 export interface ShopForecast {
@@ -195,6 +202,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   )
 
   const filterDates = await loadFilterDates()
+  const manualDates = await loadManualFilterDates()
   const liveSnap = await getLiveSnapshot()
 
   // НАЙДЕНО 2026-09-08 (живой прогон после расширения явного запроса имён
@@ -208,6 +216,10 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
   // не укладывается в окно целевого спринта (+- 3 дня на границы).
   const sprintWindowStart = sprintStartDate(target).getTime() - 3 * DAY_MS
   const sprintWindowEnd = sprintStartDate(target + 1).getTime() + 3 * DAY_MS
+  // Событийные имена с тегом года (halloween26) допускают старт на спринт раньше:
+  // см. то же правило в detect-daily-news.ts и isYearTaggedEventFilter.
+  const year2 = sprintStartDate(target).getUTCFullYear() % 100
+  const earlyWindowStart = sprintWindowStart - 14 * DAY_MS
 
   // Общий разбор одного <ShopItem> - используется и для спринтового блока
   // (ниже), и для пула daily-offer (fetchDailyMutantOffers). forceFeatured
@@ -233,12 +245,20 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     ]
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
     const rawExactRange = pickFilterDateRange(filterDates, filterTag)
+    const lowerBound =
+      filterTag && isYearTaggedEventFilter(filterTag, year2) ? earlyWindowStart : sprintWindowStart
     const exactRange =
       rawExactRange &&
-      new Date(rawExactRange.start).getTime() >= sprintWindowStart &&
+      new Date(rawExactRange.start).getTime() >= lowerBound &&
       new Date(rawExactRange.start).getTime() < sprintWindowEnd
         ? rawExactRange
         : null
+    // Запасной уровень между kartel и лестницей/наследованием. НЕ для офферов
+    // из пула dailyoffer: их день считает проверенная лестница, ручная дата
+    // перебила бы её.
+    const isDailyOffer = /<Path\s+cat="special"\s+subCat="dailyoffer"/.test(itemXml)
+    const manual =
+      !exactRange && !isDailyOffer ? pickManualFilterDate(manualDates, filterTag) : null
     // Этап 4, теневой режим: date-resolver.ts считает дату рядом, только
     // логирует расхождение. В данные по-прежнему идёт exactRange выше.
     shadowCompare(
@@ -265,9 +285,14 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
               new Date(exactRange.start),
               exactRange.end ? new Date(exactRange.end) : null,
             )
-          : null,
-        exactDateStart: exactRange?.start ?? null,
-        exactDateEnd: exactRange?.end ?? null,
+          : manual
+            ? manual.approx
+              ? `≈ ${formatDateRu(new Date(manual.start))}`
+              : formatExactRangeRu(new Date(manual.start), manual.end ? new Date(manual.end) : null)
+            : null,
+        exactDateStart: exactRange?.start ?? manual?.start ?? null,
+        exactDateEnd: exactRange?.end ?? manual?.end ?? null,
+        ...(manual ? { exactDateApprox: manual.approx === true, manualDate: true } : {}),
         featuredMutant:
           forceFeatured ??
           classifyFeaturedMutant(
@@ -450,7 +475,7 @@ function inheritDatesFromAnchors(
   // Якорь дня - только специмен дневной лестницы. Своя kartel-дата приоритетнее
   // расчётной; если её нет - берём из лестницы пула.
   const anchor: (number | null)[] = blockItems.map((it) => {
-    if (!isSpec(it.itemId)) return null
+    if (!isSpec(it.itemId) || it.manualDate) return null
     if (it.exactDateStart) {
       const ms = new Date(it.exactDateStart).getTime()
       if (!Number.isNaN(ms)) return ms
