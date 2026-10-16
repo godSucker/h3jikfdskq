@@ -6302,10 +6302,11 @@
         },
         "ribbon": "new",
         "discountPercent": null,
-        "exactDateLabel": "≈ 30 октября",
+        "exactDateLabel": "≈ 29 — 31 октября",
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "259|Daily_news_exchange_office_block_10_2026",
@@ -6314,10 +6315,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 30 октября",
+        "exactDateLabel": "≈ 29 — 31 октября",
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "259|Shop_LuckyBox_Necro_Elite",
@@ -6401,10 +6403,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 28 октября",
+        "exactDateLabel": "≈ 27 — 29 октября",
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "259|Shop_halloween26_token_pack_2",
@@ -6416,10 +6419,11 @@
         },
         "ribbon": "new",
         "discountPercent": null,
-        "exactDateLabel": "≈ 26 октября",
+        "exactDateLabel": "≈ 25 — 27 октября",
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "259|Shop_Mysterybox_Ability_Retaliate",
@@ -6491,10 +6495,11 @@
         },
         "ribbon": "new",
         "discountPercent": null,
-        "exactDateLabel": "≈ 23 октября",
+        "exactDateLabel": "≈ 22 — 24 октября",
         "exactDateStart": "2026-10-23T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "259|Shop_Luckybox_Hyperheavy",
@@ -7549,10 +7554,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 10 ноября",
+        "exactDateLabel": "≈ 9 — 11 ноября",
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1
       },
       {
         "id": "260|Shop_pack_powerlevel_92",
