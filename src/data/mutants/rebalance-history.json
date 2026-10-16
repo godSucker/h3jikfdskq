@@ -1,5 +1,88 @@
 [
   {
+    "date": "2026-10-16T10:23:46.244Z",
+    "entries": [
+      {
+        "id": "specimen_ec_14",
+        "name": "EC_14",
+        "changes": [
+          {
+            "stat": "speed",
+            "level": null,
+            "old": 5,
+            "new": 4.55
+          },
+          {
+            "stat": "hp",
+            "level": 1,
+            "old": 1130,
+            "new": 4233
+          },
+          {
+            "stat": "atk1",
+            "level": 1,
+            "old": 468,
+            "new": 2584
+          },
+          {
+            "stat": "atk2",
+            "level": 1,
+            "old": 468,
+            "new": 1818
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 30,
+            "new": null,
+            "ability": "ability_strengthen_plus",
+            "field": "pct"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 547,
+            "new": null,
+            "ability": "ability_strengthen_plus",
+            "field": "atk1"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": 547,
+            "new": null,
+            "ability": "ability_strengthen_plus",
+            "field": "atk2"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 38,
+            "ability": "ability_retaliate_plus",
+            "field": "pct"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 3829,
+            "ability": "ability_retaliate_plus",
+            "field": "atk1"
+          },
+          {
+            "stat": "abilities",
+            "level": null,
+            "old": null,
+            "new": 0,
+            "ability": "ability_retaliate_plus",
+            "field": "atk2"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "date": "2026-09-30T10:17:57.623Z",
     "entries": [
       {
