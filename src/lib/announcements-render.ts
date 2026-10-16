@@ -642,6 +642,7 @@ export function exactDateLabelIn(
         exactDateEnd?: string | null
         exactDateApprox?: boolean
         exactDateOpenEnd?: boolean
+        exactDateUncertainDays?: number
       }
     | null
     | undefined,
@@ -651,7 +652,14 @@ export function exactDateLabelIn(
   if (locale === 'ru' || !it.exactDateStart) return it.exactDateLabel
   const start = new Date(it.exactDateStart)
   if (Number.isNaN(start.getTime())) return it.exactDateLabel
-  if (it.exactDateApprox) return `≈ ${formatDateIn(start, locale)}`
+  if (it.exactDateApprox) {
+    const n = it.exactDateUncertainDays ?? 0
+    if (n > 0) {
+      const day = 86_400_000
+      return `≈ ${formatExactRange(new Date(start.getTime() - n * day), new Date(start.getTime() + n * day), locale)}`
+    }
+    return `≈ ${formatDateIn(start, locale)}`
+  }
   if (it.exactDateOpenEnd) return `${formatDateIn(start, locale)} — ?`
   const end = it.exactDateEnd ? new Date(it.exactDateEnd) : null
   return formatExactRange(start, end && !Number.isNaN(end.getTime()) ? end : null, locale)
