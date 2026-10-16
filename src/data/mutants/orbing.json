@@ -2407,5 +2407,19 @@
         "special/orb_special_speed_03.webp"
       ]
     ]
+  },
+  "specimen_ba_15": {
+    "rows": [
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_attack_05.webp",
+        "special/orb_special_speed_03.webp"
+      ],
+      [
+        "basic/orb_basic_attack_05.webp",
+        "basic/orb_basic_shield_05.webp",
+        "special/orb_special_addshield_03.webp"
+      ]
+    ]
   }
 }
