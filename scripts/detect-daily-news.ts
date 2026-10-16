@@ -20,7 +20,14 @@ import {
   formatDateRu,
 } from '../src/lib/sprint-calendar'
 import { parseOfferRibbon, parseRealPriceUSD, type OfferRibbon } from './shop-offer-tags'
-import { loadFilterDates, pickFilterDateRange, getLiveSnapshot } from './kartel-filter-dates'
+import {
+  loadFilterDates,
+  pickFilterDateRange,
+  getLiveSnapshot,
+  loadManualFilterDates,
+  pickManualFilterDate,
+  isYearTaggedEventFilter,
+} from './kartel-filter-dates'
 import { shadowCompare } from './date-resolver'
 import { loadPromoPercents } from './kartel-promo-percents'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
@@ -243,6 +250,7 @@ export async function fetchDailyNewsForecast(
   }
 
   const filterDates = await loadFilterDates()
+  const manualDates = await loadManualFilterDates()
   const liveSnap = await getLiveSnapshot()
   const promoPercents = await loadPromoPercents()
 
@@ -252,6 +260,12 @@ export async function fetchDailyNewsForecast(
   const DAY_MS = 86_400_000
   const sprintWindowStart = sprintStartDate(target).getTime() - 3 * DAY_MS
   const sprintWindowEnd = sprintStartDate(target + 1).getTime() + 3 * DAY_MS
+  // Событийные баннеры с тегом года в имени (halloween26) Kobojo кладёт в блок
+  // следующего спринта, хотя стартуют раньше: настоящее окно kartel для них
+  // допустимо принять на спринт раньше нижней границы. Имя уникально для
+  // года, "чужого" окна по нему не бывает (см. isYearTaggedEventFilter).
+  const year2 = sprintStartDate(target).getUTCFullYear() % 100
+  const earlyWindowStart = sprintWindowStart - 14 * DAY_MS
 
   // У <Offer> в dailypopup.xml дат нет в принципе - только принадлежность к
   // спринту. Но 17 из 22 несут <Tag key="entity"> со ссылкой на shopitem, а
@@ -272,16 +286,25 @@ export async function fetchDailyNewsForecast(
   }
 
   const items: DailyNewsItem[] = []
+  // Позиции с ручной датой: они НЕ служат якорями интерполяции для соседей
+  // (дата не из позиционной шкалы блока) и сами интерполяцией не перезаписываются.
+  const manualIdx = new Set<number>()
   for (const it of rawItems) {
     const image = it.imageRaw ? await resolveOfferBanner(it.imageRaw) : null
     const shopInfo = it.entity ? shopIndex.get(it.entity.toLowerCase()) : undefined
     const rawExactRange = pickFilterDateRange(filterDates, it.filter)
+    const lowerBound = isYearTaggedEventFilter(it.filter, year2)
+      ? earlyWindowStart
+      : sprintWindowStart
     const exactRange =
       rawExactRange &&
-      new Date(rawExactRange.start).getTime() >= sprintWindowStart &&
+      new Date(rawExactRange.start).getTime() >= lowerBound &&
       new Date(rawExactRange.start).getTime() < sprintWindowEnd
         ? rawExactRange
         : null
+    // Запасной уровень: ручная дата, пока kartel не отдал настоящее окно.
+    const manual = !exactRange ? pickManualFilterDate(manualDates, it.filter) : null
+    if (manual) manualIdx.add(items.length)
     // Этап 4, теневой режим (см. date-resolver.ts) - только лог расхождений.
     shadowCompare(
       `dailyNews ${target}`,
@@ -305,13 +328,19 @@ export async function fetchDailyNewsForecast(
             new Date(exactRange.start),
             exactRange.end ? new Date(exactRange.end) : null,
           )
-        : inheritedMs != null
-          ? `≈ ${formatDateRu(new Date(inheritedMs))}`
-          : null,
+        : manual
+          ? manual.approx
+            ? `≈ ${formatDateRu(new Date(manual.start))}`
+            : formatExactRangeRu(new Date(manual.start), manual.end ? new Date(manual.end) : null)
+          : inheritedMs != null
+            ? `≈ ${formatDateRu(new Date(inheritedMs))}`
+            : null,
       exactDateStart:
-        exactRange?.start ?? (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
-      exactDateEnd: exactRange?.end ?? null,
-      exactDateApprox: !exactRange && inheritedMs != null,
+        exactRange?.start ??
+        manual?.start ??
+        (inheritedMs != null ? new Date(inheritedMs).toISOString() : null),
+      exactDateEnd: exactRange?.end ?? manual?.end ?? null,
+      exactDateApprox: manual ? manual.approx === true : !exactRange && inheritedMs != null,
     })
   }
 
@@ -323,11 +352,11 @@ export async function fetchDailyNewsForecast(
   // расстоянии сверху/снизу - середину, округляя к более поздней дате.
   // На спринте 257 таких офферов 6 (зал обмена, оба 24h-баннера, tech, зодиак-
   // мутант, paywall) - все 6 легли день-в-день против внешней хронологии.
-  const known = items.map((it) =>
-    it.exactDateStart ? new Date(it.exactDateStart).getTime() : null,
+  const known = items.map((it, i) =>
+    it.exactDateStart && !manualIdx.has(i) ? new Date(it.exactDateStart).getTime() : null,
   )
   for (let i = 0; i < items.length; i++) {
-    if (known[i] != null) continue
+    if (known[i] != null || manualIdx.has(i)) continue
     let up: { dist: number; ms: number } | null = null
     for (let j = i - 1; j >= 0; j--) {
       if (known[j] != null) {

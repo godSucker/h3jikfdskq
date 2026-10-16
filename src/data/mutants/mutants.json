@@ -60522,11 +60522,11 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1130,
-        "atk1": 312,
-        "atk2": 312,
-        "ability": 78,
-        "speed": 5,
+        "hp": 854,
+        "atk1": 436,
+        "atk2": 436,
+        "ability": 65,
+        "speed": 11.76,
         "silver": 42,
         "atk1_gene": "b",
         "atk2_gene": "a",
@@ -60534,44 +60534,44 @@
         "atk2_AOE": true
       },
       "lvl30": {
-        "hp": 4407,
-        "atk1": 1825,
-        "atk2": 1825,
-        "ability": 638,
-        "speed": 5,
+        "hp": 3330,
+        "atk1": 2675,
+        "atk2": 2675,
+        "ability": 668,
+        "speed": 11.76,
         "silver": 1260,
         "atk1_gene": "b",
         "atk2_gene": "a",
         "atk1_AOE": true,
         "atk2_AOE": true
       },
-      "hp_base": 1130,
-      "atk1_base": 312,
-      "atk1p_base": 468,
-      "atk2_base": 312,
-      "atk2p_base": 468,
-      "speed_base": 5,
+      "hp_base": 854,
+      "atk1_base": 436,
+      "atk1p_base": 686,
+      "atk2_base": 436,
+      "atk2p_base": 686,
+      "speed_base": 11.76,
       "bank_base": 42,
-      "abilityPct1": 25,
-      "abilityPct2": 35,
+      "abilityPct1": 15,
+      "abilityPct2": 25,
       "spX100": 200
     },
     "abilities": [
       {
         "name": "ability_regen",
-        "pct": 25,
-        "value_atk1_lvl1": 78,
-        "value_atk2_lvl1": 78,
-        "value_atk1_lvl30": 456,
-        "value_atk2_lvl30": 456
+        "pct": 15,
+        "value_atk1_lvl1": 65,
+        "value_atk2_lvl1": 65,
+        "value_atk1_lvl30": 401,
+        "value_atk2_lvl30": 401
       },
       {
         "name": "ability_regen_plus",
-        "pct": 35,
+        "pct": 25,
         "value_atk1_lvl1": 109,
         "value_atk2_lvl1": 109,
-        "value_atk1_lvl30": 638,
-        "value_atk2_lvl30": 638
+        "value_atk1_lvl30": 668,
+        "value_atk2_lvl30": 668
       }
     ],
     "stars": {
@@ -60623,6 +60623,7 @@
     "name_attack1": "Ölümcül Drift",
     "name_attack2": "Ruh Arayışı",
     "name_attack3": "",
-    "name_lore": "Sadece aracının gürültüsüyle bile yaşayanlara varlığını hissettiren bir ölümsüz ruh toplayıcısı hakkında bir efsane vardır… Artık o arabadan ve onlardan kaçan kayıp ruhlardan bıkmışlardı; bu yüzden şimdi çok daha hızlı ve çok daha verimli bir araç seçtiler. Ve artık hiçbir kayıp ruh onlardan kaçamaz."
+    "name_lore": "Sadece aracının gürültüsüyle bile yaşayanlara varlığını hissettiren bir ölümsüz ruh toplayıcısı hakkında bir efsane vardır… Artık o arabadan ve onlardan kaçan kayıp ruhlardan bıkmışlardı; bu yüzden şimdi çok daha hızlı ve çok daha verimli bir araç seçtiler. Ve artık hiçbir kayıp ruh onlardan kaçamaz.",
+    "provisionalStats": true
   }
 ]

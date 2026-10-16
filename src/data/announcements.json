@@ -5226,21 +5226,6 @@
     "sprintKey": "258"
   },
   {
-    "id": "rebalance-1790763573795",
-    "date": "2026-09-30T10:19:24.046Z",
-    "category": "rebalance",
-    "title": "Ребаланс от 30.09.2026: 1 мутант(ов)",
-    "items": [
-      {
-        "id": "2026-09-30T10:17:57.623Z",
-        "name": "Ребаланс от 30.09.2026: 1 мутант(ов)",
-        "image": null,
-        "rebalanceCount": 1
-      }
-    ],
-    "link": "/rebalance"
-  },
-  {
     "id": "mutant-1790764791126-0",
     "date": "2026-09-30T10:39:50.541Z",
     "category": "mutant",
@@ -6654,20 +6639,5 @@
       }
     ],
     "link": "/mutants"
-  },
-  {
-    "id": "rebalance-1792146348489",
-    "date": "2026-10-16T10:25:40.028Z",
-    "category": "rebalance",
-    "title": "Ребаланс от 16.10.2026: 1 мутант(ов)",
-    "items": [
-      {
-        "id": "2026-10-16T10:23:46.244Z",
-        "name": "Ребаланс от 16.10.2026: 1 мутант(ов)",
-        "image": null,
-        "rebalanceCount": 1
-      }
-    ],
-    "link": "/rebalance"
   }
 ]
