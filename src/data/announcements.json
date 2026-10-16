@@ -4904,7 +4904,8 @@
         "exactDateLabel": "16 — 19 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|daily_news_jackpot_madness_weekend_25jt",
@@ -4916,7 +4917,8 @@
         "exactDateLabel": "16 — 19 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|PayWall_2026_ED_15_CT",
@@ -4928,7 +4930,8 @@
         "exactDateLabel": "15 — 18 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-18T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|shop_lucky_box_research_viii",
@@ -4958,7 +4961,8 @@
         "exactDateLabel": "14 — 17 октября",
         "exactDateStart": "2026-10-14T10:00:00+00:00",
         "exactDateEnd": "2026-10-17T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_pack_daily_5m_credit_69",
@@ -4973,7 +4977,8 @@
         "exactDateLabel": "13 — 15 октября",
         "exactDateStart": "2026-10-13T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_LuckyBox_Zoo_Elite",
@@ -4988,7 +4993,8 @@
         "exactDateLabel": "12 — 15 октября",
         "exactDateStart": "2026-10-12T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Pack_Desert",
@@ -5003,7 +5009,8 @@
         "exactDateLabel": "11 — 14 октября",
         "exactDateStart": "2026-10-11T10:00:00+00:00",
         "exactDateEnd": "2026-10-14T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_pack_powerlevel_91",
@@ -5033,7 +5040,8 @@
         "exactDateLabel": "10 — 13 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Mysterybox_Ability_Shield",
@@ -5048,7 +5056,8 @@
         "exactDateLabel": "9 — 12 октября",
         "exactDateStart": "2026-10-09T10:00:00+00:00",
         "exactDateEnd": "2026-10-12T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Mystery_Oktoberfest_2026",
@@ -5063,7 +5072,8 @@
         "exactDateLabel": "2 — 9 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_bundle_orbs_adaptive_weaken_13",
@@ -5078,7 +5088,8 @@
         "exactDateLabel": "8 — 11 октября",
         "exactDateStart": "2026-10-08T10:00:00+00:00",
         "exactDateEnd": "2026-10-11T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Pack_daily_10_challenge_45",
@@ -5093,7 +5104,8 @@
         "exactDateLabel": "7 — 9 октября",
         "exactDateStart": "2026-10-07T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Pack_Warbeasts",
@@ -5108,7 +5120,8 @@
         "exactDateLabel": "6 — 9 октября",
         "exactDateStart": "2026-10-06T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_LuckyBox_Necro_Prime",
@@ -5123,7 +5136,8 @@
         "exactDateLabel": "5 — 9 октября",
         "exactDateStart": "2026-10-05T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|PayWall_Bank_Ex",
@@ -5135,7 +5149,8 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|shop_pack_daily_50_jt_60",
@@ -5150,7 +5165,8 @@
         "exactDateLabel": "4 — 6 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_bundle_orbs_regenerate_5_24",
@@ -5165,7 +5181,8 @@
         "exactDateLabel": "3 — 6 октября",
         "exactDateStart": "2026-10-03T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Shop_Mysterybox_Ability_Strengthen",
@@ -5180,7 +5197,8 @@
         "exactDateLabel": "2 — 5 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-05T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Daily_News_Specimen_DF_14_release",
@@ -5195,7 +5213,8 @@
         "exactDateLabel": "30 сентября — 28 октября",
         "exactDateStart": "2026-09-30T12:00:00+00:00",
         "exactDateEnd": "2026-10-28T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Daily_news_shop_24h_2026_257b",
@@ -5207,7 +5226,8 @@
         "exactDateLabel": "10 — 17 октября",
         "exactDateStart": "2026-10-10T10:00:00.000Z",
         "exactDateEnd": "2026-10-17T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "258|Daily_news_shop_24h_2026_257a",
@@ -5219,7 +5239,8 @@
         "exactDateLabel": "3 — 10 октября",
         "exactDateStart": "2026-10-03T10:00:00.000Z",
         "exactDateEnd": "2026-10-10T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       }
     ],
     "link": "/announcements",
@@ -6634,7 +6655,8 @@
         "exactDateLabel": "24 — 31 октября",
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": "2026-10-31T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       },
       {
         "id": "259|Daily_news_shop_24h_2026_258a",
@@ -6646,7 +6668,8 @@
         "exactDateLabel": "17 — 24 октября",
         "exactDateStart": "2026-10-17T10:00:00.000Z",
         "exactDateEnd": "2026-10-24T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "featuredMutant": null
       }
     ],
     "link": "/announcements",
@@ -6665,5 +6688,20 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "rebalance-1792146348489",
+    "date": "2026-10-16T10:25:40.028Z",
+    "category": "rebalance",
+    "title": "Ребаланс от 16.10.2026: 1 мутант(ов)",
+    "items": [
+      {
+        "id": "2026-10-16T10:23:46.244Z",
+        "name": "Ребаланс от 16.10.2026: 1 мутант(ов)",
+        "image": null,
+        "rebalanceCount": 1
+      }
+    ],
+    "link": "/rebalance"
   }
 ]
