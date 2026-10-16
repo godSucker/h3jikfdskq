@@ -6651,5 +6651,19 @@
     ],
     "link": "/announcements",
     "sprintKey": "259"
+  },
+  {
+    "id": "mutant-1792146122991-0",
+    "date": "2026-10-16T10:22:02.432Z",
+    "category": "mutant",
+    "title": "Ölüm Formülü",
+    "items": [
+      {
+        "id": "specimen_ba_15",
+        "name": "Ölüm Formülü",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_ba_15_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
