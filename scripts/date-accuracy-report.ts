@@ -16,6 +16,13 @@
 //   данных, этот отчёт только измеряет то, что уже опубликовано.
 // - +-14 суток у 24h-баннеров 257a/b это правка от 18.09, а не промах прогноза.
 import { execFileSync } from 'node:child_process'
+import fs from 'node:fs'
+import {
+  kartelLeadDays,
+  methodAccuracy,
+  type DateChange,
+  type WindowsJournal,
+} from './lib/journals'
 
 const ROOT = process.cwd()
 const FILE = 'src/data/announcements.json'
@@ -134,6 +141,55 @@ function line(title: string, sel: Row[]) {
   )
 }
 
+function journalSections() {
+  const dir = `${ROOT}/scripts/journals`
+  console.log('\n--- По журналам (копятся с момента их запуска) ---')
+  try {
+    const changes: DateChange[] = fs
+      .readFileSync(`${dir}/date-changes.jsonl`, 'utf-8')
+      .split('\n')
+      .filter(Boolean)
+      .map((l) => JSON.parse(l))
+    const rowsByMethod = new Map<string, ReturnType<typeof methodAccuracy>>()
+    for (const r of methodAccuracy(changes)) {
+      rowsByMethod.set(r.method, [...(rowsByMethod.get(r.method) ?? []), r])
+    }
+    if (rowsByMethod.size === 0)
+      console.log('Метод догадки: пар "догадка -> точная дата" пока нет.')
+    for (const [method, rs] of [...rowsByMethod].sort()) {
+      const errs = rs.map((r) => r.errDays)
+      const exact = errs.filter((e) => e === 0).length
+      const within1 = errs.filter((e) => Math.abs(e) <= 1).length
+      const lead = rs.reduce((s, r) => s + r.leadDays, 0) / rs.length
+      console.log(
+        `метод=${method.padEnd(9)} n=${String(rs.length).padStart(3)} ` +
+          `exact=${((exact / rs.length) * 100).toFixed(0).padStart(3)}% ` +
+          `within1d=${((within1 / rs.length) * 100).toFixed(0).padStart(3)}% ` +
+          `средний срок догадки ${lead.toFixed(1)} сут.`,
+      )
+    }
+  } catch {
+    console.log('date-changes.jsonl нет или он пуст.')
+  }
+  try {
+    const journal: WindowsJournal = JSON.parse(
+      fs.readFileSync(`${dir}/kartel-windows.json`, 'utf-8'),
+    )
+    const leads = kartelLeadDays(journal)
+    if (leads.length === 0) {
+      console.log('Срок предупреждения kartel: новых окон после создания журнала пока нет.')
+    } else {
+      const med = leads[Math.floor(leads.length / 2)]
+      console.log(
+        `Срок предупреждения kartel: n=${leads.length}, медиана ${med} сут., ` +
+          `мин ${leads[0]}, макс ${leads[leads.length - 1]}`,
+      )
+    }
+  } catch {
+    console.log('kartel-windows.json нет.')
+  }
+}
+
 function main() {
   const all = rows(collect())
   console.log(`Офферов с догадкой раньше точной даты (с ${SINCE}): ${all.length}\n`)
@@ -157,6 +213,7 @@ function main() {
         `догадка ${r.guess} -> факт ${r.real} (за ${r.leadDays.toFixed(1)} сут.)`,
     )
   }
+  journalSections()
 }
 
 if (process.argv[1]?.endsWith('date-accuracy-report.ts')) main()

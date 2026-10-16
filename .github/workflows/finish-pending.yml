@@ -124,6 +124,7 @@ jobs:
             scripts/resolved-names-en-cache.json
             scripts/pending-names-cache.json
             scripts/kartel/date-ledger.json
+            scripts/journals/**
             public/reactor/**
             public/dungeon-covers/**
 

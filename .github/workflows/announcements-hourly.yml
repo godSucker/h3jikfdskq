@@ -225,6 +225,16 @@ jobs:
         if: always()
         run: npx tsx scripts/build-offer-history.ts
 
+      - name: 9.58 Журналы точности (окна kartel, промо, прогоны, структура XML)
+        # scripts/journals/*: что и зачем - в scripts/journals/README.md. После
+        # 9.5/9.53 (нужны их снэпшоты), до 10 (build-announcements пишет рядом
+        # журнал изменений дат). Не критический путь.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-journals.ts
+        env:
+          KARTEL_FETCH_OUTCOME: ${{ steps.kartel_fetch.outcome }}
+
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
         # сейчас сломалось", а не только ежемесячное календарное напоминание
@@ -306,6 +316,7 @@ jobs:
             scripts/announced-ids-cache.json
             scripts/pending-screenshots.json
             scripts/kartel/date-ledger.json
+            scripts/journals/**
             src/data/mutants/offer-history.json
             src/data/guides/dungeon-details.json
 
