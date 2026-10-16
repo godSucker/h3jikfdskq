@@ -1341,6 +1341,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
         exactDateStart: it.exactDateStart,
         exactDateEnd: it.exactDateEnd,
         exactDateApprox: it.exactDateApprox,
+        exactDateUncertainDays: it.exactDateUncertainDays,
       })),
     ahead,
   )

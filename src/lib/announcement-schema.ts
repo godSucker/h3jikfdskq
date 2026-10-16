@@ -96,6 +96,12 @@ export interface AnnouncementItem {
   exactDateEnd?: string | null
   exactDateApprox?: boolean
   exactDateOpenEnd?: boolean
+  // Только вместе с exactDateApprox: оценка даты грубая, реальный старт лежит в
+  // пределах +-N суток от exactDateStart (баннеры "Скоро в игре" без привязки
+  // к предмету датируются по соседям, на истории точно попадает ~53%, в
+  // пределах суток ~87%). Карточка показывает "≈ 15 - 17 октября", а не одну
+  // дату. Нет поля или 0 - показываем одну дату "≈ 16 октября".
+  exactDateUncertainDays?: number
   // Только shopForecast - 'week'/'month' (окно продажи ~7 или ~28-31 день,
   // см. classifyFeaturedMutant). 'day' - оффер из пула daily-offer.
   featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null

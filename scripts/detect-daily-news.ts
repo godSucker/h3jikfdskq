@@ -32,6 +32,7 @@ import { shadowCompare } from './date-resolver'
 import { loadPromoPercents } from './kartel-promo-percents'
 import { getSprintDayMap, fetchShopForecast } from './detect-shop-forecast'
 import { fetchGameXml } from './game-xml-cache'
+import { WEEKEND_FILTER_RE, weekendWindow } from './lib/date-rules'
 
 // Баннер "BACK FOR 24H ONLY" - см. сдвиг дат и подмену блока в конце fetch.
 const BANNER_24H_RE = /^Daily_news_shop_24h_/i
@@ -59,6 +60,8 @@ interface DailyNewsItem {
   // подпись даты на языке посетителя по ISO-датам, а не по русской строке.
   exactDateEnd: string | null
   exactDateApprox?: boolean
+  // См. AnnouncementItem.exactDateUncertainDays (announcement-schema.ts).
+  exactDateUncertainDays?: number
   // Живой процент скидки (ABGetExperiments, см. kartel-promo-percents.ts) -
   // сейчас только для баннера тех-центра (TECH_CENTER_DISCOUNT_FILTERS ниже).
   // null, если живых данных нет или акции сейчас нет (эксперимент на "Default").
@@ -383,10 +386,24 @@ export async function fetchDailyNewsForecast(
       ms = up?.ms ?? down?.ms ?? null
     }
     if (ms == null || ms < sprintWindowStart || ms >= sprintWindowEnd) continue
-    items[i].exactDateLabel = `≈ ${formatDateRu(new Date(ms))}`
+    if (WEEKEND_FILTER_RE.test(items[i].filter)) {
+      // Weekend-акция: старт пятница 10:00 UTC, окно трое суток (date-rules.ts).
+      // Интерполяция давала четверг (≈15.10 вместо пятницы 16.10).
+      const w = weekendWindow(ms)
+      items[i].exactDateLabel = `≈ ${formatDateRu(new Date(w.startMs))}`
+      items[i].exactDateStart = new Date(w.startMs).toISOString()
+      items[i].exactDateEnd = new Date(w.endMs).toISOString()
+      items[i].exactDateApprox = true
+      continue
+    }
+    // Датировано по соседям: показываем +-1 сутки (на истории в пределах суток
+    // попадает ~87% таких баннеров, точно только ~53%).
+    items[i].exactDateLabel =
+      `≈ ${formatExactRangeRu(new Date(ms - DAY_MS), new Date(ms + DAY_MS))}`
     items[i].exactDateStart = new Date(ms).toISOString()
     items[i].exactDateEnd = null
     items[i].exactDateApprox = true
+    items[i].exactDateUncertainDays = 1
   }
 
   // Баннер "BACK FOR 24H ONLY" (Daily_news_shop_24h_*) - единственный оффер
@@ -451,6 +468,12 @@ export async function fetchDailyNewsForecast(
     it.exactDateLabel = it.exactDateApprox
       ? `≈ ${formatDateRu(start)}`
       : formatExactRangeRu(start, end)
+  }
+
+  // У 24h-баннеров дата идёт по собственным правилам выше (суббота, неделя
+  // целиком), оценка +-1 сутки к ним не относится.
+  for (const it of items) {
+    if (BANNER_24H_RE.test(it.filter)) delete it.exactDateUncertainDays
   }
 
   // ...и поэтому баннер этого блока описывает НЕ этот спринт, а следующий:
