@@ -3837,6 +3837,7 @@
         "exactDateLabel": "17 — 19 октября",
         "exactDateStart": "2026-10-17T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -3852,6 +3853,7 @@
         "exactDateLabel": "17 — 19 октября",
         "exactDateStart": "2026-10-17T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -3867,6 +3869,7 @@
         "exactDateLabel": "16 — 19 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CB_10",
@@ -3886,6 +3889,7 @@
         "exactDateLabel": "16 — 17 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-17T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_05"
@@ -3903,6 +3907,7 @@
         "exactDateLabel": "15 — 19 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_15"
@@ -3920,6 +3925,7 @@
         "exactDateLabel": "15 — 19 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_15"
@@ -3937,6 +3943,7 @@
         "exactDateLabel": "15 — 19 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_15"
@@ -3954,6 +3961,7 @@
         "exactDateLabel": "15 — 19 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_08",
@@ -4006,6 +4014,7 @@
         "exactDateLabel": "15 — 16 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-16T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_09"
@@ -4023,6 +4032,7 @@
         "exactDateLabel": "14 — 17 октября",
         "exactDateStart": "2026-10-14T10:00:00+00:00",
         "exactDateEnd": "2026-10-17T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4038,6 +4048,7 @@
         "exactDateLabel": "14 — 15 октября",
         "exactDateStart": "2026-10-14T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CE_04"
@@ -4055,6 +4066,7 @@
         "exactDateLabel": "13 — 15 октября",
         "exactDateStart": "2026-10-13T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4070,6 +4082,7 @@
         "exactDateLabel": "13 — 14 октября",
         "exactDateStart": "2026-10-13T10:00:00+00:00",
         "exactDateEnd": "2026-10-14T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DA_02"
@@ -4087,6 +4100,7 @@
         "exactDateLabel": "12 — 15 октября",
         "exactDateStart": "2026-10-12T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AD_02",
@@ -4182,6 +4196,7 @@
         "exactDateLabel": "12 — 19 октября",
         "exactDateStart": "2026-10-12T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_DA_13"
@@ -4199,6 +4214,7 @@
         "exactDateLabel": "12 — 13 октября",
         "exactDateStart": "2026-10-12T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_08"
@@ -4216,6 +4232,7 @@
         "exactDateLabel": "10 — 13 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4231,6 +4248,7 @@
         "exactDateLabel": "10 — 13 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4246,6 +4264,7 @@
         "exactDateLabel": "10 — 13 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4261,6 +4280,7 @@
         "exactDateLabel": "11 — 14 октября",
         "exactDateStart": "2026-10-11T10:00:00+00:00",
         "exactDateEnd": "2026-10-14T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DA_05",
@@ -4280,6 +4300,7 @@
         "exactDateLabel": "10 — 10 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-10T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FD_09"
@@ -4312,6 +4333,7 @@
         "exactDateLabel": "10 — 11 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_08"
@@ -4329,6 +4351,7 @@
         "exactDateLabel": "9 — 12 октября",
         "exactDateStart": "2026-10-09T10:00:00+00:00",
         "exactDateEnd": "2026-10-12T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_02",
@@ -4369,6 +4392,7 @@
         "exactDateLabel": "9 — 10 октября",
         "exactDateStart": "2026-10-09T10:00:00+00:00",
         "exactDateEnd": "2026-10-10T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_08"
@@ -4386,6 +4410,7 @@
         "exactDateLabel": "8 — 11 октября",
         "exactDateStart": "2026-10-08T10:00:00+00:00",
         "exactDateEnd": "2026-10-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4402,6 +4427,7 @@
         "exactDateStart": "2026-10-08T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AF_04"
@@ -4419,6 +4445,7 @@
         "exactDateLabel": "7 — 9 октября",
         "exactDateStart": "2026-10-07T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4434,6 +4461,7 @@
         "exactDateLabel": "8 — 9 октября",
         "exactDateStart": "2026-10-08T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_02"
@@ -4451,6 +4479,7 @@
         "exactDateLabel": "6 — 9 октября",
         "exactDateStart": "2026-10-06T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DA_12",
@@ -4471,6 +4500,7 @@
         "exactDateStart": "2026-10-07T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_04"
@@ -4488,6 +4518,7 @@
         "exactDateLabel": "7 — 8 октября",
         "exactDateStart": "2026-10-07T10:00:00+00:00",
         "exactDateEnd": "2026-10-08T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_04"
@@ -4505,6 +4536,7 @@
         "exactDateLabel": "5 — 9 октября",
         "exactDateStart": "2026-10-05T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_02",
@@ -4566,6 +4598,7 @@
         "exactDateLabel": "6 — 13 октября",
         "exactDateStart": "2026-10-06T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_BA_13"
@@ -4583,6 +4616,7 @@
         "exactDateLabel": "6 — 7 октября",
         "exactDateStart": "2026-10-06T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BC_06"
@@ -4600,6 +4634,7 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_04"
@@ -4617,6 +4652,7 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_11"
@@ -4634,6 +4670,7 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_12"
@@ -4651,6 +4688,7 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_09"
@@ -4668,6 +4706,7 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
@@ -4685,6 +4724,7 @@
         "exactDateLabel": "4 — 6 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4700,6 +4740,7 @@
         "exactDateLabel": "4 — 5 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-05T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_05"
@@ -4717,6 +4758,7 @@
         "exactDateLabel": "3 — 6 октября",
         "exactDateStart": "2026-10-03T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -4732,6 +4774,7 @@
         "exactDateLabel": "2 — 5 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-05T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_09",
@@ -4788,6 +4831,7 @@
         "exactDateLabel": "3 — 4 октября",
         "exactDateStart": "2026-10-03T10:00:00+00:00",
         "exactDateEnd": "2026-10-04T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DC_08"
@@ -4805,6 +4849,7 @@
         "exactDateLabel": "2 — 9 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_02",
@@ -4827,6 +4872,7 @@
         "exactDateLabel": "30 сентября — 28 октября",
         "exactDateStart": "2026-09-30T12:00:00+00:00",
         "exactDateEnd": "2026-10-28T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "month",
         "packMutants": [
           "Specimen_DF_14"
@@ -4844,6 +4890,7 @@
         "exactDateLabel": "30 сентября — 28 октября",
         "exactDateStart": "2026-09-30T12:00:00+00:00",
         "exactDateEnd": "2026-10-28T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "month",
         "packMutants": [
           "Specimen_DF_14"
@@ -4861,6 +4908,7 @@
         "exactDateLabel": "5 — 6 октября",
         "exactDateStart": "2026-10-05T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "day",
         "packMutants": [
           "Specimen_FE_02"
@@ -4904,7 +4952,8 @@
         "exactDateLabel": "16 — 19 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|daily_news_jackpot_madness_weekend_25jt",
@@ -4916,7 +4965,8 @@
         "exactDateLabel": "16 — 19 октября",
         "exactDateStart": "2026-10-16T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|PayWall_2026_ED_15_CT",
@@ -4928,7 +4978,8 @@
         "exactDateLabel": "15 — 19 октября",
         "exactDateStart": "2026-10-15T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|shop_lucky_box_research_viii",
@@ -4958,7 +5009,8 @@
         "exactDateLabel": "14 — 17 октября",
         "exactDateStart": "2026-10-14T10:00:00+00:00",
         "exactDateEnd": "2026-10-17T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_pack_daily_5m_credit_69",
@@ -4973,7 +5025,8 @@
         "exactDateLabel": "13 — 15 октября",
         "exactDateStart": "2026-10-13T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_LuckyBox_Zoo_Elite",
@@ -4988,7 +5041,8 @@
         "exactDateLabel": "12 — 15 октября",
         "exactDateStart": "2026-10-12T10:00:00+00:00",
         "exactDateEnd": "2026-10-15T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Pack_Desert",
@@ -5003,7 +5057,8 @@
         "exactDateLabel": "11 — 14 октября",
         "exactDateStart": "2026-10-11T10:00:00+00:00",
         "exactDateEnd": "2026-10-14T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_pack_powerlevel_91",
@@ -5033,7 +5088,8 @@
         "exactDateLabel": "10 — 13 октября",
         "exactDateStart": "2026-10-10T10:00:00+00:00",
         "exactDateEnd": "2026-10-13T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Mysterybox_Ability_Shield",
@@ -5048,7 +5104,8 @@
         "exactDateLabel": "9 — 12 октября",
         "exactDateStart": "2026-10-09T10:00:00+00:00",
         "exactDateEnd": "2026-10-12T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Mystery_Oktoberfest_2026",
@@ -5063,7 +5120,8 @@
         "exactDateLabel": "2 — 9 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_bundle_orbs_adaptive_weaken_13",
@@ -5078,7 +5136,8 @@
         "exactDateLabel": "8 — 11 октября",
         "exactDateStart": "2026-10-08T10:00:00+00:00",
         "exactDateEnd": "2026-10-11T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Pack_daily_10_challenge_45",
@@ -5093,7 +5152,8 @@
         "exactDateLabel": "7 — 9 октября",
         "exactDateStart": "2026-10-07T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Pack_Warbeasts",
@@ -5108,7 +5168,8 @@
         "exactDateLabel": "6 — 9 октября",
         "exactDateStart": "2026-10-06T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_LuckyBox_Necro_Prime",
@@ -5123,7 +5184,8 @@
         "exactDateLabel": "5 — 9 октября",
         "exactDateStart": "2026-10-05T10:00:00+00:00",
         "exactDateEnd": "2026-10-09T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|PayWall_Bank_Ex",
@@ -5135,7 +5197,8 @@
         "exactDateLabel": "4 — 7 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-07T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|shop_pack_daily_50_jt_60",
@@ -5150,7 +5213,8 @@
         "exactDateLabel": "4 — 6 октября",
         "exactDateStart": "2026-10-04T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_bundle_orbs_regenerate_5_24",
@@ -5165,7 +5229,8 @@
         "exactDateLabel": "3 — 6 октября",
         "exactDateStart": "2026-10-03T10:00:00+00:00",
         "exactDateEnd": "2026-10-06T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Shop_Mysterybox_Ability_Strengthen",
@@ -5180,7 +5245,8 @@
         "exactDateLabel": "2 — 5 октября",
         "exactDateStart": "2026-10-02T10:00:00+00:00",
         "exactDateEnd": "2026-10-05T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Daily_News_Specimen_DF_14_release",
@@ -5195,7 +5261,8 @@
         "exactDateLabel": "30 сентября — 28 октября",
         "exactDateStart": "2026-09-30T12:00:00+00:00",
         "exactDateEnd": "2026-10-28T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "258|Daily_news_shop_24h_2026_257b",
@@ -5207,7 +5274,8 @@
         "exactDateLabel": "10 — 17 октября",
         "exactDateStart": "2026-10-10T10:00:00.000Z",
         "exactDateEnd": "2026-10-17T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       },
       {
         "id": "258|Daily_news_shop_24h_2026_257a",
@@ -5219,7 +5287,8 @@
         "exactDateLabel": "3 — 10 октября",
         "exactDateStart": "2026-10-03T10:00:00.000Z",
         "exactDateEnd": "2026-10-10T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       }
     ],
     "link": "/announcements",
@@ -5433,6 +5502,7 @@
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_02",
@@ -5512,6 +5582,7 @@
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_F_01"
@@ -5530,6 +5601,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5546,6 +5618,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5562,6 +5635,7 @@
         "exactDateStart": "2026-10-29T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5578,6 +5652,7 @@
         "exactDateStart": "2026-10-29T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FE_07"
@@ -5596,6 +5671,7 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_15"
@@ -5614,6 +5690,7 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_15"
@@ -5632,6 +5709,7 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FD_12",
@@ -5652,6 +5730,7 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5668,6 +5747,7 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EA_07"
@@ -5686,6 +5766,7 @@
         "exactDateStart": "2026-10-27T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DF_05"
@@ -5704,6 +5785,7 @@
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CF_03",
@@ -5756,6 +5838,7 @@
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BD_13"
@@ -5774,6 +5857,7 @@
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_C_01"
@@ -5792,6 +5876,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_08",
@@ -5811,6 +5896,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5827,6 +5913,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5843,6 +5930,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5859,6 +5947,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5875,6 +5964,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5891,6 +5981,7 @@
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_05"
@@ -5909,6 +6000,7 @@
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5925,6 +6017,7 @@
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -5941,6 +6034,7 @@
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_05"
@@ -5959,6 +6053,7 @@
         "exactDateStart": "2026-10-23T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_02"
@@ -5977,6 +6072,7 @@
         "exactDateStart": "2026-10-23T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_02"
@@ -5994,6 +6090,7 @@
         "exactDateLabel": "23 — 26 октября",
         "exactDateStart": "2026-10-23T10:00:00+00:00",
         "exactDateEnd": "2026-10-26T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AF_99",
@@ -6036,6 +6133,7 @@
         "exactDateStart": "2026-10-23T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FE_03"
@@ -6053,6 +6151,7 @@
         "exactDateLabel": "21 — 25 октября",
         "exactDateStart": "2026-10-21T10:00:00+00:00",
         "exactDateEnd": "2026-10-25T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_09",
@@ -6073,6 +6172,7 @@
         "exactDateStart": "2026-10-22T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_B_04",
@@ -6092,6 +6192,7 @@
         "exactDateStart": "2026-10-22T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_B_03"
@@ -6109,6 +6210,7 @@
         "exactDateLabel": "22 — 23 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_07"
@@ -6126,6 +6228,7 @@
         "exactDateLabel": "20 — 23 октября",
         "exactDateStart": "2026-10-20T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6141,6 +6244,7 @@
         "exactDateLabel": "21 — 22 октября",
         "exactDateStart": "2026-10-21T10:00:00+00:00",
         "exactDateEnd": "2026-10-22T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_08"
@@ -6158,6 +6262,7 @@
         "exactDateLabel": "20 — 21 октября",
         "exactDateStart": "2026-10-20T10:00:00+00:00",
         "exactDateEnd": "2026-10-21T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_08"
@@ -6175,6 +6280,7 @@
         "exactDateLabel": "19 — 23 октября",
         "exactDateStart": "2026-10-19T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CC_02",
@@ -6226,6 +6332,7 @@
         "exactDateLabel": "19 — 26 октября",
         "exactDateStart": "2026-10-19T10:00:00+00:00",
         "exactDateEnd": "2026-10-26T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_FA_12"
@@ -6243,6 +6350,7 @@
         "exactDateLabel": "19 — 20 октября",
         "exactDateStart": "2026-10-19T10:00:00+00:00",
         "exactDateEnd": "2026-10-20T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_05"
@@ -6260,6 +6368,7 @@
         "exactDateLabel": "18 — 19 октября",
         "exactDateStart": "2026-10-18T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_09"
@@ -6277,6 +6386,7 @@
         "exactDateLabel": "17 — 18 октября",
         "exactDateStart": "2026-10-17T10:00:00+00:00",
         "exactDateEnd": "2026-10-18T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EB_02"
@@ -6306,7 +6416,8 @@
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "259|Daily_news_exchange_office_block_10_2026",
@@ -6319,7 +6430,8 @@
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "259|Shop_LuckyBox_Necro_Elite",
@@ -6334,7 +6446,8 @@
         "exactDateLabel": "≈ 30 октября",
         "exactDateStart": "2026-10-30T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_bundle_orbs_slash_5_30",
@@ -6349,7 +6462,8 @@
         "exactDateLabel": "≈ 29 октября",
         "exactDateStart": "2026-10-29T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Daily_News_Specimen_BA_15_release",
@@ -6364,7 +6478,8 @@
         "exactDateLabel": "≈ 28 октября",
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_Pack_Storm",
@@ -6379,7 +6494,8 @@
         "exactDateLabel": "≈ 28 октября",
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_pack_daily_3_gold_69",
@@ -6394,7 +6510,8 @@
         "exactDateLabel": "≈ 28 октября",
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Daily_news_tech_V2",
@@ -6407,7 +6524,8 @@
         "exactDateStart": "2026-10-28T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "259|Shop_halloween26_token_pack_2",
@@ -6423,7 +6541,8 @@
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "259|Shop_Mysterybox_Ability_Retaliate",
@@ -6438,7 +6557,8 @@
         "exactDateLabel": "≈ 26 октября",
         "exactDateStart": "2026-10-26T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_Pack_Witch",
@@ -6453,7 +6573,8 @@
         "exactDateLabel": "≈ 25 октября",
         "exactDateStart": "2026-10-25T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_bundle_orbs_adaptive_shield_5_9",
@@ -6468,7 +6589,8 @@
         "exactDateLabel": "≈ 24 октября",
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|shop_pack_daily_6_gacha_54",
@@ -6483,7 +6605,8 @@
         "exactDateLabel": "≈ 24 октября",
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "259|Shop_halloween26_token_pack_1",
@@ -6499,7 +6622,8 @@
         "exactDateStart": "2026-10-23T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "259|Shop_Luckybox_Hyperheavy",
@@ -6514,7 +6638,8 @@
         "exactDateLabel": "23 — 26 октября",
         "exactDateStart": "2026-10-23T10:00:00+00:00",
         "exactDateEnd": "2026-10-26T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Daily_news_shop_zodiac_fb_02",
@@ -6529,7 +6654,8 @@
         "exactDateLabel": "23 октября — 23 ноября",
         "exactDateStart": "2026-10-23T10:00:00+00:00",
         "exactDateEnd": "2026-11-23T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Shop_Pack_Death",
@@ -6544,7 +6670,8 @@
         "exactDateLabel": "21 — 25 октября",
         "exactDateStart": "2026-10-21T10:00:00+00:00",
         "exactDateEnd": "2026-10-25T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Shop_bundle_orbs_experimental_smasher_11",
@@ -6559,7 +6686,8 @@
         "exactDateLabel": "20 — 23 октября",
         "exactDateStart": "2026-10-20T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Shop_LuckyBox_Saber_Prime",
@@ -6574,7 +6702,8 @@
         "exactDateLabel": "19 — 23 октября",
         "exactDateStart": "2026-10-19T10:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Daily_news_gacha_beach_vegetal",
@@ -6586,7 +6715,8 @@
         "exactDateLabel": "18 — 23 октября",
         "exactDateStart": "2026-10-18T00:00:00+00:00",
         "exactDateEnd": "2026-10-23T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Shop_Bundle_Casino_21",
@@ -6601,7 +6731,8 @@
         "exactDateLabel": "17 — 19 октября",
         "exactDateStart": "2026-10-17T10:00:00+00:00",
         "exactDateEnd": "2026-10-19T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "259|Daily_news_shop_24h_2026_258b",
@@ -6613,7 +6744,8 @@
         "exactDateLabel": "24 — 31 октября",
         "exactDateStart": "2026-10-24T10:00:00.000Z",
         "exactDateEnd": "2026-10-31T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       },
       {
         "id": "259|Daily_news_shop_24h_2026_258a",
@@ -6625,7 +6757,8 @@
         "exactDateLabel": "17 — 24 октября",
         "exactDateStart": "2026-10-17T10:00:00.000Z",
         "exactDateEnd": "2026-10-24T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       }
     ],
     "link": "/announcements",
@@ -6698,6 +6831,7 @@
         "exactDateStart": "2026-11-13T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6714,6 +6848,7 @@
         "exactDateStart": "2026-11-13T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_02"
@@ -6732,6 +6867,7 @@
         "exactDateStart": "2026-11-12T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_12",
@@ -6752,6 +6888,7 @@
         "exactDateStart": "2026-11-12T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CD_02",
@@ -6781,6 +6918,7 @@
         "exactDateStart": "2026-11-12T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_06"
@@ -6799,6 +6937,7 @@
         "exactDateStart": "2026-11-11T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6815,6 +6954,7 @@
         "exactDateStart": "2026-11-11T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_12"
@@ -6833,6 +6973,7 @@
         "exactDateStart": "2026-11-11T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_02"
@@ -6851,6 +6992,7 @@
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -6869,6 +7011,7 @@
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -6887,6 +7030,7 @@
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -6905,6 +7049,7 @@
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_09"
@@ -6923,6 +7068,7 @@
         "exactDateStart": "2026-11-09T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6939,6 +7085,7 @@
         "exactDateStart": "2026-11-09T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AD_05"
@@ -6957,6 +7104,7 @@
         "exactDateStart": "2026-11-08T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AD_02",
@@ -7010,6 +7158,7 @@
         "exactDateStart": "2026-11-08T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_E_01"
@@ -7028,6 +7177,7 @@
         "exactDateStart": "2026-11-07T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_12",
@@ -7048,6 +7198,7 @@
         "exactDateStart": "2026-11-07T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_08"
@@ -7066,6 +7217,7 @@
         "exactDateStart": "2026-11-06T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CF_10"
@@ -7084,6 +7236,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DC_04",
@@ -7107,6 +7260,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7123,6 +7277,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7139,6 +7294,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7155,6 +7311,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7171,6 +7328,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7187,6 +7345,7 @@
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_07"
@@ -7205,6 +7364,7 @@
         "exactDateStart": "2026-11-04T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FE_06"
@@ -7223,6 +7383,7 @@
         "exactDateStart": "2026-11-03T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_09",
@@ -7274,6 +7435,7 @@
         "exactDateStart": "2026-11-03T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_13"
@@ -7292,6 +7454,7 @@
         "exactDateStart": "2026-11-03T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_05"
@@ -7310,6 +7473,7 @@
         "exactDateStart": "2026-11-02T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -7326,6 +7490,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_B_03"
@@ -7344,6 +7509,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_12"
@@ -7362,6 +7528,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_13"
@@ -7380,6 +7547,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BC_14"
@@ -7398,6 +7566,7 @@
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "manual",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DB_14"
@@ -7416,6 +7585,7 @@
         "exactDateStart": "2026-11-02T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FD_06"
@@ -7434,6 +7604,7 @@
         "exactDateStart": "2026-11-01T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_09"
@@ -7452,6 +7623,7 @@
         "exactDateStart": "2026-10-31T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "inherit",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_D_01",
@@ -7472,6 +7644,7 @@
         "exactDateStart": "2026-10-31T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
+        "exactDateSource": "ladder",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_09"
@@ -7500,7 +7673,8 @@
         "exactDateLabel": "≈ 13 ноября",
         "exactDateStart": "2026-11-13T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_Pack_Unstable",
@@ -7515,7 +7689,8 @@
         "exactDateLabel": "≈ 12 ноября",
         "exactDateStart": "2026-11-12T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_Mystery_Zodiac_v3",
@@ -7530,7 +7705,8 @@
         "exactDateLabel": "≈ 12 ноября",
         "exactDateStart": "2026-11-12T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_bundle_orbs_weaken_5_27",
@@ -7545,7 +7721,8 @@
         "exactDateLabel": "≈ 11 ноября",
         "exactDateStart": "2026-11-11T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|PayWall_2026_EE_13_CT",
@@ -7558,7 +7735,8 @@
         "exactDateStart": "2026-11-10T10:00:00.000Z",
         "exactDateEnd": null,
         "exactDateApprox": true,
-        "exactDateUncertainDays": 1
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       },
       {
         "id": "260|Shop_pack_powerlevel_92",
@@ -7573,7 +7751,8 @@
         "exactDateLabel": "≈ 9 ноября",
         "exactDateStart": "2026-11-09T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_LuckyBox_Cyber_Prime",
@@ -7588,7 +7767,8 @@
         "exactDateLabel": "≈ 8 ноября",
         "exactDateStart": "2026-11-08T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_Pack_Drone",
@@ -7603,7 +7783,8 @@
         "exactDateLabel": "≈ 7 ноября",
         "exactDateStart": "2026-11-07T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|filter_dungeon_halloween26",
@@ -7615,7 +7796,8 @@
         "exactDateLabel": "22 октября — 5 ноября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": "2026-11-05T10:00:00+00:00",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|Shop_halloween26_conversion",
@@ -7630,7 +7812,8 @@
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|Shop_bank_halloween26_mutants",
@@ -7645,7 +7828,8 @@
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|Shop_Mystery_Halloween26",
@@ -7660,7 +7844,8 @@
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|Shop_Specimen_CF_10_Halloween",
@@ -7675,7 +7860,8 @@
         "exactDateLabel": "≈ 6 ноября",
         "exactDateStart": "2026-11-06T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|PayWall_halloween26_token",
@@ -7687,7 +7873,8 @@
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|PayWall_Bank_Halloween",
@@ -7702,7 +7889,8 @@
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "manual"
       },
       {
         "id": "260|Shop_bundle_orbs_experimental_counter_04",
@@ -7717,7 +7905,8 @@
         "exactDateLabel": "≈ 5 ноября",
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_halloween26_token_pack_4",
@@ -7732,7 +7921,8 @@
         "exactDateLabel": "≈ 5 ноября",
         "exactDateStart": "2026-11-05T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|shop_lucky_box_research_viii",
@@ -7747,7 +7937,8 @@
         "exactDateLabel": "≈ 3 ноября",
         "exactDateStart": "2026-11-03T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_Campaign_Pack",
@@ -7762,7 +7953,8 @@
         "exactDateLabel": "≈ 2 ноября",
         "exactDateStart": "2026-11-02T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Shop_Pack_Howler",
@@ -7777,7 +7969,8 @@
         "exactDateLabel": "≈ 31 октября",
         "exactDateStart": "2026-10-31T10:00:00.000Z",
         "exactDateEnd": null,
-        "exactDateApprox": true
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       },
       {
         "id": "260|Daily_news_shop_24h_2026_259b",
@@ -7789,7 +7982,8 @@
         "exactDateLabel": "7 — 14 ноября",
         "exactDateStart": "2026-11-07T10:00:00.000Z",
         "exactDateEnd": "2026-11-14T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       },
       {
         "id": "260|Daily_news_shop_24h_2026_259a",
@@ -7801,7 +7995,8 @@
         "exactDateLabel": "31 октября — 7 ноября",
         "exactDateStart": "2026-10-31T10:00:00.000Z",
         "exactDateEnd": "2026-11-07T10:00:00.000Z",
-        "exactDateApprox": false
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
       }
     ],
     "link": "/announcements",
