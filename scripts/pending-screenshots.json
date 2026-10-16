@@ -1,1 +1,67 @@
-[]
+[
+  {
+    "id": "dailyNews-1792144926957",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 23",
+    "itemIds": [
+      "259|Shop_halloween26_token_pack_3",
+      "259|Daily_news_exchange_office_block_10_2026",
+      "259|Shop_LuckyBox_Necro_Elite",
+      "259|Shop_bundle_orbs_slash_5_30",
+      "259|Daily_News_Specimen_BA_15_release",
+      "259|Shop_Pack_Storm",
+      "259|Shop_pack_daily_3_gold_69",
+      "259|Daily_news_tech_V2",
+      "259|Shop_halloween26_token_pack_2",
+      "259|Shop_Mysterybox_Ability_Retaliate",
+      "259|Shop_Pack_Witch",
+      "259|Shop_bundle_orbs_adaptive_shield_5_9",
+      "259|shop_pack_daily_6_gacha_54",
+      "259|Shop_halloween26_token_pack_1",
+      "259|Shop_Luckybox_Hyperheavy",
+      "259|Daily_news_shop_zodiac_fb_02",
+      "259|Shop_Pack_Death",
+      "259|Shop_bundle_orbs_experimental_smasher_11",
+      "259|Shop_LuckyBox_Saber_Prime",
+      "259|Daily_news_gacha_beach_vegetal",
+      "259|Shop_Bundle_Casino_21",
+      "259|Daily_news_shop_24h_2026_258b",
+      "259|Daily_news_shop_24h_2026_258a"
+    ],
+    "createdAt": "2026-10-16T17:25:55.714Z",
+    "attempts": 0,
+    "date": "2026-10-16T10:01:58.836Z"
+  },
+  {
+    "id": "dailyNews-1792166494670",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 22",
+    "itemIds": [
+      "260|Shop_promo_muto_pack",
+      "260|Shop_Pack_Unstable",
+      "260|Shop_Mystery_Zodiac_v3",
+      "260|Shop_bundle_orbs_weaken_5_27",
+      "260|PayWall_2026_EE_13_CT",
+      "260|Shop_pack_powerlevel_92",
+      "260|Shop_LuckyBox_Cyber_Prime",
+      "260|Shop_Pack_Drone",
+      "260|filter_dungeon_halloween26",
+      "260|Shop_halloween26_conversion",
+      "260|Shop_bank_halloween26_mutants",
+      "260|Shop_Mystery_Halloween26",
+      "260|Shop_Specimen_CF_10_Halloween",
+      "260|PayWall_halloween26_token",
+      "260|PayWall_Bank_Halloween",
+      "260|Shop_bundle_orbs_experimental_counter_04",
+      "260|Shop_halloween26_token_pack_4",
+      "260|shop_lucky_box_research_viii",
+      "260|Shop_Campaign_Pack",
+      "260|Shop_Pack_Howler",
+      "260|Daily_news_shop_24h_2026_259b",
+      "260|Daily_news_shop_24h_2026_259a"
+    ],
+    "createdAt": "2026-10-16T17:25:55.714Z",
+    "attempts": 0,
+    "date": "2026-10-16T16:01:25.808Z"
+  }
+]
