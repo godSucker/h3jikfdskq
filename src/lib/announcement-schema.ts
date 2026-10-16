@@ -64,6 +64,8 @@ export const CATEGORY_ICON: Record<(typeof CATEGORIES)[number], string> = {
   rebalance: '⚖️',
 }
 
+export type DateSource = 'kartel' | 'manual' | 'rule' | 'ladder' | 'inherit' | 'neighbor'
+
 export interface AnnouncementItem {
   id: string
   name: string
@@ -102,6 +104,12 @@ export interface AnnouncementItem {
   // пределах суток ~87%). Карточка показывает "≈ 15 - 17 октября", а не одну
   // дату. Нет поля или 0 - показываем одну дату "≈ 16 октября".
   exactDateUncertainDays?: number
+  // Откуда взята дата (служебное поле для журнала точности, на странице не
+  // показывается): kartel - живое окно сервера; manual - scripts/manual-filter-
+  // dates.json; rule - структурное правило (weekend, 24h-баннер); ladder -
+  // лестница дневных офферов; inherit - наследование от якоря или от дня
+  // предмета магазина; neighbor - интерполяция по соседям в dailypopup.
+  exactDateSource?: DateSource
   // Только shopForecast - 'week'/'month' (окно продажи ~7 или ~28-31 день,
   // см. classifyFeaturedMutant). 'day' - оффер из пула daily-offer.
   featuredMutant?: 'day' | 'week' | 'month' | 'zodiac' | null

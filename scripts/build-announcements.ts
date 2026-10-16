@@ -19,6 +19,7 @@ import path from 'path'
 import axios from 'axios'
 import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
+import { appendJsonl, diffDateChanges, journalPath } from './lib/journals'
 import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import {
   loadFilterDates,
@@ -1310,6 +1311,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
         exactDateStart: it.exactDateStart,
         exactDateEnd: it.exactDateEnd,
         exactDateApprox: it.exactDateApprox,
+        exactDateSource: it.dateSource,
         featuredMutant: it.featuredMutant,
         packMutants: it.packMutants,
       })),
@@ -1342,6 +1344,7 @@ async function detectDailyNews(seen: string[]): Promise<DetectResult> {
         exactDateEnd: it.exactDateEnd,
         exactDateApprox: it.exactDateApprox,
         exactDateUncertainDays: it.exactDateUncertainDays,
+        exactDateSource: it.dateSource,
       })),
     ahead,
   )
@@ -1630,6 +1633,7 @@ export function mergeLiveFields(
       exactDateEnd: old.exactDateEnd ?? null,
       exactDateApprox: old.exactDateApprox,
       exactDateOpenEnd: old.exactDateOpenEnd,
+      exactDateSource: old.exactDateSource,
       featuredMutant: fresh.featuredMutant ?? old.featuredMutant ?? null,
     }
   }
@@ -1642,6 +1646,8 @@ export function mergeLiveFields(
 async function main() {
   const { ledger, isBootstrap } = await loadLedger()
   const announcements = await loadJson<Announcement[]>('src/data/announcements.json', [])
+  // Копия до прогона: по разнице пишется журнал изменений дат (scripts/journals).
+  const announcementsBefore: Announcement[] = JSON.parse(JSON.stringify(announcements))
 
   // НАЙДЕНО 2026-09-09 (коммит 52abe5f99): finish-pending.yml гонял этот
   // скрипт вообще без шага fetch-filters.py - loadFilterDates() тихо
@@ -1913,6 +1919,20 @@ async function main() {
 
   await saveLedger(ledger)
   await fs.writeFile(ANNOUNCEMENTS_PATH, JSON.stringify(announcements, null, 2) + '\n', 'utf-8')
+
+  // Журнал изменений дат: какой оффер, откуда, куда и каким методом. Любой
+  // сбой журнала не должен ломать публикацию.
+  try {
+    const dateChanges = diffDateChanges(
+      announcementsBefore,
+      announcements,
+      new Date().toISOString(),
+    )
+    await appendJsonl(journalPath('date-changes.jsonl'), dateChanges, 12000)
+    if (dateChanges.length > 0) console.log(`[JOURNALS] date-changes: +${dateChanges.length}`)
+  } catch (e) {
+    console.warn('[JOURNALS] date-changes не записан:', e instanceof Error ? e.message : e)
+  }
 
   // Этап 4: отчёт теневого резолвера дат (date-resolver.ts). Только печать -
   // данные выше уже записаны старым путём.

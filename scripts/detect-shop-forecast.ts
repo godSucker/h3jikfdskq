@@ -38,6 +38,7 @@ import {
   type FilterDateRange,
 } from './kartel-filter-dates'
 import { shadowCompare } from './date-resolver'
+import type { DateSource } from '../src/lib/announcement-schema'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const LOC_RU_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/localisation_ru.txt'
@@ -136,6 +137,8 @@ interface ForecastItem {
   // Служебный флаг: такой оффер не служит якорем для соседей (inheritDatesFromAnchors)
   // и в announcements.json не попадает (detectShopForecast копирует поля явно).
   manualDate?: boolean
+  // Откуда взята дата, см. DateSource (announcement-schema.ts).
+  dateSource?: DateSource
 }
 
 export interface ShopForecast {
@@ -293,6 +296,11 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
         exactDateStart: exactRange?.start ?? manual?.start ?? null,
         exactDateEnd: exactRange?.end ?? manual?.end ?? null,
         ...(manual ? { exactDateApprox: manual.approx === true, manualDate: true } : {}),
+        ...(exactRange
+          ? { dateSource: 'kartel' as const }
+          : manual
+            ? { dateSource: 'manual' as const }
+            : {}),
         featuredMutant:
           forceFeatured ??
           classifyFeaturedMutant(
@@ -493,6 +501,7 @@ function inheritDatesFromAnchors(
     it.exactDateStart = new Date(ms).toISOString()
     it.exactDateEnd = null
     it.exactDateApprox = true
+    it.dateSource = 'ladder'
   }
 
   for (let i = 0; i < blockItems.length; i++) {
@@ -510,6 +519,7 @@ function inheritDatesFromAnchors(
     it.exactDateStart = new Date(ms).toISOString()
     it.exactDateEnd = null
     it.exactDateApprox = true
+    it.dateSource = 'inherit'
   }
 }
 
@@ -854,6 +864,7 @@ async function appendDailyMutantOffers(
       built.item.exactDateStart = new Date(dayMs).toISOString()
       built.item.exactDateEnd = null
       built.item.exactDateApprox = true
+      built.item.dateSource = 'ladder'
     }
     items.push(built.item)
   }
