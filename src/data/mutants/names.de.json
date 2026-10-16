@@ -3358,5 +3358,11 @@
     "lore": "Es wird oft gesagt, dass die Finanzwelt ein wahres Haifischbecken ist – gnadenlos und rücksichtslos, in dem nur das Gesetz des Dschungels herrscht. Da kam mir eine Idee … Was wäre, wenn wir einem zweibeinigen Mutantenhai echte finanzielle Macht geben würden? Wer würde gefressen werden? Und könnte es sein, dass ein gewisser Don seine Krallen genau dort eingeschlagen hat, wo es nötig war, um diese Idee zum Leben zu erwecken?",
     "atk1Name": "STONKS",
     "atk2Name": "Finanzblase"
+  },
+  "specimen_ba_15": {
+    "name": "Formel Tod",
+    "lore": "Es gibt eine Legende über einen untoten Seelensammler, dessen Fahrzeug allein schon durch seinen Lärm die Lebenden auf seine Anwesenheit aufmerksam macht … Sie hatten genug von dem Karren und den verlorenen Seelen, die vor ihnen flohen, und haben sich nun für ein viel schnelleres und weitaus effizienteres Fahrzeug entschieden. Und keine verlorene Seele kann ihnen mehr entkommen.",
+    "atk1Name": "Tödlicher Drift",
+    "atk2Name": "Seelensuche"
   }
 }

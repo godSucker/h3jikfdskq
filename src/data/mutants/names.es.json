@@ -3358,5 +3358,11 @@
     "lore": "A menudo se dice que el mundo de las finanzas es un auténtico tanque de tiburones, despiadado y sin piedad, donde solo impera la ley de la selva. Fue entonces cuando surgió una idea… ¿Y si le diéramos a un tiburón mutante de dos patas un poder financiero real? ¿A quién se comería? ¿Y podría ser que un tal Don hubiera metido sus garras donde hacía falta para hacer realidad esta idea?",
     "atk1Name": "STONKS",
     "atk2Name": "Burbuja financiera"
+  },
+  "specimen_ba_15": {
+    "name": "Fórmula Muerte",
+    "lore": "Existe una leyenda sobre un recolector de almas no muertas cuyo vehículo, con solo el ruido que hace, alerta a los vivos de su presencia… Se habían cansado de la carreta y de las almas perdidas que huían de ellos, por lo que ahora han elegido un vehículo mucho más rápido y mucho más eficaz. Y ya ninguna alma perdida puede escapar de ellos.",
+    "atk1Name": "Derrape Letal",
+    "atk2Name": "Aspiración de Almas"
   }
 }

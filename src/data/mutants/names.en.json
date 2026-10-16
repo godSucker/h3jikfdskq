@@ -3358,5 +3358,11 @@
     "lore": "It’s often said that the world of finance is a veritable shark tank, merciless and ruthless, where only the law of the jungle prevails. That’s when an idea emerged…. What if we gave a two-legged mutant shark real financial power? Who would get eaten? And could it be that a certain Don had put his claws where they needed to be to bring this idea to life?",
     "atk1Name": "STONKS",
     "atk2Name": "Financial Bubble"
+  },
+  "specimen_ba_15": {
+    "name": "Formula Death",
+    "lore": "There is a legend about an undead soul collector whose vehicle’s noise alone alerts the living to his presence… They had grown tired of the cart and the lost souls who fled from them, so they have now chosen a much faster and far more efficient vehicle. And no lost soul can escape them anymore.",
+    "atk1Name": "Lethal Drift",
+    "atk2Name": "Soul Aspiration"
   }
 }

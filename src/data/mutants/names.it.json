@@ -3358,5 +3358,11 @@
     "lore": "Si dice spesso che il mondo della finanza sia una vera e propria vasca degli squali, spietata e senza pietà, dove prevale solo la legge della giungla. È allora che è nata un’idea… E se dessimo a uno squalo mutante a due zampe un vero potere finanziario? Chi verrebbe divorato? E potrebbe darsi che un certo Don abbia messo gli artigli dove serviva per dare vita a questa idea?",
     "atk1Name": "STONKS",
     "atk2Name": "Bolla finanziaria"
+  },
+  "specimen_ba_15": {
+    "name": "Modello Morte",
+    "lore": "C'è una leggenda che narra di un collezionista di anime non morte il cui veicolo, con il solo rumore del motore, avverte i vivi della sua presenza… Si erano stancati del carretto e delle anime perdute che fuggivano da loro, così ora hanno scelto un veicolo molto più veloce e di gran lunga più efficiente. E nessuna anima perduta può più sfuggirgli.",
+    "atk1Name": "Deriva Letale",
+    "atk2Name": "Aspirazione dell'Anima"
   }
 }
