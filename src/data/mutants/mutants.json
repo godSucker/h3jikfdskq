@@ -60438,56 +60438,56 @@
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1130,
-        "atk1": 312,
-        "atk2": 312,
-        "ability": 62,
-        "speed": 5,
+        "hp": 4233,
+        "atk1": 1818,
+        "atk2": 1818,
+        "ability": 454,
+        "speed": 4.55,
         "silver": 42,
         "atk1_gene": "e",
         "atk2_gene": "c",
         "atk1_AOE": false,
-        "atk2_AOE": false
+        "atk2_AOE": true
       },
       "lvl30": {
-        "hp": 4407,
-        "atk1": 1825,
-        "atk2": 1825,
-        "ability": 547,
-        "speed": 5,
+        "hp": 16508,
+        "atk1": 10077,
+        "atk2": 7090,
+        "ability": 3829,
+        "speed": 4.55,
         "silver": 1260,
         "atk1_gene": "e",
         "atk2_gene": "c",
         "atk1_AOE": false,
-        "atk2_AOE": false
+        "atk2_AOE": true
       },
-      "hp_base": 1130,
-      "atk1_base": 312,
-      "atk1p_base": 468,
-      "atk2_base": 312,
-      "atk2p_base": 468,
-      "speed_base": 5,
+      "hp_base": 4233,
+      "atk1_base": 1818,
+      "atk1p_base": 2584,
+      "atk2_base": 1818,
+      "atk2p_base": 1818,
+      "speed_base": 4.55,
       "bank_base": 42,
-      "abilityPct1": 20,
-      "abilityPct2": 30,
-      "spX100": 200
+      "abilityPct1": -25,
+      "abilityPct2": -38,
+      "spX100": 220
     },
     "abilities": [
       {
-        "name": "ability_strengthen",
-        "pct": 20,
-        "value_atk1_lvl1": 62,
-        "value_atk2_lvl1": 62,
-        "value_atk1_lvl30": 365,
-        "value_atk2_lvl30": 365
+        "name": "ability_retaliate",
+        "pct": 25,
+        "value_atk1_lvl1": 454,
+        "value_atk2_lvl1": 0,
+        "value_atk1_lvl30": 2519,
+        "value_atk2_lvl30": 0
       },
       {
-        "name": "ability_strengthen_plus",
-        "pct": 30,
-        "value_atk1_lvl1": 93,
-        "value_atk2_lvl1": 93,
-        "value_atk1_lvl30": 547,
-        "value_atk2_lvl30": 547
+        "name": "ability_retaliate_plus",
+        "pct": 38,
+        "value_atk1_lvl1": 690,
+        "value_atk2_lvl1": 0,
+        "value_atk1_lvl30": 3829,
+        "value_atk2_lvl30": 0
       }
     ],
     "stars": {
@@ -60498,7 +60498,7 @@
         ]
       }
     },
-    "type": "LEGEND",
+    "type": "SEASONAL",
     "incub_time": 60,
     "orbs": {
       "normal": 2,
