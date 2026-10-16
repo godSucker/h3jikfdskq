@@ -1177,14 +1177,34 @@ async function detectReactors(seen: string[]): Promise<DetectResult> {
 // продолжает открывать даты офферов ещё ~2 недели после старта спринта.
 // Живой спринт ВСЕГДА идёт по updateExisting (никогда не создаёт новый пост);
 // "+1" - как прежде: новый пост, если ещё не публиковали, иначе дозаполнение.
+// "+2" (ahead): Kobojo иногда выкладывает блоки двух спринтов разом (16.10.2026:
+// 259 и 260 одним обновлением, 260 уже полностью заполнен). Раньше "+2" не
+// смотрели вообще, и такой блок всплывал бы только когда спринт становился
+// текущим. Новый пост за один прогон создаётся один: приоритет у "+1", блок "+2"
+// публикуется в этом же прогоне, если "+1" уже в ledger, иначе в следующем
+// часовом тике (ledger защищает от дубля).
 type ForecastLike = { sprint: number }
-function splitForecastSprints<F extends ForecastLike>(
+export function splitForecastSprints<F extends ForecastLike>(
   seen: string[],
   live: F | null,
   next: F | null,
   toItems: (forecast: F) => AnnouncementItem[],
+  ahead: F | null = null,
 ): DetectResult {
   const updateExisting: { sprintKey: string; items: AnnouncementItem[] }[] = []
+
+  let aheadNew: { key: string; items: AnnouncementItem[] } | null = null
+  if (ahead) {
+    const key = String(ahead.sprint)
+    const aheadItems = toItems(ahead)
+    // Пустой список не пишем: merge ниже заменил бы им items уже опубликованной
+    // записи. Пустой блок "+2" и не публикуем (маркер раньше офферов, см. ниже).
+    if (seen.includes(key)) {
+      if (aheadItems.length > 0) updateExisting.push({ sprintKey: key, items: aheadItems })
+    } else if (aheadItems.length > 0) {
+      aheadNew = { key, items: aheadItems }
+    }
+  }
 
   if (live) {
     const key = String(live.sprint)
@@ -1222,49 +1242,109 @@ function splitForecastSprints<F extends ForecastLike>(
     }
   }
 
+  if (aheadNew) {
+    return {
+      newIds: [...seen, aheadNew.key],
+      items: aheadNew.items,
+      sprintKey: aheadNew.key,
+      updateExisting,
+    }
+  }
+
   return { newIds: seen, items: [], updateExisting }
+}
+
+// Алерт "Kobojo выложила блок спринта на 2 вперёд" - один раз на спринт: как
+// только блок "+2" публикуется, его номер попадает в ledger, и второй раз эта
+// ветка уже не срабатывает. Оба детектора (магазин и daily_news) публикуют один
+// и тот же спринт, поэтому дедуп ещё и внутри прогона.
+const lookaheadNotified = new Set<number>()
+
+async function notifyLookaheadDrop(sprint: number, current: number): Promise<void> {
+  if (lookaheadNotified.has(sprint)) return
+  lookaheadNotified.add(sprint)
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!token || !chatId) return // тихо, best-effort - как и остальные личные алерты
+  // Без parse_mode: текст без разметки, Markdown тут ничего не даёт.
+  const text =
+    `⚠️ Kobojo выложила блок спринта ${sprint} сразу на 2 вперёд ` +
+    `(текущий спринт ${current}). Анонс опубликован сразу, даты по нему пока приблизительные.`
+  try {
+    await axios.post(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      { chat_id: chatId, text },
+      { timeout: 10_000 },
+    )
+  } catch (e) {
+    console.error('[ANNOUNCE] Не удалось отправить алерт о блоке "+2" в Telegram:', e)
+  }
+}
+
+async function alertIfLookahead(result: DetectResult, current: number): Promise<DetectResult> {
+  const sprint = result.sprintKey ? Number(result.sprintKey) : NaN
+  if (result.items.length > 0 && sprint >= current + 2) await notifyLookaheadDrop(sprint, current)
+  return result
 }
 
 async function detectShopForecast(seen: string[]): Promise<DetectResult> {
   const cs = currentSprint()
-  const [live, next] = await Promise.all([fetchShopForecast(cs), fetchShopForecast(cs + 1)])
-  return splitForecastSprints(seen, live, next, (forecast) =>
-    forecast.items.map((it) => ({
-      id: `${forecast.sprint}|${it.itemId}`,
-      name: it.name,
-      image: it.image,
-      price: it.price,
-      ribbon: it.ribbon,
-      exactDateLabel: it.exactDateLabel,
-      exactDateStart: it.exactDateStart,
-      exactDateEnd: it.exactDateEnd,
-      exactDateApprox: it.exactDateApprox,
-      featuredMutant: it.featuredMutant,
-      packMutants: it.packMutants,
-    })),
+  const [live, next, ahead] = await Promise.all([
+    fetchShopForecast(cs),
+    fetchShopForecast(cs + 1),
+    // Сбой именно "+2" не должен ронять детектор: это сверх штатного режима.
+    fetchShopForecast(cs + 2).catch(() => null),
+  ])
+  const result = splitForecastSprints(
+    seen,
+    live,
+    next,
+    (forecast) =>
+      forecast.items.map((it) => ({
+        id: `${forecast.sprint}|${it.itemId}`,
+        name: it.name,
+        image: it.image,
+        price: it.price,
+        ribbon: it.ribbon,
+        exactDateLabel: it.exactDateLabel,
+        exactDateStart: it.exactDateStart,
+        exactDateEnd: it.exactDateEnd,
+        exactDateApprox: it.exactDateApprox,
+        featuredMutant: it.featuredMutant,
+        packMutants: it.packMutants,
+      })),
+    ahead,
   )
+  return alertIfLookahead(result, cs)
 }
 
 async function detectDailyNews(seen: string[]): Promise<DetectResult> {
   const cs = currentSprint()
-  const [live, next] = await Promise.all([
+  const [live, next, ahead] = await Promise.all([
     fetchDailyNewsForecast(cs),
     fetchDailyNewsForecast(cs + 1),
+    fetchDailyNewsForecast(cs + 2).catch(() => null),
   ])
-  return splitForecastSprints(seen, live, next, (forecast) =>
-    forecast.items.map((it) => ({
-      id: `${forecast.sprint}|${it.filter}`,
-      name: it.name,
-      image: it.image ?? forecast.coverImage,
-      price: it.price,
-      ribbon: it.ribbon,
-      discountPercent: it.discountPercent,
-      exactDateLabel: it.exactDateLabel,
-      exactDateStart: it.exactDateStart,
-      exactDateEnd: it.exactDateEnd,
-      exactDateApprox: it.exactDateApprox,
-    })),
+  const result = splitForecastSprints(
+    seen,
+    live,
+    next,
+    (forecast) =>
+      forecast.items.map((it) => ({
+        id: `${forecast.sprint}|${it.filter}`,
+        name: it.name,
+        image: it.image ?? forecast.coverImage,
+        price: it.price,
+        ribbon: it.ribbon,
+        discountPercent: it.discountPercent,
+        exactDateLabel: it.exactDateLabel,
+        exactDateStart: it.exactDateStart,
+        exactDateEnd: it.exactDateEnd,
+        exactDateApprox: it.exactDateApprox,
+      })),
+    ahead,
   )
+  return alertIfLookahead(result, cs)
 }
 
 async function detectRebalance(seen: string[]): Promise<DetectResult> {
