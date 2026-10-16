@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "mutant-1792146122991-0",
+    "category": "mutant",
+    "title": "Ölüm Formülü",
+    "itemIds": [
+      "specimen_ba_15"
+    ],
+    "createdAt": "2026-10-16T10:22:12.052Z",
+    "attempts": 0,
+    "date": "2026-10-16T10:22:02.432Z"
+  }
+]
