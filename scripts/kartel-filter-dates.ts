@@ -121,3 +121,61 @@ export async function loadDateLedger(): Promise<Record<string, string>> {
   }
   return ledgerCache
 }
+
+// Ручные даты (scripts/manual-filter-dates.json) - ЗАПАСНОЙ уровень между живым
+// окном kartel и интерполяцией по соседям. Нужны для событий, чей баннер
+// Kobojo положила в блок dailypopup чужого спринта (Хэллоуин 2026 лежит в
+// блоке 260, хотя стартует 22 октября внутри 259): интерполяция по позиции
+// там даёт заведомо неверные даты. Как только kartel отдаст настоящее окно, оно
+// имеет приоритет - ручная дата живёт только пока его нет. В date-ledger.json
+// ручные даты НЕ попадают (он копит только то, что подтвердил сервер).
+export interface ManualFilterDate {
+  start: string
+  end?: string | null
+  // true - дата приблизительная (карточка покажет "≈ ..." без конца окна).
+  approx?: boolean
+  note?: string
+}
+
+const MANUAL_DATES_PATH = path.join(process.cwd(), 'scripts/manual-filter-dates.json')
+
+let manualCache: Record<string, ManualFilterDate> | null = null
+
+export async function loadManualFilterDates(): Promise<Record<string, ManualFilterDate>> {
+  if (manualCache) return manualCache
+  const out: Record<string, ManualFilterDate> = {}
+  try {
+    const parsed = JSON.parse(await fs.readFile(MANUAL_DATES_PATH, 'utf-8')) as Record<
+      string,
+      unknown
+    >
+    for (const [name, v] of Object.entries(parsed)) {
+      if (name.startsWith('_')) continue
+      const e = v as ManualFilterDate
+      if (e && typeof e.start === 'string' && Number.isFinite(new Date(e.start).getTime())) {
+        out[name.toLowerCase()] = e
+      }
+    }
+  } catch {
+    // файла нет или он битый - ручных дат просто нет
+  }
+  manualCache = out
+  return out
+}
+
+export function pickManualFilterDate(
+  dates: Record<string, ManualFilterDate>,
+  filterName: string | null | undefined,
+): ManualFilterDate | null {
+  if (!filterName) return null
+  return dates[filterName.toLowerCase()] ?? null
+}
+
+// Фильтр события с тегом года в имени ("filter_dungeon_halloween26",
+// "Shop_bank_halloween26_mutants"): имя уникально для этого года, поэтому
+// kartel не может отдать по нему окно прошлого показа - ровно та регрессия
+// (чужая дата по переиспользованному имени), от которой и стоит окно спринта.
+// Для таких имён безопасно принимать старт раньше окна спринта.
+export function isYearTaggedEventFilter(filterName: string, year2: number): boolean {
+  return new RegExp(`[a-z]${String(year2).padStart(2, '0')}(?:_|$)`, 'i').test(filterName)
+}
