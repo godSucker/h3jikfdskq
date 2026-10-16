@@ -3,6 +3,8 @@ import type { Page } from 'playwright-core'
 import { getBrowser, forceRelaunch, isBrowserDiedError } from '@/lib/headless-browser'
 import { LOCALES } from '@/lib/i18n-locales'
 
+const PREVIEW_ORIGIN = 'https://preview.archivist-library.com'
+
 export const GET: APIRoute = async ({ url }) => {
   const stateParam = url.searchParams.get('state')
   if (!stateParam) {
@@ -14,7 +16,12 @@ export const GET: APIRoute = async ({ url }) => {
   const localeParam = url.searchParams.get('locale')
   const locale = (LOCALES as readonly string[]).includes(localeParam ?? '') ? localeParam : 'ru'
 
-  const origin = url.origin
+  // Хардкод, не url.origin: с Astro 5.18 (обновление от 03.10.2026) заголовок Host
+  // не доверяется без security.allowedDomains, и url.origin в рантайме равен
+  // https://localhost (headless-браузер получал ERR_CONNECTION_REFUSED, постер
+  // отдавал 500). Тот же приём, что у api/screenshot*.ts, где хост захардкожен
+  // из-за SSRF через Host. Постер живёт только на превью, поэтому домен превью.
+  const origin = PREVIEW_ORIGIN
   const renderUrl = `${origin}/tier-poster-render?state=${encodeURIComponent(stateParam)}&locale=${locale}`
 
   for (let attempt = 0; attempt < 2; attempt++) {
