@@ -4,6 +4,7 @@ import path from 'path'
 import { XMLParser } from 'fast-xml-parser'
 import sharp from 'sharp'
 import { calculateFinalStats as calcFinalStatsUnified } from '../src/lib/stats/unified-calculator'
+import { isProvisionalOrPlaceholder, keepProvisionalStats } from './lib/placeholder-stats'
 
 // ==================== КОНФИГУРАЦИЯ ====================
 
@@ -434,7 +435,9 @@ function parseUnlockLevels(raw: string): BaseStatsCalc['unlock'] | undefined {
     if (k && Number.isFinite(n)) out[k] = n
   }
   const std = { atk1: 1, atk2: 5, atk1p: 10, atk2p: 15 }
-  const isStd = (Object.keys(std) as Array<keyof typeof std>).every((k) => (out[k] ?? std[k]) === std[k])
+  const isStd = (Object.keys(std) as Array<keyof typeof std>).every(
+    (k) => (out[k] ?? std[k]) === std[k],
+  )
   return isStd ? undefined : out
 }
 
@@ -802,7 +805,14 @@ async function sync(options: {
     // без неё GACHA-мутанты со старым bonus!=0 (Зевс, Неоурбан и т.д.)
     // считались по голой формуле и расходились с реальными статами игры.
     let passportRaw:
-      | { bonus: number; hp_base: number; atk1_base: number; atk1p_base: number; atk2_base: number; atk2p_base: number }
+      | {
+          bonus: number
+          hp_base: number
+          atk1_base: number
+          atk1p_base: number
+          atk2_base: number
+          atk2p_base: number
+        }
       | undefined
     if (isGacha) {
       const gachaBonus = gachaBonusMap.get(mutantId.toLowerCase())?.bonus ?? 0
@@ -1010,6 +1020,11 @@ async function sync(options: {
         continue
       }
 
+      // Ручные статы (provisionalStats) не затираем заглушкой из XML.
+      if (keepProvisionalStats(existingEntry, entry)) {
+        console.log(`[PROVISIONAL] ${baseId}: в XML заглушка, оставлены вписанные вручную статы`)
+      }
+
       if (compareBeforeUpdate) {
         const diff = compareStats(existingEntry, entry)
         if (!diff.hasChanges) {
@@ -1028,10 +1043,18 @@ async function sync(options: {
 
         if (hasStatsChanges) {
           stats.updatedStats++
-          if (diff.details.length > 0) {
+          // Заглушка -> реальные статы это выход мутанта, а не ребаланс: в
+          // историю и в анонсы такое не пишем (данные в mutants.json всё
+          // равно обновились выше).
+          const fromPlaceholder = isProvisionalOrPlaceholder(existingEntry)
+          if (diff.details.length > 0 && !fromPlaceholder) {
             rebalanceEntries.push({ id: baseId, name: entry.name, changes: diff.details })
           }
-          console.log(`[REBALANCE] ${baseId}: ${diff.changes.join(', ')}`)
+          console.log(
+            fromPlaceholder
+              ? `[PLACEHOLDER->REAL] ${baseId}: ${diff.changes.join(', ')} (не ребаланс)`
+              : `[REBALANCE] ${baseId}: ${diff.changes.join(', ')}`,
+          )
         } else if (hasLocChanges) {
           stats.updatedLocalization++
           console.log(`[LOC] ${baseId}`)
