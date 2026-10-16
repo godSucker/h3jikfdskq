@@ -1,0 +1,951 @@
+{
+  "version": 1,
+  "bootstrapAt": "2026-10-16T17:19:22.836Z",
+  "filters": {
+    "PayWall_Sprint_121_independence_2021": {
+      "first": null,
+      "start": "2026-07-03T10:00:00.000Z",
+      "end": "2026-07-06T10:00:00.000Z"
+    },
+    "gacha_pack_starwars": {
+      "first": null,
+      "start": "2026-07-30T10:00:00.000Z",
+      "end": "2026-08-01T10:00:00.000Z"
+    },
+    "gacha_pack_western": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-10-18T10:00:00.000Z"
+    },
+    "gacha_pack_heroes": {
+      "first": null,
+      "start": "2026-08-13T10:00:00.000Z",
+      "end": "2026-09-16T10:00:00.000Z"
+    },
+    "gacha_pack_vegetal": {
+      "first": null,
+      "start": "2026-08-04T10:00:00.000Z",
+      "end": "2026-08-07T10:00:00.000Z"
+    },
+    "gacha_pack_music": {
+      "first": null,
+      "start": "2026-08-12T10:00:00.000Z",
+      "end": "2026-08-13T10:00:00.000Z"
+    },
+    "gacha_pack_lucha": {
+      "first": null,
+      "start": "2026-07-31T10:00:00.000Z",
+      "end": "2026-08-03T10:00:00.000Z"
+    },
+    "gacha_pack_japan": {
+      "first": null,
+      "start": "2026-08-12T10:00:00.000Z",
+      "end": "2026-08-13T10:00:00.000Z"
+    },
+    "gacha_pack_gachaboss": {
+      "first": null,
+      "start": "2026-09-10T10:00:00.000Z",
+      "end": "2026-09-16T10:00:00.000Z"
+    },
+    "gacha_pack_movies": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-10-18T10:00:00.000Z"
+    },
+    "gacha_pack_beach": {
+      "first": null,
+      "start": "2026-07-10T10:00:00.000Z",
+      "end": "2026-07-30T10:00:00.000Z"
+    },
+    "gacha_pack_steampunk": {
+      "first": null,
+      "start": "2026-07-10T10:00:00.000Z",
+      "end": "2026-07-30T10:00:00.000Z"
+    },
+    "gacha_pack_girl": {
+      "first": null,
+      "start": "2026-07-30T10:00:00.000Z",
+      "end": "2026-07-31T10:00:00.000Z"
+    },
+    "gacha_pack_olympians": {
+      "first": null,
+      "start": "2026-08-09T10:00:00.000Z",
+      "end": "2026-08-11T10:00:00.000Z"
+    },
+    "gacha_pack_soldiers": {
+      "first": null,
+      "start": "2026-08-10T10:00:00.000Z",
+      "end": "2026-08-11T10:00:00.000Z"
+    },
+    "gacha_pack_fantasy": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-10-18T10:00:00.000Z"
+    },
+    "gacha_pack_gothic": {
+      "first": null,
+      "start": "2026-08-06T10:00:00.000Z",
+      "end": "2026-08-09T10:00:00.000Z"
+    },
+    "gacha_pack_elements": {
+      "first": null,
+      "start": "2026-08-01T10:00:00.000Z",
+      "end": "2026-08-04T10:00:00.000Z"
+    },
+    "gacha_pack_villains": {
+      "first": null,
+      "start": "2026-06-08T10:00:00.000Z",
+      "end": "2026-07-10T10:00:00.000Z"
+    },
+    "gacha_pack_olympics": {
+      "first": null,
+      "start": "2026-08-12T10:00:00.000Z",
+      "end": "2026-08-13T10:00:00.000Z"
+    },
+    "gacha_pack_chess": {
+      "first": null,
+      "start": "2026-08-07T10:00:00.000Z",
+      "end": "2026-08-10T10:00:00.000Z"
+    },
+    "gacha_pack_gemstones": {
+      "first": null,
+      "start": "2026-08-13T10:00:00.000Z",
+      "end": "2026-09-16T10:00:00.000Z"
+    },
+    "filter_dungeon_raid_abyss": {
+      "first": null,
+      "start": "2026-04-23T10:00:00.000Z",
+      "end": "2026-08-07T10:00:00.000Z"
+    },
+    "filter_dungeon_raid_factory_2": {
+      "first": null,
+      "start": "2026-08-08T10:00:00.000Z",
+      "end": "2026-11-16T10:00:00.000Z"
+    },
+    "filter_dungeon_challenge_gotham_17": {
+      "first": null,
+      "start": "2026-10-16T10:00:00.000Z",
+      "end": "2026-10-30T10:00:00.000Z"
+    },
+    "filter_dungeon_challenge_mars_15": {
+      "first": null,
+      "start": "2026-09-04T10:00:00.000Z",
+      "end": "2026-09-18T10:00:00.000Z"
+    },
+    "filter_dungeon_challenge_jungle_17": {
+      "first": null,
+      "start": "2026-10-02T10:00:00.000Z",
+      "end": "2026-10-16T10:00:00.000Z"
+    },
+    "filter_dungeon_challenge_vegas_16": {
+      "first": null,
+      "start": "2026-08-11T10:00:00.000Z",
+      "end": "2026-08-25T10:00:00.000Z"
+    },
+    "filter_dungeon_challenge_miami_17": {
+      "first": null,
+      "start": "2026-09-18T10:00:00.000Z",
+      "end": "2026-10-02T10:00:00.000Z"
+    },
+    "filter_dungeon_experiment_pit_cyber_10": {
+      "first": null,
+      "start": "2026-05-20T10:00:00.000Z",
+      "end": "2026-06-07T10:00:00.000Z"
+    },
+    "filter_dungeon_experiment_pit_galactic_12": {
+      "first": null,
+      "start": "2026-08-23T10:00:00.000Z",
+      "end": "2026-09-12T10:00:00.000Z"
+    },
+    "filter_dungeon_experiment_pit_saber_12": {
+      "first": null,
+      "start": "2026-10-02T10:00:00.000Z",
+      "end": "2026-10-22T10:00:00.000Z"
+    },
+    "filter_dungeon_experiment_celestial_13": {
+      "first": null,
+      "start": "2026-09-12T10:00:00.000Z",
+      "end": "2026-10-02T10:00:00.000Z"
+    },
+    "filter_dungeon_experiment_hellfire_13": {
+      "first": null,
+      "start": "2026-07-10T10:00:00.000Z",
+      "end": "2026-07-29T10:00:00.000Z"
+    },
+    "Building_Jackpot_2026_09": {
+      "first": null,
+      "start": "2026-09-27T10:00:00.000Z",
+      "end": "2026-10-30T10:00:00.000Z"
+    },
+    "Building_Challenge_Deactivable": {
+      "first": null,
+      "start": "2026-05-28T00:00:00.000Z",
+      "end": "2026-09-14T10:00:00.000Z"
+    },
+    "Patch_Building_Mystery": {
+      "first": null,
+      "start": "2026-09-15T14:00:00.000Z",
+      "end": null
+    },
+    "Building_Mystery_2025_01": {
+      "first": null,
+      "start": "2026-09-15T16:00:00.000Z",
+      "end": "2026-10-30T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_life_5_38": {
+      "first": null,
+      "start": "2026-09-07T10:00:00.000Z",
+      "end": "2026-09-10T10:00:00.000Z"
+    },
+    "Shop_Mysterybox_Ability_Slash": {
+      "first": null,
+      "start": "2026-09-08T10:00:00.000Z",
+      "end": "2026-09-11T10:00:00.000Z"
+    },
+    "Shop_Pack_Nightmare": {
+      "first": null,
+      "start": "2026-09-09T10:00:00.000Z",
+      "end": "2026-09-12T10:00:00.000Z"
+    },
+    "PayWall_Sprint_247": {
+      "first": null,
+      "start": "2026-09-10T10:00:00.000Z",
+      "end": "2026-09-13T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Mythic_Prime": {
+      "first": null,
+      "start": "2026-09-11T10:00:00.000Z",
+      "end": "2026-09-15T10:00:00.000Z"
+    },
+    "daily_news_jackpot_madness_weekend_50": {
+      "first": null,
+      "start": "2026-09-11T10:00:00.000Z",
+      "end": "2026-09-14T10:00:00.000Z"
+    },
+    "Shop_Specimen_EB_05_Bronze": {
+      "first": null,
+      "start": "2026-09-05T10:00:00.000Z",
+      "end": "2026-09-06T10:00:00.000Z"
+    },
+    "Shop_Specimen_EE_07_Bronze": {
+      "first": null,
+      "start": "2026-09-06T10:00:00.000Z",
+      "end": "2026-09-07T10:00:00.000Z"
+    },
+    "shop_Specimen_AC_08_sc": {
+      "first": null,
+      "start": "2026-09-07T10:00:00.000Z",
+      "end": "2026-09-08T10:00:00.000Z"
+    },
+    "Shop_Specimen_CC_12_Gold": {
+      "first": null,
+      "start": "2026-09-07T10:00:00.000Z",
+      "end": "2026-09-14T10:00:00.000Z"
+    },
+    "Shop_Specimen_EE_04": {
+      "first": null,
+      "start": "2026-09-08T10:00:00.000Z",
+      "end": "2026-09-09T10:00:00.000Z"
+    },
+    "Shop_Specimen_AC_09_Bronze": {
+      "first": null,
+      "start": "2026-09-09T10:00:00.000Z",
+      "end": "2026-09-10T10:00:00.000Z"
+    },
+    "Shop_Specimen_EC_07_Bronze": {
+      "first": null,
+      "start": "2026-09-10T10:00:00.000Z",
+      "end": "2026-09-11T10:00:00.000Z"
+    },
+    "Shop_Bank_Sprint_247": {
+      "first": null,
+      "start": "2026-09-11T10:00:00.000Z",
+      "end": "2026-09-14T10:00:00.000Z"
+    },
+    "Shop_Specimen_CA_06": {
+      "first": null,
+      "start": "2026-09-11T10:00:00.000Z",
+      "end": "2026-09-12T10:00:00.000Z"
+    },
+    "Shop_Specimen_AA_06_Gold": {
+      "first": null,
+      "start": "2026-09-12T10:00:00.000Z",
+      "end": "2026-09-13T10:00:00.000Z"
+    },
+    "Shop_Specimen_DC_06_Bronze_sc": {
+      "first": null,
+      "start": "2026-09-13T10:00:00.000Z",
+      "end": "2026-09-14T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_adaptive_retaliate_14": {
+      "first": null,
+      "start": "2026-09-18T10:00:00.000Z",
+      "end": "2026-09-21T10:00:00.000Z"
+    },
+    "Shop_Specimen_EA_06_Bronze": {
+      "first": null,
+      "start": "2026-09-18T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_crafting_master": {
+      "first": null,
+      "start": "2026-09-17T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_FC_08_sc": {
+      "first": null,
+      "start": "2026-09-17T10:00:00.000Z",
+      "end": "2026-09-18T10:00:00.000Z"
+    },
+    "Shop_Specimen_FC_04": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-09-17T10:00:00.000Z"
+    },
+    "Shop_pack_be_13_1000_hc": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_pack_be_13_4000_hc": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_pack_be_13_10000_hc": {
+      "first": null,
+      "start": "2026-09-16T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Research_IX": {
+      "first": null,
+      "start": "2026-09-15T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_Pack_Dieselpunk": {
+      "first": null,
+      "start": "2026-09-14T10:00:00.000Z",
+      "end": "2026-09-17T10:00:00.000Z"
+    },
+    "Shop_Specimen_BC_13_rc": {
+      "first": null,
+      "start": "2026-09-14T10:00:00.000Z",
+      "end": "2026-09-21T10:00:00.000Z"
+    },
+    "Shop_Specimen_EA_09_sc": {
+      "first": null,
+      "start": "2026-09-14T10:00:00.000Z",
+      "end": "2026-09-15T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_experimental_growth_11": {
+      "first": null,
+      "start": "2026-09-13T10:00:00.000Z",
+      "end": "2026-09-16T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_256b": {
+      "first": null,
+      "start": "2026-09-12T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_BA_05_Gold": {
+      "first": null,
+      "start": "2026-09-15T10:00:00.000Z",
+      "end": "2026-09-16T10:00:00.000Z"
+    },
+    "Shop_Specimen_BB_08": {
+      "first": null,
+      "start": "2026-09-18T10:00:00.000Z",
+      "end": "2026-09-19T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_257a": {
+      "first": null,
+      "start": "2026-09-19T10:00:00.000Z",
+      "end": "2026-09-26T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_257b": {
+      "first": null,
+      "start": "2026-09-26T10:00:00.000Z",
+      "end": "2026-10-03T10:00:00.000Z"
+    },
+    "Shop_Specimen_AB_03_Gold": {
+      "first": null,
+      "start": "2026-09-19T10:00:00.000Z",
+      "end": "2026-09-20T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Galactic_Elite": {
+      "first": null,
+      "start": "2026-09-19T10:00:00.000Z",
+      "end": "2026-09-22T10:00:00.000Z"
+    },
+    "Shop_Specimen_BC_08_Bronze_sc": {
+      "first": null,
+      "start": "2026-09-20T10:00:00.000Z",
+      "end": "2026-09-21T10:00:00.000Z"
+    },
+    "Shop_Pack_Flying": {
+      "first": null,
+      "start": "2026-09-20T10:00:00.000Z",
+      "end": "2026-09-23T10:00:00.000Z"
+    },
+    "Shop_Specimen_FC_02": {
+      "first": null,
+      "start": "2026-09-20T10:00:00.000Z",
+      "end": "2026-09-23T10:00:00.000Z"
+    },
+    "Shop_Mystery_Autumn_2026": {
+      "first": null,
+      "start": "2026-09-20T10:00:00.000Z",
+      "end": "2026-09-27T10:00:00.000Z"
+    },
+    "Shop_Specimen_CF_04": {
+      "first": null,
+      "start": "2026-09-21T10:00:00.000Z",
+      "end": "2026-09-22T10:00:00.000Z"
+    },
+    "Shop_Specimen_AD_12_Gold": {
+      "first": null,
+      "start": "2026-09-21T10:00:00.000Z",
+      "end": "2026-09-28T10:00:00.000Z"
+    },
+    "Shop_promo_muto_pack": {
+      "first": null,
+      "start": "2026-09-21T10:00:00.000Z",
+      "end": "2026-09-23T10:00:00.000Z"
+    },
+    "Shop_Bank_E_14_ct": {
+      "first": null,
+      "start": "2026-09-21T10:00:00.000Z",
+      "end": "2026-09-24T10:00:00.000Z"
+    },
+    "Shop_Specimen_BE_09_Silver_sc": {
+      "first": null,
+      "start": "2026-09-22T10:00:00.000Z",
+      "end": "2026-09-23T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Zoo_Prime": {
+      "first": null,
+      "start": "2026-09-22T10:00:00.000Z",
+      "end": "2026-09-26T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_attack_5_39": {
+      "first": null,
+      "start": "2026-09-23T10:00:00.000Z",
+      "end": "2026-09-26T10:00:00.000Z"
+    },
+    "Shop_Zodiac_AE_02": {
+      "first": null,
+      "start": "2026-09-23T10:00:00.000Z",
+      "end": "2026-10-23T10:00:00.000Z"
+    },
+    "Shop_Specimen_EC_09_Gold": {
+      "first": null,
+      "start": "2026-09-24T10:00:00.000Z",
+      "end": "2026-09-25T10:00:00.000Z"
+    },
+    "Shop_Specimen_DE_04_Silver": {
+      "first": null,
+      "start": "2026-09-25T10:00:00.000Z",
+      "end": "2026-09-26T10:00:00.000Z"
+    },
+    "Shop_Pack_Medieval": {
+      "first": null,
+      "start": "2026-09-25T10:00:00.000Z",
+      "end": "2026-09-28T10:00:00.000Z"
+    },
+    "Shop_Specimen_CE_08_Bronze": {
+      "first": null,
+      "start": "2026-09-26T10:00:00.000Z",
+      "end": "2026-09-27T10:00:00.000Z"
+    },
+    "Shop_Luckybox_Hyperspeed": {
+      "first": null,
+      "start": "2026-09-26T10:00:00.000Z",
+      "end": "2026-09-29T10:00:00.000Z"
+    },
+    "Shop_Specimen_DE_05": {
+      "first": null,
+      "start": "2026-09-27T10:00:00.000Z",
+      "end": "2026-09-28T10:00:00.000Z"
+    },
+    "Shop_pack_conversion_sep_2026": {
+      "first": null,
+      "start": "2026-09-27T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "Shop_Specimen_DD_03": {
+      "first": null,
+      "start": "2026-09-28T10:00:00.000Z",
+      "end": "2026-09-29T10:00:00.000Z"
+    },
+    "Shop_Specimen_DE_12_rc": {
+      "first": null,
+      "start": "2026-09-28T10:00:00.000Z",
+      "end": "2026-10-05T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_experimental_hyper_05": {
+      "first": null,
+      "start": "2026-09-28T10:00:00.000Z",
+      "end": "2026-10-01T10:00:00.000Z"
+    },
+    "Shop_Specimen_FA_02_Gold": {
+      "first": null,
+      "start": "2026-09-29T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "Shop_Luckybox_Zodiac_Silver_18": {
+      "first": null,
+      "start": "2026-09-29T10:00:00.000Z",
+      "end": "2026-10-02T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Stars_23": {
+      "first": null,
+      "start": "2026-09-29T10:00:00.000Z",
+      "end": "2026-10-01T10:00:00.000Z"
+    },
+    "Shop_Specimen_AE_07_Silver": {
+      "first": null,
+      "start": "2026-09-30T10:00:00.000Z",
+      "end": "2026-10-01T10:00:00.000Z"
+    },
+    "Shop_Specimen_CF_09_sc": {
+      "first": null,
+      "start": "2026-10-01T10:00:00.000Z",
+      "end": "2026-10-02T10:00:00.000Z"
+    },
+    "Shop_Pack_Dino": {
+      "first": null,
+      "start": "2026-10-01T10:00:00.000Z",
+      "end": "2026-10-04T10:00:00.000Z"
+    },
+    "Shop_Specimen_FF_06": {
+      "first": null,
+      "start": "2026-10-02T10:00:00.000Z",
+      "end": "2026-10-03T10:00:00.000Z"
+    },
+    "Shop_Mysterybox_Ability_Strengthen": {
+      "first": null,
+      "start": "2026-10-02T10:00:00.000Z",
+      "end": "2026-10-05T10:00:00.000Z"
+    },
+    "Daily_news_exchange_office_block_9_2026": {
+      "first": null,
+      "start": "2026-09-27T10:00:00.000Z",
+      "end": "2026-10-04T10:00:00.000Z"
+    },
+    "Daily_news_shop_zodiac_ae_02": {
+      "first": null,
+      "start": "2026-09-23T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "Daily_news_tech_V2": {
+      "first": null,
+      "start": "2026-09-22T10:00:00.000Z",
+      "end": "2026-09-24T10:00:00.000Z"
+    },
+    "PayWall_2026_E_14_CT": {
+      "first": null,
+      "start": "2026-09-21T10:00:00.000Z",
+      "end": "2026-09-24T10:00:00.000Z"
+    },
+    "Shop_Specimen_DF_14_rc": {
+      "first": null,
+      "start": "2026-09-30T12:00:00.000Z",
+      "end": "2026-10-28T10:00:00.000Z"
+    },
+    "Shop_Specimen_DF_14_Gold": {
+      "first": null,
+      "start": "2026-09-30T12:00:00.000Z",
+      "end": "2026-10-28T10:00:00.000Z"
+    },
+    "Daily_News_Specimen_DF_14_release": {
+      "first": null,
+      "start": "2026-09-30T12:00:00.000Z",
+      "end": "2026-10-28T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_258a": {
+      "first": null,
+      "start": "2026-10-03T10:00:00.000Z",
+      "end": "2026-10-10T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_regenerate_5_24": {
+      "first": null,
+      "start": "2026-10-03T10:00:00.000Z",
+      "end": "2026-10-06T10:00:00.000Z"
+    },
+    "shop_pack_daily_50_jt_60": {
+      "first": null,
+      "start": "2026-10-04T10:00:00.000Z",
+      "end": "2026-10-06T10:00:00.000Z"
+    },
+    "PayWall_Bank_Ex": {
+      "first": null,
+      "start": "2026-10-04T10:00:00.000Z",
+      "end": "2026-10-07T10:00:00.000Z"
+    },
+    "Shop_Bank_Ex": {
+      "first": null,
+      "start": "2026-10-04T10:00:00.000Z",
+      "end": "2026-10-07T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Necro_Prime": {
+      "first": null,
+      "start": "2026-10-05T10:00:00.000Z",
+      "end": "2026-10-09T10:00:00.000Z"
+    },
+    "Shop_Pack_Warbeasts": {
+      "first": null,
+      "start": "2026-10-06T10:00:00.000Z",
+      "end": "2026-10-09T10:00:00.000Z"
+    },
+    "Shop_Pack_daily_10_challenge_45": {
+      "first": null,
+      "start": "2026-10-07T10:00:00.000Z",
+      "end": "2026-10-09T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_adaptive_weaken_13": {
+      "first": null,
+      "start": "2026-10-08T10:00:00.000Z",
+      "end": "2026-10-11T10:00:00.000Z"
+    },
+    "Shop_Mystery_Oktoberfest_2026": {
+      "first": null,
+      "start": "2026-10-02T10:00:00.000Z",
+      "end": "2026-10-09T10:00:00.000Z"
+    },
+    "Shop_Mysterybox_Ability_Shield": {
+      "first": null,
+      "start": "2026-10-09T10:00:00.000Z",
+      "end": "2026-10-12T10:00:00.000Z"
+    },
+    "Shop_Specimen_DC_08_Bronze_sc": {
+      "first": null,
+      "start": "2026-10-03T10:00:00.000Z",
+      "end": "2026-10-04T10:00:00.000Z"
+    },
+    "Shop_Specimen_FA_05_Bronze": {
+      "first": null,
+      "start": "2026-10-04T10:00:00.000Z",
+      "end": "2026-10-05T10:00:00.000Z"
+    },
+    "Shop_Specimen_FE_02_sc": {
+      "first": null,
+      "start": "2026-10-05T10:00:00.000Z",
+      "end": "2026-10-06T10:00:00.000Z"
+    },
+    "Shop_Specimen_BC_06": {
+      "first": null,
+      "start": "2026-10-06T10:00:00.000Z",
+      "end": "2026-10-07T10:00:00.000Z"
+    },
+    "Shop_Specimen_BA_13_Gold": {
+      "first": null,
+      "start": "2026-10-06T10:00:00.000Z",
+      "end": "2026-10-13T10:00:00.000Z"
+    },
+    "Shop_Specimen_EF_04_Bronze_sc": {
+      "first": null,
+      "start": "2026-10-07T10:00:00.000Z",
+      "end": "2026-10-08T10:00:00.000Z"
+    },
+    "Shop_Specimen_DD_02_Silver": {
+      "first": null,
+      "start": "2026-10-08T10:00:00.000Z",
+      "end": "2026-10-09T10:00:00.000Z"
+    },
+    "Shop_Specimen_BA_08": {
+      "first": null,
+      "start": "2026-10-09T10:00:00.000Z",
+      "end": "2026-10-10T10:00:00.000Z"
+    },
+    "Shop_Pack_Skull": {
+      "first": null,
+      "start": "2026-10-16T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_BF_05_Bronze": {
+      "first": null,
+      "start": "2026-10-16T10:00:00.000Z",
+      "end": "2026-10-17T10:00:00.000Z"
+    },
+    "Shop_Bundle_Casino_100jt_21": {
+      "first": null,
+      "start": "2026-10-17T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Bundle_Casino_300jt_21": {
+      "first": null,
+      "start": "2026-10-17T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Bank_ED_15_ct": {
+      "first": null,
+      "start": "2026-10-15T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Research_VII": {
+      "first": null,
+      "start": "2026-10-15T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_FF_09_Silver": {
+      "first": null,
+      "start": "2026-10-15T10:00:00.000Z",
+      "end": "2026-10-16T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_critical_5_27": {
+      "first": null,
+      "start": "2026-10-14T10:00:00.000Z",
+      "end": "2026-10-17T10:00:00.000Z"
+    },
+    "Shop_Specimen_CE_04_Bronze": {
+      "first": null,
+      "start": "2026-10-14T10:00:00.000Z",
+      "end": "2026-10-15T10:00:00.000Z"
+    },
+    "Shop_pack_daily_5m_credit_69": {
+      "first": null,
+      "start": "2026-10-13T10:00:00.000Z",
+      "end": "2026-10-15T10:00:00.000Z"
+    },
+    "Shop_Specimen_DA_02": {
+      "first": null,
+      "start": "2026-10-13T10:00:00.000Z",
+      "end": "2026-10-14T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Zoo_Elite": {
+      "first": null,
+      "start": "2026-10-12T10:00:00.000Z",
+      "end": "2026-10-15T10:00:00.000Z"
+    },
+    "Shop_Specimen_DA_13_Gold": {
+      "first": null,
+      "start": "2026-10-12T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_AA_08": {
+      "first": null,
+      "start": "2026-10-12T10:00:00.000Z",
+      "end": "2026-10-13T10:00:00.000Z"
+    },
+    "Shop_pack_gold_hc_83": {
+      "first": null,
+      "start": "2026-10-10T10:00:00.000Z",
+      "end": "2026-10-13T10:00:00.000Z"
+    },
+    "Shop_Pack_Desert": {
+      "first": null,
+      "start": "2026-10-11T10:00:00.000Z",
+      "end": "2026-10-14T10:00:00.000Z"
+    },
+    "Shop_Specimen_FD_09_Silver_sc": {
+      "first": null,
+      "start": "2026-10-10T10:00:00.000Z",
+      "end": "2026-10-10T10:00:00.000Z"
+    },
+    "Shop_Specimen_ED_08": {
+      "first": null,
+      "start": "2026-10-10T10:00:00.000Z",
+      "end": "2026-10-11T10:00:00.000Z"
+    },
+    "daily_news_jackpot_madness_weekend_25jt": {
+      "first": null,
+      "start": "2026-10-16T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "PayWall_2026_ED_15_CT": {
+      "first": null,
+      "start": "2026-10-15T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_258b": {
+      "first": null,
+      "start": "2026-10-10T10:00:00.000Z",
+      "end": "2026-10-17T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_259a": {
+      "first": null,
+      "start": "2026-10-17T10:00:00.000Z",
+      "end": "2026-10-24T10:00:00.000Z"
+    },
+    "Shop_Bundle_Casino_21": {
+      "first": null,
+      "start": "2026-10-17T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Daily_news_gacha_beach_vegetal": {
+      "first": null,
+      "start": "2026-10-18T00:00:00.000Z",
+      "end": "2026-10-23T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Saber_Prime": {
+      "first": null,
+      "start": "2026-10-19T10:00:00.000Z",
+      "end": "2026-10-23T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_experimental_smasher_11": {
+      "first": null,
+      "start": "2026-10-20T10:00:00.000Z",
+      "end": "2026-10-23T10:00:00.000Z"
+    },
+    "Shop_Pack_Death": {
+      "first": null,
+      "start": "2026-10-21T10:00:00.000Z",
+      "end": "2026-10-25T10:00:00.000Z"
+    },
+    "Daily_news_shop_zodiac_fb_02": {
+      "first": null,
+      "start": "2026-10-23T10:00:00.000Z",
+      "end": "2026-11-23T10:00:00.000Z"
+    },
+    "Shop_Luckybox_Hyperheavy": {
+      "first": null,
+      "start": "2026-10-23T10:00:00.000Z",
+      "end": "2026-10-26T10:00:00.000Z"
+    },
+    "Shop_Specimen_EB_02_Silver": {
+      "first": null,
+      "start": "2026-10-17T10:00:00.000Z",
+      "end": "2026-10-18T10:00:00.000Z"
+    },
+    "Shop_Specimen_BB_09_Bronze": {
+      "first": null,
+      "start": "2026-10-18T10:00:00.000Z",
+      "end": "2026-10-19T10:00:00.000Z"
+    },
+    "Shop_Specimen_CA_05_Bronze_sc": {
+      "first": null,
+      "start": "2026-10-19T10:00:00.000Z",
+      "end": "2026-10-20T10:00:00.000Z"
+    },
+    "Shop_Specimen_FA_12_Gold": {
+      "first": null,
+      "start": "2026-10-19T10:00:00.000Z",
+      "end": "2026-10-26T10:00:00.000Z"
+    },
+    "Shop_Specimen_FB_08": {
+      "first": null,
+      "start": "2026-10-20T10:00:00.000Z",
+      "end": "2026-10-21T10:00:00.000Z"
+    },
+    "Shop_Specimen_FF_08": {
+      "first": null,
+      "start": "2026-10-21T10:00:00.000Z",
+      "end": "2026-10-22T10:00:00.000Z"
+    },
+    "Shop_Specimen_BB_07_Bronze": {
+      "first": null,
+      "start": "2026-10-22T10:00:00.000Z",
+      "end": "2026-10-23T10:00:00.000Z"
+    },
+    "Shop_Bank_B_14_ct": {
+      "first": null,
+      "start": "2026-08-30T10:00:00.000Z",
+      "end": "2026-09-02T10:00:00.000Z"
+    },
+    "Shop_Pack_Toxic": {
+      "first": null,
+      "start": "2026-08-30T10:00:00.000Z",
+      "end": "2026-09-02T10:00:00.000Z"
+    },
+    "Shop_Specimen_EA_04_Bronze": {
+      "first": null,
+      "start": "2026-08-31T10:00:00.000Z",
+      "end": "2026-09-01T10:00:00.000Z"
+    },
+    "Shop_Specimen_ED_13_rc": {
+      "first": null,
+      "start": "2026-08-31T10:00:00.000Z",
+      "end": "2026-09-07T10:00:00.000Z"
+    },
+    "Shop_Specimen_DF_04_Bronze": {
+      "first": null,
+      "start": "2026-09-01T10:00:00.000Z",
+      "end": "2026-09-02T10:00:00.000Z"
+    },
+    "Shop_LuckyBox_Galactic_Prime": {
+      "first": null,
+      "start": "2026-09-01T10:00:00.000Z",
+      "end": "2026-09-05T10:00:00.000Z"
+    },
+    "Shop_Specimen_DC_05_Silver": {
+      "first": null,
+      "start": "2026-09-02T10:00:00.000Z",
+      "end": "2026-09-03T10:00:00.000Z"
+    },
+    "Shop_Specimen_DA_15_rc": {
+      "first": null,
+      "start": "2026-09-02T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "Shop_Specimen_DA_15_Gold": {
+      "first": null,
+      "start": "2026-09-02T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "Shop_Specimen_B_01_Platinum": {
+      "first": null,
+      "start": "2026-09-03T10:00:00.000Z",
+      "end": "2026-09-04T10:00:00.000Z"
+    },
+    "Shop_bundle_orbs_strengthen_5_28": {
+      "first": null,
+      "start": "2026-09-03T10:00:00.000Z",
+      "end": "2026-09-06T10:00:00.000Z"
+    },
+    "Shop_Specimen_BA_06_Bronze": {
+      "first": null,
+      "start": "2026-09-04T10:00:00.000Z",
+      "end": "2026-09-05T10:00:00.000Z"
+    },
+    "Shop_Mutants_Bundle_BTG": {
+      "first": null,
+      "start": "2026-09-04T10:00:00.000Z",
+      "end": "2026-09-07T10:00:00.000Z"
+    },
+    "Shop_Mystery_School_2026": {
+      "first": null,
+      "start": "2026-08-31T10:00:00.000Z",
+      "end": "2026-09-07T10:00:00.000Z"
+    },
+    "Daily_News_Specimen_DA_15_release": {
+      "first": null,
+      "start": "2026-09-02T10:00:00.000Z",
+      "end": "2026-09-30T10:00:00.000Z"
+    },
+    "News_release_pvp_bb_14": {
+      "first": null,
+      "start": "2026-09-01T10:00:00.000Z",
+      "end": "2026-09-15T10:00:00.000Z"
+    },
+    "PayWall_2026_B_14_CT": {
+      "first": null,
+      "start": "2026-08-30T10:00:00.000Z",
+      "end": "2026-09-02T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_255b": {
+      "first": null,
+      "start": "2026-08-29T10:00:00.000Z",
+      "end": "2026-08-05T10:00:00.000Z"
+    },
+    "Daily_news_shop_24h_2026_255a": {
+      "first": null,
+      "start": "2026-08-22T10:00:00.000Z",
+      "end": "2026-09-29T10:00:00.000Z"
+    },
+    "Daily_news_exchange_office_block_8_2026": {
+      "first": null,
+      "start": "2026-08-26T10:00:00.000Z",
+      "end": "2026-09-27T10:00:00.000Z"
+    },
+    "Daily_news_shop_zodiac_af_02": {
+      "first": null,
+      "start": "2026-08-23T10:00:00.000Z",
+      "end": "2026-09-23T10:00:00.000Z"
+    },
+    "Shop_Specimen_CC_08_Bronze": {
+      "first": null,
+      "start": "2026-08-25T10:00:00.000Z",
+      "end": "2026-08-26T10:00:00.000Z"
+    }
+  }
+}

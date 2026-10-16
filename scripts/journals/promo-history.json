@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "active": {
+    "Mutants-Craft-okHC-value": 3,
+    "Mutants-Jackpot-Advertisement": 30000,
+    "Mutants-Promo-Gacha-Gachaboss": 30,
+    "Mutants-Promo-Gacha-Gothic": 30,
+    "Mutants-Promo-Jackpot-Token-mutants": 75,
+    "Mutants-StartHC": 250,
+    "Mutants-WritePermissionsMinimalLevel": 5,
+    "Mutants-WritePermissionsReminder": 72,
+    "Mutants-WritePermissionsReminderLevelUp": 10,
+    "TB-groupLenghtCapping": 12
+  },
+  "log": []
+}
