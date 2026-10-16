@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   isPlaceholderStats,
   isProvisionalOrPlaceholder,
+  keepProvisionalLocale,
   keepProvisionalStats,
 } from './placeholder-stats'
 
@@ -87,5 +88,70 @@ describe('isProvisionalOrPlaceholder', () => {
     expect(isProvisionalOrPlaceholder({ base_stats: placeholder })).toBe(true)
     expect(isProvisionalOrPlaceholder({ base_stats: { ...placeholder, hp_base: 854 } })).toBe(false)
     expect(isProvisionalOrPlaceholder(undefined)).toBe(false)
+  })
+})
+
+describe('keepProvisionalLocale', () => {
+  const manual = {
+    provisionalLocale: true,
+    name: 'Формула смерти',
+    name_attack1: 'Смертельный дрифт',
+    name_attack2: 'Втягивание душ',
+  }
+
+  it('keeps the manual Russian text while the incoming text is an untranslated fallback', () => {
+    const incoming: any = {
+      name: 'Ölüm Formülü',
+      name_attack1: 'Ölümcül Drift',
+      name_attack2: 'Ruh Arayışı',
+    }
+    expect(keepProvisionalLocale(manual, incoming)).toBe(true)
+    expect(incoming).toMatchObject({
+      name: 'Формула смерти',
+      name_attack1: 'Смертельный дрифт',
+      name_attack2: 'Втягивание душ',
+      provisionalLocale: true,
+    })
+  })
+
+  it('takes official Russian text and drops the flag once every field is translated', () => {
+    const incoming: any = {
+      name: 'Формула Смерти',
+      name_attack1: 'Роковой дрифт',
+      name_attack2: 'Охота за душами',
+    }
+    expect(keepProvisionalLocale(manual, incoming)).toBe(false)
+    expect(incoming.name).toBe('Формула Смерти')
+    expect(incoming.provisionalLocale).toBeUndefined()
+  })
+
+  it('mixes per field: official name arrives first, attacks stay manual and flagged', () => {
+    const incoming: any = {
+      name: 'Формула Смерти',
+      name_attack1: 'Ölümcül Drift',
+      name_attack2: 'Ruh Arayışı',
+    }
+    expect(keepProvisionalLocale(manual, incoming)).toBe(true)
+    expect(incoming.name).toBe('Формула Смерти')
+    expect(incoming.name_attack1).toBe('Смертельный дрифт')
+    expect(incoming.provisionalLocale).toBe(true)
+  })
+
+  it('does nothing for entries not marked provisionalLocale', () => {
+    const incoming: any = { name: 'Ölüm Formülü', name_attack1: 'x', name_attack2: 'y' }
+    expect(keepProvisionalLocale({ ...manual, provisionalLocale: undefined }, incoming)).toBe(false)
+    expect(incoming.name).toBe('Ölüm Formülü')
+  })
+
+  it('never overwrites with an empty or non-Cyrillic manual value', () => {
+    const incoming: any = { name: 'Ölüm Formülü', name_attack1: '', name_attack2: '' }
+    const weak = {
+      provisionalLocale: true,
+      name: 'Formula Death',
+      name_attack1: '',
+      name_attack2: '',
+    }
+    expect(keepProvisionalLocale(weak, incoming)).toBe(false)
+    expect(incoming.name).toBe('Ölüm Formülü')
   })
 })

@@ -48,3 +48,29 @@ export function keepProvisionalStats(existing: any, incoming: any): boolean {
 export function isProvisionalOrPlaceholder(existing: any): boolean {
   return existing?.provisionalStats === true || isPlaceholderStats(existing)
 }
+
+// Ручной русский перевод имени и атак (пока Kobojo кладёт в localisation_ru.txt
+// непереведённый текст на другом языке, см. BA_15 с турецкими названиями).
+// Запись помечена provisionalLocale: true. Пока в свежей записи поле без
+// единой кириллической буквы (непереведённый фолбэк), берём ручное значение;
+// как только пришёл настоящий русский текст, он заменяет ручной, и когда
+// все поля стали официальными, флаг уходит сам (запись заменяется целиком).
+const LOCALE_FIELDS = ['name', 'name_attack1', 'name_attack2', 'name_attack3'] as const
+
+const hasCyrillic = (s: unknown): boolean => typeof s === 'string' && /[Ѐ-ӿ]/.test(s)
+
+export function keepProvisionalLocale(existing: any, incoming: any): boolean {
+  if (!existing?.provisionalLocale) return false
+  let kept = false
+  for (const f of LOCALE_FIELDS) {
+    const manual = existing[f]
+    // Не затираем ручное значение пустым или без кириллицы: ни то ни другое
+    // не является официальным русским текстом.
+    if (hasCyrillic(manual) && !hasCyrillic(incoming[f])) {
+      incoming[f] = manual
+      kept = true
+    }
+  }
+  if (kept) incoming.provisionalLocale = true
+  return kept
+}

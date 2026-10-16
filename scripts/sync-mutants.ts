@@ -4,7 +4,11 @@ import path from 'path'
 import { XMLParser } from 'fast-xml-parser'
 import sharp from 'sharp'
 import { calculateFinalStats as calcFinalStatsUnified } from '../src/lib/stats/unified-calculator'
-import { isProvisionalOrPlaceholder, keepProvisionalStats } from './lib/placeholder-stats'
+import {
+  isProvisionalOrPlaceholder,
+  keepProvisionalLocale,
+  keepProvisionalStats,
+} from './lib/placeholder-stats'
 
 // ==================== КОНФИГУРАЦИЯ ====================
 
@@ -1023,6 +1027,10 @@ async function sync(options: {
       // Ручные статы (provisionalStats) не затираем заглушкой из XML.
       if (keepProvisionalStats(existingEntry, entry)) {
         console.log(`[PROVISIONAL] ${baseId}: в XML заглушка, оставлены вписанные вручную статы`)
+      }
+      // То же для ручного русского перевода имени и атак.
+      if (keepProvisionalLocale(existingEntry, entry)) {
+        console.log(`[PROVISIONAL] ${baseId}: нет русской локали, оставлен ручной перевод`)
       }
 
       if (compareBeforeUpdate) {
