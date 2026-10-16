@@ -3358,5 +3358,11 @@
     "lore": "On dit souvent que la finance est un vériable milieu de requins, sans merci et sans pitié, où seule s’exprime la loi du plus fort. C’est là qu’une idée émergea…. Et si on donnait de véritables capacités financières à un requin mutant bipède ? Qui sera mangé ? Et un certain Don aurait-il mis ses pinces là où il fallait pour faire émerger cette idée ?",
     "atk1Name": "STONKS",
     "atk2Name": "Bulle Financière"
+  },
+  "specimen_ba_15": {
+    "name": "Formule Ankou",
+    "lore": "Il existe une légende d’un mort-vivant collecteur d’âmes, au véhicule dont le bruit seul alerte les vivants de sa présence… Il en avait assez de la charrette et des esprits en perdition qui le fuyaient, et a choisi désormais un véhicule bien plus rapide et bien plus efficace. Et plus aucune âme perdue ne peut lui échapper désormais.",
+    "atk1Name": "Dérapage mortel",
+    "atk2Name": "Aspiration d’âmes"
   }
 }

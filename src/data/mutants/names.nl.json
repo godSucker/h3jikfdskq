@@ -3358,5 +3358,11 @@
     "lore": "Er wordt vaak gezegd dat de financiële wereld een ware haaienbak is, genadeloos en meedogenloos, waar alleen de wet van de jungle heerst. Toen ontstond er een idee… Wat als we een tweebenige gemuteerde haai echte financiële macht zouden geven? Wie zou er dan worden opgegeten? En zou het kunnen dat een zekere Don zijn klauwen precies op de juiste plek had gezet om dit idee tot leven te brengen?",
     "atk1Name": "STONKS",
     "atk2Name": "Financiële zeepbel"
+  },
+  "specimen_ba_15": {
+    "name": "Formule Dood",
+    "lore": "Er gaat een legende rond over een ondode zielenverzamelaar wiens voertuig al door het geluid alleen de levenden op zijn aanwezigheid attent maakt… Ze waren de kar en de verdwaalde zielen die voor hen op de vlucht sloegen beu geworden, dus hebben ze nu gekozen voor een veel sneller en veel efficiënter voertuig. En geen enkele verdwaalde ziel kan hen nog ontkomen.",
+    "atk1Name": "Dodelijke Drift",
+    "atk2Name": "Zielenverlanging"
   }
 }

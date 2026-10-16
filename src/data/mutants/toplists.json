@@ -4565,6 +4565,13 @@
             "value": 630
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 624
+          },
+          {
             "id": "specimen_bb_11",
             "name": "Забытая",
             "star": "normal",
@@ -8627,6 +8634,13 @@
             "value": 2274
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 2260
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -10824,6 +10838,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -16728,6 +16749,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -17997,6 +18025,14 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 220
+            },
+            {
+              "id": "specimen_ba_15",
+              "name": "Ölüm Formülü",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+              "pct": 35,
+              "value": 218
             },
             {
               "id": "specimen_ad_07",
@@ -25851,6 +25887,13 @@
             "value": 3704
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 3650
+          },
+          {
             "id": "specimen_ba_11",
             "name": "Повелитель дорог",
             "star": "platinum",
@@ -29857,6 +29900,13 @@
             "value": 8868
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 8814
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -32054,6 +32104,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -37958,6 +38015,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -39235,6 +39299,14 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 1294
+            },
+            {
+              "id": "specimen_ba_15",
+              "name": "Ölüm Formülü",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+              "pct": 35,
+              "value": 1276
             },
             {
               "id": "specimen_ad_07",
@@ -46156,6 +46228,13 @@
             "value": 2260
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 2260
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -48360,6 +48439,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -54257,6 +54343,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -58886,6 +58979,13 @@
             "value": 3650
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 3650
+          },
+          {
             "id": "specimen_ba_11",
             "name": "Повелитель дорог",
             "star": "platinum",
@@ -62892,6 +62992,13 @@
             "value": 8814
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 8814
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -65096,6 +65203,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -70993,6 +71107,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -72270,6 +72391,14 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 1294
+            },
+            {
+              "id": "specimen_ba_15",
+              "name": "Ölüm Formülü",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+              "pct": 35,
+              "value": 1276
             },
             {
               "id": "specimen_ad_07",
@@ -79184,6 +79313,13 @@
             "value": 2260
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 2260
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -81388,6 +81524,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -87292,6 +87435,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -91886,6 +92036,13 @@
             "value": 3650
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 3650
+          },
+          {
             "id": "specimen_c_03",
             "name": "Крионос",
             "star": "normal",
@@ -95920,6 +96077,13 @@
             "value": 8814
           },
           {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 8814
+          },
+          {
             "id": "specimen_ad_03",
             "name": "Быкоскок",
             "star": "silver",
@@ -98124,6 +98288,13 @@
             "name": "EC_14",
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+            "value": 5
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
             "value": 5
           },
           {
@@ -104028,6 +104199,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_ba_15",
+            "name": "Ölüm Formülü",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -105305,6 +105483,14 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 1294
+            },
+            {
+              "id": "specimen_ba_15",
+              "name": "Ölüm Formülü",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+              "pct": 35,
+              "value": 1276
             },
             {
               "id": "specimen_ad_07",

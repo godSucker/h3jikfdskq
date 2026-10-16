@@ -3352,5 +3352,11 @@
     "lore": "Costuma-se dizer que o mundo das finanças é um verdadeiro aquário de tubarões, impiedoso e implacável, onde apenas prevalece a lei da selva. Foi então que surgiu uma ideia… E se déssemos a um tubarão mutante de duas patas verdadeiro poder financeiro? Quem seria devorado? E será que um certo Don teria colocado as suas garras onde era preciso para dar vida a esta ideia?",
     "atk1Name": "STONKS",
     "atk2Name": "Bolha Financeira"
+  },
+  "specimen_ba_15": {
+    "name": "Fórmula da Morte",
+    "lore": "Existe uma lenda sobre um colecionador de almas mortas-vivas cujo ruído do veículo, por si só, alerta os vivos para a sua presença… Eles tinham-se cansado da carroça e das almas perdidas que lhes fugiam, por isso escolheram agora um veículo muito mais rápido e muito mais eficiente. E já nenhuma alma perdida lhes consegue escapar.",
+    "atk1Name": "Derrapagem Letal",
+    "atk2Name": "Aspiração de Almas"
   }
 }

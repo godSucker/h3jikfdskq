@@ -60512,5 +60512,117 @@
     "name_attack2": "Атака 2",
     "name_attack3": "",
     "name_lore": "Описание для EC_14"
+  },
+  {
+    "id": "specimen_ba_15",
+    "name": "Ölüm Formülü",
+    "genes": [
+      "B",
+      "A"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 1130,
+        "atk1": 312,
+        "atk2": 312,
+        "ability": 78,
+        "speed": 5,
+        "silver": 42,
+        "atk1_gene": "b",
+        "atk2_gene": "a",
+        "atk1_AOE": true,
+        "atk2_AOE": true
+      },
+      "lvl30": {
+        "hp": 4407,
+        "atk1": 1825,
+        "atk2": 1825,
+        "ability": 638,
+        "speed": 5,
+        "silver": 1260,
+        "atk1_gene": "b",
+        "atk2_gene": "a",
+        "atk1_AOE": true,
+        "atk2_AOE": true
+      },
+      "hp_base": 1130,
+      "atk1_base": 312,
+      "atk1p_base": 468,
+      "atk2_base": 312,
+      "atk2p_base": 468,
+      "speed_base": 5,
+      "bank_base": 42,
+      "abilityPct1": 25,
+      "abilityPct2": 35,
+      "spX100": 200
+    },
+    "abilities": [
+      {
+        "name": "ability_regen",
+        "pct": 25,
+        "value_atk1_lvl1": 78,
+        "value_atk2_lvl1": 78,
+        "value_atk1_lvl30": 456,
+        "value_atk2_lvl30": 456
+      },
+      {
+        "name": "ability_regen_plus",
+        "pct": 35,
+        "value_atk1_lvl1": 109,
+        "value_atk2_lvl1": 109,
+        "value_atk1_lvl30": 638,
+        "value_atk2_lvl30": 638
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/ba_15/specimen_ba_15_normal.webp",
+          "textures_by_mutant/ba_15/larva_ba_15.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/ba_15/specimen_ba_15_bronze.webp",
+          "textures_by_mutant/ba_15/larva_ba_15.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/ba_15/specimen_ba_15_silver.webp",
+          "textures_by_mutant/ba_15/larva_ba_15.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/ba_15/specimen_ba_15_gold.webp",
+          "textures_by_mutant/ba_15/larva_ba_15.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
+          "textures_by_mutant/ba_15/larva_ba_15.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 20,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Ölümcül Drift",
+    "name_attack2": "Ruh Arayışı",
+    "name_attack3": "",
+    "name_lore": "Sadece aracının gürültüsüyle bile yaşayanlara varlığını hissettiren bir ölümsüz ruh toplayıcısı hakkında bir efsane vardır… Artık o arabadan ve onlardan kaçan kayıp ruhlardan bıkmışlardı; bu yüzden şimdi çok daha hızlı ve çok daha verimli bir araç seçtiler. Ve artık hiçbir kayıp ruh onlardan kaçamaz."
   }
 ]
