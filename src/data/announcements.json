@@ -8001,5 +8001,38 @@
     ],
     "link": "/announcements",
     "sprintKey": "260"
+  },
+  {
+    "id": "reactor-1792400567948",
+    "date": "2026-10-19T09:02:46.374Z",
+    "category": "reactor",
+    "title": "Ротация генераторов: 3",
+    "items": [
+      {
+        "id": "vegetal",
+        "name": "Фотосинтез",
+        "image": "/reactor/vegetal.png",
+        "exactDateLabel": "18 октября — 23 ноября",
+        "exactDateStart": "2026-10-18T00:00:00+00:00",
+        "exactDateEnd": "2026-11-23T23:00:00+00:00"
+      },
+      {
+        "id": "beach",
+        "name": "Тропическое лето",
+        "image": "/reactor/beach.png",
+        "exactDateLabel": "18 октября — 23 ноября",
+        "exactDateStart": "2026-10-18T00:00:00+00:00",
+        "exactDateEnd": "2026-11-23T23:00:00+00:00"
+      },
+      {
+        "id": "soldiers",
+        "name": "Патруль времени",
+        "image": "/reactor/soldiers.png",
+        "exactDateLabel": "18 октября — 23 ноября",
+        "exactDateStart": "2026-10-18T00:00:00+00:00",
+        "exactDateEnd": "2026-11-23T23:00:00+00:00"
+      }
+    ],
+    "link": "/simulators/reactor"
   }
 ]
