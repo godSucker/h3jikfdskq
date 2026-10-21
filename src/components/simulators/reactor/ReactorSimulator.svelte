@@ -109,6 +109,18 @@
   const getRewardName = (id: string) => rewardDisplay.get(id)?.name ?? getMutantNameL(id);
   const getRewardTexture = (id: string) => rewardDisplay.get(id)?.texture ?? null;
 
+  // Открытие общей MutantModal: её монтирует ReactorDetailPage (BingoMutantModal слушает
+  // это событие, как на bingo/boxes/guides). Звезда награды = число звёзд в гаче.
+  const STAR_KEY = ['normal', 'bronze', 'silver', 'gold', 'platinum'];
+  function openMutant(specimenId: string) {
+    const stars = rewardDisplay.get(specimenId)?.stars;
+    window.dispatchEvent(
+      new CustomEvent('archivist:open-mutant', {
+        detail: { specimenId, star: stars != null ? STAR_KEY[stars] : undefined },
+      }),
+    );
+  }
+
   // weightDenominator может быть 0, если пул наград пуст (в теории для
   // некорректных данных гачи) - без гарда деление даёт NaN%, тот же паттерн
   // guard'а, что уже используется в остальных симуляторах (cash/lucky/madness/craft).
@@ -290,14 +302,16 @@
               <!-- ПРЯМОЙ РАСЧЕТ ШАНСА В ВЕРСТКЕ ДЛЯ ГАРАНТИИ ПЕРЕСЧЕТА -->
               <span class="slot-odds">{oddsPercent(reward.odds).toFixed(2)}%</span>
             </div>
-            <div class="slot-art">
-              {#if reward.texture}
-                <img src={textureUrl(reward.texture ?? '')} alt={reward.name} loading="lazy" />
-              {:else}
-                <span class="slot-placeholder">?</span>
-              {/if}
-            </div>
-            <div class="slot-name">{reward.name}</div>
+            <button type="button" class="mut-link" onclick={() => openMutant(reward.specimen)}>
+              <div class="slot-art">
+                {#if reward.texture}
+                  <img src={textureUrl(reward.texture ?? '')} alt={reward.name} loading="lazy" />
+                {:else}
+                  <span class="slot-placeholder">?</span>
+                {/if}
+              </div>
+              <div class="slot-name">{reward.name}</div>
+            </button>
             <!-- Для выбитого спином кнопка скрыта, но место держит - иначе карточки разъезжаются по высоте -->
             <button
               type="button"
@@ -331,14 +345,16 @@
                 {/if}
               </span>
             </div>
-            <div class="slot-art">
-              {#if completionReward.texture}
-                <img src={textureUrl(completionReward.texture ?? '')} alt={completionReward.name} loading="lazy" />
-              {:else}
-                <span class="slot-placeholder">?</span>
-              {/if}
-            </div>
-            <div class="slot-name">{completionReward.name}</div>
+            <button type="button" class="mut-link" onclick={() => openMutant(completionReward.specimen)}>
+              <div class="slot-art">
+                {#if completionReward.texture}
+                  <img src={textureUrl(completionReward.texture ?? '')} alt={completionReward.name} loading="lazy" />
+                {:else}
+                  <span class="slot-placeholder">?</span>
+                {/if}
+              </div>
+              <div class="slot-name">{completionReward.name}</div>
+            </button>
           </div>
           {#if completed}
             <div class="slot-overlay-check"><span class="check-icon">★</span></div>
@@ -373,11 +389,11 @@
         {#if inventory.size > 0}
             <div class="inventory-list custom-scroll">
                 {#each [...inventory.entries()].sort((a,b) => b[1] - a[1]) as [id, count]}
-                    <div class="inv-item">
+                    <button type="button" class="inv-item mut-link" onclick={() => openMutant(id)}>
                         <div class="inv-thumb"><img src={textureUrl(getRewardTexture(id) || '')} alt={t('reactor.rewardTextureAlt', locale)}/></div>
                         <div class="inv-name">{getRewardName(id)}</div>
                         <div class="inv-count">x{count}</div>
-                    </div>
+                    </button>
                 {/each}
             </div>
         {/if}
@@ -390,11 +406,11 @@
           {#if lastResult.isCompletionReward}<span class="badge completion">🏆</span>{/if}
         </header>
         <div class="result-body">
-          <div class="result-art-wrapper">
+          <button type="button" class="result-art-wrapper mut-link" onclick={() => openMutant(lastResult!.item.specimen)}>
              <img class="result-art" src={textureUrl(getRewardTexture(lastResult.item.specimen) ?? '')} alt={t('reactor.finalRewardAlt', locale)}/>
-          </div>
+          </button>
           <div class="result-info">
-            <h3>{getRewardName(lastResult.item.specimen)}</h3>
+            <h3><button type="button" class="mut-link mut-link-text" onclick={() => openMutant(lastResult!.item.specimen)}>{getRewardName(lastResult.item.specimen)}</button></h3>
             <p>{t('reactor.chanceLabel', locale).replace('{pct}', oddsPercent(lastResult.item.odds).toFixed(2))}</p>
             {#if lastResult.completedNow}<p class="result-complete">{t('reactor.collected', locale)}</p>{/if}
           </div>
@@ -408,11 +424,11 @@
         <ul>
           {#each history as entry}
             <li>
-              <div class="history-thumb">
+              <button type="button" class="history-thumb mut-link" onclick={() => openMutant(entry.item.specimen)}>
                  <img src={textureUrl(getRewardTexture(entry.item.specimen) ?? '')} alt={t('reactor.rewardIconAlt', locale)}/>
-              </div>
+              </button>
               <div class="history-main">
-                <div class="history-name">{getRewardName(entry.item.specimen)}</div>
+                <div class="history-name"><button type="button" class="mut-link mut-link-text" onclick={() => openMutant(entry.item.specimen)}>{getRewardName(entry.item.specimen)}</button></div>
                 <div class="history-meta">
                   <span class={`mini-badge ${entry.costType === 'token' ? 'token' : 'hc'}`}>{entry.costType === 'token' ? t('reactor.tokenAbbr', locale) : t('reactor.goldAbbr', locale)}</span>
                   {#if entry.isCompletionReward}<span class="history-flag">🏆</span>{/if}
@@ -465,6 +481,13 @@
   .header-progress span { color: #cbd5f5; font-size: 0.85rem; display: block; margin-bottom: 4px; }
   .header-meter { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.1); overflow: hidden; }
   .header-fill { height: 100%; background: #3b82f6; transition: width 0.3s; }
+  /* Кнопка-обёртка: визуально прозрачна, наследует вёрстку родителя (иконка/имя мутанта -> модалка) */
+  .mut-link { appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; text-align: inherit; cursor: pointer; }
+  .mut-link:hover .slot-name, .mut-link-text:hover { text-decoration: underline; }
+  .mut-link:focus-visible { outline: 2px solid #93c5fd; outline-offset: 2px; border-radius: 6px; }
+  .slot-inner > .mut-link { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: auto; }
+  .mut-link-text { display: inline; }
+  .inv-item.mut-link { width: 100%; padding: 6px; background: rgba(0,0,0,0.2); }
   .slot-track { display: flex; gap: 0.5rem; padding-bottom: 10px; flex-wrap: nowrap; }
   .slot-card { flex: 0 0 130px; background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); position: relative; transition: all 0.2s; }
   .slot-card.unlocked { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.5); }
