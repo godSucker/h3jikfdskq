@@ -314,6 +314,23 @@
     }));
   }
 
+  // Сводка по сферам: уровень сферы - суффикс _0N в id награды (orb_basic_attack_01,
+  // orb_special_addshield_02). Считаются только основные награды, у бонусов (incentive)
+  // сфер нет. Для рецептов без сфер total = 0 и блок не рисуется.
+  function summarizeOrbLevels(details: { id: string; amount: number }[]) {
+    const byLevel = new Map<number, number>();
+    for (const { id, amount } of details) {
+      const m = /^orb_(?:basic|special)_.+_0(\d)$/.exec(id);
+      if (!m) continue;
+      const level = Number(m[1]);
+      byLevel.set(level, (byLevel.get(level) ?? 0) + amount);
+    }
+    const levels = [...byLevel.entries()]
+      .sort((a, b) => a[0] - b[0])
+      .map(([level, amount]) => ({ level, amount }));
+    return { levels, total: levels.reduce((sum, row) => sum + row.amount, 0) };
+  }
+
   function formatPercent(value: number): string {
     return `${(value * 100).toFixed(value * 100 < 1 ? 2 : 1)}%`;
   }
@@ -950,6 +967,7 @@
               {@const rewardDetails = state.result.rewardDetails}
               {@const incentiveDetails = state.result.incentiveDetails}
               {@const totalMain = rewardDetails.reduce((sum, item) => sum + item.amount, 0)}
+              {@const orbLevelTotals = summarizeOrbLevels(rewardDetails)}
               <div class="results-card">
                 <header>
                   <h4>{t('craft.results.title', locale).replace('{n}', String(state.result.crafts))}</h4>
@@ -959,6 +977,24 @@
                     </span>
                   {/if}
                 </header>
+
+                {#if orbLevelTotals.total > 0}
+                  <div class="orb-summary">
+                    <h5>{t('craft.results.orbSummaryTitle', locale)}</h5>
+                    <ul>
+                      {#each orbLevelTotals.levels as row (row.level)}
+                        <li>
+                          <span>{t('craft.results.orbLevel', locale).replace('{n}', String(row.level))}</span>
+                          <strong>{row.amount}</strong>
+                        </li>
+                      {/each}
+                      <li class="orb-summary__total">
+                        <span>{t('craft.results.orbTotal', locale)}</span>
+                        <strong>{orbLevelTotals.total}</strong>
+                      </li>
+                    </ul>
+                  </div>
+                {/if}
 
                 <div class="results-grid">
                   <div>
@@ -1705,6 +1741,35 @@
     gap: 1.6rem;
     width: 100%;
     box-sizing: border-box;
+  }
+  .orb-summary {
+    margin-bottom: 1.4rem;
+  }
+  .orb-summary ul {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .orb-summary li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    color: #cbd5e1;
+    font-size: 0.9rem;
+  }
+  .orb-summary li strong {
+    color: #f8fafc;
+    font-size: 1.05rem;
+  }
+  .orb-summary__total {
+    border-color: rgba(56, 189, 248, 0.5) !important;
   }
   .results-grid {
     display: grid;
