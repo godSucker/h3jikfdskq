@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
 import ReactorSimulator from '@/components/simulators/reactor/ReactorSimulator.svelte';
 import { t, localeFromAstro, translatedHref } from '@/lib/i18n';
 import type { getGachaMeta } from '@/lib/reactor-gacha';
@@ -13,7 +14,7 @@ interface Props {
 
 const locale = localeFromAstro(Astro.currentLocale);
 const { gacha, baseTextures, completionTexture } = Astro.props as Props;
-const { names } = getLocalizedMutantNames(locale);
+const { names, obtainNames } = getLocalizedMutantNames(locale);
 ---
 
 <BaseLayout
@@ -43,6 +44,7 @@ const { names } = getLocalizedMutantNames(locale);
       />
     </div>
   </div>
+  <BingoMutantModal client:load locale={locale} names={names} obtainNames={obtainNames} />
 </BaseLayout>
 
 <style>
