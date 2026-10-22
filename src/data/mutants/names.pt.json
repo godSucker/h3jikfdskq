@@ -3353,6 +3353,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Bolha Financeira"
   },
+  "specimen_ec_14": {
+    "name": "Sélene",
+    "lore": "Uma divindade lunar guerreira, sempre rodeada pela sua guarda pessoal. Os mitos antigos sugerem que ela poderá viver na Lua e que pode ser invocada durante várias conjunções lunares importantes, em locais especialmente preparados para essa ocasião. É sempre precedida pelos seus três guarda-costas, cada um dos quais representa uma fase diferente da Lua.",
+    "atk1Name": "Golpe do Luz da Lua",
+    "atk2Name": "Flecha do Luz da Lua"
+  },
   "specimen_ba_15": {
     "name": "Fórmula da Morte",
     "lore": "Existe uma lenda sobre um colecionador de almas mortas-vivas cujo ruído do veículo, por si só, alerta os vivos para a sua presença… Eles tinham-se cansado da carroça e das almas perdidas que lhes fugiam, por isso escolheram agora um veículo muito mais rápido e muito mais eficiente. E já nenhuma alma perdida lhes consegue escapar.",

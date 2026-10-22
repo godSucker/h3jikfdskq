@@ -3359,6 +3359,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Finanzblase"
   },
+  "specimen_ec_14": {
+    "name": "Selene",
+    "lore": "Eine kriegerische Mondgöttin, die stets von ihrer Leibwache umgeben ist. Alte Mythen besagen, dass sie möglicherweise auf dem Mond lebt und bei verschiedenen bedeutenden Mondkonjunktionen an Orten, die speziell für diesen Anlass vorbereitet wurden, herbeigerufen werden kann. Ihr eilen stets ihre drei Leibwächter voraus, von denen jeder eine andere Mondphase verkörpert.",
+    "atk1Name": "Mondlicht-Hieb",
+    "atk2Name": "Mondlicht-Pfeil"
+  },
   "specimen_ba_15": {
     "name": "Formel Tod",
     "lore": "Es gibt eine Legende über einen untoten Seelensammler, dessen Fahrzeug allein schon durch seinen Lärm die Lebenden auf seine Anwesenheit aufmerksam macht … Sie hatten genug von dem Karren und den verlorenen Seelen, die vor ihnen flohen, und haben sich nun für ein viel schnelleres und weitaus effizienteres Fahrzeug entschieden. Und keine verlorene Seele kann ihnen mehr entkommen.",
