@@ -3359,6 +3359,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Burbuja financiera"
   },
+  "specimen_ec_14": {
+    "name": "Celene",
+    "lore": "Una deidad lunar guerrera, siempre rodeada de su guardia personal. Los mitos antiguos sugieren que podría vivir en la Luna y que se la puede invocar durante varias conjunciones lunares importantes, en lugares especialmente preparados para esta ocasión. Siempre va precedida por sus tres guardaespaldas, cada uno de los cuales representa una fase diferente de la Luna.",
+    "atk1Name": "Tajo de luz lunar",
+    "atk2Name": "Flecha de luz lunar"
+  },
   "specimen_ba_15": {
     "name": "Fórmula Muerte",
     "lore": "Existe una leyenda sobre un recolector de almas no muertas cuyo vehículo, con solo el ruido que hace, alerta a los vivos de su presencia… Se habían cansado de la carreta y de las almas perdidas que huían de ellos, por lo que ahora han elegido un vehículo mucho más rápido y mucho más eficaz. Y ya ninguna alma perdida puede escapar de ellos.",

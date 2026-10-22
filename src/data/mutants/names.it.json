@@ -3359,6 +3359,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Bolla finanziaria"
   },
+  "specimen_ec_14": {
+    "name": "Selene",
+    "lore": "Una divinità lunare guerriera, sempre circondata dalla sua guardia del corpo. Gli antichi miti suggeriscono che possa vivere sulla Luna e che possa essere evocata durante diverse congiunzioni lunari importanti, in luoghi appositamente preparati per l’occasione. È sempre preceduta dalle sue tre guardie del corpo, ciascuna delle quali rappresenta una diversa fase lunare.",
+    "atk1Name": "Fendente al chiaro di luna",
+    "atk2Name": "Freccia al chiaro di luna"
+  },
   "specimen_ba_15": {
     "name": "Modello Morte",
     "lore": "C'è una leggenda che narra di un collezionista di anime non morte il cui veicolo, con il solo rumore del motore, avverte i vivi della sua presenza… Si erano stancati del carretto e delle anime perdute che fuggivano da loro, così ora hanno scelto un veicolo molto più veloce e di gran lunga più efficiente. E nessuna anima perduta può più sfuggirgli.",

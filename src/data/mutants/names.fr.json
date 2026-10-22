@@ -3359,6 +3359,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Bulle Financière"
   },
+  "specimen_ec_14": {
+    "name": "Séléné",
+    "lore": "Une divinité lunaire combattante, toujours entourée de sa garde rapprochée. D’anciens mythes évoquent la possibilité qu’elle vive sur la lune et puisse être invoquée lors de conjonctions lunaires majeures multiples, en des lieux spécialement préparés à cette occasion. Elle est toujours précédée de ses trois gardes du corps, représentant chacun une phase de la lune différente.",
+    "atk1Name": "Tranchant Lunaire",
+    "atk2Name": "Flèche Lunaire"
+  },
   "specimen_ba_15": {
     "name": "Formule Ankou",
     "lore": "Il existe une légende d’un mort-vivant collecteur d’âmes, au véhicule dont le bruit seul alerte les vivants de sa présence… Il en avait assez de la charrette et des esprits en perdition qui le fuyaient, et a choisi désormais un véhicule bien plus rapide et bien plus efficace. Et plus aucune âme perdue ne peut lui échapper désormais.",

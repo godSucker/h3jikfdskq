@@ -3359,6 +3359,12 @@
     "atk1Name": "STONKS",
     "atk2Name": "Financiële zeepbel"
   },
+  "specimen_ec_14": {
+    "name": "Selené",
+    "lore": "Een krijger-maangodin, altijd omringd door haar persoonlijke lijfwacht. Oude mythen suggereren dat ze mogelijk op de maan woont en kan worden opgeroepen tijdens verschillende belangrijke maanconjuncties, op plaatsen die speciaal voor deze gelegenheid zijn voorbereid. Ze wordt altijd voorafgegaan door haar drie lijfwachten, die elk een andere maanfase vertegenwoordigen.",
+    "atk1Name": "Maanlicht-houw",
+    "atk2Name": "Maanlicht-pijl"
+  },
   "specimen_ba_15": {
     "name": "Formule Dood",
     "lore": "Er gaat een legende rond over een ondode zielenverzamelaar wiens voertuig al door het geluid alleen de levenden op zijn aanwezigheid attent maakt… Ze waren de kar en de verdwaalde zielen die voor hen op de vlucht sloegen beu geworden, dus hebben ze nu gekozen voor een veel sneller en veel efficiënter voertuig. En geen enkele verdwaalde ziel kan hen nog ontkomen.",
