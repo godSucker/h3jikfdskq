@@ -15532,7 +15532,8 @@
     },
     "bingo": [
       "research_3",
-      "legend"
+      "legend",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -35277,7 +35278,8 @@
       "special": 1
     },
     "bingo": [
-      "research_8"
+      "research_8",
+      "2026_events"
     ],
     "chance": 20,
     "bank": 42,
@@ -39405,7 +39407,9 @@
       "special": 1
     },
     "bingo": [
-      "research_9"
+      "research_9",
+      "2026_events",
+      "2026_skins"
     ],
     "chance": 20,
     "bank": 42,
@@ -60503,7 +60507,10 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_events",
+      "2026_mutants"
+    ],
     "chance": 0,
     "bank": 42,
     "tier": "3",
@@ -60615,7 +60622,9 @@
       "normal": 2,
       "special": 1
     },
-    "bingo": [],
+    "bingo": [
+      "2026_mutants"
+    ],
     "chance": 20,
     "bank": 42,
     "tier": "1+",

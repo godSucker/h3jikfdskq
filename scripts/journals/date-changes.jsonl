@@ -196,3 +196,4 @@
 {"ts":"2026-10-19T09:02:59.029Z","cat":"reactor","ann":"reactor-1792400567948","sprint":null,"item":"vegetal","from":null,"to":{"start":"2026-10-18T00:00:00.000Z","end":"2026-11-23T23:00:00.000Z","approx":false,"unc":0,"src":null}}
 {"ts":"2026-10-19T09:02:59.029Z","cat":"reactor","ann":"reactor-1792400567948","sprint":null,"item":"beach","from":null,"to":{"start":"2026-10-18T00:00:00.000Z","end":"2026-11-23T23:00:00.000Z","approx":false,"unc":0,"src":null}}
 {"ts":"2026-10-19T09:02:59.029Z","cat":"reactor","ann":"reactor-1792400567948","sprint":null,"item":"soldiers","from":null,"to":{"start":"2026-10-18T00:00:00.000Z","end":"2026-11-23T23:00:00.000Z","approx":false,"unc":0,"src":null}}
+{"ts":"2026-10-22T09:01:43.781Z","cat":"eventQuests","ann":"eventQuests-1792659703778-1","sprint":null,"item":"Patch_Building_Mystery","from":null,"to":{"start":"2026-09-15T14:00:00.000Z","end":null,"approx":false,"unc":0,"src":null}}

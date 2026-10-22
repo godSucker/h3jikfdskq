@@ -7865,10 +7865,13 @@
       },
       {
         "id": "260|PayWall_halloween26_token",
-        "name": "Paywall Halloween26 Token",
-        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_halloween26_tokens-ru.jpg",
-        "price": null,
-        "ribbon": null,
+        "name": "Пакет ветерана «Хэллоуин»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_h26_tokens-ru.jpg",
+        "price": {
+          "amount": 24.99,
+          "type": "usd"
+        },
+        "ribbon": "new",
         "discountPercent": null,
         "exactDateLabel": "≈ 22 октября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
@@ -8034,5 +8037,130 @@
       }
     ],
     "link": "/simulators/reactor"
+  },
+  {
+    "id": "bingo-1792659693940-0",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "bingo",
+    "title": "Ивенты 2026: добавлен(ы) Ec 14, Сезанн, Арельвам, Царь-Молот",
+    "items": [
+      {
+        "id": "2026_events",
+        "name": "Ивенты 2026: добавлен(ы) Ec 14, Сезанн, Арельвам, Царь-Молот",
+        "image": null,
+        "addedNames": [
+          "Ec 14",
+          "Сезанн",
+          "Арельвам",
+          "Царь-Молот"
+        ]
+      }
+    ],
+    "link": "/bingo"
+  },
+  {
+    "id": "bingo-1792659693940-1",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "bingo",
+    "title": "Скины 2026: добавлен(ы) Арельвам",
+    "items": [
+      {
+        "id": "2026_skins",
+        "name": "Скины 2026: добавлен(ы) Арельвам",
+        "image": null,
+        "addedNames": [
+          "Арельвам"
+        ]
+      }
+    ],
+    "link": "/bingo"
+  },
+  {
+    "id": "bingo-1792659693940-2",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "bingo",
+    "title": "Мутанты 2026: добавлен(ы) Ba 15, Ec 14",
+    "items": [
+      {
+        "id": "2026_mutants",
+        "name": "Мутанты 2026: добавлен(ы) Ba 15, Ec 14",
+        "image": null,
+        "addedNames": [
+          "Ba 15",
+          "Ec 14"
+        ]
+      }
+    ],
+    "link": "/bingo"
+  },
+  {
+    "id": "eventQuests-1792659703778-0",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "eventQuests",
+    "title": "Кошмар Хеллоуина 2026",
+    "items": [
+      {
+        "id": "filter_dungeon_halloween26",
+        "name": "Кошмар Хеллоуина 2026",
+        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null
+      }
+    ],
+    "link": "/guides#quests"
+  },
+  {
+    "id": "eventQuests-1792659703778-1",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "eventQuests",
+    "title": "Анализатор тайны: +3 этапа",
+    "items": [
+      {
+        "id": "Patch_Building_Mystery",
+        "name": "Анализатор тайны: +3 этапа",
+        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
+        "exactDateLabel": "15 сентября",
+        "exactDateStart": "2026-09-15T14:00:00+00:00",
+        "exactDateEnd": null,
+        "addedStepIds": [
+          "5464",
+          "5467",
+          "5470"
+        ]
+      }
+    ],
+    "link": "/guides#quests"
+  },
+  {
+    "id": "eventQuests-1792659703778-2",
+    "date": "2026-10-22T09:01:33.927Z",
+    "category": "eventQuests",
+    "title": "Годовщина 2026, часть 2: +12 этапов",
+    "items": [
+      {
+        "id": "filter_missions_anniversary26_2",
+        "name": "Годовщина 2026, часть 2: +12 этапов",
+        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "addedStepIds": [
+          "5461",
+          "5462",
+          "5463",
+          "5465",
+          "5466",
+          "5468",
+          "5469",
+          "5471",
+          "5472",
+          "5473",
+          "5474",
+          "5475"
+        ]
+      }
+    ],
+    "link": "/guides#quests"
   }
 ]

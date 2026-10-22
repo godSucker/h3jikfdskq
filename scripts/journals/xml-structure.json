@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "capturedAt": "2026-10-16T17:19:22.836Z",
+  "capturedAt": "2026-10-22T09:01:26.124Z",
   "shopitems": {
     "255": [
       [
@@ -1526,8 +1526,8 @@
       ],
       [
         "PayWall_halloween26_token",
-        "bank_halloween26_tokens_t3",
-        "news_bank_halloween26_tokens"
+        "bundle_bank_halloween26_tokens_t3",
+        "news_bank_h26_tokens"
       ],
       [
         "PayWall_Bank_Halloween",

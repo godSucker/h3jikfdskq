@@ -1,5 +1,171 @@
 [
   {
+    "filter": "filter_dungeon_halloween26",
+    "name": {
+      "ru": "Кошмар Хеллоуина 2026",
+      "en": "Halloween Nightmare 2026",
+      "es": "Halloween Nightmare 2026",
+      "fr": "Halloween Nightmare 2026",
+      "de": "Halloween Nightmare 2026",
+      "pt": "Pesadelo de Halloween 2026",
+      "it": "Halloween Nightmare 2026",
+      "tr": "Cadılar Bayramı Kabusu 2026",
+      "nl": "Halloween Nightmare 2026"
+    },
+    "nameSource": "localisation",
+    "permanent": false,
+    "requiredLevel": 5,
+    "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+    "dateStart": null,
+    "dateEnd": null,
+    "steps": [
+      {
+        "id": "5408",
+        "part": "1/4",
+        "line": 0,
+        "title": {
+          "ru": "Алтарь лунного света",
+          "en": "The Moonlight Altar",
+          "es": "El altar de la luz de la luna",
+          "fr": "L'autel du clair de lune",
+          "de": "Der Mondlichtaltar",
+          "pt": "O Altar do Luz da Lua",
+          "it": "L'altare al chiaro di luna",
+          "tr": "Ay Işığı Sunak",
+          "nl": "Het maanlichtaltaar"
+        },
+        "condition": {
+          "ru": "Выиграть 30-е сражение текущего события",
+          "en": "Win the 30th fight of the current Experiment",
+          "es": "Gana el 30º combate del Evento en curso",
+          "fr": "Remporte le 30ème combat de l'événement en cours",
+          "de": "Gewinne den 30. Kampf des aktuellen Events",
+          "pt": "Ganhe o 30° combate do evento atual",
+          "it": "Vinci il 30° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikteki 30. dövüşü kazan",
+          "nl": "Win het 30e gevecht van het huidige Evenement"
+        },
+        "amount": 30,
+        "category": "collection",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 50
+          }
+        ]
+      },
+      {
+        "id": "5421",
+        "part": "2/4",
+        "line": 0,
+        "title": {
+          "ru": "Таинственные символы",
+          "en": "Glyphic Mysteries",
+          "es": "Misterios glíficos",
+          "fr": "Les mystères des glyphes",
+          "de": "Glyphische Geheimnisse",
+          "pt": "Mistérios Glíficos",
+          "it": "Misteri glifici",
+          "tr": "Sembolik Gizemler",
+          "nl": "Symbolische mysteries"
+        },
+        "condition": {
+          "ru": "Выиграть 60-е сражение текущего события",
+          "en": "Win the 60th fight of the current Experiment",
+          "es": "Gana el 60º combate del Evento en curso",
+          "fr": "Remporte le 60ème combat de l'événement en cours",
+          "de": "Gewinne den 60. Kampf des aktuellen Events",
+          "pt": "Ganhe o 60° combate do evento atual",
+          "it": "Vinci il 60° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikteki 60. dövüşü kazan",
+          "nl": "Win het 60e gevecht van het huidige Evenement"
+        },
+        "amount": 60,
+        "category": "collection",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 50
+          }
+        ]
+      },
+      {
+        "id": "5435",
+        "part": "3/4",
+        "line": 0,
+        "title": {
+          "ru": "Тревожная энергия",
+          "en": "A Worrying Energy",
+          "es": "Una energía inquietante",
+          "fr": "Une énergie inquiétante",
+          "de": "Eine beunruhigende Energie",
+          "pt": "Uma Energia Preocupante",
+          "it": "Un'energia inquietante",
+          "tr": "Endişe Verici Bir Enerji",
+          "nl": "Een verontrustende energie"
+        },
+        "condition": {
+          "ru": "Выиграть 90-е сражение текущего события",
+          "en": "Win the 90th fight of the current Experiment",
+          "es": "Gana el 90º combate del Evento en curso",
+          "fr": "Remporte le 90ème combat de l'événement en cours",
+          "de": "Gewinne den 90. Kampf des aktuellen Events",
+          "pt": "Ganhe o 90° combate do evento atual",
+          "it": "Vinci il 90° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikteki 90. dövüşü kazan",
+          "nl": "Win het 90e gevecht van het huidige Evenement"
+        },
+        "amount": 90,
+        "category": "collection",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5447",
+        "part": "4/4",
+        "line": 0,
+        "title": {
+          "ru": "Перенасыщение лунным светом",
+          "en": "Moonlight Overload",
+          "es": "Sobrecarga de luz lunar",
+          "fr": "Surcharge de clair de lune",
+          "de": "Mondlichtüberflutung",
+          "pt": "Sobrecarga de Luz da Lua",
+          "it": "Sovraccarico di luce lunare",
+          "tr": "Ay Işığı Aşırı Yüklemesi",
+          "nl": "Overdaad aan maanlicht"
+        },
+        "condition": {
+          "ru": "Выиграть 120-е сражение текущего события",
+          "en": "Win the 120th fight of the current Experiment",
+          "es": "Gana el 120º combate del Evento en curso",
+          "fr": "Remporte le 120ème combat de l'événement en cours",
+          "de": "Gewinne den 120. Kampf des aktuellen Events",
+          "pt": "Ganhe o 120° combate do evento atual",
+          "it": "Vinci il 120° combattimento dell’evento in corso",
+          "tr": "Mevcut Etkinlikteki 120. dövüşü kazan",
+          "nl": "Win het 120e gevecht van het huidige Evenement"
+        },
+        "amount": 120,
+        "category": "collection",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 200
+          }
+        ]
+      }
+    ]
+  },
+  {
     "filter": "Patch_Building_Mystery",
     "name": {
       "ru": "Анализатор тайны",
@@ -252,6 +418,114 @@
             "id": "Material_Mystery26_Token",
             "type": "entity",
             "amount": 1
+          }
+        ]
+      },
+      {
+        "id": "5464",
+        "part": "4/5",
+        "line": 1,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Завершить скрещивания (или слияние)",
+          "en": "Finish Cross-Breedings (or fusions)",
+          "es": "Finaliza hibridaciones (o fusión)",
+          "fr": "Finis des hybridations (ou fusions)",
+          "de": "Beende Hybridisierungen (oder Fusion)",
+          "pt": "Acabe º Hibridações (ou fusão)",
+          "it": "Termina ibridazioni (o fusione)",
+          "tr": "Melezlemeyi bitir (ya da füzyon)",
+          "nl": "Voltooi Kruisingen (of fusie)"
+        },
+        "amount": 8,
+        "category": "breeding",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 150
+          }
+        ]
+      },
+      {
+        "id": "5467",
+        "part": "2/5",
+        "line": 2,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Изготовление звезды",
+          "en": "Craft Stars",
+          "es": "Crear estrellas",
+          "fr": "Fabriquez des Etoiles",
+          "de": "Sterne basteln",
+          "pt": "Criar estrelas",
+          "it": "Stelle artigianali",
+          "tr": "Yıldız üretme",
+          "nl": "Maak sterren"
+        },
+        "amount": 2,
+        "category": "craft",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5470",
+        "part": "5/5",
+        "line": 3,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Создать сферы в Трансформатрон",
+          "en": "Create Orbs in the Transformatron",
+          "es": "Crea Orbes en Transformatron",
+          "fr": "Fabrique des Orbes dans le Transformatron",
+          "de": "Erstelle Sphären in Transformatron",
+          "pt": "Fabrique Orbes em Transformatron",
+          "it": "Crea Globi in Transformatron",
+          "tr": "Transformatron’da bir Küreler oluştur",
+          "nl": "Maak Bollen in de Transformatron"
+        },
+        "amount": 10,
+        "category": "craft",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 200
           }
         ]
       }
@@ -1100,6 +1374,438 @@
         "rewards": [
           {
             "id": "Material_Hexcity_Token",
+            "type": "entity",
+            "amount": 200
+          }
+        ]
+      },
+      {
+        "id": "5461",
+        "part": "1/5",
+        "line": 5,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Уничтожить галактиков",
+          "en": "Kill Galactics",
+          "es": "Mata Galácticos",
+          "fr": "Tue des Galactiques",
+          "de": "Töte Mutanten der Spezies Galactic",
+          "pt": "Mate Galácticos",
+          "it": "Uccidi dei Galattici",
+          "tr": "Galaktikleri öldür",
+          "nl": "Dood de Galactische schepsels"
+        },
+        "amount": 10,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 50
+          }
+        ]
+      },
+      {
+        "id": "5462",
+        "part": "2/5",
+        "line": 5,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Убить рубак",
+          "en": "Kill Sabers",
+          "es": "Mata Sables",
+          "fr": "Tue des Sabres",
+          "de": "Töte die Säbelrassler",
+          "pt": "Mata Sabres",
+          "it": "Uccidi gli Sciabola",
+          "tr": "Süvarileri öldür",
+          "nl": "Dood Sabels"
+        },
+        "amount": 15,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5463",
+        "part": "3/5",
+        "line": 5,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Убить мификов",
+          "en": "Kill Mythics",
+          "es": "Mata Míticos",
+          "fr": "Tue des Mythiques",
+          "de": "Töte die Mythics",
+          "pt": "Mata míticos",
+          "it": "Uccidi dei Mitici",
+          "tr": "Mitikleri öldür",
+          "nl": "Dood Mytische..."
+        },
+        "amount": 20,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5465",
+        "part": "5/5",
+        "line": 5,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Уничтожить галактиков",
+          "en": "Kill Galactics",
+          "es": "Mata Galácticos",
+          "fr": "Tue des Galactiques",
+          "de": "Töte Mutanten der Spezies Galactic",
+          "pt": "Mate Galácticos",
+          "it": "Uccidi dei Galattici",
+          "tr": "Galaktikleri öldür",
+          "nl": "Dood de Galactische schepsels"
+        },
+        "amount": 25,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 200
+          }
+        ]
+      },
+      {
+        "id": "5466",
+        "part": "1/5",
+        "line": 6,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Повысить уровень существ",
+          "en": "Level-up creatures",
+          "es": "Sube a tus criaturas de nivel",
+          "fr": "Fais gagner des niveaux à tes créatures",
+          "de": "Booste deine Kreaturen",
+          "pt": "Aumente os níveis das suas criaturas",
+          "it": "Migliora le tue creature",
+          "tr": "Yaratıkların seviyesini artır",
+          "nl": "Breng schepsels naar een hoger niveau"
+        },
+        "amount": 8,
+        "category": "incubation",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5468",
+        "part": "3/5",
+        "line": 6,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Проводите часы инкубации",
+          "en": "Spend hours incubating",
+          "es": "Pasar horas incubando",
+          "fr": "Passer des heures à incuber",
+          "de": "Stunden mit Inkubieren verbringen",
+          "pt": "Passar horas a incubar",
+          "it": "Passare ore in incubazione",
+          "tr": "Kuluçka için saatler harcayın",
+          "nl": "Uren broeden"
+        },
+        "amount": 10,
+        "category": "incubation",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 150
+          }
+        ]
+      },
+      {
+        "id": "5469",
+        "part": "4/5",
+        "line": 6,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Повысить уровень существ",
+          "en": "Level-up creatures",
+          "es": "Sube a tus criaturas de nivel",
+          "fr": "Fais gagner des niveaux à tes créatures",
+          "de": "Booste deine Kreaturen",
+          "pt": "Aumente os níveis das suas criaturas",
+          "it": "Migliora le tue creature",
+          "tr": "Yaratıkların seviyesini artır",
+          "nl": "Breng schepsels naar een hoger niveau"
+        },
+        "amount": 35,
+        "category": "incubation",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 150
+          }
+        ]
+      },
+      {
+        "id": "5471",
+        "part": "1/5",
+        "line": 7,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Победить в PvP-сражениях",
+          "en": "Win PvP Fights",
+          "es": "Gana combates JcJ",
+          "fr": "Gagne des combats JcJ",
+          "de": "Gewinne PvP-Kämpfe",
+          "pt": "Ganhe combates PvP",
+          "it": "Vinci dei combattimenti PvP",
+          "tr": "PvP Dövüşleri kazan",
+          "nl": "Win PvP-gevechten"
+        },
+        "amount": 5,
+        "category": "pvp",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5472",
+        "part": "2/5",
+        "line": 7,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Нанесите урон!",
+          "en": "Inflict damage!",
+          "es": "¡Inflige daños!",
+          "fr": "Inflige des dommages !",
+          "de": "Sorge für Chaos!",
+          "pt": "Inflija danos!",
+          "it": "Infliggi danni!",
+          "tr": "Hasar ver!",
+          "nl": "Breng schade toe!"
+        },
+        "amount": 500000,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "5473",
+        "part": "3/5",
+        "line": 7,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Принять участие в PvP-боях",
+          "en": "Finish PvP fights",
+          "es": "Termina combates JcJ",
+          "fr": "Finis des combats JcJ",
+          "de": "Beende die PvP-Kämpfe",
+          "pt": "Acabe combates PvP",
+          "it": "Concludi i combattimenti PvP",
+          "tr": "PvP dövüşlerini bitir",
+          "nl": "Voltooi PvP-gevechten"
+        },
+        "amount": 30,
+        "category": "pvp",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 150
+          }
+        ]
+      },
+      {
+        "id": "5474",
+        "part": "4/5",
+        "line": 7,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Нанесите урон!",
+          "en": "Inflict damage!",
+          "es": "¡Inflige daños!",
+          "fr": "Inflige des dommages !",
+          "de": "Sorge für Chaos!",
+          "pt": "Inflija danos!",
+          "it": "Infliggi danni!",
+          "tr": "Hasar ver!",
+          "nl": "Breng schade toe!"
+        },
+        "amount": 5000000,
+        "category": "battle",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
+            "type": "entity",
+            "amount": 150
+          }
+        ]
+      },
+      {
+        "id": "5475",
+        "part": "5/5",
+        "line": 7,
+        "title": {
+          "ru": "",
+          "en": "",
+          "es": "",
+          "fr": "",
+          "de": "",
+          "pt": "",
+          "it": "",
+          "tr": "",
+          "nl": ""
+        },
+        "condition": {
+          "ru": "Победить в PvP-сражениях",
+          "en": "Win PvP Fights",
+          "es": "Gana combates JcJ",
+          "fr": "Gagne des combats JcJ",
+          "de": "Gewinne PvP-Kämpfe",
+          "pt": "Ganhe combates PvP",
+          "it": "Vinci dei combattimenti PvP",
+          "tr": "PvP Dövüşleri kazan",
+          "nl": "Win PvP-gevechten"
+        },
+        "amount": 30,
+        "category": "pvp",
+        "rewards": [
+          {
+            "id": "Material_Halloween26_Token",
             "type": "entity",
             "amount": 200
           }
