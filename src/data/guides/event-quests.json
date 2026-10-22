@@ -16,8 +16,8 @@
     "permanent": false,
     "requiredLevel": 5,
     "icon": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
-    "dateStart": null,
-    "dateEnd": null,
+    "dateStart": "2026-10-22T10:00:00+00:00",
+    "dateEnd": "2026-11-05T10:00:00+00:00",
     "steps": [
       {
         "id": "5408",
