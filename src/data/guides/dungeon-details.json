@@ -9365,7 +9365,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 20
       }
      ]
     },
@@ -9378,7 +9378,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 30
       }
      ]
     },
@@ -9391,7 +9391,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 40
       }
      ]
     },
@@ -9404,7 +9404,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 50
       }
      ]
     },
@@ -9417,7 +9417,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 60
       }
      ]
     },
@@ -9425,12 +9425,12 @@
      "floor": 70,
      "items": [
       {
-       "id": "orb_basic_attack_03",
+       "id": "orb_basic_life_03",
        "amount": 2
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 70
       }
      ]
     },
@@ -9443,7 +9443,7 @@
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 80
       }
      ]
     },
@@ -9451,12 +9451,12 @@
      "floor": 90,
      "items": [
       {
-       "id": "orb_basic_critical_03",
+       "id": "orb_basic_attack_03",
        "amount": 2
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 90
       }
      ]
     },
@@ -9464,12 +9464,12 @@
      "floor": 100,
      "items": [
       {
-       "id": "Material_Gacha_Token",
+       "id": "Star_Gold",
        "amount": 1
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 100
       }
      ]
     },
@@ -9477,12 +9477,12 @@
      "floor": 110,
      "items": [
       {
-       "id": "Material_XP1000",
-       "amount": 10
+       "id": "Material_Gacha_Token",
+       "amount": 2
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 110
       }
      ]
     },
@@ -9490,20 +9490,14 @@
      "floor": 120,
      "items": [
       {
-       "id": "Star_Gold",
+       "id": "Star_Platinum",
        "amount": 1
       },
       {
        "id": "Material_Halloween26_Token",
-       "amount": 10
+       "amount": 140
       }
      ]
-    }
-   ],
-   "completion": [
-    {
-     "id": "Star_Platinum",
-     "amount": 1
     }
    ]
   },
@@ -10072,7 +10066,7 @@
      "floor": 60,
      "items": [
       {
-       "id": "Specimen_FB_10",
+       "id": "Specimen_DF_10",
        "amount": 1
       }
      ]
