@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "eventQuests-1792674127920-0",
+    "category": "eventQuests",
+    "title": "Кошмар Хеллоуина 2026: +15 этапов",
+    "itemIds": [
+      "filter_dungeon_halloween26"
+    ],
+    "createdAt": "2026-10-22T13:02:07.930Z",
+    "attempts": 0,
+    "date": "2026-10-22T13:01:55.327Z"
+  }
+]

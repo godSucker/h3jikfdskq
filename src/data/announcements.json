@@ -8127,5 +8127,39 @@
       }
     ],
     "link": "/guides"
+  },
+  {
+    "id": "eventQuests-1792674127920-0",
+    "date": "2026-10-22T13:01:55.327Z",
+    "category": "eventQuests",
+    "title": "Кошмар Хеллоуина 2026: +15 этапов",
+    "items": [
+      {
+        "id": "filter_dungeon_halloween26",
+        "name": "Кошмар Хеллоуина 2026: +15 этапов",
+        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_halloween.png",
+        "exactDateLabel": "22 октября — 5 ноября",
+        "exactDateStart": "2026-10-22T10:00:00+00:00",
+        "exactDateEnd": "2026-11-05T10:00:00+00:00",
+        "addedStepIds": [
+          "5461",
+          "5462",
+          "5463",
+          "5464",
+          "5465",
+          "5466",
+          "5467",
+          "5468",
+          "5469",
+          "5470",
+          "5471",
+          "5472",
+          "5473",
+          "5474",
+          "5475"
+        ]
+      }
+    ],
+    "link": "/guides#quests"
   }
 ]
