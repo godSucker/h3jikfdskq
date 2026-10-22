@@ -54,3 +54,4 @@
 {"ts":"2026-10-22T08:02:06.976Z","fetch":"success","status":"full","requested":4481,"returned":254,"failed":[],"horizonDays":50.1,"promoActive":9}
 {"ts":"2026-10-22T09:01:26.124Z","fetch":"success","status":"full","requested":4481,"returned":253,"failed":[],"horizonDays":50,"promoActive":9}
 {"ts":"2026-10-22T09:15:12.930Z","fetch":"success","status":"full","requested":4481,"returned":253,"failed":[],"horizonDays":50,"promoActive":9}
+{"ts":"2026-10-22T10:01:58.258Z","fetch":"success","status":"full","requested":4481,"returned":253,"failed":[],"horizonDays":50,"promoActive":9}
