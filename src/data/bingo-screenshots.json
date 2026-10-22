@@ -1,12 +1,17 @@
 {
+  "2026_events": {
+    "hash": "1qj2332yimi",
+    "file": "/bingo-screenshots/2026_events-1qj2332yimi.png",
+    "renderedAt": "2026-10-22T09:05:51.569Z"
+  },
   "2026_mutants": {
-    "hash": "mxgg215r5e",
-    "file": "/bingo-screenshots/2026_mutants-mxgg215r5e.png",
-    "renderedAt": "2026-09-30T10:45:55.276Z"
+    "hash": "8c8nb1h3r6",
+    "file": "/bingo-screenshots/2026_mutants-8c8nb1h3r6.png",
+    "renderedAt": "2026-10-22T09:06:06.339Z"
   },
   "2026_skins": {
-    "hash": "14oslga6nex",
-    "file": "/bingo-screenshots/2026_skins-14oslga6nex.png",
-    "renderedAt": "2026-09-30T10:26:14.367Z"
+    "hash": "202hqtdxoja",
+    "file": "/bingo-screenshots/2026_skins-202hqtdxoja.png",
+    "renderedAt": "2026-10-22T09:06:21.941Z"
   }
 }
