@@ -168,15 +168,15 @@
         "part": "1/5",
         "line": 1,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Дальняя близость",
+          "en": "Distant Closeness",
+          "es": "Cercanía distante",
+          "fr": "Proximité lointaine",
+          "de": "Ferne Nähe",
+          "pt": "Proximidade Distante",
+          "it": "Vicinanza lontana",
+          "tr": "Uzak Yakınlık",
+          "nl": "Verre nabijheid"
         },
         "condition": {
           "ru": "Уничтожить галактиков",
@@ -204,15 +204,15 @@
         "part": "2/5",
         "line": 1,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Клинки полумесяца",
+          "en": "Crescent Blades",
+          "es": "Cuchillas de media luna",
+          "fr": "Lames en croissant",
+          "de": "Sichelklingen",
+          "pt": "Lâminas Crescentes",
+          "it": "Lame a mezzaluna",
+          "tr": "Hilal Bıçakları",
+          "nl": "Halvemaanmessen"
         },
         "condition": {
           "ru": "Убить рубак",
@@ -240,15 +240,15 @@
         "part": "3/5",
         "line": 1,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Лунный ковен",
+          "en": "Lunar Coven",
+          "es": "Aguja lunar",
+          "fr": "Sabbat lunaire",
+          "de": "Mondzirkel",
+          "pt": "Círculo Lunar",
+          "it": "Congrega lunare",
+          "tr": "Ay Cadılar Meclisi",
+          "nl": "Maankring"
         },
         "condition": {
           "ru": "Убить мификов",
@@ -276,15 +276,15 @@
         "part": "4/5",
         "line": 1,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Новолуние",
+          "en": "New Moon",
+          "es": "Luna nueva",
+          "fr": "Nouvelle lune",
+          "de": "Neumond",
+          "pt": "Lua Nova",
+          "it": "Luna nuova",
+          "tr": "Yeni Ay",
+          "nl": "Nieuwe maan"
         },
         "condition": {
           "ru": "Завершить скрещивания (или слияние)",
@@ -312,15 +312,15 @@
         "part": "5/5",
         "line": 1,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Затмение новолуния",
+          "en": "New Moon Eclipse",
+          "es": "Eclipse de luna nueva",
+          "fr": "Éclipse de nouvelle lune",
+          "de": "Neumondfinsternis",
+          "pt": "Eclipse da Lua Nova",
+          "it": "Eclissi di luna nuova",
+          "tr": "Yeni Ay Tutulması",
+          "nl": "Nieuwe maan-eclips"
         },
         "condition": {
           "ru": "Уничтожить галактиков",
@@ -348,15 +348,15 @@
         "part": "1/5",
         "line": 2,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Звёздный дождь",
+          "en": "Starlight Shower",
+          "es": "Lluvia de estrellas",
+          "fr": "Pluie d'étoiles",
+          "de": "Sternenregen",
+          "pt": "Chuva de Estrelas",
+          "it": "Pioggia di stelle",
+          "tr": "Yıldız Işığı Yağmuru",
+          "nl": "Sterrenregen"
         },
         "condition": {
           "ru": "Повысить уровень существ",
@@ -384,15 +384,15 @@
         "part": "2/5",
         "line": 2,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Сияющие звёзды",
+          "en": "Shining Stars",
+          "es": "Estrellas brillantes",
+          "fr": "Étoiles brillantes",
+          "de": "Leuchtende Sterne",
+          "pt": "Estrelas Brilhantes",
+          "it": "Stelle splendenti",
+          "tr": "Parlayan Yıldızlar",
+          "nl": "Stralende sterren"
         },
         "condition": {
           "ru": "Изготовление звезды",
@@ -420,15 +420,15 @@
         "part": "3/5",
         "line": 2,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Лунные яйца",
+          "en": "Lunar Eggs",
+          "es": "Huevos lunares",
+          "fr": "Œufs lunaires",
+          "de": "Mond-Eier",
+          "pt": "Ovos Lunares",
+          "it": "Uova lunari",
+          "tr": "Ay Yumurtaları",
+          "nl": "Maan-eieren"
         },
         "condition": {
           "ru": "Проводите часы инкубации",
@@ -456,15 +456,15 @@
         "part": "4/5",
         "line": 2,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Лунная купальня",
+          "en": "Moonbath",
+          "es": "Baño de luna",
+          "fr": "Bain de lune",
+          "de": "Mondbad",
+          "pt": "Banho de Lua",
+          "it": "Bagno di luna",
+          "tr": "Ay Banyosu",
+          "nl": "Maanbad"
         },
         "condition": {
           "ru": "Повысить уровень существ",
@@ -492,15 +492,15 @@
         "part": "5/5",
         "line": 2,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Яркая Луна",
+          "en": "Bright Moon",
+          "es": "Luna resplandeciente",
+          "fr": "Lune éclatante",
+          "de": "Heller Mond",
+          "pt": "Lua Brilhante",
+          "it": "Luna luminosa",
+          "tr": "Parlak Ay",
+          "nl": "Heldere maan"
         },
         "condition": {
           "ru": "Создать сферы в Трансформатрон",
@@ -528,15 +528,15 @@
         "part": "1/5",
         "line": 3,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Сражения при полной Луне",
+          "en": "Full Moon Battles",
+          "es": "Batallas de luna llena",
+          "fr": "Combats de pleine lune",
+          "de": "Vollmondschlachten",
+          "pt": "Batalhas da Lua Cheia",
+          "it": "Battaglie di luna piena",
+          "tr": "Dolunay Savaşları",
+          "nl": "Vollemaanslagen"
         },
         "condition": {
           "ru": "Победить в PvP-сражениях",
@@ -564,15 +564,15 @@
         "part": "2/5",
         "line": 3,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Фазы Луны",
+          "en": "Lunar Phases",
+          "es": "Fases lunares",
+          "fr": "Phases lunaires",
+          "de": "Mondphasen",
+          "pt": "Fases Lunares",
+          "it": "Fasi lunari",
+          "tr": "Ay Evreleri",
+          "nl": "Maanfasen"
         },
         "condition": {
           "ru": "Нанесите урон!",
@@ -600,15 +600,15 @@
         "part": "3/5",
         "line": 3,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Равновесие полумесяца",
+          "en": "Half-Moon Equilibrium",
+          "es": "Equilibrio de media luna",
+          "fr": "Équilibre de la demi-lune",
+          "de": "Halbmond-Gleichgewicht",
+          "pt": "Equilíbrio da Meia-Lua",
+          "it": "Equilibrio della mezza luna",
+          "tr": "Yarım Ay Dengesi",
+          "nl": "Halvemaan-evenwicht"
         },
         "condition": {
           "ru": "Принять участие в PvP-боях",
@@ -636,15 +636,15 @@
         "part": "4/5",
         "line": 3,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Кровавая Луна",
+          "en": "Blood Moon",
+          "es": "Luna de sangre",
+          "fr": "Lune de sang",
+          "de": "Blutmond",
+          "pt": "Lua de Sangue",
+          "it": "Luna rossa",
+          "tr": "Kanlı Ay",
+          "nl": "Bloedmaan"
         },
         "condition": {
           "ru": "Нанесите урон!",
@@ -672,15 +672,15 @@
         "part": "5/5",
         "line": 3,
         "title": {
-          "ru": "",
-          "en": "",
-          "es": "",
-          "fr": "",
-          "de": "",
-          "pt": "",
-          "it": "",
-          "tr": "",
-          "nl": ""
+          "ru": "Возвращение «голубой Луны»",
+          "en": "Blue Moon Return",
+          "es": "El regreso de la luna azul",
+          "fr": "Retour de la lune bleue",
+          "de": "Die Rückkehr des Blauen Mondes",
+          "pt": "O Regresso da Lua Azul",
+          "it": "Il ritorno della luna blu",
+          "tr": "Mavi Ay’ın Dönüşü",
+          "nl": "De terugkeer van de blauwe maan"
         },
         "condition": {
           "ru": "Победить в PvP-сражениях",
