@@ -130,7 +130,7 @@
                     {getRewardLabel(reward, locale, names)}
                   </span>
                 {/each}
-                {#each o.mutants as m (m.id)}
+                {#each o.mutants as m, k (k)}
                   <button class="reward-chip" onclick={() => openMutant(m.id)}>
                     {#if mutantIcon(m)}
                       <img src={textureUrl(mutantIcon(m))} alt="" loading="lazy" decoding="async" />
@@ -150,7 +150,7 @@
               {#each pool as o, i (i)}
                 <div class="mutant-cell" class:multi={o.mutants.length + o.rewards.length > 1}>
                   <div class="cell-items">
-                    {#each o.mutants as m (m.id)}
+                    {#each o.mutants as m, k (k)}
                       <button class="cell-item" onclick={() => openMutant(m.id)}>
                         <span class="mutant-cell-img">
                           {#if mutantIcon(m)}
@@ -166,7 +166,7 @@
                         {/if}
                       </button>
                     {/each}
-                    {#each o.rewards as reward (reward.type + reward.name + reward.amount)}
+                    {#each o.rewards as reward, k (k)}
                       <span class="cell-item cell-item-reward">
                         {#if getRewardTexturePath(reward)}
                           <img src={textureUrl(getRewardTexturePath(reward))} alt="" loading="lazy" decoding="async" />
