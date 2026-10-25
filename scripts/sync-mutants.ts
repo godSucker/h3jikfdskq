@@ -5,6 +5,7 @@ import { XMLParser } from 'fast-xml-parser'
 import sharp from 'sharp'
 import { calculateFinalStats as calcFinalStatsUnified } from '../src/lib/stats/unified-calculator'
 import {
+  clearResolvedProvisionalFlags,
   isProvisionalOrPlaceholder,
   keepProvisionalLocale,
   keepProvisionalStats,
@@ -1025,18 +1026,30 @@ async function sync(options: {
       }
 
       // Ручные статы (provisionalStats) не затираем заглушкой из XML.
-      if (keepProvisionalStats(existingEntry, entry)) {
+      const keptStats = keepProvisionalStats(existingEntry, entry)
+      if (keptStats) {
         console.log(`[PROVISIONAL] ${baseId}: в XML заглушка, оставлены вписанные вручную статы`)
       }
       // То же для ручного русского перевода имени и атак.
-      if (keepProvisionalLocale(existingEntry, entry)) {
+      const keptLocale = keepProvisionalLocale(existingEntry, entry)
+      if (keptLocale) {
         console.log(`[PROVISIONAL] ${baseId}: нет русской локали, оставлен ручной перевод`)
       }
+      // Флаги считаем по СОСТОЯНИЮ ДО сброса: fromPlaceholder ниже должен
+      // видеть, что до этого прогона статы были предварительными.
+      const wasProvisional = isProvisionalOrPlaceholder(existingEntry)
 
       if (compareBeforeUpdate) {
         const diff = compareStats(existingEntry, entry)
         if (!diff.hasChanges) {
-          stats.skipped++
+          // Ручное совпало с официальным: изменений нет, но флаги надо снять.
+          if (clearResolvedProvisionalFlags(existingEntry, keptStats, keptLocale)) {
+            existingData.set(baseId, existingEntry)
+            modifiedCount++
+            console.log(`[PROVISIONAL] ${baseId}: официальные данные совпали, флаги сняты`)
+          } else {
+            stats.skipped++
+          }
           continue
         }
 
@@ -1054,7 +1067,7 @@ async function sync(options: {
           // Заглушка -> реальные статы это выход мутанта, а не ребаланс: в
           // историю и в анонсы такое не пишем (данные в mutants.json всё
           // равно обновились выше).
-          const fromPlaceholder = isProvisionalOrPlaceholder(existingEntry)
+          const fromPlaceholder = wasProvisional
           if (diff.details.length > 0 && !fromPlaceholder) {
             rebalanceEntries.push({ id: baseId, name: entry.name, changes: diff.details })
           }

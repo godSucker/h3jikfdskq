@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  clearResolvedProvisionalFlags,
   isPlaceholderStats,
   isProvisionalOrPlaceholder,
   keepProvisionalLocale,
@@ -153,5 +154,29 @@ describe('keepProvisionalLocale', () => {
     }
     expect(keepProvisionalLocale(weak, incoming)).toBe(false)
     expect(incoming.name).toBe('Ölüm Formülü')
+  })
+})
+
+describe('clearResolvedProvisionalFlags', () => {
+  it('drops provisionalStats once the XML no longer carries the placeholder', () => {
+    const existing = { provisionalStats: true, provisionalLocale: true }
+    expect(clearResolvedProvisionalFlags(existing, false, true)).toBe(true)
+    expect(existing).toEqual({ provisionalLocale: true })
+  })
+
+  it('keeps both flags while the placeholder and untranslated text are still shipped', () => {
+    const existing = { provisionalStats: true, provisionalLocale: true }
+    expect(clearResolvedProvisionalFlags(existing, true, true)).toBe(false)
+    expect(existing).toEqual({ provisionalStats: true, provisionalLocale: true })
+  })
+
+  it('does nothing for entries that were never provisional', () => {
+    expect(clearResolvedProvisionalFlags({}, false, false)).toBe(false)
+  })
+
+  it('makes a later real rebalance recordable again', () => {
+    const existing: any = { provisionalStats: true, base_stats: { ...placeholder, hp_base: 854 } }
+    clearResolvedProvisionalFlags(existing, false, false)
+    expect(isProvisionalOrPlaceholder(existing)).toBe(false)
   })
 })
