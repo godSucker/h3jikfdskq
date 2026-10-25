@@ -2266,6 +2266,10 @@
     "jackpot|READY_07|specimen_cb_09",
     "jackpot|READY_08|specimen_de_10",
     "jackpot|READY_09|specimen_fd_11",
+    "jackpot|READY_11|specimen_ce_09",
+    "jackpot|READY_12|specimen_ec_14",
+    "jackpot|READY_13|specimen_ba_04",
+    "jackpot|READY_14|specimen_ab_14",
     "event|READY_04|specimen_fa_10",
     "event|READY_07|specimen_eb_08",
     "event|READY_09|specimen_dc_14",
@@ -2274,11 +2278,7 @@
     "mystery|READY_03|Specimen_FC_08|3|europe",
     "mystery|READY_04|Specimen_EB_10|3|aprilfools",
     "mystery|READY_05|Specimen_DD_08|3|school",
-    "mystery|READY_06|Specimen_AB_11|3|honeybee",
-    "jackpot|READY_11|specimen_ce_09",
-    "jackpot|READY_12|specimen_ec_14",
-    "jackpot|READY_13|specimen_ba_04",
-    "jackpot|READY_14|specimen_ab_14"
+    "mystery|READY_06|Specimen_AB_11|3|honeybee"
   ],
   "rebalance": [
     "2026-07-28T11:41:02.598Z"
