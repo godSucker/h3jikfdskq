@@ -9166,6 +9166,11 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 900 жетонов Селенита (3★, скин «halloween»)",
+      "icon": "/materials/Material_Halloween26_Token.png"
     }
   ],
   "specimen_ba_05": [
@@ -24967,6 +24972,11 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 190"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 1000 жетонов Селенита (3★, скин «halloween»)",
+      "icon": "/materials/Material_Halloween26_Token.png"
     }
   ],
   "specimen_ce_10": [
@@ -55030,6 +55040,11 @@
       "type": "event_hall",
       "where": "Зал обмена — 2500 жетонов сигнала",
       "icon": "/materials/Material_Signal_Token.png"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 1900 жетонов Селенита",
+      "icon": "/materials/Material_Halloween26_Token.png"
     }
   ],
   "specimen_dc_12": [
@@ -55074,6 +55089,13 @@
     {
       "type": "gold_shop",
       "where": "Магазин за 3 300 золота (версия: золотой)"
+    }
+  ],
+  "specimen_ec_14": [
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 2200 жетонов Селенита",
+      "icon": "/materials/Material_Halloween26_Token.png"
     }
   ]
 }

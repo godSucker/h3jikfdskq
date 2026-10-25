@@ -281,10 +281,15 @@ export const POST: APIRoute = async ({ request }) => {
     messageId = body.message?.message_id
 
     // Cheap, always-on: lets chat_id be recovered from Vercel runtime logs
-    // instead of needing a Telegram-side lookup tool.
+    // instead of needing a Telegram-side lookup tool. Only commands ('.'/'/',
+    // the only things the bot reacts to) are logged verbatim - ordinary chat
+    // messages are not ours to keep in runtime logs (a 1466-member chat).
     if (chatId != null) {
+      const isCommand = text.startsWith('.') || text.startsWith('/')
       console.log(
-        `stats-bot: chat ${chatId} (${body.message?.chat?.type ?? '?'}) msg: ${JSON.stringify(text)}`,
+        `stats-bot: chat ${chatId} (${body.message?.chat?.type ?? '?'}) msg: ${
+          isCommand ? JSON.stringify(text) : text ? '(not a command, text not logged)' : '(no text)'
+        }`,
       )
     }
 

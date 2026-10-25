@@ -315,7 +315,7 @@ export class BattleSession {
       shieldAbsorbed: e.shieldAbsorbed,
       died: e.died,
       baseDamage: e.baseDamage,
-      typeModPct: 0,
+      typeModPct: e.typeModPct,
       buffDamage: 0,
     }))
 
@@ -378,7 +378,7 @@ export class BattleSession {
           .replace('{target}', r.targetName)
           .replace('{tag}', sideTag(r.targetName))
           .replace('{attacker}', unit.name)
-          .replace('{damage}', String(r.damage))
+          .replace('{damage}', String(r.damage) + breakdown(r))
           .replace('{shield}', shieldSuffix(r.shieldAbsorbed))
           .replace('{died}', diedSuffix(r.died)),
       )

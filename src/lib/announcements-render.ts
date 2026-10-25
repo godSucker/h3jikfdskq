@@ -354,6 +354,9 @@ export interface ResolvedEventQuest {
   // splitIntoLines в scripts/build-event-quests.ts).
   lines: ResolvedEventQuestStep[][]
   stepCount: number
+  // Сумма жетонов за всю ветку, по каждому виду жетона отдельно (у ивента
+  // обычно один вид). Для шапки карточки.
+  tokenTotals: { name: string; amountText: string; icon: string | null }[]
 }
 
 export interface ResolvedEventQuestStep {
@@ -363,6 +366,21 @@ export interface ResolvedEventQuestStep {
   amountText: string
   showAmount: boolean
   rewards: { label: string; name?: string; count?: string; icon: string | null }[]
+}
+
+// Жетоны ивента: все награды-сущности с "Token" в id (Material_Halloween26_Token,
+// Material_Event_Token и т.д.), просуммированные по виду жетона.
+function sumTokenRewards(
+  steps: { rewards: { id: string | null; type: string | null; amount: number }[] }[],
+): { id: string; amount: number }[] {
+  const totals = new Map<string, number>()
+  for (const st of steps) {
+    for (const r of st.rewards) {
+      if (r.type !== 'entity' || !r.id || !/token/i.test(r.id)) continue
+      totals.set(r.id, (totals.get(r.id) ?? 0) + (Number(r.amount) || 1))
+    }
+  }
+  return [...totals].map(([id, amount]) => ({ id, amount }))
 }
 
 // Контекст строится по одному на локаль и кэшируется в модуле (ESM-кэш):
@@ -476,6 +494,14 @@ function buildContext(locale: Locale): AnnouncementRenderContext {
         icon: c.icon,
         requiredLevel: c.requiredLevel,
         stepCount: c.steps.length,
+        tokenTotals: sumTokenRewards(c.steps).map(({ id, amount }) => {
+          const res = resolveReward({ id, type: 'entity', amount } as never, rewardCtx)
+          return {
+            name: res.name ?? res.label,
+            amountText: formatNumber(amount),
+            icon: res.icon ?? null,
+          }
+        }),
         lines: c.steps.reduce<ResolvedEventQuestStep[][]>((lines, st) => {
           const condition = pick(st.condition)
           ;(lines[st.line] ??= []).push({

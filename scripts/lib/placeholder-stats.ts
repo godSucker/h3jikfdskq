@@ -74,3 +74,28 @@ export function keepProvisionalLocale(existing: any, incoming: any): boolean {
   if (kept) incoming.provisionalLocale = true
   return kept
 }
+
+// Ручные значения совпали с официальными (или официальные пришли и записаны
+// как есть): флаги provisional* больше не нужны. Без этого запись, у которой
+// статы вписаны вручную и потом совпали с XML, оставалась с provisionalStats
+// навсегда: compareStats видит "изменений нет" и пропускает запись, а любой
+// ПОЗДНИЙ настоящий ребаланс считался бы выходом из заглушки и не попадал в
+// rebalance-history.json (см. isProvisionalOrPlaceholder).
+// Вызывать ПОСЛЕ keepProvisionalStats/keepProvisionalLocale: они возвращают
+// true, пока в XML ещё заглушка/нерусский текст, и тогда флаг остаётся.
+export function clearResolvedProvisionalFlags(
+  existing: any,
+  keptStats: boolean,
+  keptLocale: boolean,
+): boolean {
+  let cleared = false
+  if (existing?.provisionalStats && !keptStats) {
+    delete existing.provisionalStats
+    cleared = true
+  }
+  if (existing?.provisionalLocale && !keptLocale) {
+    delete existing.provisionalLocale
+    cleared = true
+  }
+  return cleared
+}

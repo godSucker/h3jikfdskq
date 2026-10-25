@@ -833,6 +833,8 @@
   "announcements.openReactorCta": "Open reactor →",
   "announcements.card.quests": "New quests",
   "announcements.card.questSteps": "New stages",
+  "announcements.card.questTokensTotal": "Total for the chain",
+  "announcements.exchange.seasonal": "Seasonal rotation",
   "announcements.card.newMutant": "New mutant",
   "announcements.card.newSkin": "New skin",
   "announcements.dungeon.noMutant": "no unique mutant",

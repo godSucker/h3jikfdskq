@@ -90,6 +90,9 @@ jobs:
       - name: 6. Сторож ротации обменников (джекпот/ивент/анализатор тайн) - авто-запись в obtain.json
         if: always()
         run: npx tsx scripts/detect-exchange-rotation.ts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: 6.1 Авто-дополнение obtain.json (магазин/боксы/бинго/PvP-релиз)
         # Additive-only, только механически однозначные источники: новые

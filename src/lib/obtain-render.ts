@@ -290,6 +290,16 @@ const EXCHANGE_TOKEN_DESC: Record<string, Partial<Record<Locale, string>>> = {
     tr: 'Sürünen jetonu',
     nl: 'Kruipende tokens',
   },
+  'жетонов Селенита': {
+    en: 'Selenite tokens',
+    es: 'fichas selenitas',
+    fr: 'jetons Sélénite',
+    de: 'Selenit-Chips',
+    pt: 'fichas de Selênita',
+    it: 'gettoni Selenite',
+    tr: 'Selenit jetonu',
+    nl: 'Seleniet-muntjes',
+  },
   'жетонов сигнала': {
     en: 'Signal tokens',
     es: 'fichas de señal',

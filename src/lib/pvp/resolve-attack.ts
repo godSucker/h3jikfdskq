@@ -148,9 +148,10 @@ export function applyAttack(
     // Атакующий уже мог умереть от предыдущего отражения в этом же AOE-ударе -
     // дальше считать нечего, иначе в лог уйдёт дублирующее "died"-событие.
     if (!attacker.isAlive) break
-    // retaliate - % от собственной атаки цели (target.atk1), не от урона входящего удара
-    // (см. abilities.ts::retaliateDamage) - независимо от щита/атаки атакующего.
-    const retaliate = retaliateDamage(target)
+    // retaliate - % от собственной атаки цели (target.atk1) с модификатором типа, не от урона
+    // входящего удара (см. abilities.ts::retaliateDamage) - независимо от щита/атаки атакующего.
+    const reflected = retaliateDamage(target, attacker)
+    const retaliate = reflected.damage
     if (retaliate > 0) {
       const absorbed = absorbWithShield(attacker, retaliate)
       const finalRetaliate = Math.max(0, retaliate - absorbed)
@@ -164,9 +165,10 @@ export function applyAttack(
         crit: false,
         shieldAbsorbed: absorbed,
         died: attackerDied,
-        // retaliate - плоский % от собственной атаки цели, не проходит крит/тип/бафф.
-        baseDamage: retaliate,
-        typeModPct: 0,
+        // retaliate проходит модификатор типа (ген атаки владельца vs ген атакующего), но не
+        // крит/бафф.
+        baseDamage: reflected.baseDamage,
+        typeModPct: reflected.typeModPct,
         buffDamage: 0,
       })
     }
