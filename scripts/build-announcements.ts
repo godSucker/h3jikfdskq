@@ -42,6 +42,7 @@ import {
   type Announcement,
 } from '../src/lib/announcement-schema'
 import { pluralize } from '../src/lib/utils'
+import { NEW_CHAIN_GRACE_MS } from '../src/lib/event-quest-announcements'
 import { fetchGameXml } from './game-xml-cache'
 import skinsI18n from '../src/data/mutants/skins-i18n.json'
 import skinsRuCurated from '../src/data/mutants/skins-ru-curated.json'
@@ -557,6 +558,8 @@ async function fetchHallContracts(): Promise<
     costAmount: number
     costTokenId: string
     filterName: string | null
+    stars: string | null
+    skin: string | null
   }[]
 > {
   const xml = await fetchGameXml('https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml')
@@ -573,6 +576,29 @@ async function fetchHallContracts(): Promise<
     { entityId: 'Building_Tokens_Jackpot', hall: 'jackpot', tokenId: 'Material_Jackpot_Token' },
     { entityId: 'Building_Event_1', hall: 'event', tokenId: 'Material_Event_Token' },
   ]
+  // Джекпот-зал - общее здание обмена: кроме Жетона джекпота там висят контракты
+  // сезонных ивентов. Старые сезонные жетоны (в XML остаются навсегда) мы
+  // исключаем списком, а ЛЮБОЙ жетон не из списка считаем новой ивентовой
+  // ротацией. Раньше было наоборот (пропускали только Жетон джекпота), и
+  // Хэллоуин-2026 за Селенит-жетоны (Material_Halloween26_Token) не попал в
+  // анонсы совсем: контракты отсекались ещё до сравнения с ledger.
+  const LEGACY_SEASONAL_TOKENS = new Set([
+    'Material_Hexcity_Token',
+    'Material_Xmas24_Token',
+    'Material_Capsule_Token',
+    'Material_Toybox_Token',
+    'Material_Winter_Orange',
+    'Material_Winter_Coal',
+  ])
+  const hallAcceptsToken = (
+    hall: 'jackpot' | 'event',
+    expected: string,
+    actual: string | undefined,
+  ) => {
+    if (!actual) return false
+    if (actual === expected) return true
+    return hall === 'jackpot' && !LEGACY_SEASONAL_TOKENS.has(actual)
+  }
   const out: {
     hall: 'jackpot' | 'event'
     contractId: string
@@ -580,6 +606,8 @@ async function fetchHallContracts(): Promise<
     costAmount: number
     costTokenId: string
     filterName: string | null
+    stars: string | null
+    skin: string | null
   }[] = []
   for (const { entityId, hall, tokenId } of HALLS) {
     const block = xml.match(
@@ -610,18 +638,19 @@ async function fetchHallContracts(): Promise<
     )) {
       workingByReady.set(m[2], m[1])
     }
-    // Награда самозакрывающимся тегом без детей (в отличие от Building_Mystery) -
-    // только материалы/мутанты, без звезды/скина, тот же паттерн что уже
-    // проверен в detect-exchange-rotation.ts::parseReadyRewards.
+    // Награда бывает голым тегом или с детьми <Tag key="stars"/"skin"> (Хэллоуин-
+    // 2026: Царь-Молот и Эксперимент выдаются 3-звёздными со скином) - теги
+    // читаем так же, как у Building_Mystery, и в карточке они рисуются звездой и
+    // иконкой скина. Тот же разбор, что detect-exchange-rotation.ts::parseReadyRewards.
     for (const m of inner.matchAll(
-      /<State[^>]*id="(READY_\d+)"[^>]*>\s*<InteractiveAction[^>]*id="RECOLT"[^>]*>\s*<Reward\b([^/>]*)\/?>/g,
+      /<State[^>]*id="(READY_\d+)"[^>]*>\s*<InteractiveAction[^>]*id="RECOLT"[^>]*>\s*<Reward\b([^>]*?)(?:\/>|>([\s\S]*?)<\/Reward>)/g,
     )) {
-      const [, readyId, attrs] = m
+      const [, readyId, attrs, rewardBody = ''] = m
       const idMatch = attrs.match(/id="([^"]+)"/)
       if (!idMatch || !/^Specimen_/i.test(idMatch[1])) continue
       const working = workingByReady.get(readyId)
       const cost = working ? costByWorking.get(working) : undefined
-      if (cost?.tokenId !== tokenId) continue
+      if (!hallAcceptsToken(hall, tokenId, cost?.tokenId)) continue
       out.push({
         hall,
         contractId: readyId,
@@ -629,10 +658,21 @@ async function fetchHallContracts(): Promise<
         costAmount: cost?.amount ?? 0,
         costTokenId: cost?.tokenId ?? '',
         filterName: cost?.filterName ?? null,
+        stars: rewardBody.match(/<Tag key="stars" value="(\d+)"/)?.[1] ?? null,
+        skin: rewardBody.match(/<Tag key="skin" value="([^"]+)"/)?.[1] ?? null,
       })
     }
   }
   return out
+}
+
+// Числовой Tag "stars" -> именованная звезда (1..4 = бронза..платина; встречались
+// только 3 = золото, остальное - ординальная экстраполяция).
+const HALL_STAR_NUM_TO_NAME: Record<string, string> = {
+  '1': 'bronze',
+  '2': 'silver',
+  '3': 'gold',
+  '4': 'platinum',
 }
 
 async function detectExchange(seen: string[]): Promise<DetectResult> {
@@ -717,6 +757,10 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
         exactDateStart: exact?.start ?? null,
         exactDateEnd: exact?.end ?? null,
         exactDateOpenEnd: exact && 'openEnd' in exact ? true : false,
+        // Звезда/скин награды (если есть) - карточка рисует их так же, как у
+        // Анализатора тайны, и открывает модалку мутанта сразу на них.
+        star: c.stars ? (HALL_STAR_NUM_TO_NAME[c.stars] ?? null) : null,
+        skin: c.skin,
       }
     }),
   )
@@ -1395,6 +1439,7 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
       steps: { id: string }[]
     }[]
   >('src/data/guides/event-quests.json', [])
+  const published = await loadJson<Announcement[]>('src/data/announcements.json', [])
   const seenSet = new Set(seen)
   const stepKey = (filter: string, id: string) => `${filter.toLowerCase()}|${id}`
 
@@ -1447,6 +1492,16 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
     }
     const added = c.steps.filter((st) => !seenSet.has(stepKey(c.filter, st.id))).map((st) => st.id)
     if (added.length === 0) continue
+    // Карточка цепочки, опубликованная меньше трёх суток назад, уже рисует все
+    // нынешние этапы - вторая карточка "+N этапов" только дублировала бы её
+    // (Хэллоуин-2026: "новые задания" 19 этапов и сразу "+15 этапов").
+    const freshNewCard = published.some(
+      (a) =>
+        a.category === 'eventQuests' &&
+        nowMs - new Date(a.date).getTime() < NEW_CHAIN_GRACE_MS &&
+        a.items.some((it) => it.id === c.filter && !it.addedStepIds?.length),
+    )
+    if (freshNewCard) continue
     items.push({
       id: c.filter,
       name: `${c.name.ru}: +${added.length} ${pluralize(added.length, 'этап', 'этапа', 'этапов')}`,

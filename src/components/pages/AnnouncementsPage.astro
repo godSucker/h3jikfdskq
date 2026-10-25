@@ -4,6 +4,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import announcementsData from '@/data/announcements.json';
 import BoxModal from '@/components/boxes/BoxModal.svelte';
 import BingoMutantModal from '@/components/bingo/BingoMutantModal.svelte';
+import eventQuestsData from '@/data/guides/event-quests.json';
+import { isEmptyQuestItem } from '@/lib/event-quest-announcements';
 import AnnouncementCard from '@/components/announcements/AnnouncementCard.astro';
 import { categoryLabel, buildAnnouncementContext, boxHasSkin, type Announcement } from '@/lib/announcements-render';
 import { t, localeFromAstro } from '@/lib/i18n';
@@ -27,8 +29,20 @@ const { names, obtainNames } = getLocalizedMutantNames(locale);
 // появится здесь, если однажды получит скин-дроп, без бэкфилла. Бокс, для
 // которого lookup не нашёлся (не должно случаться, но на всякий) - не
 // прячем, показываем как есть.
+const questStepIds = new Map(
+  (eventQuestsData as unknown as { filter: string; steps: { id: string }[] }[]).map((c) => [
+    c.filter.toLowerCase(),
+    new Set(c.steps.map((st) => st.id)),
+  ]),
+);
 const announcements = ((announcementsData as Announcement[]) ?? [])
   .filter((a) => a.category !== 'token')
+  // Задания, у которых уже нечего показывать (этапы пропали из цепочки), не
+  // рисуем: сборщик их тоже вычищает из данных, это страховка на рендере.
+  .filter((a) => {
+    if (a.category !== 'eventQuests') return true;
+    return !(a.items ?? []).every((it) => isEmptyQuestItem(it, questStepIds.get(it.id.toLowerCase())));
+  })
   .filter((a) => {
     if (a.category !== 'box') return true;
     const box = a.items?.[0]?.id ? ctx.findBox(a.items[0].id) : undefined;

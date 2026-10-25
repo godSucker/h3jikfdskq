@@ -39,6 +39,7 @@ import {
   ribbonClass,
   featuredMutantLabel,
   type Announcement,
+  type AnnouncementItem,
   type AnnouncementRenderContext,
 } from '@/lib/announcements-render'
 
@@ -141,19 +142,55 @@ const EXCHANGE_HALL_CAP: Record<'jackpot' | 'event' | 'mystery', number | null> 
   event: 3,
   mystery: null,
 }
-const exchangeGroups =
+// Джекпот-зал - общее здание: рядом с ротацией за Жетон джекпота (тройка) бывает
+// ротация за сезонный жетон (Хэллоуин-2026: 4 мутанта за Селенит-жетоны), и там
+// число позиций другое (юзер 2026-10-25: "3 за джекпот, 3-4-5 за сезонные").
+// Старые сезонные офферы Kobojo оставила в XML навсегда, но детектор берёт только
+// свежие контракты, поэтому карточка сезонной ротации содержит ровно её слоты.
+// Потолок тут - только страховка от ошибки данных, а не правило.
+const JACKPOT_TOKEN_ID = 'Material_Jackpot_Token'
+const SEASONAL_HALL_SAFETY_CAP = 8
+const sortNewestFirst = <T extends { exactDateStart?: string | null }>(list: T[]) =>
+  list.slice().sort((x, y) => (y.exactDateStart ?? '').localeCompare(x.exactDateStart ?? ''))
+interface ExchangeGroup {
+  hall: 'jackpot' | 'event' | 'mystery'
+  seasonal: boolean
+  meta: ReturnType<typeof exchangeHallMeta>
+  items: AnnouncementItem[]
+}
+const exchangeGroups: ExchangeGroup[] =
   kind === 'exchange' && a.items
     ? (['jackpot', 'event', 'mystery'] as const)
-        .map((hall) => {
-          const sorted = a.items!
-            .filter((i) => i.hall === hall)
-            .sort((x, y) => (y.exactDateStart ?? '').localeCompare(x.exactDateStart ?? ''))
+        .flatMap((hall): ExchangeGroup[] => {
+          const hallItems = a.items!.filter((i) => i.hall === hall)
           const cap = EXCHANGE_HALL_CAP[hall]
-          return {
-            hall,
-            meta: exchangeHallMeta(hall, locale),
-            items: cap ? sorted.slice(0, cap) : sorted,
+          const meta = exchangeHallMeta(hall, locale)
+          if (hall === 'jackpot') {
+            // У карточек до появления cost.id жетона нет - считаем обычными.
+            const isRegular = (i: (typeof hallItems)[number]) =>
+              !i.cost?.id || i.cost.id === JACKPOT_TOKEN_ID
+            // Сезонная ротация - отдельным блоком (с пометкой), а не одной длинной
+            // строкой вместе с тройкой за Жетон джекпота.
+            return [
+              {
+                hall,
+                seasonal: true,
+                meta,
+                items: sortNewestFirst(hallItems.filter((i) => !isRegular(i))).slice(
+                  0,
+                  SEASONAL_HALL_SAFETY_CAP,
+                ),
+              },
+              {
+                hall,
+                seasonal: false,
+                meta,
+                items: sortNewestFirst(hallItems.filter(isRegular)).slice(0, cap ?? undefined),
+              },
+            ]
           }
+          const sorted = sortNewestFirst(hallItems)
+          return [{ hall, seasonal: false, meta, items: cap ? sorted.slice(0, cap) : sorted }]
         })
         .filter((g) => g.items.length > 0)
     : []
@@ -236,6 +273,18 @@ const forecastWeeks =
               : ''}
           </div>
           {date(it) && <div class="dg-exact-date">{date(it)}</div>}
+          {questChain.tokenTotals.length > 0 && (
+            <div class="quest-tokens">
+              <span class="quest-tokens-label">{tr('announcements.card.questTokensTotal')}</span>
+              {questChain.tokenTotals.map((tk) => (
+                <span class="quest-tokens-total">
+                  {tk.icon && <img src={textureUrl(tk.icon)} alt="" loading="lazy" decoding="async" />}
+                  <b>{tk.amountText}</b>
+                  <span>{tk.name}</span>
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div class="quest-steps">
@@ -564,6 +613,7 @@ const forecastWeeks =
           <div class="exchange-hall-head">
             <img class="exchange-hall-icon" src={textureUrl(group.meta.texture)} alt="" loading="lazy" decoding="async" />
             <span class="exchange-hall-title">{group.meta.title}</span>
+            {group.seasonal && <span class="exchange-hall-tag">{tr('announcements.exchange.seasonal')}</span>}
           </div>
           <div class="exchange-hall-items">
             {group.items.map((gi) => (
@@ -1000,6 +1050,33 @@ const forecastWeeks =
     gap: 2px;
     min-width: 0;
   }
+  .quest-tokens {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.6rem;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+  .quest-tokens-total {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.15rem 0.55rem 0.15rem 0.3rem;
+    border-radius: 999px;
+    background: rgba(250, 204, 21, 0.1);
+    border: 1px solid rgba(250, 204, 21, 0.35);
+    color: #fde68a;
+  }
+  .quest-tokens-total img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+  .quest-tokens-total b {
+    color: #fef3c7;
+  }
   .quest-steps {
     display: flex;
     flex-direction: column;
@@ -1330,6 +1407,7 @@ const forecastWeeks =
   }
   .exchange-hall-head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.6rem;
@@ -1341,6 +1419,18 @@ const forecastWeeks =
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.25);
     padding: 4px;
+  }
+  .exchange-hall-tag {
+    white-space: nowrap;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #fde68a;
+    background: rgba(250, 204, 21, 0.1);
+    border: 1px solid rgba(250, 204, 21, 0.35);
   }
   .exchange-hall-title {
     font-weight: 700;

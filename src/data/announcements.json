@@ -8059,59 +8059,6 @@
     "link": "/guides#quests"
   },
   {
-    "id": "eventQuests-1792659703778-1",
-    "date": "2026-10-22T09:01:33.927Z",
-    "category": "eventQuests",
-    "title": "Анализатор тайны: +3 этапа",
-    "items": [
-      {
-        "id": "Patch_Building_Mystery",
-        "name": "Анализатор тайны: +3 этапа",
-        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_mystery.png",
-        "exactDateLabel": "15 сентября",
-        "exactDateStart": "2026-09-15T14:00:00+00:00",
-        "exactDateEnd": null,
-        "addedStepIds": [
-          "5464",
-          "5467",
-          "5470"
-        ]
-      }
-    ],
-    "link": "/guides#quests"
-  },
-  {
-    "id": "eventQuests-1792659703778-2",
-    "date": "2026-10-22T09:01:33.927Z",
-    "category": "eventQuests",
-    "title": "Годовщина 2026, часть 2: +12 этапов",
-    "items": [
-      {
-        "id": "filter_missions_anniversary26_2",
-        "name": "Годовщина 2026, часть 2: +12 этапов",
-        "image": "https://s-ak.kobojo.com/mutants/assets/mobile/icon-quest/quest_hexcity.png",
-        "exactDateLabel": null,
-        "exactDateStart": null,
-        "exactDateEnd": null,
-        "addedStepIds": [
-          "5461",
-          "5462",
-          "5463",
-          "5465",
-          "5466",
-          "5468",
-          "5469",
-          "5471",
-          "5472",
-          "5473",
-          "5474",
-          "5475"
-        ]
-      }
-    ],
-    "link": "/guides#quests"
-  },
-  {
     "id": "ladder-1792665865271-0",
     "date": "2026-10-22T10:44:23.879Z",
     "category": "ladder",
@@ -8161,5 +8108,86 @@
       }
     ],
     "link": "/guides#quests"
+  },
+  {
+    "id": "exchange-1792937862393",
+    "date": "2026-10-22T10:00:00.000Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 4",
+    "items": [
+      {
+        "id": "jackpot|READY_11|specimen_ce_09",
+        "name": "Царь-Молот",
+        "image": "textures_by_mutant/ce_09/specimen_ce_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 1000,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": "gold",
+        "skin": "halloween"
+      },
+      {
+        "id": "jackpot|READY_12|specimen_ec_14",
+        "name": "Селена",
+        "image": "textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 2200,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_13|specimen_ba_04",
+        "name": "Эксперимент",
+        "image": "textures_by_mutant/ba_04/specimen_ba_04_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 900,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": "gold",
+        "skin": "halloween"
+      },
+      {
+        "id": "jackpot|READY_14|specimen_ab_14",
+        "name": "Телеведущий",
+        "image": "textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 1900,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      }
+    ],
+    "link": "/mutants"
   }
 ]
