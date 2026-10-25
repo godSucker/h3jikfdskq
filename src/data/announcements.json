@@ -7837,9 +7837,9 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 22 октября",
+        "exactDateLabel": "≈ 22 октября — 5 ноября",
         "exactDateStart": "2026-10-22T10:00:00+00:00",
-        "exactDateEnd": null,
+        "exactDateEnd": "2026-11-05T10:00:00+00:00",
         "exactDateApprox": true,
         "exactDateSource": "manual"
       },

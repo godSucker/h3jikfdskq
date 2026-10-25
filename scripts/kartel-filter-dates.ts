@@ -132,7 +132,8 @@ export async function loadDateLedger(): Promise<Record<string, string>> {
 export interface ManualFilterDate {
   start: string
   end?: string | null
-  // true - дата приблизительная (карточка покажет "≈ ..." без конца окна).
+  // true - дата приблизительная: карточка покажет "≈ старт". Если задан и end, это окно
+  // события целиком ("≈ старт - конец"): оффер стартует где-то внутри него.
   approx?: boolean
   note?: string
 }

@@ -290,7 +290,10 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
             )
           : manual
             ? manual.approx
-              ? `≈ ${formatDateRu(new Date(manual.start))}`
+              ? // Заглушка с концом окна = интервал события целиком (см. detect-daily-news.ts).
+                manual.end
+                ? `≈ ${formatExactRangeRu(new Date(manual.start), new Date(manual.end))}`
+                : `≈ ${formatDateRu(new Date(manual.start))}`
               : formatExactRangeRu(new Date(manual.start), manual.end ? new Date(manual.end) : null)
             : null,
         exactDateStart: exactRange?.start ?? manual?.start ?? null,

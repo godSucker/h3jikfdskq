@@ -669,6 +669,7 @@ export function exactDateLabelIn(
         exactDateApprox?: boolean
         exactDateOpenEnd?: boolean
         exactDateUncertainDays?: number
+        exactDateSource?: string
       }
     | null
     | undefined,
@@ -680,6 +681,11 @@ export function exactDateLabelIn(
   if (Number.isNaN(start.getTime())) return it.exactDateLabel
   if (it.exactDateApprox) {
     const n = it.exactDateUncertainDays ?? 0
+    // Ручная заглушка с концом окна: интервал события целиком (см. detect-daily-news.ts).
+    if (it.exactDateSource === 'manual' && it.exactDateEnd) {
+      const end = new Date(it.exactDateEnd)
+      if (!Number.isNaN(end.getTime())) return `≈ ${formatExactRange(start, end, locale)}`
+    }
     if (n > 0) {
       const day = 86_400_000
       return `≈ ${formatExactRange(new Date(start.getTime() - n * day), new Date(start.getTime() + n * day), locale)}`
