@@ -336,7 +336,12 @@ export async function fetchDailyNewsForecast(
           )
         : manual
           ? manual.approx
-            ? `≈ ${formatDateRu(new Date(manual.start))}`
+            ? // Заглушка с концом окна = интервал события целиком: старт самого оффера
+              // внутри события неизвестен (Хэллоуин-2026: ступеньки 22/26/29/30.10 и
+              // 01.11, а заглушка "22.10" промахивалась на 3-10 дней).
+              manual.end
+              ? `≈ ${formatExactRangeRu(new Date(manual.start), new Date(manual.end))}`
+              : `≈ ${formatDateRu(new Date(manual.start))}`
             : formatExactRangeRu(new Date(manual.start), manual.end ? new Date(manual.end) : null)
           : inheritedMs != null
             ? `≈ ${formatDateRu(new Date(inheritedMs))}`
