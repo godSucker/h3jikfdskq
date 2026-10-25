@@ -17,7 +17,7 @@ import sharp from 'sharp'
 import type { PanelData } from './panel-data'
 
 const CDN = 'https://cdn.archivist-library.com'
-const FONT_BASE = `${CDN}/fonts/tt-supermolot-neue`
+const FONT_PATH = '/fonts/tt-supermolot-neue'
 
 const STAR_ICONS = [
   '/stars/no_stars.webp',
@@ -51,41 +51,37 @@ const MULT_COLORS: Record<string, { color: string; border: string; bg: string }>
 }
 const MULT_STEPS = [-50, -25, 0, 25, 50]
 
-// Yandex CDN GSLB (cdn.archivist-library.com) occasionally drops the TCP
-// connect from Vercel's US region with a ConnectTimeoutError - transient,
-// not an outage, so worth a few retries before giving up on the whole card
-// render. 2026-09-22 two renders still died with "fetch failed" on the old
-// 0.3s+0.6s schedule, so the backoff now spans ~3.5s.
-async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
-  for (let attempt = 0; ; attempt++) {
-    try {
-      // Без таймаута зависший коннект (CDN иногда принимает TCP и молчит)
-      // держится сотни секунд, и ретраи ниже не успевают сработать - карточка
-      // и .расписание зависали бы целиком. 8с на попытку, дальше повтор.
-      const res = await fetch(url, { signal: AbortSignal.timeout(8000) })
-      if (res.ok || attempt >= retries) return res
-    } catch (err) {
-      if (attempt >= retries) throw err
-    }
-    await new Promise((r) => setTimeout(r, 500 * 2 ** attempt))
-  }
+// Every asset the card uses (icons AND fonts) exists both on the Yandex CDN and in
+// public/, i.e. on the site domain served by Vercel - a different network path.
+// Yandex CDN GSLB (cdn.archivist-library.com) occasionally drops the TCP connect
+// from Vercel's region or accepts it and stays silent (14 TimeoutError in the
+// week of 2026-10-15..23, all from the font fetch, which had no site fallback).
+// So both origins are asked AT ONCE and the first good answer wins: a hung CDN
+// costs nothing, instead of the old "CDN first (4 tries x 8s), site afterwards".
+const SITE_ORIGIN = 'https://archivist-library.com'
+const ATTEMPT_TIMEOUT_MS = 5000
+
+async function fetchOk(url: string): Promise<Response> {
+  const res = await fetch(url, { signal: AbortSignal.timeout(ATTEMPT_TIMEOUT_MS) })
+  if (!res.ok) throw new Error(`${res.status} ${url}`)
+  return res
 }
 
-// Every image the card uses also ships in public/ and is served by Vercel
-// itself from the site domain - a different network path than Yandex, so a
-// CDN blip (or the hour-long outage of 2026-08-25) no longer kills the render.
-// Fonts have no such fallback: their .ttf files exist only on the CDN.
-const SITE_ORIGIN = 'https://archivist-library.com'
-async function fetchAsset(relPath: string): Promise<Response> {
-  try {
-    const res = await fetchWithRetry(CDN + relPath)
-    if (res.ok) return res
-  } catch {
-    // fall through to the site origin
+export async function fetchAsset(relPath: string, attempts = 2): Promise<Response> {
+  let lastErr: unknown
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    try {
+      return await Promise.any([fetchOk(CDN + relPath), fetchOk(SITE_ORIGIN + relPath)])
+    } catch (err) {
+      lastErr = err
+      if (attempt < attempts - 1) await new Promise((r) => setTimeout(r, 300 * 2 ** attempt))
+    }
   }
-  const res = await fetchWithRetry(SITE_ORIGIN + relPath, 1)
-  if (!res.ok) throw new Error(`fetch failed ${res.status} ${relPath}`)
-  return res
+  const detail =
+    lastErr instanceof AggregateError
+      ? lastErr.errors.map((e) => (e instanceof Error ? e.message : String(e))).join('; ')
+      : String(lastErr)
+  throw new Error(`fetch failed ${relPath}: ${detail}`)
 }
 
 const imgCache = new Map<string, string>()
@@ -151,8 +147,7 @@ function loadFonts() {
     // fail instantly forever without even attempting a new fetch.
     fontsPromise = Promise.all(
       ['Bold', 'Medium', 'Regular'].map(async (w) => {
-        const res = await fetchWithRetry(`${FONT_BASE}/TTSupermolotNeue-${w}.ttf`)
-        if (!res.ok) throw new Error(`font fetch failed ${res.status} ${w}`)
+        const res = await fetchAsset(`${FONT_PATH}/TTSupermolotNeue-${w}.ttf`)
         return Buffer.from(await res.arrayBuffer())
       }),
     )
