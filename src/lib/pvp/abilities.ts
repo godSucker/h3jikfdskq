@@ -38,6 +38,7 @@
 
 import type { AbilityKind, CombatAbility, CombatUnit } from './battle-profile'
 import { STRENGTHEN_STACK_MAX } from './battle-profile'
+import { resolveHit } from './damage'
 
 /** Юнит может иметь до 2 способностей одновременно (родная + спец-сфера add<kind>,
  *  гарантированно разных kind - см. battle-profile.ts) - все хелперы ниже ищут нужный
@@ -122,11 +123,34 @@ export function grantSlashOnHit(
   }
 }
 
-/** Retaliate (trigger="defend") - % от СОБСТВЕННОЙ атаки (atk1) юнита с отражением,
- *  не от урона входящего удара - см. разбор в шапке файла. */
-export function retaliateDamage(defender: CombatUnit): number {
+export interface RetaliateResult {
+  damage: number
+  /** Магнитуда до модификатора типа - для лога. */
+  baseDamage: number
+  typeModPct: number
+}
+
+/** Retaliate (trigger="defend") - % от урона, который владелец нанёс бы СВОЕЙ атакой (atk1)
+ *  атакующему: не от урона входящего удара (см. шапку файла), но с тем же модификатором
+ *  типа, что у обычного удара - игра пересчитывает полную атак-модель владельца
+ *  (FightUtils::fillAttackModel, см. памятку по Ghidra), а не плоскую атаку. Тип берётся
+ *  как для удара владельца: ген его атаки против гена атакующего. Крит и баффы
+ *  strengthen/weaken на отражение не накладываются. */
+export function retaliateDamage(defender: CombatUnit, attacker: CombatUnit): RetaliateResult {
   const retaliate = findAbility(defender, 'retaliate')
-  return retaliate ? Math.floor((defender.atk1 * Math.abs(retaliate.pct)) / 100) : 0
+  if (!retaliate) return { damage: 0, baseDamage: 0, typeModPct: 0 }
+  const pct = Math.abs(retaliate.pct)
+  const hit = resolveHit({
+    baseDamage: defender.atk1,
+    attackerGene: defender.atk1Gene,
+    targetGene: attacker.gene,
+    crit: false,
+  })
+  return {
+    damage: Math.max(0, Math.trunc((hit.totalDamage * pct) / 100)),
+    baseDamage: Math.trunc((defender.atk1 * pct) / 100),
+    typeModPct: hit.typeModPct,
+  }
 }
 
 /** Поглощение входящего урона персистентным пулом щита - истощается (не сбрасывается
