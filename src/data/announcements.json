@@ -6487,7 +6487,7 @@
         "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_tech_v2-ru.jpg",
         "price": null,
         "ribbon": null,
-        "discountPercent": null,
+        "discountPercent": 50,
         "exactDateLabel": "≈ 26 — 28 октября",
         "exactDateStart": "2026-10-27T10:00:00.000Z",
         "exactDateEnd": null,
