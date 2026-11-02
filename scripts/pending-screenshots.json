@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "id": "bingo-1793617410235-0",
+    "category": "bingo",
+    "title": "Скины 2026: добавлен(ы) Робот Марио",
+    "itemIds": [
+      "2026_skins"
+    ],
+    "createdAt": "2026-11-02T11:03:38.018Z",
+    "attempts": 0,
+    "date": "2026-11-02T11:03:30.216Z"
+  },
+  {
+    "id": "box-1793617411612-0",
+    "category": "box",
+    "title": "Таинственная коробка ко Дню науки",
+    "itemIds": [
+      "Mystery_Science_2026"
+    ],
+    "createdAt": "2026-11-02T11:03:38.018Z",
+    "attempts": 0,
+    "date": "2026-11-02T11:03:30.216Z"
+  },
+  {
+    "id": "shopForecast-1793617412805",
+    "category": "shopForecast",
+    "title": "Даг Дарио",
+    "itemIds": [
+      "261|Specimen_BE_08"
+    ],
+    "createdAt": "2026-11-02T11:03:38.018Z",
+    "attempts": 0,
+    "date": "2026-11-02T11:03:30.216Z"
+  }
+]

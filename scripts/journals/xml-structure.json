@@ -1,141 +1,7 @@
 {
   "version": 1,
-  "capturedAt": "2026-10-22T09:01:26.124Z",
+  "capturedAt": "2026-11-02T11:03:21.527Z",
   "shopitems": {
-    "255": [
-      [
-        "Mystery_School_2026",
-        null
-      ],
-      [
-        "Bundle_Mutants_BTG",
-        "Shop_Mutants_Bundle_BTG"
-      ],
-      [
-        "Specimen_BA_06_Bronze",
-        null
-      ],
-      [
-        "bundle_orbs_strengthen_5_28",
-        null
-      ],
-      [
-        "Specimen_B_01_Platinum",
-        null
-      ],
-      [
-        "Specimen_DA_15_Gold",
-        null
-      ],
-      [
-        "Specimen_DA_15_rc",
-        null
-      ],
-      [
-        "Specimen_DC_05_Silver",
-        null
-      ],
-      [
-        "LuckyBox_Galactic_Prime",
-        null
-      ],
-      [
-        "Specimen_DF_04_Bronze",
-        null
-      ],
-      [
-        "Specimen_ED_13_rc",
-        null
-      ],
-      [
-        "Specimen_EA_04_Bronze",
-        null
-      ],
-      [
-        "Pack_Toxic",
-        null
-      ],
-      [
-        "bank_b_14_10ct",
-        "Shop_Bank_B_14_ct"
-      ],
-      [
-        "bank_b_14_25ct",
-        "Shop_Bank_B_14_ct"
-      ],
-      [
-        "bank_b_14_60ct",
-        "Shop_Bank_B_14_ct"
-      ],
-      [
-        "Specimen_CB_04_Bronze",
-        null
-      ],
-      [
-        "Specimen_DE_06",
-        null
-      ],
-      [
-        "bundle_orbs_experimental_tank_11",
-        null
-      ],
-      [
-        "Specimen_AE_09_Bronze",
-        null
-      ],
-      [
-        "Specimen_FA_03_Bronze_sc",
-        null
-      ],
-      [
-        "Specimen_DE_07_sc",
-        null
-      ],
-      [
-        "Pack_GreenFire",
-        null
-      ],
-      [
-        "Specimen_CC_08_Bronze",
-        null
-      ],
-      [
-        "Specimen_EE_13_Gold",
-        null
-      ],
-      [
-        "Specimen_AA_05",
-        null
-      ],
-      [
-        "Specimen_AF_02",
-        "Shop_Zodiac_AF_02"
-      ],
-      [
-        "Specimen_AF_02_Silver",
-        "Shop_Zodiac_AF_02"
-      ],
-      [
-        "bundle_orbs_adaptive_slash_12",
-        null
-      ],
-      [
-        "Specimen_BB_04",
-        null
-      ],
-      [
-        "LuckyBox_Research_VI_v3",
-        null
-      ],
-      [
-        "Specimen_CD_04",
-        null
-      ],
-      [
-        "Specimen_DC_04",
-        null
-      ]
-    ],
     "256": [
       [
         "bundle_orbs_adaptive_retaliate_14",
@@ -806,6 +672,10 @@
         null
       ],
       [
+        "Mystery_Science_2026",
+        null
+      ],
+      [
         "bundle_orbs_weaken_5_27",
         null
       ],
@@ -945,7 +815,8 @@
         "Specimen_EF_09_Bronze",
         null
       ]
-    ]
+    ],
+    "261": []
   },
   "dailypopup": {
     "255": [
@@ -1468,6 +1339,11 @@
         "Shop_Mystery_Zodiac_v3",
         "LuckyBox_Zodiac_v3",
         "news_shop_mystery_zodiac"
+      ],
+      [
+        "Shop_Mystery_Science_2026",
+        "Mystery_Science_2026",
+        "news_mystery_science26"
       ],
       [
         "Shop_bundle_orbs_weaken_5_27",
@@ -6859,6 +6735,10 @@
       [
         "LuckyBox_Zodiac_v3",
         "Shop_Mystery_Zodiac_v3"
+      ],
+      [
+        "Mystery_Science_2026",
+        null
       ],
       [
         "Specimen_ED_12_Gold",

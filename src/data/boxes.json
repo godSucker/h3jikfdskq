@@ -46191,120 +46191,6 @@
     ]
   },
   {
-    "itemId": "Luckybox_Science_2025",
-    "icon": "/boxes/mystery_science.png",
-    "category": "Лаки-бокс",
-    "name": "Таинственная коробка ко Дню науки",
-    "price": {
-      "amount": 1000,
-      "type": "hardcurrency"
-    },
-    "groups": [
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_ab_10",
-            "name": "УТ-Мститель",
-            "tier": "золото",
-            "skin": "science"
-          }
-        ],
-        "rewards": []
-      },
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_ba_05",
-            "name": "Доктор Блоу",
-            "tier": "золото",
-            "skin": null
-          }
-        ],
-        "rewards": [
-          {
-            "name": "Material_Mystery25_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      },
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_ef_09",
-            "name": "Маг Ризафредд",
-            "tier": "золото",
-            "skin": null
-          }
-        ],
-        "rewards": [
-          {
-            "name": "Material_Mystery25_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      },
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_ae_08",
-            "name": "Андромеда",
-            "tier": "золото",
-            "skin": null
-          }
-        ],
-        "rewards": [
-          {
-            "name": "Material_Mystery25_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      },
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_de_11",
-            "name": "Дрей, космический корги",
-            "tier": "золото",
-            "skin": null
-          }
-        ],
-        "rewards": [
-          {
-            "name": "Material_Mystery25_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      },
-      {
-        "chance": 16.666666666666664,
-        "mutants": [
-          {
-            "id": "specimen_ca_04",
-            "name": "Проект «Икс-27»",
-            "tier": "золото",
-            "skin": null
-          }
-        ],
-        "rewards": [
-          {
-            "name": "Material_Mystery25_Token",
-            "type": "entity",
-            "amount": 1
-          }
-        ]
-      }
-    ]
-  },
-  {
     "itemId": "Mystery_Thanksgiving_2025",
     "icon": "/boxes/mystery_thanksgiving.png",
     "category": "Мистери-бокс",
@@ -79761,6 +79647,120 @@
           }
         ],
         "rewards": []
+      }
+    ]
+  },
+  {
+    "itemId": "Mystery_Science_2026",
+    "icon": "/boxes/mystery_science.png",
+    "category": "Мистери-бокс",
+    "name": "Таинственная коробка ко Дню науки",
+    "price": {
+      "amount": 1000,
+      "type": "hardcurrency"
+    },
+    "groups": [
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_ca_04",
+            "name": "Проект «Икс-27»",
+            "tier": "золото",
+            "skin": "science"
+          }
+        ],
+        "rewards": []
+      },
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_ba_05",
+            "name": "Доктор Блоу",
+            "tier": "золото",
+            "skin": null
+          }
+        ],
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
+      },
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_ef_09",
+            "name": "Маг Ризафредд",
+            "tier": "золото",
+            "skin": null
+          }
+        ],
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
+      },
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_ae_08",
+            "name": "Андромеда",
+            "tier": "золото",
+            "skin": null
+          }
+        ],
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
+      },
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_de_11",
+            "name": "Дрей, космический корги",
+            "tier": "золото",
+            "skin": null
+          }
+        ],
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
+      },
+      {
+        "chance": 16.666666666666664,
+        "mutants": [
+          {
+            "id": "specimen_ab_10",
+            "name": "УТ-Мститель",
+            "tier": "золото",
+            "skin": "science"
+          }
+        ],
+        "rewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       }
     ]
   },

@@ -7466,7 +7466,7 @@
         "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
-          "Specimen_BB_12"
+          "Specimen_BF_11"
         ]
       },
       {
@@ -7484,7 +7484,7 @@
         "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
-          "Specimen_BF_13"
+          "Specimen_BB_12"
         ]
       },
       {
@@ -7550,11 +7550,10 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": "≈ 31 октября",
-        "exactDateStart": "2026-10-31T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "2 — 5 ноября",
+        "exactDateStart": "2026-11-02T10:00:00+00:00",
+        "exactDateEnd": "2026-11-05T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_09"
@@ -7596,6 +7595,30 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EF_09"
+        ]
+      },
+      {
+        "id": "260|Mystery_Science_2026",
+        "name": "Таинственная коробка ко Дню науки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_science.png",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 10 ноября",
+        "exactDateStart": "2026-11-10T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CA_04",
+          "Specimen_BA_05",
+          "Specimen_EF_09",
+          "Specimen_AE_08",
+          "Specimen_DE_11",
+          "Specimen_AB_10"
         ]
       }
     ],
@@ -7948,6 +7971,22 @@
         "exactDateEnd": "2026-11-07T10:00:00.000Z",
         "exactDateApprox": false,
         "exactDateSource": "rule"
+      },
+      {
+        "id": "260|Shop_Mystery_Science_2026",
+        "name": "Таинственная коробка ко Дню науки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_mystery_science26-ru.jpg",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 10 ноября",
+        "exactDateStart": "2026-11-10T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
       }
     ],
     "link": "/announcements",
@@ -8189,5 +8228,68 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "bingo-1793617410235-0",
+    "date": "2026-11-02T11:03:30.216Z",
+    "category": "bingo",
+    "title": "Скины 2026: добавлен(ы) Робот Марио",
+    "items": [
+      {
+        "id": "2026_skins",
+        "name": "Скины 2026: добавлен(ы) Робот Марио",
+        "image": null,
+        "addedNames": [
+          "Робот Марио"
+        ]
+      }
+    ],
+    "link": "/bingo"
+  },
+  {
+    "id": "box-1793617411612-0",
+    "date": "2026-11-02T11:03:30.216Z",
+    "category": "box",
+    "title": "Таинственная коробка ко Дню науки",
+    "items": [
+      {
+        "id": "Mystery_Science_2026",
+        "name": "Таинственная коробка ко Дню науки",
+        "image": "/boxes/mystery_science.png",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null
+      }
+    ],
+    "link": "/boxes"
+  },
+  {
+    "id": "shopForecast-1793617412805",
+    "date": "2026-11-02T11:03:30.216Z",
+    "category": "shopForecast",
+    "title": "Даг Дарио",
+    "items": [
+      {
+        "id": "261|Specimen_BE_08",
+        "name": "Даг Дарио",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_be_08.png",
+        "price": {
+          "amount": 950,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 14 ноября",
+        "exactDateStart": "2026-11-14T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": "day",
+        "packMutants": [
+          "Specimen_BE_08"
+        ]
+      }
+    ],
+    "link": "/materials",
+    "sprintKey": "261"
   }
 ]

@@ -1010,7 +1010,7 @@
     "2026_skins|Specimen_FF_98",
     "2026_skins|Specimen_CC_05",
     "2026_skins|Specimen_EB_11",
-    "2026_skins|Specimen_FF_98",
+    "2026_skins|Specimen_AC_04",
     "2026_skins|Specimen_DF_03",
     "2026_skins|Specimen_AB_03",
     "2026_skins|Specimen_FF_98",
@@ -2203,7 +2203,6 @@
     "Luckybox_Gold_Heroic_v2",
     "Luckybox_Anniversary25_1",
     "Luckybox_Anniversary25_2",
-    "Luckybox_Science_2025",
     "Mystery_Thanksgiving_2025",
     "Mystery_Cyberweek_2025",
     "Mystery_Winter_2025",
@@ -2257,6 +2256,7 @@
     "lucky_box_research_viii",
     "Mystery_Halloween26",
     "LuckyBox_Cyber_Prime",
+    "Mystery_Science_2026",
     "LuckyBox_Zodiac_v3"
   ],
   "exchange": [
@@ -2498,7 +2498,8 @@
     "257",
     "258",
     "259",
-    "260"
+    "260",
+    "261"
   ],
   "dailyNews": [
     "254",

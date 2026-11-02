@@ -2579,6 +2579,12 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (3★, скин «science»)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_ab_11": [
@@ -6575,6 +6581,12 @@
       "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
       "icon": "/boxes/mystery_oktoberfest.png",
       "itemId": "Mystery_Oktoberfest_2026"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (золото)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_ae_09": [
@@ -9396,6 +9408,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (золото)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_ba_06": [
@@ -18405,6 +18423,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (3★, скин «science»)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_ca_05": [
@@ -34564,6 +34588,12 @@
       "type": "crossover",
       "where": "Кроссовер — жетон бэкера краудфандинга настольной игры Mutants: The Card Game (2019), уже не получить",
       "icon": "/materials/Material_Tcg_Corgi_Token.png"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (золото)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_de_12": [
@@ -45932,6 +45962,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 132"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка ко Дню науки (золото)",
+      "icon": "/boxes/mystery_science.png",
+      "itemId": "Mystery_Science_2026"
     }
   ],
   "specimen_ef_10": [
