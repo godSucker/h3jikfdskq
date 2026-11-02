@@ -8291,5 +8291,19 @@
     ],
     "link": "/materials",
     "sprintKey": "261"
+  },
+  {
+    "id": "skin-1793627045616-0",
+    "date": "2026-11-02T13:44:05.599Z",
+    "category": "skin",
+    "title": "Проект «Икс-27» — Наука",
+    "items": [
+      {
+        "id": "Specimen_CA_04|science",
+        "name": "Проект «Икс-27» — Наука",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_ca_04_science.png"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
