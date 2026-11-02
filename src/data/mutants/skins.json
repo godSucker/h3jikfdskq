@@ -2993,6 +2993,32 @@
       ]
     },
     {
+      "id": "Specimen_CA_04",
+      "name": "Проект «Икс-27»",
+      "genes": [
+        "C",
+        "A"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 1564,
+          "atk1": 307,
+          "atk2": 307
+        },
+        "lvl30": {
+          "hp": 6102,
+          "atk1": 2491,
+          "atk2": 2491
+        }
+      },
+      "star": "gold",
+      "bonus": 12,
+      "skin": "science",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_ca_04_science.png"
+      ]
+    },
+    {
       "id": "Specimen_CA_05",
       "name": "Челленджер",
       "genes": [
