@@ -7568,9 +7568,9 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": "31 октября — 4 ноября",
+        "exactDateLabel": "31 октября — 5 ноября",
         "exactDateStart": "2026-10-31T10:00:00+00:00",
-        "exactDateEnd": "2026-11-04T10:00:00+00:00",
+        "exactDateEnd": "2026-11-05T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
@@ -7940,9 +7940,9 @@
         },
         "ribbon": "new",
         "discountPercent": null,
-        "exactDateLabel": "31 октября — 4 ноября",
+        "exactDateLabel": "31 октября — 5 ноября",
         "exactDateStart": "2026-10-31T10:00:00+00:00",
-        "exactDateEnd": "2026-11-04T10:00:00+00:00",
+        "exactDateEnd": "2026-11-05T10:00:00+00:00",
         "exactDateApprox": false,
         "exactDateSource": "kartel"
       },
