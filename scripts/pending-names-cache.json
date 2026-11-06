@@ -3,5 +3,11 @@
     "type": "reactor",
     "id": "zodiac",
     "alertedAt": "2026-08-07T15:59:57.842Z"
+  },
+  "dungeon:boneyard": {
+    "type": "dungeon",
+    "id": "boneyard",
+    "dungeonType": "raid",
+    "alertedAt": "2026-11-06T07:02:51.801Z"
   }
 }
