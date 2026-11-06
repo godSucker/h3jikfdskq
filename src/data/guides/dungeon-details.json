@@ -3297,6 +3297,262 @@
     }
    ]
   },
+  "boneyard": {
+   "type": "raid",
+   "active": true,
+   "entryCost": {
+    "amount": 1000,
+    "type": "hardcurrency"
+   },
+   "completionMax": 1,
+   "conditions": {
+    "minLevel": 10,
+    "maxLevel": null,
+    "genes": [],
+    "stars": null
+   },
+   "title": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/title_boneyard-ru.png",
+   "screen": "https://s-beta.kobojo.com/mutants/assets/pveeventcontent/screen_boneyard.jpg",
+   "floors": 300,
+   "energy": {
+    "min": 8,
+    "max": 25,
+    "total": 4900
+   },
+   "milestones": [
+    {
+     "floor": 10,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 20,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 30,
+     "items": [
+      {
+       "id": "orb_basic_critical_02",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 40,
+     "items": [
+      {
+       "id": "Star_Bronze",
+       "amount": 3
+      }
+     ]
+    },
+    {
+     "floor": 50,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 5
+      }
+     ]
+    },
+    {
+     "floor": 60,
+     "items": [
+      {
+       "id": "orb_special_addslash_01",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 70,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 80,
+     "items": [
+      {
+       "id": "orb_special_addshield_02",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 90,
+     "items": [
+      {
+       "id": "orb_basic_regenerate_03",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 100,
+     "items": [
+      {
+       "id": "Star_Silver",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 110,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 5
+      }
+     ]
+    },
+    {
+     "floor": 120,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 15
+      }
+     ]
+    },
+    {
+     "floor": 130,
+     "items": [
+      {
+       "id": "orb_basic_life_04",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 140,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 150,
+     "items": [
+      {
+       "id": "Material_XP1000",
+       "amount": 10
+      }
+     ]
+    },
+    {
+     "floor": 160,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 170,
+     "items": [
+      {
+       "id": "Material_Jackpot_Token",
+       "amount": 20
+      }
+     ]
+    },
+    {
+     "floor": 180,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 190,
+     "items": [
+      {
+       "id": "orb_basic_strengthen_05",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 200,
+     "items": [
+      {
+       "id": "Specimen_BB_02",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 220,
+     "items": [
+      {
+       "id": "orb_basic_attack_06",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 240,
+     "items": [
+      {
+       "id": "Star_Platinum",
+       "amount": 1
+      }
+     ]
+    },
+    {
+     "floor": 260,
+     "items": [
+      {
+       "id": "Material_Gacha_Token",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 280,
+     "items": [
+      {
+       "id": "Star_Gold",
+       "amount": 2
+      }
+     ]
+    },
+    {
+     "floor": 300,
+     "items": [
+      {
+       "id": "Material_Mutenstein_Token",
+       "amount": 1
+      }
+     ]
+    }
+   ],
+   "completion": [
+    {
+     "id": "Specimen_BD_15",
+     "amount": 1
+    }
+   ]
+  },
   "celestial_12": {
    "type": "experiment",
    "active": false,
@@ -6583,12 +6839,6 @@
        "amount": 10
       }
      ]
-    }
-   ],
-   "completion": [
-    {
-     "id": "orb_special_addregenerate_03",
-     "amount": 1
     }
    ]
   },
