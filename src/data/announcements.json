@@ -6759,11 +6759,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 13 ноября",
-        "exactDateStart": "2026-11-13T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "13 — 14 ноября",
+        "exactDateStart": "2026-11-13T10:00:00+00:00",
+        "exactDateEnd": "2026-11-14T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BE_08"
@@ -6778,11 +6777,10 @@
           "type": "hardcurrency"
         },
         "ribbon": null,
-        "exactDateLabel": "≈ 12 ноября",
-        "exactDateStart": "2026-11-12T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "12 — 13 ноября",
+        "exactDateStart": "2026-11-12T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_02"
@@ -6797,11 +6795,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "discount-50",
-        "exactDateLabel": "≈ 11 ноября",
-        "exactDateStart": "2026-11-11T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "11 — 13 ноября",
+        "exactDateStart": "2026-11-11T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6814,11 +6811,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 11 ноября",
-        "exactDateStart": "2026-11-11T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "11 — 12 ноября",
+        "exactDateStart": "2026-11-11T10:00:00+00:00",
+        "exactDateEnd": "2026-11-12T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BF_02"
@@ -6833,11 +6829,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "new",
-        "exactDateLabel": "≈ 10 ноября",
-        "exactDateStart": "2026-11-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "10 — 13 ноября",
+        "exactDateStart": "2026-11-10T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_12",
@@ -6854,11 +6849,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 10 ноября",
-        "exactDateStart": "2026-11-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "10 — 13 ноября",
+        "exactDateStart": "2026-11-10T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CD_02",
@@ -6884,11 +6878,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 10 ноября",
-        "exactDateStart": "2026-11-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "10 — 11 ноября",
+        "exactDateStart": "2026-11-10T10:00:00+00:00",
+        "exactDateEnd": "2026-11-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BB_06"
@@ -6903,11 +6896,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "9 — 12 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-12T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
       },
@@ -6920,12 +6912,11 @@
           "type": "hardcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
-        "featuredMutant": null,
+        "exactDateLabel": "9 — 16 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
+        "exactDateSource": "kartel",
+        "featuredMutant": "week",
         "packMutants": [
           "Specimen_ED_12"
         ]
@@ -6939,11 +6930,10 @@
           "type": "softcurrency"
         },
         "ribbon": "legendary",
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "ladder",
+        "exactDateLabel": "9 — 10 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-10T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FF_02"
@@ -6958,11 +6948,10 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": "≈ 8 ноября",
-        "exactDateStart": "2026-11-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "8 — 11 ноября",
+        "exactDateStart": "2026-11-08T10:00:00+00:00",
+        "exactDateEnd": "2026-11-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -6977,11 +6966,10 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": "≈ 8 ноября",
-        "exactDateStart": "2026-11-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "8 — 11 ноября",
+        "exactDateStart": "2026-11-08T10:00:00+00:00",
+        "exactDateEnd": "2026-11-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -6996,11 +6984,10 @@
           "type": "usd"
         },
         "ribbon": null,
-        "exactDateLabel": "≈ 8 ноября",
-        "exactDateStart": "2026-11-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "8 — 11 ноября",
+        "exactDateStart": "2026-11-08T10:00:00+00:00",
+        "exactDateEnd": "2026-11-11T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_13"
@@ -7601,11 +7588,10 @@
           "type": "hardcurrency"
         },
         "ribbon": "limited",
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit",
+        "exactDateLabel": "9 — 16 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
+        "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_04",
@@ -7636,11 +7622,11 @@
         },
         "ribbon": "discount-50",
         "discountPercent": null,
-        "exactDateLabel": "≈ 11 ноября",
-        "exactDateStart": "2026-11-11T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit"
+        "exactDateLabel": "11 — 13 ноября",
+        "exactDateStart": "2026-11-11T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "260|Shop_Pack_Unstable",
@@ -7652,11 +7638,11 @@
         },
         "ribbon": "new",
         "discountPercent": null,
-        "exactDateLabel": "≈ 10 ноября",
-        "exactDateStart": "2026-11-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit"
+        "exactDateLabel": "10 — 13 ноября",
+        "exactDateStart": "2026-11-10T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "260|Shop_Mystery_Zodiac_v3",
@@ -7668,11 +7654,11 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 10 ноября",
-        "exactDateStart": "2026-11-10T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit"
+        "exactDateLabel": "10 — 13 ноября",
+        "exactDateStart": "2026-11-10T10:00:00+00:00",
+        "exactDateEnd": "2026-11-13T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "260|Shop_bundle_orbs_weaken_5_27",
@@ -7684,11 +7670,11 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit"
+        "exactDateLabel": "9 — 12 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-12T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "260|PayWall_2026_EE_13_CT",
@@ -7697,12 +7683,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 7 — 9 ноября",
-        "exactDateStart": "2026-11-08T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateUncertainDays": 1,
-        "exactDateSource": "neighbor"
+        "exactDateLabel": "9 — 12 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-12T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "260|Shop_pack_powerlevel_92",
@@ -7977,11 +7962,11 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "≈ 9 ноября",
-        "exactDateStart": "2026-11-09T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateSource": "inherit"
+        "exactDateLabel": "9 — 16 ноября",
+        "exactDateStart": "2026-11-09T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       }
     ],
     "link": "/announcements",
