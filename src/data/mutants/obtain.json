@@ -55133,5 +55133,11 @@
       "where": "Зал обмена — 2200 жетонов Селенита",
       "icon": "/materials/Material_Halloween26_Token.png"
     }
+  ],
+  "specimen_bd_15": [
+    {
+      "type": "event_raid",
+      "where": "Рейд: Кладбище"
+    }
   ]
 }
