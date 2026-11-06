@@ -8300,5 +8300,19 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "mutant-1793951450664-0",
+    "date": "2026-11-06T07:50:50.107Z",
+    "category": "mutant",
+    "title": "BD_15",
+    "items": [
+      {
+        "id": "specimen_bd_15",
+        "name": "BD_15",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_bd_15_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
   }
 ]

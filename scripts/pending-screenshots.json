@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "mutant-1793951450664-0",
+    "category": "mutant",
+    "title": "BD_15",
+    "itemIds": [
+      "specimen_bd_15"
+    ],
+    "createdAt": "2026-11-06T07:50:59.390Z",
+    "attempts": 0,
+    "date": "2026-11-06T07:50:50.107Z"
+  }
+]
