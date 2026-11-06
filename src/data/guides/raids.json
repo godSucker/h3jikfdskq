@@ -1740,5 +1740,86 @@
         }
       ]
     }
+  },
+  {
+    "id": "boneyard",
+    "name": "Кладбище",
+    "nameAuthored": true,
+    "mutantId": "Specimen_BD_15",
+    "fightCount": 300,
+    "bossCount": 16,
+    "rewards": {
+      "currency": {
+        "softcurrency": 2017500,
+        "hardcurrency": 0,
+        "experience": 201750
+      },
+      "items": [
+        {
+          "id": "Star_Bronze",
+          "amount": 4
+        },
+        {
+          "id": "Material_Jackpot_Token",
+          "amount": 45
+        },
+        {
+          "id": "orb_basic_critical_02",
+          "amount": 2
+        },
+        {
+          "id": "Material_XP1000",
+          "amount": 20
+        },
+        {
+          "id": "orb_special_addslash_01",
+          "amount": 2
+        },
+        {
+          "id": "Star_Silver",
+          "amount": 3
+        },
+        {
+          "id": "orb_special_addshield_02",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_regenerate_03",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_life_04",
+          "amount": 1
+        },
+        {
+          "id": "Star_Gold",
+          "amount": 3
+        },
+        {
+          "id": "Material_Gacha_Token",
+          "amount": 3
+        },
+        {
+          "id": "Star_Platinum",
+          "amount": 2
+        },
+        {
+          "id": "orb_basic_strengthen_05",
+          "amount": 1
+        },
+        {
+          "id": "Specimen_BB_02",
+          "amount": 1
+        },
+        {
+          "id": "orb_basic_attack_06",
+          "amount": 1
+        },
+        {
+          "id": "Material_Mutenstein_Token",
+          "amount": 1
+        }
+      ]
+    }
   }
 ]
