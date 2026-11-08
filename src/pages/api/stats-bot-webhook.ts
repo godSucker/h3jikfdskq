@@ -8,6 +8,7 @@ import {
   ADMIN_FORMAT_HELP,
   type ParsedConfig,
 } from '@/lib/stats/bot-parser'
+import { containsProfanity } from '@/lib/stats/profanity'
 import { buildPanelData } from '@/lib/stats/panel-data'
 import {
   renderStatsCard,
@@ -277,8 +278,20 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = JSON.parse(await request.text())
     chatId = body.message?.chat?.id ?? null
-    const text: string = body.message?.text ?? ''
+    const rawText: string = body.message?.text ?? ''
     messageId = body.message?.message_id
+
+    // Messages with swearing are ignored entirely: no reply, no failed-parse DM to
+    // the admin, text not logged. Checked before everything else so no branch below
+    // (commands, admin commands, rate limiter) ever sees such a message.
+    if (containsProfanity(rawText)) {
+      if (chatId != null) console.log(`stats-bot: chat ${chatId} msg: (profanity, ignored)`)
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+    const text = rawText
 
     // Cheap, always-on: lets chat_id be recovered from Vercel runtime logs
     // instead of needing a Telegram-side lookup tool. Only commands ('.'/'/',
