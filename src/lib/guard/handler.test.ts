@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { handleGuardUpdate, type GuardDeps } from './handler'
 import type { BotApi } from './telegram-api'
 import { parseGuardConfig, type LolsVerdict } from './policy'
+import { createMemoryStore, type GuardStore } from './store'
 
 const CHAT = -1001541478618
 const LOG = -1003079055796
@@ -16,11 +17,13 @@ function deps(
     allowed?: string[]
     enforce?: string[]
     logTo?: number[]
+    store?: GuardStore
   } = {},
 ): GuardDeps {
   return {
     api: api as unknown as BotApi,
-    lols: async () => over.lols ?? 'clean',
+    spamDb: async () => ({ verdict: over.lols ?? 'clean', source: 'LOLS' }),
+    store: over.store ?? null,
     cfg: parseGuardConfig({ GUARD_BAN: over.ban ? '1' : '' }),
     allowedChats: new Set(over.allowed ?? [String(CHAT)]),
     enforceChats: over.enforce ? new Set(over.enforce) : null,
@@ -47,6 +50,10 @@ beforeEach(() => {
     unbanMember: vi.fn(async () => {}),
     sendText: vi.fn(async (_c: unknown, t: string) => void sent.push(t)),
     getMemberStatus: vi.fn(async () => 'administrator'),
+    getMember: vi.fn(async (_c: unknown, id: number) => ({
+      status: 'member',
+      user: { id, first_name: 'Вася', username: 'vasya' },
+    })),
   }
 })
 
@@ -241,5 +248,183 @@ describe('admin commands', () => {
   it('ordinary chat messages are not even looked at', async () => {
     expect(await handleGuardUpdate(msg('привет всем'), deps())).toBe('ignored')
     expect(api.getMemberStatus).not.toHaveBeenCalled()
+  })
+})
+
+describe('rechecking people who joined recently', () => {
+  const NOW = 1_000_000
+  const msgFrom = (id: number, extra: Record<string, unknown> = {}) => ({
+    message: { chat: { id: CHAT, title: 'Чат' }, from: { id, first_name: 'Вася' }, ...extra },
+  })
+  // база отвечает по-разному в разное время: сначала чист, потом нашла
+  function flippingDeps(store: GuardStore, now: { t: number }, over: { ban?: boolean } = {}) {
+    const verdicts = { value: 'clean' as LolsVerdict }
+    const d = deps({ ban: over.ban ?? true, store })
+    d.spamDb = async () => ({ verdict: verdicts.value, source: 'LOLS' })
+    d.nowSec = () => now.t
+    d.sweepGate = { last: 0 }
+    return { d, verdicts }
+  }
+  const chatTexts = () => api.sendText.mock.calls.filter((c) => c[0] === CHAT).map((c) => c[1])
+
+  it('a clean join is remembered; a would-be-banned one is not', async () => {
+    const store = createMemoryStore()
+    await handleGuardUpdate(join(), deps({ store }))
+    expect(await store.joinedAt(String(CHAT), 7)).not.toBeNull()
+    await handleGuardUpdate(join({ id: 8 }), deps({ store, lols: 'banned' }))
+    expect(await store.joinedAt(String(CHAT), 8)).toBeNull()
+  })
+
+  it("the newcomer's first message is checked again and bans once the database has caught up", async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now)
+    await handleGuardUpdate(join(), d)
+    api.sendText.mockClear()
+
+    now.t += 600
+    verdicts.value = 'banned'
+    expect(await handleGuardUpdate(msgFrom(7), d)).toBe('recheck')
+    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7)
+    expect(chatTexts()).toEqual(['🚫 Вася (@vasya) забанен навсегда: найден в базе спамеров.'])
+    expect(
+      sent.some((t) => t.includes('Перепроверка') && t.includes('при входе в базе не было')),
+    ).toBe(true)
+    expect(await store.joinedAt(String(CHAT), 7)).toBeNull()
+  })
+
+  it('a message from someone who did not just join costs nothing: no database call', async () => {
+    const store = createMemoryStore()
+    const d = deps({ store })
+    const spy = vi.fn(async () => ({ verdict: 'clean' as LolsVerdict, source: 'LOLS' }))
+    d.spamDb = spy
+    expect(await handleGuardUpdate(msgFrom(99), d)).toBe('ignored')
+    expect(spy).not.toHaveBeenCalled()
+  })
+
+  it('a chatty newcomer is checked at most once per claim window', async () => {
+    const store = createMemoryStore()
+    const d = deps({ store })
+    await handleGuardUpdate(join(), d)
+    const spy = vi.fn(async () => ({ verdict: 'clean' as LolsVerdict, source: 'LOLS' }))
+    d.spamDb = spy
+    await handleGuardUpdate(msgFrom(7), d)
+    await handleGuardUpdate(msgFrom(7), d)
+    await handleGuardUpdate(msgFrom(7), d)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  it('a schedule sweep (triggered by any chat activity) bans a latecomer from the database', async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now)
+    await handleGuardUpdate(join(), d)
+
+    now.t += 3700 // it is time for the hourly check
+    verdicts.value = 'banned'
+    await handleGuardUpdate(msgFrom(99), d) // somebody else writes; the sweep rides along
+    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7)
+    expect(sent.some((t) => t.includes('по расписанию'))).toBe(true)
+  })
+
+  it('the sweep runs at most once per gate window and not before a check is due', async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now)
+    await handleGuardUpdate(join(), d)
+    verdicts.value = 'banned'
+    now.t += 60 // not due yet (due in 1h)
+    await handleGuardUpdate(msgFrom(99), d)
+    expect(api.banMember).not.toHaveBeenCalled()
+  })
+
+  it('log-only mode logs "would be banned" once and stops asking about that person', async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now, { ban: false })
+    await handleGuardUpdate(join(), d)
+    now.t += 3700
+    verdicts.value = 'banned'
+    await handleGuardUpdate(msgFrom(99), d)
+    expect(api.banMember).not.toHaveBeenCalled()
+    expect(
+      sent.filter((t) => t.includes('Перепроверка') && t.includes('бан выключен')),
+    ).toHaveLength(1)
+    expect(await store.joinedAt(String(CHAT), 7)).toBeNull()
+  })
+
+  it('does nothing about someone who already left, is already banned, or is an admin', async () => {
+    for (const status of ['left', 'kicked', 'administrator']) {
+      sent.length = 0
+      api.banMember.mockClear()
+      const store = createMemoryStore()
+      const now = { t: NOW }
+      const { d, verdicts } = flippingDeps(store, now)
+      await handleGuardUpdate(join(), d)
+      api.getMember.mockResolvedValueOnce({ status, user: { id: 7 } })
+      now.t += 600
+      verdicts.value = 'banned'
+      await handleGuardUpdate(msgFrom(7), d)
+      expect(api.banMember, status).not.toHaveBeenCalled()
+      expect(await store.joinedAt(String(CHAT), 7), status).toBeNull()
+    }
+  })
+
+  it('two parallel sweeps of the same person ban and announce only once', async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now)
+    await handleGuardUpdate(join(), d)
+    api.sendText.mockClear()
+    now.t += 3700
+    verdicts.value = 'banned'
+    // two function instances, each with its own gate, both see the same due record:
+    // the one that deletes it first acts, the other backs off
+    const d2 = { ...d, sweepGate: { last: 0 } }
+    await Promise.all([handleGuardUpdate(msgFrom(99), d), handleGuardUpdate(msgFrom(98), d2)])
+    expect(api.banMember).toHaveBeenCalledTimes(1)
+    expect(chatTexts()).toHaveLength(1)
+  })
+
+  it('.разбан exempts the person: no recheck ban and no ban on a later database hit', async () => {
+    const store = createMemoryStore()
+    const now = { t: NOW }
+    const { d, verdicts } = flippingDeps(store, now)
+    await handleGuardUpdate(join(), d)
+    await handleGuardUpdate(
+      {
+        message: {
+          chat: { id: CHAT },
+          from: { id: 1, first_name: 'Админ' },
+          text: '.разбан 7000000',
+        },
+      },
+      d,
+    )
+    await store.recordJoin(String(CHAT), 7000000, NOW)
+    now.t += 600
+    verdicts.value = 'banned'
+    await handleGuardUpdate(msgFrom(7000000), d)
+    expect(api.banMember).not.toHaveBeenCalled()
+    api.sendText.mockClear()
+    await handleGuardUpdate(join({ id: 7000000 }), d)
+    expect(api.banMember).not.toHaveBeenCalled()
+    expect(sent.some((t) => t.includes('исключён командой .разбан'))).toBe(true)
+  })
+
+  it('a broken store never breaks the bot: joins are still checked and logged', async () => {
+    const broken = createMemoryStore()
+    for (const k of Object.keys(broken) as (keyof GuardStore)[]) {
+      if (typeof broken[k] === 'function') {
+        ;(broken as unknown as Record<string, unknown>)[k] = async () => {
+          throw new Error('redis down')
+        }
+      }
+    }
+    const err = vi.spyOn(console, 'error').mockImplementation(() => {})
+    await expect(handleGuardUpdate(join(), deps({ store: broken }))).resolves.toBe('join')
+    expect(sent[0]).toContain('нет в базе спамеров')
+    await expect(handleGuardUpdate(msgFrom(7), deps({ store: broken }))).resolves.toBe('ignored')
+    err.mockRestore()
   })
 })

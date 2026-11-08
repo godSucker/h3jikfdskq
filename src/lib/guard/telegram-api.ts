@@ -3,11 +3,24 @@
 
 export type ChatId = number | string
 
+export interface ChatMemberInfo {
+  status: string
+  is_member?: boolean
+  user: {
+    id: number
+    is_bot?: boolean
+    first_name?: string
+    last_name?: string
+    username?: string
+  }
+}
+
 export interface BotApi {
   banMember(chatId: ChatId, userId: number): Promise<void>
   unbanMember(chatId: ChatId, userId: number): Promise<void>
   sendText(chatId: ChatId, text: string): Promise<void>
   getMemberStatus(chatId: ChatId, userId: number): Promise<string>
+  getMember(chatId: ChatId, userId: number): Promise<ChatMemberInfo>
 }
 
 export function createBotApi(token: string, fetchImpl: typeof fetch = fetch): BotApi {
@@ -29,7 +42,9 @@ export function createBotApi(token: string, fetchImpl: typeof fetch = fetch): Bo
 
   return {
     async banMember(chatId, userId) {
-      await call('banChatMember', { chat_id: chatId, user_id: userId, revoke_messages: false })
+      // revoke_messages: вместе с баном стираются все сообщения спамера в чате (на входе
+      // сообщений ещё нет, при перепроверке это то самое спам-сообщение).
+      await call('banChatMember', { chat_id: chatId, user_id: userId, revoke_messages: true })
     },
     async unbanMember(chatId, userId) {
       await call('unbanChatMember', { chat_id: chatId, user_id: userId, only_if_banned: true })
@@ -38,12 +53,11 @@ export function createBotApi(token: string, fetchImpl: typeof fetch = fetch): Bo
       // Без parse_mode: имена и username пользователей - чужой текст.
       await call('sendMessage', { chat_id: chatId, text, disable_web_page_preview: true })
     },
+    async getMember(chatId, userId) {
+      return call<ChatMemberInfo>('getChatMember', { chat_id: chatId, user_id: userId })
+    },
     async getMemberStatus(chatId, userId) {
-      const m = await call<{ status: string }>('getChatMember', {
-        chat_id: chatId,
-        user_id: userId,
-      })
-      return m.status
+      return (await this.getMember(chatId, userId)).status
     },
   }
 }
