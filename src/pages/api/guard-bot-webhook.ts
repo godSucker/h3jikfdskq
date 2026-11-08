@@ -22,6 +22,10 @@ import { createBotApi } from '@/lib/guard/telegram-api'
 
 // Один на процесс: перепроверка не чаще раза в 5 минут на экземпляр функции.
 const sweepGate = { last: 0 }
+// Не чаще раза в час на экземпляр функции: сообщение об ошибке в личку, чтобы поломка
+// не была тихой (вебхук всегда отвечает 200, снаружи сбой не виден).
+const ERROR_ALERT_EVERY_MS = 3_600_000
+let lastErrorAlert = 0
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), {
@@ -77,7 +81,19 @@ export const POST: APIRoute = async ({ request }) => {
     })
   } catch (err) {
     // Всегда 200: иначе Telegram будет повторять тот же апдейт часами.
-    console.error('guard-bot webhook error:', err instanceof Error ? err.message : err)
+    const message = err instanceof Error ? err.message : String(err)
+    console.error('guard-bot webhook error:', message)
+    if (Date.now() - lastErrorAlert > ERROR_ALERT_EVERY_MS) {
+      lastErrorAlert = Date.now()
+      const api = createBotApi(token)
+      await Promise.all(
+        [...csv(import.meta.env.GUARD_BOT_LOG_CHAT_ID)].map((id) =>
+          api
+            .sendText(id, `⚠️ guard-бот: ошибка обработки апдейта: ${message.slice(0, 300)}`)
+            .catch(() => {}),
+        ),
+      )
+    }
   }
   return json(200, { ok: true })
 }
