@@ -67,7 +67,50 @@ describe('joins', () => {
 
     await handleGuardUpdate(join(), deps({ lols: 'banned', ban: true }))
     expect(api.banMember).toHaveBeenCalledWith(CHAT, 7)
-    expect(sent[1]).toContain('в базе спамеров - забанен')
+    expect(sent.filter((t) => t.startsWith('🚫 Вход в'))[1]).toContain(
+      'в базе спамеров - забанен навсегда',
+    )
+  })
+
+  it('an applied ban is announced in the chat itself, a would-be ban is not', async () => {
+    const chatTexts = () => api.sendText.mock.calls.filter((c) => c[0] === CHAT).map((c) => c[1])
+    await handleGuardUpdate(join(), deps({ lols: 'banned' }))
+    expect(chatTexts()).toEqual([])
+
+    await handleGuardUpdate(
+      join({ first_name: 'Вася', last_name: 'Спамов' }),
+      deps({ lols: 'banned', ban: true }),
+    )
+    expect(chatTexts()).toEqual([
+      '🚫 Вася Спамов (@vasya) забанен навсегда: найден в базе спамеров.',
+    ])
+  })
+
+  it('the chat announcement has no id, no line breaks and a bounded name', async () => {
+    await handleGuardUpdate(
+      join({ first_name: 'A\nB'.padEnd(80, 'x'), username: undefined }),
+      deps({ lols: 'banned', ban: true }),
+    )
+    const text = api.sendText.mock.calls.find((c) => c[0] === CHAT)![1] as string
+    expect(text).not.toContain('\n')
+    expect(text).not.toContain('id 7')
+    expect(text.length).toBeLessThan(120)
+  })
+
+  it('a failed ban is not announced; a failed announcement does not hide the ban', async () => {
+    api.banMember.mockRejectedValueOnce(new Error('banChatMember: not enough rights'))
+    await handleGuardUpdate(join(), deps({ lols: 'banned', ban: true }))
+    expect(api.sendText.mock.calls.some((c) => c[0] === CHAT)).toBe(false)
+
+    api.sendText.mockImplementation(async (c: number, t: string) => {
+      if (c === CHAT) throw new Error('sendMessage: not enough rights')
+      sent.push(t)
+    })
+    await expect(handleGuardUpdate(join(), deps({ lols: 'banned', ban: true }))).resolves.toBe(
+      'join',
+    )
+    expect(api.banMember).toHaveBeenCalledTimes(2)
+    expect(sent[sent.length - 1]).toContain('Объявление в чат не отправлено')
   })
 
   it('an unanswered database is logged and nobody is banned', async () => {
@@ -114,7 +157,8 @@ describe('joins', () => {
   it('works with no log recipients at all', async () => {
     await handleGuardUpdate(join(), deps({ lols: 'banned', ban: true, logTo: [] }))
     expect(api.banMember).toHaveBeenCalledTimes(1)
-    expect(api.sendText).not.toHaveBeenCalled()
+    // the only message is the announcement in the chat itself, nothing goes to a log
+    expect(api.sendText.mock.calls.map((c) => c[0])).toEqual([CHAT])
   })
 
   it('ignores bots entirely (no log, no action)', async () => {

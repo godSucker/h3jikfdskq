@@ -58,6 +58,15 @@ const userLabel = (u: TgUser) => {
   return `${name} (${u.username ? '@' + u.username : 'без username'}, id ${u.id})`
 }
 
+// Короткая подпись для объявления в чат: имя и username без id; чужой текст, поэтому
+// без переводов строк и с ограничением длины.
+const publicLabel = (u: TgUser) => {
+  const name = [u.first_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim()
+  const short = name.length > 40 ? `${name.slice(0, 40)}…` : name
+  const who = short || 'Без имени'
+  return u.username ? `${who} (@${u.username})` : who
+}
+
 const LOLS_RU: Record<LolsVerdict, string> = {
   banned: 'в базе спамеров',
   clean: 'чист',
@@ -116,9 +125,17 @@ async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void
   const verdict =
     plan.intent === 'ban'
       ? plan.effective === 'ban'
-        ? 'забанен'
+        ? 'забанен навсегда'
         : 'был бы забанен, но бан выключен (ничего не сделано)'
       : plan.reason
+  // Бан применён - сообщаем в сам чат, чтобы участники и админы видели, что произошло.
+  if (plan.effective === 'ban' && !error) {
+    await deps.api
+      .sendText(chat.id, `🚫 ${publicLabel(user)} забанен навсегда: найден в базе спамеров.`)
+      .catch((err) => {
+        error = `\n⚠️ Объявление в чат не отправлено: ${err instanceof Error ? err.message : String(err)}`
+      })
+  }
   await log(
     deps,
     `${plan.intent === 'ban' ? '🚫' : '👤'} Вход в «${chat.title ?? chat.id}»: ${userLabel(user)}\n` +
