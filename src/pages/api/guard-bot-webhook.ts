@@ -29,9 +29,9 @@ const json = (status: number, body: unknown) =>
     headers: { 'Content-Type': 'application/json' },
   })
 
-const csv = (raw: string | undefined) =>
+const csv = (raw: unknown) =>
   new Set(
-    (raw ?? '')
+    String(raw ?? '')
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean),

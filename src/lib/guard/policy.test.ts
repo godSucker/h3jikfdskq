@@ -8,6 +8,15 @@ describe('parseGuardConfig', () => {
     expect(parseGuardConfig({})).toEqual({ ban: false })
   })
 
+  it('accepts env values that arrive as a number or a boolean, not only a string', () => {
+    // Astro/Vite hands "1" over as the number 1: this crashed the webhook in production
+    expect(parseGuardConfig({ GUARD_BAN: 1 })).toEqual({ ban: true })
+    expect(parseGuardConfig({ GUARD_BAN: true })).toEqual({ ban: true })
+    expect(parseGuardConfig({ GUARD_BAN: 0 })).toEqual({ ban: false })
+    expect(parseGuardConfig({ GUARD_BAN: false })).toEqual({ ban: false })
+    expect(parseGuardConfig({ GUARD_BAN: null })).toEqual({ ban: false })
+  })
+
   it('reads the ban switch', () => {
     expect(parseGuardConfig({ GUARD_BAN: '1' })).toEqual({ ban: true })
     expect(parseGuardConfig({ GUARD_BAN: 'true' })).toEqual({ ban: true })

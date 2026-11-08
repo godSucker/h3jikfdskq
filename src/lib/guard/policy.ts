@@ -9,9 +9,11 @@ export interface GuardConfig {
   ban: boolean
 }
 
-const truthy = (v: string | undefined) => /^(1|true|on|yes)$/i.test((v ?? '').trim())
+// Значение env приходит не всегда строкой: Astro/Vite отдаёт "1" числом, "true" булевым
+// (из-за этого вебхук упал на GUARD_BAN=1, 2026-11-08), поэтому приводим к строке.
+const truthy = (v: unknown) => /^(1|true|on|yes)$/i.test(String(v ?? '').trim())
 
-export function parseGuardConfig(env: { GUARD_BAN?: string }): GuardConfig {
+export function parseGuardConfig(env: { GUARD_BAN?: unknown }): GuardConfig {
   return { ban: truthy(env.GUARD_BAN) }
 }
 
