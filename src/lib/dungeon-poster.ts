@@ -143,6 +143,11 @@ const CURRENCY_ITEM: Record<string, { name: string; icon: string }> = {
   $hardcurrency: { name: 'Золото', icon: '/cash/hardcurrency.webp' },
   $softcurrency: { name: 'Серебро', icon: '/cash/softcurrency.webp' },
 }
+// A mutant with no name in the game files is stored under its bare code ("BD_15");
+// the poster shows a dash instead of the code.
+const UNNAMED = /^[A-Z]{2}_\d{2}$/
+const shownName = (name: string) => (UNNAMED.test(name.trim()) ? '\u2014' : name)
+
 function item(id: string, amount: number): PosterItem {
   let base = itemCache.get(id)
   if (!base && CURRENCY_ITEM[id]) {
@@ -154,7 +159,7 @@ function item(id: string, amount: number): PosterItem {
     // luxe zones (Habitat_*_HC) resolve without an icon, the file name is the lowercase id
     const icon =
       r.icon ?? (/^Habitat_.+_HC$/.test(id) ? `/zones/luxe/${id.toLowerCase()}.webp` : null)
-    base = { id, name: r.label, icon, isMutant: Boolean(r.mutant) }
+    base = { id, name: r.mutant ? shownName(r.label) : r.label, icon, isMutant: Boolean(r.mutant) }
     itemCache.set(id, base)
   }
   return { ...base, amount }
@@ -210,7 +215,7 @@ function buildPosterData(id: string): PosterData | null {
     ? resolveMutantLite(featuredId.toLowerCase(), mutantsById, names)
     : null
   const mutantArt = featuredMutant?.fullArt ?? null
-  const mutantName = featuredMutant?.name ?? null
+  const mutantName = featuredMutant ? shownName(featuredMutant.name) : null
 
   const d = details.dungeons[id]
   if (d) {
@@ -306,7 +311,7 @@ export function getPosterData(id: string): PosterData | null {
   if (data && !data.mutantArt) {
     const m = firstMutantReward(data.cells)
     data.mutantArt = m?.fullArt ?? null
-    data.mutantName = m?.name ?? null
+    data.mutantName = m ? shownName(m.name) : null
   }
   return data
 }
