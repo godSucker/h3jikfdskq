@@ -1,9 +1,17 @@
 import type { BotApi, ChatId } from './telegram-api'
 import { planJoin, type GuardConfig, type JoinPlan, type LolsVerdict } from './policy'
+import type { SpamCheck } from './spam-db'
+import type { GuardStore } from './store'
+
+// Не чаще раза в 5 минут (на экземпляр функции) перепроверяем тех, кому пора, и не
+// больше стольких за раз: бот работает по вебхуку, своего таймера у него нет, поэтому
+// перепроверка идёт попутно, пока в чате есть движение.
+const SWEEP_EVERY_SEC = 300
+const SWEEP_BATCH = 10
 
 export interface GuardDeps {
   api: BotApi
-  lols: (userId: number) => Promise<LolsVerdict>
+  spamDb: (userId: number) => Promise<SpamCheck>
   cfg: GuardConfig
   // Чаты, где бот вообще работает. Пусто/нет = не делает ничего (fail-closed).
   allowedChats: Set<string>
@@ -15,9 +23,13 @@ export interface GuardDeps {
   // Без получателей бот молча работает по правилам.
   logChatIds: ChatId[]
   nowSec: () => number
+  // Память о недавних входах (перепроверка). Нет = только проверка на входе.
+  store?: GuardStore | null
+  // Общий на процесс счётчик "когда последний раз перепроверяли".
+  sweepGate?: { last: number }
 }
 
-export type GuardResult = 'join' | 'command' | 'ignored'
+export type GuardResult = 'join' | 'command' | 'recheck' | 'ignored'
 
 interface TgUser {
   id: number
@@ -104,12 +116,36 @@ async function log(deps: GuardDeps, text: string) {
   )
 }
 
+// Любой сбой хранилища не должен ронять бота: перепроверка просто пропускается.
+async function safe<T>(fn: () => Promise<T> | undefined, fallback: T): Promise<T> {
+  try {
+    return (await fn()) ?? fallback
+  } catch (err) {
+    console.error('guard-bot: хранилище недоступно:', err instanceof Error ? err.message : err)
+    return fallback
+  }
+}
+
+const isEnforced = (deps: GuardDeps, chatId: number | string) =>
+  deps.enforceChats === null || deps.enforceChats.has(String(chatId))
+
+function agoRu(sec: number): string {
+  if (sec < 3600) return `${Math.max(1, Math.round(sec / 60))} мин`
+  if (sec < 86400) return `${Math.round(sec / 3600)} ч`
+  return `${Math.round(sec / 86400)} сут.`
+}
+
 async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void> {
   const chat = update.chat
   const user: TgUser = update.new_chat_member!.user
-  const lols = user.is_bot ? 'unknown' : await deps.lols(user.id)
-  const enforced = deps.enforceChats === null || deps.enforceChats.has(String(chat.id))
-  const cfg = enforced ? deps.cfg : { ...deps.cfg, ban: false }
+  const check: SpamCheck = user.is_bot
+    ? { verdict: 'unknown', source: 'LOLS' }
+    : await deps.spamDb(user.id)
+  // Админ уже говорил ".разбан" про этого человека: база не повод банить снова.
+  const exempt =
+    check.verdict === 'banned' && (await safe(() => deps.store?.isExempt(user.id), false))
+  const lols: LolsVerdict = exempt ? 'clean' : check.verdict
+  const cfg = isEnforced(deps, chat.id) ? deps.cfg : { ...deps.cfg, ban: false }
   const plan: JoinPlan = planJoin({ isBot: Boolean(user.is_bot), lols }, cfg)
 
   let error = ''
@@ -120,6 +156,10 @@ async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void
   }
 
   if (plan.intent === 'skip') return // боты и прочее - не шумим в журнале
+  // Не забаненных запоминаем: база может узнать о них позже, тогда сработает перепроверка.
+  if (plan.intent === 'pass') {
+    await safe(() => deps.store?.recordJoin(String(chat.id), user.id, deps.nowSec()), undefined)
+  }
   // Одна строка вердикта: что нашла база и что сделано. Чистые входы тоже пишем -
   // по журналу видно, сколько народу пришло и кого база пропустила.
   const verdict =
@@ -127,7 +167,9 @@ async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void
       ? plan.effective === 'ban'
         ? 'забанен навсегда'
         : 'был бы забанен, но бан выключен (ничего не сделано)'
-      : plan.reason
+      : exempt
+        ? 'в базе, но исключён командой .разбан'
+        : plan.reason
   // Бан применён - сообщаем в сам чат, чтобы участники и админы видели, что произошло.
   if (plan.effective === 'ban' && !error) {
     await deps.api
@@ -139,7 +181,96 @@ async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void
   await log(
     deps,
     `${plan.intent === 'ban' ? '🚫' : '👤'} Вход в «${chat.title ?? chat.id}»: ${userLabel(user)}\n` +
-      `LOLS: ${LOLS_RU[lols]} - ${verdict}${error}`,
+      `${check.source}: ${LOLS_RU[check.verdict]} - ${verdict}${error}`,
+  )
+}
+
+// База узнала о человеке уже после входа (проверка на первом сообщении или по расписанию).
+async function onFlagged(
+  chat: TgChat,
+  userId: number,
+  via: string,
+  joinedAt: number,
+  check: SpamCheck,
+  deps: GuardDeps,
+): Promise<void> {
+  const store = deps.store
+  if (!store) return
+  const chatKey = String(chat.id)
+  if (await safe(() => store.isExempt(userId), false)) {
+    await safe(() => store.forget(chatKey, userId), false)
+    return
+  }
+  // Ушёл сам, уже забанен или админ: действовать не над кем.
+  const member = await deps.api.getMember(chat.id, userId).catch(() => null)
+  const inChat =
+    member && (member.status === 'member' || (member.status === 'restricted' && member.is_member))
+  if (!member || !inChat) {
+    await safe(() => store.forget(chatKey, userId), false)
+    return
+  }
+  // Кто успел удалить запись, тот и действует: два параллельных вызова не забанят дважды.
+  if (!(await safe(() => store.forget(chatKey, userId), false))) return
+
+  const user = member.user
+  const enforced = isEnforced(deps, chat.id) && deps.cfg.ban
+  let error = ''
+  if (enforced) {
+    try {
+      await deps.api.banMember(chat.id, userId)
+    } catch (err) {
+      error = `\n⚠️ Ошибка применения: ${err instanceof Error ? err.message : String(err)}`
+    }
+    if (!error) {
+      await deps.api
+        .sendText(chat.id, `🚫 ${publicLabel(user)} забанен навсегда: найден в базе спамеров.`)
+        .catch((err) => {
+          error = `\n⚠️ Объявление в чат не отправлено: ${err instanceof Error ? err.message : String(err)}`
+        })
+    }
+  }
+  const verdict = enforced ? 'забанен навсегда' : 'был бы забанен, но бан выключен'
+  await log(
+    deps,
+    `🚫 Перепроверка в «${chat.title ?? chat.id}» (${via}): ${userLabel(user)}\n` +
+      `${check.source}: в базе спамеров. Вошёл ${agoRu(deps.nowSec() - joinedAt)} назад, при входе в базе не было - ${verdict}${error}`,
+  )
+}
+
+// Сообщение от недавно вошедшего: спрашиваем базу ещё раз, но не чаще раза в 10 минут.
+async function onMessage(msg: TgMessage, deps: GuardDeps): Promise<boolean> {
+  const store = deps.store
+  if (!store || !msg.from || msg.from.is_bot) return false
+  const chatKey = String(msg.chat.id)
+  const joinedAt = await safe(() => store.joinedAt(chatKey, msg.from!.id), null)
+  if (joinedAt === null) return false
+  if (!(await safe(() => store.claimMessageCheck(chatKey, msg.from!.id), false))) return false
+  const check = await deps.spamDb(msg.from.id)
+  if (check.verdict === 'banned') {
+    await onFlagged(msg.chat, msg.from.id, 'первое сообщение', joinedAt, check, deps)
+  }
+  return true
+}
+
+// Перепроверка по расписанию: берём тех, кому пора, и спрашиваем базу ещё раз.
+async function sweep(chat: TgChat, deps: GuardDeps): Promise<void> {
+  const store = deps.store
+  if (!store) return
+  const now = deps.nowSec()
+  if (deps.sweepGate) {
+    if (now - deps.sweepGate.last < SWEEP_EVERY_SEC) return
+    deps.sweepGate.last = now
+  }
+  const due = await safe(() => store.due(String(chat.id), now, SWEEP_BATCH), [])
+  await Promise.all(
+    due.map(async ({ userId, joinedAt }) => {
+      const check = await deps.spamDb(userId)
+      if (check.verdict === 'banned') {
+        await onFlagged(chat, userId, 'по расписанию', joinedAt, check, deps)
+      } else {
+        await safe(() => store.reschedule(String(chat.id), userId, now, joinedAt), undefined)
+      }
+    }),
   )
 }
 
@@ -161,6 +292,11 @@ async function onCommand(msg: TgMessage, deps: GuardDeps): Promise<boolean> {
   }
   try {
     await deps.api.unbanMember(chatId, targetId)
+    // Админ решил, что база ошиблась: ни перепроверка, ни повторный вход его не баны.
+    await safe(async () => {
+      await deps.store?.forget(String(chatId), targetId)
+      await deps.store?.exempt(targetId)
+    }, undefined)
     await log(deps, `✅ .разбан: id ${targetId} разбанен (${userLabel(msg.from)})`)
   } catch (err) {
     await log(
@@ -175,11 +311,15 @@ export async function handleGuardUpdate(update: TgUpdate, deps: GuardDeps): Prom
   const cm = update.chat_member
   if (cm && deps.allowedChats.has(String(cm.chat?.id)) && isJoin(cm)) {
     await onJoin(cm, deps)
+    await sweep(cm.chat, deps)
     return 'join'
   }
   const msg = update.message
-  if (msg && deps.allowedChats.has(String(msg.chat?.id)) && typeof msg.text === 'string') {
-    if (await onCommand(msg, deps)) return 'command'
+  if (msg && deps.allowedChats.has(String(msg.chat?.id))) {
+    if (typeof msg.text === 'string' && (await onCommand(msg, deps))) return 'command'
+    const checked = await onMessage(msg, deps)
+    await sweep(msg.chat, deps)
+    return checked ? 'recheck' : 'ignored'
   }
   return 'ignored'
 }

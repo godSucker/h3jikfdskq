@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro'
 import { handleGuardUpdate } from '@/lib/guard/handler'
-import { checkLols } from '@/lib/guard/lols'
+import { createSpamChecker } from '@/lib/guard/spam-db'
+import { createRedisStore } from '@/lib/guard/store'
+import { Redis } from '@upstash/redis'
 import { parseGuardConfig } from '@/lib/guard/policy'
 import { createBotApi } from '@/lib/guard/telegram-api'
 
@@ -11,9 +13,15 @@ import { createBotApi } from '@/lib/guard/telegram-api'
 // GUARD_BOT_LOG_CHAT_ID (один id или несколько через запятую; в личку бот пишет
 // только тому, кто сам нажал у него Start). Webhook нужно ставить с
 // allowed_updates=["message","chat_member"] (chat_member требует админа в чате).
+// Перепроверка: вошедших за неделю запоминает в Redis и спрашивает базу ещё раз на
+// их первом сообщении и попутно по расписанию (база узнаёт о спамерах с задержкой).
+// SPAMWATCH_TOKEN (необязателен) подключает вторую базу.
 // GUARD_BOT_ALLOWED_CHATS обязателен: без списка бот игнорирует все чаты.
 // GUARD_BOT_ENFORCE_CHATS (необязателен): где бан реально действует; в остальных
 // разрешённых чатах только журнал.
+
+// Один на процесс: перепроверка не чаще раза в 5 минут на экземпляр функции.
+const sweepGate = { last: 0 }
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), {
@@ -28,6 +36,14 @@ const csv = (raw: string | undefined) =>
       .map((s) => s.trim())
       .filter(Boolean),
   )
+
+// Память о недавних входах живёт в Upstash (те же KV_REST_API_*, что у стат-бота).
+// Нет переменных - перепроверка выключена, остаётся проверка на входе.
+function redisStore() {
+  const url = import.meta.env.KV_REST_API_URL as string | undefined
+  const token = import.meta.env.KV_REST_API_TOKEN as string | undefined
+  return url && token ? createRedisStore(new Redis({ url, token })) : null
+}
 
 export const POST: APIRoute = async ({ request }) => {
   const token = import.meta.env.GUARD_BOT_TOKEN as string | undefined
@@ -44,7 +60,11 @@ export const POST: APIRoute = async ({ request }) => {
     const update = JSON.parse(await request.text())
     await handleGuardUpdate(update, {
       api: createBotApi(token),
-      lols: (id) => checkLols(id),
+      spamDb: createSpamChecker({
+        spamwatchToken: (import.meta.env.SPAMWATCH_TOKEN as string | undefined) || undefined,
+      }),
+      store: redisStore(),
+      sweepGate,
       cfg: parseGuardConfig({
         GUARD_BAN: import.meta.env.GUARD_BAN,
       }),
