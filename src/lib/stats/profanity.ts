@@ -26,7 +26,8 @@ const LOOKALIKE: Record<string, string> = {
 
 const PREFIX = '(?:на|за|вы|до|по|от|об|объ|про|под|раз|рас|съ|сь|у|при|пере|недо|ни|не|въ|из|ис)?'
 // "хуй" с приставками ("нахуй", "охуеть", "дохуя"), но не внутри слова: "страхуй"
-const HU_PREFIX = '(?:(?:на|за|вы|до|по|от|об|про|под|раз|рас|съ|сь|у|при|пере|ни|не|из|ис|о|с|а)){0,2}'
+const HU_PREFIX =
+  '(?:(?:на|за|вы|до|по|от|об|про|под|раз|рас|съ|сь|у|при|пере|ни|не|из|ис|о|с|а)){0,2}'
 
 // Корни без привязки к началу слова: достаточно длинные и однозначные.
 const ANYWHERE = [
@@ -80,12 +81,19 @@ const ANCHORED = [
 ]
 
 // Английские: только целые слова.
-const ENGLISH = ['fuck', 'fucking', 'fucker', 'fuckin', 'motherfucker', 'shit', 'bitch', 'asshole', 'cunt']
+const ENGLISH = [
+  'fuck',
+  'fucking',
+  'fucker',
+  'fuckin',
+  'motherfucker',
+  'shit',
+  'bitch',
+  'asshole',
+  'cunt',
+]
 
-const ROOT_RE = new RegExp(
-  `(?:${ANYWHERE.join('|')})|^(?:${ANCHORED.join('|')})`,
-  'u',
-)
+const ROOT_RE = new RegExp(`(?:${ANYWHERE.join('|')})|^(?:${ANCHORED.join('|')})`, 'u')
 const ENGLISH_SET = new Set(ENGLISH)
 
 const VOWELS_FOR_MASK = ['и', 'е', 'у', 'а', 'о', 'я', 'ю', 'ы']
