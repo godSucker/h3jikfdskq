@@ -231,3 +231,4 @@
 {"ts":"2026-11-08T09:03:23.265Z","fetch":"success","status":"full","requested":4483,"returned":304,"failed":[],"horizonDays":33,"promoActive":9}
 {"ts":"2026-11-08T10:03:04.711Z","fetch":"success","status":"full","requested":4483,"returned":304,"failed":[],"horizonDays":33,"promoActive":9}
 {"ts":"2026-11-08T11:03:43.055Z","fetch":"success","status":"full","requested":4483,"returned":304,"failed":[],"horizonDays":33,"promoActive":9}
+{"ts":"2026-11-08T12:03:26.883Z","fetch":"success","status":"full","requested":4483,"returned":304,"failed":[],"horizonDays":32.9,"promoActive":9}
