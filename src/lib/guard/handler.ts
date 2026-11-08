@@ -1,12 +1,5 @@
 import type { BotApi, ChatId } from './telegram-api'
-import {
-  planJoin,
-  probationPermissions,
-  probationUntil,
-  type GuardConfig,
-  type JoinPlan,
-  type LolsVerdict,
-} from './policy'
+import { planJoin, type GuardConfig, type JoinPlan, type LolsVerdict } from './policy'
 
 export interface GuardDeps {
   api: BotApi
@@ -14,7 +7,7 @@ export interface GuardDeps {
   cfg: GuardConfig
   // Чаты, где бот вообще работает. Пусто/нет = не делает ничего (fail-closed).
   allowedChats: Set<string>
-  // Чаты, где рубильники restrict/ban действуют. null = во всех разрешённых; иначе в
+  // Чаты, где рубильник ban действует. null = во всех разрешённых; иначе в
   // остальных разрешённых чатах бот только пишет журнал (боевой чат в логе, тест на
   // отдельной группе).
   enforceChats: Set<string> | null
@@ -65,17 +58,24 @@ const userLabel = (u: TgUser) => {
   return `${name} (${u.username ? '@' + u.username : 'без username'}, id ${u.id})`
 }
 
+// Короткая подпись для объявления в чат: имя и username без id; чужой текст, поэтому
+// без переводов строк и с ограничением длины.
+const publicLabel = (u: TgUser) => {
+  const name = [u.first_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim()
+  const short = name.length > 40 ? `${name.slice(0, 40)}…` : name
+  const who = short || 'Без имени'
+  return u.username ? `${who} (@${u.username})` : who
+}
+
 const LOLS_RU: Record<LolsVerdict, string> = {
   banned: 'в базе спамеров',
   clean: 'чист',
   unknown: 'нет ответа',
 }
-const INTENT_RU = { skip: 'пропуск', restrict: 'только текст на срок', ban: 'бан' } as const
-const EFFECT_RU = { none: 'ничего (режим лога)', restrict: 'ограничение', ban: 'бан' } as const
 
 // Вход нового участника: был вне чата (вышел/кикнут/заявка не одобрена), стал внутри.
-// Наше же ограничение/бан тоже даёт chat_member-апдейт, но это не вход, а переход
-// member -> restricted/kicked, поэтому петли нет.
+// Наш же бан тоже даёт chat_member-апдейт, но это не вход, а переход member -> kicked,
+// поэтому петли нет.
 function isJoin(update: TgChatMemberUpdate): boolean {
   const o = update.old_chat_member
   const n = update.new_chat_member
@@ -109,45 +109,43 @@ async function onJoin(update: TgChatMemberUpdate, deps: GuardDeps): Promise<void
   const user: TgUser = update.new_chat_member!.user
   const lols = user.is_bot ? 'unknown' : await deps.lols(user.id)
   const enforced = deps.enforceChats === null || deps.enforceChats.has(String(chat.id))
-  const cfg = enforced ? deps.cfg : { ...deps.cfg, restrict: false, ban: false }
+  const cfg = enforced ? deps.cfg : { ...deps.cfg, ban: false }
   const plan: JoinPlan = planJoin({ isBot: Boolean(user.is_bot), lols }, cfg)
 
   let error = ''
   try {
-    if (plan.effective === 'restrict') {
-      await deps.api.restrictMember(
-        chat.id,
-        user.id,
-        probationPermissions(),
-        probationUntil(deps.nowSec(), deps.cfg.probationHours),
-      )
-    } else if (plan.effective === 'ban') {
-      await deps.api.banMember(chat.id, user.id)
-    }
+    if (plan.effective === 'ban') await deps.api.banMember(chat.id, user.id)
   } catch (err) {
     error = `\n⚠️ Ошибка применения: ${err instanceof Error ? err.message : String(err)}`
   }
 
   if (plan.intent === 'skip') return // боты и прочее - не шумим в журнале
-  const fallback =
-    plan.intent === 'ban' && plan.effective === 'restrict'
-      ? ' (бан выключен, вместо него ограничение)'
-      : ''
-  const hours =
-    plan.intent === 'restrict' || plan.effective === 'restrict'
-      ? ` ${deps.cfg.probationHours} ч`
-      : ''
+  // Одна строка вердикта: что нашла база и что сделано. Чистые входы тоже пишем -
+  // по журналу видно, сколько народу пришло и кого база пропустила.
+  const verdict =
+    plan.intent === 'ban'
+      ? plan.effective === 'ban'
+        ? 'забанен навсегда'
+        : 'был бы забанен, но бан выключен (ничего не сделано)'
+      : plan.reason
+  // Бан применён - сообщаем в сам чат, чтобы участники и админы видели, что произошло.
+  if (plan.effective === 'ban' && !error) {
+    await deps.api
+      .sendText(chat.id, `🚫 ${publicLabel(user)} забанен навсегда: найден в базе спамеров.`)
+      .catch((err) => {
+        error = `\n⚠️ Объявление в чат не отправлено: ${err instanceof Error ? err.message : String(err)}`
+      })
+  }
   await log(
     deps,
-    `👤 Вход в «${chat.title ?? chat.id}»: ${userLabel(user)}\n` +
-      `LOLS: ${LOLS_RU[lols]}. Причина: ${plan.reason}\n` +
-      `Политика: ${INTENT_RU[plan.intent]}${hours}. Применено: ${EFFECT_RU[plan.effective]}${fallback}${error}`,
+    `${plan.intent === 'ban' ? '🚫' : '👤'} Вход в «${chat.title ?? chat.id}»: ${userLabel(user)}\n` +
+      `LOLS: ${LOLS_RU[lols]} - ${verdict}${error}`,
   )
 }
 
-// ".довер" (ответом на сообщение или с id) - досрочно снять ограничение новичка.
-// ".разбан" - снять бан (если база ошиблась). Только для админов чата.
-const COMMAND = /^\.(довер|разбан)(?:\s+(\d{5,}))?\s*$/i
+// ".разбан" (ответом на сообщение или с id) - снять бан, если база ошиблась.
+// Только для админов чата.
+const COMMAND = /^\.разбан(?:\s+(\d{5,}))?\s*$/i
 
 async function onCommand(msg: TgMessage, deps: GuardDeps): Promise<boolean> {
   const m = COMMAND.exec(String(msg.text ?? '').trim())
@@ -156,26 +154,18 @@ async function onCommand(msg: TgMessage, deps: GuardDeps): Promise<boolean> {
   const status = await deps.api.getMemberStatus(chatId, msg.from.id).catch(() => '')
   if (status !== 'creator' && status !== 'administrator') return true // молча: не админ
 
-  const cmd = m[1].toLowerCase()
-  const targetId = m[2] ? Number(m[2]) : msg.reply_to_message?.from?.id
+  const targetId = m[1] ? Number(m[1]) : msg.reply_to_message?.from?.id
   if (!targetId) {
-    await log(deps, `⚠️ .${cmd}: нужен ответ на сообщение человека или его id`)
+    await log(deps, '⚠️ .разбан: нужен ответ на сообщение человека или его id')
     return true
   }
   try {
-    if (cmd === 'довер') {
-      // Вернуть права чата по умолчанию как личные права участника.
-      const defaults = await deps.api.getChatPermissions(chatId)
-      await deps.api.restrictMember(chatId, targetId, defaults)
-      await log(deps, `✅ .довер: ограничение снято с id ${targetId} (${userLabel(msg.from)})`)
-    } else {
-      await deps.api.unbanMember(chatId, targetId)
-      await log(deps, `✅ .разбан: id ${targetId} разбанен (${userLabel(msg.from)})`)
-    }
+    await deps.api.unbanMember(chatId, targetId)
+    await log(deps, `✅ .разбан: id ${targetId} разбанен (${userLabel(msg.from)})`)
   } catch (err) {
     await log(
       deps,
-      `⚠️ .${cmd} id ${targetId}: ${err instanceof Error ? err.message : String(err)}`,
+      `⚠️ .разбан id ${targetId}: ${err instanceof Error ? err.message : String(err)}`,
     )
   }
   return true
