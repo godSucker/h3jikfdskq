@@ -8,6 +8,10 @@ import type { GuardStore } from './store'
 // перепроверка идёт попутно, пока в чате есть движение.
 const SWEEP_EVERY_SEC = 300
 const SWEEP_BATCH = 10
+// Вместе с баном стираем все сообщения человека только если он вошёл не позже суток
+// назад: так выглядят свежие бот-аккаунты, а у давнего участника история остаётся
+// админам (стирание необратимо, а база может ошибиться).
+const REVOKE_WITHIN_SEC = 86400
 
 export interface GuardDeps {
   api: BotApi
@@ -217,7 +221,9 @@ async function onFlagged(
   let error = ''
   if (enforced) {
     try {
-      await deps.api.banMember(chat.id, userId)
+      await deps.api.banMember(chat.id, userId, {
+        revokeMessages: deps.nowSec() - joinedAt < REVOKE_WITHIN_SEC,
+      })
     } catch (err) {
       error = `\n⚠️ Ошибка применения: ${err instanceof Error ? err.message : String(err)}`
     }
