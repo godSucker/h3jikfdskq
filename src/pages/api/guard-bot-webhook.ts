@@ -5,15 +5,14 @@ import { parseGuardConfig } from '@/lib/guard/policy'
 import { createBotApi } from '@/lib/guard/telegram-api'
 
 // Охрана чата: отдельный бот и отдельный токен от стат-бота (этот умеет
-// ограничивать и банить, у стат-бота периметр только на чтение). Что делает:
-// на вход нового участника проверяет его по базе спамеров LOLS и ограничивает
-// новичка "только текст" на срок (Telegram снимает ограничение сам). Оба действия
-// включаются отдельно (GUARD_RESTRICT, GUARD_BAN), по умолчанию бот только пишет
-// журнал в GUARD_BOT_LOG_CHAT_ID (один id или несколько через запятую; в личку бот пишет
+// банить, у стат-бота периметр только на чтение). Что делает: на вход нового
+// участника проверяет его по базе спамеров LOLS и пишет вердикт в журнал; бан по
+// базе включается отдельно (GUARD_BAN), по умолчанию бот только пишет журнал в
+// GUARD_BOT_LOG_CHAT_ID (один id или несколько через запятую; в личку бот пишет
 // только тому, кто сам нажал у него Start). Webhook нужно ставить с
 // allowed_updates=["message","chat_member"] (chat_member требует админа в чате).
 // GUARD_BOT_ALLOWED_CHATS обязателен: без списка бот игнорирует все чаты.
-// GUARD_BOT_ENFORCE_CHATS (необязателен): где рубильники реально действуют; в остальных
+// GUARD_BOT_ENFORCE_CHATS (необязателен): где бан реально действует; в остальных
 // разрешённых чатах только журнал.
 
 const json = (status: number, body: unknown) =>
@@ -47,9 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
       api: createBotApi(token),
       lols: (id) => checkLols(id),
       cfg: parseGuardConfig({
-        GUARD_RESTRICT: import.meta.env.GUARD_RESTRICT,
         GUARD_BAN: import.meta.env.GUARD_BAN,
-        GUARD_PROBATION_HOURS: import.meta.env.GUARD_PROBATION_HOURS,
       }),
       allowedChats: csv(import.meta.env.GUARD_BOT_ALLOWED_CHATS),
       enforceChats: import.meta.env.GUARD_BOT_ENFORCE_CHATS
