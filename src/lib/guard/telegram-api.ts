@@ -16,7 +16,7 @@ export interface ChatMemberInfo {
 }
 
 export interface BotApi {
-  banMember(chatId: ChatId, userId: number): Promise<void>
+  banMember(chatId: ChatId, userId: number, opts?: { revokeMessages?: boolean }): Promise<void>
   unbanMember(chatId: ChatId, userId: number): Promise<void>
   sendText(chatId: ChatId, text: string): Promise<void>
   getMemberStatus(chatId: ChatId, userId: number): Promise<string>
@@ -41,10 +41,14 @@ export function createBotApi(token: string, fetchImpl: typeof fetch = fetch): Bo
   }
 
   return {
-    async banMember(chatId, userId) {
-      // revoke_messages: вместе с баном стираются все сообщения спамера в чате (на входе
-      // сообщений ещё нет, при перепроверке это то самое спам-сообщение).
-      await call('banChatMember', { chat_id: chatId, user_id: userId, revoke_messages: true })
+    async banMember(chatId, userId, opts) {
+      // revokeMessages: вместе с баном стираются ВСЕ сообщения человека в чате, вернуть
+      // их нельзя. Включается только для вошедших меньше суток назад (см. handler).
+      await call('banChatMember', {
+        chat_id: chatId,
+        user_id: userId,
+        revoke_messages: opts?.revokeMessages === true,
+      })
     },
     async unbanMember(chatId, userId) {
       await call('unbanChatMember', { chat_id: chatId, user_id: userId, only_if_banned: true })

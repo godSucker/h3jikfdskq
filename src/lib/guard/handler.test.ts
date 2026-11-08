@@ -285,7 +285,7 @@ describe('rechecking people who joined recently', () => {
     now.t += 600
     verdicts.value = 'banned'
     expect(await handleGuardUpdate(msgFrom(7), d)).toBe('recheck')
-    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7)
+    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7, { revokeMessages: true })
     expect(chatTexts()).toEqual(['🚫 Вася (@vasya) забанен навсегда: найден в базе спамеров.'])
     expect(
       sent.some((t) => t.includes('Перепроверка') && t.includes('при входе в базе не было')),
@@ -323,8 +323,29 @@ describe('rechecking people who joined recently', () => {
     now.t += 3700 // it is time for the hourly check
     verdicts.value = 'banned'
     await handleGuardUpdate(msgFrom(99), d) // somebody else writes; the sweep rides along
-    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7)
+    expect(api.banMember).toHaveBeenCalledWith(CHAT, 7, { revokeMessages: true })
     expect(sent.some((t) => t.includes('по расписанию'))).toBe(true)
+  })
+
+  it('messages are wiped with the ban only for people who joined less than a day ago', async () => {
+    for (const [afterSec, revoke] of [
+      [3700, true],
+      [86_000, true],
+      [90_000, false],
+      [3 * 86_400, false],
+    ] as const) {
+      api.banMember.mockClear()
+      const store = createMemoryStore()
+      const now = { t: NOW }
+      const { d, verdicts } = flippingDeps(store, now)
+      await handleGuardUpdate(join(), d)
+      now.t += afterSec
+      verdicts.value = 'banned'
+      await handleGuardUpdate(msgFrom(7), d)
+      expect(api.banMember, `${afterSec}s`).toHaveBeenCalledWith(CHAT, 7, {
+        revokeMessages: revoke,
+      })
+    }
   })
 
   it('the sweep runs at most once per gate window and not before a check is due', async () => {
