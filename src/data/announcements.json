@@ -9871,5 +9871,19 @@
     ],
     "link": "/announcements",
     "sprintKey": "261"
+  },
+  {
+    "id": "skin-1794486121500-0",
+    "date": "2026-11-12T12:22:01.486Z",
+    "category": "skin",
+    "title": "Громозека — День благодарения",
+    "items": [
+      {
+        "id": "Specimen_EC_02|thanksgiving",
+        "name": "Громозека — День благодарения",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_ec_02_thanksgiving.png"
+      }
+    ],
+    "link": "/mutants"
   }
 ]
