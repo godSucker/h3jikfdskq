@@ -9821,12 +9821,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 11 — 13 ноября",
-        "exactDateStart": "2026-11-12T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateUncertainDays": 1,
-        "exactDateSource": "neighbor"
+        "exactDateLabel": "13 — 20 ноября",
+        "exactDateStart": "2026-11-13T10:00:00+00:00",
+        "exactDateEnd": "2026-11-20T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "261|Daily_news_challenge_hall_block_7_2026",
@@ -9835,12 +9834,11 @@
         "price": null,
         "ribbon": null,
         "discountPercent": null,
-        "exactDateLabel": "≈ 11 — 13 ноября",
-        "exactDateStart": "2026-11-12T10:00:00.000Z",
-        "exactDateEnd": null,
-        "exactDateApprox": true,
-        "exactDateUncertainDays": 1,
-        "exactDateSource": "neighbor"
+        "exactDateLabel": "12 — 17 ноября",
+        "exactDateStart": "2026-11-12T00:00:00+00:00",
+        "exactDateEnd": "2026-11-17T10:00:00+00:00",
+        "exactDateApprox": false,
+        "exactDateSource": "kartel"
       },
       {
         "id": "261|Daily_news_shop_24h_2026_260b",
