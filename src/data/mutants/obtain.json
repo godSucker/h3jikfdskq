@@ -13371,6 +13371,12 @@
     {
       "type": "breeding",
       "where": "Скрещивание — можно вывести"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_bd_02": [
@@ -16352,6 +16358,11 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "event_hall",
+      "where": "Зал обмена — 40 жетонов ивента",
+      "icon": "/materials/Material_Event_Token.png"
     }
   ],
   "specimen_be_11": [
@@ -17606,6 +17617,11 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «patrick»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_bf_13": [
@@ -18683,6 +18699,11 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «worker»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_ca_06": [
@@ -20725,6 +20746,12 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 150 жетонов джекпота"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_cb_11": [
@@ -23281,6 +23308,11 @@
       "where": "Мистери-бокс: Таинственный контейнер Октоберфеста (3★, скин «oktoberfest»)",
       "icon": "/boxes/mystery_oktoberfest.png",
       "itemId": "Mystery_Oktoberfest_2026"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «oktoberfest»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_cd_09": [
@@ -27301,6 +27333,11 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «spring»)",
+      "icon": "/materials/Material_Mystery26_Token.png"
     }
   ],
   "specimen_da_04": [
@@ -34137,6 +34174,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_de_08": [
@@ -35857,6 +35900,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 117"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_df_09": [
@@ -39956,6 +40005,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 77"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_ec_03": [
@@ -41089,6 +41144,11 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 326"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2026 (3★, скин «revolution»)",
+      "icon": "/materials/Material_Mystery26_Token.png"
     }
   ],
   "specimen_ec_11": [
@@ -42869,6 +42929,11 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 335"
+    },
+    {
+      "type": "mystery_hall",
+      "where": "Зал обмена — 10 таинственных жетонов 2025 (3★, скин «carnival»)",
+      "icon": "/materials/Material_Mystery25_Token.png"
     }
   ],
   "specimen_ed_12": [
@@ -47113,6 +47178,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственный контейнер Дня благодарения (золото)",
+      "icon": "/boxes/mystery_thanksgiving.png",
+      "itemId": "Mystery_Thanksgiving_2026"
     }
   ],
   "specimen_fa_06": [
@@ -48479,6 +48550,10 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 27"
+    },
+    {
+      "type": "gold_shop",
+      "where": "Магазин за 900 золота (версия: серебряный)"
     }
   ],
   "specimen_fb_05": [
