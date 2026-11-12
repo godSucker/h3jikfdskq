@@ -13,6 +13,13 @@
             "value": 3552
           },
           {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 3288
+          },
+          {
             "id": "specimen_bf_14",
             "name": "Иррадиация",
             "star": "platinum",
@@ -3294,13 +3301,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/ff_03/specimen_ff_03_platinum.webp",
             "value": 626
-          },
-          {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 624
           },
           {
             "id": "specimen_ed_06",
@@ -6674,6 +6674,13 @@
             "value": 3794
           },
           {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 3788
+          },
+          {
             "id": "specimen_eb_12",
             "name": "Звездный доктор",
             "star": "platinum",
@@ -8653,13 +8660,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fc_01/specimen_fc_01_platinum.webp",
             "value": 2274
-          },
-          {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 2260
           },
           {
             "id": "specimen_ad_03",
@@ -10862,13 +10862,6 @@
             "value": 5
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 5
-          },
-          {
             "id": "specimen_cc_01",
             "name": "Кошмарыцарь Севера",
             "star": "platinum",
@@ -11594,6 +11587,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 4.17
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 4.17
           },
           {
@@ -16787,7 +16787,7 @@
           },
           {
             "id": "specimen_bd_15",
-            "name": "BD_15",
+            "name": "Некротический туша",
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 42
@@ -18067,14 +18067,6 @@
               "star": "platinum",
               "icon": "/textures_by_mutant/ba_15/specimen_ba_15_platinum.webp",
               "pct": 25,
-              "value": 218
-            },
-            {
-              "id": "specimen_bd_15",
-              "name": "BD_15",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-              "pct": 35,
               "value": 218
             },
             {
@@ -20462,6 +20454,14 @@
               "value": 931
             },
             {
+              "id": "specimen_bd_15",
+              "name": "Некротический туша",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+              "pct": 25,
+              "value": 822
+            },
+            {
               "id": "specimen_ab_13",
               "name": "Архитектор",
               "star": "platinum",
@@ -21320,6 +21320,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/be_13/specimen_be_13_platinum.webp",
             "value": 20186
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 19662
           },
           {
             "id": "specimen_da_09",
@@ -24759,13 +24766,6 @@
             "value": 3650
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 3650
-          },
-          {
             "id": "specimen_ed_06",
             "name": "Китти Перри",
             "star": "platinum",
@@ -27983,6 +27983,13 @@
             "value": 14796
           },
           {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 14772
+          },
+          {
             "id": "specimen_eb_12",
             "name": "Звездный доктор",
             "star": "platinum",
@@ -29962,13 +29969,6 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/fc_01/specimen_fc_01_platinum.webp",
             "value": 8868
-          },
-          {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 8814
           },
           {
             "id": "specimen_ad_03",
@@ -32171,13 +32171,6 @@
             "value": 5
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 5
-          },
-          {
             "id": "specimen_cc_01",
             "name": "Кошмарыцарь Севера",
             "star": "platinum",
@@ -32903,6 +32896,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 4.17
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 4.17
           },
           {
@@ -38096,7 +38096,7 @@
           },
           {
             "id": "specimen_bd_15",
-            "name": "BD_15",
+            "name": "Некротический туша",
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 1260
@@ -39385,14 +39385,6 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 1294
-            },
-            {
-              "id": "specimen_bd_15",
-              "name": "BD_15",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-              "pct": 35,
-              "value": 1276
             },
             {
               "id": "specimen_ad_07",
@@ -41777,6 +41769,14 @@
               "icon": "/textures_by_mutant/ab_13/specimen_ab_13_platinum.webp",
               "pct": 35,
               "value": 5216
+            },
+            {
+              "id": "specimen_bd_15",
+              "name": "Некротический туша",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+              "pct": 25,
+              "value": 4914
             },
             {
               "id": "specimen_be_11",
@@ -44305,6 +44305,13 @@
             "value": 3818
           },
           {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 3788
+          },
+          {
             "id": "specimen_eb_12",
             "name": "Звездный доктор",
             "star": "platinum",
@@ -46311,13 +46318,6 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
-            "value": 2260
-          },
-          {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 2260
           },
           {
@@ -48528,13 +48528,6 @@
             "value": 5
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 5
-          },
-          {
             "id": "specimen_cc_01",
             "name": "Кошмарыцарь Севера",
             "star": "platinum",
@@ -49253,6 +49246,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 4.17
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 4.17
           },
           {
@@ -54453,7 +54453,7 @@
           },
           {
             "id": "specimen_bd_15",
-            "name": "BD_15",
+            "name": "Некротический туша",
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 42
@@ -54476,6 +54476,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/be_13/specimen_be_13_platinum.webp",
             "value": 20186
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 19662
           },
           {
             "id": "specimen_da_09",
@@ -57894,13 +57901,6 @@
             "value": 3650
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 3650
-          },
-          {
             "id": "specimen_ed_06",
             "name": "Китти Перри",
             "star": "platinum",
@@ -61104,6 +61104,13 @@
             "value": 14890
           },
           {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+            "value": 14773
+          },
+          {
             "id": "specimen_eb_12",
             "name": "Звездный доктор",
             "star": "platinum",
@@ -63110,13 +63117,6 @@
             "name": "Фрактальный заклинатель",
             "star": "platinum",
             "icon": "/textures_by_mutant/fa_14/specimen_fa_14_platinum.webp",
-            "value": 8814
-          },
-          {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 8814
           },
           {
@@ -65327,13 +65327,6 @@
             "value": 5
           },
           {
-            "id": "specimen_bd_15",
-            "name": "BD_15",
-            "star": "platinum",
-            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-            "value": 5
-          },
-          {
             "id": "specimen_cc_01",
             "name": "Кошмарыцарь Севера",
             "star": "platinum",
@@ -66052,6 +66045,13 @@
             "name": "Суперклеточный дракон",
             "star": "platinum",
             "icon": "/textures_by_mutant/df_14/specimen_df_14_platinum.webp",
+            "value": 4.17
+          },
+          {
+            "id": "specimen_bd_15",
+            "name": "Некротический туша",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 4.17
           },
           {
@@ -71252,7 +71252,7 @@
           },
           {
             "id": "specimen_bd_15",
-            "name": "BD_15",
+            "name": "Некротический туша",
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 1260
@@ -72541,14 +72541,6 @@
               "icon": "/textures_by_mutant/ed_07/specimen_ed_07_platinum.webp",
               "pct": 50,
               "value": 1294
-            },
-            {
-              "id": "specimen_bd_15",
-              "name": "BD_15",
-              "star": "platinum",
-              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
-              "pct": 35,
-              "value": 1276
             },
             {
               "id": "specimen_ad_07",
@@ -74933,6 +74925,14 @@
               "icon": "/textures_by_mutant/ab_13/specimen_ab_13_platinum.webp",
               "pct": 35,
               "value": 5216
+            },
+            {
+              "id": "specimen_bd_15",
+              "name": "Некротический туша",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
+              "pct": 25,
+              "value": 4914
             },
             {
               "id": "specimen_be_11",

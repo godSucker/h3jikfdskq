@@ -60637,18 +60637,18 @@
   },
   {
     "id": "specimen_bd_15",
-    "name": "BD_15",
+    "name": "Некротический туша",
     "genes": [
       "B",
       "D"
     ],
     "base_stats": {
       "lvl1": {
-        "hp": 1130,
-        "atk1": 312,
-        "atk2": 312,
-        "ability": 78,
-        "speed": 5,
+        "hp": 1894,
+        "atk1": 1644,
+        "atk2": 1644,
+        "ability": 295,
+        "speed": 4.17,
         "silver": 42,
         "atk1_gene": "b",
         "atk2_gene": "d",
@@ -60656,44 +60656,44 @@
         "atk2_AOE": false
       },
       "lvl30": {
-        "hp": 4407,
-        "atk1": 1825,
-        "atk2": 1825,
-        "ability": 638,
-        "speed": 5,
+        "hp": 7386,
+        "atk1": 9831,
+        "atk2": 9831,
+        "ability": 2457,
+        "speed": 4.17,
         "silver": 1260,
         "atk1_gene": "b",
         "atk2_gene": "d",
         "atk1_AOE": false,
         "atk2_AOE": false
       },
-      "hp_base": 1130,
-      "atk1_base": 312,
-      "atk1p_base": 468,
-      "atk2_base": 312,
-      "atk2p_base": 468,
-      "speed_base": 5,
+      "hp_base": 1894,
+      "atk1_base": 1644,
+      "atk1p_base": 2521,
+      "atk2_base": 1644,
+      "atk2p_base": 2521,
+      "speed_base": 4.17,
       "bank_base": 42,
-      "abilityPct1": 25,
-      "abilityPct2": 35,
-      "spX100": 200
+      "abilityPct1": -18,
+      "abilityPct2": -25,
+      "spX100": 240
     },
     "abilities": [
       {
-        "name": "ability_regen",
-        "pct": 25,
-        "value_atk1_lvl1": 78,
-        "value_atk2_lvl1": 78,
-        "value_atk1_lvl30": 456,
-        "value_atk2_lvl30": 456
+        "name": "ability_weaken",
+        "pct": 18,
+        "value_atk1_lvl1": 295,
+        "value_atk2_lvl1": 295,
+        "value_atk1_lvl30": 1769,
+        "value_atk2_lvl30": 1769
       },
       {
-        "name": "ability_regen_plus",
-        "pct": 35,
-        "value_atk1_lvl1": 109,
-        "value_atk2_lvl1": 109,
-        "value_atk1_lvl30": 638,
-        "value_atk2_lvl30": 638
+        "name": "ability_weaken_plus",
+        "pct": 25,
+        "value_atk1_lvl1": 411,
+        "value_atk2_lvl1": 411,
+        "value_atk1_lvl30": 2457,
+        "value_atk2_lvl30": 2457
       }
     ],
     "stars": {
@@ -60735,16 +60735,16 @@
     "type": "HEROIC",
     "incub_time": 60,
     "orbs": {
-      "normal": 2,
+      "normal": 3,
       "special": 1
     },
     "bingo": [],
     "chance": 20,
     "bank": 42,
     "tier": "",
-    "name_attack1": "Атака 1",
-    "name_attack2": "Атака 2",
+    "name_attack1": "Костная клетка",
+    "name_attack2": "Ломатель костей",
     "name_attack3": "",
-    "name_lore": "Описание для BD_15"
+    "name_lore": "На протяжении миллионов лет дикие животные рождались, жили и умирали. На протяжении миллионов лет кости накапливались, а эмоции и чувства каждого из них скопились в этой долине. Все человечество естественным образом избегало этого места, словно оно было проклято. Но любопытство взяло верх над здравым смыслом, и в конце концов это место было исследовано. Из 30-ти человек экспедиции выжили только двое. Вскоре после этого они умерли от полученных ранений и болезней, подхваченных там. Их последними словами были: «Никогда туда не возвращайтесь»."
   }
 ]
