@@ -6014,6 +6014,33 @@
       ]
     },
     {
+      "id": "Specimen_EC_02",
+      "name": "Громозека",
+      "genes": [
+        "E",
+        "C"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 2927,
+          "atk1": 1175,
+          "atk2": 1175
+        },
+        "lvl30": {
+          "hp": 11417,
+          "atk1": 6884,
+          "atk2": 6884
+        }
+      },
+      "star": "gold",
+      "bonus": 8,
+      "skin": "thanksgiving",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_ec_02_thanksgiving.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_ec_02_thanksgiving.webp"
+      ]
+    },
+    {
       "id": "Specimen_EC_03",
       "name": "Звездный Десантник",
       "genes": [

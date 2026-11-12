@@ -3370,5 +3370,11 @@
     "lore": "C'è una leggenda che narra di un collezionista di anime non morte il cui veicolo, con il solo rumore del motore, avverte i vivi della sua presenza… Si erano stancati del carretto e delle anime perdute che fuggivano da loro, così ora hanno scelto un veicolo molto più veloce e di gran lunga più efficiente. E nessuna anima perduta può più sfuggirgli.",
     "atk1Name": "Deriva Letale",
     "atk2Name": "Aspirazione dell'Anima"
+  },
+  "specimen_bd_15": {
+    "name": "Carcassa necrotica",
+    "lore": "Nel corso di milioni di anni, gli animali selvatici sono nati, hanno vissuto e sono morti. Nel corso di milioni di anni, le ossa si sono accumulate e le emozioni e i sentimenti di ciascuno di loro si sono concentrati in questa valle. Tutta l’umanità l’ha naturalmente evitata, come se fosse un luogo maledetto. Ma la curiosità ha avuto la meglio sul buon senso e alla fine il luogo è stato esplorato. Due sopravvissuti su una spedizione di 30 persone. Morirono poco dopo a causa delle ferite riportate e delle malattie contratte sul posto. Le loro ultime parole furono: «Non tornateci mai più».",
+    "atk1Name": "Gabbia d’ossa",
+    "atk2Name": "Spezzatore d’ossa"
   }
 }

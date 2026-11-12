@@ -3370,5 +3370,11 @@
     "lore": "Er gaat een legende rond over een ondode zielenverzamelaar wiens voertuig al door het geluid alleen de levenden op zijn aanwezigheid attent maakt… Ze waren de kar en de verdwaalde zielen die voor hen op de vlucht sloegen beu geworden, dus hebben ze nu gekozen voor een veel sneller en veel efficiënter voertuig. En geen enkele verdwaalde ziel kan hen nog ontkomen.",
     "atk1Name": "Dodelijke Drift",
     "atk2Name": "Zielenverlanging"
+  },
+  "specimen_bd_15": {
+    "name": "Necrotisch kadaver",
+    "lore": "Gedurende miljoenen jaren werden er wilde dieren geboren, leefden ze en stierven ze. Gedurende miljoenen jaren stapelden de botten zich op, en de emoties en gevoelens van elk van hen hoopten zich op in deze vallei. De hele mensheid vermeed deze plek van nature, alsof het een vervloekte plek was. Maar nieuwsgierigheid won het van het gezond verstand, en uiteindelijk werd de plek verkend. Twee overlevenden van een expeditie van 30 personen. Ze stierven kort daarna aan hun verwondingen en aan ziekten die ze daar hadden opgelopen. Hun laatste woorden waren: „Ga daar nooit meer heen.“",
+    "atk1Name": "Bottenkooi",
+    "atk2Name": "Bottenbreker"
   }
 }

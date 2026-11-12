@@ -3370,5 +3370,11 @@
     "lore": "Sadece aracının gürültüsüyle bile yaşayanlara varlığını hissettiren bir ölümsüz ruh toplayıcısı hakkında bir efsane vardır… Artık o arabadan ve onlardan kaçan kayıp ruhlardan bıkmışlardı; bu yüzden şimdi çok daha hızlı ve çok daha verimli bir araç seçtiler. Ve artık hiçbir kayıp ruh onlardan kaçamaz.",
     "atk1Name": "Ölümcül Drift",
     "atk2Name": "Ruh Arayışı"
+  },
+  "specimen_bd_15": {
+    "name": "Nekrotik Leşleri",
+    "lore": "Milyonlarca yıl boyunca vahşi hayvanlar doğdu, yaşadı ve öldü. Milyonlarca yıl boyunca kemikler yığıldı ve her birinin duyguları ve hisleri bu vadide birikti. Tüm insanlık, sanki lanetli bir yermiş gibi burayı doğal olarak kaçındı. Ancak merak, sağduyuyu alt etti ve burası sonunda keşfedildi. 30 kişilik keşif ekibinden sadece iki kişi hayatta kaldı. Onlar da kısa süre sonra yaralanmaları ve orada kaptıkları hastalıklar nedeniyle öldüler. Son sözleri şuydu: “Oraya bir daha asla gitmeyin.”",
+    "atk1Name": "Kemik Kafes",
+    "atk2Name": "Kemik Kırıcı"
   }
 }
