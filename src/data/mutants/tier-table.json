@@ -2238,5 +2238,9 @@
   "specimen_ba_15": {
     "before": "-",
     "after": "1+"
+  },
+  "specimen_bd_15": {
+    "before": "-",
+    "after": "2"
   }
 }
