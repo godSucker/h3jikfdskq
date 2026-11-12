@@ -3370,5 +3370,11 @@
     "lore": "Il existe une légende d’un mort-vivant collecteur d’âmes, au véhicule dont le bruit seul alerte les vivants de sa présence… Il en avait assez de la charrette et des esprits en perdition qui le fuyaient, et a choisi désormais un véhicule bien plus rapide et bien plus efficace. Et plus aucune âme perdue ne peut lui échapper désormais.",
     "atk1Name": "Dérapage mortel",
     "atk2Name": "Aspiration d’âmes"
+  },
+  "specimen_bd_15": {
+    "name": "Carcasse Nécrotique",
+    "lore": "Au cours de millions d’années, les animaux sauvages naquirent, vécurent et moururent. Au cours de millions d’années, les os s’accumulèrent, les émotions et les ressentis de chacun d’entre eux s’accumulèrent dans cette vallée. L’humanité entière l’évitait naturellement, comme un endroit maudit. Mais la curiosité l’emporta sur le bon sens, et l’endroit finit par être exploré. Deux survivants sur une expédition de 30 personnes. Ils moururent peu après de leurs blessures et des maladies contractées sur place. Leurs derniers mots furent \"Ne retournez jamais là-bas\".",
+    "atk1Name": "Cage Osseuse",
+    "atk2Name": "Eclate-Os"
   }
 }

@@ -3370,5 +3370,11 @@
     "lore": "Existe una leyenda sobre un recolector de almas no muertas cuyo vehículo, con solo el ruido que hace, alerta a los vivos de su presencia… Se habían cansado de la carreta y de las almas perdidas que huían de ellos, por lo que ahora han elegido un vehículo mucho más rápido y mucho más eficaz. Y ya ninguna alma perdida puede escapar de ellos.",
     "atk1Name": "Derrape Letal",
     "atk2Name": "Aspiración de Almas"
+  },
+  "specimen_bd_15": {
+    "name": "Carcasa necrótica",
+    "lore": "A lo largo de millones de años, los animales salvajes nacieron, vivieron y murieron. A lo largo de millones de años, los huesos se amontonaron, y las emociones y los sentimientos de cada uno de ellos se acumularon en este valle. Toda la humanidad lo evitaba de forma natural, como si fuera un lugar maldito. Pero la curiosidad se impuso al sentido común y, finalmente, el lugar fue explorado. Dos supervivientes de una expedición de 30 personas. Murieron poco después a causa de sus heridas y de las enfermedades contraídas allí. Sus últimas palabras fueron: «No volváis nunca allí».",
+    "atk1Name": "Jaula de huesos",
+    "atk2Name": "Rompehuesos"
   }
 }

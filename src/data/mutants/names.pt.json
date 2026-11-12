@@ -3364,5 +3364,11 @@
     "lore": "Existe uma lenda sobre um colecionador de almas mortas-vivas cujo ruído do veículo, por si só, alerta os vivos para a sua presença… Eles tinham-se cansado da carroça e das almas perdidas que lhes fugiam, por isso escolheram agora um veículo muito mais rápido e muito mais eficiente. E já nenhuma alma perdida lhes consegue escapar.",
     "atk1Name": "Derrapagem Letal",
     "atk2Name": "Aspiração de Almas"
+  },
+  "specimen_bd_15": {
+    "name": "Carcaça Necrótica",
+    "lore": "Ao longo de milhões de anos, animais selvagens nasceram, viveram e morreram. Ao longo de milhões de anos, os ossos acumularam-se e as emoções e sentimentos de cada um deles acumularam-se neste vale. Toda a humanidade evitava-o naturalmente, como se fosse um lugar amaldiçoado. Mas a curiosidade levou a melhor sobre o bom senso e o local acabou por ser explorado. Dois sobreviventes de uma expedição de 30 pessoas. Morreram pouco tempo depois devido aos ferimentos e às doenças contraídas no local. As suas últimas palavras foram: «Nunca mais voltem lá.»",
+    "atk1Name": "Gaiola de ossos",
+    "atk2Name": "Quebra-ossos"
   }
 }

@@ -3370,5 +3370,11 @@
     "lore": "Es gibt eine Legende über einen untoten Seelensammler, dessen Fahrzeug allein schon durch seinen Lärm die Lebenden auf seine Anwesenheit aufmerksam macht … Sie hatten genug von dem Karren und den verlorenen Seelen, die vor ihnen flohen, und haben sich nun für ein viel schnelleres und weitaus effizienteres Fahrzeug entschieden. Und keine verlorene Seele kann ihnen mehr entkommen.",
     "atk1Name": "Tödlicher Drift",
     "atk2Name": "Seelensuche"
+  },
+  "specimen_bd_15": {
+    "name": "Nekrotischer Kadaver",
+    "lore": "Über Millionen von Jahren hinweg wurden wilde Tiere geboren, lebten und starben. Über Millionen von Jahren hinweg türmten sich Knochen an, und die Emotionen und Gefühle jedes einzelnen von ihnen sammelten sich in diesem Tal an. Die gesamte Menschheit mied diesen Ort ganz selbstverständlich, als wäre er verflucht. Doch die Neugierde gewann die Oberhand über den gesunden Menschenverstand, und schließlich wurde der Ort erkundet. Zwei Überlebende einer 30-köpfigen Expedition. Sie starben kurz darauf an ihren Verletzungen und an Krankheiten, die sie sich dort zugezogen hatten. Ihre letzten Worte lauteten: „Geht niemals dorthin zurück.“",
+    "atk1Name": "Knochenkäfig",
+    "atk2Name": "Knochenbrecher"
   }
 }

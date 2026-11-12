@@ -3370,5 +3370,11 @@
     "lore": "There is a legend about an undead soul collector whose vehicle’s noise alone alerts the living to his presence… They had grown tired of the cart and the lost souls who fled from them, so they have now chosen a much faster and far more efficient vehicle. And no lost soul can escape them anymore.",
     "atk1Name": "Lethal Drift",
     "atk2Name": "Soul Aspiration"
+  },
+  "specimen_bd_15": {
+    "name": "Necrotic Carcass",
+    "lore": "Over millions of years, wild animals were born, lived, and died. Over millions of years, bones piled up, and the emotions and feelings of each of them accumulated in this valley. All of humanity naturally avoided it, as if it were a cursed place. But curiosity got the better of common sense, and the place was eventually explored. Two survivors out of a 30-person expedition. They died shortly afterward from their injuries and from diseases contracted there. Their last words were, “Never go back there.”",
+    "atk1Name": "Bone Cage",
+    "atk2Name": "Bone Breaker"
   }
 }
