@@ -229,6 +229,13 @@ jobs:
         continue-on-error: true
         run: npx tsx scripts/update-hall-rotations.ts
 
+      - name: 9.566 Журнал первого появления записей obtain.json (obtain-first-seen.json)
+        # Diff obtain.json против HEAD: что добавили шаги 6/6.1 с прошлого коммита.
+        # Строго до шага 11 (коммит): после него HEAD уже содержит новые записи.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-obtain-first-seen.ts
+
       - name: 9.57 История последних офферов мутантов (offer-history.json)
         # Даты kartel-фильтров (снимок 9.5 + date-ledger) -> мутанты товара.
         # Для блока "Последние появления" в модалке. Merge-only; при неполном
