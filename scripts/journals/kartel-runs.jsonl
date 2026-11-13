@@ -280,3 +280,4 @@
 {"ts":"2026-11-12T15:03:29.580Z","fetch":"success","status":"full","requested":4493,"returned":301,"failed":[],"horizonDays":28.8,"promoActive":9}
 {"ts":"2026-11-12T16:03:12.516Z","fetch":"success","status":"full","requested":4493,"returned":301,"failed":[],"horizonDays":28.7,"promoActive":9}
 {"ts":"2026-11-13T07:02:52.447Z","fetch":"success","status":"full","requested":4493,"returned":301,"failed":[],"horizonDays":28.1,"promoActive":9}
+{"ts":"2026-11-13T08:02:19.529Z","fetch":"success","status":"full","requested":4493,"returned":301,"failed":[],"horizonDays":28.1,"promoActive":9}
