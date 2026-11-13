@@ -7675,9 +7675,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "12 — 15 ноября",
-        "exactDateStart": "2026-11-12T10:00:00+00:00",
-        "exactDateEnd": "2026-11-15T10:00:00+00:00",
+        "exactDateLabel": "13 — 16 ноября",
+        "exactDateStart": "2026-11-13T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
@@ -7691,9 +7691,9 @@
           "type": "usd"
         },
         "ribbon": "limited",
-        "exactDateLabel": "12 — 15 ноября",
-        "exactDateStart": "2026-11-12T10:00:00+00:00",
-        "exactDateEnd": "2026-11-15T10:00:00+00:00",
+        "exactDateLabel": "13 — 16 ноября",
+        "exactDateStart": "2026-11-13T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
         "packMutants": []
@@ -9808,9 +9808,9 @@
         },
         "ribbon": "limited",
         "discountPercent": null,
-        "exactDateLabel": "12 — 15 ноября",
-        "exactDateStart": "2026-11-12T10:00:00+00:00",
-        "exactDateEnd": "2026-11-15T10:00:00+00:00",
+        "exactDateLabel": "13 — 16 ноября",
+        "exactDateStart": "2026-11-13T10:00:00+00:00",
+        "exactDateEnd": "2026-11-16T10:00:00+00:00",
         "exactDateApprox": false,
         "exactDateSource": "kartel"
       },
