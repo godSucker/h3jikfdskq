@@ -253,6 +253,14 @@ jobs:
         env:
           KARTEL_FETCH_OUTCOME: ${{ steps.kartel_fetch.outcome }}
 
+      - name: 9.585 Текущая скидка на эво для калькулятора (evo-discount.json)
+        # HC (золото) / SC (серебро) из промо-экспериментов шага 9.53. Файл в src/ меняется
+        # только при смене значений (каждое изменение - деплой). Без живых промо-данных
+        # скрипт ничего не пишет.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-evo-discount.ts
+
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
         # сейчас сломалось", а не только ежемесячное календарное напоминание
@@ -336,6 +344,7 @@ jobs:
             scripts/kartel/date-ledger.json
             scripts/journals/**
             src/data/mutants/offer-history.json
+            src/data/evo-discount.json
             src/data/guides/dungeon-details.json
 
       - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
