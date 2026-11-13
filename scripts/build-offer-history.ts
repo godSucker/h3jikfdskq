@@ -37,6 +37,8 @@ import fs from 'fs/promises'
 import path from 'path'
 import { fetchGameXml } from './game-xml-cache'
 import { getLiveSnapshot } from './kartel-filter-dates'
+import { parseHallRewards, type HallJournal } from './lib/hall-rotations'
+import { appendJsonl } from './lib/journals'
 import { runMain } from './lib/run-main'
 import { buildBoxChanceIndex, isLowChanceBoxAppearance, type BoxLike } from '../src/lib/offer-box-chance'
 
@@ -44,6 +46,8 @@ const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xm
 const GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
 const ROOT = process.cwd()
 const P = (p: string) => path.join(ROOT, p)
+const RUNS_PATH = P('scripts/journals/offer-history-runs.jsonl')
+const RUNS_CAP = 600
 const OUT_PATH = P('src/data/mutants/offer-history.json')
 
 const KEEP = 10
@@ -120,6 +124,11 @@ async function main() {
   const snapshot = await getLiveSnapshot()
   if (snapshot.status !== 'full') {
     console.warn(`[offer-history] снимок ${snapshot.status} - файл не трогаем.`)
+    await appendJsonl(
+      RUNS_PATH,
+      [{ ts: new Date().toISOString(), script: 'offer-history', status: `snapshot_${snapshot.status}` }],
+      RUNS_CAP,
+    )
     return
   }
 
@@ -287,64 +296,37 @@ async function main() {
     bump('dungeon')
   }
 
-  // ---- 4. Залы обмена (джекпот / ивент) ----
-  // Контракт: InteractiveAction CONTRACT_n (Cost + Filter) -> состояние WORKING_n ->
-  // READY_n -> награда-мутант. Тот же разбор, что fetchHallContracts в
-  // build-announcements.ts (там он не экспортируется).
+  // ---- 4. Залы обмена ----
+  // Джекпот-зал: контракт (Cost + Filter) -> награда-мутант, дата = старт окна фильтра
+  // контракта (у каждой ротации свой фильтр). Цена в жетонах уже стоит в самой подписи
+  // записи obtain.json ("Зал обмена - 1300 жетонов ...").
   const gameXml = await fetchGameXml(GAMEDEFS_URL)
-  const HALLS = [
-    {
-      entityId: 'Building_Tokens_Jackpot',
-      type: 'jackpot_hall',
-      tokenId: 'Material_Jackpot_Token',
-    },
-    { entityId: 'Building_Event_1', type: 'event_hall', tokenId: 'Material_Event_Token' },
-  ]
-  for (const { entityId, type, tokenId } of HALLS) {
-    const block = gameXml.match(
-      new RegExp(`<EntityDescriptor id="${entityId}"[^>]*>([\\s\\S]*?)<\\/EntityDescriptor>`),
-    )
-    if (!block) continue
-    const inner = block[1]
-    const costByWorking = new Map<
-      string,
-      { amount: number; tokenId: string; filter: string | null }
-    >()
-    for (const m of inner.matchAll(
-      /<InteractiveAction[^>]*target="(WORKING_\d+)"[^>]*id="CONTRACT_\d+">([\s\S]*?)<\/InteractiveAction>/g,
-    )) {
-      const cost = m[2].match(/<Cost amount="(\d+)" type="entity" id="([^"]+)"/)
-      const filter = m[2].match(/<Filter>([^<]*)<\/Filter>/)
-      if (cost) {
-        costByWorking.set(m[1], {
-          amount: Number(cost[1]),
-          tokenId: cost[2],
-          filter: filter?.[1] || null,
-        })
-      }
-    }
-    const workingByReady = new Map<string, string>()
-    for (const m of inner.matchAll(
-      /<State[^>]*id="(WORKING_\d+)"[^>]*>\s*<TimeAction[^>]*target="(READY_\d+)"/g,
-    )) {
-      workingByReady.set(m[2], m[1])
-    }
-    for (const m of inner.matchAll(
-      /<State[^>]*id="(READY_\d+)"[^>]*>\s*<InteractiveAction[^>]*id="RECOLT"[^>]*>\s*<Reward\b([^/>]*)\/?>/g,
-    )) {
-      const spec = m[2].match(/id="([^"]+)"/)?.[1]
-      if (!spec || !/^Specimen_/i.test(spec)) continue
-      const cost = costByWorking.get(workingByReady.get(m[1]) ?? '')
-      if (!cost || cost.tokenId !== tokenId || !cost.filter) continue
-      const date = startDateFor(cost.filter, true)
-      if (!date) continue
-      const sp = spec.toLowerCase()
-      // Подпись записи уже содержит цену в жетонах ("Зал обмена - 1300 жетонов ...").
-      const amountRe = new RegExp(`(^|\\D)${cost.amount}(\\D|$)`)
-      const entry = obtain[sp]?.find((e) => e.type === type && amountRe.test(e.where))
+  const amountEntry = (sp: string, type: string, amount: number) => {
+    const amountRe = new RegExp(`(^|\\D)${amount}(\\D|$)`)
+    return obtain[sp]?.find((e) => e.type === type && amountRe.test(e.where))
+  }
+  for (const r of parseHallRewards(gameXml, 'Building_Tokens_Jackpot')) {
+    if (r.tokenId !== 'Material_Jackpot_Token' || !r.filter) continue
+    const date = startDateFor(r.filter, true)
+    if (!date) continue
+    const sp = r.spec.toLowerCase()
+    const entry = amountEntry(sp, 'jackpot_hall', r.amount)
+    if (!entry) continue
+    add(sp, date, obtainRef(entry), null)
+    bump('hall')
+  }
+  // Зал испытаний: фильтр слотов общий для всех ротаций (Building_Challenge_Deactivable,
+  // окно на месяцы), поэтому дата берётся из журнала ротаций (update-hall-rotations.ts):
+  // окно новостного баннера kartel либо первое наблюдение состава. В журнале и прошлые
+  // ротации - их записи не пропадают, когда мутант уходит из зала.
+  const hallJournal = await readJson<HallJournal>(P('scripts/journals/hall-rotations.json'), {})
+  for (const rot of hallJournal.event_hall?.rotations ?? []) {
+    for (const [slot, sp] of Object.entries(rot.slots)) {
+      const amount = rot.amounts[slot]
+      const entry = amount ? amountEntry(sp, 'event_hall', amount) : undefined
       if (!entry) continue
-      add(sp, date, obtainRef(entry), null)
-      bump('hall')
+      add(sp, rot.date, obtainRef(entry), null)
+      bump('eventHall')
     }
   }
 
@@ -396,6 +378,9 @@ async function main() {
     // [] в прошлом файле - маркер "все появления в контейнерах с малым шансом": переносим.
     if (entries.length === 0) lowChanceOnly.add(mutantId)
     for (const e of entries) {
+      // event_hall целиком пересобирается из журнала ротаций (дата ротации может уточниться
+      // позже), старые копии с прежней датой дали бы дубль.
+      if (e[1].startsWith('event_hall|')) continue
       if (!found.get(mutantId)?.has(`${e[0]}|${e[1]}`)) add(mutantId, e[0], e[1], e[2] ?? null)
     }
   }
@@ -414,6 +399,20 @@ async function main() {
   const nextOutText = JSON.stringify(out) + '\n'
   const prevOutText = await fs.readFile(OUT_PATH, 'utf-8').catch(() => '')
   if (prevOutText !== nextOutText) await fs.writeFile(OUT_PATH, nextOutText)
+  await appendJsonl(
+    RUNS_PATH,
+    [
+      {
+        ts: new Date().toISOString(),
+        script: 'offer-history',
+        status: 'ok',
+        mutants: Object.keys(out).length,
+        changed: prevOutText !== nextOutText,
+        stats,
+      },
+    ],
+    RUNS_CAP,
+  )
   console.log(
     `[offer-history] мутантов с датами: ${Object.keys(out).length}; записей по источникам: ${JSON.stringify(stats)}`,
   )

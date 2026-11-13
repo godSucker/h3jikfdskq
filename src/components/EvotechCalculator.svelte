@@ -1,10 +1,23 @@
 <script lang="ts">
-  // ВАЖНО: Импорт без alias. Файл должен существовать: src/data/evotech-data.js
-  // Формат ожидается как default export массива: [ null, {id:1,gold:...,silver:...}, ... ]
+  import { onMount } from 'svelte';
   import EvoRows from '../data/evotech-data.js';
+  import evoDiscount from '../data/evo-discount.json';
   import { t, type Locale } from '@/lib/i18n';
+  import {
+    MIN_LEVEL,
+    MAX_LEVEL,
+    createEvoModel,
+    solveForward,
+    solveReverse,
+    validateLevels,
+    type EvoError,
+    type ForwardResult,
+    type ReverseResult,
+    type Range,
+  } from '@/lib/evotech';
 
-  let { locale = 'ru' as Locale }: { locale?: Locale } = $props();
+  type TechTile = { start: string; end: string | null; approx: boolean };
+  let { locale = 'ru' as Locale, techTiles = [] as TechTile[] }: { locale?: Locale; techTiles?: TechTile[] } = $props();
 
   // Тот же приём, что INTL_LOCALE в TopMutantsBrowser.svelte (не общий модуль).
   const INTL_LOCALE: Record<Locale, string> = {
@@ -12,9 +25,14 @@
     de: 'de-DE', pt: 'pt-BR', it: 'it-IT', tr: 'tr-TR', nl: 'nl-NL',
   };
 
-  const MIN_LEVEL = 5;
-  const MAX_LEVEL = 1_000_000;
-  const PRICE_CONST_FROM_LEVEL = 328;
+  // Актуальная скидка из игры (src/data/evo-discount.json, обновляется часовым пайплайном):
+  // HC - золото, SC - серебро, независимо. null = акции нет.
+  const liveGold: number | null = evoDiscount.gold;
+  const liveSilver: number | null = evoDiscount.silver;
+  const liveActive = liveGold !== null || liveSilver !== null;
+  // Без активной акции скидка по умолчанию 0%: 70% давало бы завышенный результат,
+  // когда акции на самом деле нет.
+  const DEFAULT_DISCOUNT = '0';
 
   // UI
   let mode = $state('forward'); // 'forward' | 'reverse'
@@ -22,28 +40,52 @@
   let targetLevel = $state('');
   let silver = $state('');
   let gold = $state('');
-  let discount = $state('70'); // 0 | 60 | 70 | 80
+  let discountSilver = $state(liveActive ? String(liveSilver ?? 0) : DEFAULT_DISCOUNT);
+  let discountGold = $state(liveActive ? String(liveGold ?? 0) : DEFAULT_DISCOUNT);
+  const differsFromLive = $derived(
+    liveActive &&
+      (discountSilver !== String(liveSilver ?? 0) || discountGold !== String(liveGold ?? 0)),
+  );
+  const discountOptions = [
+    ...new Set([0, 50, 60, 70, 80, liveSilver ?? 0, liveGold ?? 0].map(Number)),
+  ].sort((x, y) => x - y);
+  function applyLive() {
+    discountSilver = String(liveSilver ?? 0);
+    discountGold = String(liveGold ?? 0);
+  }
+
+  // Ближайшая скидка по плиткам анонсов. Считается после монтирования: build-time данные
+  // против времени посетителя, иначе SSR и клиент разошлись бы.
+  let mounted = $state(false);
+  onMount(() => { mounted = true; });
+  const INTL_DATE = () => INTL_LOCALE[locale] ?? 'ru-RU';
+  const fmtDay = (iso: string) =>
+    new Intl.DateTimeFormat(INTL_DATE(), { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(iso));
+  const nextDiscountLabel = $derived.by(() => {
+    if (!mounted) return '';
+    const now = Date.now();
+    const next = techTiles
+      .filter((x) => Date.parse(x.start) > now)
+      .sort((x, y) => Date.parse(x.start) - Date.parse(y.start))[0];
+    if (!next) return '';
+    return (next.approx ? '≈ ' : '') + fmtDay(next.start) + (next.end ? ' – ' + fmtDay(next.end) : '');
+  });
 
   let errorMsg = $state('');
   let busy = $state(false);
 
-  // Результаты (прямой режим)
-  let endLevel = $state('—');
-  let upgrades = $state('—');
-  let spentSilver = $state('—');
-  let spentGold = $state('—');
-  let leftSilver = $state('—');
-  let leftGold = $state('—');
-  let hitCap = $state(false);
-
-  // Результаты (обратный режим)
-  let neededSilver = $state('—');
-  let neededGold = $state('—');
+  // Результаты
+  let fwd: ForwardResult | null = $state(null);
+  let rev: ReverseResult | null = $state(null);
+  // Тот же расчёт при скидке 80% (только факт для сравнения, без советов). null - не показываем.
+  let fwd80: ForwardResult | null = $state(null);
+  let rev80: ReverseResult | null = $state(null);
+  let revOwned = $state(false); // игрок указал свои ресурсы
 
   // =======================
   // Утилиты чисел/строк
   // =======================
-  const toBig = (v) => {
+  const toBig = (v: unknown): bigint => {
     if (typeof v === 'bigint') return v;
     if (typeof v === 'number') return BigInt(Math.max(0, Math.floor(v || 0)));
     const s = String(v ?? '').trim().replace(/[^\d]/g, '');
@@ -52,13 +94,13 @@
 
   // Группировка тысяч по локали (BigInt.toLocaleString поддерживает
   // произвольную точность, в отличие от Number).
-  const fmt = (big) => big.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
+  const fmt = (big: bigint) => big.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
 
   // Автоформат ввода с сохранением позиции курсора
-  const addCommasFromDigits = (digits) => digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const addCommasFromDigits = (digits: string) => digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-  function formatWithCaret(e, setter) {
-    const el = e.currentTarget;
+  function formatWithCaret(e: Event, setter: (v: string) => void) {
+    const el = e.currentTarget as HTMLInputElement;
     const raw = el.value ?? '';
     const selEnd = typeof el.selectionEnd === 'number' ? el.selectionEnd : raw.length;
 
@@ -91,275 +133,85 @@
     });
   }
 
-  const onInputStartLevel  = (e) => formatWithCaret(e, (v) => { startLevel  = v; });
-  const onInputTargetLevel = (e) => formatWithCaret(e, (v) => { targetLevel = v; });
-  const onInputSilver      = (e) => formatWithCaret(e, (v) => { silver      = v; });
-  const onInputGold        = (e) => formatWithCaret(e, (v) => { gold        = v; });
+  const onInputStartLevel  = (e: Event) => formatWithCaret(e, (v: string) => { startLevel  = v; });
+  const onInputTargetLevel = (e: Event) => formatWithCaret(e, (v: string) => { targetLevel = v; });
+  const onInputSilver      = (e: Event) => formatWithCaret(e, (v: string) => { silver      = v; });
+  const onInputGold        = (e: Event) => formatWithCaret(e, (v: string) => { gold        = v; });
 
   // =======================
-  // Расчёты
+  // Расчёты (логика - в @/lib/evotech)
   // =======================
-  function roundUpPct(x, pct) {
-    // применяем скидку: price - pct%
-    // итог округляем вверх до целого
-    const mul = (100n - BigInt(Math.max(0, Math.min(100, Number(pct || 0))))) ;
-    const num = x * mul;
-    const den = 100n;
-    return num % den === 0n ? (num / den) : (num / den + 1n);
-  }
+  const ERROR_KEYS: Record<EvoError, string> = {
+    minLevel: 'evotech.errorMinLevel',
+    targetLessThanStart: 'evotech.errorTargetLessThanStart',
+    maxLevel: 'evotech.errorMaxLevel',
+    badConstPrice: 'evotech.errorBadConstPrice',
+  };
+  const errorText = (e: EvoError) =>
+    t(ERROR_KEYS[e], locale)
+      .replace('{min}', String(MIN_LEVEL))
+      .replace('{max}', MAX_LEVEL.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))
+      .replace('{n}', '328');
 
-  function getRow(level) {
-    const rows = EvoRows;
-    if (!Array.isArray(rows) || rows.length < 2) return null;
-    // прямой доступ
-    if (rows[level] && typeof rows[level].gold === 'number' && typeof rows[level].silver === 'number') {
-      return rows[level];
-    }
+  const toLevel = (v: string) => Number(String(v).replace(/[^\d]/g, '') || '0');
+  const buildModel = () =>
+    createEvoModel(EvoRows, {
+      silver: Number(discountSilver || 0),
+      gold: Number(discountGold || 0),
+    });
 
-    // fallback: найти последнюю валидную строку ниже уровня
-    for (let l = Math.min(level, rows.length - 1); l >= 1; l--) {
-      const r = rows[l];
-      if (r && typeof r.gold === 'number' && typeof r.silver === 'number') {
-        return r;
-      }
-    }
-    return null;
-  }
+  const fmtRanges = (ranges: Range[]) =>
+    ranges.length === 0
+      ? '—'
+      : ranges
+          .map(([a, b]) => {
+            const f = (n: number) => n.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
+            return a === b ? f(a) : `${f(a)}–${f(b)}`;
+          })
+          .join(', ');
 
-  function costPairAt(level, discountPct) {
-    const row = getRow(level);
-    if (!row) return { s: 0n, g: 0n };
-    const s0 = BigInt(Math.max(0, Math.floor(row.silver || 0)));
-    const g0 = BigInt(Math.max(0, Math.floor(row.gold || 0)));
-    const d  = BigInt(Math.max(0, Math.min(100, Number(discountPct || 0))));
-    const s = roundUpPct(s0, d);
-    const g = roundUpPct(g0, d);
-    return { s, g };
-  }
-
-  function safeConstPair(discountPct) {
-    let pair = costPairAt(PRICE_CONST_FROM_LEVEL, discountPct);
-    if (pair.s > 0n || pair.g > 0n) return pair;
-    // ищем ближайшую ненулевую пару вниз
-    for (let l = PRICE_CONST_FROM_LEVEL - 1; l >= MIN_LEVEL + 1; l--) {
-      pair = costPairAt(l, discountPct);
-      if (pair.s > 0n || pair.g > 0n) return pair;
-    }
-    return { s: 0n, g: 0n };
-  }
-
-  // Обратный режим: сколько ресурсов нужно, чтобы пройти start -> target.
-  // Чистая функция (никаких $state-побочек) - суммирует те же costPairAt/safeConstPair,
-  // которыми питается прямой simulate(), поэтому оба режима гарантированно согласованы.
-  // На каждом уровне серебро и золото - АЛЬТЕРНАТИВНЫЕ цены одного апгрейда (не сумма
-  // двух валют), поэтому результат - это "если платить только серебром" и "если платить
-  // только золотом" по отдельности, а не один смешанный бюджет.
-  function reverseCost(startLevelStr, targetLevelStr, discountStr) {
-    const start  = Number(String(startLevelStr).replace(/[^\d]/g, '') || '0');
-    const target = Number(String(targetLevelStr).replace(/[^\d]/g, '') || '0');
-    const dIn = Number(discountStr || 0);
-
-    if (!Number.isFinite(start) || start < MIN_LEVEL) {
-      return { error: t('evotech.errorMinLevel', locale).replace('{min}', String(MIN_LEVEL)) };
-    }
-    if (!Number.isFinite(target) || target <= start) {
-      return { error: t('evotech.errorTargetLessThanStart', locale) };
-    }
-    if (target > MAX_LEVEL) {
-      return { error: t('evotech.errorMaxLevel', locale).replace('{max}', MAX_LEVEL.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')) };
-    }
-
-    let totalSilver = 0n;
-    let totalGold = 0n;
-
-    // До 328 — по строкам файла (как в forward-цикле simulate())
-    const loopEnd = Math.min(target, PRICE_CONST_FROM_LEVEL);
-    for (let lvl = Math.floor(start) + 1; lvl <= loopEnd; lvl++) {
-      const { s, g } = costPairAt(lvl, dIn);
-      totalSilver += s;
-      totalGold += g;
-    }
-
-    // После 328 — постоянная цена (как в constPair-фазе simulate())
-    if (target > PRICE_CONST_FROM_LEVEL) {
-      const constStart = Math.max(Math.floor(start), PRICE_CONST_FROM_LEVEL);
-      const remainLevels = BigInt(target - constStart);
-      if (remainLevels > 0n) {
-        const { s: sConst, g: gConst } = safeConstPair(dIn);
-        if (sConst === 0n && gConst === 0n) {
-          return { error: t('evotech.errorBadConstPrice', locale).replace('{n}', String(PRICE_CONST_FROM_LEVEL)) };
-        }
-        totalSilver += sConst * remainLevels;
-        totalGold += gConst * remainLevels;
-      }
-    }
-
-    return { silver: totalSilver, gold: totalGold };
-  }
-
-  function simulate(startLevelStr, silverStr, goldStr, discountStr) {
-    // Вход
-    const start = Number(String(startLevelStr).replace(/[^\d]/g, '') || '0');
-    const sIn   = toBig(silverStr);
-    const gIn   = toBig(goldStr);
-    const dIn   = Number(discountStr || 0);
-
-    if (!Number.isFinite(start) || start < MIN_LEVEL) {
-      return { error: t('evotech.errorMinLevel', locale).replace('{min}', String(MIN_LEVEL)), endLevel: MIN_LEVEL };
-    }
-
-    let lvl = Math.max(MIN_LEVEL, Math.floor(start));
-    let S = sIn;
-    let G = gIn;
-    let ups = 0;
-    // Локальные аккумуляторы - раньше это были внешние $state-переменные компонента
-    // (объявленные НИЖЕ по файлу), которые эта функция мутировала как побочный эффект,
-    // полагаясь на то, что calculateForward() обнулит их перед каждым вызовом. Работало,
-    // пока simulate() вызывается из одного места, но делало функцию скрыто нечистой -
-    // в отличие от reverseCost() выше, которая специально написана без $state-побочек.
-    let spentS = 0n;
-    let spentG = 0n;
-
-    const constPair = safeConstPair(dIn);
-
-    // --- До 328 — по строкам файла ---
-    while (lvl < PRICE_CONST_FROM_LEVEL) {
-      const next = lvl + 1;
-      const { s, g } = costPairAt(next, dIn);
-
-      // обе цены нулевые — данных нет; пытаемся двигаться дальше
-      if (s === 0n && g === 0n) {
-        lvl = next;
-        ups++;
-        if (lvl >= PRICE_CONST_FROM_LEVEL) break;
-        continue;
-      }
-
-      // Пытаемся заплатить СНАЧАЛА серебром, потом золотом
-      if (s > 0n && S >= s) {
-        S -= s; spentS += s; lvl = next; ups++;
-        if (lvl >= MAX_LEVEL) break;
-        continue;
-      }
-      if (g > 0n && G >= g) {
-        G -= g; spentG += g; lvl = next; ups++;
-        if (lvl >= MAX_LEVEL) break;
-        continue;
-      }
-      // не хватает ни той, ни другой — стоп
-      break;
-    }
-
-    // --- После 328 — массово, по постоянной цене ---
-    if (lvl < MAX_LEVEL) {
-      const { s: sConst, g: gConst } = constPair;
-
-      // если обе цены нулевые — данные некорректные (иначе бесконечный ап)
-      if (sConst === 0n && gConst === 0n) {
-        return { error: t('evotech.errorBadConstPrice', locale).replace('{n}', String(PRICE_CONST_FROM_LEVEL)), endLevel: lvl };
-      }
-
-      const remainLevels = BigInt(MAX_LEVEL - lvl);
-
-      // Сколько уровней можно купить серебром по sConst и золотом по gConst
-      const canBySilver = sConst > 0n ? (S / sConst) : 0n;
-      const canByGold   = gConst > 0n ? (G / gConst) : 0n;
-
-      let add = canBySilver + canByGold;
-      if (add > remainLevels) add = remainLevels;
-
-      // Оплатим приоритетно серебром, раз остался порядок — это не критично
-      let need = add;
-      if (sConst > 0n) {
-        const takeS = need;                 // заплатим серебром столько уровней, сколько сможем
-        const costS = takeS * sConst;
-        const payS  = costS <= S ? costS : (S - (S % sConst));
-        const levelsByS = sConst > 0n ? (payS / sConst) : 0n;
-        S -= payS; spentS += payS; lvl += Number(levelsByS); ups += Number(levelsByS);
-        need -= levelsByS;
-      }
-      if (need > 0n && gConst > 0n) {
-        const costG = need * gConst;
-        const payG  = costG <= G ? costG : (G - (G % gConst));
-        const levelsByG = gConst > 0n ? (payG / gConst) : 0n;
-        G -= payG; spentG += payG; lvl += Number(levelsByG); ups += Number(levelsByG);
-        need -= levelsByG;
-      }
-    }
-
-    const hitCap = lvl >= MAX_LEVEL;
-
-    return {
-      endLevel: lvl,
-      upgrades: ups,
-      leftSilver: S,
-      leftGold: G,
-      spentSilver: spentS,
-      spentGold: spentG,
-      hitCap,
-    };
-  }
-
-  async function calculateForward() {
-    errorMsg = '';
-    busy = true;
-
-    try {
-      const res = simulate(startLevel, silver, gold, discount);
-      if (res.error) {
-        errorMsg = res.error;
-        endLevel = '—';
-        upgrades = '—';
-        spentSilver = '—';
-        spentGold = '—';
-        leftSilver = '—';
-        leftGold = '—';
-        hitCap = false;
-        busy = false;
-        return;
-      }
-
-      endLevel     = res.endLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
-      upgrades     = res.upgrades.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU');
-      spentSilver  = fmt(res.spentSilver);
-      spentGold    = fmt(res.spentGold);
-      leftSilver   = fmt(res.leftSilver);
-      leftGold     = fmt(res.leftGold);
-      hitCap       = res.hitCap;
-
-      busy = false;
-    } catch {
-      errorMsg = t('evotech.errorCalc', locale);
-      busy = false;
-    }
-  }
-
-  async function calculateReverse() {
-    errorMsg = '';
-    busy = true;
-
-    try {
-      const res = reverseCost(startLevel, targetLevel, discount);
-      if (res.error) {
-        errorMsg = res.error;
-        neededSilver = '—';
-        neededGold = '—';
-        busy = false;
-        return;
-      }
-
-      neededSilver = fmt(res.silver);
-      neededGold   = fmt(res.gold);
-      busy = false;
-    } catch {
-      errorMsg = t('evotech.errorCalc', locale);
-      busy = false;
-    }
-  }
+  const below80 = () => Number(discountSilver || 0) < 80 || Number(discountGold || 0) < 80;
+  const model80 = () => createEvoModel(EvoRows, { silver: 80, gold: 80 });
 
   function calculate() {
-    if (mode === 'reverse') return calculateReverse();
-    return calculateForward();
+    errorMsg = '';
+    fwd = null;
+    rev = null;
+    fwd80 = null;
+    rev80 = null;
+    busy = true;
+    try {
+      const start = toLevel(startLevel);
+      const isReverse = mode === 'reverse';
+      const target = isReverse ? toLevel(targetLevel) : null;
+      const bad = validateLevels(start, target);
+      if (bad) {
+        errorMsg = errorText(bad);
+        return;
+      }
+      const model = buildModel();
+      if (model.badConstPrice) {
+        errorMsg = errorText('badConstPrice');
+        return;
+      }
+      if (isReverse) {
+        revOwned = toBig(silver) > 0n || toBig(gold) > 0n;
+        rev = solveReverse(model, start, target as number, toBig(silver), toBig(gold));
+        if (below80()) {
+          rev80 = solveReverse(model80(), start, target as number, toBig(silver), toBig(gold));
+        }
+      } else {
+        fwd = solveForward(model, start, toBig(silver), toBig(gold));
+        if (below80()) {
+          const alt = solveForward(model80(), start, toBig(silver), toBig(gold));
+          if (alt.endLevel > fwd.endLevel) fwd80 = alt;
+        }
+      }
+    } catch {
+      errorMsg = t('evotech.errorCalc', locale);
+    } finally {
+      busy = false;
+    }
   }
 </script>
 
@@ -394,19 +246,7 @@
             class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
         </label>
 
-        {#if mode === 'forward'}
-          <label class="block">
-            <span class="text-sky-300/80 text-sm">{t('evotech.silverLabel', locale)}</span>
-             <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder={t('evotech.silverPlaceholder', locale)}
-              class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-          </label>
-
-          <label class="block">
-            <span class="text-sky-300/80 text-sm">{t('evotech.goldLabel', locale)}</span>
-             <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder={t('evotech.goldPlaceholder', locale)}
-                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-          </label>
-        {:else}
+        {#if mode === 'reverse'}
           <label class="block">
             <span class="text-sky-300/80 text-sm">{t('evotech.targetLevelLabel', locale)}</span>
             <input id="evo-target-level" name="evo-target-level" type="text" bind:value={targetLevel} oninput={onInputTargetLevel} inputmode="numeric" placeholder={t('evotech.targetLevelPlaceholder', locale)}
@@ -415,15 +255,58 @@
         {/if}
 
         <label class="block">
-          <span class="text-sky-300/80 text-sm">{t('evotech.discountLabel', locale)}</span>
-           <select id="evo-discount" name="evo-discount" bind:value={discount}
-               class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
-            <option value="0">0%</option>
-            <option value="60">60%</option>
-            <option value="70">70%</option>
-            <option value="80">80%</option>
-          </select>
+          <span class="text-sky-300/80 text-sm">{t('evotech.silverLabel', locale)}</span>
+           <input id="evo-silver" name="evo-silver" type="text" bind:value={silver} oninput={onInputSilver} inputmode="numeric" placeholder={t('evotech.silverPlaceholder', locale)}
+            class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
         </label>
+
+        <label class="block">
+          <span class="text-sky-300/80 text-sm">{t('evotech.goldLabel', locale)}</span>
+           <input id="evo-gold" name="evo-gold" type="text" bind:value={gold} oninput={onInputGold} inputmode="numeric" placeholder={t('evotech.goldPlaceholder', locale)}
+              class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+        </label>
+        {#if mode === 'reverse'}
+          <p class="text-sky-200/60 text-xs">{t('evotech.ownedHint', locale)}</p>
+        {/if}
+
+        <div class="grid grid-cols-2 gap-3">
+          <label class="block">
+            <span class="text-sky-300/80 text-sm">{t('evotech.discountSilverLabel', locale)}</span>
+            <select id="evo-discount-silver" name="evo-discount-silver" bind:value={discountSilver}
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+              {#each discountOptions as d (d)}
+                <option value={String(d)}>{d}%</option>
+              {/each}
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sky-300/80 text-sm">{t('evotech.discountGoldLabel', locale)}</span>
+            <select id="evo-discount-gold" name="evo-discount-gold" bind:value={discountGold}
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+              {#each discountOptions as d (d)}
+                <option value={String(d)}>{d}%</option>
+              {/each}
+            </select>
+          </label>
+        </div>
+        {#if liveActive}
+          <p class="text-emerald-300/90 text-sm">
+            {t('evotech.discountHintActive', locale)
+              .replace('{gold}', String(liveGold ?? 0))
+              .replace('{silver}', String(liveSilver ?? 0))}
+          </p>
+          {#if differsFromLive}
+            <button type="button" onclick={applyLive}
+                    class="px-3 py-1.5 rounded-lg text-sm bg-emerald-700/70 hover:bg-emerald-600 text-white ring-1 ring-white/10">
+              {t('evotech.discountApplyBtn', locale)}
+            </button>
+          {/if}
+        {:else}
+          <p class="text-sky-200/60 text-sm">{t('evotech.discountHintNone', locale)}</p>
+        {/if}
+        {#if nextDiscountLabel}
+          <p class="text-sky-300/80 text-sm">{t('evotech.nextDiscount', locale).replace('{date}', nextDiscountLabel)}</p>
+        {/if}
 
         <div class="pt-2">
           <button onclick={calculate}
@@ -439,27 +322,97 @@
       <h2 class="text-sky-100 font-bold mb-3">{t('evotech.resultTitle', locale)}</h2>
       {#if errorMsg}
         <div class="text-rose-300/90">{errorMsg}</div>
-      {:else if mode === 'forward'}
+      {:else if mode === 'forward' && fwd}
         <div class="space-y-1.5">
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.finalLevel', locale)}</span><strong>{endLevel}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.upgradesLabel', locale)}</span><strong>{upgrades}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.finalLevel', locale)}</span><strong>{fwd.endLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.upgradesLabel', locale)}</span><strong>{fwd.upgrades.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</strong></div>
           <hr class="my-2 border-slate-700/70" />
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentSilverLabel', locale)}</span><strong>{spentSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentGoldLabel', locale)}</span><strong>{spentGold}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftSilverLabel', locale)}</span><strong>{leftSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftGoldLabel', locale)}</span><strong>{leftGold}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentSilverLabel', locale)}</span><strong>{fmt(fwd.spentSilver)}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.spentGoldLabel', locale)}</span><strong>{fmt(fwd.spentGold)}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftSilverLabel', locale)}</span><strong>{fmt(fwd.leftSilver)}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.leftGoldLabel', locale)}</span><strong>{fmt(fwd.leftGold)}</strong></div>
         </div>
+        {#if fwd.upgrades > 0}
+          <div class="mt-3 rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm space-y-1">
+            <div class="text-sky-100 font-semibold">{t('evotech.planTitle', locale)}</div>
+            {#if fwd.silverRanges.length > 0}
+              <div class="text-sky-200/90">{t('evotech.planSilver', locale).replace('{ranges}', fmtRanges(fwd.silverRanges))}</div>
+            {/if}
+            {#if fwd.goldRanges.length > 0}
+              <div class="text-sky-200/90">{t('evotech.planGold', locale).replace('{ranges}', fmtRanges(fwd.goldRanges))}</div>
+            {/if}
+            <div class="text-sky-200/60 text-xs pt-1">{t('evotech.planNote', locale)}</div>
+          </div>
+        {/if}
+        {#if fwd80}
+          <p class="mt-3 text-sky-200/80 text-sm">
+            {t('evotech.at80Forward', locale)
+              .replace('{level}', fwd80.endLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))
+              .replace('{now}', fwd.endLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))}
+          </p>
+        {/if}
+        {#if fwd.next}
+          <p class="mt-3 text-sky-200/80 text-sm">
+            {t('evotech.nextShortfall', locale)
+              .replace('{level}', fwd.next.level.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))
+              .replace('{gold}', fmt(fwd.next.extraGold))
+              .replace('{silver}', fmt(fwd.next.extraSilver))}
+          </p>
+        {/if}
         <p class="mt-3 text-sky-200/70 text-sm">
           {t('evotech.forwardNote', locale)}
         </p>
-        {#if hitCap}
+        {#if fwd.hitCap}
           <p class="mt-1 text-sky-300/80 text-sm">{t('evotech.hitCapNote', locale)}</p>
         {/if}
-      {:else}
+      {:else if mode === 'reverse' && rev}
         <div class="space-y-1.5">
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededSilverLabel', locale)}</span><strong>{neededSilver}</strong></div>
-          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededGoldLabel', locale)}</span><strong>{neededGold}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededSilverLabel', locale)}</span><strong>{fmt(rev.allSilver)}</strong></div>
+          <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededGoldLabel', locale)}</span><strong>{fmt(rev.allGold)}</strong></div>
         </div>
+        <p class="mt-2 text-sky-200/60 text-xs">{t('evotech.reverseAltNote', locale)}</p>
+        {#if rev80}
+          <p class="mt-3 text-sky-200/80 text-sm">
+            {t('evotech.at80Reverse', locale)
+              .replace('{silver}', fmt(rev80.allSilver))
+              .replace('{gold}', fmt(rev80.allGold))
+              .replace('{saveSilver}', fmt(rev.allSilver - rev80.allSilver))
+              .replace('{saveGold}', fmt(rev.allGold - rev80.allGold))}
+          </p>
+          {#if revOwned}
+            <p class="text-sky-200/70 text-sm">
+              {#if rev80.enough}
+                {t('evotech.at80Enough', locale)}
+              {:else}
+                {t('evotech.at80Shortfall', locale)
+                  .replace('{gold}', fmt(rev80.extraGold))
+                  .replace('{silver}', fmt(rev80.extraSilver))}
+              {/if}
+            </p>
+          {/if}
+        {/if}
+        {#if revOwned}
+          <div class="mt-3 rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm space-y-1">
+            {#if rev.enough}
+              <div class="text-emerald-300/90 font-semibold">{t('evotech.reverseEnough', locale)}</div>
+              <div class="text-sky-100 font-semibold pt-1">{t('evotech.planTitle', locale)}</div>
+              {#if rev.silverRanges.length > 0}
+                <div class="text-sky-200/90">{t('evotech.planSilver', locale).replace('{ranges}', fmtRanges(rev.silverRanges))}</div>
+              {/if}
+              {#if rev.goldRanges.length > 0}
+                <div class="text-sky-200/90">{t('evotech.planGold', locale).replace('{ranges}', fmtRanges(rev.goldRanges))}</div>
+              {/if}
+            {:else}
+              <div class="text-amber-300/90 font-semibold">
+                {t('evotech.reverseShortfall', locale)
+                  .replace('{gold}', fmt(rev.extraGold))
+                  .replace('{silver}', fmt(rev.extraSilver))}
+              </div>
+            {/if}
+          </div>
+        {/if}
+      {:else}
+        <div class="text-sky-200/60 text-sm">—</div>
       {/if}
     </div>
   </div>

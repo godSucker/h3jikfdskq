@@ -52,6 +52,17 @@ jobs:
         timeout-minutes: 25
         run: npx tsx scripts/sync-mutants.ts full
 
+      - name: 4.01 Запуск Парсера (Режим REBALANCE)
+        # Раньше rebalance гонялся отдельным ручным workflow (parser-rebalance.yml).
+        # Идёт ПОСЛЕ full: новые мутанты уже в mutants.json (диффа статов у них нет),
+        # у существующих сравниваются статы/способности и дописывается
+        # rebalance-history.json. Последовательно в одном джобе - оба читают и
+        # перезаписывают весь mutants.json, параллельно нельзя. Топ-листы после него
+        # пересобирает шаг 4.6, коммитит шаг 6 (src/data/mutants/*.json).
+        id: rebalance
+        timeout-minutes: 20
+        run: npx tsx scripts/sync-mutants.ts rebalance
+
       - name: 4.05 Сохранение кэша отсутствующих текстур
         # Парсер пишет scripts/missing-textures-cache.json на диск инкрементально,
         # по мере обнаружения каждой недостающей текстуры (см. saveMissingTextureCache()
