@@ -1,0 +1,79 @@
+{
+  "event_hall": {
+    "rotations": [
+      {
+        "fp": "READY_04:specimen_be_10,READY_07:specimen_cc_07,READY_09:specimen_fd_13",
+        "slots": {
+          "READY_04": "specimen_be_10",
+          "READY_07": "specimen_cc_07",
+          "READY_09": "specimen_fd_13"
+        },
+        "amounts": {
+          "READY_04": 40,
+          "READY_07": 100,
+          "READY_09": 180
+        },
+        "firstSeen": "2026-11-12T11:49:57.248Z",
+        "lastSeen": "2026-11-13T23:00:00.215Z",
+        "date": "2026-11-12",
+        "dateSource": "kartel-news",
+        "block": "Daily_news_challenge_hall_block_7_2026"
+      }
+    ]
+  },
+  "jackpot_hall": {
+    "rotations": [
+      {
+        "fp": "READY_04:specimen_ff_09,READY_05:specimen_ad_10,READY_06:specimen_eb_11,READY_07:specimen_cb_09,READY_08:specimen_de_10,READY_09:specimen_fd_11",
+        "slots": {
+          "READY_04": "specimen_ff_09",
+          "READY_05": "specimen_ad_10",
+          "READY_06": "specimen_eb_11",
+          "READY_07": "specimen_cb_09",
+          "READY_08": "specimen_de_10",
+          "READY_09": "specimen_fd_11"
+        },
+        "amounts": {
+          "READY_04": 50,
+          "READY_05": 150,
+          "READY_06": 200,
+          "READY_07": 50,
+          "READY_08": 150,
+          "READY_09": 200
+        },
+        "firstSeen": "2026-11-13T22:59:48.203Z",
+        "lastSeen": "2026-11-13T23:00:00.215Z",
+        "date": "2026-10-30",
+        "dateSource": "filter-window",
+        "block": "Building_Jackpot_2026_10"
+      }
+    ]
+  },
+  "mystery_hall": {
+    "rotations": [
+      {
+        "fp": "READY_01:specimen_ac_08|kings,READY_02:specimen_be_03|summer,READY_03:specimen_fc_08|europe,READY_04:specimen_eb_10|aprilfools,READY_05:specimen_dd_08|school,READY_06:specimen_ab_11|honeybee,READY_07:specimen_ed_11|carnival,READY_08:specimen_bf_12|patrick,READY_09:specimen_cd_08|oktoberfest,READY_10:specimen_ec_10|revolution,READY_11:specimen_ca_05|worker,READY_12:specimen_da_03|spring",
+        "slots": {
+          "READY_01": "specimen_ac_08|kings",
+          "READY_02": "specimen_be_03|summer",
+          "READY_03": "specimen_fc_08|europe",
+          "READY_04": "specimen_eb_10|aprilfools",
+          "READY_05": "specimen_dd_08|school",
+          "READY_06": "specimen_ab_11|honeybee",
+          "READY_07": "specimen_ed_11|carnival",
+          "READY_08": "specimen_bf_12|patrick",
+          "READY_09": "specimen_cd_08|oktoberfest",
+          "READY_10": "specimen_ec_10|revolution",
+          "READY_11": "specimen_ca_05|worker",
+          "READY_12": "specimen_da_03|spring"
+        },
+        "amounts": {},
+        "firstSeen": "2026-11-13T22:59:48.203Z",
+        "lastSeen": "2026-11-13T23:00:00.215Z",
+        "date": "2026-09-15",
+        "dateSource": "filter-window",
+        "block": "Building_Mystery_2025_01"
+      }
+    ]
+  }
+}

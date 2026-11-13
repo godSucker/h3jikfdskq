@@ -221,6 +221,14 @@ jobs:
         if: always()
         run: npx tsx scripts/update-obtain-last-seen.ts
 
+      - name: 9.565 Журнал ротаций залов обмена (hall-rotations.json)
+        # Состав слотов Зала испытаний/джекпота/тайны из живого XML -> ротации с датой
+        # (окно новостного баннера kartel либо первое наблюдение). ДО 9.57: оттуда
+        # offer-history берёт даты Зала испытаний. Не зависит от полноты снэпшота kartel.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-hall-rotations.ts
+
       - name: 9.57 История последних офферов мутантов (offer-history.json)
         # Даты kartel-фильтров (снимок 9.5 + date-ledger) -> мутанты товара.
         # Для блока "Последние появления" в модалке. Merge-only; при неполном
