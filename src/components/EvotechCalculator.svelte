@@ -372,7 +372,8 @@
         </div>
         <p class="mt-2 text-sky-200/60 text-xs">{t('evotech.reverseAltNote', locale)}</p>
         {#if rev80}
-          <p class="mt-3 text-sky-200/80 text-sm">
+          <div class="mt-3 space-y-2 text-sm">
+          <p class="text-sky-200/80">
             {t('evotech.at80Reverse', locale)
               .replace('{silver}', fmt(rev80.allSilver))
               .replace('{gold}', fmt(rev80.allGold))
@@ -380,7 +381,7 @@
               .replace('{saveGold}', fmt(rev.allGold - rev80.allGold))}
           </p>
           {#if revOwned}
-            <p class="text-sky-200/70 text-sm">
+            <p class="text-sky-200/70">
               {#if rev80.enough}
                 {t('evotech.at80Enough', locale)}
               {:else}
@@ -390,6 +391,7 @@
               {/if}
             </p>
           {/if}
+          </div>
         {/if}
         {#if revOwned}
           <div class="mt-3 rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm space-y-1">
