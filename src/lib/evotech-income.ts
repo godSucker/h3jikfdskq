@@ -25,24 +25,54 @@ export interface ZoneType {
 
 // Лимиты и вместимость из gamedefinitions.xml: у каждой зоны два значения bank (на время
 // улучшения и итоговое), берём итоговое (максимум). Вместимость 2/3/4 - src/data/materials/zones.json.
+// Лимиты обычных секторов зависят от гена: A/B/C одинаковые, D, E и F свои. Люкс-секторы
+// у всех генов одинаковые (200 000 / 320 000). Сектор определяет первый ген мутанта.
+const LUXE: readonly ZoneType[] = [
+  { id: 'l2', cap: 200_000, slots: 3 },
+  { id: 'l3', cap: 320_000, slots: 4 },
+]
 export const ZONE_TYPES = {
-  cyber: [
+  low: [
     { id: 't1', cap: 500, slots: 2 },
     { id: 't2', cap: 2_500, slots: 3 },
     { id: 't3', cap: 9_000, slots: 4 },
-    { id: 'l2', cap: 200_000, slots: 3 },
-    { id: 'l3', cap: 320_000, slots: 4 },
+    ...LUXE,
+  ],
+  beast: [
+    { id: 't1', cap: 5_000, slots: 2 },
+    { id: 't2', cap: 15_000, slots: 3 },
+    { id: 't3', cap: 30_000, slots: 4 },
+    ...LUXE,
+  ],
+  galactic: [
+    { id: 't1', cap: 12_000, slots: 2 },
+    { id: 't2', cap: 50_000, slots: 3 },
+    { id: 't3', cap: 80_000, slots: 4 },
+    ...LUXE,
   ],
   mythic: [
     { id: 't1', cap: 25_000, slots: 2 },
     { id: 't2', cap: 80_000, slots: 3 },
     { id: 't3', cap: 160_000, slots: 4 },
-    { id: 'l2', cap: 200_000, slots: 3 },
-    { id: 'l3', cap: 320_000, slots: 4 },
+    ...LUXE,
   ],
 } as const satisfies Record<string, readonly ZoneType[]>
 
 export type ZoneKind = keyof typeof ZONE_TYPES
+
+// Семейство секторов по первому гену мутанта (A-F).
+export function zoneKindForGene(gene: string | undefined): ZoneKind {
+  switch ((gene ?? '').toUpperCase()) {
+    case 'D':
+      return 'beast'
+    case 'E':
+      return 'galactic'
+    case 'F':
+      return 'mythic'
+    default:
+      return 'low' // A, B, C
+  }
+}
 
 export interface IncomeGroup {
   mutants: number
