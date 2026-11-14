@@ -1,0 +1,18 @@
+{
+  "description": "Big (80%+) evolution center discounts. Date = day of the channel post that announced the start (UTC, plus or minus a day). Source: t.me/mutants_mgg_fb, posts with #MGGdiscount and the event announcements. Smaller discounts (50-70%) are not listed here.",
+  "events": [
+    { "date": "2023-08-09", "percent": 80, "kind": "other", "post": 1554, "note": "Unannounced; devs said it was not the birthday discount" },
+    { "date": "2023-08-30", "percent": 85, "kind": "birthday", "post": 1903 },
+    { "date": "2024-01-17", "percent": 80, "kind": "newyear", "post": 3071, "note": "80% on gold and silver" },
+    { "date": "2024-08-27", "percent": 80, "kind": "birthday", "post": 4590 },
+    { "date": "2024-12-26", "percent": 80, "kind": "newyear", "post": 5498, "note": "Start announced for 25 Dec (post 5406), actually went live on 26 Dec; 80% on gold and silver" },
+    { "date": "2025-08-11", "percent": 80, "kind": "birthday", "post": 6877, "note": "Interrupted by a server outage" },
+    { "date": "2025-08-27", "percent": 80, "kind": "birthday", "post": 7005, "note": "Resumed after the outage with the same 80%" },
+    { "date": "2025-12-30", "percent": 80, "kind": "newyear", "post": 7886, "note": "80% on gold and silver, announced the day before (post 7878)" },
+    { "date": "2026-08-11", "percent": 80, "kind": "birthday", "post": 9309, "note": "80% on gold and silver, lasted 2 days" }
+  ],
+  "windows": [
+    { "kind": "birthday", "from": "08-09", "to": "08-30", "note": "Seen on 9 Aug, 11 Aug, 27 Aug, 30 Aug across 2023-2026" },
+    { "kind": "newyear", "from": "12-25", "to": "01-17", "note": "26 Dec 2024, 30 Dec 2025, 17 Jan 2024" }
+  ]
+}

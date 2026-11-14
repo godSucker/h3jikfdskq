@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import EvoRows from '../data/evotech-data.js';
   import evoDiscount from '../data/evo-discount.json';
+  import bigDiscounts from '../data/evo-big-discounts.json';
   import { t, type Locale } from '@/lib/i18n';
   import {
     MIN_LEVEL,
@@ -15,6 +16,16 @@
     type ReverseResult,
     type Range,
   } from '@/lib/evotech';
+  import {
+    ZONE_TYPES,
+    compareSpend,
+    incomePerDay,
+    nextBigWindow,
+    type IncomeGroup,
+    type SpendComparison,
+    type SpendParams,
+    type ZoneKind,
+  } from '@/lib/evotech-income';
 
   type TechTile = { start: string; end: string | null; approx: boolean };
   let { locale = 'ru' as Locale, techTiles = [] as TechTile[] }: { locale?: Locale; techTiles?: TechTile[] } = $props();
@@ -54,10 +65,39 @@
     discountGold = String(liveGold ?? 0);
   }
 
+  // Режим "Тратить или ждать": две группы доходных мутантов (мидасы в секторах мификов,
+  // охотники в секторах киборгов), см. @/lib/evotech-income.
+  type GroupForm = { mutants: string; level: string; bank: string; zones: Record<string, string> };
+  const newGroup = (): GroupForm => ({
+    mutants: '', level: '', bank: '105', zones: { t1: '', t2: '', t3: '', l2: '', l3: '' },
+  });
+  const BANK_OPTIONS = [42, 84, 105, 210, 300, 340];
+  const ZONE_LABEL_KEYS: Record<string, string> = {
+    t1: 'evotech.zoneT1', t2: 'evotech.zoneT2', t3: 'evotech.zoneT3', l2: 'evotech.zoneL2', l3: 'evotech.zoneL3',
+  };
+  let midas = $state<GroupForm>(newGroup());
+  let hunters = $state<GroupForm>(newGroup());
+  let bigDiscount = $state('80');
+  let days = $state('');
+  let collects = $state('4');
+  let follow = $state('100');
+  let bigWindowLabel = $state('');
+  type SpendView = { cmp: SpendComparison; satHours: number | null; unplaced: number };
+  // raw: в шаблоне строки сравниваются по ссылке (r.o === spend.cmp.best), прокси это ломает.
+  let spend: SpendView | null = $state.raw(null);
+
   // Ближайшая скидка по плиткам анонсов. Считается после монтирования: build-time данные
   // против времени посетителя, иначе SSR и клиент разошлись бы.
   let mounted = $state(false);
-  onMount(() => { mounted = true; });
+  onMount(() => {
+    mounted = true;
+    // Дни до большой скидки по умолчанию: середина ближайшего исторического окна.
+    const w = nextBigWindow(bigDiscounts.windows, new Date());
+    if (w) {
+      bigWindowLabel = `${fmtDay(w.start.toISOString())} – ${fmtDay(w.end.toISOString())}`;
+      if (!days) days = String(w.daysToMid);
+    }
+  });
   const INTL_DATE = () => INTL_LOCALE[locale] ?? 'ru-RU';
   const fmtDay = (iso: string) =>
     new Intl.DateTimeFormat(INTL_DATE(), { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(iso));
@@ -173,13 +213,60 @@
   const below80 = () => Number(discountSilver || 0) < 80 || Number(discountGold || 0) < 80;
   const model80 = () => createEvoModel(EvoRows, { silver: 80, gold: 80 });
 
+  const toGroup = (form: GroupForm, kind: ZoneKind, evo: number): IncomeGroup => ({
+    mutants: Math.max(0, Math.floor(Number(form.mutants) || 0)),
+    bankPerLevel: Number(form.bank) || 105,
+    level: Math.min(evo, toLevel(form.level) || evo),
+    zones: ZONE_TYPES[kind].map((z) => ({
+      cap: z.cap,
+      slots: z.slots,
+      count: Math.max(0, Math.floor(Number(form.zones[z.id]) || 0)),
+    })),
+  });
+
+  function calculateSpend() {
+    const start = toLevel(startLevel);
+    const bad = validateLevels(start, null);
+    if (bad) { errorMsg = errorText(bad); return; }
+    if (days.trim() === '' || !(Number(days) >= 0)) { errorMsg = t('evotech.errorDays', locale); return; }
+    const groups = [toGroup(midas, 'mythic', start), toGroup(hunters, 'cyber', start)].filter(
+      (g) => g.mutants > 0 && g.zones.some((z) => z.count > 0),
+    );
+    if (groups.length === 0) { errorMsg = t('evotech.noGroups', locale); return; }
+    const params: SpendParams = {
+      rows: EvoRows,
+      evo: start,
+      silver: toBig(silver),
+      gold: toBig(gold),
+      nowDiscount: { silver: Number(discountSilver || 0), gold: Number(discountGold || 0) },
+      bigDiscount: Number(bigDiscount || 80),
+      days: Number(days),
+      collectsPerDay: Math.max(1, Number(collects) || 1),
+      follow: Math.max(0, Math.min(100, Number(follow) || 0)) / 100,
+      groups,
+    };
+    const cmp = compareSpend(params);
+    const inc = incomePerDay(params, start).groups;
+    const saturated = inc.filter((g) => g.perCycle < g.potentialPerCycle * 0.95 && g.minFillHours !== null);
+    spend = {
+      cmp,
+      satHours: saturated.length ? Math.min(...saturated.map((g) => g.minFillHours as number)) : null,
+      unplaced: inc.reduce((n, g) => n + g.unplaced, 0),
+    };
+  }
+
   function calculate() {
+    spend = null;
     errorMsg = '';
     fwd = null;
     rev = null;
     fwd80 = null;
     rev80 = null;
     busy = true;
+    if (mode === 'spend') {
+      try { calculateSpend(); } catch { errorMsg = t('evotech.errorCalc', locale); } finally { busy = false; }
+      return;
+    }
     try {
       const start = toLevel(startLevel);
       const isReverse = mode === 'reverse';
@@ -220,8 +307,10 @@
   <p class="text-sky-200/80 mt-1">
     {#if mode === 'forward'}
       {t('evotech.subtitleForward', locale)}
-    {:else}
+    {:else if mode === 'reverse'}
       {t('evotech.subtitleReverse', locale)}
+    {:else}
+      {t('evotech.subtitleSpend', locale)}
     {/if}
   </p>
 
@@ -234,6 +323,10 @@
       class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'reverse' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
       {t('evotech.modeReverse', locale)}
     </button>
+    <button type="button" onclick={() => { mode = 'spend'; errorMsg = ''; }}
+      class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors {mode === 'spend' ? 'bg-sky-600 text-white' : 'text-sky-300/80 hover:text-sky-100'}">
+      {t('evotech.modeSpend', locale)}
+    </button>
   </div>
 
   <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -241,7 +334,7 @@
       <h2 class="text-sky-100 font-bold mb-3">{t('evotech.inputTitle', locale)}</h2>
       <div class="space-y-3">
         <label class="block">
-          <span class="text-sky-300/80 text-sm">{t('evotech.startLevelLabel', locale).replace('{min}', String(MIN_LEVEL))}</span>
+          <span class="text-sky-300/80 text-sm">{mode === 'spend' ? t('evotech.evoLabel', locale) : t('evotech.startLevelLabel', locale).replace('{min}', String(MIN_LEVEL))}</span>
           <input id="evo-start-level" name="evo-start-level" type="text" bind:value={startLevel} oninput={onInputStartLevel} inputmode="numeric" placeholder={t('evotech.startLevelPlaceholder', locale)}
             class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
         </label>
@@ -269,6 +362,9 @@
           <p class="text-sky-200/60 text-xs">{t('evotech.ownedHint', locale)}</p>
         {/if}
 
+        {#if mode === 'spend'}
+          <div class="text-sky-100 font-semibold pt-1">{t('evotech.nowDiscountTitle', locale)}</div>
+        {/if}
         <div class="grid grid-cols-2 gap-3">
           <label class="block">
             <span class="text-sky-300/80 text-sm">{t('evotech.discountSilverLabel', locale)}</span>
@@ -306,6 +402,85 @@
         {/if}
         {#if nextDiscountLabel}
           <p class="text-sky-300/80 text-sm">{t('evotech.nextDiscount', locale).replace('{date}', nextDiscountLabel)}</p>
+        {/if}
+
+        {#if mode === 'spend'}
+          <div class="text-sky-100 font-semibold pt-2">{t('evotech.bigDiscountLabel', locale)}</div>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="block">
+              <span class="text-sky-300/80 text-sm">{t('evotech.bigDiscountLabel', locale)}</span>
+              <select id="evo-big-discount" bind:value={bigDiscount}
+                  class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+                {#each [80, 85, 90] as d (d)}<option value={String(d)}>{d}%</option>{/each}
+              </select>
+            </label>
+            <label class="block">
+              <span class="text-sky-300/80 text-sm">{t('evotech.daysLabel', locale)}</span>
+              <input id="evo-days" type="text" inputmode="numeric" bind:value={days}
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+            </label>
+          </div>
+          {#if bigWindowLabel}
+            <p class="text-sky-200/60 text-xs">{t('evotech.daysHint', locale).replace('{window}', bigWindowLabel)}</p>
+          {/if}
+
+          <div class="text-sky-100 font-semibold pt-2">{t('evotech.incomeTitle', locale)}</div>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="block">
+              <span class="text-sky-300/80 text-sm">{t('evotech.collectsLabel', locale)}</span>
+              <input id="evo-collects" type="text" inputmode="numeric" bind:value={collects}
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+            </label>
+            <label class="block">
+              <span class="text-sky-300/80 text-sm">{t('evotech.followLabel', locale)}</span>
+              <input id="evo-follow" type="text" inputmode="numeric" bind:value={follow}
+                class="mt-1 w-full rounded-xl border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+            </label>
+          </div>
+
+          {#each [{ key: 'midas', form: midas, kind: 'mythic' }, { key: 'hunters', form: hunters, kind: 'cyber' }] as g (g.key)}
+            <div class="rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 space-y-2">
+              <div class="text-sky-100 font-semibold">{g.key === 'midas' ? t('evotech.groupMidas', locale) : t('evotech.groupHunters', locale)}</div>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="block">
+                  <span class="text-sky-300/80 text-xs">{t('evotech.mutantsLabel', locale)}</span>
+                  <input id="evo-{g.key}-mutants" type="text" inputmode="numeric" bind:value={g.form.mutants}
+                    class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+                </label>
+                <label class="block">
+                  <span class="text-sky-300/80 text-xs">{t('evotech.levelLabel', locale)}</span>
+                  <input id="evo-{g.key}-level" type="text" inputmode="numeric" bind:value={g.form.level} placeholder={t('evotech.evoLabel', locale)}
+                    class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+                </label>
+                <label class="block">
+                  <span class="text-sky-300/80 text-xs">{t('evotech.bankLabel', locale)}</span>
+                  <select id="evo-{g.key}-bank" bind:value={g.form.bank}
+                      class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+                    {#each BANK_OPTIONS as b (b)}<option value={String(b)}>{b}</option>{/each}
+                  </select>
+                </label>
+              </div>
+              <div class="text-sky-300/80 text-xs">{t('evotech.zonesLabel', locale)}</div>
+              <div class="grid grid-cols-5 gap-2">
+                {#each ZONE_TYPES[g.kind as ZoneKind] as z (z.id)}
+                  <label class="block">
+                    <span class="text-sky-300/60 text-[11px] leading-tight block">{t(ZONE_LABEL_KEYS[z.id], locale)}</span>
+                    <input id="evo-{g.key}-zone-{z.id}" type="text" inputmode="numeric" bind:value={g.form.zones[z.id]}
+                      class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+                  </label>
+                {/each}
+              </div>
+            </div>
+          {/each}
+
+          <details class="rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm text-sky-200/80">
+            <summary class="cursor-pointer text-sky-100 font-semibold">{t('evotech.hintTitle', locale)}</summary>
+            <ul class="mt-2 list-disc pl-5 space-y-1">
+              {#each [1, 2, 3, 4, 5, 6, 7] as n (n)}
+                <li>{t('evotech.hint' + n, locale)}</li>
+              {/each}
+            </ul>
+          </details>
         {/if}
 
         <div class="pt-2">
@@ -365,6 +540,39 @@
         {#if fwd.hitCap}
           <p class="mt-1 text-sky-300/80 text-sm">{t('evotech.hitCapNote', locale)}</p>
         {/if}
+      {:else if mode === 'spend' && spend}
+        {@const rows = [
+          { label: t('evotech.optWait', locale), o: spend.cmp.wait },
+          { label: t('evotech.optAll', locale), o: spend.cmp.all },
+          ...(spend.cmp.best.fraction > 0 && spend.cmp.best.fraction < 1
+            ? [{ label: t('evotech.optBest', locale).replace('{pct}', String(Math.round(spend.cmp.best.fraction * 100))), o: spend.cmp.best }]
+            : []),
+        ]}
+        <div class="space-y-3">
+          {#each rows as r (r.label)}
+            <div class="rounded-xl border p-3 {r.o === spend.cmp.best || (spend.cmp.best.fraction === 0 && r.o === spend.cmp.wait) ? 'border-emerald-500/60 bg-emerald-950/20' : 'border-slate-700/70 bg-slate-950/40'}">
+              <div class="text-sky-100 font-semibold">{r.label}</div>
+              <div class="flex justify-between gap-2 text-sm"><span class="text-sky-300/80">{t('evotech.finalEvo', locale)}</span><strong>{r.o.finalLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</strong></div>
+              <div class="flex justify-between gap-2 text-xs text-sky-200/60"><span>{t('evotech.incomePerDay', locale)}</span><span>{fmt(BigInt(Math.floor(r.o.incomePerDayBefore)))} → {fmt(BigInt(Math.floor(r.o.incomePerDayAfter)))}</span></div>
+            </div>
+          {/each}
+        </div>
+        <p class="mt-3 text-sm {spend.cmp.best.finalLevel > spend.cmp.wait.finalLevel ? 'text-emerald-300/90' : 'text-amber-300/90'} font-semibold">
+          {#if spend.cmp.best.finalLevel > spend.cmp.wait.finalLevel}
+            {t('evotech.verdictSpend', locale)
+              .replace('{pct}', String(Math.round(spend.cmp.best.fraction * 100)))
+              .replace('{level}', spend.cmp.best.finalLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))
+              .replace('{base}', spend.cmp.wait.finalLevel.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))}
+          {:else}
+            {t('evotech.verdictWait', locale)}
+          {/if}
+        </p>
+        {#if spend.satHours !== null}
+          <p class="mt-2 text-sky-200/80 text-sm">{t('evotech.satNote', locale).replace('{hours}', (Math.round(spend.satHours * 10) / 10).toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU'))}</p>
+        {/if}
+        {#if spend.unplaced > 0}
+          <p class="mt-2 text-sky-200/60 text-xs">{t('evotech.unplacedNote', locale).replace('{n}', String(spend.unplaced))}</p>
+        {/if}
       {:else if mode === 'reverse' && rev}
         <div class="space-y-1.5">
           <div class="flex justify-between gap-2"><span class="text-sky-300/80">{t('evotech.neededSilverLabel', locale)}</span><strong>{fmt(rev.allSilver)}</strong></div>
@@ -372,7 +580,8 @@
         </div>
         <p class="mt-2 text-sky-200/60 text-xs">{t('evotech.reverseAltNote', locale)}</p>
         {#if rev80}
-          <p class="mt-3 text-sky-200/80 text-sm">
+          <div class="mt-3 space-y-2 text-sm">
+          <p class="text-sky-200/80">
             {t('evotech.at80Reverse', locale)
               .replace('{silver}', fmt(rev80.allSilver))
               .replace('{gold}', fmt(rev80.allGold))
@@ -380,7 +589,7 @@
               .replace('{saveGold}', fmt(rev.allGold - rev80.allGold))}
           </p>
           {#if revOwned}
-            <p class="text-sky-200/70 text-sm">
+            <p class="text-sky-200/70">
               {#if rev80.enough}
                 {t('evotech.at80Enough', locale)}
               {:else}
@@ -390,6 +599,7 @@
               {/if}
             </p>
           {/if}
+          </div>
         {/if}
         {#if revOwned}
           <div class="mt-3 rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm space-y-1">
