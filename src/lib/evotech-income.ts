@@ -26,10 +26,13 @@ export interface ZoneType {
 // Лимиты и вместимость из gamedefinitions.xml: у каждой зоны два значения bank (на время
 // улучшения и итоговое), берём итоговое (максимум). Вместимость 2/3/4 - src/data/materials/zones.json.
 // Лимиты обычных секторов зависят от гена: A/B/C одинаковые, D, E и F свои. Люкс-секторы
-// у всех генов одинаковые (200 000 / 320 000). Сектор определяет первый ген мутанта.
+// у всех генов одинаковые (200 000 / 320 000), универсальные - 320 000 / 400 000.
 const LUXE: readonly ZoneType[] = [
   { id: 'l2', cap: 200_000, slots: 3 },
   { id: 'l3', cap: 320_000, slots: 4 },
+  // Универсальные люкс-сектора принимают мутанта любого гена.
+  { id: 'u2', cap: 320_000, slots: 3 },
+  { id: 'u3', cap: 400_000, slots: 4 },
 ]
 export const ZONE_TYPES = {
   low: [
@@ -60,7 +63,7 @@ export const ZONE_TYPES = {
 
 export type ZoneKind = keyof typeof ZONE_TYPES
 
-// Семейство секторов по первому гену мутанта (A-F).
+// Семейство секторов по гену (A-F).
 export function zoneKindForGene(gene: string | undefined): ZoneKind {
   switch ((gene ?? '').toUpperCase()) {
     case 'D':
@@ -239,4 +242,26 @@ export function nextBigWindow(
     daysToEnd: toEnd,
     daysToMid: Math.round((toStart + toEnd) / 2),
   }
+}
+
+// Мутант с двумя генами может стоять в секторе любого из них. Игрок ставит туда, где
+// вместительнее, поэтому по умолчанию берём ген с самым большим сектором 3 уровня.
+export function bestSectorGene(genes: readonly string[]): string {
+  const cap3 = (g: string) => ZONE_TYPES[zoneKindForGene(g)].find((z) => z.id === 't3')?.cap ?? 0
+  let best = genes[0] ?? 'A'
+  for (const g of genes) if (cap3(g) > cap3(best)) best = g
+  return best
+}
+
+// Гены мутанта, дающие РАЗНЫЕ семейства секторов (если одинаковые - выбирать нечего).
+export function sectorGeneChoices(genes: readonly string[]): string[] {
+  const seen = new Set<ZoneKind>()
+  const out: string[] = []
+  for (const g of genes) {
+    const kind = zoneKindForGene(g)
+    if (seen.has(kind)) continue
+    seen.add(kind)
+    out.push(g)
+  }
+  return out
 }

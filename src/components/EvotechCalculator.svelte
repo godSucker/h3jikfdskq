@@ -4,6 +4,7 @@
   import evoDiscount from '../data/evo-discount.json';
   import bigDiscounts from '../data/evo-big-discounts.json';
   import { t, type Locale } from '@/lib/i18n';
+  import { GENE_NAMES, type GeneLetter } from '@/lib/gene-names';
   import {
     MIN_LEVEL,
     MAX_LEVEL,
@@ -19,6 +20,8 @@
   import {
     ZONE_TYPES,
     zoneKindForGene,
+    bestSectorGene,
+    sectorGeneChoices,
     compareSpend,
     incomePerDay,
     nextBigWindow,
@@ -28,7 +31,7 @@
   } from '@/lib/evotech-income';
 
   type TechTile = { start: string; end: string | null; approx: boolean };
-  type MoneyMutant = { id: string; name: string; bank: number; gene: string };
+  type MoneyMutant = { id: string; name: string; bank: number; genes: string[] };
   let {
     locale = 'ru' as Locale,
     techTiles = [] as TechTile[],
@@ -72,19 +75,26 @@
 
   // Режим "Тратить или ждать": две группы доходных мутантов (мидасы в секторах мификов,
   // охотники в секторах киборгов), см. @/lib/evotech-income.
-  type GroupForm = { mutant: string; mutants: string; level: string; zones: Record<string, string> };
+  type GroupForm = {
+    mutant: string; gene: string; mutants: string; level: string; zones: Record<string, string>;
+  };
+  const mutantInfo = (id: string): MoneyMutant | undefined => moneyMutants.find((m) => m.id === id);
+  // Мутант с двумя генами может стоять в секторе любого из них; по умолчанию берём вместительнее.
+  const defaultGene = (id: string) => bestSectorGene(mutantInfo(id)?.genes ?? ['A']);
   const newGroup = (mutant: string): GroupForm => ({
-    mutant, mutants: '', level: '', zones: { t1: '', t2: '', t3: '', l2: '', l3: '' },
+    mutant, gene: defaultGene(mutant), mutants: '', level: '',
+    zones: { t1: '', t2: '', t3: '', l2: '', l3: '', u2: '', u3: '' },
   });
   const ZONE_LABEL_KEYS: Record<string, string> = {
-    t1: 'evotech.zoneT1', t2: 'evotech.zoneT2', t3: 'evotech.zoneT3', l2: 'evotech.zoneL2', l3: 'evotech.zoneL3',
+    t1: 'evotech.zoneT1', t2: 'evotech.zoneT2', t3: 'evotech.zoneT3',
+    l2: 'evotech.zoneL2', l3: 'evotech.zoneL3', u2: 'evotech.zoneU2', u3: 'evotech.zoneU3',
   };
   // Мидас и Охотник за головами - у большинства игроков именно они; остальных можно выбрать в списке.
   const pickDefault = (id: string, fallbackIdx: number) =>
     (moneyMutants.find((m) => m.id === id) ?? moneyMutants[fallbackIdx] ?? moneyMutants[0])?.id ?? '';
   let groupA = $state<GroupForm>(newGroup(pickDefault('specimen_fc_11', 0)));
   let groupB = $state<GroupForm>(newGroup(pickDefault('specimen_a_05', 1)));
-  const mutantInfo = (id: string): MoneyMutant | undefined => moneyMutants.find((m) => m.id === id);
+  const geneName = (g: string) => GENE_NAMES[locale]?.[g as GeneLetter] ?? g;
   let bigDiscount = $state('80');
   let days = $state('');
   let collects = $state('4');
@@ -227,7 +237,7 @@
       mutants: Math.max(0, Math.floor(Number(form.mutants) || 0)),
       bankPerLevel: info?.bank ?? 105,
       level: Math.min(evo, toLevel(form.level) || evo),
-      zones: ZONE_TYPES[zoneKindForGene(info?.gene)].map((z) => ({
+      zones: ZONE_TYPES[zoneKindForGene(form.gene || defaultGene(form.mutant))].map((z) => ({
         cap: z.cap,
         slots: z.slots,
         count: Math.max(0, Math.floor(Number(form.zones[z.id]) || 0)),
@@ -451,7 +461,8 @@
 
           {#each [{ key: 'a', form: groupA }, { key: 'b', form: groupB }] as g (g.key)}
             {@const info = mutantInfo(g.form.mutant)}
-            {@const kind = zoneKindForGene(info?.gene)}
+            {@const kind = zoneKindForGene(g.form.gene)}
+            {@const geneChoices = sectorGeneChoices(info?.genes ?? [])}
             <details class="group rounded-xl border border-slate-700/70 bg-slate-950/40">
               <summary class="flex cursor-pointer list-none items-center justify-between gap-2 p-3 select-none [&::-webkit-details-marker]:hidden">
                 <span class="text-sky-100 font-semibold">{info?.name ?? '—'}{g.form.mutants ? ` × ${g.form.mutants}` : ''}</span>
@@ -460,12 +471,21 @@
               <div class="space-y-2 px-3 pb-3">
                 <label class="block">
                   <span class="text-sky-300/80 text-xs">{t('evotech.mutantLabel', locale)}</span>
-                  <select id="evo-g{g.key}-mutant" bind:value={g.form.mutant}
+                  <select id="evo-g{g.key}-mutant" bind:value={g.form.mutant} onchange={() => { g.form.gene = defaultGene(g.form.mutant); }}
                       class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
                     {#each moneyMutants as m (m.id)}<option value={m.id}>{m.name}</option>{/each}
                   </select>
                 </label>
                 <div class="text-sky-200/60 text-xs">{t('evotech.bankLabel', locale)}: {info?.bank ?? '—'}</div>
+                {#if geneChoices.length > 1}
+                  <label class="block">
+                    <span class="text-sky-300/80 text-xs">{t('evotech.sectorGeneLabel', locale)}</span>
+                    <select id="evo-g{g.key}-gene" bind:value={g.form.gene}
+                        class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+                      {#each geneChoices as gc (gc)}<option value={gc}>{geneName(gc)}</option>{/each}
+                    </select>
+                  </label>
+                {/if}
                 <div class="grid grid-cols-2 gap-2">
                   <label class="block">
                     <span class="text-sky-300/80 text-xs">{t('evotech.mutantsLabel', locale)}</span>
@@ -479,7 +499,7 @@
                   </label>
                 </div>
                 <div class="text-sky-300/80 text-xs">{t('evotech.zonesLabel', locale)}</div>
-                <div class="grid grid-cols-5 gap-2">
+                <div class="grid grid-cols-4 gap-2">
                   {#each ZONE_TYPES[kind] as z (z.id)}
                     <label class="block">
                       <span class="text-sky-300/60 text-[11px] leading-tight block">{t(ZONE_LABEL_KEYS[z.id], locale)}</span>

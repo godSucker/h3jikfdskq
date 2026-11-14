@@ -19,7 +19,7 @@ const moneyMutants = (mutantsData as unknown as { id: string; name: string; bank
     id: m.id,
     name: names[m.id]?.name || m.name,
     bank: m.bank as number,
-    gene: m.genes?.[0] ?? 'A',
+    genes: m.genes?.length ? m.genes : ['A'],
   }));
 
 // Плитка "Скоро в игре" про скидку на эво (баннер Daily_news_tech_V2): единственный
