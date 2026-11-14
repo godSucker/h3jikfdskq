@@ -3,6 +3,9 @@ import rows from '../data/evotech-data.js'
 import type { EvoRow } from './evotech'
 import {
   ZONE_TYPES,
+  zoneKindForGene,
+  bestSectorGene,
+  sectorGeneChoices,
   compareSpend,
   evaluateSpend,
   groupIncome,
@@ -155,11 +158,53 @@ describe('nextBigWindow', () => {
 
 describe('данные зон', () => {
   it('лимиты зон растут с уровнем и люкс-зоны вместительнее', () => {
-    for (const kind of ['cyber', 'mythic'] as const) {
+    for (const kind of ['low', 'beast', 'galactic', 'mythic'] as const) {
       const z = ZONE_TYPES[kind]
       expect(z[0].cap).toBeLessThan(z[1].cap)
       expect(z[1].cap).toBeLessThan(z[2].cap)
       expect(z[3].cap).toBeGreaterThan(z[2].cap === 160_000 ? 160_000 : 0)
+    }
+  })
+})
+
+describe('zoneKindForGene', () => {
+  it('A/B/C - общие низкие лимиты, D/E/F - свои', () => {
+    expect(['A', 'B', 'C'].map((g) => zoneKindForGene(g))).toEqual(['low', 'low', 'low'])
+    expect(zoneKindForGene('d')).toBe('beast')
+    expect(zoneKindForGene('E')).toBe('galactic')
+    expect(zoneKindForGene('F')).toBe('mythic')
+    expect(zoneKindForGene(undefined)).toBe('low')
+  })
+  it('значения лимитов совпадают с игровыми', () => {
+    expect(ZONE_TYPES.mythic.map((z) => z.cap)).toEqual([
+      25_000, 80_000, 160_000, 200_000, 320_000, 320_000, 400_000,
+    ])
+    expect(ZONE_TYPES.low.map((z) => z.cap)).toEqual([
+      500, 2_500, 9_000, 200_000, 320_000, 320_000, 400_000,
+    ])
+    expect(ZONE_TYPES.beast[2].cap).toBe(30_000)
+    expect(ZONE_TYPES.galactic[2].cap).toBe(80_000)
+  })
+})
+
+describe('сектор двуногенного мутанта', () => {
+  it('берётся ген с самым вместительным сектором, а не просто первый', () => {
+    expect(bestSectorGene(['F', 'C'])).toBe('F') // Мидас: мифик вместительнее
+    expect(bestSectorGene(['C', 'F'])).toBe('F') // порядок генов не важен
+    expect(bestSectorGene(['C', 'A'])).toBe('C') // Большой бо$$: оба низкие, остаётся первый
+    expect(bestSectorGene(['A'])).toBe('A') // Охотник: выбора нет
+    expect(bestSectorGene(['D', 'E'])).toBe('E')
+  })
+  it('выбор показываем только если гены дают разные семейства секторов', () => {
+    expect(sectorGeneChoices(['F', 'C'])).toEqual(['F', 'C'])
+    expect(sectorGeneChoices(['A', 'B'])).toEqual(['A']) // оба низкие
+    expect(sectorGeneChoices(['F', 'F'])).toEqual(['F'])
+    expect(sectorGeneChoices(['A'])).toEqual(['A'])
+  })
+  it('универсальные люкс-сектора есть у любого семейства', () => {
+    for (const k of ['low', 'beast', 'galactic', 'mythic'] as const) {
+      expect(ZONE_TYPES[k].find((z) => z.id === 'u3')?.cap).toBe(400_000)
+      expect(ZONE_TYPES[k].find((z) => z.id === 'u2')?.cap).toBe(320_000)
     }
   })
 })

@@ -4,8 +4,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import EvotechCalculator from '@/components/EvotechCalculator.svelte';
 import { t, localeFromAstro } from '@/lib/i18n';
 import announcements from '@/data/announcements.json';
+import mutantsData from '@/data/mutants/mutants.json';
+import { getLocalizedMutantNames } from '@/lib/mutant-names-i18n';
 
 const locale = localeFromAstro(Astro.currentLocale);
+
+// Мутанты с повышенной добычей серебра (bank_base от 84): для режима "Тратить или ждать".
+// Сектор определяет первый ген. Только build-time, в клиент уходит короткий список.
+const { names } = getLocalizedMutantNames(locale);
+const moneyMutants = (mutantsData as unknown as { id: string; name: string; bank?: number; genes?: string[] }[])
+  .filter((m) => (m.bank ?? 0) >= 84)
+  .sort((a, b) => (b.bank ?? 0) - (a.bank ?? 0) || a.name.localeCompare(b.name))
+  .map((m) => ({
+    id: m.id,
+    name: names[m.id]?.name || m.name,
+    bank: m.bank as number,
+    genes: m.genes?.length ? m.genes : ['A'],
+  }));
 
 // Плитка "Скоро в игре" про скидку на эво (баннер Daily_news_tech_V2): единственный
 // источник "когда ждать следующую скидку". Даты бывают приблизительными (approx), а
@@ -33,5 +48,5 @@ for (const a of announcements as unknown as { items?: Record<string, unknown>[] 
   description={t('evotech.pageDescription', locale)}
 >
   <!-- Загрузка Svelte-компонента на клиенте -->
-  <EvotechCalculator client:load locale={locale} techTiles={techTiles} />
+  <EvotechCalculator client:load locale={locale} techTiles={techTiles} moneyMutants={moneyMutants} />
 </BaseLayout>

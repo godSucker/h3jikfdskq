@@ -4,6 +4,7 @@
   import evoDiscount from '../data/evo-discount.json';
   import bigDiscounts from '../data/evo-big-discounts.json';
   import { t, type Locale } from '@/lib/i18n';
+  import { GENE_NAMES, type GeneLetter } from '@/lib/gene-names';
   import {
     MIN_LEVEL,
     MAX_LEVEL,
@@ -18,17 +19,24 @@
   } from '@/lib/evotech';
   import {
     ZONE_TYPES,
+    zoneKindForGene,
+    bestSectorGene,
+    sectorGeneChoices,
     compareSpend,
     incomePerDay,
     nextBigWindow,
     type IncomeGroup,
     type SpendComparison,
     type SpendParams,
-    type ZoneKind,
   } from '@/lib/evotech-income';
 
   type TechTile = { start: string; end: string | null; approx: boolean };
-  let { locale = 'ru' as Locale, techTiles = [] as TechTile[] }: { locale?: Locale; techTiles?: TechTile[] } = $props();
+  type MoneyMutant = { id: string; name: string; bank: number; genes: string[] };
+  let {
+    locale = 'ru' as Locale,
+    techTiles = [] as TechTile[],
+    moneyMutants = [] as MoneyMutant[],
+  }: { locale?: Locale; techTiles?: TechTile[]; moneyMutants?: MoneyMutant[] } = $props();
 
   // Тот же приём, что INTL_LOCALE в TopMutantsBrowser.svelte (не общий модуль).
   const INTL_LOCALE: Record<Locale, string> = {
@@ -67,16 +75,26 @@
 
   // Режим "Тратить или ждать": две группы доходных мутантов (мидасы в секторах мификов,
   // охотники в секторах киборгов), см. @/lib/evotech-income.
-  type GroupForm = { mutants: string; level: string; bank: string; zones: Record<string, string> };
-  const newGroup = (): GroupForm => ({
-    mutants: '', level: '', bank: '105', zones: { t1: '', t2: '', t3: '', l2: '', l3: '' },
-  });
-  const BANK_OPTIONS = [42, 84, 105, 210, 300, 340];
-  const ZONE_LABEL_KEYS: Record<string, string> = {
-    t1: 'evotech.zoneT1', t2: 'evotech.zoneT2', t3: 'evotech.zoneT3', l2: 'evotech.zoneL2', l3: 'evotech.zoneL3',
+  type GroupForm = {
+    mutant: string; gene: string; mutants: string; level: string; zones: Record<string, string>;
   };
-  let midas = $state<GroupForm>(newGroup());
-  let hunters = $state<GroupForm>(newGroup());
+  const mutantInfo = (id: string): MoneyMutant | undefined => moneyMutants.find((m) => m.id === id);
+  // Мутант с двумя генами может стоять в секторе любого из них; по умолчанию берём вместительнее.
+  const defaultGene = (id: string) => bestSectorGene(mutantInfo(id)?.genes ?? ['A']);
+  const newGroup = (mutant: string): GroupForm => ({
+    mutant, gene: defaultGene(mutant), mutants: '', level: '',
+    zones: { t1: '', t2: '', t3: '', l2: '', l3: '', u2: '', u3: '' },
+  });
+  const ZONE_LABEL_KEYS: Record<string, string> = {
+    t1: 'evotech.zoneT1', t2: 'evotech.zoneT2', t3: 'evotech.zoneT3',
+    l2: 'evotech.zoneL2', l3: 'evotech.zoneL3', u2: 'evotech.zoneU2', u3: 'evotech.zoneU3',
+  };
+  // Мидас и Охотник за головами - у большинства игроков именно они; остальных можно выбрать в списке.
+  const pickDefault = (id: string, fallbackIdx: number) =>
+    (moneyMutants.find((m) => m.id === id) ?? moneyMutants[fallbackIdx] ?? moneyMutants[0])?.id ?? '';
+  let groupA = $state<GroupForm>(newGroup(pickDefault('specimen_fc_11', 0)));
+  let groupB = $state<GroupForm>(newGroup(pickDefault('specimen_a_05', 1)));
+  const geneName = (g: string) => GENE_NAMES[locale]?.[g as GeneLetter] ?? g;
   let bigDiscount = $state('80');
   let days = $state('');
   let collects = $state('4');
@@ -213,23 +231,26 @@
   const below80 = () => Number(discountSilver || 0) < 80 || Number(discountGold || 0) < 80;
   const model80 = () => createEvoModel(EvoRows, { silver: 80, gold: 80 });
 
-  const toGroup = (form: GroupForm, kind: ZoneKind, evo: number): IncomeGroup => ({
-    mutants: Math.max(0, Math.floor(Number(form.mutants) || 0)),
-    bankPerLevel: Number(form.bank) || 105,
-    level: Math.min(evo, toLevel(form.level) || evo),
-    zones: ZONE_TYPES[kind].map((z) => ({
-      cap: z.cap,
-      slots: z.slots,
-      count: Math.max(0, Math.floor(Number(form.zones[z.id]) || 0)),
-    })),
-  });
+  const toGroup = (form: GroupForm, evo: number): IncomeGroup => {
+    const info = mutantInfo(form.mutant);
+    return {
+      mutants: Math.max(0, Math.floor(Number(form.mutants) || 0)),
+      bankPerLevel: info?.bank ?? 105,
+      level: Math.min(evo, toLevel(form.level) || evo),
+      zones: ZONE_TYPES[zoneKindForGene(form.gene || defaultGene(form.mutant))].map((z) => ({
+        cap: z.cap,
+        slots: z.slots,
+        count: Math.max(0, Math.floor(Number(form.zones[z.id]) || 0)),
+      })),
+    };
+  };
 
   function calculateSpend() {
     const start = toLevel(startLevel);
     const bad = validateLevels(start, null);
     if (bad) { errorMsg = errorText(bad); return; }
     if (days.trim() === '' || !(Number(days) >= 0)) { errorMsg = t('evotech.errorDays', locale); return; }
-    const groups = [toGroup(midas, 'mythic', start), toGroup(hunters, 'cyber', start)].filter(
+    const groups = [toGroup(groupA, start), toGroup(groupB, start)].filter(
       (g) => g.mutants > 0 && g.zones.some((z) => z.count > 0),
     );
     if (groups.length === 0) { errorMsg = t('evotech.noGroups', locale); return; }
@@ -438,44 +459,66 @@
             </label>
           </div>
 
-          {#each [{ key: 'midas', form: midas, kind: 'mythic' }, { key: 'hunters', form: hunters, kind: 'cyber' }] as g (g.key)}
-            <div class="rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 space-y-2">
-              <div class="text-sky-100 font-semibold">{g.key === 'midas' ? t('evotech.groupMidas', locale) : t('evotech.groupHunters', locale)}</div>
-              <div class="grid grid-cols-3 gap-2">
+          {#each [{ key: 'a', form: groupA }, { key: 'b', form: groupB }] as g (g.key)}
+            {@const info = mutantInfo(g.form.mutant)}
+            {@const kind = zoneKindForGene(g.form.gene)}
+            {@const geneChoices = sectorGeneChoices(info?.genes ?? [])}
+            <details class="group rounded-xl border border-slate-700/70 bg-slate-950/40">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-2 p-3 select-none [&::-webkit-details-marker]:hidden">
+                <span class="text-sky-100 font-semibold">{info?.name ?? '—'}{g.form.mutants ? ` × ${g.form.mutants}` : ''}</span>
+                <svg class="chev h-5 w-5 shrink-0 text-sky-300/70 transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+              </summary>
+              <div class="space-y-2 px-3 pb-3">
                 <label class="block">
-                  <span class="text-sky-300/80 text-xs">{t('evotech.mutantsLabel', locale)}</span>
-                  <input id="evo-{g.key}-mutants" type="text" inputmode="numeric" bind:value={g.form.mutants}
-                    class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-                </label>
-                <label class="block">
-                  <span class="text-sky-300/80 text-xs">{t('evotech.levelLabel', locale)}</span>
-                  <input id="evo-{g.key}-level" type="text" inputmode="numeric" bind:value={g.form.level} placeholder={t('evotech.evoLabel', locale)}
-                    class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
-                </label>
-                <label class="block">
-                  <span class="text-sky-300/80 text-xs">{t('evotech.bankLabel', locale)}</span>
-                  <select id="evo-{g.key}-bank" bind:value={g.form.bank}
+                  <span class="text-sky-300/80 text-xs">{t('evotech.mutantLabel', locale)}</span>
+                  <select id="evo-g{g.key}-mutant" bind:value={g.form.mutant} onchange={() => { g.form.gene = defaultGene(g.form.mutant); }}
                       class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
-                    {#each BANK_OPTIONS as b (b)}<option value={String(b)}>{b}</option>{/each}
+                    {#each moneyMutants as m (m.id)}<option value={m.id}>{m.name}</option>{/each}
                   </select>
                 </label>
-              </div>
-              <div class="text-sky-300/80 text-xs">{t('evotech.zonesLabel', locale)}</div>
-              <div class="grid grid-cols-5 gap-2">
-                {#each ZONE_TYPES[g.kind as ZoneKind] as z (z.id)}
+                <div class="text-sky-200/60 text-xs">{t('evotech.bankLabel', locale)}: {info?.bank ?? '—'}</div>
+                {#if geneChoices.length > 1}
                   <label class="block">
-                    <span class="text-sky-300/60 text-[11px] leading-tight block">{t(ZONE_LABEL_KEYS[z.id], locale)}</span>
-                    <input id="evo-{g.key}-zone-{z.id}" type="text" inputmode="numeric" bind:value={g.form.zones[z.id]}
+                    <span class="text-sky-300/80 text-xs">{t('evotech.sectorGeneLabel', locale)}</span>
+                    <select id="evo-g{g.key}-gene" bind:value={g.form.gene}
+                        class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad">
+                      {#each geneChoices as gc (gc)}<option value={gc}>{geneName(gc)}</option>{/each}
+                    </select>
+                  </label>
+                {/if}
+                <div class="grid grid-cols-2 gap-2">
+                  <label class="block">
+                    <span class="text-sky-300/80 text-xs">{t('evotech.mutantsLabel', locale)}</span>
+                    <input id="evo-g{g.key}-mutants" type="text" inputmode="numeric" bind:value={g.form.mutants}
                       class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
                   </label>
-                {/each}
+                  <label class="block">
+                    <span class="text-sky-300/80 text-xs">{t('evotech.levelLabel', locale)}</span>
+                    <input id="evo-g{g.key}-level" type="text" inputmode="numeric" bind:value={g.form.level} placeholder={t('evotech.evoLabel', locale)}
+                      class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 placeholder-slate-500 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+                  </label>
+                </div>
+                <div class="text-sky-300/80 text-xs">{t('evotech.zonesLabel', locale)}</div>
+                <div class="grid grid-cols-4 gap-2">
+                  {#each ZONE_TYPES[kind] as z (z.id)}
+                    <label class="block">
+                      <span class="text-sky-300/60 text-[11px] leading-tight block">{t(ZONE_LABEL_KEYS[z.id], locale)}</span>
+                      <span class="text-sky-300/40 text-[10px] leading-tight block">{z.cap.toLocaleString(INTL_LOCALE[locale] ?? 'ru-RU')}</span>
+                      <input id="evo-g{g.key}-zone-{z.id}" type="text" inputmode="numeric" bind:value={g.form.zones[z.id]}
+                        class="mt-1 w-full rounded-lg border border-slate-700/70 bg-slate-950/60 text-sky-100 outline-none focus:ring-2 focus:ring-sky-500/60 evo-pad"/>
+                    </label>
+                  {/each}
+                </div>
               </div>
-            </div>
+            </details>
           {/each}
 
-          <details class="rounded-xl border border-slate-700/70 bg-slate-950/40 p-3 text-sm text-sky-200/80">
-            <summary class="cursor-pointer text-sky-100 font-semibold">{t('evotech.hintTitle', locale)}</summary>
-            <ul class="mt-2 list-disc pl-5 space-y-1">
+          <details class="group rounded-xl border border-slate-700/70 bg-slate-950/40 text-sm text-sky-200/80">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-2 p-3 select-none text-sky-100 font-semibold [&::-webkit-details-marker]:hidden">
+              {t('evotech.hintTitle', locale)}
+              <svg class="chev h-5 w-5 shrink-0 text-sky-300/70 transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </summary>
+            <ul class="list-disc pl-8 pr-3 pb-3 space-y-1">
               {#each [1, 2, 3, 4, 5, 6, 7] as n (n)}
                 <li>{t('evotech.hint' + n, locale)}</li>
               {/each}
