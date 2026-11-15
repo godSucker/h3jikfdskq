@@ -271,18 +271,18 @@ const APPEARANCE_TITLE = {
   color: '#aab6c8',
   letterSpacing: 1,
 }
-const APPEARANCE_EMPTY = { display: 'flex', fontSize: 15, color: '#637083' }
+const APPEARANCE_EMPTY = { display: 'flex', fontSize: 16, fontWeight: 700, color: '#637083' }
 
 // Layout constants shared by the renderer and the height estimate below.
 const APP_INNER_WIDTH = 680 - 2 * 26 - 2 * 16 - 2 // card padding, block padding, border
-const CHIP_FONT = 14
+const CHIP_FONT = 15
 const CHIP_H = 32
 const CHIP_GAP = 8
 const CHIP_PAD_X = 12
 const GOLD_TAG_FONT = 12
-const OFFER_FONT = 15
-const OFFER_DATE_W = 112
-const OFFER_LINE_H = 21
+const OFFER_FONT = 16
+const OFFER_DATE_W = 124
+const OFFER_LINE_H = 23
 const OFFER_GAP = 6
 
 function goldTagText(gold: GoldBuilding[] | undefined): string {
@@ -293,8 +293,8 @@ function chipWidth(chip: { label: string; gold?: GoldBuilding[] }): number {
   // Glyph widths rounded UP on purpose (a wider guess only costs spare height).
   const tag = goldTagText(chip.gold)
   return (
-    Math.ceil(chip.label.length * CHIP_FONT * 0.62) +
-    (tag ? Math.ceil(tag.length * GOLD_TAG_FONT * 0.62) + 10 : 0) +
+    Math.ceil(chip.label.length * CHIP_FONT * 0.7) +
+    (tag ? Math.ceil(tag.length * GOLD_TAG_FONT * 0.7) + 10 : 0) +
     2 * CHIP_PAD_X +
     2
   )
@@ -323,7 +323,7 @@ export function estimateAppearancesHeight(a: Appearances): number {
   const offersBody = a.offers.length
     ? a.offers.reduce((sum, o) => {
         const text = offerLabelText(o.label).length + fmtOfferPrice(o.price).length + 3
-        const perLine = Math.floor((APP_INNER_WIDTH - OFFER_DATE_W - 12) / (OFFER_FONT * 0.58))
+        const perLine = Math.floor((APP_INNER_WIDTH - OFFER_DATE_W - 12) / (OFFER_FONT * 0.68))
         const lines = Math.min(2, Math.ceil(text / perLine))
         return sum + lines * OFFER_LINE_H + OFFER_GAP
       }, 0)
@@ -343,7 +343,7 @@ function chipEl(chip: { label: string; gold?: GoldBuilding[] }) {
         gap: 8,
         maxWidth: '100%',
         fontSize: CHIP_FONT,
-        fontWeight: 600,
+        fontWeight: 700,
         color: gold ? '#fde68a' : '#c7d2fe',
         background: gold ? 'rgba(251,191,36,0.12)' : 'rgba(99,102,241,0.15)',
         border: `1px solid ${gold ? 'rgba(251,191,36,0.55)' : 'rgba(99,102,241,0.4)'}`,
@@ -377,14 +377,23 @@ function offerRowEl(o: RecentOffer) {
           width: OFFER_DATE_W,
           flexShrink: 0,
           color: '#8a97ab',
-          fontWeight: 600,
+          fontWeight: 700,
         },
       },
       fmtOfferDate(o.date),
     ),
     h(
       'div',
-      { style: { display: 'flex', flexGrow: 1, flexShrink: 1, minWidth: 0, lineClamp: 2 } },
+      {
+        style: {
+          display: 'flex',
+          flexGrow: 1,
+          flexShrink: 1,
+          minWidth: 0,
+          fontWeight: 700,
+          lineClamp: 2,
+        },
+      },
       price ? `${offerLabelText(o.label)} · ${price}` : offerLabelText(o.label),
     ),
   )
