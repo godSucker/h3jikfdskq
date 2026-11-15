@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro'
+import { createHash } from 'node:crypto'
 import {
   parseMessage,
   parseCompareMessage,
@@ -16,6 +17,7 @@ import {
   renderCompareMulti,
   type CardInput,
 } from '@/lib/stats/telegram-card-render'
+import { appearancesFor, appearancesSignature } from '@/lib/stats/appearances'
 import { renderCraftScheduleCard } from '@/lib/stats/craft-schedule-card'
 import {
   checkRateLimit,
@@ -260,9 +262,10 @@ async function sendTelegramPhoto(
   await telegramCall(botToken, 'sendPhoto', { body: form }, 12_000)
 }
 
-// Bump when card numbers change (v2: exact game formula, 2026-10) - cached
-// cards from the old rounding must not be served any more.
-const CARD_CACHE_VERSION = 'v2'
+// Bump when card numbers or pixels change (v2: exact game formula, 2026-10;
+// v3: opaque corners, v4: bingo + appearances blocks, both 2026-11) - cached
+// cards from the old version must not be served any more.
+const CARD_CACHE_VERSION = 'v4'
 
 function cacheKeyFor(config: ParsedConfig): string {
   return [
@@ -849,9 +852,16 @@ export const POST: APIRoute = async ({ request }) => {
     // 20ур" and "робот 20 ур" hit the same entry. A hit skips the rate
     // limiter entirely (serving a cached PNG costs ~nothing, so repeating
     // an identical query is never penalized).
+    // Bingo/appearance blocks are single-card only and come from data that
+    // changes hourly, so their signature is part of the key.
+    const appearances = result.secondary ? undefined : appearancesFor(result.primary.mutant.id)
     const cacheKey = [
       cacheKeyFor(result.primary),
-      result.secondary ? cacheKeyFor(result.secondary) : '',
+      result.secondary
+        ? cacheKeyFor(result.secondary)
+        : appearances
+          ? createHash('sha1').update(appearancesSignature(appearances)).digest('hex').slice(0, 12)
+          : '',
     ].join('#vs#')
     let photo = await getCachedCard(cacheKey)
 
@@ -869,7 +879,7 @@ export const POST: APIRoute = async ({ request }) => {
       const primary = toCardInput(result.primary)
       photo = result.secondary
         ? await renderComparePair(primary, toCardInput(result.secondary))
-        : await renderStatsCard(primary)
+        : await renderStatsCard({ ...primary, appearances })
       await setCachedCard(cacheKey, photo)
     }
 
