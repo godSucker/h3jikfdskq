@@ -13,6 +13,7 @@
  */
 import satori from 'satori'
 import { Resvg } from '@resvg/resvg-js'
+import type { Appearances, BingoChip, GoldBuilding, RecentOffer } from './appearances'
 import sharp from 'sharp'
 import type { PanelData } from './panel-data'
 
@@ -177,7 +178,13 @@ export interface CardInput {
   level: number
   starIndex: number
   atkMultipliers: { 1: number; 2: number }
+  // "Бинго" and "Последние появления" blocks; single cards only (a compare
+  // row is already near Telegram's width + height limit).
+  appearances?: Appearances
 }
+
+// Card body colour; also what rasterize() flattens the transparent corners onto.
+const CARD_BG = '#2a313c'
 
 const CONTROL_CHIP = {
   display: 'flex',
@@ -189,6 +196,233 @@ const CONTROL_CHIP = {
   border: '1px solid #2e3948',
   borderRadius: 10,
   padding: '8px 16px',
+}
+
+// ===== "Бинго" / "Последние появления" =====
+
+// Short tags on the highlighted chips (the building sprites are near-identical and
+// unreadable at chip size, so text it is).
+const GOLD_TAG: Record<GoldBuilding, string> = {
+  forge: 'кузня',
+  smelter: 'плавильня',
+}
+const MAX_BINGO_CHIPS = 9 // fewer hidden than this is never collapsed
+const SHOWN_WHEN_COLLAPSED = 8
+const MONTHS_RU = [
+  'янв',
+  'фев',
+  'мар',
+  'апр',
+  'мая',
+  'июн',
+  'июл',
+  'авг',
+  'сен',
+  'окт',
+  'ноя',
+  'дек',
+]
+
+// Gold chips come first (bingoChipsFor), so whatever is collapsed is the least
+// interesting part.
+function visibleBingo(chips: BingoChip[]) {
+  const shown = chips.length <= MAX_BINGO_CHIPS ? chips : chips.slice(0, SHOWN_WHEN_COLLAPSED)
+  return { shown, hidden: chips.length - shown.length }
+}
+
+function fmtOfferDate(date: string): string {
+  const [y, m, d] = date.split('-').map(Number)
+  return `${d} ${MONTHS_RU[m - 1]} ${y}`
+}
+
+// The card font has no U+2605 (checked against all labels in the data on
+// 2026-11-15: it is the only missing glyph), so "3★" would render as an empty box.
+function offerLabelText(label: string): string {
+  return label.replace(/(\d)\s*★/g, '$1 зв.').replace(/★/g, 'зв.')
+}
+
+function fmtOfferPrice(price: RecentOffer['price']): string {
+  if (!price?.length) return ''
+  return price
+    .map(([cur, amount]) => {
+      if (cur === '$') return `$${amount}`
+      const n = Number(amount).toLocaleString('ru-RU')
+      if (cur === 'g') return `${n} золота`
+      if (cur === 's') return `${n} серебра`
+      return `${n}× Жетон генератора`
+    })
+    .join(' / ')
+}
+
+const APPEARANCE_BLOCK = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  background: '#1b212a',
+  border: '1px solid #2e3948',
+  borderRadius: 12,
+  padding: '12px 16px 14px',
+  width: '100%',
+}
+const APPEARANCE_TITLE = {
+  display: 'flex',
+  fontSize: 15,
+  fontWeight: 800,
+  color: '#aab6c8',
+  letterSpacing: 1,
+}
+const APPEARANCE_EMPTY = { display: 'flex', fontSize: 15, color: '#637083' }
+
+// Layout constants shared by the renderer and the height estimate below.
+const APP_INNER_WIDTH = 680 - 2 * 26 - 2 * 16 - 2 // card padding, block padding, border
+const CHIP_FONT = 14
+const CHIP_H = 32
+const CHIP_GAP = 8
+const CHIP_PAD_X = 12
+const GOLD_TAG_FONT = 12
+const OFFER_FONT = 15
+const OFFER_DATE_W = 112
+const OFFER_LINE_H = 21
+const OFFER_GAP = 6
+
+function goldTagText(gold: GoldBuilding[] | undefined): string {
+  return (gold ?? []).map((g) => GOLD_TAG[g]).join(' + ')
+}
+
+function chipWidth(chip: { label: string; gold?: GoldBuilding[] }): number {
+  // Glyph widths rounded UP on purpose (a wider guess only costs spare height).
+  const tag = goldTagText(chip.gold)
+  return (
+    Math.ceil(chip.label.length * CHIP_FONT * 0.62) +
+    (tag ? Math.ceil(tag.length * GOLD_TAG_FONT * 0.62) + 10 : 0) +
+    2 * CHIP_PAD_X +
+    2
+  )
+}
+
+function bingoRows(chips: { label: string; gold?: GoldBuilding[] }[]): number {
+  let rows = 1
+  let x = 0
+  for (const chip of chips) {
+    const w = Math.min(chipWidth(chip), APP_INNER_WIDTH)
+    if (x > 0 && x + CHIP_GAP + w > APP_INNER_WIDTH) {
+      rows++
+      x = 0
+    }
+    x += (x > 0 ? CHIP_GAP : 0) + w
+  }
+  return rows
+}
+
+// Upper bound, never an estimate to be proud of: Satori has a fixed viewport,
+// so undershooting clips the footer, overshooting is trimmed away by rasterize().
+export function estimateAppearancesHeight(a: Appearances): number {
+  const { shown, hidden } = visibleBingo(a.bingo)
+  const chips = hidden > 0 ? [...shown, { label: `+${hidden}` }] : shown
+  const bingoBody = a.bingo.length ? bingoRows(chips) * (CHIP_H + CHIP_GAP) : 24
+  const offersBody = a.offers.length
+    ? a.offers.reduce((sum, o) => {
+        const text = offerLabelText(o.label).length + fmtOfferPrice(o.price).length + 3
+        const perLine = Math.floor((APP_INNER_WIDTH - OFFER_DATE_W - 12) / (OFFER_FONT * 0.58))
+        const lines = Math.min(2, Math.ceil(text / perLine))
+        return sum + lines * OFFER_LINE_H + OFFER_GAP
+      }, 0)
+    : 48
+  const block = 12 + 14 + 2 + 20 + 8 // padding, border, title, gap
+  return Math.ceil(((2 * block + bingoBody + offersBody + 8) * 1.15) / 10) * 10 + 20
+}
+
+function chipEl(chip: { label: string; gold?: GoldBuilding[] }) {
+  const gold = (chip.gold?.length ?? 0) > 0
+  return h(
+    'div',
+    {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        maxWidth: '100%',
+        fontSize: CHIP_FONT,
+        fontWeight: 600,
+        color: gold ? '#fde68a' : '#c7d2fe',
+        background: gold ? 'rgba(251,191,36,0.12)' : 'rgba(99,102,241,0.15)',
+        border: `1px solid ${gold ? 'rgba(251,191,36,0.55)' : 'rgba(99,102,241,0.4)'}`,
+        borderRadius: 999,
+        padding: `4px ${CHIP_PAD_X}px`,
+      },
+    },
+    h('div', { style: { display: 'flex', lineClamp: 1, textOverflow: 'ellipsis' } }, chip.label),
+    gold
+      ? h(
+          'div',
+          {
+            style: { display: 'flex', fontSize: GOLD_TAG_FONT, fontWeight: 800, color: '#d9a82e' },
+          },
+          goldTagText(chip.gold),
+        )
+      : null,
+  )
+}
+
+function offerRowEl(o: RecentOffer) {
+  const price = fmtOfferPrice(o.price)
+  return h(
+    'div',
+    { style: { display: 'flex', gap: 12, fontSize: OFFER_FONT, color: '#e2e8f0', width: '100%' } },
+    h(
+      'div',
+      {
+        style: {
+          display: 'flex',
+          width: OFFER_DATE_W,
+          flexShrink: 0,
+          color: '#8a97ab',
+          fontWeight: 600,
+        },
+      },
+      fmtOfferDate(o.date),
+    ),
+    h(
+      'div',
+      { style: { display: 'flex', flexGrow: 1, flexShrink: 1, minWidth: 0, lineClamp: 2 } },
+      price ? `${offerLabelText(o.label)} · ${price}` : offerLabelText(o.label),
+    ),
+  )
+}
+
+export function appearancesBlocks(a: Appearances) {
+  const { shown, hidden } = visibleBingo(a.bingo)
+  const bingo = h(
+    'div',
+    { style: APPEARANCE_BLOCK },
+    h('div', { style: APPEARANCE_TITLE }, 'БИНГО'),
+    a.bingo.length
+      ? h(
+          'div',
+          { style: { display: 'flex', flexWrap: 'wrap', gap: CHIP_GAP, width: '100%' } },
+          ...shown.map((c) => chipEl(c)),
+          hidden > 0 ? chipEl({ label: `+${hidden}` }) : null,
+        )
+      : h('div', { style: APPEARANCE_EMPTY }, 'Не входит ни в одно бинго'),
+  )
+  const emptyText =
+    a.offersState === 'onlyLowChance'
+      ? 'Только в контейнерах с малым шансом выпадения (менее 10%)'
+      : 'Нет данных о датах'
+  const offers = h(
+    'div',
+    { style: APPEARANCE_BLOCK },
+    h('div', { style: APPEARANCE_TITLE }, 'ПОСЛЕДНИЕ ПОЯВЛЕНИЯ'),
+    ...(a.offers.length
+      ? a.offers.map(offerRowEl)
+      : [h('div', { style: APPEARANCE_EMPTY }, emptyText)]),
+  )
+  return h(
+    'div',
+    { style: { display: 'flex', flexDirection: 'column', gap: 8, width: '100%' } },
+    bingo,
+    offers,
+  )
 }
 
 async function buildPanelTree(input: CardInput) {
@@ -598,7 +832,7 @@ async function buildPanelTree(input: CardInput) {
         display: 'flex',
         flexDirection: 'column',
         gap: 14,
-        background: '#2a313c',
+        background: CARD_BG,
         borderRadius: 16,
         padding: '24px 26px',
         fontFamily: 'TT Supermolot Neue',
@@ -707,6 +941,7 @@ async function buildPanelTree(input: CardInput) {
       row(SILVER_ICON, 'Серебро', numFmt(panel.silver)),
       orbBuildBlock(),
     ),
+    ...(input.appearances ? [appearancesBlocks(input.appearances)] : []),
     h(
       'div',
       {
@@ -740,7 +975,18 @@ async function buildPanelTree(input: CardInput) {
   // строки, поэтому считается отдельно от rowCount).
   const buildBlockHeight = panel.orbBuilds.length > 0 ? 46 + panel.orbBuilds.length * 62 : 60
   const estHeight =
-    90 + 8 * 14 + 150 + 60 + 12 + 52 + 60 + rowCount * 60 + buildBlockHeight + 60 + 160
+    90 +
+    8 * 14 +
+    150 +
+    60 +
+    12 +
+    52 +
+    60 +
+    rowCount * 60 +
+    buildBlockHeight +
+    60 +
+    160 +
+    (input.appearances ? estimateAppearancesHeight(input.appearances) : 0)
   return { tree, estHeight }
 }
 
@@ -766,9 +1012,14 @@ export async function rasterize(tree: any, width: number, height: number): Promi
   // crop it - the exact bug (a white/blank strip once Telegram composites
   // the leftover transparency). Pinning the trim target to transparent
   // sidesteps corner-color luck entirely.
-  return sharp(pngBuffer)
+  const trimmed = await sharp(pngBuffer)
     .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .toBuffer()
+  // Telegram photos have no alpha channel: the transparent corners cut out by
+  // the card's borderRadius were composited on white (little white notches in
+  // all four corners). Fill them with the card colour, so the corners just
+  // read as square. Separate step: trim() above must still see the transparency.
+  return sharp(trimmed).flatten({ background: CARD_BG }).toBuffer()
 }
 
 export async function renderStatsCard(input: CardInput): Promise<Buffer> {
