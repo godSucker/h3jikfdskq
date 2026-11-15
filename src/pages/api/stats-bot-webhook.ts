@@ -155,6 +155,65 @@ function rateLimitMessage(rl: RateLimitResult): string {
   return `Слишком часто - подожди ~${rl.retryAfterSeconds ?? 10}с и повтори.`
 }
 
+class TelegramApiError extends Error {
+  constructor(
+    readonly method: string,
+    readonly status: number,
+    readonly body: string,
+  ) {
+    super(`${method} failed: ${status} ${body}`)
+  }
+
+  // The message we reply to was deleted while the card was rendering.
+  get replyTargetGone(): boolean {
+    return this.status === 400 && /message to be replied not found/i.test(this.body)
+  }
+}
+
+// Telegram answers 5xx/429 in bursts (live-caught 2026-11-15: ~13 min of 504 on
+// sendPhoto). Retry those and network errors/timeouts; 4xx is final. The whole
+// budget stays well under the webhook timeout - past it Telegram redelivers the
+// update and the card could go out twice.
+const TELEGRAM_ATTEMPTS = 3
+const TELEGRAM_RETRY_DELAY_MS = 600
+
+async function telegramCall(
+  botToken: string,
+  method: string,
+  init: { body: BodyInit; headers?: Record<string, string> },
+  timeoutMs: number,
+): Promise<void> {
+  for (let attempt = 1; ; attempt++) {
+    let delayMs = TELEGRAM_RETRY_DELAY_MS * attempt
+    let failure: unknown
+    // A final HTTP verdict (4xx, long flood-wait) is thrown as is; timeouts and
+    // network errors are retried like 5xx.
+    let fatal = false
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/${method}`, {
+        method: 'POST',
+        ...init,
+        signal: AbortSignal.timeout(timeoutMs),
+      })
+      if (res.ok) return
+      const body = await res.text().catch(() => '')
+      failure = new TelegramApiError(method, res.status, body)
+      if (res.status < 500 && res.status !== 429) {
+        fatal = true
+      } else if (res.status === 429) {
+        const wait = Number(/"retry_after":\s*(\d+)/.exec(body)?.[1])
+        // Never sleep long: a long flood-wait is not worth a late duplicate.
+        if (wait > 2) fatal = true
+        else if (wait) delayMs = wait * 1000
+      }
+    } catch (err) {
+      failure = err
+    }
+    if (fatal || attempt >= TELEGRAM_ATTEMPTS) throw failure
+    await new Promise((resolve) => setTimeout(resolve, delayMs))
+  }
+}
+
 async function sendTelegramMessage(
   botToken: string,
   chatId: number | string,
@@ -162,17 +221,26 @@ async function sendTelegramMessage(
   replyToMessageId?: number,
 ) {
   try {
-    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        ...(replyToMessageId ? { reply_parameters: { message_id: replyToMessageId } } : {}),
-      }),
-    })
-  } catch {
-    // best effort - don't crash the handler over a failed reply
+    await telegramCall(
+      botToken,
+      'sendMessage',
+      {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          ...(replyToMessageId ? { reply_parameters: { message_id: replyToMessageId } } : {}),
+        }),
+      },
+      10_000,
+    )
+  } catch (err) {
+    // A deleted original makes the reply itself fail with 400 - say it once
+    // without the reply, otherwise the user gets total silence.
+    if (replyToMessageId && err instanceof TelegramApiError && err.replyTargetGone) {
+      await sendTelegramMessage(botToken, chatId, text)
+    }
+    // otherwise best effort - don't crash the handler over a failed reply
   }
 }
 
@@ -189,14 +257,7 @@ async function sendTelegramPhoto(
   if (replyToMessageId)
     form.set('reply_parameters', JSON.stringify({ message_id: replyToMessageId }))
   form.set('photo', new Blob([new Uint8Array(photo)], { type: 'image/png' }), 'card.png')
-  const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-    method: 'POST',
-    body: form,
-  })
-  if (!res.ok) {
-    const body = await res.text().catch(() => '')
-    throw new Error(`sendPhoto failed: ${res.status} ${body}`)
-  }
+  await telegramCall(botToken, 'sendPhoto', { body: form }, 12_000)
 }
 
 // Bump when card numbers change (v2: exact game formula, 2026-10) - cached
@@ -820,6 +881,21 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { 'Content-Type': 'application/json' },
     })
   } catch (error) {
+    if (error instanceof TelegramApiError && error.replyTargetGone) {
+      // Not an incident: the user deleted their request mid-render.
+      console.warn('Stats bot: reply target deleted, request dropped')
+      if (chatId != null) {
+        await sendTelegramMessage(
+          BOT_TOKEN,
+          chatId,
+          'Исходный запрос был удалён. Повторите попытку.',
+        )
+      }
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
     console.error('Stats bot webhook error:', error)
     if (chatId != null) {
       await sendTelegramMessage(
