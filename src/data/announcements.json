@@ -9650,7 +9650,8 @@
         "exactDateStart": "2026-11-20T10:00:00+00:00",
         "exactDateEnd": "2026-11-23T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_LuckyBox_Galactic_Prime",
@@ -9666,7 +9667,8 @@
         "exactDateStart": "2026-11-20T10:00:00+00:00",
         "exactDateEnd": "2026-11-24T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_pack_daily_3_gold_70",
@@ -9682,7 +9684,8 @@
         "exactDateStart": "2026-11-19T10:00:00+00:00",
         "exactDateEnd": "2026-11-21T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|PayWall_Sprint_261",
@@ -9695,7 +9698,9 @@
         "exactDateStart": "2026-11-18T10:00:00+00:00",
         "exactDateEnd": "2026-11-21T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_Mysterybox_Ability_Regenerate",
@@ -9711,7 +9716,8 @@
         "exactDateStart": "2026-11-17T10:00:00+00:00",
         "exactDateEnd": "2026-11-20T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_bundle_orbs_speed_4_22",
@@ -9727,7 +9733,8 @@
         "exactDateStart": "2026-11-16T10:00:00+00:00",
         "exactDateEnd": "2026-11-19T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_Pack_daily_10_challenge_46",
@@ -9743,7 +9750,8 @@
         "exactDateStart": "2026-11-15T10:00:00+00:00",
         "exactDateEnd": "2026-11-17T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_Pack_Brain",
@@ -9759,7 +9767,8 @@
         "exactDateStart": "2026-11-14T10:00:00+00:00",
         "exactDateEnd": "2026-11-17T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_LuckyBox_Mystic_Elite",
@@ -9775,7 +9784,9 @@
         "exactDateStart": "2026-11-13T10:00:00+00:00",
         "exactDateEnd": "2026-11-17T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Shop_pack_conversion_nov_2026",
@@ -9791,7 +9802,9 @@
         "exactDateStart": "2026-11-13T10:00:00+00:00",
         "exactDateEnd": "2026-11-16T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Daily_news_mystery_building_2026_02",
@@ -9804,7 +9817,9 @@
         "exactDateStart": "2026-11-13T10:00:00+00:00",
         "exactDateEnd": "2026-11-20T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Daily_news_challenge_hall_block_7_2026",
@@ -9817,7 +9832,9 @@
         "exactDateStart": "2026-11-12T00:00:00+00:00",
         "exactDateEnd": "2026-11-17T10:00:00+00:00",
         "exactDateApprox": false,
-        "exactDateSource": "kartel"
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "kartel",
+        "featuredMutant": null
       },
       {
         "id": "261|Daily_news_shop_24h_2026_260b",
@@ -9830,7 +9847,8 @@
         "exactDateStart": "2026-11-21T10:00:00.000Z",
         "exactDateEnd": "2026-11-28T10:00:00.000Z",
         "exactDateApprox": false,
-        "exactDateSource": "rule"
+        "exactDateSource": "rule",
+        "featuredMutant": null
       },
       {
         "id": "261|Daily_news_shop_24h_2026_260a",
@@ -9843,7 +9861,8 @@
         "exactDateStart": "2026-11-14T10:00:00.000Z",
         "exactDateEnd": "2026-11-21T10:00:00.000Z",
         "exactDateApprox": false,
-        "exactDateSource": "rule"
+        "exactDateSource": "rule",
+        "featuredMutant": null
       }
     ],
     "link": "/announcements",
