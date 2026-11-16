@@ -9844,6 +9844,20 @@
         "exactDateEnd": "2026-11-21T10:00:00.000Z",
         "exactDateApprox": false,
         "exactDateSource": "rule"
+      },
+      {
+        "id": "261|filter_dungeon_raid_boneyard",
+        "name": "Raid Boneyard",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_raid_boneyard-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 17 — 19 ноября",
+        "exactDateStart": "2026-11-18T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
       }
     ],
     "link": "/announcements",
