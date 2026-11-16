@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "capturedAt": "2026-11-12T11:49:46.614Z",
+  "capturedAt": "2026-11-16T09:03:02.590Z",
   "shopitems": {
     "256": [
       [
@@ -1563,6 +1563,11 @@
         "PayWall_Sprint_261",
         null,
         "news_bank_sprint_261"
+      ],
+      [
+        "filter_dungeon_raid_boneyard",
+        null,
+        "news_raid_boneyard"
       ],
       [
         "Shop_Mysterybox_Ability_Regenerate",
