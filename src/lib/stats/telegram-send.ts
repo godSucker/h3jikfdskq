@@ -59,6 +59,11 @@ export async function telegramCall(
       const res = await fetch(`https://api.telegram.org/bot${botToken}/${method}`, {
         method: 'POST',
         ...init,
+        // Fresh connection per call: a warm Vercel instance may hold a pooled
+        // socket Telegram dropped long ago, and a POST on it hangs silently
+        // until our timeout (suspected 2026-11-16: 98-144KB sendPhoto stalled
+        // the full 30s and the card never arrived). Costs one TLS handshake.
+        headers: { ...init.headers, connection: 'close' },
         signal: AbortSignal.timeout(timeoutMs),
       })
       if (res.ok) {
