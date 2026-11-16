@@ -211,9 +211,9 @@ async function sendTelegramPhoto(
 }
 
 // Bump when card numbers or pixels change (v2: exact game formula, 2026-10;
-// v3: opaque corners, v4: bingo + appearances blocks, both 2026-11) - cached
+// v3: opaque corners, v4: bingo + appearances blocks, v5: palette PNG, all 2026-11) - cached
 // cards from the old version must not be served any more.
-const CARD_CACHE_VERSION = 'v4'
+const CARD_CACHE_VERSION = 'v5'
 
 function cacheKeyFor(config: ParsedConfig): string {
   return [
