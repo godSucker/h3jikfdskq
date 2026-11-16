@@ -25,6 +25,7 @@ export class TelegramApiError extends Error {
 }
 
 const ATTEMPTS = 3
+const SLOW_CALL_MS = 5000
 const RETRY_DELAY_MS = 600
 const MAX_RETRY_AFTER_S = 2
 const NEVER_SENT_CODES = new Set([
@@ -47,18 +48,24 @@ export async function telegramCall(
   method: string,
   init: { body: BodyInit; headers?: Record<string, string> },
   timeoutMs: number,
+  detail = '',
 ): Promise<void> {
   for (let attempt = 1; ; attempt++) {
     let delayMs = RETRY_DELAY_MS * attempt
     let failure: unknown
     let safeToRetry = false
+    const started = Date.now()
     try {
       const res = await fetch(`https://api.telegram.org/bot${botToken}/${method}`, {
         method: 'POST',
         ...init,
         signal: AbortSignal.timeout(timeoutMs),
       })
-      if (res.ok) return
+      if (res.ok) {
+        const ms = Date.now() - started
+        if (ms > SLOW_CALL_MS) console.warn(`telegram ${method} slow: ${ms}ms ${detail}`.trim())
+        return
+      }
       const body = await res.text().catch(() => '')
       failure = new TelegramApiError(method, res.status, body)
       if (res.status === 429) {
@@ -72,6 +79,15 @@ export async function telegramCall(
       failure = err
       safeToRetry = neverReachedTelegram(err)
     }
+    // One line per failed attempt: how fast Telegram answered (a 250ms 500 and a
+    // 30s timeout are different incidents) and how big the upload was.
+    const reason =
+      failure instanceof TelegramApiError
+        ? `status ${failure.status}`
+        : `${(failure as Error)?.name ?? 'error'} ${(failure as { cause?: { code?: string } })?.cause?.code ?? ''}`.trim()
+    console.warn(
+      `telegram ${method} failed: ${reason} after ${Date.now() - started}ms, attempt ${attempt}/${ATTEMPTS}, retry ${safeToRetry} ${detail}`.trim(),
+    )
     if (!safeToRetry || attempt >= ATTEMPTS) throw failure
     await new Promise((resolve) => setTimeout(resolve, delayMs))
   }

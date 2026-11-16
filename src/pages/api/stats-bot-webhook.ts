@@ -201,7 +201,13 @@ async function sendTelegramPhoto(
   if (replyToMessageId)
     form.set('reply_parameters', JSON.stringify({ message_id: replyToMessageId }))
   form.set('photo', new Blob([new Uint8Array(photo)], { type: 'image/png' }), 'card.png')
-  await telegramCall(botToken, 'sendPhoto', { body: form }, 30_000)
+  await telegramCall(
+    botToken,
+    'sendPhoto',
+    { body: form },
+    30_000,
+    `${Math.round(photo.length / 1024)}KB`,
+  )
 }
 
 // Bump when card numbers or pixels change (v2: exact game formula, 2026-10;

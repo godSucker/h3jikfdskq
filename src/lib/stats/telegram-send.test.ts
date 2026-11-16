@@ -19,6 +19,19 @@ describe('telegramCall', () => {
     expect(f).toHaveBeenCalledTimes(1)
   })
 
+  it('logs failed attempts with elapsed time and detail', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const f = vi.fn().mockResolvedValue(json(500, { ok: false }))
+    vi.stubGlobal('fetch', f)
+    await expect(telegramCall('t', 'sendPhoto', init, 1000, '450KB')).rejects.toThrow()
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /sendPhoto failed: status 500 after \d+ms, attempt 1\/3, retry false 450KB/,
+      ),
+    )
+    warn.mockRestore()
+  })
+
   it('NEVER repeats after a timeout: the send may have gone through', async () => {
     const f = vi.fn().mockRejectedValue(new DOMException('timeout', 'TimeoutError'))
     vi.stubGlobal('fetch', f)
