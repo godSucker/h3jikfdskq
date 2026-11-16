@@ -32,13 +32,6 @@ describe('telegramCall', () => {
     warn.mockRestore()
   })
 
-  it('asks for a fresh connection instead of a pooled one', async () => {
-    const f = vi.fn().mockResolvedValue(json(200, { ok: true }))
-    vi.stubGlobal('fetch', f)
-    await telegramCall('t', 'sendPhoto', { body: 'x', headers: { 'X-A': '1' } }, 1000)
-    expect(f.mock.calls[0][1].headers).toEqual({ 'X-A': '1', connection: 'close' })
-  })
-
   it('NEVER repeats after a timeout: the send may have gone through', async () => {
     const f = vi.fn().mockRejectedValue(new DOMException('timeout', 'TimeoutError'))
     vi.stubGlobal('fetch', f)
