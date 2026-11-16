@@ -1028,7 +1028,13 @@ export async function rasterize(tree: any, width: number, height: number): Promi
   // the card's borderRadius were composited on white (little white notches in
   // all four corners). Fill them with the card colour, so the corners just
   // read as square. Separate step: trim() above must still see the transparency.
-  return sharp(trimmed).flatten({ background: CARD_BG }).toBuffer()
+  // 256-colour palette PNG: a card is flat UI plus a few small icons, and this
+  // is ~4x smaller (630KB -> 145KB measured) with no visible difference. A big
+  // upload is what stalls sendPhoto into the 30s timeout on a bad Telegram day.
+  return sharp(trimmed)
+    .flatten({ background: CARD_BG })
+    .png({ palette: true, quality: 100, colours: 256, compressionLevel: 9, effort: 10 })
+    .toBuffer()
 }
 
 export async function renderStatsCard(input: CardInput): Promise<Buffer> {
