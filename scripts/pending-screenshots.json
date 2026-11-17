@@ -1,25 +1,13 @@
 [
   {
-    "id": "exchange-1794906202956",
-    "category": "exchange",
-    "title": "Обновление зала обмена: 13",
+    "id": "raid-1794909746970-0",
+    "category": "raid",
+    "title": "Рейд «Кладбище» (300 боёв)",
     "itemIds": [
-      "jackpot|READY_04|specimen_ff_09",
-      "jackpot|READY_05|specimen_ad_10",
-      "jackpot|READY_06|specimen_eb_11",
-      "jackpot|READY_07|specimen_cb_09",
-      "jackpot|READY_08|specimen_de_10",
-      "jackpot|READY_09|specimen_fd_11",
-      "jackpot|READY_11|specimen_ce_09",
-      "jackpot|READY_12|specimen_ec_14",
-      "jackpot|READY_13|specimen_ba_04",
-      "jackpot|READY_14|specimen_ab_14",
-      "event|READY_04|specimen_be_10",
-      "event|READY_07|specimen_cc_07",
-      "event|READY_09|specimen_fd_13"
+      "boneyard"
     ],
-    "createdAt": "2026-11-17T09:03:29.905Z",
+    "createdAt": "2026-11-17T10:02:37.261Z",
     "attempts": 0,
-    "date": "2026-11-17T09:03:22.241Z"
+    "date": "2026-11-17T10:02:25.635Z"
   }
 ]

@@ -48,3 +48,5 @@
 {"ts":"2026-11-17T08:03:11.784Z","script":"offer-history","status":"ok","mutants":396,"changed":false,"stats":{"droppedLowChanceBox":731,"shop":915,"lastSeen":1,"gacha":120,"dungeon":9,"hall":6,"eventHall":3,"mystery":12,"pvp":63}}
 {"ts":"2026-11-17T09:03:11.054Z","script":"hall-rotations","status":"full","newsWindows":1,"halls":{"event_hall":"unchanged","jackpot_hall":"unchanged","mystery_hall":"unchanged"},"wrote":true}
 {"ts":"2026-11-17T09:03:14.215Z","script":"offer-history","status":"ok","mutants":396,"changed":false,"stats":{"droppedLowChanceBox":731,"shop":915,"lastSeen":1,"gacha":120,"dungeon":9,"hall":6,"eventHall":3,"mystery":12,"pvp":63}}
+{"ts":"2026-11-17T10:02:11.306Z","script":"hall-rotations","status":"full","newsWindows":1,"halls":{"event_hall":"unchanged","jackpot_hall":"unchanged","mystery_hall":"unchanged"},"wrote":true}
+{"ts":"2026-11-17T10:02:15.567Z","script":"offer-history","status":"ok","mutants":397,"changed":true,"stats":{"droppedLowChanceBox":731,"shop":915,"lastSeen":1,"gacha":120,"dungeon":9,"hall":6,"eventHall":3,"mystery":12,"pvp":63}}
