@@ -2502,11 +2502,11 @@
         "special/orb_special_addretaliate_03.webp"
       ],
       [
-        "basic/orb_basic_life_05.webp",
         [
-          "basic/orb_basic_life_05.webp",
-          "basic/orb_basic_attack_05.webp"
+          "basic/orb_basic_attack_05.webp",
+          "basic/orb_basic_life_05.webp"
         ],
+        "basic/orb_basic_life_05.webp",
         "basic/orb_basic_life_05.webp",
         "special/orb_special_speed_03.webp"
       ],
