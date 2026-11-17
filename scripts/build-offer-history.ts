@@ -40,7 +40,12 @@ import { getLiveSnapshot } from './kartel-filter-dates'
 import { parseHallRewards, type HallJournal } from './lib/hall-rotations'
 import { appendJsonl } from './lib/journals'
 import { runMain } from './lib/run-main'
-import { buildBoxChanceIndex, isLowChanceBoxAppearance, type BoxLike } from '../src/lib/offer-box-chance'
+import { bankPackMutants } from './lib/shop-bank'
+import {
+  buildBoxChanceIndex,
+  isLowChanceBoxAppearance,
+  type BoxLike,
+} from '../src/lib/offer-box-chance'
 
 const SHOPITEMS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/shopitems.xml'
 const GAMEDEFS_URL = 'https://s-beta.kobojo.com/mutants/gameconfig/gamedefinitions.xml'
@@ -116,7 +121,9 @@ async function pruneOnly() {
     if (kept.length || entries.length === 0 || dropped > droppedBefore) out[mutantId] = kept
   }
   await fs.writeFile(OUT_PATH, JSON.stringify(out) + '\n')
-  console.log(`[offer-history] --prune-only: убрано записей ${dropped}, мутантов осталось ${Object.keys(out).length}`)
+  console.log(
+    `[offer-history] --prune-only: убрано записей ${dropped}, мутантов осталось ${Object.keys(out).length}`,
+  )
 }
 
 async function main() {
@@ -126,7 +133,13 @@ async function main() {
     console.warn(`[offer-history] снимок ${snapshot.status} - файл не трогаем.`)
     await appendJsonl(
       RUNS_PATH,
-      [{ ts: new Date().toISOString(), script: 'offer-history', status: `snapshot_${snapshot.status}` }],
+      [
+        {
+          ts: new Date().toISOString(),
+          script: 'offer-history',
+          status: `snapshot_${snapshot.status}`,
+        },
+      ],
       RUNS_CAP,
     )
     return
@@ -194,13 +207,14 @@ async function main() {
       set.add(mutantId.toLowerCase())
     }
   }
+  const shopXml = await fetchGameXml(SHOPITEMS_URL)
+  const bankMutants = bankPackMutants(shopXml, mutantIds)
   const mutantsOfItem = (itemId: string): string[] => {
-    const list = [...(itemToMutants.get(itemId) ?? [])]
+    const list = [...(itemToMutants.get(itemId) ?? []), ...(bankMutants.get(itemId) ?? [])]
     const direct = itemId.match(/^(Specimen_[A-Z]{2}_\d{2})(?:_|$)/i)?.[1]?.toLowerCase()
     if (direct && mutantIds.has(direct) && !list.includes(direct)) list.push(direct)
     return list
   }
-  const shopXml = await fetchGameXml(SHOPITEMS_URL)
   const withWindow = new Set<string>()
   const priceByItem = new Map<string, Price>()
   for (const item of shopXml.match(/<ShopItem\b[^>]*>[\s\S]*?<\/ShopItem>/g) ?? []) {
@@ -353,7 +367,9 @@ async function main() {
       const date = startDateFor(filter, true)
       if (!skin || !date) continue
       const sp = reward[1].toLowerCase()
-      const entry = obtain[sp]?.find((e) => e.type === 'mystery_hall' && e.where.includes(`«${skin}»`))
+      const entry = obtain[sp]?.find(
+        (e) => e.type === 'mystery_hall' && e.where.includes(`«${skin}»`),
+      )
       if (!entry) continue
       add(sp, date, obtainRef(entry), null)
       bump('mystery')

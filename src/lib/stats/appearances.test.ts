@@ -68,6 +68,19 @@ describe('pickRecentOffers', () => {
     ])
     expect(out[0].price).toEqual([['g', 5]])
   })
+  it('labels donate packs (bank_*, *_rc) as a donation, not the shop', () => {
+    const list: [string, string, ([string, number][] | null)?][] = [
+      ['2026-11-08', 'bank_ee_13_10ct', [['$', 24.99]]],
+      ['2026-09-02', 'Specimen_DA_15_rc', [['$', 9.99]]],
+      ['2026-08-24', 'Specimen_EE_13_Gold', [['g', 2800]]],
+    ]
+    const out = pickRecentOffers(list, [], '2026-11-15', 5)
+    expect(out.map((o) => [o.date, o.label])).toEqual([
+      ['2026-11-08', 'Донат'],
+      ['2026-09-02', 'Донат'],
+      ['2026-08-24', 'Магазин'],
+    ])
+  })
   it('respects max', () => {
     const list = ['2026-05-03', '2026-05-02', '2026-05-01'].map(
       (d) => [d, 'pvp|PVP: Сезон 1'] as [string, string],

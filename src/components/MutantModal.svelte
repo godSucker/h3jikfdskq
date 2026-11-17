@@ -24,7 +24,7 @@
   } from '@/lib/mutant-icons';
   import { baseMutantId as baseId } from '@/lib/utils';
   import { renderObtainWhere } from '@/lib/obtain-render';
-  import { UNKNOWN_SOURCE_ENTRY } from '@/lib/obtain-sources';
+  import { UNKNOWN_SOURCE_ENTRY, isDonateOfferRef, obtainSourceLabelL } from '@/lib/obtain-sources';
   import obtainData from '@/data/mutants/obtain.json';
   import offerHistory from '@/data/mutants/offer-history.json';
   import toplistsData from '@/data/mutants/toplists.json';
@@ -151,7 +151,13 @@
       if (date > today) continue;
       // ref: itemId товара (магазин) либо "<type>|<where>" записи "Как получить".
       const entry = obtainEntries.find((o) => (ref.includes('|') ? `${o.type}|${o.where}` === ref : o.itemId === ref));
-      const label = entry ? displayObtainWhere(entry) : ref.startsWith('Specimen_') ? t('modal.offerHistory.shop', locale) : '';
+      const label = entry
+        ? displayObtainWhere(entry)
+        : isDonateOfferRef(ref)
+          ? obtainSourceLabelL('donate', locale)
+          : ref.startsWith('Specimen_')
+            ? t('modal.offerHistory.shop', locale)
+            : '';
       if (!label || seen.has(`${date}|${label}`)) continue;
       seen.add(`${date}|${label}`);
       out.push({ date, label, price: fmtOfferPrice(price) });

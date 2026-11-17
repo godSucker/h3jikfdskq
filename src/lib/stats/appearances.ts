@@ -7,6 +7,7 @@ import { bingoLabelL } from '@/lib/mutant-dicts'
 import { compareBingoBoards } from '@/lib/bingo-order'
 import { baseMutantId } from '@/lib/utils'
 import { renderObtainWhere } from '@/lib/obtain-render'
+import { isDonateOfferRef } from '@/lib/obtain-sources'
 import bingosRaw from '@/data/bingos.json'
 import mutantsRaw from '@/data/mutants/mutants.json'
 import offerHistoryRaw from '@/data/mutants/offer-history.json'
@@ -99,6 +100,7 @@ export function pickRecentOffers(
   max: number,
   renderWhere: (entry: ObtainEntry) => string = (e) => e.where,
   shopLabel = 'Магазин',
+  donateLabel = 'Донат',
 ): RecentOffer[] {
   const seen = new Set<string>()
   const out: RecentOffer[] = []
@@ -107,7 +109,13 @@ export function pickRecentOffers(
     const entry = obtain.find((o) =>
       ref.includes('|') ? `${o.type}|${o.where}` === ref : o.itemId === ref,
     )
-    const label = entry ? renderWhere(entry) : ref.startsWith('Specimen_') ? shopLabel : ''
+    const label = entry
+      ? renderWhere(entry)
+      : isDonateOfferRef(ref)
+        ? donateLabel
+        : ref.startsWith('Specimen_')
+          ? shopLabel
+          : ''
     if (!label || seen.has(`${date}|${label}`)) continue
     seen.add(`${date}|${label}`)
     out.push({ date, label, price: price ?? null })
