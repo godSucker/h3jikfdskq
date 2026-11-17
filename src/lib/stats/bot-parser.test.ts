@@ -127,6 +127,20 @@ describe('orb mentions', () => {
     expect(cfg.specialOrbId).toBe('orb_special_speed_05')
   })
 
+  it('accepts "особый/особая" as the special-slot word too', () => {
+    for (const q of ['робот 20ур особый щит 20%', 'робот 20ур особая щит 20%']) {
+      const cfg = ok(q).primary
+      expect(cfg.specialOrbId).toBe('orb_special_addshield_03')
+      expect(cfg.basicOrbIds.every((id) => id === null)).toBe(true)
+    }
+  })
+
+  it('does not take "особ" for a mutant name when it is a special-slot word', () => {
+    const cfg = ok('робот особая отраж3').primary
+    expect(cfg.mutantName).toBe(ok('робот спец отраж3').primary.mutantName)
+    expect(cfg.specialOrbId).toBe('orb_special_addretaliate_03')
+  })
+
   it('routes to the special slot only when "спец" is present', () => {
     const cfg = ok('робот 20ур спец щит 20%').primary
     expect(cfg.specialOrbId).toBe('orb_special_addshield_03')
@@ -353,7 +367,11 @@ describe('скины: все пары мутант + скин из skins.json', 
   const sameName = (name: string) => mutants.filter((m) => m.name === name).length > 1
   const pairs = (skinsRaw as { specimens: any[] }).specimens.map((s) => {
     const id = String(s.id).toLowerCase()
-    return { id, skin: s.skin as string, mutant: mutants.find((m) => String(m.id).toLowerCase() === id) }
+    return {
+      id,
+      skin: s.skin as string,
+      mutant: mutants.find((m) => String(m.id).toLowerCase() === id),
+    }
   })
 
   for (const variant of ['label', 'code'] as const) {
@@ -372,9 +390,7 @@ describe('скины: все пары мутант + скин из skins.json', 
         }
         const p = r.primary
         if (String(p.mutant.id).toLowerCase() !== id || p.skin?.skin !== skin || p.level !== 20) {
-          failures.push(
-            `${text} -> ${p.mutant.id} / ${p.skin?.skin ?? 'без скина'} / ${p.level}ур`,
-          )
+          failures.push(`${text} -> ${p.mutant.id} / ${p.skin?.skin ?? 'без скина'} / ${p.level}ур`)
         }
       }
       expect(failures).toEqual([])

@@ -216,6 +216,10 @@ function getNameStripPattern(): RegExp {
       'lvl',
       'lv',
       'спец',
+      'особый',
+      'особая',
+      'особую',
+      'особой',
       'на',
       'первую',
       'первая',
@@ -466,6 +470,9 @@ function findMultipliers(text: string): { 1: number; 2: number } {
   return result
 }
 
+// "спец щит 20%" / "особый щит 20%" / "особая отраж3" - the special-slot flag.
+const SPECIAL_FLAG = /спец|особ/
+
 function findOrbMentions(text: string): ParsedOrbMention[] {
   const lower = text.toLowerCase()
   // Collected as {mention, pos} and sorted by pos before returning (below) -
@@ -490,7 +497,7 @@ function findOrbMentions(text: string): ParsedOrbMention[] {
         // value out of unrelated text.
         const specWindowStart = Math.max(0, idx - 15)
         const isSpecial =
-          lower.slice(specWindowStart, idx).includes('спец') && Boolean(cat.specialPrefix)
+          SPECIAL_FLAG.test(lower.slice(specWindowStart, idx)) && Boolean(cat.specialPrefix)
         const prefix = isSpecial ? cat.specialPrefix : (cat.basicPrefix ?? cat.specialPrefix)
         if (prefix) {
           // Value must sit directly after the keyword ("щит 20%" / "щит 4").
@@ -789,7 +796,7 @@ export const FORMAT_HELP = `.<мутант> [скин] [уровень]ур [з�
 Статы считаются для мутанта со скрытым бонусом 0 (у каждого экземпляра он свой: у выведенных от 0 до +3, у купленных и полученных из инвентаря от −3 до 0; в игре не показан) - у твоего мутанта HP и атака могут отличаться на 1–3%.
 
 Сферы: категория + число вплотную - "щит 20%" (по проценту) или "щит 4" (по уровню сферы).
-Спец-слот: добавь "спец" - "спец щит 20%".
+Спец-слот: добавь "спец" или "особый/особая" - "спец щит 20%", "особая отраж3".
 Сферовка: слово "сферовка" (или "сборка") наденет первую сборку мутанта с сайта, "сферовка 2" - вторую. Все сборки мутанта видно внизу карточки. Свои сферы в том же сообщении важнее.
 Категории: атака/атк, здоровье/хп, крит, вампиризм/вамп, контратака/контра, щит, кровь, усиление/баф, проклятие/дебаф, опыт, скорость/спид (только спец).
 
