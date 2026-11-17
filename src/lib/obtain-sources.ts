@@ -340,3 +340,10 @@ export const UNKNOWN_SOURCE_ENTRY = { type: UNKNOWN_SOURCE, where: 'Источн
 export function obtainSourceLabelL(type: string, locale: Locale = 'ru'): string {
   return OBTAIN_SOURCE_LABEL[type]?.[locale] ?? OBTAIN_SOURCE_LABEL[type]?.ru ?? type
 }
+
+// Real-money offers in offer-history.json: donate packs "bank_*" and starter
+// packs "Specimen_XX_YY_rc". Both are paid with USD, so the recent-appearances
+// list labels them as a donation, not as the plain shop.
+export function isDonateOfferRef(ref: string): boolean {
+  return /^bank_/i.test(ref) || /^Specimen_[A-Z]{2}_\d{2}_rc$/i.test(ref)
+}
