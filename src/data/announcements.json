@@ -9876,5 +9876,248 @@
       }
     ],
     "link": "/mutants"
+  },
+  {
+    "id": "exchange-1794906202956",
+    "date": "2026-11-17T09:03:22.241Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 13",
+    "items": [
+      {
+        "id": "jackpot|READY_04|specimen_ff_09",
+        "name": "Мокрушник",
+        "image": "textures_by_mutant/ff_09/specimen_ff_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 октября — 30 ноября",
+        "exactDateStart": "2026-10-30T10:00:00+00:00",
+        "exactDateEnd": "2026-11-30T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_05|specimen_ad_10",
+        "name": "Гиппопотанк",
+        "image": "textures_by_mutant/ad_10/specimen_ad_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 октября — 30 ноября",
+        "exactDateStart": "2026-10-30T10:00:00+00:00",
+        "exactDateEnd": "2026-11-30T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_06|specimen_eb_11",
+        "name": "Обрея Мутантула",
+        "image": "textures_by_mutant/eb_11/specimen_eb_11_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 200,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 октября — 30 ноября",
+        "exactDateStart": "2026-10-30T10:00:00+00:00",
+        "exactDateEnd": "2026-11-30T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_07|specimen_cb_09",
+        "name": "Пилатесса",
+        "image": "textures_by_mutant/cb_09/specimen_cb_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_08|specimen_de_10",
+        "name": "Безумный Майк",
+        "image": "textures_by_mutant/de_10/specimen_de_10_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_09|specimen_fd_11",
+        "name": "Иши-но-Оками",
+        "image": "textures_by_mutant/fd_11/specimen_fd_11_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 200,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_11|specimen_ce_09",
+        "name": "Царь-Молот",
+        "image": "textures_by_mutant/ce_09/specimen_ce_09_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 1000,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": "22 октября — 19 ноября",
+        "exactDateStart": "2026-10-22T10:00:00+00:00",
+        "exactDateEnd": "2026-11-19T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": "gold",
+        "skin": "halloween"
+      },
+      {
+        "id": "jackpot|READY_12|specimen_ec_14",
+        "name": "Селена",
+        "image": "textures_by_mutant/ec_14/specimen_ec_14_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 2200,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": "22 октября — 19 ноября",
+        "exactDateStart": "2026-10-22T10:00:00+00:00",
+        "exactDateEnd": "2026-11-19T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_13|specimen_ba_04",
+        "name": "Эксперимент",
+        "image": "textures_by_mutant/ba_04/specimen_ba_04_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 900,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": "22 октября — 19 ноября",
+        "exactDateStart": "2026-10-22T10:00:00+00:00",
+        "exactDateEnd": "2026-11-19T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": "gold",
+        "skin": "halloween"
+      },
+      {
+        "id": "jackpot|READY_14|specimen_ab_14",
+        "name": "Телеведущий",
+        "image": "textures_by_mutant/ab_14/specimen_ab_14_normal.webp",
+        "hall": "jackpot",
+        "cost": {
+          "id": "Material_Halloween26_Token",
+          "amount": 1900,
+          "name": "Селенит Жетон",
+          "image": "/materials/Material_Halloween26_Token.png"
+        },
+        "exactDateLabel": "22 октября — 19 ноября",
+        "exactDateStart": "2026-10-22T10:00:00+00:00",
+        "exactDateEnd": "2026-11-19T10:00:00+00:00",
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "event|READY_04|specimen_be_10",
+        "name": "Запредел",
+        "image": "textures_by_mutant/be_10/specimen_be_10_normal.webp",
+        "hall": "event",
+        "cost": {
+          "id": "Material_Event_Token",
+          "amount": 40,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "event|READY_07|specimen_cc_07",
+        "name": "Спартак",
+        "image": "textures_by_mutant/cc_07/specimen_cc_07_normal.webp",
+        "hall": "event",
+        "cost": {
+          "id": "Material_Event_Token",
+          "amount": 100,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "event|READY_09|specimen_fd_13",
+        "name": "Тескатлипока",
+        "image": "textures_by_mutant/fd_13/specimen_fd_13_normal.webp",
+        "hall": "event",
+        "cost": {
+          "id": "Material_Event_Token",
+          "amount": 180,
+          "name": "Жетон испытаний",
+          "image": "/materials/Material_Event_Token.png"
+        },
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "exactDateOpenEnd": false,
+        "star": null,
+        "skin": null
+      }
+    ],
+    "link": "/mutants"
   }
 ]
