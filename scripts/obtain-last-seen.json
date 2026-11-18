@@ -1,4 +1,9 @@
 {
+  "bank_5m_aa_13_t5": "2026-11-18",
+  "bank_5m_dc_14_20jp": "2026-11-18",
+  "bank_5m_de_14_45jp": "2026-11-18",
+  "bank_5m_fb_14_100jp": "2026-11-18",
+  "bank_5m_fe_14_10jp": "2026-11-18",
   "bank_ba_12_ex_t3": "2026-10-07",
   "bank_ca_09_ex_t2": "2026-10-07",
   "bank_e_14_10ct": "2026-09-24",
@@ -92,6 +97,7 @@
   "Specimen_C_01_Platinum": "2026-11-18",
   "Specimen_CA_05_Bronze_sc": "2026-10-20",
   "Specimen_CA_07": "2026-11-17",
+  "Specimen_CD_03": "2026-11-18",
   "Specimen_CE_04_Bronze": "2026-10-15",
   "Specimen_CE_08_Bronze": "2026-09-27",
   "Specimen_CF_09_sc": "2026-10-02",
