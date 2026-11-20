@@ -235,8 +235,15 @@
     },
     "daily_news_jackpot_madness_weekend_50": {
       "first": null,
-      "start": "2026-09-11T10:00:00.000Z",
-      "end": "2026-09-14T10:00:00.000Z"
+      "start": "2026-11-20T10:00:00.000Z",
+      "end": "2026-11-23T10:00:00.000Z",
+      "changes": [
+        {
+          "ts": "2026-11-20T12:03:41.722Z",
+          "start": "2026-11-20T10:00:00.000Z",
+          "end": "2026-11-23T10:00:00.000Z"
+        }
+      ]
     },
     "Shop_Specimen_EB_05_Bronze": {
       "first": null,
