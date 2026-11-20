@@ -5,6 +5,8 @@
     "Mutants-Jackpot-Advertisement": 30000,
     "Mutants-Promo-Gacha-Gachaboss": 30,
     "Mutants-Promo-Gacha-Gothic": 30,
+    "Mutants-Promo-Jackpot-HC-mutants": 50,
+    "Mutants-Promo-Jackpot-Token-mutants": 50,
     "Mutants-StartHC": 250,
     "Mutants-WritePermissionsMinimalLevel": 5,
     "Mutants-WritePermissionsReminder": 72,
@@ -41,6 +43,18 @@
       "name": "Mutants-Promo-TechCenter-SC",
       "from": 50,
       "to": null
+    },
+    {
+      "ts": "2026-11-20T12:03:41.722Z",
+      "name": "Mutants-Promo-Jackpot-HC-mutants",
+      "from": null,
+      "to": 50
+    },
+    {
+      "ts": "2026-11-20T12:03:41.722Z",
+      "name": "Mutants-Promo-Jackpot-Token-mutants",
+      "from": null,
+      "to": 50
     }
   ]
 }
