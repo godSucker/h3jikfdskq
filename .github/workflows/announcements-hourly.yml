@@ -344,6 +344,21 @@ jobs:
         if: always()
         run: npx tsx scripts/sync-obtain-names.ts
 
+      - name: 10.6 Ежедневный дайджест (Telegram-канал)
+        # ВРЕМЕННО бьёт в тестовый канал @pepgape, не в боевой публичный -
+        # юзер 2026-11-23 явно попросил "пару дней посмотреть, подумать как
+        # оно будет работать" перед включением на боевой канал. Когда
+        # подтвердится - сменить TELEGRAM_CHANNEL_ID на секрет боевого канала
+        # (и убрать этот комментарий). Сам скрипт реально отправляет только
+        # на прогоне с МСК-час >= 15 и только раз в календарный МСК-день (см.
+        # докстринг build-daily-digest.ts) - на остальных прогонах это no-op.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/build-daily-digest.ts
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: '@pepgape'
+
       - name: 11. Коммит всех изменений
         id: commit
         if: always()
@@ -379,6 +394,7 @@ jobs:
             src/data/madness-discount.json
             src/data/guides/dungeon-details.json
             src/data/guides/pvp-seasons.json
+            scripts/digest-last-sent.json
 
       - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
         # Этап 3 аудита Opus 5.5 (2026-09-23). file_pattern шага 11 ведётся
