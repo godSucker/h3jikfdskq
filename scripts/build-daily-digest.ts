@@ -537,10 +537,25 @@ async function main() {
   }
 
   await loadVerdictData()
+  // Telegram кэпит caption sendMediaGroup/sendPhoto в 1024 символа (не 4096,
+  // как у обычного sendMessage) - НАЙДЕНО на живом тесте 2026-11-23: с
+  // вердиктами на каждую карточку подпись из 14 записей вышла за лимит, и
+  // sendMediaGroup упал ЦЕЛИКОМ 400-кой ("caption is too long") - ничего не
+  // ушло вообще, даже без вердиктов. Поэтому на фото - короткая сводка
+  // (иконка+категория+счётчик, как раньше), а полный разбор с вердиктами -
+  // отдельным текстовым сообщением сразу после (sendMessage, лимит 4096).
+  const byCategory = new Map<string, number>()
+  for (const a of todays) byCategory.set(a.category, (byCategory.get(a.category) ?? 0) + 1)
+  const summaryLines = [...byCategory.entries()].map(
+    ([cat, n]) =>
+      `${CATEGORY_ICON[cat] ?? '🔔'} ${CATEGORY_LABEL[cat] ?? cat}${n > 1 ? ` ×${n}` : ''}`,
+  )
+  const caption = [`📅 Обновления за ${ruDateLabel(now)}`, '', ...summaryLines].join('\n')
+
   const contentLines = todays.map(captionLineFor)
   const hashtags = [...new Set(todays.map((a) => CATEGORY_HASHTAG[a.category]).filter(Boolean))]
-  const caption = [
-    `📅 Обновления за ${ruDateLabel(now)}`,
+  const detailText = [
+    `📅 Подробности за ${ruDateLabel(now)}`,
     '',
     ...contentLines,
     '',
@@ -563,6 +578,8 @@ async function main() {
       `[digest] --dry-run: за ${todayKey} отправилось бы ${jobs.length} карточек (до ${Math.ceil(jobs.length / MAX_ALBUM_SIZE)} альбомов):`,
     )
     console.log(caption)
+    console.log('---')
+    console.log(detailText)
     for (const j of jobs)
       console.log(`  - [${j.announcement.category}] ${j.announcement.title} -> ${j.url}`)
     return
@@ -583,18 +600,25 @@ async function main() {
     failedAll.push(...failed)
   }
   // Подпись - только на первом фото первого альбома. Если альбом был ровно
-  // один и он целиком упал - текст ещё не ушёл ни разу, шлём отдельно, чтобы
-  // день не остался совсем без дайджеста.
+  // один и он целиком упал - текст ещё не ушёл ни разу, шлём detailText
+  // (полный разбор) отдельным сообщением, чтобы день не остался совсем без
+  // дайджеста. Иначе - detailText идёт ДОПОЛНИТЕЛЬНО, после фото (best-effort,
+  // не гейтит delivered - карточки уже дошли).
   const totalFailure = jobs.length > 0 && failedAll.length === jobs.length
   let textFallbackOk = false
   if (totalFailure) {
-    textFallbackOk = await sendMessage(creds.botToken, creds.channelId, caption, false)
+    textFallbackOk = await sendMessage(creds.botToken, creds.channelId, detailText, false)
       .then(() => true)
       .catch((err) => {
         console.error('[digest] текстовый фолбэк тоже не ушёл:', err)
         return false
       })
-  } else if (failedAll.length > 0) {
+  } else {
+    await sendMessage(creds.botToken, creds.channelId, detailText, false).catch((err) =>
+      console.error('[digest] подробный разбор не ушёл (best-effort):', err),
+    )
+  }
+  if (failedAll.length > 0 && !totalFailure) {
     // markdown=false: title - настоящее игровое имя, может содержать _*[ (реальные
     // примеры) и ломает Markdown-парсинг Telegram 400-кой (см. комментарий в
     // telegram-admin-bot.ts про тот же класс багов).
