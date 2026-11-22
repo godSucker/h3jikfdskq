@@ -85,5 +85,8 @@ scripts/live-filter-dates.json
 # То же самое, но для процентов промо-акций (scripts/kartel/fetch-promo-percents.py,
 # ABGetExperiments) - см. scripts/kartel-promo-percents.ts.
 scripts/live-promo-percents.json
+# То же самое, но для текущего PvP-сезона (scripts/kartel/fetch-pvp-info.py,
+# getPvPInfo) - см. scripts/update-pvp-seasons.ts.
+scripts/live-pvp-info.json
 scripts/kartel/auth_request_fresh.bin
 downloads/

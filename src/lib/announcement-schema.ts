@@ -43,6 +43,9 @@ export const CATEGORIES = [
   'shopForecast',
   'dailyNews',
   'eventQuests',
+  'pvp',
+  'evoDiscount',
+  'madnessDiscount',
   'rebalance',
 ] as const
 
@@ -61,6 +64,9 @@ export const CATEGORY_ICON: Record<(typeof CATEGORIES)[number], string> = {
   shopForecast: '🛒',
   dailyNews: '📰',
   eventQuests: '📜',
+  pvp: '🥊',
+  evoDiscount: '🧪',
+  madnessDiscount: '🎡',
   rebalance: '⚖️',
 }
 
@@ -71,6 +77,11 @@ export interface AnnouncementItem {
   name: string
   image?: string | null
   addedNames?: string[]
+  // Параллельно addedNames (те же индексы) - specimenId каждого добавленного
+  // мутанта в lowercase. Нужно дайджесту (scripts/build-daily-digest.ts) для
+  // тир-вердикта/проверки "кроет плав-кузню" без повторного парсинга имени.
+  // Только bingo - остальные категории несут specimenId в item.id напрямую.
+  addedSpecimenIds?: string[]
   // Только eventQuests: этапы, добавленные в уже анонсированную цепочку.
   addedStepIds?: string[]
   // Только rebalance: сколько мутантов затронуто (id записи - дата ребаланса).
@@ -123,6 +134,23 @@ export interface AnnouncementItem {
   // Только hall==='mystery' - клик должен открыть модалку сразу на этом скине.
   star?: string | null
   skin?: string | null
+  // Только pvp - номер сезона/турнира (CTID из kartel getPvPInfo).
+  pvpSeason?: number
+  // Только pvp - награды по тирам ранга за конец сезона (TR из getPvPInfo).
+  // amount/id - сырые игровые id (Specimen_*/Material_*/hardcurrency/
+  // softcurrency), разрешаются в иконку+имя при рендере (как у box-drop).
+  pvpRewardTiers?: { tier: number; items: { amount: number; id: string }[] }[]
+  // raid/ladder - specimenId мутанта-награды (lowercase), reactor - specimenId
+  // completion_reward из gacha.json (самая редкая "главная" награда генератора).
+  // Нужно дайджесту для тир-вердикта - раньше это поле нигде не сохранялось,
+  // только использовалось внутри детектора для картинки и терялось.
+  rewardMutantId?: string | null
+  // Только exchange - specimenId предмета ряда (lowercase). specimenId уже
+  // зашит ВНУТРИ составного item.id (hall|contractId|specimenId[|...]), но
+  // парсить его там для каждого потребителя - источник рассинхрона между
+  // залами (у jackpot/event и mystery разный состав полей). Явное поле проще
+  // и надёжнее.
+  specimenId?: string | null
 }
 
 // Прогнозы (shopForecast/dailyNews) рисуются двумя неделями спринта, и

@@ -16,6 +16,7 @@ import {
   FORECAST_WEEK_MS,
 } from '@/lib/announcement-schema'
 import { getRewardTexturePath, getRewardLabel, bingoIconUrl } from '@/lib/bingo-textures'
+import { PVP_LEAGUE_META } from '@/lib/announcement-categories'
 import bingoScreenshots from '@/data/bingo-screenshots.json'
 import {
   categoryLabel,
@@ -254,6 +255,38 @@ const forecastWeeks =
         }))
         .filter((g) => g.offers.length > 0 && (week === null || week === g.week))
     : []
+
+// PvP-сезон (getPvPInfo) - TR-тиры несут сырые игровые id (Specimen_*/
+// Material_*/hardcurrency/softcurrency), разрешаем в иконку+подпись тем же
+// путём, что box-drop (getRewardTexturePath/getRewardLabel) - один резолвер
+// наград на весь сайт, не плодим второй под pvp.
+const pvpRewardOf = (ri: { amount: number; id: string }) => {
+  const type: 'entity' | 'hardcurrency' | 'softcurrency' =
+    ri.id === 'hardcurrency' || ri.id === 'softcurrency' ? ri.id : 'entity'
+  const reward = { name: ri.id, type, amount: ri.amount }
+  return {
+    ...ri,
+    texture: getRewardTexturePath(reward),
+    label: getRewardLabel(reward, locale, ctx.mutantNames),
+  }
+}
+const pvpTiers =
+  kind === 'pvp' && it?.pvpRewardTiers
+    ? it.pvpRewardTiers
+        .map((tr2) => ({ tier: tr2.tier, rewards: tr2.items.map(pvpRewardOf) }))
+        .filter((t) => t.rewards.length > 0)
+    : []
+// Награда высшего ранга - её мутант (если есть) идёт в герой-арт карточки,
+// как у рейдов/лесенок (dg-hero). Не у каждого сезона топ-тир - мутант
+// (бывают только жетоны/золото) - тогда герой остаётся пустым.
+const pvpTopTier = pvpTiers.reduce(
+  (best: (typeof pvpTiers)[number] | null, t) => (!best || t.tier > best.tier ? t : best),
+  null,
+)
+// mutantsById ключуется строчным id (sync-mutants.ts) - сырой id из getPvPInfo
+// приходит смешанным регистром ("Specimen_DE_11"), без lowerCase() Map.get не найдёт.
+const pvpHeroMutantId = pvpTopTier?.rewards.find((r) => /^specimen_/i.test(r.id))?.id?.toLowerCase()
+const pvpHeroMutant = pvpHeroMutantId ? resolveMutantLite(pvpHeroMutantId, ctx.mutantsById) : null
 ---
 
 <article class="card" data-category={a.category ?? ''} data-announcement-id={a.id}>
@@ -771,6 +804,70 @@ const forecastWeeks =
         <span>archivist-library.com/announcements</span>
       </div>
     </div>
+  ) : kind === 'pvp' && it ? (
+    <div class="dg-card">
+      <div class="dg-hero">
+        {pvpHeroMutant && (
+          <button class="dg-hero-btn" data-open-mutant={pvpHeroMutant.id} title={tr('announcements.open').replace('{name}', pvpHeroMutant.name)}>
+            <img class="dg-hero-art" src={textureUrl(pvpHeroMutant.fullArt)} alt={pvpHeroMutant.name} loading="lazy" decoding="async" />
+          </button>
+        )}
+      </div>
+      <div class="dg-body">
+        <span class="card-category">{categoryLabel('pvp', locale)}</span>
+        <div class="dg-name">{tr('announcements.pvp.season').replace('{n}', String(it.pvpSeason ?? ''))}</div>
+        {pvpHeroMutant ? (
+          <button class="dg-mutant-name" data-open-mutant={pvpHeroMutant.id}>{pvpHeroMutant.name}</button>
+        ) : (
+          <div class="dg-mutant-name muted">{tr('announcements.pvp.noReward')}</div>
+        )}
+        <div class="dg-secondary">{tr('announcements.pvp.topReward')}</div>
+        {date(it) && <div class="dg-exact-date">{tr('announcements.pvp.endsOn').replace('{date}', date(it)!)}</div>}
+        {pvpTiers.length > 0 && (
+          <details class="dd-details" open>
+            <summary class="dd-toggle">
+              <span>{tr('announcements.pvp.rewardsTitle')} ({pvpTiers.length})</span>
+              <span class="dd-chev">▾</span>
+            </summary>
+            <ol class="dd-floors">
+              {pvpTiers.map((t) => {
+                const meta = PVP_LEAGUE_META[t.tier]
+                return (
+                  <li class:list={['dd-row', { 'dd-row-mutant': t.tier === pvpTopTier?.tier }]}>
+                    <span class="dd-floor">{tr(`announcements.pvp.league.${t.tier}`)}</span>
+                    <span class="dd-items">
+                      {meta && (
+                        <span class="dd-sub">{
+                          tr('announcements.pvp.attacksNeeded')
+                            .replace('{n}', String(meta.attacks))
+                            .replace('{word}', pluralizeCount(meta.attacks, locale, 'announcements.count.attack')) +
+                          (meta.percentile != null
+                            ? `, ${tr('announcements.pvp.topPercent').replace('{pct}', String(meta.percentile))}`
+                            : '')
+                        }</span>
+                      )}
+                      {t.rewards.map((r) => {
+                        const rewardMutantId = /^specimen_/i.test(r.id) ? r.id.toLowerCase() : null
+                        return (
+                          <span
+                            class:list={['dd-chip-item', { 'dd-chip-mutant pvp-chip-clickable': rewardMutantId }]}
+                            title={r.label}
+                            data-open-mutant={rewardMutantId ?? undefined}
+                          >
+                            {r.texture && <img src={textureUrl(r.texture)} alt="" loading="lazy" decoding="async" />}
+                            <span>{r.label}</span>
+                          </span>
+                        )
+                      })}
+                    </span>
+                  </li>
+                )
+              })}
+            </ol>
+          </details>
+        )}
+      </div>
+    </div>
   ) : (
     <>
       {a.imagePath && (
@@ -1224,6 +1321,12 @@ const forecastWeeks =
   .dd-chip-item img { width: 15px; height: 15px; object-fit: contain; flex-shrink: 0; }
   .dd-chip-item span { overflow-wrap: anywhere; line-height: 1.2; }
   .dd-chip-mutant { color: #fde68a; border-color: rgba(251,191,36,0.45); font-weight: 700; }
+  /* Награда-мутант в лесенке лиг PvP кликабельна (открывает модалку мутанта),
+     как и везде на сайте, где показан конкретный мутант - герой-арт/имя этой
+     же карточки, тайлы обменника и т.п. Обычные dd-chip-mutant (этажи рейдов)
+     эту подсветку не получают - там только цветовой акцент, не клик. */
+  .pvp-chip-clickable { cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease; }
+  .pvp-chip-clickable:hover { border-color: rgba(251,191,36,0.8); background: rgba(251,191,36,0.14); }
 
   .dg-exact-date {
     font-size: 0.76rem;

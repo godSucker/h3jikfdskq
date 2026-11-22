@@ -23,6 +23,7 @@ export type CardKind =
   | 'forecast'
   | 'exchange'
   | 'quests'
+  | 'pvp'
   | 'generic'
 
 export function cardKind(category: string | undefined): CardKind {
@@ -35,6 +36,7 @@ export function cardKind(category: string | undefined): CardKind {
   if (category === 'shopForecast' || category === 'dailyNews') return 'forecast'
   if (category === 'exchange') return 'exchange'
   if (category === 'eventQuests') return 'quests'
+  if (category === 'pvp') return 'pvp'
   return 'generic'
 }
 
@@ -52,10 +54,27 @@ const SINGLE_ITEM_KINDS = new Set<CardKind>([
   'bingo',
   // Одна цепочка заданий = одна карточка со своими этапами.
   'quests',
+  // Один сезон = одна карточка со своей таблицей наград.
+  'pvp',
 ])
 
 // true -> публиковать каждый найденный объект ОТДЕЛЬНЫМ анонсом, иначе
 // N-1 объектов не увидит никто.
 export function isSingleItemCategory(category: string | undefined): boolean {
   return SINGLE_ITEM_KINDS.has(cardKind(category))
+}
+
+// Пороги лиг PvP (getPvPInfo, поле TR[].Key) - ФИКСИРОВАННЫЕ игровые
+// константы, одни и те же для любого сезона (не приходят в live-ответе).
+// Названия - localisation_ru.txt (league_1..5), атаки/проценты - скриншот
+// "Current Reward Level" из игры (юзер прислал 2026-11-22). Имена других
+// локалей (localisation_{lang}.txt на Kobojo CDN, те же ключи league_N) -
+// бэклог, как и остальной i18n этой карточки (см. announcements.pvp.league.N).
+// Key 0 (ниже Новичков) сюда не входит - рангу без наград номер не нужен.
+export const PVP_LEAGUE_META: Record<number, { attacks: number; percentile: number | null }> = {
+  1: { attacks: 1, percentile: null },
+  2: { attacks: 5, percentile: 50 },
+  3: { attacks: 15, percentile: 10 },
+  4: { attacks: 30, percentile: 3 },
+  5: { attacks: 50, percentile: 1 },
 }

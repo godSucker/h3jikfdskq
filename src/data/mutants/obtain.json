@@ -34637,6 +34637,10 @@
       "where": "Мистери-бокс: Таинственная коробка ко Дню науки (золото)",
       "icon": "/boxes/mystery_science.png",
       "itemId": "Mystery_Science_2026"
+    },
+    {
+      "type": "pvp",
+      "where": "PVP: Сезон 354"
     }
   ],
   "specimen_de_12": [

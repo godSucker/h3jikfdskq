@@ -1,0 +1,207 @@
+---
+// Изолированная страница "Сегодня в магазине" - ТОЛЬКО для ежедневного
+// дайджеста (scripts/build-daily-digest.ts), не для живой /announcements
+// ленты и не для детекторов (это не announcements.json-категория). Доски
+// shopForecast/dailyNews несут весь спринт разом (2 недели вперёд) -
+// пригодны как "что добавили сегодня" только в день публикации, а на дайджест
+// их решили не слать вовсе (юзер 2026-11-23: "спринты анонсятся другим
+// механизмом"). Вместо этого - срез уже известных офферов, у которых
+// exactDateLabel-окно (из живого kartel-запроса, см. detect-shop-forecast.ts)
+// начинается СЕГОДНЯ: та же точная дата, что уже на сайте, просто показана
+// по дням вместо целой доски.
+//
+// Не переиспользует forecast-ветку AnnouncementCard.astro: та завязана на
+// номер спринта/неделю (forecastSprint/forecastWeekOf по префиксу id первого
+// оффера) - ломается на произвольном межкатегорийном срезе одного дня.
+// Берёт только CSS-классы .forecast-tile* оттуда, рендерит плоским гридом.
+export const prerender = false;
+import announcementsData from '@/data/announcements.json';
+import {
+  formatPrice,
+  ribbonLabel,
+  ribbonClass,
+  exactDateLabelIn,
+  type Announcement,
+  type AnnouncementItem,
+} from '@/lib/announcements-render';
+import { renderLocale } from '@/lib/render-locale';
+
+const locale = renderLocale(Astro.url.searchParams.get('lang'));
+const announcements = (announcementsData as Announcement[]) ?? [];
+
+// Тот же МСК-день, что считает build-daily-digest.ts (mskDateKey) - продублировано
+// намеренно: это SSR-страница (Vite-граф), скрипт дайджеста - голый tsx, общий
+// модуль для них невозможен (см. комментарий в announcement-schema.ts).
+const MSK_OFFSET_MS = 3 * 60 * 60 * 1000;
+const mskDateKey = (d: Date) => new Date(d.getTime() + MSK_OFFSET_MS).toISOString().slice(0, 10);
+const todayKey = mskDateKey(new Date());
+
+function latestByCategory(category: string): Announcement | null {
+  const matches = announcements.filter((a) => a.category === category);
+  if (matches.length === 0) return null;
+  return matches.reduce((best, a) => (a.date > best.date ? a : best));
+}
+
+function todaysItems(a: Announcement | null): AnnouncementItem[] {
+  if (!a) return [];
+  return a.items.filter(
+    (it) => it.exactDateStart && mskDateKey(new Date(it.exactDateStart)) === todayKey,
+  );
+}
+
+const items = [...todaysItems(latestByCategory('shopForecast')), ...todaysItems(latestByCategory('dailyNews'))];
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+<head>
+  <meta charset="utf-8" />
+  <link rel="preload" as="font" type="font/woff2" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/TTSupermolotNeue-Bold.woff2" crossorigin />
+  <link rel="stylesheet" href="https://cdn.archivist-library.com/fonts/tt-supermolot-neue/tt-supermolot-neue.css" />
+  <style>
+    @font-face {
+      font-family: "TT Supermolot Neue";
+      src: url("https://cdn.archivist-library.com/fonts/tt-supermolot-neue/symbols-star.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+      unicode-range: U+2605-2606;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #0d1117;
+      color: #e2e8f0;
+      font-family: "TT Supermolot Neue", ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
+    }
+    .wrap {
+      width: 900px;
+      padding: 1rem 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+    .head {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #e2e8f0;
+    }
+    .empty { padding: 2rem; color: #94a3b8; text-align: center; }
+    .forecast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.7rem;
+    }
+    .forecast-tile {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      min-width: 0;
+    }
+    .forecast-tile-media { position: relative; min-width: 0; }
+    .forecast-tile img {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: rgba(0, 0, 0, 0.35);
+      display: block;
+    }
+    .forecast-ribbon {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      max-width: calc(100% - 8px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: #fff;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+    }
+    .ribbon-legendary { background: linear-gradient(135deg, #a855f7, #6d28d9); }
+    .ribbon-limited { background: linear-gradient(135deg, #f87171, #b91c1c); }
+    .ribbon-new { background: linear-gradient(135deg, #4ade80, #15803d); }
+    .ribbon-heroic { background: linear-gradient(135deg, #fb923c, #c2410c); }
+    .ribbon-exclusive { background: linear-gradient(135deg, #f472b6, #be185d); }
+    .ribbon-seasonal { background: linear-gradient(135deg, #38bdf8, #0369a1); }
+    .ribbon-discount { background: linear-gradient(135deg, #60a5fa, #1d4ed8); }
+    .forecast-tile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.15rem;
+      padding: 0.4rem 0.5rem 0.5rem;
+    }
+    .forecast-tile-name {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      line-height: 1.25;
+    }
+    .forecast-tile-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+    }
+    .forecast-tile-price { font-size: 0.72rem; font-weight: 700; color: #fbbf24; }
+    .forecast-tile-date { font-size: 0.76rem; font-weight: 600; color: #cbd5e1; }
+    .forecast-watermark {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+    .forecast-watermark img { width: 16px; height: 16px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="today-shop-card">
+    <div class="head">{locale === 'en' ? 'Shop today' : 'Сегодня в магазине'}</div>
+    {items.length === 0 ? (
+      <div class="empty">{locale === 'en' ? 'Nothing new today' : 'Сегодня новых офферов нет'}</div>
+    ) : (
+      <div class="forecast-grid">
+        {items.map((offer) => (
+          <div class="forecast-tile">
+            <div class="forecast-tile-media">
+              {offer.image && <img src={offer.image} alt={offer.name} loading="lazy" decoding="async" />}
+              {(ribbonLabel(offer.ribbon, locale) || offer.discountPercent != null) && (
+                <span class:list={['forecast-ribbon', offer.ribbon ? ribbonClass(offer.ribbon) : 'ribbon-discount']}>
+                  {ribbonLabel(offer.ribbon, locale) || `-${offer.discountPercent}%`}
+                </span>
+              )}
+            </div>
+            <div class="forecast-tile-info">
+              <span class="forecast-tile-name">{offer.name}</span>
+              <span class="forecast-tile-meta">
+                {formatPrice(offer.price, locale) && <span class="forecast-tile-price">{formatPrice(offer.price, locale)}</span>}
+                {exactDateLabelIn(offer, locale) && <span class="forecast-tile-date">{exactDateLabelIn(offer, locale)}</span>}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    <div class="forecast-watermark">
+      <img src="/favicon.png" alt="" loading="lazy" decoding="async" />
+      <span>archivist-library.com/announcements</span>
+    </div>
+  </div>
+</body>
+</html>
