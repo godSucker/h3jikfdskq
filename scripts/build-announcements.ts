@@ -20,7 +20,6 @@ import axios from 'axios'
 import { fetchShopForecast } from './detect-shop-forecast'
 import { fetchDailyNewsForecast } from './detect-daily-news'
 import { appendJsonl, diffDateChanges, journalPath } from './lib/journals'
-import { crossPostAnnouncement, postShopAndDailyNews } from './telegram-cross-post'
 import {
   loadFilterDates,
   pickFilterDateRange,
@@ -108,6 +107,9 @@ interface Ledger {
   shopForecast: string[]
   dailyNews: string[]
   eventQuests: string[]
+  pvp: string[]
+  evoDiscount: string[]
+  madnessDiscount: string[]
 }
 
 const EMPTY_LEDGER: Ledger = {
@@ -125,6 +127,9 @@ const EMPTY_LEDGER: Ledger = {
   shopForecast: [],
   dailyNews: [],
   eventQuests: [],
+  pvp: [],
+  evoDiscount: [],
+  madnessDiscount: [],
 }
 
 async function loadJson<T>(relPath: string, fallback: T): Promise<T> {
@@ -271,13 +276,25 @@ async function detectSkins(seen: string[]): Promise<DetectResult> {
 // свежие сразу (доска только что появилась целиком), иначе - "добавили
 // участников" в существующую.
 async function detectBingo(seen: string[]): Promise<DetectResult> {
-  const [bingos, mutantNames] = await Promise.all([
+  const [bingos, mutants, mutantNames] = await Promise.all([
     loadJson<{ id: string; title: string; mutants: { specimenId: string }[] }[]>(
       'src/data/bingos.json',
       [],
     ),
+    loadJson<{ id: string; name: string }[]>('src/data/mutants/mutants.json', []),
     loadJson<Record<string, string>>('src/data/mutant_names.json', {}),
   ])
+  // Исправлено 2026-11-23 (юзер поймал живьём - "Df 14"/"Ea 15" вместо
+  // реальных имён): резолв шёл ТОЛЬКО через mutant_names.json - это
+  // кураторский кэш для ещё-не-засинканных мутантов (см. его комментарий в
+  // detect-new-dungeons.ts), а не полный словарь. Для уже засинканных
+  // мутантов настоящее имя давно лежит в mutants.json - проверяем его первым.
+  const nameByMutantId = new Map(mutants.map((m) => [m.id.toLowerCase(), m.name]))
+  const resolveName = (specimenId: string) =>
+    nameByMutantId.get(specimenId.toLowerCase()) ??
+    mutantNames[specimenId] ??
+    prettifyName(specimenId)
+
   const seenSet = new Set(seen)
   const allKeys: string[] = []
   const items: AnnouncementItem[] = []
@@ -289,16 +306,15 @@ async function detectBingo(seen: string[]): Promise<DetectResult> {
     if (freshKeys.length === 0) continue
 
     const isNewBoard = freshKeys.length === boardKeys.length
-    const addedNames = freshKeys.map((k) => {
-      const specimenId = k.slice(b.id.length + 1)
-      return mutantNames[specimenId] ?? prettifyName(specimenId)
-    })
+    const freshSpecimenIds = freshKeys.map((k) => k.slice(b.id.length + 1))
+    const addedNames = freshSpecimenIds.map(resolveName)
     const boardName = bingoDisplayName(b.title, b.id)
     items.push({
       id: b.id,
       name: isNewBoard ? boardName : `${boardName}: добавлен(ы) ${addedNames.join(', ')}`,
       image: null,
       addedNames: isNewBoard ? undefined : addedNames,
+      addedSpecimenIds: isNewBoard ? undefined : freshSpecimenIds.map((id) => id.toLowerCase()),
     })
   }
 
@@ -743,6 +759,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
         name: m?.name ?? c.specimenId,
         image: firstMutantImage(m?.stars),
         hall: c.hall,
+        specimenId: c.specimenId.toLowerCase(),
         cost:
           c.costAmount > 0
             ? {
@@ -813,6 +830,7 @@ async function detectExchange(seen: string[]): Promise<DetectResult> {
       name: [m?.name ?? c.specimenId, skinLabel].filter(Boolean).join(' — '),
       image: firstMutantImage(m?.stars),
       hall: 'mystery',
+      specimenId: c.specimenId.toLowerCase(),
       cost: {
         // id нужен странице: имя жетона она подставляет на своём языке.
         id: c.costTokenId,
@@ -989,6 +1007,7 @@ async function detectDungeons(
         exactDateLabel: exact.label,
         exactDateStart: exact.start,
         exactDateEnd: exact.end,
+        rewardMutantId: d.mutantId ? d.mutantId.toLowerCase() : null,
       }
     }),
   )
@@ -1108,6 +1127,7 @@ async function detectEventLadders(seen: string[]): Promise<DetectResult> {
         exactDateLabel: exact.label,
         exactDateStart: exact.start,
         exactDateEnd: exact.end,
+        rewardMutantId: e.mutantId ? e.mutantId.toLowerCase() : null,
       }
     }),
   )
@@ -1153,9 +1173,13 @@ const GACHA_FILTER_RE = /^gacha_pack_(.+)$/i
 const GACHA_ID_ALIASES: Record<string, string> = { chess: 'checkmate' }
 
 async function detectReactors(seen: string[]): Promise<DetectResult> {
-  const [names, covers] = await Promise.all([
+  const [names, covers, gachaPools] = await Promise.all([
     loadJson<Record<string, string>>('src/data/simulators/reactor/gacha-name-ru.json', {}),
     loadJson<Record<string, string>>('src/data/simulators/reactor/gacha-covers.json', {}),
+    loadJson<Record<string, { completion_reward?: { specimen: string } }>>(
+      'src/data/simulators/reactor/gacha.json',
+      {},
+    ),
   ])
   const dates = await loadFilterDates()
   const seenSet = new Set(seen)
@@ -1182,6 +1206,10 @@ async function detectReactors(seen: string[]): Promise<DetectResult> {
     // Уже закончившуюся ротацию анонсировать бессмысленно (на первом прогоне
     // новой схемы сюда попадает вся история окон - она молча уходит в ledger).
     if (range.end && new Date(range.end).getTime() < nowMs) continue
+    // "Главная награда" реактора для тир-вердикта в дайджесте - самый редкий
+    // приз пула (completion_reward из gacha.json), не весь вероятностный
+    // стол. Юзер 2026-11-23: "смотрим по тиру главной награды".
+    const rewardMutantId = gachaPools[id]?.completion_reward?.specimen?.toLowerCase() ?? null
     items.push({
       id,
       name: names[id],
@@ -1192,6 +1220,7 @@ async function detectReactors(seen: string[]): Promise<DetectResult> {
       ),
       exactDateStart: range.start,
       exactDateEnd: range.end ?? null,
+      rewardMutantId,
     })
   }
 
@@ -1520,6 +1549,99 @@ export async function detectEventQuests(seen: string[]): Promise<DetectResult> {
   }
 }
 
+// Новый PvP-сезон - источник scripts/live-pvp-info.json (пишет
+// scripts/kartel/fetch-pvp-info.py, живая команда getPvPInfo - НЕ через
+// механизм <Filter>/acceptFuturFilters, см. докстринг скрипта). Тот же файл
+// читает scripts/update-pvp-seasons.ts (гайд-список сезонов + obtain.json) -
+// оба шага воркфлоу независимы, один не может завалить другой.
+interface LivePvpInfo {
+  fetchedAt: string
+  season: number | null
+  endsAt: string | null
+  pvpEnable: boolean
+  rewardTiers: { tier: number; items: { amount: number; id: string }[] }[]
+}
+
+async function detectPvpSeason(seen: string[]): Promise<DetectResult> {
+  const info = await loadJson<LivePvpInfo | null>('scripts/live-pvp-info.json', null)
+  if (!info || !info.season) return { newIds: seen, items: [] }
+  const key = String(info.season)
+  if (seen.includes(key)) return { newIds: seen, items: [] }
+
+  const items: AnnouncementItem[] = [
+    {
+      id: `pvp-${info.season}`,
+      name: `Сезон PvP ${info.season}`,
+      pvpSeason: info.season,
+      exactDateLabel: info.endsAt ? formatDateRu(new Date(info.endsAt)) : null,
+      exactDateStart: info.fetchedAt,
+      exactDateEnd: info.endsAt,
+      pvpRewardTiers: info.rewardTiers,
+    },
+  ]
+  return { newIds: [...seen, key], items }
+}
+
+// Скидка на технический центр (эво) - src/data/evo-discount.json, пишет
+// scripts/update-evo-discount.ts из живых промо-экспериментов (шаг 9.53/9.585
+// часового воркфлоу). "since" - ISO-момент, когда пайплайн впервые увидел ЭТО
+// сочетание gold/silver (файл переписывается только при смене значений) -
+// естественный дедуп-ключ: дискаунт начался/изменился -> новый since -> новая
+// карточка; дискаунт закончился (оба null) -> since тоже меняется, но карточку
+// не публикуем (юзер просил анонс именно начала, не конца). Без цены (юзер
+// 2026-11-23: "без цены, только процент" - у скидки нет одной цены, это
+// множитель на всю лестницу уровней эво, см. src/data/evotech-data.js).
+async function detectEvoDiscount(seen: string[]): Promise<DetectResult> {
+  const discount = await loadJson<{
+    gold: number | null
+    silver: number | null
+    since: string
+  } | null>('src/data/evo-discount.json', null)
+  if (!discount || (discount.gold === null && discount.silver === null)) {
+    return { newIds: seen, items: [] }
+  }
+  if (seen.includes(discount.since)) return { newIds: seen, items: [] }
+
+  const parts: string[] = []
+  if (discount.gold !== null) parts.push(`золото ${discount.gold}%`)
+  if (discount.silver !== null) parts.push(`серебро ${discount.silver}%`)
+  const items: AnnouncementItem[] = [
+    {
+      id: `evo-discount-${discount.since}`,
+      name: `Скидка на технический центр: ${parts.join(' · ')}`,
+    },
+  ]
+  return { newIds: [...seen, discount.since], items }
+}
+
+// Скидка на рулетку Mutants Madness - src/data/madness-discount.json, пишет
+// scripts/update-madness-discount.ts. HC (золото) / Token (жетоны джекпота) -
+// оба проценты (юзер 2026-11-23 подтвердил: "жетоны джекпота, тоже самое что
+// и SC HC"), несимметричная пара (нет SC-варианта, см. комментарий в
+// update-madness-discount.ts). Та же логика дедупа по "since", что у эво.
+async function detectMadnessDiscount(seen: string[]): Promise<DetectResult> {
+  const discount = await loadJson<{
+    gold: number | null
+    token: number | null
+    since: string
+  } | null>('src/data/madness-discount.json', null)
+  if (!discount || (discount.gold === null && discount.token === null)) {
+    return { newIds: seen, items: [] }
+  }
+  if (seen.includes(discount.since)) return { newIds: seen, items: [] }
+
+  const parts: string[] = []
+  if (discount.gold !== null) parts.push(`золото ${discount.gold}%`)
+  if (discount.token !== null) parts.push(`жетоны ${discount.token}%`)
+  const items: AnnouncementItem[] = [
+    {
+      id: `madness-discount-${discount.since}`,
+      name: `Скидка на рулетку Mutants Madness: ${parts.join(' · ')}`,
+    },
+  ]
+  return { newIds: [...seen, discount.since], items }
+}
+
 const DETECTORS: {
   category: keyof Ledger
   title: string
@@ -1559,6 +1681,19 @@ const DETECTORS: {
     link: '/guides#quests',
     run: detectEventQuests,
   },
+  { category: 'pvp', title: 'Сезоны PvP', link: '/guides#pvp-seasons', run: detectPvpSeason },
+  {
+    category: 'evoDiscount',
+    title: 'Скидка на эво',
+    link: '/evolution/evotech-calculator',
+    run: detectEvoDiscount,
+  },
+  {
+    category: 'madnessDiscount',
+    title: 'Скидка на рулетку',
+    link: '/simulators/roulette/madness',
+    run: detectMadnessDiscount,
+  },
   { category: 'rebalance', title: 'Ребаланс статов', link: '/rebalance', run: detectRebalance },
 ]
 
@@ -1582,12 +1717,12 @@ async function notifyDetectorFailure(category: string, err: unknown) {
 }
 
 // Дайджест в ЛИЧНЫЙ чат владельца (TELEGRAM_CHAT_ID, НЕ публичный канал -
-// см. notifyDetectorFailure выше и комментарий про CROSS_POST_ENABLED ниже)
-// после прогона sync-cron.yml/announcements-hourly.yml, ТОЛЬКО если что-то
-// реально нашлось - на "пустых" прогонах (подавляющее большинство часовых
-// тиков) молчит, чтобы не спамить. Не зависит от публичного кросс-поста
-// (CROSS_POST_ENABLED) - тот сейчас выключен, этот дайджест продолжает
-// работать как отдельный операторский сигнал "зайди проверь".
+// см. notifyDetectorFailure выше) после прогона sync-cron.yml/
+// announcements-hourly.yml, ТОЛЬКО если что-то реально нашлось - на "пустых"
+// прогонах (подавляющее большинство часовых тиков) молчит, чтобы не спамить.
+// Не путать с публичным ежедневным дайджестом в канал
+// (scripts/build-daily-digest.ts) - это отдельный операторский сигнал
+// "зайди проверь", на каждый прогон, не раз в день.
 async function notifyRunSummary(newlyAdded: Announcement[]): Promise<void> {
   if (newlyAdded.length === 0) return
   const token = process.env.TELEGRAM_BOT_TOKEN
@@ -2001,8 +2136,8 @@ async function main() {
   }
 
   // Бот-скриншотер в АДМИН-чат (TELEGRAM_CHAT_ID, не публичный канал) -
-  // отдельный флоу от CROSS_POST_ENABLED ниже, независимо от того, включён
-  // публичный кросс-пост или нет. Только СТАВИТ задачи в очередь - реальную
+  // отдельный флоу от публичного дайджеста канала (build-daily-digest.ts),
+  // независимо от него. Только СТАВИТ задачи в очередь - реальную
   // отправку делает scripts/process-pending-screenshots.ts отдельным
   // 5-минутным cron'ом (нужна пауза на Vercel-редеплой перед скриншотом
   // живого прода, см. scripts/pending-screenshots.ts).
@@ -2010,47 +2145,12 @@ async function main() {
     console.error('[ADMIN-BOT] Не удалось поставить задачи в очередь скриншотов:', err),
   )
 
-  // Кросс-пост в Telegram-канал ОТКЛЮЧЁН 2026-08-08 (юзер: "пока надо
-  // отключить" - после нескольких раундов нестабильности скриншот-эндпоинта
-  // на холодном Vercel-контейнере решил не постить в ПУБЛИЧНЫЙ канал, пока
-  // не решили, оставлять ли картиночный кросс-пост вообще или заменить на
-  // текстовый алерт "на сайте что-то новое"). Код ниже рабочий и не удалён -
-  // просто выключен флагом, чтобы включить обратно было одной правкой.
-  const CROSS_POST_ENABLED = false
-  if (CROSS_POST_ENABLED) {
-    // shopForecast/dailyNews объединяются в один пост (юзер: "dailyNews можно
-    // засунуть в прогноз магазина"), rebalance никогда не кросс-постится
-    // (юзер: "уже есть человек, который делает это вручную").
-    const shopForecastPost = newlyAdded.find((a) => a.category === 'shopForecast') ?? null
-    const dailyNewsPost = newlyAdded.find((a) => a.category === 'dailyNews') ?? null
-    if (shopForecastPost || dailyNewsPost) {
-      await postShopAndDailyNews(shopForecastPost, dailyNewsPost).catch((err) =>
-        console.error('[CROSS-POST] shopForecast/dailyNews:', err),
-      )
-    }
-    // Пауза между постами - несколько скриншот-эндпоинтов подряд без неё на
-    // живом прогоне 2026-08-07 упирались в исчерпание /tmp одного тёплого
-    // Vercel-контейнера (см. cleanupStalePlaywrightProfiles в
-    // src/lib/chromium-tmp-cleanup.ts - подметает мусор, но не резиновое место).
-    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-    for (const a of newlyAdded) {
-      if (
-        a.category === 'rebalance' ||
-        a.category === 'shopForecast' ||
-        a.category === 'dailyNews'
-      ) {
-        continue
-      }
-      await crossPostAnnouncement(a).catch((err) =>
-        console.error(`[CROSS-POST] ${a.category}:`, err),
-      )
-      await sleep(5000)
-    }
-  } else if (newlyAdded.length > 0) {
-    console.log(
-      `[CROSS-POST] Отключён (CROSS_POST_ENABLED=false) - ${newlyAdded.length} новых записей не отправлены в канал.`,
-    )
-  }
+  // Поштучный кросс-пост в Telegram-канал (был выключен флагом с 2026-08-08
+  // из-за нестабильности скриншот-эндпоинта на холодном Vercel-контейнере)
+  // УДАЛЁН 2026-11-22 - заменён ежедневным дайджестом (один пост в день со
+  // сводкой всех категорий, см. scripts/build-daily-digest.ts), а не
+  // восстановлен. Код - в истории git (scripts/telegram-cross-post.ts),
+  // если понадобится референс.
 
   await notifyRunSummary(newlyAdded)
   await notifyNewExactDates(newlyDated)

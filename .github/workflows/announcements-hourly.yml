@@ -261,6 +261,38 @@ jobs:
         continue-on-error: true
         run: npx tsx scripts/update-evo-discount.ts
 
+      - name: 9.586 Текущая скидка на рулетку Mutants Madness (madness-discount.json)
+        # HC (золото) / Token (жетоны джекпота) из промо-экспериментов шага 9.53 -
+        # найдено реверсом 2026-11-23 (Mutants-Promo-Jackpot-HC/-Token, см.
+        # update-madness-discount.ts). Пара несимметричная (нет SC), в отличие
+        # от TechCenter. Без живых промо-данных скрипт ничего не пишет.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-madness-discount.ts
+
+      - name: 9.59 Текущий PvP-сезон (kartel getPvPInfo)
+        # НЕ через acceptFuturFilters (см. шаг 9.5) - отдельная команда батча,
+        # найдено реверсом 2026-11-22 (MutantsNetworkService::getPvPInfo в
+        # бинаре + живой запрос). Тот же auth-блоб, что у шага 9.5. Обогащение,
+        # не критический путь: detectPvpSeason в build-announcements.ts и
+        # update-pvp-seasons.ts ниже просто ничего не найдут без этого файла.
+        if: always()
+        continue-on-error: true
+        run: python3 scripts/kartel/fetch-pvp-info.py > scripts/live-pvp-info.json
+        env:
+          KARTEL_AUTH_BLOB_B64: ${{ secrets.KARTEL_AUTH_BLOB_B64 }}
+
+      - name: 9.591 Журнал PvP-сезонов + гайд-список + источники получения
+        # scripts/journals/pvp-seasons.jsonl (каждый прогон) + additive-only
+        # дополнение src/data/guides/pvp-seasons.json (вёлся руками до сезона
+        # 348) + src/data/mutants/obtain.json ("PVP: Сезон N", тот же формат,
+        # что у ручных записей). До шага 10 - его ledger читает live-pvp-
+        # info.json независимо, порядок друг на друга не влияет, но логически
+        # это один источник данных.
+        if: always()
+        continue-on-error: true
+        run: npx tsx scripts/update-pvp-seasons.ts
+
       - name: 9.6 Алерт при сбое живых дат (истёк auth.bin?)
         # auth_request_fresh.bin живёт ~60 дней - это активный алерт "прямо
         # сейчас сломалось", а не только ежемесячное календарное напоминание
@@ -288,17 +320,16 @@ jobs:
         if: always()
         run: npx tsx scripts/build-quests.ts
 
-      - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news) + кросс-пост в канал
+      - name: 10. Публикация анонсов (в т.ч. прогноз магазина/daily_news)
         # Прогноз магазина и daily_news не пишут отдельных файлов - тянут
         # shopitems.xml/dailypopup.xml прямо внутри build-announcements.ts
         # (detectShopForecast/detectDailyNews), публикуют сразу в announcements.json.
-        # TELEGRAM_CHANNEL_ID - id ПУБЛИЧНОГО канала (не путать с TELEGRAM_CHAT_ID,
-        # личным чатом владельца) - см. scripts/telegram-cross-post.ts.
+        # Поштучный кросс-пост в публичный канал удалён 2026-11-22 (был выключен
+        # флагом с 2026-08-08) - заменён ежедневным дайджестом, см. шаг 10.6.
         if: always()
         run: npx tsx scripts/build-announcements.ts
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           # TELEGRAM_CHAT_ID (личный чат, не канал) нужен notifyDetectorFailure()
           # и notifyRunSummary() внутри build-announcements.ts - без него оба
           # молча ничего не отправляют (тихий best-effort гейт на оба секрета).
@@ -345,7 +376,9 @@ jobs:
             scripts/journals/**
             src/data/mutants/offer-history.json
             src/data/evo-discount.json
+            src/data/madness-discount.json
             src/data/guides/dungeon-details.json
+            src/data/guides/pvp-seasons.json
 
       - name: 11.1 Сторож - всё, что записал пайплайн, закоммичено
         # Этап 3 аудита Opus 5.5 (2026-09-23). file_pattern шага 11 ведётся
