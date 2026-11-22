@@ -363,8 +363,14 @@ export function findParentsFor(
   const tGenes = getGeneStr(target.genes)
   const tId = String(target.id)
 
-  // Platinum: always target × target
-  if (star1 === 4 && star2 === 4) {
+  // Platinum: always target × target (self-merge fusion, not gene breeding) -
+  // but only for types that can exist in the breeder at all. Unbreedable types
+  // (zodiac/gacha/special/seasonal/...) never appear here even as themselves
+  // (see UNBREEDABLE_TYPES doc comment) - without this check, mutants capped
+  // below platinum (e.g. Аквапунцель: normal+silver only, no platinum tier)
+  // got a fake self-merge "recipe" at platinum while every other star showed
+  // none, since the isUnbreedableType() check below never ran for this branch.
+  if (star1 === 4 && star2 === 4 && !isUnbreedableType(tType)) {
     return [
       {
         p1: target,
