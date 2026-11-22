@@ -537,25 +537,10 @@ async function main() {
   }
 
   await loadVerdictData()
-  // Telegram кэпит caption sendMediaGroup/sendPhoto в 1024 символа (не 4096,
-  // как у обычного sendMessage) - НАЙДЕНО на живом тесте 2026-11-23: с
-  // вердиктами на каждую карточку подпись из 14 записей вышла за лимит, и
-  // sendMediaGroup упал ЦЕЛИКОМ 400-кой ("caption is too long") - ничего не
-  // ушло вообще, даже без вердиктов. Поэтому на фото - короткая сводка
-  // (иконка+категория+счётчик, как раньше), а полный разбор с вердиктами -
-  // отдельным текстовым сообщением сразу после (sendMessage, лимит 4096).
-  const byCategory = new Map<string, number>()
-  for (const a of todays) byCategory.set(a.category, (byCategory.get(a.category) ?? 0) + 1)
-  const summaryLines = [...byCategory.entries()].map(
-    ([cat, n]) =>
-      `${CATEGORY_ICON[cat] ?? '🔔'} ${CATEGORY_LABEL[cat] ?? cat}${n > 1 ? ` ×${n}` : ''}`,
-  )
-  const caption = [`📅 Обновления за ${ruDateLabel(now)}`, '', ...summaryLines].join('\n')
-
   const contentLines = todays.map(captionLineFor)
   const hashtags = [...new Set(todays.map((a) => CATEGORY_HASHTAG[a.category]).filter(Boolean))]
-  const detailText = [
-    `📅 Подробности за ${ruDateLabel(now)}`,
+  const fullText = [
+    `📅 Обновления за ${ruDateLabel(now)}`,
     '',
     ...contentLines,
     '',
@@ -564,6 +549,21 @@ async function main() {
     'Подробнее: archivist-library.com/announcements',
     'Что берём сегодня?',
   ].join('\n')
+
+  // Telegram кэпит caption sendMediaGroup/sendPhoto в 1024 символа (не 4096,
+  // как у обычного sendMessage) - НАЙДЕНО на живом тесте 2026-11-23: с
+  // вердиктами на каждую карточку подпись из 14 записей вышла за лимит, и
+  // sendMediaGroup упал ЦЕЛИКОМ 400-кой ("caption is too long"). Юзер
+  // 2026-11-23 попросил одну подпись, не две сообщения - обычный день
+  // (1-3 категории) укладывается в лимит легко, caption = fullText как есть.
+  // Усечение - только страховка на редкий очень насыщенный день: тогда
+  // целиком текст уходит ДОПОЛНИТЕЛЬНО отдельным сообщением (ничего не
+  // теряем молча), а на фото - подпись, обрезанная по границе строки.
+  const TELEGRAM_CAPTION_LIMIT = 1024
+  const truncated = fullText.length > TELEGRAM_CAPTION_LIMIT
+  const caption = truncated
+    ? fullText.slice(0, TELEGRAM_CAPTION_LIMIT - 20).replace(/\n[^\n]*$/, '') + '\n…см. ниже'
+    : fullText
 
   const bingoShots = await readJson<Record<string, { file: string }>>(
     'src/data/bingo-screenshots.json',
@@ -578,8 +578,10 @@ async function main() {
       `[digest] --dry-run: за ${todayKey} отправилось бы ${jobs.length} карточек (до ${Math.ceil(jobs.length / MAX_ALBUM_SIZE)} альбомов):`,
     )
     console.log(caption)
-    console.log('---')
-    console.log(detailText)
+    if (truncated) {
+      console.log(`--- (подпись обрезана, ${fullText.length} > ${TELEGRAM_CAPTION_LIMIT}, полный текст уйдёт отдельным сообщением) ---`)
+      console.log(fullText)
+    }
     for (const j of jobs)
       console.log(`  - [${j.announcement.category}] ${j.announcement.title} -> ${j.url}`)
     return
@@ -600,22 +602,24 @@ async function main() {
     failedAll.push(...failed)
   }
   // Подпись - только на первом фото первого альбома. Если альбом был ровно
-  // один и он целиком упал - текст ещё не ушёл ни разу, шлём detailText
-  // (полный разбор) отдельным сообщением, чтобы день не остался совсем без
-  // дайджеста. Иначе - detailText идёт ДОПОЛНИТЕЛЬНО, после фото (best-effort,
-  // не гейтит delivered - карточки уже дошли).
+  // один и он целиком упал - текст ещё не ушёл ни разу, шлём fullText
+  // отдельным сообщением, чтобы день не остался совсем без дайджеста. Если
+  // подпись пришлось обрезать (редкий насыщенный день) - полный текст уходит
+  // ДОПОЛНИТЕЛЬНО, после фото (best-effort, не гейтит delivered). В обычный
+  // день (подпись не обрезана) второе сообщение не нужно - юзер 2026-11-23
+  // явно попросил одну подпись, не две.
   const totalFailure = jobs.length > 0 && failedAll.length === jobs.length
   let textFallbackOk = false
   if (totalFailure) {
-    textFallbackOk = await sendMessage(creds.botToken, creds.channelId, detailText, false)
+    textFallbackOk = await sendMessage(creds.botToken, creds.channelId, fullText, false)
       .then(() => true)
       .catch((err) => {
         console.error('[digest] текстовый фолбэк тоже не ушёл:', err)
         return false
       })
-  } else {
-    await sendMessage(creds.botToken, creds.channelId, detailText, false).catch((err) =>
-      console.error('[digest] подробный разбор не ушёл (best-effort):', err),
+  } else if (truncated) {
+    await sendMessage(creds.botToken, creds.channelId, fullText, false).catch((err) =>
+      console.error('[digest] полный текст (после обрезанной подписи) не ушёл (best-effort):', err),
     )
   }
   if (failedAll.length > 0 && !totalFailure) {
