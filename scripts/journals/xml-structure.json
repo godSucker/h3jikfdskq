@@ -1,145 +1,7 @@
 {
   "version": 1,
-  "capturedAt": "2026-11-16T09:03:02.590Z",
+  "capturedAt": "2026-11-25T08:03:12.795Z",
   "shopitems": {
-    "256": [
-      [
-        "bundle_orbs_adaptive_retaliate_14",
-        null
-      ],
-      [
-        "Specimen_EA_06_Bronze",
-        null
-      ],
-      [
-        "Specimen_FC_08_sc",
-        null
-      ],
-      [
-        "Specimen_FC_04",
-        null
-      ],
-      [
-        "pack_be_13_1000_hc",
-        null
-      ],
-      [
-        "pack_be_13_4000_hc",
-        null
-      ],
-      [
-        "pack_be_13_10000_hc",
-        null
-      ],
-      [
-        "Specimen_BB_08",
-        null
-      ],
-      [
-        "LuckyBox_Research_IX",
-        null
-      ],
-      [
-        "Specimen_BA_05_Gold",
-        null
-      ],
-      [
-        "Pack_Dieselpunk",
-        null
-      ],
-      [
-        "Specimen_BC_13_rc",
-        null
-      ],
-      [
-        "Specimen_EA_09_sc",
-        null
-      ],
-      [
-        "bundle_orbs_experimental_growth_11",
-        null
-      ],
-      [
-        "Specimen_DC_06_Bronze_sc",
-        null
-      ],
-      [
-        "Specimen_AA_06_Gold",
-        null
-      ],
-      [
-        "LuckyBox_Mythic_Prime",
-        null
-      ],
-      [
-        "Specimen_CA_06",
-        null
-      ],
-      [
-        "bank_ca_12_t1",
-        "Shop_Bank_Sprint_247"
-      ],
-      [
-        "bank_bd_99_10jp",
-        "Shop_Bank_Sprint_247"
-      ],
-      [
-        "bank_bc_13_20jp",
-        "Shop_Bank_Sprint_247"
-      ],
-      [
-        "bank_da_13_45jp",
-        "Shop_Bank_Sprint_247"
-      ],
-      [
-        "bank_fb_14_100jp",
-        "Shop_Bank_Sprint_247"
-      ],
-      [
-        "Specimen_EC_07_Bronze",
-        null
-      ],
-      [
-        "Pack_Nightmare",
-        null
-      ],
-      [
-        "Specimen_AC_09_Bronze",
-        null
-      ],
-      [
-        "Mysterybox_Ability_Slash",
-        null
-      ],
-      [
-        "Specimen_EE_04",
-        null
-      ],
-      [
-        "bundle_orbs_life_5_38",
-        null
-      ],
-      [
-        "Specimen_CC_12_Gold",
-        null
-      ],
-      [
-        "Specimen_AC_08_sc",
-        null
-      ],
-      [
-        "Specimen_EE_07_Bronze",
-        null
-      ],
-      [
-        "LuckyBox_Cyber_Elite",
-        null
-      ],
-      [
-        "Specimen_EB_05_Bronze",
-        null
-      ]
-    ],
     "257": [
       [
         "Specimen_FF_06",
@@ -183,10 +45,6 @@
       ],
       [
         "Specimen_DE_05",
-        null
-      ],
-      [
-        "Luckybox_Hyperspeed",
         null
       ],
       [
@@ -320,10 +178,6 @@
         null
       ],
       [
-        "pack_daily_5m_credit_69",
-        null
-      ],
-      [
         "Specimen_DA_02",
         null
       ],
@@ -406,26 +260,6 @@
       [
         "Specimen_BC_06",
         null
-      ],
-      [
-        "bank_fa_04_ex_t5",
-        "Shop_Bank_Ex"
-      ],
-      [
-        "bank_fc_11_ex_t4",
-        "Shop_Bank_Ex"
-      ],
-      [
-        "bank_ba_12_ex_t3",
-        "Shop_Bank_Ex"
-      ],
-      [
-        "bank_ca_09_ex_t2",
-        "Shop_Bank_Ex"
-      ],
-      [
-        "bank_fb_14_ex_t1",
-        "Shop_Bank_Ex"
       ],
       [
         "Specimen_FA_05_Bronze",
@@ -543,10 +377,6 @@
       ],
       [
         "bundle_orbs_adaptive_shield_5_9",
-        null
-      ],
-      [
-        "pack_daily_6_gacha_54",
         null
       ],
       [
@@ -689,10 +519,6 @@
       ],
       [
         "Specimen_ED_09_bronze",
-        null
-      ],
-      [
-        "pack_powerlevel_92",
         null
       ],
       [
@@ -965,106 +791,267 @@
         "Specimen_ED_05_Bronze",
         null
       ]
+    ],
+    "262": [
+      [
+        "Advent26_Box_11",
+        null
+      ],
+      [
+        "Advent26_Box_10",
+        null
+      ],
+      [
+        "Advent26_Box_09",
+        null
+      ],
+      [
+        "Advent26_Box_08",
+        null
+      ],
+      [
+        "Advent26_Box_07",
+        null
+      ],
+      [
+        "Advent26_Box_06",
+        null
+      ],
+      [
+        "Advent26_Box_05",
+        null
+      ],
+      [
+        "Advent26_Box_04",
+        null
+      ],
+      [
+        "Advent26_Box_03",
+        null
+      ],
+      [
+        "Advent26_Box_02",
+        null
+      ],
+      [
+        "Advent26_Box_01",
+        null
+      ],
+      [
+        "Pack_Bone",
+        null
+      ],
+      [
+        "LuckyBox_Mythic_Prime",
+        null
+      ],
+      [
+        "Specimen_EE_02_Silver_sc",
+        null
+      ],
+      [
+        "pack_daily_3_platinum_32",
+        null
+      ],
+      [
+        "Specimen_FC_03",
+        null
+      ],
+      [
+        "bank_cb_13_10ct",
+        "Shop_Bank_CB_13_ct"
+      ],
+      [
+        "bank_cb_13_25ct",
+        "Shop_Bank_CB_13_ct"
+      ],
+      [
+        "bank_cb_13_60ct",
+        "Shop_Bank_CB_13_ct"
+      ],
+      [
+        "bundle_orbs_experimental_debuffer_11",
+        null
+      ],
+      [
+        "Specimen_CC_09_sc",
+        null
+      ],
+      [
+        "Mysterybox_Ability_Slash",
+        null
+      ],
+      [
+        "Specimen_EE_06_sc",
+        null
+      ],
+      [
+        "Specimen_DD_13_rc",
+        null
+      ],
+      [
+        "Specimen_EE_05_Bronze",
+        null
+      ],
+      [
+        "pack_powerlevel_93",
+        null
+      ],
+      [
+        "Specimen_AE_06",
+        null
+      ],
+      [
+        "Specimen_FA_07_Bronze",
+        null
+      ],
+      [
+        "bank_fa_04_ex_t5",
+        "Shop_Bank_Ex"
+      ],
+      [
+        "bank_fc_11_ex_t4",
+        "Shop_Bank_Ex"
+      ],
+      [
+        "bank_ba_12_ex_t3",
+        "Shop_Bank_Ex"
+      ],
+      [
+        "bank_ca_09_ex_t2",
+        "Shop_Bank_Ex"
+      ],
+      [
+        "bank_fb_14_ex_t1",
+        "Shop_Bank_Ex"
+      ],
+      [
+        "LuckyBox_Research_VI_v3",
+        null
+      ],
+      [
+        "Specimen_AA_04_Bronze",
+        null
+      ],
+      [
+        "pack_daily_6_gacha_55",
+        null
+      ],
+      [
+        "bundle_orbs_adaptive_boost_13",
+        null
+      ],
+      [
+        "Specimen_DD_06_sc",
+        null
+      ],
+      [
+        "Specimen_EC_02_Bronze",
+        null
+      ],
+      [
+        "Luckybox_Hyperspeed",
+        null
+      ],
+      [
+        "Specimen_AB_04_Bronze_sc",
+        null
+      ],
+      [
+        "pack_daily_5m_credit_70",
+        null
+      ],
+      [
+        "bundle_orbs_shield_5_26",
+        null
+      ],
+      [
+        "Specimen_CD_13_Gold",
+        null
+      ],
+      [
+        "Specimen_ED_07_Gold",
+        null
+      ],
+      [
+        "bank_cyberweek26_t5",
+        "Shop_Bank_cyberweek_2026"
+      ],
+      [
+        "bank_cyberweek26_t4",
+        "Shop_Bank_cyberweek_2026"
+      ],
+      [
+        "bank_cyberweek26_t3",
+        "Shop_Bank_cyberweek_2026"
+      ],
+      [
+        "bank_cyberweek26_t2",
+        "Shop_Bank_cyberweek_2026"
+      ],
+      [
+        "bank_cyberweek26_t1",
+        "Shop_Bank_cyberweek_2026"
+      ],
+      [
+        "Mystery_Cyberweek_2026",
+        null
+      ],
+      [
+        "Pack_Cyberweek",
+        null
+      ],
+      [
+        "Pack_Cybercop",
+        null
+      ],
+      [
+        "Pack_Cyberpunk",
+        null
+      ],
+      [
+        "Specimen_AF_08_Bronze",
+        null
+      ],
+      [
+        "LuckyBox_Cyber_Elite",
+        null
+      ],
+      [
+        "Specimen_CF_03",
+        null
+      ],
+      [
+        "bank_blackfriday26_t5",
+        "Shop_Bank_BlackFriday_2026"
+      ],
+      [
+        "bank_blackfriday26_t4",
+        "Shop_Bank_BlackFriday_2026"
+      ],
+      [
+        "bank_blackfriday26_t3",
+        "Shop_Bank_BlackFriday_2026"
+      ],
+      [
+        "bank_blackfriday26_t2",
+        "Shop_Bank_BlackFriday_2026"
+      ],
+      [
+        "bank_blackfriday26_t1",
+        "Shop_Bank_BlackFriday_2026"
+      ],
+      [
+        "Specimen_CB_15_Gold",
+        null
+      ],
+      [
+        "Specimen_CB_15_rc",
+        null
+      ]
     ]
   },
   "dailypopup": {
-    "256": [
-      [
-        "Shop_bundle_orbs_adaptive_retaliate_14",
-        "bundle_orbs_adaptive_retaliate_14",
-        "news_adaptive_retaliate"
-      ],
-      [
-        "Shop_bundle_orbs_retaliate_5_27",
-        "bundle_orbs_retaliate_5_27",
-        "news_bundle_orbs_retaliate_5"
-      ],
-      [
-        "Shop_pack_be_13_1000_hc",
-        "pack_be_13_1000_hc",
-        "news_bank_be_13_seg"
-      ],
-      [
-        "Shop_pack_be_13_4000_hc",
-        "pack_be_13_4000_hc",
-        "news_bank_be_13_seg"
-      ],
-      [
-        "Shop_pack_be_13_10000_hc",
-        "pack_be_13_10000_hc",
-        "news_bank_be_13_seg"
-      ],
-      [
-        "Shop_Specimen_FC_04",
-        "Specimen_FC_04",
-        "news_comeback_fc_04"
-      ],
-      [
-        "Daily_news_challenge_hall_block_5_2026",
-        null,
-        "news_challenge_hall_2026_05"
-      ],
-      [
-        "Shop_LuckyBox_Research_IX",
-        "LuckyBox_Research_IX",
-        "news_luckybox_research_ix"
-      ],
-      [
-        "Shop_Pack_Dieselpunk",
-        "Pack_Dieselpunk",
-        "news_shop_pack_dieselpunk"
-      ],
-      [
-        "Shop_bundle_orbs_experimental_growth_11",
-        "bundle_orbs_experimental_growth_11",
-        "orb_experimental_bundle"
-      ],
-      [
-        "Daily_news_shop_24h_2026_256b",
-        null,
-        "news_shop_24h_2026_256b"
-      ],
-      [
-        "daily_news_jackpot_madness_weekend_50",
-        null,
-        "news_jackpot_madness_weekend_april_2017"
-      ],
-      [
-        "Shop_LuckyBox_Mythic_Prime",
-        "LuckyBox_Mythic_Prime",
-        "news_shop_mysterybox_mystic_2018"
-      ],
-      [
-        "PayWall_Sprint_247",
-        null,
-        "news_bank_sprint_247"
-      ],
-      [
-        "Shop_Pack_Nightmare",
-        "Pack_Nightmare",
-        "news_pack_nightmare"
-      ],
-      [
-        "Shop_Mysterybox_Ability_Slash",
-        "Mysterybox_Ability_Slash",
-        "news_shop_mystery_slash"
-      ],
-      [
-        "Shop_bundle_orbs_life_5_38",
-        "bundle_orbs_life_5_38",
-        "news_bundle_orbs_life_5"
-      ],
-      [
-        "Shop_LuckyBox_Cyber_Elite",
-        "LuckyBox_Cyber_Elite",
-        "news_shop_mystery_elite_cyber"
-      ],
-      [
-        "Daily_news_shop_24h_2026_256a",
-        null,
-        "news_shop_24h_2026_256a"
-      ]
-    ],
     "257": [
       [
         "Shop_Pack_Dino",
@@ -1090,11 +1077,6 @@
         "Daily_news_exchange_office_block_9_2026",
         null,
         "news_exchange_office_2026_09"
-      ],
-      [
-        "Shop_Luckybox_Hyperspeed",
-        "Luckybox_Hyperspeed",
-        "news_mystery_hyperspeed"
       ],
       [
         "Daily_news_shop_24h_2026_257b",
@@ -1179,11 +1161,6 @@
         "news_bundle_orbs_critical_5"
       ],
       [
-        "Shop_pack_daily_5m_credit_69",
-        "pack_daily_5m_credit_69",
-        "news_credits_50m"
-      ],
-      [
         "Shop_LuckyBox_Zoo_Elite",
         "LuckyBox_Zoo_Elite",
         "news_shop_mystery_elite_zoo"
@@ -1227,11 +1204,6 @@
         "Shop_LuckyBox_Necro_Prime",
         "LuckyBox_Necro_Prime",
         "news_shop_luckybox_necro"
-      ],
-      [
-        "PayWall_Bank_Ex",
-        null,
-        "news_bank_ex"
       ],
       [
         "Shop_bundle_orbs_regenerate_5_24",
@@ -1286,11 +1258,6 @@
         "news_pack_storm"
       ],
       [
-        "Daily_news_tech_V2",
-        null,
-        "news_tech_v2"
-      ],
-      [
         "Shop_halloween26_token_pack_2",
         "halloween26_token_pack_2",
         "news_halloween26_token_pack"
@@ -1309,11 +1276,6 @@
         "Shop_bundle_orbs_adaptive_shield_5_9",
         "bundle_orbs_adaptive_shield_5_9",
         "news_adaptive_shield"
-      ],
-      [
-        "shop_pack_daily_6_gacha_54",
-        "pack_daily_6_gacha_54",
-        "news_shop_casinoreactortokenx6"
       ],
       [
         "Daily_news_shop_24h_2026_259b",
@@ -1396,11 +1358,6 @@
         "PayWall_2026_EE_13_CT",
         null,
         "news_bank_ee_13_ct"
-      ],
-      [
-        "Shop_pack_powerlevel_92",
-        "pack_powerlevel_92",
-        "news_shop_pack_powerlevel"
       ],
       [
         "Daily_news_shop_24h_2026_260b",
@@ -1614,9 +1571,197 @@
         null,
         "news_challenge_hall_2026_07"
       ]
+    ],
+    "262": [
+      [
+        "Shop_LuckyBox_Mythic_Prime",
+        "LuckyBox_Mythic_Prime",
+        "news_shop_mysterybox_mystic_2018"
+      ],
+      [
+        "shop_pack_daily_3_platinum_32",
+        "pack_daily_3_platinum_32",
+        "news_starplatinium"
+      ],
+      [
+        "Shop_bundle_orbs_experimental_debuffer_11",
+        "bundle_orbs_experimental_debuffer_11",
+        "orb_experimental_bundle"
+      ],
+      [
+        "Shop_Mysterybox_Ability_Slash",
+        "Mysterybox_Ability_Slash",
+        "news_shop_mystery_slash"
+      ],
+      [
+        "Shop_pack_powerlevel_93",
+        "pack_powerlevel_93",
+        "news_shop_pack_powerlevel"
+      ],
+      [
+        "Daily_news_shop_24h_2026_262b",
+        null,
+        "news_shop_24h_2026_262b"
+      ],
+      [
+        "PayWall_Bank_Ex",
+        null,
+        "news_bank_ex"
+      ],
+      [
+        "Shop_LuckyBox_Research_VI_v3",
+        "LuckyBox_Research_VI_v3",
+        "news_luckybox_research_vi"
+      ],
+      [
+        "shop_pack_daily_6_gacha_55",
+        "pack_daily_6_gacha_55",
+        "news_shop_casinoreactortokenx6"
+      ],
+      [
+        "Shop_bundle_orbs_adaptive_boost_13",
+        "bundle_orbs_adaptive_boost_13",
+        "news_adaptive_boost"
+      ],
+      [
+        "Daily_news_tech_V2",
+        null,
+        "news_tech_v2"
+      ],
+      [
+        "Shop_AdventCalendar2026",
+        null,
+        "news_advent_calendar_2026"
+      ],
+      [
+        "Shop_Luckybox_Hyperspeed",
+        "Luckybox_Hyperspeed",
+        "news_mystery_hyperspeed"
+      ],
+      [
+        "Daily_news_exchange_office_block_11_2026",
+        null,
+        "news_exchange_office_2026_11"
+      ],
+      [
+        "Shop_pack_daily_5m_credit_70",
+        "pack_daily_5m_credit_70",
+        "news_credits_50m"
+      ],
+      [
+        "Shop_bundle_orbs_shield_5_26",
+        "bundle_orbs_shield_5_26",
+        "news_bundle_orbs_shield_5"
+      ],
+      [
+        "PayWall_Bank_cyberweek26",
+        null,
+        "news_bank_cyberweek26"
+      ],
+      [
+        "Shop_Mystery_Cyberweek_2026",
+        "Mystery_Cyberweek_2026",
+        "news_mystery_cyberweek26"
+      ],
+      [
+        "Shop_LuckyBox_Cyber_Elite",
+        "LuckyBox_Cyber_Elite",
+        "news_shop_mystery_elite_cyber"
+      ],
+      [
+        "Daily_news_shop_24h_2026_262a",
+        null,
+        "news_shop_24h_2026_262a"
+      ],
+      [
+        "PayWall_Bank_blackfriday26",
+        null,
+        "news_bank_blackfriday26"
+      ],
+      [
+        "Daily_News_Specimen_CB_15_release",
+        "Specimen_CB_15_Gold",
+        "news_release_shop_cb_15"
+      ]
     ]
   },
   "dailyPool": [
+    [
+      "Specimen_EE_02_Silver_sc",
+      null
+    ],
+    [
+      "pack_daily_3_platinum_32",
+      null
+    ],
+    [
+      "Specimen_FC_03",
+      null
+    ],
+    [
+      "Specimen_CC_09_sc",
+      null
+    ],
+    [
+      "Specimen_EE_06_sc",
+      null
+    ],
+    [
+      "Specimen_EE_05_Bronze",
+      null
+    ],
+    [
+      "Specimen_AE_06",
+      null
+    ],
+    [
+      "Specimen_FA_07_Bronze",
+      null
+    ],
+    [
+      "Specimen_AA_04_Bronze",
+      null
+    ],
+    [
+      "pack_daily_6_gacha_55",
+      null
+    ],
+    [
+      "bundle_orbs_adaptive_boost_13",
+      null
+    ],
+    [
+      "Specimen_DD_06_sc",
+      null
+    ],
+    [
+      "Specimen_EC_02_Bronze",
+      null
+    ],
+    [
+      "Specimen_AB_04_Bronze_sc",
+      null
+    ],
+    [
+      "pack_daily_5m_credit_70",
+      null
+    ],
+    [
+      "bundle_orbs_shield_5_26",
+      null
+    ],
+    [
+      "Specimen_ED_07_Gold",
+      null
+    ],
+    [
+      "Specimen_AF_08_Bronze",
+      null
+    ],
+    [
+      "Specimen_CF_03",
+      null
+    ],
     [
       "bundle_orbs_adaptive_regenerate_15",
       null
@@ -1786,10 +1931,6 @@
       null
     ],
     [
-      "pack_daily_6_gacha_54",
-      null
-    ],
-    [
       "Specimen_EF_05",
       null
     ],
@@ -1835,10 +1976,6 @@
     ],
     [
       "Specimen_CE_04_Bronze",
-      null
-    ],
-    [
-      "pack_daily_5m_credit_69",
       null
     ],
     [
@@ -2138,10 +2275,6 @@
       null
     ],
     [
-      "pack_daily_3_platinum_31",
-      null
-    ],
-    [
       "Specimen_AD_08_Silver",
       null
     ],
@@ -2179,10 +2312,6 @@
     ],
     [
       "Specimen_CA_08",
-      null
-    ],
-    [
-      "Specimen_FA_07_Bronze",
       null
     ],
     [
@@ -2282,10 +2411,6 @@
       null
     ],
     [
-      "bundle_orbs_shield_5_25",
-      null
-    ],
-    [
       "Specimen_AC_08",
       null
     ],
@@ -2303,10 +2428,6 @@
     ],
     [
       "Specimen_FB_04",
-      null
-    ],
-    [
-      "bundle_orbs_adaptive_boost_12",
       null
     ],
     [
@@ -2343,10 +2464,6 @@
     ],
     [
       "Specimen_DD_05_Silver_sc",
-      null
-    ],
-    [
-      "Specimen_EC_02_Bronze",
       null
     ],
     [
@@ -2558,10 +2675,6 @@
       null
     ],
     [
-      "Specimen_FC_03",
-      null
-    ],
-    [
       "Specimen_FA_03_Silver_sc",
       null
     ],
@@ -2683,10 +2796,6 @@
     ],
     [
       "Specimen_BA_08_Bronze",
-      null
-    ],
-    [
-      "Specimen_ED_07_Gold",
       null
     ],
     [
@@ -3035,10 +3144,6 @@
     ],
     [
       "Specimen_FB_08_Gold",
-      null
-    ],
-    [
-      "Specimen_EE_06_sc",
       null
     ],
     [
@@ -3422,15 +3527,7 @@
       null
     ],
     [
-      "Specimen_EE_05_Bronze",
-      null
-    ],
-    [
       "Specimen_BA_08_Silver",
-      null
-    ],
-    [
-      "Specimen_CF_03",
       null
     ],
     [
@@ -3567,10 +3664,6 @@
     ],
     [
       "Specimen_FE_09_Bronze",
-      null
-    ],
-    [
-      "Specimen_AA_04_Bronze",
       null
     ],
     [
@@ -3850,10 +3943,6 @@
       null
     ],
     [
-      "Specimen_AE_06",
-      null
-    ],
-    [
       "Specimen_AA_08_Bronze",
       null
     ],
@@ -4066,10 +4155,6 @@
       null
     ],
     [
-      "Specimen_AB_04_Bronze_sc",
-      null
-    ],
-    [
       "Specimen_AB_06_Bronze_sc",
       null
     ],
@@ -4242,10 +4327,6 @@
       null
     ],
     [
-      "Specimen_CC_09_sc",
-      null
-    ],
-    [
       "Specimen_FF_09_Bronze",
       null
     ],
@@ -4415,10 +4496,6 @@
     ],
     [
       "Specimen_CC_08",
-      null
-    ],
-    [
-      "Specimen_AF_08_Bronze",
       null
     ],
     [
@@ -5826,10 +5903,6 @@
       "Shop_Specimen_EE_09"
     ],
     [
-      "Specimen_DD_06_sc",
-      null
-    ],
-    [
       "Specimen_DF_02_Silver_sc",
       null
     ],
@@ -6751,36 +6824,6 @@
     ]
   ],
   "promotions": {
-    "256": [
-      [
-        "Specimen_FC_04",
-        null
-      ],
-      [
-        "LuckyBox_Research_IX",
-        null
-      ],
-      [
-        "Specimen_BC_13_rc",
-        null
-      ],
-      [
-        "LuckyBox_Mythic_Prime",
-        null
-      ],
-      [
-        "Mysterybox_Ability_Slash",
-        null
-      ],
-      [
-        "Specimen_CC_12_Gold",
-        null
-      ],
-      [
-        "LuckyBox_Cyber_Elite",
-        null
-      ]
-    ],
     "257": [
       [
         "Mysterybox_Ability_Strengthen",
@@ -6960,6 +7003,64 @@
       ],
       [
         "LuckyBox_Mystic_Elite",
+        null
+      ]
+    ],
+    "262": [
+      [
+        "Advent26_Box_11",
+        null
+      ],
+      [
+        "Advent26_Box_10",
+        null
+      ],
+      [
+        "Advent26_Box_09",
+        null
+      ],
+      [
+        "Advent26_Box_08",
+        null
+      ],
+      [
+        "Advent26_Box_07",
+        null
+      ],
+      [
+        "Advent26_Box_06",
+        null
+      ],
+      [
+        "Advent26_Box_05",
+        null
+      ],
+      [
+        "Advent26_Box_04",
+        null
+      ],
+      [
+        "Advent26_Box_03",
+        null
+      ],
+      [
+        "Advent26_Box_02",
+        null
+      ],
+      [
+        "Advent26_Box_01",
+        null
+      ],
+      [
+        "Specimen_DD_13_rc",
+        null
+      ],
+      [
+        "Specimen_CD_13_Gold",
+        null
+      ],
+      [
+        "Mystery_Cyberweek_2026",
         null
       ]
     ]
