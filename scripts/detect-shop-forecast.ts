@@ -133,6 +133,9 @@ interface ForecastItem {
   // вроде "Пакет «Спираксия»" (bank_e_14_*) выглядели некликабельными: сам
   // itemId мутанта не содержит, а мутант внутри есть (юзер поймал 2026-09-16).
   packMutants: string[]
+  // НЕ-мутантские ресурсы пакета - см. комментарий у packRewards в
+  // announcement-schema.ts (находка 2026-11-25, адвент-боксы).
+  packRewards: { name: string; type: 'entity' | 'hardcurrency' | 'softcurrency'; amount: number }[]
   // Дата проставлена из scripts/manual-filter-dates.json, а не kartel/лестницей.
   // Служебный флаг: такой оффер не служит якорем для соседей (inheritDatesFromAnchors)
   // и в announcements.json не попадает (detectShopForecast копирует поля явно).
@@ -241,11 +244,43 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
     const costMatch = itemXml.match(/<Cost amount="(\d+)" type="(hardcurrency|softcurrency)"\s*\/>/)
     const usd = costMatch ? null : parseRealPriceUSD(itemXml)
     const offerTag = itemXml.match(/offerTag="([^"]+)"/)?.[1]
+    // ArticleItem встречается и самозакрывающимся (<ArticleItem typeId="X"
+    // amount="N" />, так у Advent26_Box_NN), и с дочерними тегами
+    // (<ArticleItem typeId="Specimen_..."><Tag key="stars" .../></ArticleItem>,
+    // так у большинства мутантских пакетов - 11083 вхождения живьём, найдено
+    // при проверке этого фикса) - та же пара форм и тот же регекс, что уже
+    // проверен в build-boxes.ts (articleRe), не изобретаем второй.
+    const articleItems = [
+      ...itemXml.matchAll(/<ArticleItem\b([^>]*?)(?:\/>|>([\s\S]*?)<\/ArticleItem>)/gi),
+    ].map((m) => {
+      const attrs = m[1]
+      // amount - атрибут самого ArticleItem ИЛИ Tag key="amount" (оба
+      // варианта встречаются, тот же нюанс, что в build-boxes.ts).
+      const tagAmount = m[2]?.match(/key="amount" value="(\d+)"/)?.[1]
+      return {
+        typeId: attrs.match(/typeId="([^"]*)"/)?.[1] ?? '',
+        amount: Number(attrs.match(/amount="(\d+)"/)?.[1] ?? tagAmount ?? '1'),
+      }
+    })
     const packMutants = [
       ...new Set(
-        [...itemXml.matchAll(/<ArticleItem[^>]*typeId="(Specimen_[^"]+)"/gi)].map((m) => m[1]),
+        articleItems.filter((a) => /^specimen_/i.test(a.typeId)).map((a) => a.typeId),
       ),
     ]
+    // Та же классификация валюты/сущности, что toMutantOrReward в
+    // build-boxes.ts (не импортируем - тот файл про другой детектор категории
+    // 'box', здесь только похожая форма данных на выходе).
+    const packRewards = articleItems
+      .filter((a) => a.typeId && !/^specimen_/i.test(a.typeId))
+      .map((a): ForecastItem['packRewards'][number] => {
+        if (/^(gold|hardcurrency)$/i.test(a.typeId) || a.typeId === '') {
+          return { name: 'gold', type: 'hardcurrency', amount: a.amount }
+        }
+        if (/^(silver|softcurrency)$/i.test(a.typeId)) {
+          return { name: 'silver', type: 'softcurrency', amount: a.amount }
+        }
+        return { name: a.typeId, type: 'entity', amount: a.amount }
+      })
     const filterTag = itemXml.match(/<Filter>([^<]*)<\/Filter>/)?.[1]
     const rawExactRange = pickFilterDateRange(filterDates, filterTag)
     const lowerBound =
@@ -313,6 +348,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
             filterTag,
           ),
         packMutants,
+        packRewards,
       },
     }
   }

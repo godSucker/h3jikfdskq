@@ -755,19 +755,40 @@ const pvpHeroMutant = pvpHeroMutantId ? resolveMutantLite(pvpHeroMutantId, ctx.m
                 ? ctx.boxName(namedBox)
                 : ctx.offerName(offer.id, offer.name)
           // Пакет: мутант лежит не в itemId, а в составе (<ArticleItems>).
-          // Один мутант - открываем его сразу, несколько - лист состава.
+          // Один мутант и ничего больше - открываем его сразу, иначе -
+          // лист состава (несколько мутантов, обычные ресурсы или смесь -
+          // найдено 2026-11-25, адвент-боксы несут только ресурсы, см.
+          // packRewards в announcement-schema.ts).
           const pack =
             mode === 'feed' && !target ? resolvePackMutants(offer.packMutants, ctx.mutantsById) : []
-          const packSingle = pack.length === 1 ? pack[0] : null
-          const clickable = !!target || pack.length > 0
+          const packRewardItems =
+            mode === 'feed' && !target
+              ? (offer.packRewards ?? []).map((r) => {
+                  const tex = getRewardTexturePath(r)
+                  return {
+                    kind: 'reward' as const,
+                    name: getRewardLabel(r, locale, ctx.mutantNames),
+                    image: tex ? textureUrl(tex) : null,
+                  }
+                })
+              : []
+          const packTotal = pack.length + packRewardItems.length
+          const packSingle = pack.length === 1 && packRewardItems.length === 0 ? pack[0] : null
+          const packSheetItems = !packSingle && packTotal > 0
+            ? [
+                ...pack.map((m) => ({ kind: 'mutant' as const, id: m.id, star: m.star, name: m.name, image: m.image })),
+                ...packRewardItems,
+              ]
+            : []
+          const clickable = !!target || packTotal > 0
           return (
             <div
               class:list={['forecast-tile', { 'forecast-tile-board': isBoard, 'forecast-tile-clickable': clickable }]}
               data-open-mutant={target?.type === 'mutant' ? target.id : (packSingle?.id ?? undefined)}
               data-open-mutant-star={target?.type === 'mutant' && target.star ? target.star : (packSingle?.star ?? undefined)}
               data-open-box={target?.type === 'box' ? target.id : undefined}
-              data-open-pack={pack.length > 1 ? JSON.stringify(pack) : undefined}
-              data-pack-title={pack.length > 1 ? offerName : undefined}
+              data-open-pack={packSheetItems.length > 0 ? JSON.stringify(packSheetItems) : undefined}
+              data-pack-title={packSheetItems.length > 0 ? offerName : undefined}
               title={clickable ? tr('announcements.open').replace('{name}', offerName) : undefined}
             >
               <div class="forecast-tile-media">

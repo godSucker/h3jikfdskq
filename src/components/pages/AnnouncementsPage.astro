@@ -172,7 +172,13 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
   document.querySelectorAll<HTMLElement>('[data-open-pack]').forEach((el) => {
     el.addEventListener('click', () => {
       if (!packSheet || !packList) return;
-      let items: { id: string; star: string | null; name: string; image: string }[] = [];
+      // 'mutant' - как раньше, тап открывает модалку. 'reward' (найдено
+      // 2026-11-25, адвент-боксы: пакет из одних звёзд/сфер/жетонов, без
+      // мутантов) - своей модалки нет, строка просто информационная.
+      let items: (
+        | { kind: 'mutant'; id: string; star: string | null; name: string; image: string }
+        | { kind: 'reward'; name: string; image: string | null }
+      )[] = [];
       try {
         items = JSON.parse(el.dataset.openPack ?? '[]');
       } catch {
@@ -180,21 +186,30 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
       }
       if (packTitle) packTitle.textContent = el.dataset.packTitle ?? defaultPackTitle;
       packList.innerHTML = '';
-      for (const m of items) {
-        const row = document.createElement('button');
-        row.type = 'button';
-        row.className = 'pack-row';
-        row.innerHTML =
-          `<img src="${m.image}" alt="" loading="lazy" decoding="async" /><span>${m.name}</span>`;
-        row.addEventListener('click', () => {
-          closePack();
-          window.dispatchEvent(
-            new CustomEvent('archivist:open-mutant', {
-              detail: { specimenId: m.id, star: m.star ?? undefined },
-            }),
-          );
-        });
-        packList.appendChild(row);
+      for (const it of items) {
+        if (it.kind === 'mutant') {
+          const row = document.createElement('button');
+          row.type = 'button';
+          row.className = 'pack-row';
+          row.innerHTML =
+            `<img src="${it.image}" alt="" loading="lazy" decoding="async" /><span>${it.name}</span>`;
+          row.addEventListener('click', () => {
+            closePack();
+            window.dispatchEvent(
+              new CustomEvent('archivist:open-mutant', {
+                detail: { specimenId: it.id, star: it.star ?? undefined },
+              }),
+            );
+          });
+          packList.appendChild(row);
+        } else {
+          const row = document.createElement('div');
+          row.className = 'pack-row pack-row-static';
+          row.innerHTML = it.image
+            ? `<img src="${it.image}" alt="" loading="lazy" decoding="async" /><span>${it.name}</span>`
+            : `<span>${it.name}</span>`;
+          packList.appendChild(row);
+        }
       }
       packSheet.classList.add('is-open');
     });
@@ -276,6 +291,15 @@ const presentCategories = [...new Set(announcements.map((a) => a.category).filte
   .pack-sheet-list :global(.pack-row:hover) {
     background: rgba(96, 165, 250, 0.12);
     border-color: rgba(96, 165, 250, 0.35);
+  }
+  /* Ресурс без своей модалки (найдено 2026-11-25, адвент-боксы) - строка
+     информационная, не кнопка: без курсора и ховер-подсветки кликабельной. */
+  .pack-sheet-list :global(.pack-row-static) {
+    cursor: default;
+  }
+  .pack-sheet-list :global(.pack-row-static:hover) {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
   }
   .pack-sheet-list :global(.pack-row img) {
     width: 44px;
