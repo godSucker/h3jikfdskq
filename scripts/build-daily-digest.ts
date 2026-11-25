@@ -25,6 +25,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { runMain } from './lib/run-main'
+import { selectTodayShopItems, shopOfferSpecimenId } from '../src/lib/today-shop-items'
 
 const ROOT = process.cwd()
 // DIGEST_SITE_ORIGIN - только для ручных тестов вне CI: archivist-library.com
@@ -255,16 +256,8 @@ function mutantVerdict(specimenId: string | null | undefined): string | null {
   return text
 }
 
-// Прогноз/доска-магазин кладёт specimenId прямо в raw id оффера
-// (shopitems.xml itemId), иногда с суффиксом звезды/варианта
-// (Specimen_CD_02_Silver) - звезда тиру не важна, обрезаем. Пакеты/боксы/
-// жетоны под этот паттерн не попадают - для них вердикта нет (юзер
-// 2026-11-23: "сегодня в магазе, кроме мутов - без оценки").
-function shopOfferSpecimenId(rawId: string): string | null {
-  const afterSprint = rawId.includes('|') ? rawId.slice(rawId.indexOf('|') + 1) : rawId
-  const m = /^(specimen_[a-z]+_\d+)/i.exec(afterSprint)
-  return m ? m[1].toLowerCase() : null
-}
+// shopOfferSpecimenId/selectTodayShopItems - общий модуль с
+// render-today-shop.astro, см. комментарий в today-shop-items.ts.
 
 // Топ-тир (CTID-награда конца сезона) - specimen-награда с максимальным tier.
 function pvpTopRewardSpecimenId(tiers: AnnouncementItemLike['pvpRewardTiers']): string | null {
@@ -504,20 +497,12 @@ async function main() {
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib)
     })
 
-  const latestByCategory = (category: string): AnnouncementLike | null => {
-    const matches = announcements.filter((a) => a.category === category)
-    return matches.length > 0 ? matches.reduce((best, a) => (a.date > best.date ? a : best)) : null
-  }
-  const todaysItemsOf = (a: AnnouncementLike | null): AnnouncementItemLike[] =>
-    a
-      ? a.items.filter(
-          (it) => it.exactDateStart && mskDateKey(new Date(it.exactDateStart)) === todayKey,
-        )
-      : []
-  const todayShopItems = [
-    ...todaysItemsOf(latestByCategory('shopForecast')),
-    ...todaysItemsOf(latestByCategory('dailyNews')),
-  ]
+  // selectTodayShopItems сканирует ВСЕ записи категории, не только последнюю
+  // (найдено 2026-11-25: подтверждённый kartel-датой оффер из прошлого
+  // спринта "потерялся", когда детектор перекатился на новый - см.
+  // комментарий в today-shop-items.ts) и дедупит shopForecast/dailyNews между
+  // собой без схлопывания настоящих разных вариантов (Gold/rc/Bronze).
+  const todayShopItems = selectTodayShopItems(announcements, todayKey)
   if (todayShopItems.length > 0) {
     todays.push({
       id: `todayShop-${todayKey}`,
@@ -579,7 +564,9 @@ async function main() {
     )
     console.log(caption)
     if (truncated) {
-      console.log(`--- (подпись обрезана, ${fullText.length} > ${TELEGRAM_CAPTION_LIMIT}, полный текст уйдёт отдельным сообщением) ---`)
+      console.log(
+        `--- (подпись обрезана, ${fullText.length} > ${TELEGRAM_CAPTION_LIMIT}, полный текст уйдёт отдельным сообщением) ---`,
+      )
       console.log(fullText)
     }
     for (const j of jobs)

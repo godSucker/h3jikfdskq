@@ -22,34 +22,18 @@ import {
   ribbonClass,
   exactDateLabelIn,
   type Announcement,
-  type AnnouncementItem,
 } from '@/lib/announcements-render';
 import { renderLocale } from '@/lib/render-locale';
+import { mskDateKey, selectTodayShopItems } from '@/lib/today-shop-items';
 
 const locale = renderLocale(Astro.url.searchParams.get('lang'));
 const announcements = (announcementsData as Announcement[]) ?? [];
-
-// Тот же МСК-день, что считает build-daily-digest.ts (mskDateKey) - продублировано
-// намеренно: это SSR-страница (Vite-граф), скрипт дайджеста - голый tsx, общий
-// модуль для них невозможен (см. комментарий в announcement-schema.ts).
-const MSK_OFFSET_MS = 3 * 60 * 60 * 1000;
-const mskDateKey = (d: Date) => new Date(d.getTime() + MSK_OFFSET_MS).toISOString().slice(0, 10);
 const todayKey = mskDateKey(new Date());
 
-function latestByCategory(category: string): Announcement | null {
-  const matches = announcements.filter((a) => a.category === category);
-  if (matches.length === 0) return null;
-  return matches.reduce((best, a) => (a.date > best.date ? a : best));
-}
-
-function todaysItems(a: Announcement | null): AnnouncementItem[] {
-  if (!a) return [];
-  return a.items.filter(
-    (it) => it.exactDateStart && mskDateKey(new Date(it.exactDateStart)) === todayKey,
-  );
-}
-
-const items = [...todaysItems(latestByCategory('shopForecast')), ...todaysItems(latestByCategory('dailyNews'))];
+// selectTodayShopItems - общий модуль с build-daily-digest.ts (тот же срез,
+// иначе картинка и подпись дайджеста расходятся - см. комментарий в
+// today-shop-items.ts про находку 2026-11-25).
+const items = selectTodayShopItems(announcements, todayKey);
 ---
 
 <!DOCTYPE html>
