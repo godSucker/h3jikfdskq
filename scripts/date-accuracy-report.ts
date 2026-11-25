@@ -141,11 +141,51 @@ function line(title: string, sel: Row[]) {
   )
 }
 
+// --sprint-table: тот же пул пар "догадка -> точная дата" (date-changes.jsonl),
+// но строки = спринт, колонки = метод - чтобы видеть ивентовые спринты
+// (258/260/262: Октоберфест/Хэллоуин/Black Friday+Cyber Week) ОТДЕЛЬНО от
+// обычных (257/259/261), а не усреднённо по всей истории. См. Obsidian
+// "Точность дат анонсов: гейт на модернизацию алгоритма не достигнут,
+// 2026-11-22" - решение не трогать формулу само по себе не даёт готового
+// альтернативного правила для leave-one-sprint-out (обе альтернативы уже
+// проверены и отклонены бэктестом 2026-10-14), поэтому полноценный
+// leave-one-sprint-out здесь не эквивалентен - эта таблица даёт тот же ответ
+// дешевле: точность уже выбранной формулы по каждому спринту отдельно.
+function sprintMethodTable(changes: DateChange[]) {
+  console.log('\n--- По спринтам и методам (date-changes.jsonl) ---')
+  const rowsAcc = methodAccuracy(changes)
+  if (rowsAcc.length === 0) {
+    console.log('Пар "догадка -> точная дата" пока нет.')
+    return
+  }
+  const bySprint = new Map<string, ReturnType<typeof methodAccuracy>>()
+  for (const r of rowsAcc) {
+    const key = r.sprint ?? '?'
+    bySprint.set(key, [...(bySprint.get(key) ?? []), r])
+  }
+  const sprintKeys = [...bySprint.keys()].sort((a, b) => Number(a) - Number(b))
+  for (const sprint of sprintKeys) {
+    const rs = bySprint.get(sprint)!
+    const byMethod = new Map<string, typeof rs>()
+    for (const r of rs) byMethod.set(r.method, [...(byMethod.get(r.method) ?? []), r])
+    const methodKeys = [...byMethod.keys()].sort()
+    const parts = methodKeys.map((m) => {
+      const mrs = byMethod.get(m)!
+      const errs = mrs.map((r) => r.errDays)
+      const exact = errs.filter((e) => e === 0).length
+      const within1 = errs.filter((e) => Math.abs(e) <= 1).length
+      return `${m}: n=${mrs.length} exact=${((exact / mrs.length) * 100).toFixed(0)}% ±1д=${((within1 / mrs.length) * 100).toFixed(0)}%`
+    })
+    console.log(`спринт ${sprint}  ${parts.join('  |  ')}`)
+  }
+}
+
 function journalSections() {
   const dir = `${ROOT}/scripts/journals`
   console.log('\n--- По журналам (копятся с момента их запуска) ---')
+  let changes: DateChange[] = []
   try {
-    const changes: DateChange[] = fs
+    changes = fs
       .readFileSync(`${dir}/date-changes.jsonl`, 'utf-8')
       .split('\n')
       .filter(Boolean)
@@ -188,6 +228,7 @@ function journalSections() {
   } catch {
     console.log('kartel-windows.json нет.')
   }
+  sprintMethodTable(changes)
 }
 
 function main() {
@@ -204,6 +245,15 @@ function main() {
     line(
       `kind=${k}`,
       all.filter((r) => r.kind === k),
+    )
+  }
+  console.log('\n--- По спринтам (git-история announcements.json) ---')
+  for (const sprint of [...new Set(all.map((r) => r.id.split('|')[0]))].sort(
+    (a, b) => Number(a) - Number(b),
+  )) {
+    line(
+      `спринт ${sprint}`,
+      all.filter((r) => r.id.split('|')[0] === sprint),
     )
   }
   console.log(`\nХудшие ${WORST}:`)

@@ -347,7 +347,13 @@ describe('methodAccuracy', () => {
       }),
     ])
     expect(rows).toEqual([
-      { item: 'a', method: 'neighbor', errDays: 1, leadDays: expect.closeTo(4.96, 1) },
+      {
+        item: 'a',
+        sprint: '260',
+        method: 'neighbor',
+        errDays: 1,
+        leadDays: expect.closeTo(4.96, 1),
+      },
     ])
   })
 
