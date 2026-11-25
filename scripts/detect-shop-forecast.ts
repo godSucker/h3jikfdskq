@@ -48,10 +48,34 @@ const THUMB_BASE = 'https://s-beta.kobojo.com/mutants/assets/thumbnails/'
 // баннеров daily_news (resolveOfferBanner в detect-daily-news.ts). Найдено
 // 2026-09-04 на живом баге ("Жизни пакет" 404) - слепое вырезание "$$" (как
 // было раньше) даёт несуществующий URL, нужна подстановка -ru/-en. 141 запись
-// в истории shopitems.xml так размечена - не единичный случай. У большинства
-// picture БЕЗ "$$" - для них ничего не меняется, прямой URL как раньше.
+// в истории shopitems.xml так размечена - не единичный случай.
+//
+// НАЙДЕНО 2026-11-26 (юзер поймал битую картинку "Селендис" в проде): у
+// picture БЕЗ "$$" тоже бывает недостоверный регистр - сырой XML Kobojo даёт
+// picture="specimen_EE_05_bronze" (заглавные EE), а реальный файл на их же
+// CDN лежит строчными (specimen_ee_05_bronze.png) - nginx регистрозависим,
+// as-is URL молча давал 404 (эта ветка вообще не проверялась). HEAD-проверка
+// + lowercase-фоллбэк, тот же приём, что уже работает для $$-веток ниже;
+// toLowerCase()-дубль не шлём, если picture и так целиком строчный (основной
+// случай) - лишний HEAD только когда регистр реально смешанный.
 async function resolveThumbnailUrl(picture: string): Promise<string | null> {
-  if (!picture.includes('$$')) return `${THUMB_BASE}${picture}.png`
+  if (!picture.includes('$$')) {
+    const lower = picture.toLowerCase()
+    const candidates = picture === lower ? [picture] : [picture, lower]
+    for (const candidate of candidates) {
+      const url = `${THUMB_BASE}${candidate}.png`
+      try {
+        const res = await axios.head(url, {
+          timeout: 8000,
+          validateStatus: (s) => s === 200 || s === 404,
+        })
+        if (res.status === 200) return url
+      } catch {
+        // сеть упала - пробуем следующий вариант, ниже общий null-фоллбек
+      }
+    }
+    return null
+  }
   for (const lang of ['ru', 'en']) {
     const url = `${THUMB_BASE}${picture.replace('$$', `-${lang}`)}.png`
     try {
@@ -263,9 +287,7 @@ export async function fetchShopForecast(sprintOverride?: number): Promise<ShopFo
       }
     })
     const packMutants = [
-      ...new Set(
-        articleItems.filter((a) => /^specimen_/i.test(a.typeId)).map((a) => a.typeId),
-      ),
+      ...new Set(articleItems.filter((a) => /^specimen_/i.test(a.typeId)).map((a) => a.typeId)),
     ]
     // Та же классификация валюты/сущности, что toMutantOrReward в
     // build-boxes.ts (не импортируем - тот файл про другой детектор категории
