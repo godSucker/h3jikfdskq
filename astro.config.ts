@@ -11,16 +11,11 @@ const SRC = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
   site: 'https://archivist-library.com',
   output: 'server',
-  // Найдено 2026-11-25 (GSC-разбор): без явной настройки Astro матчит и
-  // слеш, и бесслеш как один роут ('ignore') - для SSR-страниц (/panel-render,
-  // /top-evo, /announcements/render/[id], api/*) это ничего не меняет (у них
-  // уже нет слеша в реальных вызовах), но canonical-тег везде резолвится в
-  // форму СО слешем (см. BaseLayout.astro) - 'always' просто совмещает
-  // поведение SSR-роутов с уже фактическим канон. Для prerender-страниц (почти
-  // весь сайт) Astro это НЕ редиректит (hosting-платформа отвечает за это -
-  // см. докстринг trailingSlash в astro/dist/types/public/config.d.ts) -
-  // настоящий редирект для них отдельно в vercel.json.
-  trailingSlash: 'always',
+  // trailingSlash is intentionally left at the default ('ignore'). Setting it
+  // to 'always' (2026-11-25) made Astro 308-redirect every SSR route,
+  // including api/*-webhook: Telegram does not follow redirects, so all three
+  // bots stopped receiving updates. The trailing-slash SEO redirect for
+  // prerendered pages lives in vercel.json, which already excludes api/.
   // Доверенные хосты запроса. С Astro 5.18 (обновление от 03.10.2026) без этого
   // списка заголовок Host не доверяется, и url.origin в SSR равен https://localhost:
   // сломался постер тира на превью (headless-браузер ходил на localhost), а
