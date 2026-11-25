@@ -1,13 +1,17 @@
 // Ежедневный дайджест обновлений в публичный Telegram-канал - заменяет
 // поштучный кросс-пост (удалён, см. комментарий в build-announcements.ts).
-// Один пост в день со всеми категориями за сутки разом, картинками, не
-// текстом: у каждой категории уже есть рабочий рендер на сайте - большинство
-// через /api/screenshot-announcement (тот же AnnouncementCard.astro, что живая
-// лента), mutant/skin - через /api/screenshot-mutant и /api/screenshot-skin
-// (полная модалка, см. resolveImageUrl) - дайджест просто собирает готовые
-// картинки в один Telegram-альбом, вместо того чтобы изобретать второй
+// Один пост в день, картинками, не текстом - через /api/screenshot-announcement
+// (тот же AnnouncementCard.astro, что живая лента), дайджест просто собирает
+// готовые картинки в один Telegram-альбом, вместо того чтобы изобретать второй
 // текстовый формат (юзер 2026-11-22: "чисто текстом полная хуйня, нужен
 // именно визуал - по сути большинство уже есть же").
+//
+// Область (юзер 2026-11-25, после фидбека Жени): ТОЛЬКО 'todayShop' (срез
+// сегодняшних офферов шопа) + pvp + evoDiscount + madnessDiscount. Раньше
+// сюда же шли mutant/skin/token/bingo/box/exchange/reactor/raid/ladder/
+// eventLadder/eventQuests - убраны целиком: mutant/skin и так уже в
+// announcements.json и на /announcements, а бинго-скрин дублировал ту же
+// карточку мутанта ВНУТРИ одного поста (Женя: "скрины бинго в целом лишнее").
 //
 // Источник - announcements.json (поле date = когда пайплайн увидел запись,
 // это уже и есть "сегодня" в нужном смысле). Ничего не детектит заново -
@@ -33,7 +37,6 @@ const ROOT = process.cwd()
 // тот же деплой на *.vercel.app отвечает напрямую. В реальном воркфлоу не
 // задаётся - там всегда прод-домен.
 const SITE_ORIGIN = process.env.DIGEST_SITE_ORIGIN ?? 'https://archivist-library.com'
-const CDN_BASE = 'https://cdn.archivist-library.com'
 const MARKER_PATH = path.join(ROOT, 'scripts/digest-last-sent.json')
 const MSK_OFFSET_MS = 3 * 60 * 60 * 1000
 const MAX_ALBUM_SIZE = 10
@@ -43,10 +46,6 @@ interface AnnouncementItemLike {
   id: string
   name?: string
   exactDateStart?: string | null
-  addedNames?: string[]
-  addedSpecimenIds?: string[]
-  rewardMutantId?: string | null
-  specimenId?: string | null
   pvpRewardTiers?: { tier: number; items: { amount: number; id: string }[] }[]
 }
 interface AnnouncementLike {
@@ -88,58 +87,17 @@ const ruDateLabel = (d: Date) => {
   return `${m.getUTCDate()} ${RU_MONTHS[m.getUTCMonth()]}`
 }
 
-// Порядок категорий в альбоме - игровая логика (мутанты/скины вперёд,
-// технические обновления магазина - в конец), не алфавит.
-const CATEGORY_ORDER = [
-  'mutant',
-  'skin',
-  'token',
-  'bingo',
-  'box',
-  'exchange',
-  'reactor',
-  'raid',
-  'ladder',
-  'eventLadder',
-  'pvp',
-  'eventQuests',
-  'evoDiscount',
-  'madnessDiscount',
-  'todayShop',
-]
-// shopForecast/dailyNews НЕ в дайджесте вовсе (юзер 2026-11-23: "спринты
-// анонсятся другим механизмом") - их несёт отдельная синтетическая категория
-// 'todayShop' (см. todayShopItems ниже), не announcements.json-запись.
+// Порядок карточек в альбоме - todayShop первым (Женя 2026-11-25: "последний
+// скрин в посте по сути должен быть первым" - раньше был последним).
+const CATEGORY_ORDER = ['todayShop', 'pvp', 'evoDiscount', 'madnessDiscount']
 const CATEGORY_ICON: Record<string, string> = {
-  mutant: '🧬',
-  skin: '🎨',
-  token: '🪙',
-  bingo: '🎲',
-  box: '📦',
-  exchange: '💱',
-  reactor: '🎰',
-  raid: '⚔️',
-  ladder: '🪜',
-  eventLadder: '🪜',
   pvp: '🥊',
-  eventQuests: '📜',
   evoDiscount: '🧪',
   madnessDiscount: '🎡',
   todayShop: '🛒',
 }
 const CATEGORY_LABEL: Record<string, string> = {
-  mutant: 'Мутанты',
-  skin: 'Скины',
-  token: 'Жетоны',
-  bingo: 'Бинго',
-  box: 'Боксы',
-  exchange: 'Обменники',
-  reactor: 'Реакторы',
-  raid: 'Рейды',
-  ladder: 'Лесенки',
-  eventLadder: 'Ивент-лесенки',
   pvp: 'ПвП',
-  eventQuests: 'Задания',
   evoDiscount: 'Скидка на эво',
   madnessDiscount: 'Скидка на рулетку',
   todayShop: 'Сегодня в магазине',
@@ -148,18 +106,7 @@ const CATEGORY_LABEL: Record<string, string> = {
 // (юзер 2026-11-23, по образцу его же канала mutants_mgg_fb: там один тег на
 // пост; у нас один пост = много категорий, поэтому список тегов, не один).
 const CATEGORY_HASHTAG: Record<string, string> = {
-  mutant: '#MGGmutant',
-  skin: '#MGGskin',
-  token: '#MGGtoken',
-  bingo: '#MGGbingo',
-  box: '#MGGshop',
-  exchange: '#MGGchange',
-  reactor: '#MGGreactor',
-  raid: '#MGGraid',
-  ladder: '#MGGladder',
-  eventLadder: '#MGGladder',
   pvp: '#MGGPvP',
-  eventQuests: '#MGGquests',
   evoDiscount: '#MGGdiscount',
   madnessDiscount: '#MGGdiscount',
   todayShop: '#MGGshop',
@@ -179,6 +126,7 @@ interface MutantLite {
 }
 let mutantsById: Map<string, MutantLite> = new Map()
 let goldCoverage: Set<string> = new Set()
+let boxIds: Set<string> = new Set()
 
 async function loadVerdictData(): Promise<void> {
   const mutants = await readJson<{ id: string; name: string; tier?: string | null }[]>(
@@ -229,6 +177,15 @@ async function loadVerdictData(): Promise<void> {
     }
   }
   goldCoverage = covering
+
+  // boxIds - для todayShop: сундуки/паки лежат в том же дневном пуле шопа, что
+  // и специмены (найдено 2026-11-25: "Mystery_Cyberweek_2026" подтверждён в
+  // shopForecast с exactDateStart 29.11 - попадёт в "Сегодня в магазине" как
+  // обычный оффер) - без этой проверки "скам"-предостережение (раньше жившее
+  // только в отдельной категории 'box', теперь убранной из дайджеста) для них
+  // тихо пропадало бы.
+  const boxes = await readJson<{ itemId: string }[]>('src/data/boxes.json', [])
+  boxIds = new Set(boxes.map((b) => b.itemId.toLowerCase()))
 }
 
 function tierBucket(tier: string | null | undefined): '12' | '3' | '4none' {
@@ -267,64 +224,39 @@ function pvpTopRewardSpecimenId(tiers: AnnouncementItemLike['pvpRewardTiers']): 
   return specimen ? specimen.id.toLowerCase() : null
 }
 
-// Основная строка подписи для ОДНОЙ записи дайджеста - имя + вердикт, где он
-// применим (юзер 2026-11-23, по категориям):
-// мутант/скин/pvp-награда/рейд-лесенка-награда/реактор-награда - тир-вердикт;
-// бокс - блан кет "скам"; бинго - тир-вердикт на КАЖДОГО добавленного
-// мутанта; обменник - только "кроет плав/кузню", если есть; эво-скидка -
-// "скип", если меньше 80%; остальное - без вердикта, просто факт.
+// specimenId БЕЗ суффикса варианта - для вердикта. boxIds - "скам"-оговорка
+// для сундуков/паков, которые приезжают в todayShop из того же дневного пула,
+// что и специмены (см. комментарий у boxIds в loadVerdictData).
+function isBoxOffer(rawId: string): boolean {
+  const afterSprint = rawId.includes('|') ? rawId.slice(rawId.indexOf('|') + 1) : rawId
+  const withoutShopPrefix = afterSprint.replace(/^shop_/i, '')
+  return boxIds.has(afterSprint.toLowerCase()) || boxIds.has(withoutShopPrefix.toLowerCase())
+}
+
+// Основная строка подписи для ОДНОЙ записи дайджеста (область сузена до
+// todayShop/pvp/evoDiscount/madnessDiscount, юзер 2026-11-25):
+// todayShop - по 1 офферу в строку (Женя: "чуть другой формат... по 1
+// предложению в строку"), специмены с тир-вердиктом, сундуки/паки с
+// "покупать не советуем", остальное без вердикта; pvp-награда - тир-вердикт;
+// эво-скидка - "скип", если меньше 80%; маднесс - без вердикта, просто факт.
 function captionLineFor(a: AnnouncementLike): string {
   const icon = CATEGORY_ICON[a.category] ?? '🔔'
   const it = a.items[0]
-  if (a.category === 'mutant') {
-    const verdict = mutantVerdict(it?.id)
-    return `${icon} ${it?.name ?? a.title}${verdict ? ` — ${verdict}` : ''}`
-  }
-  if (a.category === 'skin') {
-    const baseId = it?.id.split('|')[0] ?? null
-    const verdict = mutantVerdict(baseId)
-    return `${icon} ${it?.name ?? a.title}${verdict ? ` — ${verdict}` : ''}`
-  }
-  if (a.category === 'raid' || a.category === 'ladder' || a.category === 'eventLadder') {
-    const verdict = mutantVerdict(it?.rewardMutantId)
-    return `${icon} ${a.title}${verdict ? ` — награда: ${verdict}` : ''}`
-  }
-  if (a.category === 'reactor') {
-    const verdict = mutantVerdict(it?.rewardMutantId)
-    return `${icon} ${a.title}${verdict ? ` — главная награда: ${verdict}` : ''}`
-  }
   if (a.category === 'pvp') {
     const verdict = mutantVerdict(pvpTopRewardSpecimenId(it?.pvpRewardTiers))
     return `${icon} ${a.title}${verdict ? ` — награда: ${verdict}` : ''}`
   }
-  if (a.category === 'box') {
-    return `${icon} ${a.title} — покупать не советуем, скам`
-  }
-  if (a.category === 'bingo' && it?.addedSpecimenIds && it.addedSpecimenIds.length > 0) {
-    const names = it.addedNames ?? []
-    const parts = it.addedSpecimenIds.map((sid, i) => {
-      const verdict = mutantVerdict(sid)
-      return verdict ? `${names[i] ?? sid} (${verdict})` : (names[i] ?? sid)
-    })
-    const boardTitle = a.title.split(':')[0]
-    return `${icon} ${boardTitle}: добавлен(ы) ${parts.join(', ')}`
-  }
-  if (a.category === 'exchange') {
-    const covering = a.items
-      .map((x) => x.specimenId)
-      .filter((sid): sid is string => !!sid && goldCoverage.has(sid.toLowerCase()))
-    const names = a.items
-      .filter((x) => x.specimenId && covering.includes(x.specimenId))
-      .map((x) => x.name ?? x.id)
-    return `${icon} ${a.title}${names.length > 0 ? ` — кроет плав/кузню: ${names.join(', ')}` : ''}`
-  }
   if (a.category === 'todayShop') {
     const parts = a.items.map((x) => {
       const specimenId = shopOfferSpecimenId(x.id)
-      const verdict = mutantVerdict(specimenId)
-      return verdict ? `${x.name ?? x.id} (${verdict})` : (x.name ?? x.id)
+      if (specimenId) {
+        const verdict = mutantVerdict(specimenId)
+        return verdict ? `${x.name ?? x.id} (${verdict})` : (x.name ?? x.id)
+      }
+      if (isBoxOffer(x.id)) return `${x.name ?? x.id} (покупать не советуем)`
+      return x.name ?? x.id
     })
-    return `${icon} ${a.title}: ${parts.join(', ')}`
+    return `${icon} ${a.title}:\n${parts.join(',\n')}`
   }
   if (a.category === 'evoDiscount') {
     const goldPct = /золото (\d+)%/.exec(a.title)?.[1]
@@ -343,36 +275,11 @@ interface ImageJob {
   url: string
 }
 
-// bingo несёт готовый PNG (scripts/render-bingo-screenshots.ts), не живой
-// рендер - тот же приём, что AnnouncementCard.astro (bingoShotFile): дешевле
-// и не зависит от Chromium на момент отправки дайджеста.
-//
-// mutant/skin - скрин ПОЛНОЙ модалки (MutantModal.svelte: статы/абилки/
-// источники получения), не карточки анонса - та несёт только имя+иконку,
-// избыточна рядом с модалкой (юзер 2026-11-22: "мутантов и скины нужно слать
-// скринами из их модальки"). Тот же приём, что у admin-бота
-// (process-pending-screenshots.ts::contentUrlFor) - переиспользуем те же
-// эндпоинты /api/screenshot-mutant и /api/screenshot-skin, не изобретаем
-// второй рендер. item.id для mutant - specimen id, для skin -
-// "<specimenId>|<skinKey>" (см. detectMutants/detectSkins). ?date= рисует
-// плашку даты анонса прямо на скрине модалки.
-async function resolveImageUrl(
-  a: AnnouncementLike,
-  bingoShots: Record<string, { file: string }>,
-): Promise<string> {
-  if (a.category === 'bingo' && a.items[0]) {
-    const shot = bingoShots[a.items[0].id]
-    if (shot?.file) return CDN_BASE + (shot.file.startsWith('/') ? shot.file : `/${shot.file}`)
-  }
-  const dateParam = `&date=${encodeURIComponent(a.date)}`
-  if (a.category === 'mutant' && a.items[0]) {
-    return `${SITE_ORIGIN}/api/screenshot-mutant?id=${encodeURIComponent(a.items[0].id)}${dateParam}`
-  }
-  if (a.category === 'skin' && a.items[0]) {
-    return `${SITE_ORIGIN}/api/screenshot-skin?id=${encodeURIComponent(a.items[0].id)}${dateParam}`
-  }
-  // todayShop - синтетическая запись (см. main()), страница сама вычисляет
-  // "сегодня" и сама фильтрует shopForecast/dailyNews, id/date ей не нужны.
+// todayShop - синтетическая запись (см. main()), страница сама вычисляет
+// "сегодня" и сама фильтрует shopForecast/dailyNews, id/date ей не нужны.
+// pvp/evoDiscount/madnessDiscount - обычный живой рендер карточки анонса
+// (тот же AnnouncementCard.astro, что на /announcements).
+async function resolveImageUrl(a: AnnouncementLike): Promise<string> {
   if (a.category === 'todayShop') {
     return `${SITE_ORIGIN}/api/screenshot-today-shop`
   }
@@ -478,19 +385,15 @@ async function main() {
   }
 
   const announcements = await readJson<AnnouncementLike[]>('src/data/announcements.json', [])
-  // shopForecast/dailyNews ИСКЛЮЧЕНЫ из обычной агрегации (юзер 2026-11-23:
-  // доска спринта на 2 недели вперёд - не "что добавили сегодня", эти
-  // категории анонсятся своим механизмом). Вместо них - todayShopItems ниже:
+  // Область дайджеста - ТОЛЬКО pvp/evoDiscount/madnessDiscount из обычных
+  // announcements.json-категорий (юзер 2026-11-25, после фидбека Жени - см.
+  // докстринг файла). shopForecast/dailyNews тоже не отсюда - их несёт
+  // отдельная синтетическая категория 'todayShop' (todayShopItems ниже):
   // срез уже известных офферов из ЛЮБОЙ (не обязательно сегодняшней) записи
   // этих категорий, чей exactDateStart приходится именно на сегодня.
+  const DIGEST_CATEGORIES = new Set(['pvp', 'evoDiscount', 'madnessDiscount'])
   const todays = announcements
-    .filter(
-      (a) =>
-        a.category !== 'rebalance' &&
-        a.category !== 'shopForecast' &&
-        a.category !== 'dailyNews' &&
-        mskDateKey(new Date(a.date)) === todayKey,
-    )
+    .filter((a) => DIGEST_CATEGORIES.has(a.category) && mskDateKey(new Date(a.date)) === todayKey)
     .sort((a, b) => {
       const ia = CATEGORY_ORDER.indexOf(a.category)
       const ib = CATEGORY_ORDER.indexOf(b.category)
@@ -550,12 +453,8 @@ async function main() {
     ? fullText.slice(0, TELEGRAM_CAPTION_LIMIT - 20).replace(/\n[^\n]*$/, '') + '\n…см. ниже'
     : fullText
 
-  const bingoShots = await readJson<Record<string, { file: string }>>(
-    'src/data/bingo-screenshots.json',
-    {},
-  )
   const jobs: ImageJob[] = await Promise.all(
-    todays.map(async (a) => ({ announcement: a, url: await resolveImageUrl(a, bingoShots) })),
+    todays.map(async (a) => ({ announcement: a, url: await resolveImageUrl(a) })),
   )
 
   if (dryRun) {
