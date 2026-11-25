@@ -468,6 +468,7 @@ const dayNum = (isoStr: string) => Math.floor(Date.parse(isoStr) / 86_400_000)
 
 export interface MethodRow {
   item: string
+  sprint: string | null
   method: string
   errDays: number
   leadDays: number
@@ -492,6 +493,7 @@ export function methodAccuracy(changes: DateChange[]): MethodRow[] {
     if (!guess?.to?.start || !exact.to?.start) continue
     rows.push({
       item: guess.item,
+      sprint: guess.sprint ?? guess.item.split('|')[0] ?? null,
       method: guess.to.src ?? 'unknown',
       errDays: dayNum(exact.to.start) - dayNum(guess.to.start),
       leadDays: (Date.parse(exact.ts) - Date.parse(guess.ts)) / 86_400_000,
