@@ -12030,5 +12030,53 @@
     ],
     "link": "/announcements",
     "sprintKey": "262"
+  },
+  {
+    "id": "mutant-1795614709444-0",
+    "date": "2026-11-25T13:51:48.819Z",
+    "category": "mutant",
+    "title": "Куробиони",
+    "items": [
+      {
+        "id": "specimen_cb_15",
+        "name": "Куробиони",
+        "image": "https://s-beta.kobojo.com/mutants/assets/opengraph/specimen_cb_15_obtain.jpg"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "skin-1795614709446-0",
+    "date": "2026-11-25T13:51:48.819Z",
+    "category": "skin",
+    "title": "Ходячий кошмар — Кибернеделя",
+    "items": [
+      {
+        "id": "Specimen_FB_11|cyberweek",
+        "name": "Ходячий кошмар — Кибернеделя",
+        "image": "textures_by_skins/textures_by_skin/full/FULL_fb_11_cyberweek.png"
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "bingo-1795614709457-0",
+    "date": "2026-11-25T13:51:48.819Z",
+    "category": "bingo",
+    "title": "Мутанты 2026: добавлен(ы) Куробиони",
+    "items": [
+      {
+        "id": "2026_mutants",
+        "name": "Мутанты 2026: добавлен(ы) Куробиони",
+        "image": null,
+        "addedNames": [
+          "Куробиони"
+        ],
+        "addedSpecimenIds": [
+          "specimen_cb_15"
+        ]
+      }
+    ],
+    "link": "/bingo"
   }
 ]
