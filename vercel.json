@@ -5,6 +5,11 @@
       "has": [{ "type": "host", "value": "www.archivist-library.com" }],
       "destination": "https://archivist-library.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/:path((?!api\\/|panel-render|top-evo|announcements\\/render\\/)[^.]*[^/.])",
+      "destination": "/:path/",
+      "permanent": true
     }
   ],
   "headers": [
