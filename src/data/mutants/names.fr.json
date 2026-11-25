@@ -3376,5 +3376,11 @@
     "lore": "Au cours de millions d’années, les animaux sauvages naquirent, vécurent et moururent. Au cours de millions d’années, les os s’accumulèrent, les émotions et les ressentis de chacun d’entre eux s’accumulèrent dans cette vallée. L’humanité entière l’évitait naturellement, comme un endroit maudit. Mais la curiosité l’emporta sur le bon sens, et l’endroit finit par être exploré. Deux survivants sur une expédition de 30 personnes. Ils moururent peu après de leurs blessures et des maladies contractées sur place. Leurs derniers mots furent \"Ne retournez jamais là-bas\".",
     "atk1Name": "Cage Osseuse",
     "atk2Name": "Eclate-Os"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Ce démon frappé du sceau du soleil noir cherche en permanence le combat pour se renforcer et démontrer sa puissance. Chacune de ses victimes nourrit sa force, et il n’hésitera pas à utiliser les âmes collectées comme projectiles pour faire encore plus de victimes.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

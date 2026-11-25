@@ -3376,5 +3376,11 @@
     "lore": "Über Millionen von Jahren hinweg wurden wilde Tiere geboren, lebten und starben. Über Millionen von Jahren hinweg türmten sich Knochen an, und die Emotionen und Gefühle jedes einzelnen von ihnen sammelten sich in diesem Tal an. Die gesamte Menschheit mied diesen Ort ganz selbstverständlich, als wäre er verflucht. Doch die Neugierde gewann die Oberhand über den gesunden Menschenverstand, und schließlich wurde der Ort erkundet. Zwei Überlebende einer 30-köpfigen Expedition. Sie starben kurz darauf an ihren Verletzungen und an Krankheiten, die sie sich dort zugezogen hatten. Ihre letzten Worte lauteten: „Geht niemals dorthin zurück.“",
     "atk1Name": "Knochenkäfig",
     "atk2Name": "Knochenbrecher"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Dieser Dämon, der mit dem Siegel der schwarzen Sonne gezeichnet ist, sucht ständig den Kampf, um stärker zu werden und seine Macht zu demonstrieren. Jedes seiner Opfer stärkt ihn, und er zögert nicht, die gesammelten Seelen als Geschosse einzusetzen, um noch mehr Opfer zu fordern.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

@@ -3376,5 +3376,11 @@
     "lore": "Nel corso di milioni di anni, gli animali selvatici sono nati, hanno vissuto e sono morti. Nel corso di milioni di anni, le ossa si sono accumulate e le emozioni e i sentimenti di ciascuno di loro si sono concentrati in questa valle. Tutta l’umanità l’ha naturalmente evitata, come se fosse un luogo maledetto. Ma la curiosità ha avuto la meglio sul buon senso e alla fine il luogo è stato esplorato. Due sopravvissuti su una spedizione di 30 persone. Morirono poco dopo a causa delle ferite riportate e delle malattie contratte sul posto. Le loro ultime parole furono: «Non tornateci mai più».",
     "atk1Name": "Gabbia d’ossa",
     "atk2Name": "Spezzatore d’ossa"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Questo demone, contrassegnato dal sigillo del sole nero, è costantemente alla ricerca di battaglie per diventare più forte e dimostrare il proprio potere. Ciascuna delle sue vittime alimenta la sua forza, e non esiterà a usare le anime che ha raccolto come proiettili per mietere ancora più vittime.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

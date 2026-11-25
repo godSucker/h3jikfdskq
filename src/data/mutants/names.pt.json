@@ -3370,5 +3370,11 @@
     "lore": "Ao longo de milhões de anos, animais selvagens nasceram, viveram e morreram. Ao longo de milhões de anos, os ossos acumularam-se e as emoções e sentimentos de cada um deles acumularam-se neste vale. Toda a humanidade evitava-o naturalmente, como se fosse um lugar amaldiçoado. Mas a curiosidade levou a melhor sobre o bom senso e o local acabou por ser explorado. Dois sobreviventes de uma expedição de 30 pessoas. Morreram pouco tempo depois devido aos ferimentos e às doenças contraídas no local. As suas últimas palavras foram: «Nunca mais voltem lá.»",
     "atk1Name": "Gaiola de ossos",
     "atk2Name": "Quebra-ossos"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Este demónio, marcado pelo selo do sol negro, está constantemente à procura de combate para se tornar mais forte e demonstrar o seu poder. Cada uma das suas vítimas alimenta a sua força, e ele não hesitará em usar as almas que recolheu como projéteis para fazer ainda mais vítimas.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

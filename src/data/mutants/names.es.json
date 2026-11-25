@@ -3376,5 +3376,11 @@
     "lore": "A lo largo de millones de años, los animales salvajes nacieron, vivieron y murieron. A lo largo de millones de años, los huesos se amontonaron, y las emociones y los sentimientos de cada uno de ellos se acumularon en este valle. Toda la humanidad lo evitaba de forma natural, como si fuera un lugar maldito. Pero la curiosidad se impuso al sentido común y, finalmente, el lugar fue explorado. Dos supervivientes de una expedición de 30 personas. Murieron poco después a causa de sus heridas y de las enfermedades contraídas allí. Sus últimas palabras fueron: «No volváis nunca allí».",
     "atk1Name": "Jaula de huesos",
     "atk2Name": "Rompehuesos"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Este demonio, marcado con el sello del sol negro, busca constantemente la batalla para hacerse más fuerte y demostrar su poder. Cada una de sus víctimas alimenta su fuerza, y no dudará en utilizar las almas que ha recogido como proyectiles para reclamar aún más víctimas.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }
