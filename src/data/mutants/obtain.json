@@ -6308,6 +6308,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (3★, скин «cyberweek»)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_ae_07": [
@@ -8159,6 +8165,11 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 288"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 150 жетонов джекпота",
+      "icon": "/materials/Material_Jackpot_Token.png"
     }
   ],
   "specimen_af_11": [
@@ -11695,6 +11706,11 @@
     {
       "type": "gold_shop",
       "where": "Магазин за 1 200 золота (версия: бронзовый)"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 50 жетонов джекпота",
+      "icon": "/materials/Material_Jackpot_Token.png"
     }
   ],
   "specimen_bb_10": [
@@ -24911,6 +24927,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 114"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (3★, скин «cybernetics»)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_ce_09": [
@@ -28621,6 +28643,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 329"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (золото)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_da_12": [
@@ -32215,6 +32243,12 @@
     {
       "type": "pvp",
       "where": "PVP: Сезон 84"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (3★, скин «cybernetics»)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_dd_06": [
@@ -36629,6 +36663,11 @@
     {
       "type": "breeding_duplicate",
       "where": "Скрещивание НЕ даёт первую копию — только размножает уже имеющегося мутанта (один из родителей должен быть им самим)"
+    },
+    {
+      "type": "jackpot_hall",
+      "where": "Зал обмена — 250 жетонов джекпота",
+      "icon": "/materials/Material_Jackpot_Token.png"
     }
   ],
   "specimen_e_13": [
@@ -37850,6 +37889,12 @@
     {
       "type": "roulette",
       "where": "Рулетка «Mutants Madness»"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (3★, скин «thanksgiving»)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_ea_07": [
@@ -49597,6 +49642,12 @@
     {
       "type": "jackpot_hall",
       "where": "Зал обмена — 200 жетонов джекпота"
+    },
+    {
+      "type": "box",
+      "where": "Мистери-бокс: Таинственная коробка Кибернедели (3★, скин «cyberweek»)",
+      "icon": "/boxes/mystery_cyberweek.png",
+      "itemId": "Mystery_Cyberweek_2026"
     }
   ],
   "specimen_fb_12": [

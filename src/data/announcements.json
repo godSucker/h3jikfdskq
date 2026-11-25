@@ -8773,7 +8773,7 @@
         "packMutants": [
           "Specimen_AC_11",
           "Specimen_BC_08",
-          "Specimen_AD_12"
+          "Specimen_ED_12"
         ]
       },
       {
@@ -10186,5 +10186,1844 @@
       }
     ],
     "link": "/guides#pvp-seasons"
+  },
+  {
+    "id": "bingo-1795593804285-0",
+    "date": "2026-11-25T08:03:24.261Z",
+    "category": "bingo",
+    "title": "Скины 2026: добавлен(ы) Ходячий кошмар",
+    "items": [
+      {
+        "id": "2026_skins",
+        "name": "Скины 2026: добавлен(ы) Ходячий кошмар",
+        "image": null,
+        "addedNames": [
+          "Ходячий кошмар"
+        ],
+        "addedSpecimenIds": [
+          "specimen_fb_11"
+        ]
+      }
+    ],
+    "link": "/bingo"
+  },
+  {
+    "id": "box-1795593805578-0",
+    "date": "2026-11-25T08:03:24.261Z",
+    "category": "box",
+    "title": "Таинственная коробка Кибернедели",
+    "items": [
+      {
+        "id": "Mystery_Cyberweek_2026",
+        "name": "Таинственная коробка Кибернедели",
+        "image": "/boxes/mystery_cyberweek.png",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null
+      }
+    ],
+    "link": "/boxes"
+  },
+  {
+    "id": "exchange-1795593805800",
+    "date": "2026-11-25T08:03:24.261Z",
+    "category": "exchange",
+    "title": "Обновление зала обмена: 3",
+    "items": [
+      {
+        "id": "jackpot|READY_07|specimen_bb_09",
+        "name": "Франкенхуахуа",
+        "image": "textures_by_mutant/bb_09/specimen_bb_09_normal.webp",
+        "hall": "jackpot",
+        "specimenId": "specimen_bb_09",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 50,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 ноября — ?",
+        "exactDateStart": "2026-11-30T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_08|specimen_af_10",
+        "name": "Эль Токсино",
+        "image": "textures_by_mutant/af_10/specimen_af_10_normal.webp",
+        "hall": "jackpot",
+        "specimenId": "specimen_af_10",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 150,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 ноября — ?",
+        "exactDateStart": "2026-11-30T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true,
+        "star": null,
+        "skin": null
+      },
+      {
+        "id": "jackpot|READY_09|specimen_e_12",
+        "name": "Звездный исследователь",
+        "image": "textures_by_mutant/e_12/specimen_e_12_normal.webp",
+        "hall": "jackpot",
+        "specimenId": "specimen_e_12",
+        "cost": {
+          "id": "Material_Jackpot_Token",
+          "amount": 250,
+          "name": "Жетон джекпота",
+          "image": "/materials/Material_Jackpot_Token.png"
+        },
+        "exactDateLabel": "30 ноября — ?",
+        "exactDateStart": "2026-11-30T10:00:00+00:00",
+        "exactDateEnd": null,
+        "exactDateOpenEnd": true,
+        "star": null,
+        "skin": null
+      }
+    ],
+    "link": "/mutants"
+  },
+  {
+    "id": "shopForecast-1795593807105",
+    "date": "2026-11-25T08:03:24.261Z",
+    "category": "shopForecast",
+    "title": "Прогноз магазина: 64",
+    "items": [
+      {
+        "id": "262|Advent26_Box_11",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_11.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_10",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_10.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_09",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_09.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_08",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_08.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_07",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_07.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_06",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_06.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_05",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_05.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_04",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_04.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_03",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_03.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_02",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_02.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Advent26_Box_01",
+        "name": "Предложение адвент-календаря",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/advent_calendar26_01.png",
+        "price": {
+          "amount": 30,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Pack_Bone",
+        "name": "Набор костей",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_bone.png",
+        "price": {
+          "amount": 2990,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_BD_10",
+          "Specimen_AB_08",
+          "Specimen_CB_07"
+        ]
+      },
+      {
+        "id": "262|LuckyBox_Mythic_Prime",
+        "name": "Легендарный мификаконтейнер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_mystic.png",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FA_02",
+          "Specimen_FB_02",
+          "Specimen_FE_02",
+          "Specimen_FF_02",
+          "Specimen_FA_03",
+          "Specimen_FB_03",
+          "Specimen_FE_03",
+          "Specimen_FF_03",
+          "Specimen_FB_04",
+          "Specimen_FD_04",
+          "Specimen_FE_04",
+          "Specimen_FF_04",
+          "Specimen_FA_05",
+          "Specimen_FB_05",
+          "Specimen_FD_05",
+          "Specimen_FE_05",
+          "Specimen_FF_05",
+          "Specimen_FB_06",
+          "Specimen_FD_06",
+          "Specimen_FE_06",
+          "Specimen_FF_06",
+          "Specimen_FA_07",
+          "Specimen_FB_07",
+          "Specimen_FC_07",
+          "Specimen_FE_07",
+          "Specimen_FA_08",
+          "Specimen_FB_08",
+          "Specimen_FC_08",
+          "Specimen_FD_08",
+          "Specimen_FE_08",
+          "Specimen_FF_08",
+          "Specimen_FA_09",
+          "Specimen_FB_09",
+          "Specimen_FD_09",
+          "Specimen_FE_09",
+          "Specimen_FF_09",
+          "Specimen_FA_10",
+          "Specimen_FC_10",
+          "Specimen_FE_10",
+          "Specimen_FF_10"
+        ]
+      },
+      {
+        "id": "262|Specimen_EE_02_Silver_sc",
+        "name": "Серебряный Сверхновус",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ee_02_silver.png",
+        "price": {
+          "amount": 7700000,
+          "type": "softcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_EE_02"
+        ]
+      },
+      {
+        "id": "262|pack_daily_3_platinum_32",
+        "name": "Звездное предложение",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_3_platinum.png",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 10 декабря",
+        "exactDateStart": "2026-12-10T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Specimen_FC_03",
+        "name": "Ориас",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_fc_03.png",
+        "price": {
+          "amount": 2500,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 10 декабря",
+        "exactDateStart": "2026-12-10T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FC_03"
+        ]
+      },
+      {
+        "id": "262|bank_cb_13_10ct",
+        "name": "Пакет «Мятеж»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cb_13_ct_2800.png",
+        "price": {
+          "amount": 24.99,
+          "type": "usd"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CB_13"
+        ]
+      },
+      {
+        "id": "262|bank_cb_13_25ct",
+        "name": "Пакет ветерана «Мятеж»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cb_13_ct_5900.png",
+        "price": {
+          "amount": 49.99,
+          "type": "usd"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CB_13"
+        ]
+      },
+      {
+        "id": "262|bank_cb_13_60ct",
+        "name": "Престижный пакет «Мятеж»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cb_13_ct_12000.png",
+        "price": {
+          "amount": 99.99,
+          "type": "usd"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CB_13"
+        ]
+      },
+      {
+        "id": "262|bundle_orbs_experimental_debuffer_11",
+        "name": "Пучок нейтрализующих сфер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/orb_bundle_debuffer.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Specimen_CC_09_sc",
+        "name": "Ланселот",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cc_09.png",
+        "price": {
+          "amount": 10000000,
+          "type": "softcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CC_09"
+        ]
+      },
+      {
+        "id": "262|Mysterybox_Ability_Slash",
+        "name": "Усиленный контейнер «Ранение» ",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/shop_mystery_slash.png",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 8 декабря",
+        "exactDateStart": "2026-12-08T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_DD_09",
+          "Specimen_DB_09",
+          "Specimen_FB_09",
+          "Specimen_DF_09",
+          "Specimen_EA_09",
+          "Specimen_BD_09",
+          "Specimen_DC_09",
+          "Specimen_DE_09",
+          "Specimen_DB_08",
+          "Specimen_FD_08",
+          "Specimen_DD_08",
+          "Specimen_BD_08",
+          "Specimen_AD_08",
+          "Specimen_ED_08",
+          "Specimen_DE_07",
+          "Specimen_DD_07",
+          "Specimen_BE_06",
+          "Specimen_DD_05",
+          "Specimen_DE_05",
+          "Specimen_AD_05",
+          "Specimen_DA_05",
+          "Specimen_DC_05",
+          "Specimen_CF_05",
+          "Specimen_AC_05",
+          "Specimen_DC_04",
+          "Specimen_DE_04",
+          "Specimen_DF_04",
+          "Specimen_DA_04",
+          "Specimen_DD_04",
+          "Specimen_BB_04",
+          "Specimen_DE_03",
+          "Specimen_DB_03",
+          "Specimen_DF_03",
+          "Specimen_DD_03",
+          "Specimen_DC_02",
+          "Specimen_DA_02",
+          "Specimen_DD_02",
+          "Specimen_DF_02",
+          "Specimen_DB_02",
+          "Specimen_DE_02"
+        ]
+      },
+      {
+        "id": "262|Specimen_EE_06_sc",
+        "name": "Королева Раккти",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ee_06.png",
+        "price": {
+          "amount": 8500000,
+          "type": "softcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 8 декабря",
+        "exactDateStart": "2026-12-08T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_EE_06"
+        ]
+      },
+      {
+        "id": "262|Specimen_DD_13_rc",
+        "name": "Лама-сенсей",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_dd_13.png",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 7 декабря",
+        "exactDateStart": "2026-12-07T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_DD_13"
+        ]
+      },
+      {
+        "id": "262|Specimen_EE_05_Bronze",
+        "name": "Бронзовый Селендис",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_EE_05_bronze.png",
+        "price": {
+          "amount": 960,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 7 декабря",
+        "exactDateStart": "2026-12-07T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_EE_05"
+        ]
+      },
+      {
+        "id": "262|pack_powerlevel_93",
+        "name": "Пакет прокачки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_powerlevel.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 6 декабря",
+        "exactDateStart": "2026-12-06T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Specimen_AE_06",
+        "name": "Марв",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ae_06.png",
+        "price": {
+          "amount": 850,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 6 декабря",
+        "exactDateStart": "2026-12-06T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AE_06"
+        ]
+      },
+      {
+        "id": "262|Specimen_FA_07_Bronze",
+        "name": "Бронзовый Доктор Фрост",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_fa_07_bronze.png",
+        "price": {
+          "amount": 700,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 5 декабря",
+        "exactDateStart": "2026-12-05T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FA_07"
+        ]
+      },
+      {
+        "id": "262|bank_fa_04_ex_t5",
+        "name": "Пакет «Банкир»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_fa_04_jt_t5.png",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FA_04"
+        ]
+      },
+      {
+        "id": "262|bank_fc_11_ex_t4",
+        "name": "Пакет «Мидас»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_fc_11_jt_t4.png",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FC_11"
+        ]
+      },
+      {
+        "id": "262|bank_ba_12_ex_t3",
+        "name": "Пакет «Кр€з»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_ba_12_jt_t3.png",
+        "price": {
+          "amount": 19.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_BA_12"
+        ]
+      },
+      {
+        "id": "262|bank_ca_09_ex_t2",
+        "name": "Пакет ветерана «Большой бо$$»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_ca_09_t4.png",
+        "price": {
+          "amount": 49.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CA_09"
+        ]
+      },
+      {
+        "id": "262|bank_fb_14_ex_t1",
+        "name": "Престижный пакет «Загам, Великий Король Жадности»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_fb_14_100jp.png",
+        "price": {
+          "amount": 99.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FB_14"
+        ]
+      },
+      {
+        "id": "262|LuckyBox_Research_VI_v3",
+        "name": "Сундук «Исследование VI»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_research_6.png",
+        "price": {
+          "amount": 750,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AA_07",
+          "Specimen_AB_07",
+          "Specimen_AD_07",
+          "Specimen_AE_07",
+          "Specimen_AF_07",
+          "Specimen_BA_07",
+          "Specimen_BB_07",
+          "Specimen_BC_07",
+          "Specimen_BE_07",
+          "Specimen_BF_07",
+          "Specimen_CA_07",
+          "Specimen_CB_07",
+          "Specimen_CC_07",
+          "Specimen_CD_07",
+          "Specimen_CE_07",
+          "Specimen_CF_07",
+          "Specimen_DA_07",
+          "Specimen_DB_07",
+          "Specimen_DC_07",
+          "Specimen_DD_07",
+          "Specimen_DE_07",
+          "Specimen_DF_07",
+          "Specimen_EA_07",
+          "Specimen_EB_07",
+          "Specimen_EC_07",
+          "Specimen_EE_07",
+          "Specimen_EF_07",
+          "Specimen_FA_07",
+          "Specimen_FB_07",
+          "Specimen_FC_07",
+          "Specimen_FD_07",
+          "Specimen_FE_07",
+          "Specimen_FF_07",
+          "Specimen_ED_08"
+        ]
+      },
+      {
+        "id": "262|Specimen_AA_04_Bronze",
+        "name": "Бронзовый Трехглаз",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_aa_04_bronze.png",
+        "price": {
+          "amount": 900,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AA_04"
+        ]
+      },
+      {
+        "id": "262|pack_daily_6_gacha_55",
+        "name": "Предложение «Реактор»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_6_gacha.png",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 3 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|bundle_orbs_adaptive_boost_13",
+        "name": "Адаптивный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bundle_orbs_adaptive_strengthen.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 3 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Specimen_DD_06_sc",
+        "name": "Кенгура",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_dd_06.png",
+        "price": {
+          "amount": 8500000,
+          "type": "softcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 3 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_DD_06"
+        ]
+      },
+      {
+        "id": "262|Specimen_EC_02_Bronze",
+        "name": "Бронзовый Громозека",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ec_02_bronze.png",
+        "price": {
+          "amount": 660,
+          "type": "hardcurrency"
+        },
+        "ribbon": null,
+        "exactDateLabel": "≈ 2 декабря",
+        "exactDateStart": "2026-12-02T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_EC_02"
+        ]
+      },
+      {
+        "id": "262|Luckybox_Hyperspeed",
+        "name": "Контейнер с мутантом-Молниеносный",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_hyperspeed.png",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 1 декабря",
+        "exactDateStart": "2026-12-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_DF_99",
+          "Specimen_EF_08",
+          "Specimen_E_03",
+          "Specimen_DB_07",
+          "Specimen_CC_06",
+          "Specimen_DE_03",
+          "Specimen_AD_03",
+          "Specimen_AF_02",
+          "Specimen_DB_02",
+          "Specimen_CC_03",
+          "Specimen_AF_04",
+          "Specimen_CD_04",
+          "Specimen_ED_04",
+          "Specimen_CA_04",
+          "Specimen_FC_06",
+          "Specimen_DA_07",
+          "Specimen_FA_10"
+        ]
+      },
+      {
+        "id": "262|Specimen_AB_04_Bronze_sc",
+        "name": "Бронзовый Офицер Эндер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ab_04_bronze.png",
+        "price": {
+          "amount": 9000000,
+          "type": "softcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 1 декабря",
+        "exactDateStart": "2026-12-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AB_04"
+        ]
+      },
+      {
+        "id": "262|pack_daily_5m_credit_70",
+        "name": "Предложение кредитов",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_daily_5m_credit.png",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|bundle_orbs_shield_5_26",
+        "name": "Щит пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bundle_orbs_shield_5-ru.png",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": []
+      },
+      {
+        "id": "262|Specimen_CD_13_Gold",
+        "name": "Золотой Беарсикк Сиклаэст",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cd_13_gold.png",
+        "price": {
+          "amount": 2800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CD_13"
+        ]
+      },
+      {
+        "id": "262|Specimen_ED_07_Gold",
+        "name": "Золотой Парамик",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_ed_07_gold.png",
+        "price": {
+          "amount": 1620,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_ED_07"
+        ]
+      },
+      {
+        "id": "262|bank_cyberweek26_t5",
+        "name": "Предложение «Новичок» в рамках «Кибернедели»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cyberweek26_t5.png",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FA_04"
+        ]
+      },
+      {
+        "id": "262|bank_cyberweek26_t4",
+        "name": "Предложение «Новичок» в рамках «Кибернедели»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cyberweek26_t4.png",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FC_11"
+        ]
+      },
+      {
+        "id": "262|bank_cyberweek26_t3",
+        "name": "Предложение «Ветеран» в рамках «Кибернедели»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cyberweek26_t3.png",
+        "price": {
+          "amount": 19.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_BA_12"
+        ]
+      },
+      {
+        "id": "262|bank_cyberweek26_t2",
+        "name": "Предложение «Ветеран» в рамках «Кибернедели»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cyberweek26_t2.png",
+        "price": {
+          "amount": 49.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CA_09"
+        ]
+      },
+      {
+        "id": "262|bank_cyberweek26_t1",
+        "name": "Предложение «Престиж» в рамках «Кибернедели»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_cyberweek26_t1.png",
+        "price": {
+          "amount": 99.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FB_14"
+        ]
+      },
+      {
+        "id": "262|Mystery_Cyberweek_2026",
+        "name": "Таинственная коробка Кибернедели",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_cyberweek.png",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FB_11",
+          "Specimen_EA_06",
+          "Specimen_DD_05",
+          "Specimen_CE_08",
+          "Specimen_AE_06",
+          "Specimen_DA_11"
+        ]
+      },
+      {
+        "id": "262|Pack_Cyberweek",
+        "name": "Набор «Кибернеделя»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_cyberweek.png",
+        "price": {
+          "amount": 6000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "discount-30",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AA_12",
+          "Specimen_AA_04",
+          "Specimen_AF_13"
+        ]
+      },
+      {
+        "id": "262|Pack_Cybercop",
+        "name": "Пакет \"Киберполицейский\"",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_cybercop.png",
+        "price": {
+          "amount": 3330,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_BA_11",
+          "Specimen_AD_08",
+          "Specimen_EC_08"
+        ]
+      },
+      {
+        "id": "262|Pack_Cyberpunk",
+        "name": "Пакет «Киберпанк»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/pack_cyberpunk.png",
+        "price": {
+          "amount": 4240,
+          "type": "hardcurrency"
+        },
+        "ribbon": "discount-30",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AC_05",
+          "Specimen_DA_11",
+          "Specimen_AD_12"
+        ]
+      },
+      {
+        "id": "262|Specimen_AF_08_Bronze",
+        "name": "Бронзовый ГYд1/-/1",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_af_08_bronze.png",
+        "price": {
+          "amount": 1140,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AF_08"
+        ]
+      },
+      {
+        "id": "262|LuckyBox_Cyber_Elite",
+        "name": "элитный контейнер «зооморфа»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/mystery_elite_cyber.png",
+        "price": {
+          "amount": 700,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": "≈ 28 ноября",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_AE_02",
+          "Specimen_AF_02",
+          "Specimen_EA_02",
+          "Specimen_FA_02",
+          "Specimen_AA_03",
+          "Specimen_AB_03",
+          "Specimen_AC_03",
+          "Specimen_AE_03",
+          "Specimen_AF_03",
+          "Specimen_BA_03",
+          "Specimen_CA_03",
+          "Specimen_EA_03",
+          "Specimen_FA_03",
+          "Specimen_AA_04",
+          "Specimen_AB_04",
+          "Specimen_AF_04",
+          "Specimen_BA_04",
+          "Specimen_CA_04",
+          "Specimen_EA_04",
+          "Specimen_AA_05",
+          "Specimen_AC_05",
+          "Specimen_BA_05",
+          "Specimen_CA_05",
+          "Specimen_EA_05",
+          "Specimen_FA_05",
+          "Specimen_A_05",
+          "Specimen_AA_06",
+          "Specimen_AB_06",
+          "Specimen_AE_06",
+          "Specimen_BA_06",
+          "Specimen_CA_06",
+          "Specimen_EA_06",
+          "Specimen_AA_07",
+          "Specimen_AE_07",
+          "Specimen_BA_07",
+          "Specimen_CA_07",
+          "Specimen_EA_07",
+          "Specimen_FA_07",
+          "Specimen_AA_08",
+          "Specimen_AB_08",
+          "Specimen_AC_08",
+          "Specimen_AF_08",
+          "Specimen_BA_08",
+          "Specimen_CA_08",
+          "Specimen_FA_08",
+          "Specimen_AA_09",
+          "Specimen_AC_09",
+          "Specimen_AE_09",
+          "Specimen_BA_09",
+          "Specimen_EA_09",
+          "Specimen_FA_09",
+          "Specimen_AA_10",
+          "Specimen_AB_10",
+          "Specimen_AF_10",
+          "Specimen_BA_10",
+          "Specimen_FA_10",
+          "Specimen_AD_02",
+          "Specimen_AD_03",
+          "Specimen_AD_04",
+          "Specimen_AD_05",
+          "Specimen_AD_06",
+          "Specimen_AD_07",
+          "Specimen_AD_08",
+          "Specimen_AD_09",
+          "Specimen_AD_10",
+          "Specimen_DA_02",
+          "Specimen_DA_04",
+          "Specimen_DA_05",
+          "Specimen_DA_06",
+          "Specimen_DA_07",
+          "Specimen_DA_10"
+        ]
+      },
+      {
+        "id": "262|Specimen_CF_03",
+        "name": "Кромсалочка",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cf_03.png",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": "≈ 28 ноября",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "ladder",
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CF_03"
+        ]
+      },
+      {
+        "id": "262|bank_blackfriday26_t5",
+        "name": "Предложение «Новичок» в рамках «Черной пятницы»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_blackfriday26_t5.png",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FB_13",
+          "Specimen_EA_13"
+        ]
+      },
+      {
+        "id": "262|bank_blackfriday26_t4",
+        "name": "Предложение «Новичок» в рамках «Черной пятницы»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_blackfriday26_t4.png",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_ED_99",
+          "Specimen_DD_12"
+        ]
+      },
+      {
+        "id": "262|bank_blackfriday26_t3",
+        "name": "Предложение «Ветеран» в рамках «Черной пятницы»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_blackfriday26_t3.png",
+        "price": {
+          "amount": 19.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_BB_13",
+          "Specimen_DF_99"
+        ]
+      },
+      {
+        "id": "262|bank_blackfriday26_t2",
+        "name": "Предложение «Ветеран» в рамках «Черной пятницы»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_blackfriday26_t2.png",
+        "price": {
+          "amount": 49.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_FA_99",
+          "Specimen_EB_99"
+        ]
+      },
+      {
+        "id": "262|bank_blackfriday26_t1",
+        "name": "Предложение «Престиж» в рамках «Черной пятницы»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/bank_blackfriday26_t1.png",
+        "price": {
+          "amount": 99.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CE_99",
+          "Specimen_EA_99"
+        ]
+      },
+      {
+        "id": "262|Specimen_CB_15_Gold",
+        "name": "Золотой Куробиони",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cb_15_gold.png",
+        "price": {
+          "amount": 3300,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CB_15"
+        ]
+      },
+      {
+        "id": "262|Specimen_CB_15_rc",
+        "name": "Куробиони",
+        "image": "https://s-beta.kobojo.com/mutants/assets/thumbnails/specimen_cb_15.png",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "legendary",
+        "exactDateLabel": null,
+        "exactDateStart": null,
+        "exactDateEnd": null,
+        "featuredMutant": null,
+        "packMutants": [
+          "Specimen_CB_15"
+        ]
+      }
+    ],
+    "link": "/materials",
+    "sprintKey": "262"
+  },
+  {
+    "id": "dailyNews-1795593812405",
+    "date": "2026-11-25T08:03:24.261Z",
+    "category": "dailyNews",
+    "title": "Скоро в игре: 22",
+    "items": [
+      {
+        "id": "262|Shop_LuckyBox_Mythic_Prime",
+        "name": "Легендарный мификаконтейнер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mysterybox_mystic_2018-ru.jpg",
+        "price": {
+          "amount": 500,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 11 декабря",
+        "exactDateStart": "2026-12-11T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|shop_pack_daily_3_platinum_32",
+        "name": "Звездное предложение",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_starplatinium-ru.jpg",
+        "price": {
+          "amount": 4.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 10 декабря",
+        "exactDateStart": "2026-12-10T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_bundle_orbs_experimental_debuffer_11",
+        "name": "Пучок нейтрализующих сфер",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/orb_experimental_bundle-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 9 декабря",
+        "exactDateStart": "2026-12-09T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_Mysterybox_Ability_Slash",
+        "name": "Усиленный контейнер «Ранение» ",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mystery_slash-ru.jpg",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 8 декабря",
+        "exactDateStart": "2026-12-08T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_pack_powerlevel_93",
+        "name": "Пакет прокачки",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_pack_powerlevel-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 6 декабря",
+        "exactDateStart": "2026-12-06T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|PayWall_Bank_Ex",
+        "name": "Paywall Bank Ex",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_ex-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 3 — 5 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Shop_LuckyBox_Research_VI_v3",
+        "name": "Сундук «Исследование VI»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_luckybox_research_vi-ru.jpg",
+        "price": {
+          "amount": 750,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 4 декабря",
+        "exactDateStart": "2026-12-04T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|shop_pack_daily_6_gacha_55",
+        "name": "Предложение «Реактор»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_casinoreactortokenx6-ru.jpg",
+        "price": {
+          "amount": 9.99,
+          "type": "usd"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 3 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_bundle_orbs_adaptive_boost_13",
+        "name": "Адаптивный пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_adaptive_boost-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 3 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Daily_news_tech_V2",
+        "name": "Daily News Tech V2",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_tech_v2-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 2 — 4 декабря",
+        "exactDateStart": "2026-12-03T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Shop_AdventCalendar2026",
+        "name": "Adventcalendar2026",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_advent_calendar_2026-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 30 ноября — 2 декабря",
+        "exactDateStart": "2026-12-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Shop_Luckybox_Hyperspeed",
+        "name": "Контейнер с мутантом-Молниеносный",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_mystery_hyperspeed-ru.jpg",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 1 декабря",
+        "exactDateStart": "2026-12-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Daily_news_exchange_office_block_11_2026",
+        "name": "Daily News Exchange Office Block 11 2026",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_exchange_office_2026_11-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 30 ноября — 2 декабря",
+        "exactDateStart": "2026-12-01T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Shop_pack_daily_5m_credit_70",
+        "name": "Предложение кредитов",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_credits_50m-ru.jpg",
+        "price": {
+          "amount": 800,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_bundle_orbs_shield_5_26",
+        "name": "Щит пакет",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bundle_orbs_shield_5-ru.jpg",
+        "price": {
+          "amount": 600,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 30 ноября",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|PayWall_Bank_cyberweek26",
+        "name": "Paywall Bank Cyberweek26",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_cyberweek26-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 29 ноября — 1 декабря",
+        "exactDateStart": "2026-11-30T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Shop_Mystery_Cyberweek_2026",
+        "name": "Таинственная коробка Кибернедели",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_mystery_cyberweek26-ru.jpg",
+        "price": {
+          "amount": 1000,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 29 ноября",
+        "exactDateStart": "2026-11-29T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|Shop_LuckyBox_Cyber_Elite",
+        "name": "элитный контейнер «зооморфа»",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_mystery_elite_cyber-ru.jpg",
+        "price": {
+          "amount": 700,
+          "type": "hardcurrency"
+        },
+        "ribbon": "limited",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 28 ноября",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateSource": "inherit"
+      },
+      {
+        "id": "262|PayWall_Bank_blackfriday26",
+        "name": "Paywall Bank Blackfriday26",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_bank_blackfriday26-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "≈ 27 — 29 ноября",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Daily_News_Specimen_CB_15_release",
+        "name": "Золотой Куробиони",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_release_shop_cb_15-ru.jpg",
+        "price": {
+          "amount": 3300,
+          "type": "hardcurrency"
+        },
+        "ribbon": "legendary",
+        "discountPercent": null,
+        "exactDateLabel": "≈ 27 — 29 ноября",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": null,
+        "exactDateApprox": true,
+        "exactDateUncertainDays": 1,
+        "exactDateSource": "neighbor"
+      },
+      {
+        "id": "262|Daily_news_shop_24h_2026_261b",
+        "name": "Daily News Shop 24h 2026 261b",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_261b-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "5 — 12 декабря",
+        "exactDateStart": "2026-12-05T10:00:00.000Z",
+        "exactDateEnd": "2026-12-12T10:00:00.000Z",
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
+      },
+      {
+        "id": "262|Daily_news_shop_24h_2026_261a",
+        "name": "Daily News Shop 24h 2026 261a",
+        "image": "https://s-beta.kobojo.com/mutants/assets/hud/daily_news/news_shop_24h_2026_261a-ru.jpg",
+        "price": null,
+        "ribbon": null,
+        "discountPercent": null,
+        "exactDateLabel": "28 ноября — 5 декабря",
+        "exactDateStart": "2026-11-28T10:00:00.000Z",
+        "exactDateEnd": "2026-12-05T10:00:00.000Z",
+        "exactDateApprox": false,
+        "exactDateSource": "rule"
+      }
+    ],
+    "link": "/announcements",
+    "sprintKey": "262"
   }
 ]
