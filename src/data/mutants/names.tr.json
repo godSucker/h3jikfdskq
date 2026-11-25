@@ -3376,5 +3376,11 @@
     "lore": "Milyonlarca yıl boyunca vahşi hayvanlar doğdu, yaşadı ve öldü. Milyonlarca yıl boyunca kemikler yığıldı ve her birinin duyguları ve hisleri bu vadide birikti. Tüm insanlık, sanki lanetli bir yermiş gibi burayı doğal olarak kaçındı. Ancak merak, sağduyuyu alt etti ve burası sonunda keşfedildi. 30 kişilik keşif ekibinden sadece iki kişi hayatta kaldı. Onlar da kısa süre sonra yaralanmaları ve orada kaptıkları hastalıklar nedeniyle öldüler. Son sözleri şuydu: “Oraya bir daha asla gitmeyin.”",
     "atk1Name": "Kemik Kafes",
     "atk2Name": "Kemik Kırıcı"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "Kara Güneş’in mührüyle damgalanmış bu iblis, daha da güçlenmek ve gücünü göstermek için sürekli savaş peşindedir. Kurbanlarının her biri onun gücünü besler ve topladığı ruhları, daha fazla kurban elde etmek için mermi olarak kullanmaktan çekinmez.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

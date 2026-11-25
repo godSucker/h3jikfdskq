@@ -1087,18 +1087,18 @@
       ],
       "base_stats": {
         "lvl1": {
-          "hp": 2319,
-          "atk1": 531,
-          "atk2": 531
+          "hp": 2490,
+          "atk1": 474,
+          "atk2": 474
         },
         "lvl30": {
-          "hp": 9046,
-          "atk1": 3577,
-          "atk2": 3577
+          "hp": 9711,
+          "atk1": 3194,
+          "atk2": 3194
         }
       },
       "star": "gold",
-      "bonus": 12,
+      "bonus": 0,
       "skin": "cyberweek",
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_ae_06_cyberweek.png",
@@ -7251,6 +7251,32 @@
       "image": [
         "textures_by_skins/textures_by_skin/full/FULL_fb_10_winter.png",
         "textures_by_skins/textures_by_skin/semi-full/specimen_fb_10_winter.webp"
+      ]
+    },
+    {
+      "id": "Specimen_FB_11",
+      "name": "Ходячий кошмар",
+      "genes": [
+        "F",
+        "B"
+      ],
+      "base_stats": {
+        "lvl1": {
+          "hp": 2652,
+          "atk1": 282,
+          "atk2": 537
+        },
+        "lvl30": {
+          "hp": 10345,
+          "atk1": 1651,
+          "atk2": 3092
+        }
+      },
+      "star": "gold",
+      "bonus": -4,
+      "skin": "cyberweek",
+      "image": [
+        "textures_by_skins/textures_by_skin/full/FULL_fb_11_cyberweek.png"
       ]
     },
     {

@@ -60752,5 +60752,117 @@
     "name_attack2": "Ломатель костей",
     "name_attack3": "",
     "name_lore": "На протяжении миллионов лет дикие животные рождались, жили и умирали. На протяжении миллионов лет кости накапливались, а эмоции и чувства каждого из них скопились в этой долине. Все человечество естественным образом избегало этого места, словно оно было проклято. Но любопытство взяло верх над здравым смыслом, и в конце концов это место было исследовано. Из 30-ти человек экспедиции выжили только двое. Вскоре после этого они умерли от полученных ранений и болезней, подхваченных там. Их последними словами были: «Никогда туда не возвращайтесь»."
+  },
+  {
+    "id": "specimen_cb_15",
+    "name": "Куробиони",
+    "genes": [
+      "C",
+      "B"
+    ],
+    "base_stats": {
+      "lvl1": {
+        "hp": 2270,
+        "atk1": 984,
+        "atk2": 984,
+        "ability": 196,
+        "speed": 4,
+        "silver": 42,
+        "atk1_gene": "c",
+        "atk2_gene": "b",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "lvl30": {
+        "hp": 8853,
+        "atk1": 5541,
+        "atk2": 5541,
+        "ability": 2493,
+        "speed": 4,
+        "silver": 1260,
+        "atk1_gene": "c",
+        "atk2_gene": "b",
+        "atk1_AOE": false,
+        "atk2_AOE": false
+      },
+      "hp_base": 2270,
+      "atk1_base": 984,
+      "atk1p_base": 1421,
+      "atk2_base": 984,
+      "atk2p_base": 1421,
+      "speed_base": 4,
+      "bank_base": 42,
+      "abilityPct1": 20,
+      "abilityPct2": 45,
+      "spX100": 250
+    },
+    "abilities": [
+      {
+        "name": "ability_strengthen",
+        "pct": 20,
+        "value_atk1_lvl1": 196,
+        "value_atk2_lvl1": 196,
+        "value_atk1_lvl30": 1108,
+        "value_atk2_lvl30": 1108
+      },
+      {
+        "name": "ability_strengthen_plus",
+        "pct": 45,
+        "value_atk1_lvl1": 442,
+        "value_atk2_lvl1": 442,
+        "value_atk1_lvl30": 2493,
+        "value_atk2_lvl30": 2493
+      }
+    ],
+    "stars": {
+      "normal": {
+        "images": [
+          "textures_by_mutant/cb_15/specimen_cb_15_normal.webp",
+          "textures_by_mutant/cb_15/larva_cb_15.webp"
+        ]
+      },
+      "bronze": {
+        "images": [
+          "textures_by_mutant/cb_15/specimen_cb_15_bronze.webp",
+          "textures_by_mutant/cb_15/larva_cb_15.webp"
+        ],
+        "multiplier": 1.1
+      },
+      "silver": {
+        "images": [
+          "textures_by_mutant/cb_15/specimen_cb_15_silver.webp",
+          "textures_by_mutant/cb_15/larva_cb_15.webp"
+        ],
+        "multiplier": 1.3
+      },
+      "gold": {
+        "images": [
+          "textures_by_mutant/cb_15/specimen_cb_15_gold.webp",
+          "textures_by_mutant/cb_15/larva_cb_15.webp"
+        ],
+        "multiplier": 1.75
+      },
+      "platinum": {
+        "images": [
+          "textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+          "textures_by_mutant/cb_15/larva_cb_15.webp"
+        ],
+        "multiplier": 2
+      }
+    },
+    "type": "LEGEND",
+    "incub_time": 60,
+    "orbs": {
+      "normal": 2,
+      "special": 1
+    },
+    "bingo": [],
+    "chance": 20,
+    "bank": 42,
+    "tier": "",
+    "name_attack1": "Хинояри",
+    "name_attack2": "Хитодама",
+    "name_attack3": "",
+    "name_lore": "Этот демон, отмеченный печатью чёрного солнца, постоянно ищет сражений, чтобы стать сильнее и продемонстрировать свою мощь. Каждая из его жертв питает его силу, и он без колебаний использует собранные души в качестве снарядов, чтобы погубить ещё больше жертв."
   }
 ]

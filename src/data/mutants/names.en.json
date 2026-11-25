@@ -3376,5 +3376,11 @@
     "lore": "Over millions of years, wild animals were born, lived, and died. Over millions of years, bones piled up, and the emotions and feelings of each of them accumulated in this valley. All of humanity naturally avoided it, as if it were a cursed place. But curiosity got the better of common sense, and the place was eventually explored. Two survivors out of a 30-person expedition. They died shortly afterward from their injuries and from diseases contracted there. Their last words were, “Never go back there.”",
     "atk1Name": "Bone Cage",
     "atk2Name": "Bone Breaker"
+  },
+  "specimen_cb_15": {
+    "name": "Kurobioni",
+    "lore": "This demon, marked by the seal of the black sun, is constantly seeking battle to grow stronger and demonstrate its power. Each of its victims feeds its strength, and it will not hesitate to use the souls it has collected as projectiles to claim even more victims.",
+    "atk1Name": "Hinoyari",
+    "atk2Name": "Hitodama"
   }
 }

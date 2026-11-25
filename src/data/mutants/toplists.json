@@ -293,6 +293,13 @@
             "value": 1974
           },
           {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 1968
+          },
+          {
             "id": "specimen_be_04",
             "name": "Коммодор Акула",
             "star": "platinum",
@@ -5713,6 +5720,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/bf_09/specimen_bf_09_normal.webp",
             "value": 4548
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4540
           },
           {
             "id": "specimen_ac_07",
@@ -11814,6 +11828,13 @@
             "value": 4
           },
           {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4
+          },
+          {
             "id": "specimen_ae_12",
             "name": "Стойкость",
             "star": "platinum",
@@ -16791,6 +16812,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -19652,6 +19680,14 @@
               "value": 896
             },
             {
+              "id": "specimen_cb_15",
+              "name": "Куробиони",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+              "pct": 45,
+              "value": 886
+            },
+            {
               "id": "specimen_eb_06",
               "name": "Гарлог",
               "star": "platinum",
@@ -21879,6 +21915,13 @@
             "name": "Сакурабоши",
             "star": "platinum",
             "icon": "/textures_by_mutant/ff_13/specimen_ff_13_platinum.webp",
+            "value": 11082
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
             "value": 11082
           },
           {
@@ -27022,6 +27065,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/bf_09/specimen_bf_09_normal.webp",
             "value": 17737
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 17706
           },
           {
             "id": "specimen_ac_07",
@@ -33123,6 +33173,13 @@
             "value": 4
           },
           {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4
+          },
+          {
             "id": "specimen_ae_12",
             "name": "Стойкость",
             "star": "platinum",
@@ -38100,6 +38157,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -40977,6 +41041,14 @@
               "value": 5032
             },
             {
+              "id": "specimen_cb_15",
+              "name": "Куробиони",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+              "pct": 45,
+              "value": 4986
+            },
+            {
               "id": "specimen_da_15",
               "name": "Флипфлоп, морфическая жираф",
               "star": "platinum",
@@ -43351,6 +43423,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/bf_13/specimen_bf_13_normal.webp",
             "value": 4547
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4540
           },
           {
             "id": "specimen_aa_06",
@@ -49480,6 +49559,13 @@
             "value": 4
           },
           {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4
+          },
+          {
             "id": "specimen_ae_12",
             "name": "Стойкость",
             "star": "platinum",
@@ -54457,6 +54543,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 42
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 42
           }
         ],
         "abilities": {
@@ -55007,6 +55100,13 @@
             "name": "Сакурабоши",
             "star": "platinum",
             "icon": "/textures_by_mutant/ff_13/specimen_ff_13_platinum.webp",
+            "value": 11082
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
             "value": 11082
           },
           {
@@ -60150,6 +60250,13 @@
             "star": "normal",
             "icon": "/textures_by_mutant/bf_13/specimen_bf_13_normal.webp",
             "value": 17733
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 17706
           },
           {
             "id": "specimen_aa_06",
@@ -66279,6 +66386,13 @@
             "value": 4
           },
           {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 4
+          },
+          {
             "id": "specimen_ae_12",
             "name": "Стойкость",
             "star": "platinum",
@@ -71256,6 +71370,13 @@
             "star": "platinum",
             "icon": "/textures_by_mutant/bd_15/specimen_bd_15_platinum.webp",
             "value": 1260
+          },
+          {
+            "id": "specimen_cb_15",
+            "name": "Куробиони",
+            "star": "platinum",
+            "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+            "value": 1260
           }
         ],
         "abilities": {
@@ -74131,6 +74252,14 @@
               "icon": "/textures_by_mutant/fc_13/specimen_fc_13_platinum.webp",
               "pct": 35,
               "value": 5032
+            },
+            {
+              "id": "specimen_cb_15",
+              "name": "Куробиони",
+              "star": "platinum",
+              "icon": "/textures_by_mutant/cb_15/specimen_cb_15_platinum.webp",
+              "pct": 45,
+              "value": 4986
             },
             {
               "id": "specimen_da_15",
