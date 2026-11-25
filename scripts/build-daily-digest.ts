@@ -7,11 +7,12 @@
 // именно визуал - по сути большинство уже есть же").
 //
 // Область (юзер 2026-11-25, после фидбека Жени): ТОЛЬКО 'todayShop' (срез
-// сегодняшних офферов шопа) + pvp + evoDiscount + madnessDiscount. Раньше
-// сюда же шли mutant/skin/token/bingo/box/exchange/reactor/raid/ladder/
-// eventLadder/eventQuests - убраны целиком: mutant/skin и так уже в
-// announcements.json и на /announcements, а бинго-скрин дублировал ту же
-// карточку мутанта ВНУТРИ одного поста (Женя: "скрины бинго в целом лишнее").
+// сегодняшних офферов шопа) + exchange + pvp + evoDiscount + madnessDiscount
+// (exchange вернули тем же днём позже - "обменники(все)"). Раньше сюда же шли
+// mutant/skin/token/bingo/box/reactor/raid/ladder/eventLadder/eventQuests -
+// убраны целиком: mutant/skin и так уже в announcements.json и на
+// /announcements, а бинго-скрин дублировал ту же карточку мутанта ВНУТРИ
+// одного поста (Женя: "скрины бинго в целом лишнее").
 //
 // Источник - announcements.json (поле date = когда пайплайн увидел запись,
 // это уже и есть "сегодня" в нужном смысле). Ничего не детектит заново -
@@ -19,10 +20,16 @@
 // rebalance никогда не попадает (человек ведёт вручную, как и раньше).
 //
 // Тайминг: часовой воркфлоу ходит 10:00-15:00 МСК - этот скрипт гоняется на
-// КАЖДОМ прогоне, но реально отправляет только на прогоне, где МСК-час >= 15
-// (последний в окне), и только один раз за календарный МСК-день (маркер
-// scripts/digest-last-sent.json). Если именно этот прогон упадёт/пропустится
-// платформой - дайджест за день теряется без дожима на завтра (та же
+// КАЖДОМ прогоне, но реально отправляет только на прогоне, где МСК-час >= 13
+// (первый в окне на этот час), и только один раз за календарный МСК-день
+// (маркер scripts/digest-last-sent.json). Женя 2026-11-25 настоял на времени
+// ~13:10 МСК (не 15:00, как было) - прогон 13:00 перенесён на 13:10 в
+// VPS-cron (вне репо, см. mgg-site-ops/README.md), чтобы дать серверной
+// ротации шопа (новый день = 10:00 UTC = 13:00 МСК) несколько минут
+// устояться перед скрейпом. Если именно этот прогон упадёт/пропустится
+// платформой - следующий прогон того же дня (14:00/15:00) тоже удовлетворяет
+// ">= 13" и подхватит (маркер ещё не стоит), просто позже; совсем без
+// прогонов в этот день - дайджест теряется без дожима на завтра (та же
 // философия, что у остальных необогащающих шагов пайплайна - не критический
 // путь). --dry-run печатает, что было бы отправлено, не шлёт и не трогает
 // маркер - для ручной проверки формата перед первым боевым включением.
@@ -40,12 +47,13 @@ const SITE_ORIGIN = process.env.DIGEST_SITE_ORIGIN ?? 'https://archivist-library
 const MARKER_PATH = path.join(ROOT, 'scripts/digest-last-sent.json')
 const MSK_OFFSET_MS = 3 * 60 * 60 * 1000
 const MAX_ALBUM_SIZE = 10
-const SEND_AT_MSK_HOUR = 15
+const SEND_AT_MSK_HOUR = 13
 
 interface AnnouncementItemLike {
   id: string
   name?: string
   exactDateStart?: string | null
+  specimenId?: string | null
   pvpRewardTiers?: { tier: number; items: { amount: number; id: string }[] }[]
 }
 interface AnnouncementLike {
@@ -88,15 +96,18 @@ const ruDateLabel = (d: Date) => {
 }
 
 // Порядок карточек в альбоме - todayShop первым (Женя 2026-11-25: "последний
-// скрин в посте по сути должен быть первым" - раньше был последним).
-const CATEGORY_ORDER = ['todayShop', 'pvp', 'evoDiscount', 'madnessDiscount']
+// скрин в посте по сути должен быть первым" - раньше был последним). exchange
+// возвращён в область 2026-11-25 (Женя настоял: "обменники(все)").
+const CATEGORY_ORDER = ['todayShop', 'exchange', 'pvp', 'evoDiscount', 'madnessDiscount']
 const CATEGORY_ICON: Record<string, string> = {
+  exchange: '💱',
   pvp: '🥊',
   evoDiscount: '🧪',
   madnessDiscount: '🎡',
   todayShop: '🛒',
 }
 const CATEGORY_LABEL: Record<string, string> = {
+  exchange: 'Обменники',
   pvp: 'ПвП',
   evoDiscount: 'Скидка на эво',
   madnessDiscount: 'Скидка на рулетку',
@@ -106,6 +117,7 @@ const CATEGORY_LABEL: Record<string, string> = {
 // (юзер 2026-11-23, по образцу его же канала mutants_mgg_fb: там один тег на
 // пост; у нас один пост = много категорий, поэтому список тегов, не один).
 const CATEGORY_HASHTAG: Record<string, string> = {
+  exchange: '#MGGchange',
   pvp: '#MGGPvP',
   evoDiscount: '#MGGdiscount',
   madnessDiscount: '#MGGdiscount',
@@ -245,6 +257,15 @@ function captionLineFor(a: AnnouncementLike): string {
   if (a.category === 'pvp') {
     const verdict = mutantVerdict(pvpTopRewardSpecimenId(it?.pvpRewardTiers))
     return `${icon} ${a.title}${verdict ? ` — награда: ${verdict}` : ''}`
+  }
+  if (a.category === 'exchange') {
+    const covering = a.items
+      .map((x) => x.specimenId)
+      .filter((sid): sid is string => !!sid && goldCoverage.has(sid.toLowerCase()))
+    const names = a.items
+      .filter((x) => x.specimenId && covering.includes(x.specimenId))
+      .map((x) => x.name ?? x.id)
+    return `${icon} ${a.title}${names.length > 0 ? ` — кроет плав/кузню: ${names.join(', ')}` : ''}`
   }
   if (a.category === 'todayShop') {
     const parts = a.items.map((x) => {
@@ -391,14 +412,10 @@ async function main() {
   // отдельная синтетическая категория 'todayShop' (todayShopItems ниже):
   // срез уже известных офферов из ЛЮБОЙ (не обязательно сегодняшней) записи
   // этих категорий, чей exactDateStart приходится именно на сегодня.
-  const DIGEST_CATEGORIES = new Set(['pvp', 'evoDiscount', 'madnessDiscount'])
-  const todays = announcements
-    .filter((a) => DIGEST_CATEGORIES.has(a.category) && mskDateKey(new Date(a.date)) === todayKey)
-    .sort((a, b) => {
-      const ia = CATEGORY_ORDER.indexOf(a.category)
-      const ib = CATEGORY_ORDER.indexOf(b.category)
-      return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib)
-    })
+  const DIGEST_CATEGORIES = new Set(['exchange', 'pvp', 'evoDiscount', 'madnessDiscount'])
+  const todays = announcements.filter(
+    (a) => DIGEST_CATEGORIES.has(a.category) && mskDateKey(new Date(a.date)) === todayKey,
+  )
 
   // selectTodayShopItems сканирует ВСЕ записи категории, не только последнюю
   // (найдено 2026-11-25: подтверждённый kartel-датой оффер из прошлого
@@ -415,6 +432,16 @@ async function main() {
       items: todayShopItems,
     })
   }
+
+  // Сортировка ПОСЛЕ push todayShop (найдено 2026-11-25: раньше сортировали
+  // ДО push - запись всегда попадала в конец массива независимо от
+  // CATEGORY_ORDER, из-за чего "todayShop первым" с прошлого коммита так и
+  // не сработало на практике).
+  todays.sort((a, b) => {
+    const ia = CATEGORY_ORDER.indexOf(a.category)
+    const ib = CATEGORY_ORDER.indexOf(b.category)
+    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib)
+  })
 
   if (todays.length === 0) {
     console.log(`[digest] за ${todayKey} новых записей нет - пост не нужен`)
