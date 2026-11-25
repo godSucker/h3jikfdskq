@@ -8385,7 +8385,19 @@
         "exactDateEnd": "2026-11-30T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_regenerate_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_special_addregenerate_04",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "261|bundle_orbs_crafting_master",
@@ -8401,7 +8413,24 @@
         "exactDateEnd": "2026-11-29T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_attack_01",
+            "type": "entity",
+            "amount": 25
+          },
+          {
+            "name": "orb_basic_life_01",
+            "type": "entity",
+            "amount": 25
+          },
+          {
+            "name": "Star_Bronze",
+            "type": "entity",
+            "amount": 25
+          }
+        ]
       },
       {
         "id": "261|Specimen_FB_04_Silver",
@@ -8419,7 +8448,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_04"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Pack_Hammer",
@@ -8439,7 +8469,8 @@
           "Specimen_BF_05",
           "Specimen_CD_08",
           "Specimen_FC_10"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_DF_06",
@@ -8457,7 +8488,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DF_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_A_05_Bronze",
@@ -8475,7 +8507,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_A_05"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|pack_daily_50_jt_61",
@@ -8491,7 +8524,14 @@
         "exactDateEnd": "2026-11-26T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 50
+          }
+        ]
       },
       {
         "id": "261|LuckyBox_Research_V",
@@ -8541,7 +8581,8 @@
           "Specimen_DC_06",
           "Specimen_FC_06",
           "Specimen_ED_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_DD_07_Bronze",
@@ -8559,7 +8600,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_CD_02",
@@ -8577,7 +8619,8 @@
         "featuredMutant": "zodiac",
         "packMutants": [
           "Specimen_CD_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_CD_02_Silver",
@@ -8595,7 +8638,8 @@
         "featuredMutant": "zodiac",
         "packMutants": [
           "Specimen_CD_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_CB_13_rc",
@@ -8613,7 +8657,8 @@
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_CB_13"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_AB_08_sc",
@@ -8631,7 +8676,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|black_friday_2500_2026",
@@ -8647,7 +8693,14 @@
         "exactDateEnd": "2026-11-26T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 2500
+          }
+        ]
       },
       {
         "id": "261|black_friday_5000_2026",
@@ -8663,7 +8716,14 @@
         "exactDateEnd": "2026-11-26T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 5000
+          }
+        ]
       },
       {
         "id": "261|black_friday_10000_2026",
@@ -8679,7 +8739,14 @@
         "exactDateEnd": "2026-11-26T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 10000
+          }
+        ]
       },
       {
         "id": "261|Mystery_Thanksgiving_2026",
@@ -8702,6 +8769,33 @@
           "Specimen_BD_01",
           "Specimen_DF_08",
           "Specimen_FA_05"
+        ],
+        "packRewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
         ]
       },
       {
@@ -8720,7 +8814,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|bundle_orbs_experimental_barrier_11",
@@ -8736,7 +8831,24 @@
         "exactDateEnd": "2026-11-24T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_shield_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_basic_regenerate_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_special_addregenerate_04",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "261|Specimen_DD_08",
@@ -8754,7 +8866,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Pack_Turquoise",
@@ -8774,7 +8887,8 @@
           "Specimen_AC_11",
           "Specimen_BC_08",
           "Specimen_ED_12"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|LuckyBox_Galactic_Prime",
@@ -8834,7 +8948,8 @@
           "Specimen_ED_10",
           "Specimen_EE_10",
           "Specimen_EF_10"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_FB_06_sc",
@@ -8852,7 +8967,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|pack_daily_3_gold_70",
@@ -8868,7 +8984,14 @@
         "exactDateEnd": "2026-11-21T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Star_Gold",
+            "type": "entity",
+            "amount": 3
+          }
+        ]
       },
       {
         "id": "261|Specimen_CA_08_Gold",
@@ -8886,7 +9009,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|bank_5m_aa_13_t5",
@@ -8904,6 +9028,13 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_13"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 480
+          }
         ]
       },
       {
@@ -8922,6 +9053,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FE_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 1100
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 10
+          }
         ]
       },
       {
@@ -8940,6 +9083,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DC_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 3100
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 20
+          }
         ]
       },
       {
@@ -8958,6 +9113,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DE_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 6500
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 45
+          }
         ]
       },
       {
@@ -8976,6 +9143,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 14000
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 100
+          }
         ]
       },
       {
@@ -8994,7 +9173,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CD_03"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Mysterybox_Ability_Regenerate",
@@ -9048,7 +9228,8 @@
           "Specimen_FE_10",
           "Specimen_BD_02",
           "Specimen_BE_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_AD_07_Gold",
@@ -9066,7 +9247,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AD_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|bundle_orbs_speed_4_22",
@@ -9082,7 +9264,14 @@
         "exactDateEnd": "2026-11-19T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_special_speed_04",
+            "type": "entity",
+            "amount": 3
+          }
+        ]
       },
       {
         "id": "261|Specimen_DA_12_Gold",
@@ -9100,7 +9289,8 @@
         "featuredMutant": "week",
         "packMutants": [
           "Specimen_DA_12"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_CA_07",
@@ -9118,7 +9308,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|pack_daily_10_challenge_46",
@@ -9134,7 +9325,14 @@
         "exactDateEnd": "2026-11-17T10:00:00+00:00",
         "exactDateSource": "kartel",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Event_Token",
+            "type": "entity",
+            "amount": 10
+          }
+        ]
       },
       {
         "id": "261|Specimen_AC_05_Silver_sc",
@@ -9152,7 +9350,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AC_05"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Pack_Brain",
@@ -9172,7 +9371,8 @@
           "Specimen_ED_07",
           "Specimen_BD_08",
           "Specimen_EA_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "261|Specimen_ED_05_Bronze",
@@ -9190,7 +9390,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_05"
-        ]
+        ],
+        "packRewards": []
       }
     ],
     "link": "/materials",
@@ -10311,7 +10512,24 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_LP10",
+            "type": "entity",
+            "amount": 10
+          },
+          {
+            "name": "Material_LP100",
+            "type": "entity",
+            "amount": 5
+          },
+          {
+            "name": "Material_LP1000",
+            "type": "entity",
+            "amount": 5
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_10",
@@ -10328,7 +10546,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Star_Gold",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_09",
@@ -10345,7 +10570,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 10
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_08",
@@ -10362,7 +10594,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Event_Token",
+            "type": "entity",
+            "amount": 5
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_07",
@@ -10379,7 +10618,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_special_speed_01",
+            "type": "entity",
+            "amount": 5
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_06",
@@ -10396,7 +10642,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_XP1000",
+            "type": "entity",
+            "amount": 5
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_05",
@@ -10413,7 +10666,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_attack_01",
+            "type": "entity",
+            "amount": 10
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_04",
@@ -10430,7 +10690,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Star_Bronze",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_03",
@@ -10447,7 +10714,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_life_01",
+            "type": "entity",
+            "amount": 10
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_02",
@@ -10464,7 +10738,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Muto50",
+            "type": "entity",
+            "amount": 3
+          }
+        ]
       },
       {
         "id": "262|Advent26_Box_01",
@@ -10481,7 +10762,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Star_Silver",
+            "type": "entity",
+            "amount": 2
+          }
+        ]
       },
       {
         "id": "262|Pack_Bone",
@@ -10502,7 +10790,8 @@
           "Specimen_BD_10",
           "Specimen_AB_08",
           "Specimen_CB_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|LuckyBox_Mythic_Prime",
@@ -10560,7 +10849,8 @@
           "Specimen_FC_10",
           "Specimen_FE_10",
           "Specimen_FF_10"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_EE_02_Silver_sc",
@@ -10579,7 +10869,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|pack_daily_3_platinum_32",
@@ -10596,7 +10887,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Star_Platinum",
+            "type": "entity",
+            "amount": 3
+          }
+        ]
       },
       {
         "id": "262|Specimen_FC_03",
@@ -10615,7 +10913,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_03"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|bank_cb_13_10ct",
@@ -10634,6 +10933,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CB_13"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 2800
+          },
+          {
+            "name": "Material_Event_Token",
+            "type": "entity",
+            "amount": 10
+          }
         ]
       },
       {
@@ -10653,6 +10964,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CB_13"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 5900
+          },
+          {
+            "name": "Material_Event_Token",
+            "type": "entity",
+            "amount": 25
+          }
         ]
       },
       {
@@ -10672,6 +10995,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CB_13"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 12000
+          },
+          {
+            "name": "Material_Event_Token",
+            "type": "entity",
+            "amount": 60
+          }
         ]
       },
       {
@@ -10689,7 +11024,24 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_weaken_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_basic_slash_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_special_addweaken_04",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "262|Specimen_CC_09_sc",
@@ -10708,7 +11060,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CC_09"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Mysterybox_Ability_Slash",
@@ -10766,7 +11119,8 @@
           "Specimen_DF_02",
           "Specimen_DB_02",
           "Specimen_DE_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_EE_06_sc",
@@ -10785,7 +11139,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_DD_13_rc",
@@ -10804,7 +11159,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_13"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_EE_05_Bronze",
@@ -10823,7 +11179,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EE_05"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|pack_powerlevel_93",
@@ -10840,7 +11197,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_XP1000",
+            "type": "entity",
+            "amount": 50
+          }
+        ]
       },
       {
         "id": "262|Specimen_AE_06",
@@ -10859,7 +11223,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AE_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_FA_07_Bronze",
@@ -10878,7 +11243,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|bank_fa_04_ex_t5",
@@ -10897,6 +11263,13 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_04"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 480
+          }
         ]
       },
       {
@@ -10916,6 +11289,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_11"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 1050
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 10
+          }
         ]
       },
       {
@@ -10935,6 +11320,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_12"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 2800
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 20
+          }
         ]
       },
       {
@@ -10954,6 +11351,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_09"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 5900
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 45
+          }
         ]
       },
       {
@@ -10973,6 +11382,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 14000
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 100
+          }
         ]
       },
       {
@@ -11025,7 +11446,8 @@
           "Specimen_FE_07",
           "Specimen_FF_07",
           "Specimen_ED_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_AA_04_Bronze",
@@ -11044,7 +11466,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AA_04"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|pack_daily_6_gacha_55",
@@ -11061,7 +11484,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "Material_Gacha_Token",
+            "type": "entity",
+            "amount": 6
+          }
+        ]
       },
       {
         "id": "262|bundle_orbs_adaptive_boost_13",
@@ -11078,7 +11508,19 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_strengthen_05",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "orb_special_addstrengthen_04",
+            "type": "entity",
+            "amount": 1
+          }
+        ]
       },
       {
         "id": "262|Specimen_DD_06_sc",
@@ -11097,7 +11539,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_DD_06"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_EC_02_Bronze",
@@ -11116,7 +11559,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_EC_02"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Luckybox_Hyperspeed",
@@ -11151,7 +11595,8 @@
           "Specimen_FC_06",
           "Specimen_DA_07",
           "Specimen_FA_10"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_AB_04_Bronze_sc",
@@ -11170,7 +11615,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AB_04"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|pack_daily_5m_credit_70",
@@ -11187,7 +11633,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "silver",
+            "type": "softcurrency",
+            "amount": 5000000
+          }
+        ]
       },
       {
         "id": "262|bundle_orbs_shield_5_26",
@@ -11204,7 +11657,14 @@
         "exactDateApprox": true,
         "exactDateSource": "inherit",
         "featuredMutant": null,
-        "packMutants": []
+        "packMutants": [],
+        "packRewards": [
+          {
+            "name": "orb_basic_shield_05",
+            "type": "entity",
+            "amount": 3
+          }
+        ]
       },
       {
         "id": "262|Specimen_CD_13_Gold",
@@ -11223,7 +11683,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CD_13"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_ED_07_Gold",
@@ -11242,7 +11703,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_ED_07"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|bank_cyberweek26_t5",
@@ -11261,6 +11723,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FA_04"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 480
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 5
+          }
         ]
       },
       {
@@ -11280,6 +11754,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FC_11"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 1050
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 10
+          }
         ]
       },
       {
@@ -11299,6 +11785,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_BA_12"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 2800
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 25
+          }
         ]
       },
       {
@@ -11318,6 +11816,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CA_09"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 6500
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 55
+          }
         ]
       },
       {
@@ -11337,6 +11847,18 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_FB_14"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 15000
+          },
+          {
+            "name": "Material_Jackpot_Token",
+            "type": "entity",
+            "amount": 120
+          }
         ]
       },
       {
@@ -11361,6 +11883,33 @@
           "Specimen_CE_08",
           "Specimen_AE_06",
           "Specimen_DA_11"
+        ],
+        "packRewards": [
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          },
+          {
+            "name": "Material_Mystery26_Token",
+            "type": "entity",
+            "amount": 1
+          }
         ]
       },
       {
@@ -11382,7 +11931,8 @@
           "Specimen_AA_12",
           "Specimen_AA_04",
           "Specimen_AF_13"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Pack_Cybercop",
@@ -11403,7 +11953,8 @@
           "Specimen_BA_11",
           "Specimen_AD_08",
           "Specimen_EC_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Pack_Cyberpunk",
@@ -11424,7 +11975,8 @@
           "Specimen_AC_05",
           "Specimen_DA_11",
           "Specimen_AD_12"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_AF_08_Bronze",
@@ -11443,7 +11995,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_AF_08"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|LuckyBox_Cyber_Elite",
@@ -11532,7 +12085,8 @@
           "Specimen_DA_06",
           "Specimen_DA_07",
           "Specimen_DA_10"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_CF_03",
@@ -11551,7 +12105,8 @@
         "featuredMutant": null,
         "packMutants": [
           "Specimen_CF_03"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|bank_blackfriday26_t5",
@@ -11570,6 +12125,13 @@
         "packMutants": [
           "Specimen_FB_13",
           "Specimen_EA_13"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 750
+          }
         ]
       },
       {
@@ -11589,6 +12151,13 @@
         "packMutants": [
           "Specimen_ED_99",
           "Specimen_DD_12"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 1600
+          }
         ]
       },
       {
@@ -11608,6 +12177,13 @@
         "packMutants": [
           "Specimen_BB_13",
           "Specimen_DF_99"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 5000
+          }
         ]
       },
       {
@@ -11627,6 +12203,13 @@
         "packMutants": [
           "Specimen_FA_99",
           "Specimen_EB_99"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 10500
+          }
         ]
       },
       {
@@ -11646,6 +12229,13 @@
         "packMutants": [
           "Specimen_CE_99",
           "Specimen_EA_99"
+        ],
+        "packRewards": [
+          {
+            "name": "gold",
+            "type": "hardcurrency",
+            "amount": 21000
+          }
         ]
       },
       {
@@ -11664,7 +12254,8 @@
         "featuredMutant": "month",
         "packMutants": [
           "Specimen_CB_15"
-        ]
+        ],
+        "packRewards": []
       },
       {
         "id": "262|Specimen_CB_15_rc",
@@ -11682,7 +12273,8 @@
         "featuredMutant": "month",
         "packMutants": [
           "Specimen_CB_15"
-        ]
+        ],
+        "packRewards": []
       }
     ],
     "link": "/materials",
