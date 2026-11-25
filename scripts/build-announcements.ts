@@ -1387,6 +1387,7 @@ async function detectShopForecast(seen: string[]): Promise<DetectResult> {
         exactDateSource: it.dateSource,
         featuredMutant: it.featuredMutant,
         packMutants: it.packMutants,
+        packRewards: it.packRewards,
       })),
     ahead,
   )

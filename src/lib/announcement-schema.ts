@@ -127,6 +127,15 @@ export interface AnnouncementItem {
   // Мутанты внутри пакета - чтобы тайл прогноза был кликабельным, даже когда
   // сам itemId мутанта не содержит.
   packMutants?: string[]
+  // НЕ-мутантские ресурсы внутри пакета (звёзды/сферы/жетоны/валюта из
+  // <ArticleItems>) - найдено 2026-11-25: адвент-боксы (Advent26_Box_NN) несут
+  // только такие ArticleItem (Star_Silver, orb_basic_life_01, Material_LP10...),
+  // ни одного Specimen_, поэтому раньше не попадали ни в packMutants, ни в
+  // target (itemId не резолвится в мутанта/бокс) - тайл был некликабельным,
+  // содержимое пакета нигде не показывалось. type/amount - та же форма, что
+  // getRewardTexturePath/getRewardLabel (bingo-textures.ts) принимают везде
+  // на сайте (box-drop, pvp-награды).
+  packRewards?: { name: string; type: 'entity' | 'hardcurrency' | 'softcurrency'; amount: number }[]
   // Только exchange - какой из 3 залов (джекпот/испытания/анализатор тайны).
   hall?: 'jackpot' | 'event' | 'mystery' | null
   // Только hall==='mystery' - цена контракта.
