@@ -14,7 +14,7 @@
           "READY_09": 180
         },
         "firstSeen": "2026-11-12T11:49:57.248Z",
-        "lastSeen": "2026-11-26T12:03:14.606Z",
+        "lastSeen": "2026-11-26T13:43:03.082Z",
         "date": "2026-11-12",
         "dateSource": "kartel-news",
         "block": "Daily_news_challenge_hall_block_7_2026"
@@ -67,7 +67,7 @@
           "READY_09": 250
         },
         "firstSeen": "2026-11-25T08:03:09.238Z",
-        "lastSeen": "2026-11-26T12:03:14.606Z",
+        "lastSeen": "2026-11-26T13:43:03.082Z",
         "date": "2026-10-30",
         "dateSource": "filter-window",
         "block": "Building_Jackpot_2026_10"
@@ -94,7 +94,7 @@
         },
         "amounts": {},
         "firstSeen": "2026-11-13T22:59:48.203Z",
-        "lastSeen": "2026-11-26T12:03:14.606Z",
+        "lastSeen": "2026-11-26T13:43:03.082Z",
         "date": "2026-11-13",
         "dateSource": "filter-window",
         "block": "Building_Mystery_2026_02"
