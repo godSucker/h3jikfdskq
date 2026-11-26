@@ -365,3 +365,4 @@
 {"ts":"2026-11-25T14:51:59.997Z","fetch":"success","status":"full","requested":4517,"returned":298,"failed":[],"horizonDays":15.8,"promoActive":9}
 {"ts":"2026-11-25T15:41:54.176Z","fetch":"success","status":"full","requested":4517,"returned":298,"failed":[],"horizonDays":15.8,"promoActive":9}
 {"ts":"2026-11-25T22:59:44.840Z","fetch":"success","status":"full","requested":4517,"returned":298,"failed":[],"horizonDays":15.5,"promoActive":9}
+{"ts":"2026-11-26T07:03:07.368Z","fetch":"success","status":"full","requested":4517,"returned":298,"failed":[],"horizonDays":15.1,"promoActive":9}
