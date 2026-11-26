@@ -7276,7 +7276,8 @@
       "bonus": -4,
       "skin": "cyberweek",
       "image": [
-        "textures_by_skins/textures_by_skin/full/FULL_fb_11_cyberweek.png"
+        "textures_by_skins/textures_by_skin/full/FULL_fb_11_cyberweek.png",
+        "textures_by_skins/textures_by_skin/semi-full/specimen_fb_11_cyberweek.webp"
       ]
     },
     {
