@@ -2242,5 +2242,9 @@
   "specimen_bd_15": {
     "before": "-",
     "after": "2+"
+  },
+  "specimen_cb_15": {
+    "before": "-",
+    "after": "3"
   }
 }
